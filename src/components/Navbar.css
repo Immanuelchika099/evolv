@@ -1,27 +1,28 @@
 .evolv-nav{
   position:fixed;
-  top:18px;
-  left:50%;
+  top:0;
+  left:0;
   z-index:100;
-  width:max-content;
+  width:100%;
   min-width:0;
-  height:58px;
-  padding:0 15px;
-  transform:translateX(-50%);
+  height:72px;
+  padding:0 32px;
+  transform:none;
   display:flex;
   align-items:center;
-  gap:34px;
-  border:1px solid #ffffff18;
-  border-radius:999px;
+  gap:42px;
+  border:0;
+  border-bottom:1px solid #ffffff12;
+  border-radius:0;
   background:#0a0f0c !important;
   background-color:#0a0f0c !important;
-  box-shadow:0 16px 50px #0008;
+  box-shadow:0 12px 40px #0005;
   backdrop-filter:blur(22px);
   -webkit-backdrop-filter:blur(22px);
   transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .28s ease;
 }
-.evolv-nav.is-visible{transform:translateX(-50%);opacity:1;pointer-events:auto}
-.evolv-nav.is-hidden{transform:translate(-50%,-130%);opacity:0;pointer-events:none}
+.evolv-nav.is-visible{transform:translateY(0);opacity:1;pointer-events:auto}
+.evolv-nav.is-hidden{transform:translateY(-130%);opacity:0;pointer-events:none}
 .evolv-brand{
   display:flex;
   align-items:center;
@@ -88,13 +89,13 @@
 .evolv-menu-toggle.is-open span:last-child{transform:translateY(-3px) rotate(-45deg)}
 .evolv-mobile-menu{display:none}
 @media(max-width:800px){
-  .evolv-nav{top:12px;width:calc(100% - 32px);max-width:520px;height:54px;justify-content:space-between}
+  .evolv-nav{top:0;left:0;width:100%;max-width:none;height:60px;padding:0 18px;justify-content:space-between}
   .evolv-nav-links{display:none}
   .evolv-start{display:none}
   .evolv-mobile-menu{
     position:fixed;
     right:16px;
-    top:75px;
+    top:68px;
     z-index:99;
     width:calc(100% - 32px);
     padding:12px;
