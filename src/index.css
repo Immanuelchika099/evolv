@@ -344,3 +344,16 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:16px!important;
   }
 }
+
+
+/* Solid, stronger floating navbar */
+.landing-nav{
+  background:#0a0f0c!important;
+  opacity:1!important;
+  border-color:#ffffff22!important;
+  backdrop-filter:blur(22px)!important;
+  -webkit-backdrop-filter:blur(22px)!important;
+}
+.landing-nav .brand,
+.landing-nav .nav-links,
+.landing-nav .nav-actions{opacity:1!important}
