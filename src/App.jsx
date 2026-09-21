@@ -83,8 +83,7 @@ function Landing({ onStart }) {
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
-      intro.from('.landing-nav', { y: -18, opacity: 0, duration: .8 })
-        .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 }, '-=.35')
+      intro.from('.hero-kicker', { y: 18, opacity: 0, duration: .5 }, '-=.35')
         .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
         .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
         .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
