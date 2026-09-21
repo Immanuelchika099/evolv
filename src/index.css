@@ -463,3 +463,306 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     flex-wrap:wrap;
   }
 }
+
+
+/* Pricing page */
+.pricing-page{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 50% 8%,#12302432 0,transparent 30%),
+    radial-gradient(circle at 8% 42%,#0a211a20 0,transparent 28%),
+    #040605;
+  color:#f4f1ea;
+}
+.pricing-nav{
+  position:fixed;
+  top:18px;
+  left:50%;
+  transform:translateX(-50%);
+  width:min(1180px,calc(100% - 32px));
+  height:58px;
+  padding:0 16px;
+  border:1px solid #ffffff18;
+  border-radius:999px;
+  background:#0a0f0cf2;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  z-index:50;
+}
+.pricing-back,.pricing-start{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  border:0;
+  background:transparent;
+  color:#8a918b;
+  font-size:11px;
+  cursor:pointer;
+}
+.pricing-back:hover{color:#fff}
+.pricing-start{
+  padding:10px 14px;
+  border-radius:999px;
+  background:#f3f1ea;
+  color:#090909;
+}
+.pricing-hero{
+  width:min(1000px,calc(100% - 48px));
+  margin:auto;
+  padding:190px 0 95px;
+  text-align:center;
+}
+.pricing-hero h1{
+  font:500 clamp(58px,8vw,112px)/.88 'Space Grotesk';
+  letter-spacing:-.08em;
+  margin:25px 0 28px;
+}
+.pricing-hero h1 em{
+  font-style:normal;
+  color:#6f7770;
+}
+.pricing-hero>p{
+  max-width:600px;
+  margin:0 auto;
+  color:#858c86;
+  line-height:1.85;
+  font-size:14px;
+}
+.pricing-coming{
+  width:max-content;
+  margin:30px auto 0;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  color:#8c948e;
+  font:9px 'DM Mono';
+  letter-spacing:.16em;
+}
+.pricing-coming span{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:var(--accent);
+  box-shadow:0 0 14px #9fcf5866;
+}
+.pricing-content{
+  width:min(1180px,calc(100% - 48px));
+  margin:auto;
+  padding-bottom:130px;
+}
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  align-items:stretch;
+}
+.pricing-card{
+  position:relative;
+  min-height:650px;
+  padding:32px;
+  border:1px solid #ffffff12;
+  border-radius:24px;
+  background:linear-gradient(145deg,#ffffff08,#ffffff02);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .35s ease,background .35s ease,box-shadow .35s ease;
+}
+.pricing-card:hover{
+  transform:translateY(-9px);
+  border-color:#ffffff2a;
+  background:linear-gradient(145deg,#ffffff0c,#ffffff03);
+  box-shadow:0 35px 100px #0008;
+}
+.pricing-card.featured{
+  border-color:#9fcf5842;
+  background:linear-gradient(145deg,#9fcf580b,#ffffff03);
+  box-shadow:0 25px 80px #0006;
+}
+.pricing-card.featured:hover{
+  border-color:#9fcf5870;
+  box-shadow:0 40px 110px #0009;
+}
+.pricing-popular{
+  position:absolute;
+  top:0;
+  right:0;
+  padding:9px 14px;
+  border-left:1px solid #9fcf5830;
+  border-bottom:1px solid #9fcf5830;
+  border-radius:0 0 0 14px;
+  color:#9fcf58;
+  background:#9fcf5809;
+  font:8px 'DM Mono';
+  letter-spacing:.12em;
+}
+.pricing-plan{
+  color:#68716a;
+  font:9px 'DM Mono';
+  letter-spacing:.16em;
+}
+.pricing-card h2{
+  font:500 30px/1.02 'Space Grotesk';
+  letter-spacing:-.045em;
+  margin:22px 0 12px;
+  max-width:240px;
+}
+.pricing-card-top>p{
+  min-height:66px;
+  color:#737a74;
+  font-size:12px;
+  line-height:1.7;
+  margin:0;
+}
+.pricing-price{
+  min-height:90px;
+  display:flex;
+  align-items:end;
+  margin:35px 0 18px;
+}
+.pricing-price strong{
+  font:500 clamp(32px,3.3vw,45px)/1 'Space Grotesk';
+  letter-spacing:-.06em;
+}
+.pricing-price span{
+  color:#626a64;
+  font:10px 'DM Mono';
+  margin:0 0 5px 7px;
+}
+.pricing-card-cta{
+  width:100%;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border:1px solid #ffffff16;
+  border-radius:999px;
+  background:#ffffff07;
+  color:#858c86;
+  font:11px Manrope,sans-serif;
+  cursor:not-allowed;
+  opacity:1!important;
+}
+.pricing-card.featured .pricing-card-cta{
+  border-color:#9fcf5840;
+  background:#9fcf5810;
+  color:#9fcf58;
+}
+.pricing-divider{
+  height:1px;
+  background:#ffffff0d;
+  margin:28px 0 22px;
+}
+.pricing-includes{
+  color:#555e58;
+  font:8px 'DM Mono';
+  letter-spacing:.16em;
+}
+.pricing-card ul{
+  list-style:none;
+  display:grid;
+  gap:13px;
+  padding:0;
+  margin:20px 0 0;
+}
+.pricing-card li{
+  display:flex;
+  align-items:flex-start;
+  gap:9px;
+  color:#898f89;
+  font-size:11px;
+  line-height:1.45;
+}
+.pricing-card li svg{
+  flex:0 0 auto;
+  color:#7d9970;
+  margin-top:1px;
+}
+.pricing-comparison{
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:100px;
+  padding:150px 0;
+  border-bottom:1px solid #ffffff12;
+}
+.pricing-comparison h2{
+  font:500 clamp(48px,5.5vw,76px)/.92 'Space Grotesk';
+  letter-spacing:-.065em;
+  margin:24px 0;
+}
+.pricing-comparison h2 em,.pricing-faq h2 em{
+  font-style:normal;
+  color:#6f7770;
+}
+.pricing-comparison-copy>p{
+  max-width:530px;
+  color:#7c847d;
+  font-size:14px;
+  line-height:1.85;
+  margin:0 0 45px;
+}
+.pricing-points{
+  border-top:1px solid #ffffff12;
+}
+.pricing-points>div{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  gap:15px;
+  padding:22px 0;
+  border-bottom:1px solid #ffffff12;
+}
+.pricing-points span{color:#525a54;font:9px 'DM Mono'}
+.pricing-points b{font:500 18px 'Space Grotesk';margin-bottom:5px}
+.pricing-points p{grid-column:2;color:#6d756f;font-size:11px;line-height:1.7;margin:0}
+.pricing-faq{
+  padding:150px 0 110px;
+  text-align:center;
+}
+.pricing-faq h2{
+  font:500 clamp(52px,6vw,84px)/.92 'Space Grotesk';
+  letter-spacing:-.07em;
+  margin:25px 0;
+}
+.pricing-faq>p{
+  max-width:520px;
+  margin:0 auto 28px;
+  color:#737b75;
+  font-size:12px;
+  line-height:1.8;
+}
+.pricing-footer{
+  width:min(1180px,calc(100% - 48px));
+  margin:auto;
+  padding:30px 0 38px;
+  border-top:1px solid #ffffff12;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.pricing-footer>span{
+  color:#4f514d;
+  font:9px 'DM Mono';
+  letter-spacing:.12em;
+}
+@media(max-width:800px){
+  .pricing-nav{top:12px;height:54px}
+  .pricing-nav .brand{position:absolute;left:50%;transform:translateX(-50%)}
+  .pricing-back{font-size:0;padding:10px}
+  .pricing-back svg{margin:0}
+  .pricing-start{font-size:10px;padding:9px 11px}
+  .pricing-hero{width:calc(100% - 32px);padding:140px 0 70px}
+  .pricing-hero h1{font-size:clamp(52px,14vw,76px)}
+  .pricing-hero>p{font-size:13px}
+  .pricing-content{width:calc(100% - 32px)}
+  .pricing-grid{grid-template-columns:1fr;gap:12px}
+  .pricing-card{min-height:0;padding:26px;min-height:590px}
+  .pricing-card h2{font-size:29px}
+  .pricing-comparison{grid-template-columns:1fr;gap:55px;padding:100px 0}
+  .pricing-faq{padding:100px 0 80px}
+  .pricing-footer{width:calc(100% - 32px);display:block}
+  .pricing-footer>span{display:block;margin-top:22px;line-height:1.7}
+}
