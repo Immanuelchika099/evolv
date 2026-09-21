@@ -130,7 +130,7 @@ function Landing({ onStart }) {
         </div>
         <div className="nav-actions">
           <button className="nav-login" onClick={onStart}>Enter EVOLV <ArrowRight size={15} /></button>
-          <button className={menuOpen ? 'menu-button menu-open' : 'menu-button'} onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu"><span /><span /></button>
+          <button type="button" className={menuOpen ? 'menu-button menu-open' : 'menu-button'} onClick={() => setMenuOpen(prev => !prev)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}><span /><span /></button>
         </div>
       </nav>
 
