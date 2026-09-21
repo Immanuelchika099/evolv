@@ -23,6 +23,7 @@
 }
 .evolv-nav.is-visible{transform:translateX(-50%);opacity:1;pointer-events:auto}
 .evolv-nav.is-hidden{transform:translate(-50%,-130%);opacity:0;pointer-events:none}
+.evolv-nav.is-menu-open{transform:translateX(-50%);opacity:1;pointer-events:auto}
 .evolv-brand{
   display:flex;
   align-items:center;
