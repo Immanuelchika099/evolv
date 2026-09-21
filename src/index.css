@@ -856,3 +856,37 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border:1px solid #f3f1ea!important;
   color:#090909!important;
 }
+
+/* Explicitly keep every landing navbar text link completely unstyled */
+.landing-nav .nav-text-link {
+  all:unset!important;
+  box-sizing:border-box!important;
+  display:inline-block!important;
+  cursor:pointer!important;
+  color:#85837f!important;
+  font:inherit!important;
+  font-size:12px!important;
+  line-height:1!important;
+  padding:0!important;
+  margin:0!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  outline:none!important;
+  text-decoration:none!important;
+}
+.landing-nav .nav-text-link:hover,
+.landing-nav .nav-text-link:focus,
+.landing-nav .nav-text-link:active {
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  color:#f2f1eb!important;
+  outline:none!important;
+}
