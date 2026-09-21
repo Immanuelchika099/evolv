@@ -30,7 +30,7 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  function close() { setOpen(false) }
+  function close() { setMenuOpen(false) }
 
   function run(action) {
     close()
@@ -55,7 +55,7 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
         </div>
         <div className="evolv-nav-actions">
           <button type="button" className="evolv-start" onClick={onStart}>Get started <ArrowRight size={15} /></button>
-          <button type="button" className={open ? 'evolv-menu-toggle is-open' : 'evolv-menu-toggle'} onClick={() => setOpen(v => !v)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}>
+          <button type="button" className={open ? 'evolv-menu-toggle is-open' : 'evolv-menu-toggle'} onClick={() => setMenuOpen(v => !v)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}>
             <span /><span />
           </button>
         </div>
