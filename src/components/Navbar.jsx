@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ArrowRight } from 'lucide-react'
 import './Navbar.css'
 
@@ -60,14 +61,19 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
         </div>
       </nav>
 
-      <div className={open ? 'evolv-mobile-menu is-open' : 'evolv-mobile-menu'} aria-hidden={!open}>
-        <a href="#story" onClick={close}>Why EVOLV</a>
-        <button type="button" onClick={() => run(onFeatures)}>Features</button>
-        <button type="button" onClick={() => run(onAreas)}>Growth areas</button>
-        <button type="button" onClick={() => run(onPricing)}>Pricing</button>
-        <button type="button" onClick={() => run(onContact)}>Contact</button>
-        <button type="button" className="evolv-mobile-start" onClick={() => run(onStart)}>Get started <ArrowRight size={15} /></button>
-      </div>
+      {open && createPortal(
+        <div className="evolv-menu-layer" role="dialog" aria-modal="true" aria-label="EVOLV navigation menu">
+          <div className="evolv-mobile-menu is-open">
+            <a href="#story" onClick={close}>Why EVOLV</a>
+            <button type="button" onClick={() => run(onFeatures)}>Features</button>
+            <button type="button" onClick={() => run(onAreas)}>Growth areas</button>
+            <button type="button" onClick={() => run(onPricing)}>Pricing</button>
+            <button type="button" onClick={() => run(onContact)}>Contact</button>
+            <button type="button" className="evolv-mobile-start" onClick={() => run(onStart)}>Get started <ArrowRight size={15} /></button>
+          </div>
+        </div>,
+        document.body
+      )}
     </>
   )
 }
