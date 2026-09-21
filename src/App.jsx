@@ -644,13 +644,15 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
       </div>
 
       <section className="onboard-content">
-        <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
-          {step > 0 && (
+        {step > 0 && (
+          <div className="onboard-back-row">
             <button className="back-button" onClick={back} aria-label="Go to previous step">
               <ChevronLeft size={14} />
               <span>Back</span>
             </button>
-          )}
+          </div>
+        )}
+        <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
           <span className="section-label">{current.label}</span>
           <h1>{current.title}</h1>
           <p>{current.copy}</p>
