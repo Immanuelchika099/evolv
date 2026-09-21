@@ -3,16 +3,24 @@ import { createPortal } from 'react-dom'
 import { ArrowRight } from 'lucide-react'
 import './Navbar.css'
 
-function Brand() {
+function Brand({ onHome }) {
   return (
-    <a className="evolv-brand" href="#story" aria-label="EVOLV home">
+    <a
+      className="evolv-brand"
+      href="/"
+      aria-label="EVOLV home"
+      onClick={(event) => {
+        event.preventDefault()
+        onHome()
+      }}
+    >
       <span className="evolv-brand-mark"><span /></span>
       <span>EVOLV</span>
     </a>
   )
 }
 
-export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onContact, menuOpen, setMenuOpen }) {
+export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onContact, onHome, menuOpen, setMenuOpen }) {
   const open = menuOpen
   const [visible, setVisible] = useState(true)
   const lastScroll = useRef(0)
@@ -47,7 +55,7 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
   return (
     <>
       <nav className={open ? 'evolv-nav is-menu-open' : (visible ? 'evolv-nav is-visible' : 'evolv-nav is-hidden')}>
-        <Brand />
+        <Brand onHome={onHome} />
         <div className="evolv-nav-links" aria-label="Primary navigation">
           <a href="#story">Why EVOLV</a>
           <button type="button" onClick={onFeatures}>Features</button>
