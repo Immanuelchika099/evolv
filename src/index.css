@@ -1072,3 +1072,27 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .ready-card strong{font-size:26px}
   .onboard-footer{padding-bottom:24px}
 }
+
+
+/* Supabase authentication */
+.auth-page{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
+.auth-brand{background:none;border:0;padding:0;color:inherit;cursor:pointer}
+.auth-content{width:min(620px,calc(100% - 40px));margin:0 auto;padding:110px 0 90px;align-self:center}
+.auth-content>p{max-width:510px;color:#747c75;line-height:1.7;margin:20px 0 38px}
+.auth-form{display:grid;gap:18px}
+.auth-form label{display:grid;gap:8px}
+.auth-form label span{font:9px 'DM Mono';letter-spacing:.14em;color:#59615b;text-transform:uppercase}
+.auth-form input{width:100%;box-sizing:border-box;background:#ffffff05;border:1px solid #ffffff12;border-radius:12px;padding:16px 17px;color:#f2f4ed;outline:none;font:14px 'Manrope'}
+.auth-form input:focus{border-color:#9fcf5860;box-shadow:0 0 0 3px #9fcf5810}
+.auth-submit{margin-top:6px;width:max-content}
+.auth-switch,.auth-back{background:none;border:0;color:#7d857e;cursor:pointer}
+.auth-switch{font:11px 'DM Mono';margin-top:22px}
+.auth-switch:hover,.auth-back:hover{color:#dce3d9}
+.auth-back{display:flex;align-items:center;gap:5px;font:10px 'DM Mono';margin-top:50px;padding:0}
+.auth-error{margin:0;color:#ff8f8f;font:11px 'DM Mono'}
+.auth-message{margin:0;color:#b8d982;font:11px 'DM Mono';line-height:1.6}
+@media(max-width:800px){
+  .auth-content{padding:90px 0 70px}
+  .auth-content h1{font-size:clamp(44px,13vw,72px)}
+  .auth-submit{width:100%;justify-content:center}
+}
