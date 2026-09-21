@@ -766,3 +766,18 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .pricing-footer{width:calc(100% - 32px);display:block}
   .pricing-footer>span{display:block;margin-top:22px;line-height:1.7}
 }
+
+
+/* Navbar: only Get Started keeps the filled pill */
+.landing-nav .nav-links a,
+.landing-nav .nav-links button,
+.landing-nav .nav-actions > *:not(.nav-login){
+  background:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
+.landing-nav .nav-login{
+  background:#f3f1ea!important;
+  border:1px solid #f3f1ea!important;
+  color:#090909!important;
+}
