@@ -87,11 +87,17 @@
 .evolv-menu-toggle span{display:block;width:17px;height:1px;background:#ddd;transition:.25s}
 .evolv-menu-toggle.is-open span:first-child{transform:translateY(3px) rotate(45deg)}
 .evolv-menu-toggle.is-open span:last-child{transform:translateY(-3px) rotate(-45deg)}
+.evolv-menu-layer{
+  position:fixed;
+  inset:0;
+  z-index:1100;
+  pointer-events:none;
+}
 .evolv-mobile-menu{
   position:fixed;
   top:90px;
   left:50%;
-  z-index:1100;
+  z-index:1101;
   width:min(380px,calc(100vw - 32px));
   padding:14px;
   display:none;
@@ -104,12 +110,13 @@
   opacity:1 !important;
   box-shadow:0 28px 90px #000c;
 }
-.evolv-mobile-menu.is-open{display:flex}
+.evolv-menu-layer .evolv-mobile-menu.is-open{display:flex;pointer-events:auto}
 @media(max-width:800px){
   .evolv-nav{top:12px;left:50%;width:calc(100% - 32px);max-width:520px;height:54px;padding:0 15px;justify-content:space-between}
   .evolv-nav-links{display:none}
   .evolv-start{display:none}
   .evolv-menu-toggle{width:44px;height:44px}
+  .evolv-menu-layer{z-index:1100}
   .evolv-mobile-menu{
     top:72px;
     width:calc(100vw - 24px);
