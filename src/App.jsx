@@ -113,7 +113,7 @@ function App() {
     <main ref={root} className="app">
       <div className="noise" />
       <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}
+      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
@@ -173,7 +173,7 @@ function Brand() {
   return <a className="brand" href="/"><span className="brand-mark"><span /></span><span>EVOLV</span></a>
 }
 
-function Landing({ onStart, onArticle, onPricing }) {
+function Landing({ onStart, onArticle, onPricing, onContact }) {
   const page = useRef(null)
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -234,7 +234,7 @@ function Landing({ onStart, onArticle, onPricing }) {
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
       <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
       <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
-      <Footer onContact={() => window.dispatchEvent(new CustomEvent('evolv:open-contact'))} />
+      <Footer onContact={onContact} />
     </div>
   )
 }
