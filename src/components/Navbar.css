@@ -13,10 +13,11 @@
   gap:34px;
   border:1px solid #ffffff18;
   border-radius:999px;
-  background:#0a0f0c;
+  background:#0a0f0c !important;
+  background-color:#0a0f0c !important;
   box-shadow:0 16px 50px #0008;
-  backdrop-filter:none;
-  -webkit-backdrop-filter:none;
+  backdrop-filter:blur(22px);
+  -webkit-backdrop-filter:blur(22px);
   transition:transform .38s cubic-bezier(.22,1,.36,1),opacity .28s ease;
 }
 .evolv-nav.is-visible{transform:translateX(-50%);opacity:1;pointer-events:auto}
