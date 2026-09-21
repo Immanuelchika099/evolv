@@ -24,6 +24,7 @@ const initialData = {
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
+  const [article, setArticle] = useState(null)
   const [step, setStep] = useState(0)
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
@@ -38,8 +39,21 @@ function App() {
   }, [view, step])
 
   function enterApp() {
+    setArticle(null)
     localStorage.setItem('evolv-view', 'onboarding')
     setView('onboarding')
+  }
+
+  function openArticle(type, areaId = null) {
+    setArticle({ type, areaId })
+    setView('article')
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+
+  function closeArticle() {
+    setArticle(null)
+    setView('landing')
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   function finishOnboarding() {
@@ -56,7 +70,8 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      {view === 'landing' && <Landing onStart={enterApp} />}
+      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} />}
+      {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
         <Onboarding
           step={step}
@@ -75,7 +90,7 @@ function Brand() {
   return <a className="brand" href="/"><span className="brand-mark"><span /></span><span>EVOLV</span></a>
 }
 
-function Landing({ onStart }) {
+function Landing({ onStart, onArticle }) {
   const page = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
@@ -137,8 +152,8 @@ function Landing({ onStart }) {
         <Brand />
         <div className="nav-links">
           <a href="#story">Why EVOLV</a>
-          <a href="#features">Features</a>
-          <a href="#areas">Growth areas</a>
+          <button onClick={() => onArticle('features')}>Features</button>
+          <button onClick={() => onArticle('areas')}>Growth areas</button>
         </div>
         <div className="nav-actions">
           <button className="nav-login" onClick={onStart}>Enter EVOLV <ArrowRight size={15} /></button>
@@ -148,8 +163,8 @@ function Landing({ onStart }) {
 
       <div className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
         <a href="#story" onClick={closeMenu}>Why EVOLV</a>
-        <a href="#features" onClick={closeMenu}>Features</a>
-        <a href="#areas" onClick={closeMenu}>Growth areas</a>
+        <button onClick={() => { closeMenu(); onArticle('features') }}>Features</button>
+        <button onClick={() => { closeMenu(); onArticle('areas') }}>Growth areas</button>
         <button onClick={() => { closeMenu(); onStart() }}>Get started <ArrowRight size={15} /></button>
       </div>
 
@@ -179,7 +194,7 @@ function Landing({ onStart }) {
         <div className="mock-dashboard"><div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR MOMENTUM</span></div><div className="mock-main"><div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div><div className="mock-tasks"><div><small>CURRENT FOCUS</small><b>Build with intention.</b></div><div className="task"><i /> Learn something new <span>IN PROGRESS</span></div><div className="task"><i /> Show up today <span>ACTIVE</span></div><div className="task"><i /> Review the week <span>FRI</span></div></div></div></div>
       </section>
 
-      <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id}><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
+      <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id} onClick={() => onArticle('area', a.id)} role="button" tabIndex="0"><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
 
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
 
@@ -187,7 +202,63 @@ function Landing({ onStart }) {
 
       <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
 
-      <footer className="site-footer"><div className="footer-brand"><Brand /><p>Track your growth.<br />Become your next self.</p></div><div className="footer-links"><div><span>EXPLORE</span><a href="#story">Why EVOLV</a><a href="#features">Features</a><a href="#areas">Growth areas</a><a href="#faq">FAQ</a></div><div><span>CONNECT</span><a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.6"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a></div></div><div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div></footer>
+      <footer className="site-footer"><div className="footer-brand"><Brand /><p>Track your growth.<br />Become your next self.</p></div><div className="footer-links"><div><span>EXPLORE</span><a href="#story">Why EVOLV</a><button onClick={() => onArticle('features')}>Features</button><button onClick={() => onArticle('areas')}>Growth areas</button><a href="#faq">FAQ</a></div><div><span>CONNECT</span><a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.6"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a></div></div><div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div></footer>
+    </div>
+  )
+}
+
+function ArticlePage({ article, onStart, onBack }) {
+  const isFeatures = article?.type === 'features'
+  const area = growthAreas.find(a => a.id === article?.areaId)
+  const title = isFeatures ? 'The system behind your becoming.' : area?.title || 'Growth areas'
+  const eyebrow = isFeatures ? '03 — THE SYSTEM' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
+  const intro = isFeatures
+    ? 'EVOLV turns vague intention into a rhythm you can actually live with.'
+    : `${area?.text || 'A space for the part of your life you want to move forward.'}. Growth becomes easier to navigate when you give it a direction.`
+  const sections = isFeatures
+    ? [
+        ['DEFINE', 'Start with what matters. Choose the season, the direction and the outcome you want to move toward.'],
+        ['BUILD', 'Break intention into actions that are small enough to begin and meaningful enough to matter.'],
+        ['TRACK', 'See what you did, where momentum is building and where you have been drifting.'],
+        ['EVOLVE', 'Reflect on what changed, adjust the plan and keep moving without starting from zero.'],
+      ]
+    : [
+        ['WHY IT MATTERS', `Your ${area?.title?.toLowerCase() || 'growth'} does not need to be perfect to be meaningful. It needs a clear place in your bigger picture.`],
+        ['MAKE IT VISIBLE', 'Turn the thing you keep thinking about into goals, actions and visible progress you can return to.'],
+        ['KEEP MOVING', 'Use your momentum as feedback. Change the target when your life changes, not because you stopped caring.'],
+      ]
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.from('.article-kicker,.article-title,.article-intro,.article-back', { y: 35, opacity: 0, duration: .9, stagger: .08, ease: 'power3.out' })
+      gsap.utils.toArray('.article-block').forEach((el, i) => {
+        gsap.from(el, { y: 70, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } })
+      })
+      gsap.to('.article-orb', { y: -22, rotation: 8, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' })
+    })
+    return () => ctx.revert()
+  }, [])
+
+  return (
+    <div className="article-page page-enter">
+      <nav className="article-nav">
+        <button className="article-back" onClick={onBack}><ChevronLeft size={16}/> Back to EVOLV</button>
+        <Brand />
+        <button className="article-start" onClick={onStart}>Start evolving <ArrowRight size={15}/></button>
+      </nav>
+      <header className="article-hero">
+        <div className="article-hero-copy">
+          <span className="section-label article-kicker">{eyebrow}</span>
+          <h1 className="article-title">{title}</h1>
+          <p className="article-intro">{intro}</p>
+        </div>
+        <div className="article-visual"><div className="article-orb"/><span>{isFeatures ? 'DEFINE / BUILD / TRACK / EVOLVE' : area?.title?.toUpperCase()}</span></div>
+      </header>
+      <main className="article-body">
+        <div className="article-lead article-block"><span>01</span><p>{isFeatures ? 'A growth system should not ask you to become a different person overnight. It should help you make the next move visible.' : `This is where ${area?.title?.toLowerCase() || 'growth'} becomes intentional — not another thing to feel guilty about, but something you can actively shape.`}</p></div>
+        <div className="article-grid">{sections.map(([heading, text], i) => <article className="article-block article-content-card" key={heading}><span>0{i + 2}</span><h2>{heading}</h2><p>{text}</p></article>)}</div>
+        <section className="article-end article-block"><span className="section-label">THE NEXT MOVE</span><h2>Make it visible.<br/><em>Then make it real.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17}/></button></section>
+      </main>
     </div>
   )
 }
