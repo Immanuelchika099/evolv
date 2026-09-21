@@ -26,7 +26,7 @@ const initialData = {
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
-  const [article, setArticle] = useState(null)
+  const [article, setArticle] = useState(null)\n  const [menuOpen, setMenuOpen] = useState(false)
   const [step, setStep] = useState(0)
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
@@ -42,7 +42,7 @@ function App() {
     return () => ctx.revert()
   }, [view, step])
 
-  function openPricing() {
+  function openContact() {\n    window.dispatchEvent(new CustomEvent('evolv:open-contact'))\n  }\n\n  function openPricing() {
     setArticle(null)
     localStorage.setItem('evolv-view', 'pricing')
     setView('pricing')
@@ -100,7 +100,7 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}
+      <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />\n      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
@@ -150,7 +150,7 @@ function Landing({ onStart, onArticle, onPricing }) {
     setContactOpen(true)
   }
 
-  function submitContact(event) {
+  useLayoutEffect(() => {\n    const handler = () => openContact()\n    window.addEventListener('evolv:open-contact', handler)\n    return () => window.removeEventListener('evolv:open-contact', handler)\n  }, [])\n\n  function submitContact(event) {
     event.preventDefault()
     setContactSent(true)
   }
