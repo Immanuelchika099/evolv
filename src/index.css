@@ -73,3 +73,10 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:
     width:auto;
   }
 }
+
+
+/* Final quieter background treatment */
+.landing{background:radial-gradient(circle at 73% 10%,#12302426 0,transparent 28%),radial-gradient(circle at 15% 40%,#0a211a24 0,transparent 30%),#040605}
+.landing:before{background:linear-gradient(180deg,transparent,#0820190c 38%,transparent 62%,#0820190e)}
+.hero-aura{background:radial-gradient(circle,#789b7812,transparent 62%)}
+.final-cta{background:radial-gradient(circle,#12302422,transparent 65%)}
