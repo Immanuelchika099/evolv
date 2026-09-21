@@ -2,6 +2,7 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import { supabase } from './lib/supabase'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -134,8 +135,30 @@ function App() {
 
 
 function ContactModal({ contactSent, setContactSent, onClose }) {
-  function submitContact(event) {
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+
+  async function submitContact(event) {
     event.preventDefault()
+    setSending(true)
+    setError('')
+
+    const form = new FormData(event.currentTarget)
+    const { error: insertError } = await supabase
+      .from('contact_messages')
+      .insert({
+        name: form.get('name')?.trim(),
+        email: form.get('email')?.trim(),
+        message: form.get('message')?.trim(),
+      })
+
+    setSending(false)
+
+    if (insertError) {
+      setError('Something went wrong. Please try again.')
+      return
+    }
+
     setContactSent(true)
   }
 
@@ -153,14 +176,17 @@ function ContactModal({ contactSent, setContactSent, onClose }) {
               <label><span>Email</span><input required type="email" name="email" placeholder="you@example.com" /></label>
               <label><span>Message</span><textarea required name="message" placeholder="Tell us what you want to build, change or explore..." rows="4" /></label>
             </div>
-            <button className="button button-primary contact-submit" type="submit">Send message <ArrowRight size={16} /></button>
+            {error && <p className="contact-error" role="alert">{error}</p>}
+            <button className="button button-primary contact-submit" type="submit" disabled={sending}>
+              {sending ? 'Sending…' : 'Send message'} {!sending && <ArrowRight size={16} />}
+            </button>
           </form>
         ) : (
           <div className="contact-success">
             <span className="contact-success-mark"><Check size={20} /></span>
             <span className="section-label">MESSAGE READY</span>
             <h2>Thanks for<br /><em>reaching out.</em></h2>
-            <p>Your message has been captured. The next step is connecting this form to EVOLV's email/backend endpoint.</p>
+            <p>Your message has been captured. Your message has been sent successfully. Thanks for reaching out — we'll get back to you soon.</p>
             <button className="button button-primary" onClick={onClose}>Back to EVOLV <ArrowRight size={16} /></button>
           </div>
         )}
