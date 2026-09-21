@@ -99,7 +99,8 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}\n      {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
+      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}
+      {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
         <Onboarding
