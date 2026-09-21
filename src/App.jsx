@@ -164,7 +164,7 @@ function Landing({ onStart, onArticle, onPricing }) {
         onPricing={onPricing}
         onContact={openContact}
       />
-      <section className="hero">
+      <section className="hero" style={{ paddingTop: '150px' }}>
         <div className="hero-copy">
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
           <h1 className="hero-title"><span className="line">Become the person</span><span className="line"><em>you keep imagining.</em></span></h1>
