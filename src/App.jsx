@@ -129,7 +129,9 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      {view !== 'onboarding' && view !== 'auth' && (
+        <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      )}
       {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
@@ -141,7 +143,6 @@ function App() {
           data={data}
           setData={setData}
           onFinish={finishOnboarding}
-          onHome={returnHome}
         />
       )}
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} />}
