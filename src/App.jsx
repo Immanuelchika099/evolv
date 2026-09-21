@@ -73,24 +73,91 @@ function Brand() {
 }
 
 function Landing({ onStart }) {
+  const page = useRef(null)
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
+      intro.from('.landing-nav', { y: -18, opacity: 0, duration: .8 })
+        .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 }, '-=.35')
+        .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
+        .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
+        .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
+        .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
+
+      gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
+      gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
+      gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
+      gsap.utils.toArray('.story-reveal').forEach((el) => {
+        gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } })
+      })
+      gsap.utils.toArray('.area, .feature-step').forEach((el, i) => {
+        gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } })
+      })
+    }, page)
+    return () => ctx.revert()
+  }, [])
+
+  function closeMenu() { setMenuOpen(false) }
+
   return (
-    <div className="page-enter landing">
-      <nav className="nav"><Brand /><div className="nav-links"><a href="#philosophy">Philosophy</a><a href="#areas">Growth areas</a></div><button className="nav-login" onClick={onStart}>Enter EVOLV <ArrowRight size={15} /></button></nav>
+    <div ref={page} className="page-enter landing">
+      <nav className="landing-nav nav">
+        <Brand />
+        <div className="nav-links">
+          <a href="#story">Why EVOLV</a>
+          <a href="#features">Features</a>
+          <a href="#areas">Growth areas</a>
+        </div>
+        <div className="nav-actions">
+          <button className="nav-login" onClick={onStart}>Enter EVOLV <ArrowRight size={15} /></button>
+          <button className={menuOpen ? 'menu-button menu-open' : 'menu-button'} onClick={() => setMenuOpen(!menuOpen)} aria-label="Open menu"><span /><span /></button>
+        </div>
+      </nav>
+
+      <div className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
+        <a href="#story" onClick={closeMenu}>Why EVOLV</a>
+        <a href="#features" onClick={closeMenu}>Features</a>
+        <a href="#areas" onClick={closeMenu}>Growth areas</a>
+        <button onClick={() => { closeMenu(); onStart() }}>Get started <ArrowRight size={15} /></button>
+      </div>
+
       <section className="hero">
         <div className="hero-copy">
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
-          <h1 className="hero-title">Become the person<br /><em>you keep imagining.</em></h1>
-          <p className="hero-description">EVOLV turns ambition into something you can see, measure and return to — one goal, habit and decision at a time.</p>
-          <button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button>
+          <h1 className="hero-title"><span className="line">Become the person</span><span className="line"><em>you keep imagining.</em></span></h1>
+          <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
+          <div className="hero-actions"><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button><a className="button button-ghost" href="#story">Explore EVOLV ↓</a></div>
         </div>
-        <div className="hero-visual">
-          <div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div>
-          <div className="hero-panel"><div className="panel-top"><span>YOUR MOMENTUM</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div>
+        <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR MOMENTUM</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
+      </section>
+
+      <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
+
+      <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
+
+      <section className="features-story story-reveal" id="features">
+        <div className="section-heading"><span className="section-label">03 — THE SYSTEM</span><p>A simple rhythm for becoming.</p></div>
+        <div className="feature-steps">
+          {[['01','DEFINE','Decide what matters in this season of your life.'],['02','BUILD','Turn intention into goals you can actually act on.'],['03','TRACK','See your momentum, progress and patterns over time.'],['04','EVOLVE','Reflect, adjust and keep becoming your next self.']].map(([num,title,text]) => <article className="feature-step" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight size={17} /></article>)}
         </div>
       </section>
-      <section className="statement" id="philosophy"><span className="section-label">THE EVOLV PHILOSOPHY</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></section>
-      <section className="areas" id="areas"><div className="section-heading"><span className="section-label">YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.slice(0,4).map((a,i)=><article className="area" key={a.id}><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
-      <footer><Brand /><p>Track your growth. Become your next self.</p><span>© 2026</span></footer>
+
+      <section className="experience story-reveal">
+        <div className="preview-copy"><span className="section-label">04 — YOUR SPACE</span><h2>A dashboard built around <em>your becoming.</em></h2><p>Once you enter EVOLV, everything becomes personal — your goals, your growth areas, your momentum and the story you're building day by day.</p><button className="button button-primary" onClick={onStart}>Create your space <ArrowRight size={16} /></button></div>
+        <div className="mock-dashboard"><div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR MOMENTUM</span></div><div className="mock-main"><div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div><div className="mock-tasks"><div><small>CURRENT FOCUS</small><b>Build with intention.</b></div><div className="task"><i /> Learn something new <span>IN PROGRESS</span></div><div className="task"><i /> Show up today <span>ACTIVE</span></div><div className="task"><i /> Review the week <span>FRI</span></div></div></div></div>
+      </section>
+
+      <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id}><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
+
+      <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
+
+      <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
+
+      <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
+
+      <footer><Brand /><p>Track your growth. Become your next self.</p><span>© 2026 EVOLV</span></footer>
     </div>
   )
 }
