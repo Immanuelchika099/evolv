@@ -284,18 +284,30 @@ function ArticlePage({ article, onStart, onBack }) {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.article-kicker,.article-title,.article-intro,.article-back', {
-        y: 35, opacity: 0, duration: .9, stagger: .08, ease: 'power3.out'
-      })
+      const intro = gsap.timeline({ defaults: { ease: 'power3.out' } })
+      intro.fromTo(
+        '.article-kicker,.article-title,.article-intro,.article-back',
+        { y: 24, opacity: 0 },
+        { y: 0, opacity: 1, duration: .8, stagger: .07, clearProps: 'transform,opacity' }
+      )
+
       gsap.utils.toArray('.article-block').forEach((el) => {
-        gsap.from(el, {
-          y: 55, opacity: 0, duration: .8, ease: 'power3.out',
-          scrollTrigger: { trigger: el, start: 'top 86%' }
-        })
+        gsap.fromTo(
+          el,
+          { y: 35, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: .75,
+            ease: 'power3.out',
+            clearProps: 'transform,opacity',
+            scrollTrigger: { trigger: el, start: 'top 90%', once: true }
+          }
+        )
       })
     })
     return () => ctx.revert()
-  }, [])
+  }, [article?.type, article?.areaId])
 
   return (
     <div className="article-page page-enter">
