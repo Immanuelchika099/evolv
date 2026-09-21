@@ -33,7 +33,9 @@ function App() {
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.page-enter > *', { y: 24, opacity: 0, duration: .75, stagger: .06, ease: 'power3.out' })
+      if (view !== 'article') {
+        gsap.from('.page-enter > *', { y: 24, opacity: 0, duration: .75, stagger: .06, ease: 'power3.out' })
+      }
     }, root)
     return () => ctx.revert()
   }, [view, step])
