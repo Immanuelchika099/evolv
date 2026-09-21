@@ -176,10 +176,10 @@ function Landing({ onStart, onArticle, onPricing }) {
         <Brand />
         <div className="nav-links">
           <a href="#story">Why EVOLV</a>
-          <button onClick={() => onArticle('features')}>Features</button>
-          <button onClick={() => onArticle('areas')}>Growth areas</button>
-          <button onClick={onPricing}>Pricing</button>
-          <button onClick={openContact}>Contact</button>
+          <button className="nav-text-link" onClick={() => onArticle('features')}>Features</button>
+          <button className="nav-text-link" onClick={() => onArticle('areas')}>Growth areas</button>
+          <button className="nav-text-link" onClick={onPricing}>Pricing</button>
+          <button className="nav-text-link" onClick={openContact}>Contact</button>
         </div>
         <div className="nav-actions">
           <button className="nav-login" onClick={onStart}>Get started <ArrowRight size={15} /></button>
