@@ -1,6 +1,9 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound } from 'lucide-react'
 import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const growthAreas = [
   { id: 'career', title: 'Career', text: 'Work, direction & ambition' },
