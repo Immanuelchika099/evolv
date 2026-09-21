@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound } from 'lucide-react'
+import Navbar from './components/Navbar'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -121,8 +122,6 @@ function Brand() {
 
 function Landing({ onStart, onArticle, onPricing }) {
   const page = useRef(null)
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [navVisible, setNavVisible] = useState(true)
   const [contactOpen, setContactOpen] = useState(false)
   const [contactSent, setContactSent] = useState(false)
 
@@ -144,23 +143,7 @@ function Landing({ onStart, onArticle, onPricing }) {
     return () => ctx.revert()
   }, [])
 
-  useLayoutEffect(() => {
-    let lastScroll = window.scrollY
-    function handleScroll() {
-      const currentScroll = window.scrollY
-      if (currentScroll < 40) setNavVisible(true)
-      else if (currentScroll > lastScroll + 3) { setNavVisible(false); setMenuOpen(false) }
-      else if (currentScroll < lastScroll - 3) setNavVisible(true)
-      lastScroll = currentScroll
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  function closeMenu() { setMenuOpen(false) }
-
   function openContact() {
-    setMenuOpen(false)
     setContactSent(false)
     setContactOpen(true)
   }
@@ -172,28 +155,13 @@ function Landing({ onStart, onArticle, onPricing }) {
 
   return (
     <div ref={page} className="page-enter landing">
-      <nav className={navVisible ? "landing-nav nav nav-visible" : "landing-nav nav nav-hidden"}>
-        <Brand />
-        <div className="nav-links">
-          <a href="#story">Why EVOLV</a>
-          <button className="nav-text-link" onClick={() => onArticle('features')}>Features</button>
-          <button className="nav-text-link" onClick={() => onArticle('areas')}>Growth areas</button>
-          <button className="nav-text-link" onClick={onPricing}>Pricing</button>
-          <button className="nav-text-link" onClick={openContact}>Contact</button>
-        </div>
-        <div className="nav-actions">
-          <button className="nav-login" onClick={onStart}>Get started <ArrowRight size={15} /></button>
-          <button type="button" className={menuOpen ? 'menu-button menu-open' : 'menu-button'} onClick={() => setMenuOpen(prev => !prev)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}><span /><span /></button>
-        </div>
-      </nav>
-      <div className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
-        <a href="#story" onClick={closeMenu}>Why EVOLV</a>
-        <button onClick={() => { closeMenu(); onArticle('features') }}>Features</button>
-        <button onClick={() => { closeMenu(); onArticle('areas') }}>Growth areas</button>
-        <button onClick={openContact}>Contact</button>
-        <button onClick={() => { closeMenu(); onPricing() }}>Pricing</button>
-        <button onClick={() => { closeMenu(); onStart() }}>Get started <ArrowRight size={15} /></button>
-      </div>
+      <Navbar
+        onStart={onStart}
+        onFeatures={() => onArticle('features')}
+        onAreas={() => onArticle('areas')}
+        onPricing={onPricing}
+        onContact={openContact}
+      />
       <section className="hero">
         <div className="hero-copy">
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
