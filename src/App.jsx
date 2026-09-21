@@ -630,7 +630,12 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
     <div className="page-enter onboarding">
       <header className="onboard-head">
         <button className="onboard-brand" onClick={() => setStep(0)} aria-label="Return to beginning of journey"><Brand /></button>
-        <div className="step-count">{step === 0 ? 'START' : `0${step} / 0${total - 1}`}</div>
+        <div className="onboard-head-actions">
+          <div className="step-count">{step === 0 ? 'START' : `0${step} / 0${total - 1}`}</div>
+          <button className="exit-journey" onClick={() => { localStorage.setItem('evolv-view', 'landing'); window.scrollTo({ top: 0, behavior: 'instant' }); window.location.reload() }}>
+            Exit journey
+          </button>
+        </div>
       </header>
 
       <div className="onboard-progress">
