@@ -28,6 +28,8 @@ function App() {
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
   const [article, setArticle] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [contactOpen, setContactOpen] = useState(false)
+  const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
@@ -142,9 +144,6 @@ function Brand() {
 
 function Landing({ onStart, onArticle, onPricing, onContact }) {
   const page = useRef(null)
-  const [contactOpen, setContactOpen] = useState(false)
-  const [contactSent, setContactSent] = useState(false)
-
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
