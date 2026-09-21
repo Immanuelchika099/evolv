@@ -32,6 +32,7 @@ function App() {
   const [contactOpen, setContactOpen] = useState(false)
   const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
+  const [authMode, setAuthMode] = useState('signup')
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
     catch { return initialData }
@@ -101,8 +102,23 @@ function App() {
 
   function finishOnboarding() {
     localStorage.setItem('evolv-onboarding', JSON.stringify(data))
+    localStorage.setItem('evolv-view', 'auth')
+    setAuthMode('signup')
+    setView('auth')
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+
+  async function finishAuth(user) {
+    await supabase.from('profiles').upsert({
+      id: user.id,
+      first_name: data.name.trim(),
+      growth_areas: data.areas,
+      focus: data.focus,
+      first_goal: data.goal.trim(),
+    })
     localStorage.setItem('evolv-view', 'dashboard')
     setView('dashboard')
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   function logout() {
@@ -117,6 +133,7 @@ function App() {
       {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
+      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} data={data} onSuccess={finishAuth} onHome={returnHome} />}
       {view === 'onboarding' && (
         <Onboarding
           step={step}
@@ -130,6 +147,78 @@ function App() {
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} />}
       {contactOpen && <ContactModal contactSent={contactSent} setContactSent={setContactSent} onClose={closeContact} />}
     </main>
+  )
+}
+
+
+function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+  const [message, setMessage] = useState('')
+
+  async function submit(event) {
+    event.preventDefault()
+    setSending(true)
+    setError('')
+    setMessage('')
+
+    const result = mode === 'signup'
+      ? await supabase.auth.signUp({ email: email.trim(), password })
+      : await supabase.auth.signInWithPassword({ email: email.trim(), password })
+
+    setSending(false)
+
+    if (result.error) {
+      setError(result.error.message)
+      return
+    }
+
+    if (mode === 'signup' && !result.data.session) {
+      setMessage('Check your email to confirm your account. Once confirmed, come back and sign in.')
+      return
+    }
+
+    if (result.data.user) await onSuccess(result.data.user)
+  }
+
+  return (
+    <div className="page-enter auth-page">
+      <header className="onboard-head">
+        <button className="auth-brand" onClick={onHome} aria-label="Back to EVOLV home"><Brand /></button>
+        <span className="step-count">{mode === 'signup' ? 'CREATE ACCOUNT' : 'WELCOME BACK'}</span>
+      </header>
+
+      <section className="auth-content">
+        <span className="section-label">{mode === 'signup' ? 'YOUR ACCOUNT' : 'YOUR SPACE'}</span>
+        <h1>{mode === 'signup' ? <>Keep your<br /><em>journey yours.</em></> : <>Welcome<br /><em>back.</em></>}</h1>
+        <p>{mode === 'signup'
+          ? 'Create your account so the progress you build in EVOLV can stay connected to you.'
+          : 'Sign in and continue from where you left off.'}</p>
+
+        <form className="auth-form" onSubmit={submit}>
+          <label><span>Email</span><input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" /></label>
+          <label><span>Password</span><input required minLength="6" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 6 characters" autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} /></label>
+          {error && <p className="auth-error" role="alert">{error}</p>}
+          {message && <p className="auth-message">{message}</p>}
+          <button className="button button-primary auth-submit" disabled={sending} type="submit">
+            {sending ? 'Working…' : mode === 'signup' ? 'Create my account' : 'Sign in'} {!sending && <ArrowRight size={16} />}
+          </button>
+        </form>
+
+        <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setError(''); setMessage('') }}>
+          {mode === 'signup' ? 'Already have an account? Sign in' : "New to EVOLV? Create an account"}
+        </button>
+
+        <button className="auth-back" onClick={onHome}><ChevronLeft size={15} /> Back to homepage</button>
+      </section>
+
+      <footer className="onboard-footer">
+        <span>{data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span>
+        <span>YOUR DATA, YOUR JOURNEY.</span>
+      </footer>
+    </div>
   )
 }
 
