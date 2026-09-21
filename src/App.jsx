@@ -169,13 +169,6 @@ function Landing({ onStart, onArticle, onPricing }) {
 
   return (
     <div ref={page} className="page-enter landing">
-      <Navbar
-        onStart={onStart}
-        onFeatures={() => onArticle('features')}
-        onAreas={() => onArticle('areas')}
-        onPricing={onPricing}
-        onContact={openContact}
-      />
       <section className="hero" style={{ paddingTop: '150px' }}>
         <div className="hero-copy">
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
