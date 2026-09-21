@@ -95,8 +95,20 @@ function Landing({ onStart }) {
       gsap.utils.toArray('.story-reveal').forEach((el) => {
         gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } })
       })
-      gsap.utils.toArray('.area, .feature-step').forEach((el, i) => {
+      gsap.utils.toArray('.area').forEach((el, i) => {
         gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } })
+      })
+
+      gsap.utils.toArray('.feature-card').forEach((card, i) => {
+        gsap.fromTo(card,
+          { y: 90, scale: .92, opacity: 0 },
+          { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: {
+            trigger: card,
+            start: 'top 88%',
+            end: 'top 55%',
+            scrub: 1.1,
+          } }
+        )
       })
     }, page)
     return () => ctx.revert()
@@ -158,7 +170,7 @@ function Landing({ onStart }) {
       <section className="features-story story-reveal" id="features">
         <div className="section-heading"><span className="section-label">03 — THE SYSTEM</span><p>A simple rhythm for becoming.</p></div>
         <div className="feature-steps">
-          {[['01','DEFINE','Decide what matters in this season of your life.'],['02','BUILD','Turn intention into goals you can actually act on.'],['03','TRACK','See your momentum, progress and patterns over time.'],['04','EVOLVE','Reflect, adjust and keep becoming your next self.']].map(([num,title,text]) => <article className="feature-step" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight size={17} /></article>)}
+          {[['01','DEFINE','Decide what matters in this season of your life.'],['02','BUILD','Turn intention into goals you can actually act on.'],['03','TRACK','See your momentum, progress and patterns over time.'],['04','EVOLVE','Reflect, adjust and keep becoming your next self.']].map(([num,title,text]) => <article className="feature-step feature-card" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight size={17} /></article>)}
         </div>
       </section>
 
