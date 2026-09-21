@@ -85,3 +85,18 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:
 /* Reliable menu state: hidden until the hamburger opens it */
 .mobile-menu:not(.open){display:none!important;opacity:0!important;pointer-events:none!important;visibility:hidden!important}
 .mobile-menu.open{display:block!important;opacity:1!important;pointer-events:auto!important;visibility:visible!important;transform:translateY(0)!important}
+
+
+/* Navbar scroll behavior: fixed, hides on scroll down and returns on scroll up */
+.landing-nav{
+  position:fixed!important;
+  z-index:40!important;
+}
+.mobile-menu{
+  position:fixed!important;
+  z-index:60!important;
+}
+.menu-button{
+  position:relative!important;
+  z-index:61!important;
+}
