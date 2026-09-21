@@ -178,10 +178,11 @@ function Landing({ onStart, onArticle, onPricing }) {
           <a href="#story">Why EVOLV</a>
           <button onClick={() => onArticle('features')}>Features</button>
           <button onClick={() => onArticle('areas')}>Growth areas</button>
+          <button onClick={onPricing}>Pricing</button>
           <button onClick={openContact}>Contact</button>
         </div>
         <div className="nav-actions">
-          <button className="nav-login" onClick={onStart}>Enter EVOLV <ArrowRight size={15} /></button>
+          <button className="nav-login" onClick={onStart}>Get started <ArrowRight size={15} /></button>
           <button type="button" className={menuOpen ? 'menu-button menu-open' : 'menu-button'} onClick={() => setMenuOpen(prev => !prev)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}><span /><span /></button>
         </div>
       </nav>
@@ -190,6 +191,7 @@ function Landing({ onStart, onArticle, onPricing }) {
         <button onClick={() => { closeMenu(); onArticle('features') }}>Features</button>
         <button onClick={() => { closeMenu(); onArticle('areas') }}>Growth areas</button>
         <button onClick={openContact}>Contact</button>
+        <button onClick={() => { closeMenu(); onPricing() }}>Pricing</button>
         <button onClick={() => { closeMenu(); onStart() }}>Get started <ArrowRight size={15} /></button>
       </div>
       <section className="hero">
