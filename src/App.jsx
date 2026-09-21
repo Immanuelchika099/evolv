@@ -593,7 +593,7 @@ function ArticlePage({ article, onStart, onBack }) {
   )
 }
 
-function Onboarding({ step, setStep, data, setData, onFinish, onHome }) {
+function Onboarding({ step, setStep, data, setData, onFinish }) {
   const journey = [
     { label: 'THE BEGINNING', title: <>Before you build<br /><em>your next chapter.</em></>, copy: 'EVOLV starts with a simple question: what would you change if you actually had a place to work on it?', type: 'intro' },
     { label: 'MAKE IT YOURS', title: <>First, what should<br /><em>we call you?</em></>, copy: 'This becomes your space. Nothing here is about becoming someone else — it is about becoming more of who you want to be.', type: 'name' },
@@ -623,13 +623,12 @@ function Onboarding({ step, setStep, data, setData, onFinish, onHome }) {
 
   function back() {
     if (step > 0) setStep(step - 1)
-    else onHome()
   }
 
   return (
     <div className="page-enter onboarding">
       <header className="onboard-head">
-        <Brand />
+        <button className="onboard-brand" onClick={() => setStep(0)} aria-label="Return to beginning of journey"><Brand /></button>
         <div className="step-count">{step === 0 ? 'START' : `0${step} / 0${total - 1}`}</div>
       </header>
 
