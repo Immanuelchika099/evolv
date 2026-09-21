@@ -781,3 +781,38 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border:1px solid #f3f1ea!important;
   color:#090909!important;
 }
+
+/* Final landing navbar treatment */
+.landing-nav .nav-links a,
+.landing-nav .nav-links button{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background:none!important;
+  background-color:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+  border-radius:0!important;
+  color:#85837f!important;
+}
+.landing-nav .nav-links a:hover,
+.landing-nav .nav-links button:hover{
+  background:none!important;
+  background-color:transparent!important;
+  color:#f2f1eb!important;
+}
+.landing-nav .nav-login{
+  appearance:none!important;
+  -webkit-appearance:none!important;
+  background:#f3f1ea!important;
+  background-color:#f3f1ea!important;
+  border:1px solid #f3f1ea!important;
+  box-shadow:none!important;
+  color:#090909!important;
+}
+.landing-nav .menu-button{
+  background:transparent!important;
+  background-color:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+}
