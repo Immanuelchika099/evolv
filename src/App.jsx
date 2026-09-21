@@ -191,23 +191,106 @@ function ArticlePage({ article, onStart, onBack }) {
   const area = growthAreas.find(a => a.id === article?.areaId)
   const title = isFeatures ? 'The system behind your becoming.' : area?.title || 'Growth areas'
   const eyebrow = isFeatures ? '03 — THE SYSTEM' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
-  const intro = isFeatures ? 'EVOLV turns vague intention into a rhythm you can actually live with.' : `${area?.text || 'A space for the part of your life you want to move forward.'}. Growth becomes easier to navigate when you give it a direction.`
-  const sections = isFeatures ? [
-    ['DEFINE', 'Start with what matters. Choose the season, the direction and the outcome you want to move toward.'],
-    ['BUILD', 'Break intention into actions that are small enough to begin and meaningful enough to matter.'],
-    ['TRACK', 'See what you did, where momentum is building and where you have been drifting.'],
-    ['EVOLVE', 'Reflect on what changed, adjust the plan and keep moving without starting from zero.'],
-  ] : [
-    ['WHY IT MATTERS', `Your ${area?.title?.toLowerCase() || 'growth'} does not need to be perfect to be meaningful. It needs a clear place in your bigger picture.`],
-    ['MAKE IT VISIBLE', 'Turn the thing you keep thinking about into goals, actions and visible progress you can return to.'],
-    ['KEEP MOVING', 'Use your momentum as feedback. Change the target when your life changes, not because you stopped caring.'],
+
+  const featureSections = [
+    {
+      heading: 'DEFINE',
+      title: 'Give the goal a real shape.',
+      text: '“I want to get better at coding” sounds motivating until Monday arrives and you do not know what to work on. EVOLV helps turn that thought into something concrete — for example, building one backend project, learning one concept, or finishing one lesson this week.'
+    },
+    {
+      heading: 'BUILD',
+      title: 'Make progress small enough to start.',
+      text: 'Big goals become easier when they stop asking for your whole life at once. Instead of “I need to become financially stable,” you might start with “find one freelance opportunity this week” or “save my first ₦20,000.” Small actions create something you can actually repeat.'
+    },
+    {
+      heading: 'TRACK',
+      title: 'Let your progress become visible.',
+      text: 'Most people remember the days they failed and forget the days they showed up. Tracking gives you a different picture. You can look back and see that you studied four times, finished two tasks, or moved a project forward even when the result was not immediate.'
+    },
+    {
+      heading: 'EVOLVE',
+      title: 'Change the plan without abandoning yourself.',
+      text: 'Life changes. A goal that made sense three months ago may not fit anymore. EVOLV is built around adjustment, not perfection — review what is working, change what is not, and keep moving without feeling like you are starting from zero.'
+    },
   ]
+
+  const areaContent = {
+    career: {
+      intro: 'A career is rarely changed by one dramatic decision. It is usually shaped by the skills you build, the opportunities you notice and the work you keep showing up for.',
+      sections: [
+        ['WHY IT MATTERS', 'Maybe you know you want a better career but cannot explain what “better” means yet. Start there. More income, meaningful work, remote opportunities, leadership, independence — your definition gives your next step somewhere to go.'],
+        ['MAKE IT VISIBLE', 'Imagine wanting to move into software engineering. Instead of keeping “learn coding” in your head for another year, turn it into visible steps: finish a JavaScript course, build a project, publish it, improve your CV and reach out to potential clients.'],
+        ['KEEP MOVING', 'Your first opportunity may not be your dream role. Your first project may not be impressive. That is normal. The point is to create evidence that you are moving — one skill, project, application or conversation at a time.'],
+      ]
+    },
+    skills: {
+      intro: 'Skills change what you are capable of doing. Whether you are learning to code, design, communicate or manage money, the goal is not simply to consume information — it is to become able to do something you could not do before.',
+      sections: [
+        ['WHY IT MATTERS', 'There is a difference between watching ten tutorials and being able to build something yourself. Real growth happens when learning starts changing what you can actually do.'],
+        ['MAKE IT VISIBLE', 'Say you want to learn backend development. Instead of “learn Express,” give yourself proof: build a small API, connect it to a database, create authentication and deploy it. Now your learning has become something real.'],
+        ['KEEP MOVING', 'You will forget things. You will get stuck. You will write code that breaks. That is part of learning. Keep a record of what you attempted and what you solved, because competence is built through repeated contact with difficult things.'],
+      ]
+    },
+    money: {
+      intro: 'Money goals become less overwhelming when they stop being one giant number in your head and become decisions you can make today.',
+      sections: [
+        ['WHY IT MATTERS', '“I want to be rich” is difficult to act on. “I want to earn my first ₦100,000 from a skill” is much clearer. A useful money goal gives you a target, a reason and a next action.'],
+        ['MAKE IT VISIBLE', 'Maybe you want to start earning online. Your first month might be about creating one strong service, building two examples, contacting ten relevant prospects and tracking what happens. That is far more actionable than simply hoping for more income.'],
+        ['KEEP MOVING', 'Income can be inconsistent at the beginning. A quiet week does not automatically mean the plan failed. Look at what you can control — your offer, skills, outreach, spending and saving — then adjust based on what you learn.'],
+      ]
+    },
+    life: {
+      intro: 'Personal growth is not only about work. Sometimes the goal is simply to create a life that feels more intentional, organised and genuinely yours.',
+      sections: [
+        ['WHY IT MATTERS', 'You might want to read more, spend less time scrolling, travel, reconnect with people, organise your week or finally start a project you keep postponing. These goals matter because they shape how your ordinary days feel.'],
+        ['MAKE IT VISIBLE', 'Instead of “I need to get my life together,” choose something you can see. Plan your week every Sunday. Read ten pages a day. Spend one evening without social media. Finish the thing you have been delaying.'],
+        ['KEEP MOVING', 'A good life is not built from perfect weeks. Some weeks will be messy. The useful question is not “Did I do everything?” but “What is the next small thing that would move me back in the direction I want?”'],
+      ]
+    },
+    health: {
+      intro: 'Health is built in ordinary moments: the meal you choose, the walk you take, the sleep you protect and the habits you return to when life gets busy.',
+      sections: [
+        ['WHY IT MATTERS', 'You do not need an extreme transformation to start taking better care of yourself. A healthier routine can begin with something as ordinary as getting consistent sleep, moving your body more or making time to recover.'],
+        ['MAKE IT VISIBLE', 'If your goal is to feel more energetic, turn that into actions you can actually see: walk three times this week, prepare better meals, drink enough water or create a consistent bedtime. The point is to make the intention measurable.'],
+        ['KEEP MOVING', 'Missing a day does not erase the days you did well. Avoid the all-or-nothing mindset. Return to the routine, learn what interrupted it and make the next version easier to maintain.'],
+      ]
+    },
+    creative: {
+      intro: 'Creative work often stays trapped in ideas because there is always a reason to wait: better equipment, more time, more confidence or a better idea. Progress begins when the work leaves your head.',
+      sections: [
+        ['WHY IT MATTERS', 'Maybe you want to start a brand, make music, write, design, build an app or create content. The idea becomes real only when you give it a place in your schedule and allow yourself to make imperfect versions.'],
+        ['MAKE IT VISIBLE', 'Instead of “start my brand,” define the next evidence of progress: choose the name, create three concepts, publish the first piece, build the landing page or show the idea to someone. Each step turns imagination into something other people can see.'],
+        ['KEEP MOVING', 'Your early work may not look like the work you eventually become proud of. That is not a reason to hide it. Make, review, improve and make again. Creative confidence usually grows after the work, not before it.'],
+      ]
+    }
+  }
+
+  const content = isFeatures
+    ? {
+        intro: 'Growth sounds simple until real life gets in the way. EVOLV gives your intentions a structure you can return to when motivation fades, plans change and the week gets busy.',
+        sections: featureSections
+      }
+    : (areaContent[article?.areaId] || {
+        intro: 'Whatever you are working toward, progress becomes easier to understand when you give it a direction and a next step.',
+        sections: [
+          ['WHY IT MATTERS', 'Give this part of your life a clear place in the bigger picture.'],
+          ['MAKE IT VISIBLE', 'Turn an idea into a goal you can act on and return to.'],
+          ['KEEP MOVING', 'Use what you learn to adjust the next step rather than giving up.'],
+        ]
+      })
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.from('.article-kicker,.article-title,.article-intro,.article-back', { y: 35, opacity: 0, duration: .9, stagger: .08, ease: 'power3.out' })
-      gsap.utils.toArray('.article-block').forEach((el) => gsap.from(el, { y: 70, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
-      gsap.to('.article-orb', { y: -22, rotation: 8, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' })
+      gsap.from('.article-kicker,.article-title,.article-intro,.article-back', {
+        y: 35, opacity: 0, duration: .9, stagger: .08, ease: 'power3.out'
+      })
+      gsap.utils.toArray('.article-block').forEach((el) => {
+        gsap.from(el, {
+          y: 55, opacity: 0, duration: .8, ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 86%' }
+        })
+      })
     })
     return () => ctx.revert()
   }, [])
@@ -219,14 +302,54 @@ function ArticlePage({ article, onStart, onBack }) {
         <Brand />
         <button className="article-start" onClick={onStart}>Start evolving <ArrowRight size={15}/></button>
       </nav>
+
       <header className="article-hero">
-        <div className="article-hero-copy"><span className="section-label article-kicker">{eyebrow}</span><h1 className="article-title">{title}</h1><p className="article-intro">{intro}</p></div>
-        <div className="article-visual"><div className="article-orb"/><span>{isFeatures ? 'DEFINE / BUILD / TRACK / EVOLVE' : area?.title?.toUpperCase()}</span></div>
+        <div className="article-hero-copy">
+          <span className="section-label article-kicker">{eyebrow}</span>
+          <h1 className="article-title">{title}</h1>
+          <p className="article-intro">{content.intro}</p>
+        </div>
       </header>
+
       <main className="article-body">
-        <div className="article-lead article-block"><span>01</span><p>{isFeatures ? 'A growth system should not ask you to become a different person overnight. It should help you make the next move visible.' : `This is where ${area?.title?.toLowerCase() || 'growth'} becomes intentional — not another thing to feel guilty about, but something you can actively shape.`}</p></div>
-        <div className="article-grid">{sections.map(([heading, text], i) => <article className="article-block article-content-card" key={heading}><span>0{i + 2}</span><h2>{heading}</h2><p>{text}</p></article>)}</div>
-        <section className="article-end article-block"><span className="section-label">THE NEXT MOVE</span><h2>Make it visible.<br/><em>Then make it real.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17}/></button></section>
+        <div className="article-lead article-block">
+          <span>01</span>
+          <p>{isFeatures
+            ? 'The point is not to become obsessed with productivity. It is to stop letting important goals disappear into the noise of everyday life.'
+            : `Your ${area?.title?.toLowerCase() || 'growth'} deserves more than a vague promise to “do better.” Give it a direction, then give yourself a way to see that you are moving.`}
+          </p>
+        </div>
+
+        <div className="article-grid">
+          {content.sections.map(([heading, text], i) => {
+            const item = isFeatures ? { heading, text } : { heading, text }
+            return (
+              <article className="article-block article-content-card" key={heading}>
+                <span>0{i + 2}</span>
+                <h2>{item.heading}</h2>
+                <p>{item.text}</p>
+              </article>
+            )
+          })}
+        </div>
+
+        <section className="article-example article-block">
+          <span className="section-label">REAL LIFE</span>
+          <h2>{isFeatures
+            ? 'From “I should” to “I did.”'
+            : `What this could look like in ${area?.title?.toLowerCase() || 'your life'}.`}
+          </h2>
+          <p>{isFeatures
+            ? 'You open your notes and see “learn backend.” Three months later, nothing has changed. With a visible system, that idea can become: finish one lesson tonight → build a small API this weekend → connect a database next week → publish the project → look for the next opportunity. The goal did not change. Your relationship with it did.'
+            : `The difference is often surprisingly small. Instead of keeping “I want to improve my ${area?.title?.toLowerCase() || 'life'}” as a thought, choose one thing you can do this week, record it, and return to it. Over time, those small pieces become evidence that your life is actually changing.`}
+          </p>
+        </section>
+
+        <section className="article-end article-block">
+          <span className="section-label">THE NEXT MOVE</span>
+          <h2>Make it visible.<br/><em>Then make it real.</em></h2>
+          <button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17}/></button>
+        </section>
       </main>
     </div>
   )
