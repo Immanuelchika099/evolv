@@ -331,3 +331,16 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   }
   .contact-modal h2{font-size:clamp(46px,13vw,66px)}
 }
+
+
+/* Prevent iOS Safari from auto-zooming contact fields on focus */
+.contact-fields input,
+.contact-fields textarea{
+  -webkit-text-size-adjust:100%;
+}
+@media(max-width:800px){
+  .contact-fields input,
+  .contact-fields textarea{
+    font-size:16px!important;
+  }
+}
