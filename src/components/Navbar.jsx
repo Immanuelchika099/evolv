@@ -20,6 +20,7 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
   useEffect(() => {
     function handleScroll() {
       const current = window.scrollY
+      if (open) return
       if (current < 40) setVisible(true)
       else if (current > lastScroll.current + 3) {
         setVisible(false)
@@ -28,7 +29,11 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  }, [open])
+
+  useEffect(() => {
+    if (open) setVisible(true)
+  }, [open])
 
   function close() { setMenuOpen(false) }
 
@@ -44,7 +49,7 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
 
   return (
     <>
-      <nav className={visible ? 'evolv-nav is-visible' : 'evolv-nav is-hidden'}>
+      <nav className={open ? 'evolv-nav is-menu-open' : (visible ? 'evolv-nav is-visible' : 'evolv-nav is-hidden')}>
         <Brand />
         <div className="evolv-nav-links" aria-label="Primary navigation">
           <a href="#story">Why EVOLV</a>
