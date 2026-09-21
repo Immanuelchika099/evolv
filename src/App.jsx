@@ -40,8 +40,17 @@ function App() {
 
   function enterApp() {
     setArticle(null)
+    setStep(0)
     localStorage.setItem('evolv-view', 'onboarding')
     setView('onboarding')
+  }
+
+  function returnHome() {
+    setArticle(null)
+    setStep(0)
+    localStorage.setItem('evolv-view', 'landing')
+    setView('landing')
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   function openArticle(type, areaId = null) {
@@ -79,6 +88,7 @@ function App() {
           data={data}
           setData={setData}
           onFinish={finishOnboarding}
+          onHome={returnHome}
         />
       )}
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} />}
@@ -103,28 +113,12 @@ function Landing({ onStart, onArticle }) {
         .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
         .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
         .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
-
       gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
-      gsap.utils.toArray('.story-reveal').forEach((el) => {
-        gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } })
-      })
-      gsap.utils.toArray('.area').forEach((el, i) => {
-        gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } })
-      })
-
-      gsap.utils.toArray('.feature-card').forEach((card, i) => {
-        gsap.fromTo(card,
-          { y: 90, scale: .92, opacity: 0 },
-          { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: {
-            trigger: card,
-            start: 'top 88%',
-            end: 'top 55%',
-            scrub: 1.1,
-          } }
-        )
-      })
+      gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
+      gsap.utils.toArray('.area').forEach((el, i) => gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } }))
+      gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
     }, page)
     return () => ctx.revert()
   }, [])
@@ -134,10 +128,8 @@ function Landing({ onStart, onArticle }) {
     function handleScroll() {
       const currentScroll = window.scrollY
       if (currentScroll < 40) setNavVisible(true)
-      else if (currentScroll > lastScroll + 3) {
-        setNavVisible(false)
-        setMenuOpen(false)
-      } else if (currentScroll < lastScroll - 3) setNavVisible(true)
+      else if (currentScroll > lastScroll + 3) { setNavVisible(false); setMenuOpen(false) }
+      else if (currentScroll < lastScroll - 3) setNavVisible(true)
       lastScroll = currentScroll
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -160,14 +152,12 @@ function Landing({ onStart, onArticle }) {
           <button type="button" className={menuOpen ? 'menu-button menu-open' : 'menu-button'} onClick={() => setMenuOpen(prev => !prev)} aria-label={menuOpen ? 'Close menu' : 'Open menu'} aria-expanded={menuOpen}><span /><span /></button>
         </div>
       </nav>
-
       <div className={menuOpen ? 'mobile-menu open' : 'mobile-menu'}>
         <a href="#story" onClick={closeMenu}>Why EVOLV</a>
         <button onClick={() => { closeMenu(); onArticle('features') }}>Features</button>
         <button onClick={() => { closeMenu(); onArticle('areas') }}>Growth areas</button>
         <button onClick={() => { closeMenu(); onStart() }}>Get started <ArrowRight size={15} /></button>
       </div>
-
       <section className="hero">
         <div className="hero-copy">
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
@@ -177,31 +167,20 @@ function Landing({ onStart, onArticle }) {
         </div>
         <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR MOMENTUM</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
-
       <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
-
       <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
-
       <section className="features-story story-reveal" id="features">
         <div className="section-heading"><span className="section-label">03 — THE SYSTEM</span><p>A simple rhythm for becoming.</p></div>
-        <div className="feature-steps">
-          {[['01','DEFINE','Decide what matters in this season of your life.'],['02','BUILD','Turn intention into goals you can actually act on.'],['03','TRACK','See your momentum, progress and patterns over time.'],['04','EVOLVE','Reflect, adjust and keep becoming your next self.']].map(([num,title,text]) => <article className="feature-step feature-card" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight size={17} /></article>)}
-        </div>
+        <div className="feature-steps">{[['01','DEFINE','Decide what matters in this season of your life.'],['02','BUILD','Turn intention into goals you can actually act on.'],['03','TRACK','See your momentum, progress and patterns over time.'],['04','EVOLVE','Reflect, adjust and keep becoming your next self.']].map(([num,title,text]) => <article className="feature-step feature-card" key={num}><span>{num}</span><div><h3>{title}</h3><p>{text}</p></div><ArrowRight size={17} /></article>)}</div>
       </section>
-
       <section className="experience story-reveal">
         <div className="preview-copy"><span className="section-label">04 — YOUR SPACE</span><h2>A dashboard built around <em>your becoming.</em></h2><p>Once you enter EVOLV, everything becomes personal — your goals, your growth areas, your momentum and the story you're building day by day.</p><button className="button button-primary" onClick={onStart}>Create your space <ArrowRight size={16} /></button></div>
         <div className="mock-dashboard"><div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR MOMENTUM</span></div><div className="mock-main"><div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div><div className="mock-tasks"><div><small>CURRENT FOCUS</small><b>Build with intention.</b></div><div className="task"><i /> Learn something new <span>IN PROGRESS</span></div><div className="task"><i /> Show up today <span>ACTIVE</span></div><div className="task"><i /> Review the week <span>FRI</span></div></div></div></div>
       </section>
-
       <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id} onClick={() => onArticle('area', a.id)} role="button" tabIndex="0"><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
-
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
-
       <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
-
       <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
-
       <footer className="site-footer"><div className="footer-brand"><Brand /><p>Track your growth.<br />Become your next self.</p></div><div className="footer-links"><div><span>EXPLORE</span><a href="#story">Why EVOLV</a><button onClick={() => onArticle('features')}>Features</button><button onClick={() => onArticle('areas')}>Growth areas</button><a href="#faq">FAQ</a></div><div><span>CONNECT</span><a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.6"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a></div></div><div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div></footer>
     </div>
   )
@@ -212,28 +191,22 @@ function ArticlePage({ article, onStart, onBack }) {
   const area = growthAreas.find(a => a.id === article?.areaId)
   const title = isFeatures ? 'The system behind your becoming.' : area?.title || 'Growth areas'
   const eyebrow = isFeatures ? '03 — THE SYSTEM' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
-  const intro = isFeatures
-    ? 'EVOLV turns vague intention into a rhythm you can actually live with.'
-    : `${area?.text || 'A space for the part of your life you want to move forward.'}. Growth becomes easier to navigate when you give it a direction.`
-  const sections = isFeatures
-    ? [
-        ['DEFINE', 'Start with what matters. Choose the season, the direction and the outcome you want to move toward.'],
-        ['BUILD', 'Break intention into actions that are small enough to begin and meaningful enough to matter.'],
-        ['TRACK', 'See what you did, where momentum is building and where you have been drifting.'],
-        ['EVOLVE', 'Reflect on what changed, adjust the plan and keep moving without starting from zero.'],
-      ]
-    : [
-        ['WHY IT MATTERS', `Your ${area?.title?.toLowerCase() || 'growth'} does not need to be perfect to be meaningful. It needs a clear place in your bigger picture.`],
-        ['MAKE IT VISIBLE', 'Turn the thing you keep thinking about into goals, actions and visible progress you can return to.'],
-        ['KEEP MOVING', 'Use your momentum as feedback. Change the target when your life changes, not because you stopped caring.'],
-      ]
+  const intro = isFeatures ? 'EVOLV turns vague intention into a rhythm you can actually live with.' : `${area?.text || 'A space for the part of your life you want to move forward.'}. Growth becomes easier to navigate when you give it a direction.`
+  const sections = isFeatures ? [
+    ['DEFINE', 'Start with what matters. Choose the season, the direction and the outcome you want to move toward.'],
+    ['BUILD', 'Break intention into actions that are small enough to begin and meaningful enough to matter.'],
+    ['TRACK', 'See what you did, where momentum is building and where you have been drifting.'],
+    ['EVOLVE', 'Reflect on what changed, adjust the plan and keep moving without starting from zero.'],
+  ] : [
+    ['WHY IT MATTERS', `Your ${area?.title?.toLowerCase() || 'growth'} does not need to be perfect to be meaningful. It needs a clear place in your bigger picture.`],
+    ['MAKE IT VISIBLE', 'Turn the thing you keep thinking about into goals, actions and visible progress you can return to.'],
+    ['KEEP MOVING', 'Use your momentum as feedback. Change the target when your life changes, not because you stopped caring.'],
+  ]
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       gsap.from('.article-kicker,.article-title,.article-intro,.article-back', { y: 35, opacity: 0, duration: .9, stagger: .08, ease: 'power3.out' })
-      gsap.utils.toArray('.article-block').forEach((el, i) => {
-        gsap.from(el, { y: 70, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } })
-      })
+      gsap.utils.toArray('.article-block').forEach((el) => gsap.from(el, { y: 70, opacity: 0, duration: .8, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       gsap.to('.article-orb', { y: -22, rotation: 8, duration: 6, repeat: -1, yoyo: true, ease: 'sine.inOut' })
     })
     return () => ctx.revert()
@@ -247,11 +220,7 @@ function ArticlePage({ article, onStart, onBack }) {
         <button className="article-start" onClick={onStart}>Start evolving <ArrowRight size={15}/></button>
       </nav>
       <header className="article-hero">
-        <div className="article-hero-copy">
-          <span className="section-label article-kicker">{eyebrow}</span>
-          <h1 className="article-title">{title}</h1>
-          <p className="article-intro">{intro}</p>
-        </div>
+        <div className="article-hero-copy"><span className="section-label article-kicker">{eyebrow}</span><h1 className="article-title">{title}</h1><p className="article-intro">{intro}</p></div>
         <div className="article-visual"><div className="article-orb"/><span>{isFeatures ? 'DEFINE / BUILD / TRACK / EVOLVE' : area?.title?.toUpperCase()}</span></div>
       </header>
       <main className="article-body">
@@ -263,10 +232,10 @@ function ArticlePage({ article, onStart, onBack }) {
   )
 }
 
-function Onboarding({ step, setStep, data, setData, onFinish }) {
+function Onboarding({ step, setStep, data, setData, onFinish, onHome }) {
   const total = 4
   const next = () => step < total - 1 ? setStep(step + 1) : onFinish()
-  const back = () => step > 0 && setStep(step - 1)
+  const back = () => step > 0 ? setStep(step - 1) : onHome()
   const canContinue = [data.name.trim(), data.areas.length, data.focus, data.goal.trim()][step]
 
   return (
@@ -274,7 +243,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
       <header className="onboard-head"><Brand /><div className="step-count">0{step + 1} / 0{total}</div></header>
       <div className="progress-track"><i style={{ width: `${((step + 1) / total) * 100}%` }} /></div>
       <section className="onboard-content">
-        <button className="back-button" onClick={back} disabled={step === 0}><ChevronLeft size={16}/> Back</button>
+        <button className="back-button" onClick={back}><ChevronLeft size={16}/> Back</button>
         {step === 0 && <div className="onboard-step"><span className="section-label">LET'S BEGIN</span><h1>First, what should<br /><em>we call you?</em></h1><p>This is your space. Make it feel personal.</p><input autoFocus value={data.name} onChange={e=>setData({...data,name:e.target.value})} placeholder="Your first name" /></div>}
         {step === 1 && <div className="onboard-step wide"><span className="section-label">YOUR WORLD</span><h1>What are you<br /><em>working on?</em></h1><p>Select the areas you want EVOLV to help you move forward in.</p><div className="choice-grid">{growthAreas.map(a=><button className={data.areas.includes(a.id)?'choice active':'choice'} key={a.id} onClick={()=>setData({...data,areas:data.areas.includes(a.id)?data.areas.filter(x=>x!==a.id):[...data.areas,a.id]})}><span>{a.title}</span><small>{a.text}</small>{data.areas.includes(a.id)&&<Check size={16}/>}</button>)}</div></div>}
         {step === 2 && <div className="onboard-step"><span className="section-label">YOUR DIRECTION</span><h1>What matters<br /><em>right now?</em></h1><p>Pick the feeling that best describes your current season.</p><div className="focus-list">{['I want more clarity','I want to build discipline','I want to level up','I want to become consistent'].map(x=><button className={data.focus===x?'focus active':'focus'} key={x} onClick={()=>setData({...data,focus:x})}>{x}<ArrowRight size={16}/></button>)}</div></div>}
@@ -289,7 +258,6 @@ function Dashboard({ data, onLogout }) {
   const [active, setActive] = useState('overview')
   const name = data.name || 'there'
   const areaNames = data.areas.map(id => growthAreas.find(a=>a.id===id)?.title).filter(Boolean)
-
   return (
     <div className="page-enter dashboard">
       <aside className="sidebar"><Brand /><nav><button className={active==='overview'?'side-active':''} onClick={()=>setActive('overview')}><TrendingUp size={17}/> Overview</button><button className={active==='goals'?'side-active':''} onClick={()=>setActive('goals')}><Target size={17}/> Goals</button><button className={active==='profile'?'side-active':''} onClick={()=>setActive('profile')}><UserRound size={17}/> Profile</button></nav><button className="logout" onClick={onLogout}><LogOut size={16}/> Sign out</button></aside>
