@@ -357,3 +357,109 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .landing-nav .brand,
 .landing-nav .nav-links,
 .landing-nav .nav-actions{opacity:1!important}
+
+
+/* Refined footer layout */
+.site-footer{
+  width:min(1180px,calc(100% - 48px));
+  margin:0 auto;
+  padding:82px 0 30px;
+  border-top:1px solid #ffffff12;
+  color:#5e5c57;
+  background:transparent!important;
+}
+.footer-brand{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding-bottom:72px;
+}
+.footer-brand p{
+  margin:0;
+  color:#77756f;
+  line-height:1.7;
+  text-align:right;
+}
+.footer-links{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  max-width:430px;
+  margin-left:auto;
+  padding-bottom:58px;
+}
+.footer-links>div{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:13px;
+}
+.footer-links span,
+.footer-bottom{
+  font:9px 'DM Mono';
+  letter-spacing:.14em;
+  color:#4f514d;
+}
+.footer-links a,
+.footer-links button.footer-contact{
+  appearance:none;
+  -webkit-appearance:none;
+  border:0;
+  outline:0;
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#777c76;
+  font:11px Manrope,sans-serif;
+  line-height:1.4;
+  padding:0;
+  margin:0;
+  width:max-content;
+  text-decoration:none;
+  transition:color .2s ease,transform .2s ease;
+}
+.footer-links a:hover,
+.footer-links button.footer-contact:hover{
+  color:#f3f1ea;
+  transform:translateX(2px);
+}
+.footer-contact{
+  display:flex!important;
+  align-items:center;
+  gap:6px;
+  cursor:pointer;
+}
+.footer-links svg{stroke-width:1.5}
+.footer-social{font-family:'DM Mono',monospace!important;letter-spacing:.02em}
+.footer-bottom{
+  border-top:1px solid #ffffff0d;
+  padding-top:22px;
+  display:flex;
+  justify-content:space-between;
+}
+.site-footer .brand{color:#f4f1ea}
+
+@media(max-width:800px){
+  .site-footer{
+    width:calc(100% - 32px);
+    padding-top:58px;
+  }
+  .footer-brand{
+    display:block;
+    padding-bottom:50px;
+  }
+  .footer-brand p{
+    text-align:left;
+    margin-top:22px;
+  }
+  .footer-links{
+    grid-template-columns:1fr 1fr;
+    gap:36px;
+    max-width:none;
+    margin-left:0;
+    padding-bottom:48px;
+  }
+  .footer-bottom{
+    gap:15px;
+    flex-wrap:wrap;
+  }
+}
