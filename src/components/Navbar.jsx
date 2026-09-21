@@ -12,8 +12,8 @@ function Brand() {
   )
 }
 
-export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onContact }) {
-  const [open, setOpen] = useState(false)
+export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onContact, menuOpen, setMenuOpen }) {
+  const open = menuOpen
   const [visible, setVisible] = useState(true)
   const lastScroll = useRef(0)
 
