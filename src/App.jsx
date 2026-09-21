@@ -28,8 +28,6 @@ function App() {
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
   const [article, setArticle] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
-  const [contactOpen, setContactOpen] = useState(false)
-  const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
@@ -46,12 +44,7 @@ function App() {
   }, [view, step])
 
   function openContact() {
-    setContactSent(false)
-    setContactOpen(true)
-  }
-
-  function closeContact() {
-    setContactOpen(false)
+    window.dispatchEvent(new CustomEvent('evolv:open-contact'))
   }
 
   function openPricing() {
@@ -113,7 +106,7 @@ function App() {
     <main ref={root} className="app">
       <div className="noise" />
       <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
+      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
@@ -127,13 +120,6 @@ function App() {
         />
       )}
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} />}
-      {contactOpen && (
-        <ContactModal
-          contactSent={contactSent}
-          setContactSent={setContactSent}
-          onClose={closeContact}
-        />
-      )}
     </main>
   )
 }
@@ -142,8 +128,11 @@ function Brand() {
   return <a className="brand" href="/"><span className="brand-mark"><span /></span><span>EVOLV</span></a>
 }
 
-function Landing({ onStart, onArticle, onPricing, onContact }) {
+function Landing({ onStart, onArticle, onPricing }) {
   const page = useRef(null)
+  const [contactOpen, setContactOpen] = useState(false)
+  const [contactSent, setContactSent] = useState(false)
+
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
@@ -160,6 +149,17 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
     }, page)
     return () => ctx.revert()
+  }, [])
+
+  function openContact() {
+    setContactSent(false)
+    setContactOpen(true)
+  }
+
+  useLayoutEffect(() => {
+    const handler = () => openContact()
+    window.addEventListener('evolv:open-contact', handler)
+    return () => window.removeEventListener('evolv:open-contact', handler)
   }, [])
 
   function submitContact(event) {
@@ -192,43 +192,35 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
       <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
       <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
-      <Footer onContact={openContact} />
-    </div>
-  )
-}
-
-function ContactModal({ contactSent, setContactSent, onClose }) {
-  function submitContact(event) {
-    event.preventDefault()
-    setContactSent(true)
-  }
-
-  return (
-    <div className="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-title" onMouseDown={(e) => { if (e.target === e.currentTarget) onClose() }}>
-      <div className="contact-modal">
-        <button className="contact-close" onClick={onClose} aria-label="Close contact form">×</button>
-        {!contactSent ? (
-          <form onSubmit={submitContact}>
-            <span className="section-label">LET'S TALK</span>
-            <h2 id="contact-title">What are you<br /><em>working on?</em></h2>
-            <p className="contact-copy">Tell us a little about what you have in mind. Keep it simple.</p>
-            <div className="contact-fields">
-              <label><span>Name</span><input required name="name" placeholder="Your name" /></label>
-              <label><span>Email</span><input required type="email" name="email" placeholder="you@example.com" /></label>
-              <label><span>Message</span><textarea required name="message" placeholder="Tell us what you want to build, change or explore..." rows="4" /></label>
-            </div>
-            <button className="button button-primary contact-submit" type="submit">Send message <ArrowRight size={16} /></button>
-          </form>
-        ) : (
-          <div className="contact-success">
-            <span className="contact-success-mark"><Check size={20} /></span>
-            <span className="section-label">MESSAGE READY</span>
-            <h2>Thanks for<br /><em>reaching out.</em></h2>
-            <p>Your message has been captured. The next step is connecting this form to EVOLV's email/backend endpoint.</p>
-            <button className="button button-primary" onClick={onClose}>Back to EVOLV <ArrowRight size={16} /></button>
+      {contactOpen && (
+        <div className="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-title" onMouseDown={(e) => { if (e.target === e.currentTarget) setContactOpen(false) }}>
+          <div className="contact-modal">
+            <button className="contact-close" onClick={() => setContactOpen(false)} aria-label="Close contact form">×</button>
+            {!contactSent ? (
+              <form onSubmit={submitContact}>
+                <span className="section-label">LET'S TALK</span>
+                <h2 id="contact-title">What are you<br /><em>working on?</em></h2>
+                <p className="contact-copy">Tell us a little about what you have in mind. Keep it simple.</p>
+                <div className="contact-fields">
+                  <label><span>Name</span><input required name="name" placeholder="Your name" /></label>
+                  <label><span>Email</span><input required type="email" name="email" placeholder="you@example.com" /></label>
+                  <label><span>Message</span><textarea required name="message" placeholder="Tell us what you want to build, change or explore..." rows="4" /></label>
+                </div>
+                <button className="button button-primary contact-submit" type="submit">Send message <ArrowRight size={16} /></button>
+              </form>
+            ) : (
+              <div className="contact-success">
+                <span className="contact-success-mark"><Check size={20} /></span>
+                <span className="section-label">MESSAGE READY</span>
+                <h2>Thanks for<br /><em>reaching out.</em></h2>
+                <p>Your message has been captured. The next step is connecting this form to EVOLV's email/backend endpoint.</p>
+                <button className="button button-primary" onClick={() => setContactOpen(false)}>Back to EVOLV <ArrowRight size={16} /></button>
+              </div>
+            )}
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      <Footer onContact={openContact} />
     </div>
   )
 }
@@ -261,6 +253,12 @@ function PricingPage({ onStart, onBack }) {
 
   return (
     <div className="pricing-page page-enter">
+      <nav className="pricing-nav">
+        <button className="pricing-back" onClick={onBack}><ChevronLeft size={16}/> Back to EVOLV</button>
+        <Brand />
+        <button className="pricing-start" onClick={onStart}>Get started <ArrowRight size={15}/></button>
+      </nav>
+
       <header className="pricing-hero">
         <span className="section-label">PLANS & PRICING</span>
         <h1>Choose the space<br /><em>you want to grow in.</em></h1>
@@ -418,6 +416,12 @@ function ArticlePage({ article, onStart, onBack }) {
 
   return (
     <div className="article-page">
+      <nav className="article-nav">
+        <button className="article-back" onClick={onBack}><ChevronLeft size={16}/> Back to EVOLV</button>
+        <Brand />
+        <button className="article-start" onClick={onStart}>Start evolving <ArrowRight size={15}/></button>
+      </nav>
+
       <header className="article-hero">
         <div className="article-hero-copy">
           <span className="section-label article-kicker">{eyebrow}</span>
