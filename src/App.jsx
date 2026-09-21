@@ -111,7 +111,7 @@ function App() {
     <main ref={root} className="app">
       <div className="noise" />
       <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
-      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}
+      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
@@ -140,7 +140,7 @@ function Brand() {
   return <a className="brand" href="/"><span className="brand-mark"><span /></span><span>EVOLV</span></a>
 }
 
-function Landing({ onStart, onArticle, onPricing }) {
+function Landing({ onStart, onArticle, onPricing, onContact }) {
   const page = useRef(null)
   const [contactOpen, setContactOpen] = useState(false)
   const [contactSent, setContactSent] = useState(false)
