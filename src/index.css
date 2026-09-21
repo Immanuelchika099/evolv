@@ -816,3 +816,43 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:transparent!important;
   box-shadow:none!important;
 }
+
+/* Navbar links are text-only; Get started is the sole filled control */
+.landing-nav .nav-links > a,
+.landing-nav .nav-links > button {
+  display:inline-flex!important;
+  align-items:center!important;
+  padding:0!important;
+  margin:0!important;
+  min-width:0!important;
+  width:auto!important;
+  height:auto!important;
+  border:0!important;
+  outline:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  color:#85837f!important;
+  appearance:none!important;
+  -webkit-appearance:none!important;
+}
+.landing-nav .nav-links > a:hover,
+.landing-nav .nav-links > button:hover,
+.landing-nav .nav-links > a:focus,
+.landing-nav .nav-links > button:focus,
+.landing-nav .nav-links > a:active,
+.landing-nav .nav-links > button:active {
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  outline:0!important;
+}
+.landing-nav .nav-actions .nav-login {
+  padding:10px 14px!important;
+  border-radius:999px!important;
+  background:#f3f1ea!important;
+  background-image:none!important;
+  border:1px solid #f3f1ea!important;
+  color:#090909!important;
+}
