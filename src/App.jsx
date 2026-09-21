@@ -78,6 +78,7 @@ function Brand() {
 function Landing({ onStart }) {
   const page = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [navVisible, setNavVisible] = useState(true)
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -102,11 +103,26 @@ function Landing({ onStart }) {
     return () => ctx.revert()
   }, [])
 
+  useLayoutEffect(() => {
+    let lastScroll = window.scrollY
+    function handleScroll() {
+      const currentScroll = window.scrollY
+      if (currentScroll < 40) setNavVisible(true)
+      else if (currentScroll > lastScroll + 3) {
+        setNavVisible(false)
+        setMenuOpen(false)
+      } else if (currentScroll < lastScroll - 3) setNavVisible(true)
+      lastScroll = currentScroll
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   function closeMenu() { setMenuOpen(false) }
 
   return (
     <div ref={page} className="page-enter landing">
-      <nav className="landing-nav nav">
+      <nav className={navVisible ? "landing-nav nav nav-visible" : "landing-nav nav nav-hidden"}>
         <Brand />
         <div className="nav-links">
           <a href="#story">Why EVOLV</a>
