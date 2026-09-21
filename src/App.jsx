@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound } from 'lucide-react'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -214,26 +215,7 @@ function Landing({ onStart, onArticle, onPricing }) {
           </div>
         </div>
       )}
-      <footer className="site-footer">
-        <div className="footer-brand">
-          <Brand />
-          <p>Track your growth.<br />Become your next self.</p>
-        </div>
-        <div className="footer-links">
-          <div>
-            <span>EXPLORE</span>
-            <a href="#story">About EVOLV</a>
-            <a href="#faq">Terms of Service</a>
-            <a href="#faq">Privacy Policy</a>
-          </div>
-          <div>
-            <span>CONNECT</span>
-            <a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" className="footer-social">@hi_imanw</a>
-            <button type="button" className="footer-contact" onClick={openContact}>Contact <ArrowRight size={13} /></button>
-          </div>
-        </div>
-        <div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div>
-      </footer>
+      <Footer onContact={openContact} />
     </div>
   )
 }
