@@ -1158,3 +1158,22 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   transform:scaleX(1.08);
 }
 .onboarding .back-button svg{flex:none;stroke-width:1.5}
+
+.onboarding .onboard-head-actions{display:flex;align-items:center;gap:22px}
+.onboarding .exit-journey{
+  appearance:none;
+  border:0;
+  background:none;
+  padding:5px 0;
+  color:#59615b;
+  font:9px 'DM Mono';
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  cursor:pointer;
+  transition:color .25s ease,opacity .25s ease;
+}
+.onboarding .exit-journey:hover{color:#dce3d9}
+@media(max-width:800px){
+  .onboarding .onboard-head-actions{gap:14px}
+  .onboarding .exit-journey{font-size:8px}
+}
