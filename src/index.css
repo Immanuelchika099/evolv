@@ -105,3 +105,40 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:
 /* Prevent accidental horizontal page scrolling */
 html,body,#root{max-width:100%;overflow-x:hidden}
 .app{max-width:100%;overflow-x:hidden}
+
+
+/* Section 03 — individual cinematic cards */
+.features-story .section-heading{border-bottom:0}
+.feature-steps{gap:14px;margin-top:34px}
+.feature-step.feature-card{
+  min-height:250px;
+  padding:30px;
+  border:1px solid #ffffff12!important;
+  border-radius:22px;
+  background:linear-gradient(145deg,#ffffff09,#ffffff03);
+  box-shadow:0 24px 70px #00000035;
+  display:grid;
+  grid-template-columns:42px 1fr 20px;
+  align-content:space-between;
+  gap:18px;
+  overflow:hidden;
+  transform-origin:center bottom;
+  will-change:transform,opacity;
+  transition:border-color .35s ease,background .35s ease,box-shadow .35s ease;
+}
+.feature-step.feature-card:nth-child(odd){border-right:1px solid #ffffff12!important}
+.feature-step.feature-card:hover{
+  border-color:#9fcf5835!important;
+  background:linear-gradient(145deg,#9fcf580b,#ffffff03);
+  box-shadow:0 30px 90px #00000055;
+}
+.feature-step.feature-card>span{color:#697168}
+.feature-step.feature-card h3{font-size:34px;margin-top:45px}
+.feature-step.feature-card p{max-width:340px}
+.feature-step.feature-card>svg{color:#6f7770;transition:transform .35s ease,color .35s ease}
+.feature-step.feature-card:hover>svg{transform:translateX(5px);color:var(--accent)}
+@media(max-width:800px){
+  .feature-steps{gap:12px}
+  .feature-step.feature-card,.feature-step.feature-card:nth-child(odd){min-height:205px;padding:24px;border-right:1px solid #ffffff12!important}
+  .feature-step.feature-card h3{font-size:29px;margin-top:30px}
+}
