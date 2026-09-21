@@ -26,7 +26,8 @@ const initialData = {
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
-  const [article, setArticle] = useState(null)\n  const [menuOpen, setMenuOpen] = useState(false)
+  const [article, setArticle] = useState(null)
+  const [menuOpen, setMenuOpen] = useState(false)
   const [step, setStep] = useState(0)
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
