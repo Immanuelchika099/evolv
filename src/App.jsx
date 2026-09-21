@@ -56,6 +56,16 @@ function App() {
   }
 
   function openArticle(type, areaId = null) {
+    if (type === 'features') {
+      setArticle(null)
+      localStorage.setItem('evolv-view', 'landing')
+      setView('landing')
+      window.setTimeout(() => {
+        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      }, 0)
+      return
+    }
+
     setArticle({ type, areaId })
     setView('article')
     window.scrollTo({ top: 0, behavior: 'instant' })
