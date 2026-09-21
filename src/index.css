@@ -1096,3 +1096,23 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .auth-content h1{font-size:clamp(44px,13vw,72px)}
   .auth-submit{width:100%;justify-content:center}
 }
+/* Immersive onboarding navigation */
+.onboarding .onboard-head{position:relative;z-index:5;margin:0 auto;width:min(1180px,calc(100% - 48px));padding:28px 0 0}
+.onboarding .onboard-brand{background:none;border:0;padding:0;color:inherit;cursor:pointer;display:inline-flex;align-items:center}
+.onboarding .onboard-brand .evolv-brand{pointer-events:none}
+.onboarding .onboard-progress{position:relative;z-index:4;width:min(1180px,calc(100% - 48px));margin:20px auto 0;height:1px;background:#ffffff12;overflow:hidden}
+.onboarding .onboard-progress i{display:block;height:100%;background:#dfe7d8;transition:width .7s cubic-bezier(.22,1,.36,1)}
+.onboarding .onboard-content{position:relative;z-index:2;width:min(1180px,calc(100% - 48px));margin:0 auto;padding:42px 0 90px}
+.onboarding .back-button{display:inline-flex;align-items:center;gap:5px;margin:0 0 38px -5px;padding:7px 10px;background:transparent;border:0;color:#59615b;font:10px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .25s,transform .25s}
+.onboarding .back-button:hover{color:#dce3d9;transform:translateX(-3px)}
+.onboarding .onboard-step{animation:onboardCinematicIn .7s cubic-bezier(.22,1,.36,1) both}
+@keyframes onboardCinematicIn{from{opacity:0;transform:translateY(22px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
+.onboarding .onboard-step>h1{letter-spacing:-.055em}
+.onboarding .onboard-step>p{max-width:560px}
+@media(max-width:800px){
+  .onboarding .onboard-head,.onboarding .onboard-progress,.onboarding .onboard-content{width:calc(100% - 32px)}
+  .onboarding .onboard-head{padding-top:20px}
+  .onboarding .onboard-progress{margin-top:16px}
+  .onboarding .onboard-content{padding-top:28px;padding-bottom:70px}
+  .onboarding .back-button{margin-bottom:28px}
+}
