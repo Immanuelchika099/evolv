@@ -1177,3 +1177,36 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .onboarding .onboard-head-actions{gap:14px}
   .onboarding .exit-journey{font-size:8px}
 }
+
+
+/* Onboarding back control sits above the content, never inside the text block */
+.onboarding .onboard-content{
+  display:block;
+  padding-top:42px;
+}
+.onboarding .onboard-back-row{
+  width:min(720px,100%);
+  margin:0 auto 34px;
+}
+.onboarding .onboard-back-row:has(+ .onboard-step.wide){
+  width:min(900px,100%);
+}
+.onboarding .onboard-back-row .back-button{
+  margin:0;
+  padding:0;
+}
+.onboarding .onboard-back-row .back-button::after{
+  left:20px;
+  right:auto;
+  width:calc(100% - 20px);
+}
+@media(max-width:800px){
+  .onboarding .onboard-content{padding-top:28px}
+  .onboarding .onboard-back-row{
+    width:100%;
+    margin-bottom:26px;
+  }
+  .onboarding .onboard-back-row:has(+ .onboard-step.wide){
+    width:100%;
+  }
+}
