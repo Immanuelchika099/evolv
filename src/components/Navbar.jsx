@@ -22,7 +22,6 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
       if (current < 40) setVisible(true)
       else if (current > lastScroll.current + 3) {
         setVisible(false)
-        setOpen(false)
       } else if (current < lastScroll.current - 3) setVisible(true)
       lastScroll.current = current
     }
