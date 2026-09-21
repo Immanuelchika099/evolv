@@ -192,3 +192,23 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .article-end{padding:90px 0 35px}
   .article-end h2{font-size:clamp(50px,13vw,70px)}
 }
+
+
+/* Article render safety — keep the editorial page visible regardless of global entrance effects */
+.article-page{
+  display:block!important;
+  visibility:visible!important;
+  opacity:1!important;
+  position:relative!important;
+  z-index:1!important;
+  min-height:100vh!important;
+}
+.article-page .article-nav,
+.article-page .article-hero,
+.article-page .article-body,
+.article-page .article-end,
+.article-page .article-grid,
+.article-page .article-example{
+  visibility:visible!important;
+  opacity:1!important;
+}
