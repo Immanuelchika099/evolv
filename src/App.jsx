@@ -143,6 +143,7 @@ function App() {
           data={data}
           setData={setData}
           onFinish={finishOnboarding}
+          onExit={returnHome}
         />
       )}
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} />}
@@ -594,7 +595,7 @@ function ArticlePage({ article, onStart, onBack }) {
   )
 }
 
-function Onboarding({ step, setStep, data, setData, onFinish }) {
+function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
   const journey = [
     { label: 'THE BEGINNING', title: <>Before you build<br /><em>your next chapter.</em></>, copy: 'EVOLV starts with a simple question: what would you change if you actually had a place to work on it?', type: 'intro' },
     { label: 'MAKE IT YOURS', title: <>First, what should<br /><em>we call you?</em></>, copy: 'This becomes your space. Nothing here is about becoming someone else — it is about becoming more of who you want to be.', type: 'name' },
@@ -632,7 +633,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
         <button className="onboard-brand" onClick={() => setStep(0)} aria-label="Return to beginning of journey"><Brand /></button>
         <div className="onboard-head-actions">
           <div className="step-count">{step === 0 ? 'START' : `0${step} / 0${total - 1}`}</div>
-          <button className="exit-journey" onClick={() => { localStorage.setItem('evolv-view', 'landing'); window.scrollTo({ top: 0, behavior: 'instant' }); window.location.reload() }}>
+          <button className="exit-journey" onClick={onExit}>
             Exit journey
           </button>
         </div>
