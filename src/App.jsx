@@ -112,7 +112,7 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
