@@ -36,6 +36,11 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
     action()
   }
 
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [open])
+
   return (
     <>
       <nav className={visible ? 'evolv-nav is-visible' : 'evolv-nav is-hidden'}>
