@@ -40,6 +40,13 @@ function App() {
     return () => ctx.revert()
   }, [view, step])
 
+  function openPricing() {
+    setArticle(null)
+    localStorage.setItem('evolv-view', 'pricing')
+    setView('pricing')
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+
   function enterApp() {
     setArticle(null)
     setStep(0)
@@ -91,7 +98,7 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} />}
+      {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} />}\n      {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'onboarding' && (
         <Onboarding
@@ -112,7 +119,7 @@ function Brand() {
   return <a className="brand" href="/"><span className="brand-mark"><span /></span><span>EVOLV</span></a>
 }
 
-function Landing({ onStart, onArticle }) {
+function Landing({ onStart, onArticle, onPricing }) {
   const page = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
@@ -256,6 +263,99 @@ function Landing({ onStart, onArticle }) {
         </div>
         <div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div>
       </footer>
+    </div>
+  )
+}
+
+function PricingPage({ onStart, onBack }) {
+  const plans = [
+    {
+      name: 'STARTER',
+      title: 'Build your foundation.',
+      price: 'Free',
+      description: 'A simple place to define what matters and start making progress visible.',
+      features: ['Personal growth profile', 'Growth areas & focus', 'Goal creation', 'Basic progress tracking', 'Personal dashboard', 'Weekly momentum view'],
+    },
+    {
+      name: 'PRO',
+      title: 'Go deeper with your growth.',
+      price: 'Coming soon',
+      featured: true,
+      description: 'For people ready to turn consistent effort into a system they can keep building on.',
+      features: ['Everything in Starter', 'Unlimited goals', 'Detailed progress insights', 'Momentum & streak history', 'Goal reflections', 'Advanced growth tracking', 'Priority feature access'],
+    },
+    {
+      name: 'EVOLV+',
+      title: 'Your full growth system.',
+      price: 'Coming soon',
+      description: 'A more complete experience for people who want EVOLV woven into every part of their journey.',
+      features: ['Everything in Pro', 'Advanced planning tools', 'Deeper personal insights', 'Long-term growth history', 'Expanded progress analytics', 'Early access to new features', 'Premium EVOLV experiences'],
+    },
+  ]
+
+  return (
+    <div className="pricing-page page-enter">
+      <nav className="pricing-nav">
+        <button className="pricing-back" onClick={onBack}><ChevronLeft size={16}/> Back to EVOLV</button>
+        <Brand />
+        <button className="pricing-start" onClick={onStart}>Get started <ArrowRight size={15}/></button>
+      </nav>
+
+      <header className="pricing-hero">
+        <span className="section-label">PLANS & PRICING</span>
+        <h1>Choose the space<br /><em>you want to grow in.</em></h1>
+        <p>EVOLV is being built in layers. Explore what each plan will include — pricing and availability are coming soon.</p>
+        <div className="pricing-coming"><span></span> PRICING IS COMING SOON</div>
+      </header>
+
+      <main className="pricing-content">
+        <div className="pricing-grid">
+          {plans.map((plan) => (
+            <article className={plan.featured ? 'pricing-card featured' : 'pricing-card'} key={plan.name}>
+              {plan.featured && <div className="pricing-popular">MOST COMPLETE</div>}
+              <div className="pricing-card-top">
+                <span className="pricing-plan">{plan.name}</span>
+                <h2>{plan.title}</h2>
+                <p>{plan.description}</p>
+              </div>
+              <div className="pricing-price">
+                <strong>{plan.price}</strong>
+                {plan.price === 'Free' && <span> / forever</span>}
+              </div>
+              <button className="pricing-card-cta" type="button" disabled>
+                Coming soon <ArrowRight size={15}/>
+              </button>
+              <div className="pricing-divider" />
+              <span className="pricing-includes">INCLUDES</span>
+              <ul>{plan.features.map((feature) => <li key={feature}><Check size={15}/> {feature}</li>)}</ul>
+            </article>
+          ))}
+        </div>
+
+        <section className="pricing-comparison">
+          <div>
+            <span className="section-label">THE EVOLV MODEL</span>
+            <h2>More than a<br /><em>subscription.</em></h2>
+          </div>
+          <div className="pricing-comparison-copy">
+            <p>Each plan is designed around the same idea: your growth should become easier to see, understand and continue.</p>
+            <div className="pricing-points">
+              <div><span>01</span><b>Start simple</b><p>Build the habit of showing up before adding more complexity.</p></div>
+              <div><span>02</span><b>Go deeper</b><p>Unlock richer tools when your goals and progress need more room.</p></div>
+              <div><span>03</span><b>Keep evolving</b><p>Move between stages as your life changes. Your system should grow with you.</p></div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pricing-faq">
+          <span className="section-label">BEFORE YOU CHOOSE</span>
+          <h2>Not ready yet?<br /><em>That's the point.</em></h2>
+          <p>Nothing on this page can be purchased yet. The cards are intentionally non-clickable while EVOLV's plans are being finalised.</p>
+          <button className="button button-ghost" onClick={onBack}>Explore EVOLV <ArrowRight size={16}/></button>
+        </section>
+      </main>
+
+      <footer className="pricing-footer"><Brand /><span>© 2026 EVOLV — BUILT FOR BECOMING</span></footer>
     </div>
   )
 }
