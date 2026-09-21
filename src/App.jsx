@@ -116,6 +116,8 @@ function Landing({ onStart, onArticle }) {
   const page = useRef(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [navVisible, setNavVisible] = useState(true)
+  const [contactOpen, setContactOpen] = useState(false)
+  const [contactSent, setContactSent] = useState(false)
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -150,6 +152,17 @@ function Landing({ onStart, onArticle }) {
 
   function closeMenu() { setMenuOpen(false) }
 
+  function openContact() {
+    setMenuOpen(false)
+    setContactSent(false)
+    setContactOpen(true)
+  }
+
+  function submitContact(event) {
+    event.preventDefault()
+    setContactSent(true)
+  }
+
   return (
     <div ref={page} className="page-enter landing">
       <nav className={navVisible ? "landing-nav nav nav-visible" : "landing-nav nav nav-hidden"}>
@@ -158,6 +171,7 @@ function Landing({ onStart, onArticle }) {
           <a href="#story">Why EVOLV</a>
           <button onClick={() => onArticle('features')}>Features</button>
           <button onClick={() => onArticle('areas')}>Growth areas</button>
+          <button onClick={openContact}>Contact</button>
         </div>
         <div className="nav-actions">
           <button className="nav-login" onClick={onStart}>Enter EVOLV <ArrowRight size={15} /></button>
@@ -168,6 +182,7 @@ function Landing({ onStart, onArticle }) {
         <a href="#story" onClick={closeMenu}>Why EVOLV</a>
         <button onClick={() => { closeMenu(); onArticle('features') }}>Features</button>
         <button onClick={() => { closeMenu(); onArticle('areas') }}>Growth areas</button>
+        <button onClick={openContact}>Contact</button>
         <button onClick={() => { closeMenu(); onStart() }}>Get started <ArrowRight size={15} /></button>
       </div>
       <section className="hero">
@@ -193,7 +208,35 @@ function Landing({ onStart, onArticle }) {
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
       <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
       <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
-      <footer className="site-footer"><div className="footer-brand"><Brand /><p>Track your growth.<br />Become your next self.</p></div><div className="footer-links"><div><span>EXPLORE</span><a href="#story">Why EVOLV</a><button onClick={() => onArticle('features')}>Features</button><button onClick={() => onArticle('areas')}>Growth areas</button><a href="#faq">FAQ</a></div><div><span>CONNECT</span><a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.6"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a></div></div><div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div></footer>
+      {contactOpen && (
+        <div className="contact-overlay" role="dialog" aria-modal="true" aria-labelledby="contact-title" onMouseDown={(e) => { if (e.target === e.currentTarget) setContactOpen(false) }}>
+          <div className="contact-modal">
+            <button className="contact-close" onClick={() => setContactOpen(false)} aria-label="Close contact form">×</button>
+            {!contactSent ? (
+              <form onSubmit={submitContact}>
+                <span className="section-label">LET'S TALK</span>
+                <h2 id="contact-title">What are you<br /><em>working on?</em></h2>
+                <p className="contact-copy">Tell us a little about what you have in mind. Keep it simple.</p>
+                <div className="contact-fields">
+                  <label><span>Name</span><input required name="name" placeholder="Your name" /></label>
+                  <label><span>Email</span><input required type="email" name="email" placeholder="you@example.com" /></label>
+                  <label><span>Message</span><textarea required name="message" placeholder="Tell us what you want to build, change or explore..." rows="4" /></label>
+                </div>
+                <button className="button button-primary contact-submit" type="submit">Send message <ArrowRight size={16} /></button>
+              </form>
+            ) : (
+              <div className="contact-success">
+                <span className="contact-success-mark"><Check size={20} /></span>
+                <span className="section-label">MESSAGE READY</span>
+                <h2>Thanks for<br /><em>reaching out.</em></h2>
+                <p>Your message has been captured. The next step is connecting this form to EVOLV's email/backend endpoint.</p>
+                <button className="button button-primary" onClick={() => setContactOpen(false)}>Back to EVOLV <ArrowRight size={16} /></button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      <footer className="site-footer"><div className="footer-brand"><Brand /><p>Track your growth.<br />Become your next self.</p></div><div className="footer-links"><div><span>EXPLORE</span><a href="#story">Why EVOLV</a><button onClick={() => onArticle('features')}>Features</button><button onClick={() => onArticle('areas')}>Growth areas</button><button onClick={openContact}>Contact</button><a href="#faq">FAQ</a></div><div><span>CONNECT</span><a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.6"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a></div></div><div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div></footer>
     </div>
   )
 }
