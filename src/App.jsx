@@ -479,23 +479,142 @@ function ArticlePage({ article, onStart, onBack }) {
 }
 
 function Onboarding({ step, setStep, data, setData, onFinish, onHome }) {
-  const total = 4
-  const next = () => step < total - 1 ? setStep(step + 1) : onFinish()
-  const back = () => step > 0 ? setStep(step - 1) : onHome()
-  const canContinue = [data.name.trim(), data.areas.length, data.focus, data.goal.trim()][step]
+  const journey = [
+    { label: 'THE BEGINNING', title: <>Before you build<br /><em>your next chapter.</em></>, copy: 'EVOLV starts with a simple question: what would you change if you actually had a place to work on it?', type: 'intro' },
+    { label: 'MAKE IT YOURS', title: <>First, what should<br /><em>we call you?</em></>, copy: 'This becomes your space. Nothing here is about becoming someone else — it is about becoming more of who you want to be.', type: 'name' },
+    { label: 'YOUR WORLD', title: <>Where do you want<br /><em>to move forward?</em></>, copy: 'Choose the parts of life that feel important in this season. You can change them whenever you want.', type: 'areas' },
+    { label: 'YOUR DIRECTION', title: <>What are you<br /><em>ready for?</em></>, copy: 'Growth looks different from season to season. Pick the direction that feels most true right now.', type: 'focus' },
+    { label: 'MAKE IT REAL', title: <>What is one thing<br /><em>you want to change?</em></>, copy: 'Give yourself something real to work toward. It does not need to be perfect — it just needs to matter.', type: 'goal' },
+    { label: 'YOUR NEXT SELF', title: <>You're not starting<br /><em>from zero.</em></>, copy: 'You have a direction. You have something that matters. Now EVOLV can help you turn that intention into visible progress.', type: 'ready' },
+  ]
+
+  const current = journey[step]
+  const total = journey.length
+  const canContinue = current.type === 'intro' || current.type === 'ready'
+    ? true
+    : current.type === 'name'
+      ? data.name.trim().length > 0
+      : current.type === 'areas'
+        ? data.areas.length > 0
+        : current.type === 'focus'
+          ? Boolean(data.focus)
+          : data.goal.trim().length > 0
+
+  function next() {
+    if (!canContinue) return
+    if (step < total - 1) setStep(step + 1)
+    else onFinish()
+  }
+
+  function back() {
+    if (step > 0) setStep(step - 1)
+    else onHome()
+  }
 
   return (
     <div className="page-enter onboarding">
-      <header className="onboard-head"><Brand /><div className="step-count">0{step + 1} / 0{total}</div></header>
-      <div className="progress-track"><i style={{ width: `${((step + 1) / total) * 100}%` }} /></div>
+      <header className="onboard-head">
+        <Brand />
+        <div className="step-count">{step === 0 ? 'START' : `0${step} / 0${total - 1}`}</div>
+      </header>
+
+      <div className="onboard-progress">
+        <i style={{ width: `${((step + 1) / total) * 100}%` }} />
+      </div>
+
       <section className="onboard-content">
-        <button className="back-button" onClick={back}><ChevronLeft size={16}/> Back</button>
-        {step === 0 && <div className="onboard-step"><span className="section-label">LET'S BEGIN</span><h1>First, what should<br /><em>we call you?</em></h1><p>This is your space. Make it feel personal.</p><input autoFocus value={data.name} onChange={e=>setData({...data,name:e.target.value})} placeholder="Your first name" /></div>}
-        {step === 1 && <div className="onboard-step wide"><span className="section-label">YOUR WORLD</span><h1>What are you<br /><em>working on?</em></h1><p>Select the areas you want EVOLV to help you move forward in.</p><div className="choice-grid">{growthAreas.map(a=><button className={data.areas.includes(a.id)?'choice active':'choice'} key={a.id} onClick={()=>setData({...data,areas:data.areas.includes(a.id)?data.areas.filter(x=>x!==a.id):[...data.areas,a.id]})}><span>{a.title}</span><small>{a.text}</small>{data.areas.includes(a.id)&&<Check size={16}/>}</button>)}</div></div>}
-        {step === 2 && <div className="onboard-step"><span className="section-label">YOUR DIRECTION</span><h1>What matters<br /><em>right now?</em></h1><p>Pick the feeling that best describes your current season.</p><div className="focus-list">{['I want more clarity','I want to build discipline','I want to level up','I want to become consistent'].map(x=><button className={data.focus===x?'focus active':'focus'} key={x} onClick={()=>setData({...data,focus:x})}>{x}<ArrowRight size={16}/></button>)}</div></div>}
-        {step === 3 && <div className="onboard-step"><span className="section-label">MAKE IT REAL</span><h1>What is one thing<br /><em>you want to change?</em></h1><p>Don't overthink it. Start with something that matters.</p><textarea autoFocus value={data.goal} onChange={e=>setData({...data,goal:e.target.value})} placeholder="e.g. Become confident with backend development" rows="3" /></div>}
+        {step > 0 && (
+          <button className="back-button" onClick={back}>
+            <ChevronLeft size={16} /> Back
+          </button>
+        )}
+
+        <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
+          <span className="section-label">{current.label}</span>
+          <h1>{current.title}</h1>
+          <p>{current.copy}</p>
+
+          {current.type === 'intro' && (
+            <div className="journey-intro">
+              <div className="journey-orbit"><span /><i /><b /></div>
+              <div className="journey-note">
+                <span>THE IDEA</span>
+                <strong>Direction → Action → Progress</strong>
+                <small>One step at a time.</small>
+              </div>
+            </div>
+          )}
+
+          {current.type === 'name' && (
+            <div className="onboard-field-wrap">
+              <input autoFocus value={data.name} onChange={e => setData({ ...data, name: e.target.value })} placeholder="Your first name" />
+              <span>We'll use this to make your space feel like yours.</span>
+            </div>
+          )}
+
+          {current.type === 'areas' && (
+            <div className="choice-grid">
+              {growthAreas.map((a, i) => (
+                <button
+                  className={data.areas.includes(a.id) ? 'choice active' : 'choice'}
+                  key={a.id}
+                  onClick={() => setData({
+                    ...data,
+                    areas: data.areas.includes(a.id)
+                      ? data.areas.filter(x => x !== a.id)
+                      : [...data.areas, a.id]
+                  })}
+                >
+                  <span className="choice-number">0{i + 1}</span>
+                  <span>{a.title}</span>
+                  <small>{a.text}</small>
+                  {data.areas.includes(a.id) && <Check size={16} />}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {current.type === 'focus' && (
+            <div className="focus-list">
+              {['I want more clarity', 'I want to build discipline', 'I want to level up', 'I want to become consistent'].map(x => (
+                <button className={data.focus === x ? 'focus active' : 'focus'} key={x} onClick={() => setData({ ...data, focus: x })}>
+                  <span>{x}</span>
+                  <ArrowRight size={16} />
+                </button>
+              ))}
+            </div>
+          )}
+
+          {current.type === 'goal' && (
+            <div className="onboard-field-wrap">
+              <textarea autoFocus value={data.goal} onChange={e => setData({ ...data, goal: e.target.value })} placeholder="e.g. Become confident with backend development" rows="3" />
+              <span>Keep it simple. You can refine it once you're inside.</span>
+            </div>
+          )}
+
+          {current.type === 'ready' && (
+            <div className="journey-ready">
+              <div className="ready-card">
+                <span>YOUR STARTING POINT</span>
+                <strong>{data.name || 'Your space'}</strong>
+                <p>{data.goal || 'Your first goal'}</p>
+                <div className="ready-meta">
+                  <span>{data.areas.length} growth {data.areas.length === 1 ? 'area' : 'areas'}</span>
+                  <span>{data.focus || 'Your direction'}</span>
+                </div>
+              </div>
+              <p className="ready-small">Next, we'll create your account so your journey can stay connected to you.</p>
+            </div>
+          )}
+        </div>
       </section>
-      <footer className="onboard-footer"><span>YOUR DATA STAYS WITH YOU</span><button className="button button-primary" disabled={!canContinue} onClick={next}>{step === total-1 ? 'Enter my dashboard' : 'Continue'} <ArrowRight size={16}/></button></footer>
+
+      <footer className="onboard-footer">
+        <span>{step === 0 ? 'A DIFFERENT KIND OF START' : step === total - 1 ? 'READY WHEN YOU ARE' : 'YOUR JOURNEY / 0' + step}</span>
+        <button className="button button-primary" disabled={!canContinue} onClick={next}>
+          {step === 0 ? 'Begin the journey' : step === total - 1 ? 'Create my EVOLV account' : 'Continue'} <ArrowRight size={16} />
+        </button>
+      </footer>
     </div>
   )
 }
