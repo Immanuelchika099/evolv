@@ -236,7 +236,26 @@ function Landing({ onStart, onArticle }) {
           </div>
         </div>
       )}
-      <footer className="site-footer"><div className="footer-brand"><Brand /><p>Track your growth.<br />Become your next self.</p></div><div className="footer-links"><div><span>EXPLORE</span><a href="#story">Why EVOLV</a><button onClick={() => onArticle('features')}>Features</button><button onClick={() => onArticle('areas')}>Growth areas</button><button onClick={openContact}>Contact</button><a href="#faq">FAQ</a></div><div><span>CONNECT</span><a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.6"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" strokeWidth="1.6"/><circle cx="17.4" cy="6.7" r="1" fill="currentColor"/></svg></a></div></div><div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div></footer>
+      <footer className="site-footer">
+        <div className="footer-brand">
+          <Brand />
+          <p>Track your growth.<br />Become your next self.</p>
+        </div>
+        <div className="footer-links">
+          <div>
+            <span>EXPLORE</span>
+            <a href="#story">About EVOLV</a>
+            <a href="#faq">Terms of Service</a>
+            <a href="#faq">Privacy Policy</a>
+          </div>
+          <div>
+            <span>CONNECT</span>
+            <a href="https://www.instagram.com/hi_imanw/" target="_blank" rel="noreferrer" className="footer-social">@hi_imanw</a>
+            <button type="button" className="footer-contact" onClick={openContact}>Contact <ArrowRight size={13} /></button>
+          </div>
+        </div>
+        <div className="footer-bottom"><span>© 2026 EVOLV</span><span>BUILT FOR BECOMING</span></div>
+      </footer>
     </div>
   )
 }
