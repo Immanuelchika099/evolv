@@ -638,13 +638,13 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
       </div>
 
       <section className="onboard-content">
-        {step > 0 && (
-          <button className="back-button" onClick={back}>
-            <ChevronLeft size={16} /> Back
-          </button>
-        )}
-
         <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
+          {step > 0 && (
+            <button className="back-button" onClick={back} aria-label="Go to previous step">
+              <ChevronLeft size={14} />
+              <span>Back</span>
+            </button>
+          )}
           <span className="section-label">{current.label}</span>
           <h1>{current.title}</h1>
           <p>{current.copy}</p>
