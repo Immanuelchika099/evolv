@@ -74,7 +74,7 @@
   cursor:pointer;
 }
 .evolv-menu-toggle{
-  width:39px;height:39px;
+  width:46px;height:46px;
   display:grid;
   place-content:center;
   gap:5px;
@@ -84,31 +84,39 @@
   color:#ddd;
   cursor:pointer;
 }
-.evolv-menu-toggle span{display:block;width:13px;height:1px;background:#ddd;transition:.25s}
+.evolv-menu-toggle span{display:block;width:17px;height:1px;background:#ddd;transition:.25s}
 .evolv-menu-toggle.is-open span:first-child{transform:translateY(3px) rotate(45deg)}
 .evolv-menu-toggle.is-open span:last-child{transform:translateY(-3px) rotate(-45deg)}
-.evolv-mobile-menu{display:none}
+.evolv-mobile-menu{
+  position:fixed;
+  top:90px;
+  left:50%;
+  z-index:1100;
+  width:min(380px,calc(100vw - 32px));
+  padding:14px;
+  display:none;
+  flex-direction:column;
+  gap:4px;
+  transform:translateX(-50%);
+  border:1px solid #ffffff22;
+  border-radius:24px;
+  background:#050806 !important;
+  opacity:1 !important;
+  box-shadow:0 28px 90px #000c;
+}
+.evolv-mobile-menu.is-open{display:flex}
 @media(max-width:800px){
   .evolv-nav{top:12px;left:50%;width:calc(100% - 32px);max-width:520px;height:54px;padding:0 15px;justify-content:space-between}
   .evolv-nav-links{display:none}
   .evolv-start{display:none}
+  .evolv-menu-toggle{width:44px;height:44px}
   .evolv-mobile-menu{
-    position:fixed;
-    right:16px;
-    top:75px;
-    z-index:1000;
-    width:calc(100% - 32px);
-    padding:12px;
-    display:none;
-    flex-direction:column;
-    gap:4px;
-    border:1px solid #ffffff22;
-    border-radius:20px;
-    background:#050806 !important;
-    opacity:1 !important;
-    box-shadow:0 25px 80px #0008;
+    top:72px;
+    width:calc(100vw - 24px);
+    max-width:420px;
+    padding:14px;
+    border-radius:22px;
   }
-  .evolv-mobile-menu.is-open{display:flex}
   .evolv-mobile-menu a,
   .evolv-mobile-menu button{
     display:flex;
