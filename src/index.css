@@ -1535,9 +1535,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   position:relative;
   overflow-x:hidden;
   background:
-    radial-gradient(circle at 88% 6%, rgba(190,126,55,.16), transparent 28%),
-    radial-gradient(circle at 8% 42%, rgba(92,64,34,.10), transparent 32%),
-    linear-gradient(145deg,#050505 0%,#0a0908 52%,#100c08 100%);
+    radial-gradient(circle at 88% 6%, rgba(109,189,161,.16), transparent 28%),
+    radial-gradient(circle at 8% 42%, rgba(49,105,84,.12), transparent 32%),
+    linear-gradient(145deg,#050505 0%,#0a0908 52%,#07110e 100%);
 }
 
 .dashboard::before{
@@ -1631,7 +1631,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-radius:50%;
   padding:7px;
   background:rgba(255,255,255,.04);
-  box-shadow:0 0 70px rgba(180,119,50,.12);
+  box-shadow:0 0 70px rgba(109,189,161,.14);
 }
 
 .state-ring-track{
@@ -1642,7 +1642,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   display:grid;
   place-items:center;
   background:
-    conic-gradient(from -90deg,rgba(210,151,77,.95) 0 var(--ring-progress),rgba(255,255,255,.09) var(--ring-progress) 360deg);
+    conic-gradient(from -90deg,rgba(109,207,173,.95) 0 var(--ring-progress),rgba(255,255,255,.09) var(--ring-progress) 360deg);
 }
 
 .state-ring-track::after{
@@ -1650,7 +1650,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   position:absolute;
   inset:6px;
   border-radius:50%;
-  background:radial-gradient(circle at 35% 25%,rgba(255,255,255,.07),rgba(8,8,8,.94) 66%);
+  background:radial-gradient(circle at 35% 25%,rgba(255,255,255,.07),rgba(5,12,10,.94) 66%);
   border:1px solid rgba(255,255,255,.07);
 }
 
@@ -1714,7 +1714,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   color:#ece9e2;
   background:
     linear-gradient(120deg,rgba(255,255,255,.075),rgba(255,255,255,.025)),
-    rgba(10,9,8,.42);
+    rgba(7,16,13,.46);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 38px rgba(0,0,0,.16);
   backdrop-filter:blur(22px) saturate(125%);
   -webkit-backdrop-filter:blur(22px) saturate(125%);
@@ -1738,13 +1738,13 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   place-items:center;
   border:1px solid rgba(255,255,255,.25);
   border-radius:50%;
-  color:#17130d;
+  color:#07110e;
   background:transparent;
 }
 
 .glass-task.checked .task-check{
-  border-color:#d8a65d;
-  background:#d8a65d;
+  border-color:#6dbda1;
+  background:#6dbda1;
 }
 
 .task-text{
@@ -1782,7 +1782,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   top:0;
   width:74px;
   height:1px;
-  background:linear-gradient(90deg,rgba(216,166,93,.9),transparent);
+  background:linear-gradient(90deg,rgba(109,207,173,.9),transparent);
 }
 
 .daily-insight h2{
@@ -1813,7 +1813,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   gap:4px;
   border:1px solid rgba(255,255,255,.13);
   border-radius:25px;
-  background:rgba(19,17,15,.66);
+  background:rgba(10,19,16,.72);
   box-shadow:0 18px 55px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.07);
   backdrop-filter:blur(28px) saturate(135%);
   -webkit-backdrop-filter:blur(28px) saturate(135%);
