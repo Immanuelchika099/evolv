@@ -1153,21 +1153,8 @@ function Dashboard({ data, onLogout }) {
           <div className="dashboard-home">
             <section className="dashboard-welcome">
               <div className="dashboard-welcome-copy">
-                <span className="dashboard-eyebrow">WELCOME BACK,</span>
-                <h1>{name}.</h1>
-              </div>
-
-              <div
-                className="state-ring"
-                style={{ '--ring-progress': `${momentum * 3.6}deg` }}
-                aria-label={`${momentum}% current state`}
-              >
-                <div className="state-ring-track">
-                  <div className="state-ring-center">
-                    <strong>{momentum}<span>%</span></strong>
-                    <span>CURRENT STATE</span>
-                  </div>
-                </div>
+                <span className="dashboard-eyebrow">Welcome back,</span>
+                <h1>{name}</h1>
               </div>
             </section>
 
