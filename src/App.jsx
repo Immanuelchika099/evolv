@@ -1152,6 +1152,10 @@ function Dashboard({ data, onLogout }) {
                 </section>
               })}
             </div>
+            <section className="health-reading-strip">
+              <div><span className="section-label">EXPLORE HEALTH</span><h3>Understand the signals, not just the numbers.</h3><p>Short, friendly explainers grounded in trusted health guidance.</p></div>
+              <button className="health-reading-link" onClick={()=>openArticle('area','health')}>Read health guide <ArrowRight size={15}/></button>
+            </section>
             <section className="wellbeing-guide">
               <span className="section-label">UNDERSTANDING YOUR WELLBEING</span>
               <h3>Your feelings are worth noticing.</h3>
