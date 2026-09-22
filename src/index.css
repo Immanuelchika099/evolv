@@ -1523,3 +1523,366 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:16px !important;
   }
 }
+
+
+/* Logged-in app — liquid glass mobile layout */
+.dashboard{
+  --glass-border:rgba(255,255,255,.12);
+  --glass-bg:rgba(255,255,255,.055);
+  --warm:rgba(182,123,58,.18);
+  min-height:100svh;
+  display:block !important;
+  position:relative;
+  overflow-x:hidden;
+  background:
+    radial-gradient(circle at 88% 6%, rgba(190,126,55,.16), transparent 28%),
+    radial-gradient(circle at 8% 42%, rgba(92,64,34,.10), transparent 32%),
+    linear-gradient(145deg,#050505 0%,#0a0908 52%,#100c08 100%);
+}
+
+.dashboard::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.025),transparent 22%,rgba(0,0,0,.18));
+  z-index:0;
+}
+
+.dashboard .sidebar{display:none !important}
+
+.app-topbar{
+  position:relative;
+  z-index:5;
+  width:min(100%,1120px);
+  margin:0 auto;
+  padding:22px 24px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.app-logo-button{
+  appearance:none;
+  border:0;
+  background:none;
+  padding:0;
+  cursor:pointer;
+}
+
+.dashboard .app-logo-button .brand span{display:none}
+.dashboard .app-logo-button .brand img{width:30px;height:30px}
+
+.notification-button{
+  width:42px;
+  height:42px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:50%;
+  color:#e9e8e2;
+  background:rgba(255,255,255,.055);
+  backdrop-filter:blur(20px) saturate(125%);
+  -webkit-backdrop-filter:blur(20px) saturate(125%);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 12px 35px rgba(0,0,0,.25);
+  cursor:pointer;
+}
+
+.dashboard .dash-main{
+  position:relative;
+  z-index:1;
+  width:min(100%,1120px);
+  margin:0 auto;
+  padding:54px 24px 130px;
+}
+
+.dashboard-home{width:min(100%,980px);margin:0 auto}
+
+.dashboard-welcome{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:36px;
+  margin:16px 0 64px;
+}
+
+.dashboard-eyebrow,
+.frequency-heading>span,
+.daily-insight-label{
+  display:block;
+  color:rgba(235,232,224,.48);
+  font:9px 'DM Mono';
+  letter-spacing:.2em;
+  text-transform:uppercase;
+}
+
+.dashboard-welcome-copy h1{
+  margin:8px 0 0;
+  color:#f5f2eb;
+  font:500 clamp(48px,8vw,86px) 'Manrope';
+  letter-spacing:-.075em;
+  line-height:.92;
+}
+
+.state-ring{
+  width:150px;
+  height:150px;
+  flex:0 0 auto;
+  border-radius:50%;
+  padding:7px;
+  background:rgba(255,255,255,.04);
+  box-shadow:0 0 70px rgba(180,119,50,.12);
+}
+
+.state-ring-track{
+  position:relative;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:
+    conic-gradient(from -90deg,rgba(210,151,77,.95) 0 var(--ring-progress),rgba(255,255,255,.09) var(--ring-progress) 360deg);
+}
+
+.state-ring-track::after{
+  content:"";
+  position:absolute;
+  inset:6px;
+  border-radius:50%;
+  background:radial-gradient(circle at 35% 25%,rgba(255,255,255,.07),rgba(8,8,8,.94) 66%);
+  border:1px solid rgba(255,255,255,.07);
+}
+
+.state-ring-center{
+  position:relative;
+  z-index:1;
+  display:grid;
+  justify-items:center;
+  gap:5px;
+}
+
+.state-ring-center strong{
+  color:#f5f2eb;
+  font:500 27px 'Manrope';
+  letter-spacing:-.05em;
+}
+
+.state-ring-center span{
+  color:rgba(235,232,224,.42);
+  font:7px 'DM Mono';
+  letter-spacing:.14em;
+}
+
+.frequency-section{margin-bottom:64px}
+
+.frequency-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  margin-bottom:14px;
+}
+
+.frequency-heading button{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  color:#cfcac0;
+  background:rgba(255,255,255,.04);
+  cursor:pointer;
+}
+
+.frequency-list{
+  display:grid;
+  gap:10px;
+}
+
+.glass-task{
+  width:100%;
+  min-height:68px;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding:14px 16px;
+  text-align:left;
+  border:1px solid var(--glass-border);
+  border-radius:22px;
+  color:#ece9e2;
+  background:
+    linear-gradient(120deg,rgba(255,255,255,.075),rgba(255,255,255,.025)),
+    rgba(10,9,8,.42);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 14px 38px rgba(0,0,0,.16);
+  backdrop-filter:blur(22px) saturate(125%);
+  -webkit-backdrop-filter:blur(22px) saturate(125%);
+  cursor:pointer;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+
+.glass-task:hover{
+  transform:translateY(-2px);
+  border-color:rgba(255,255,255,.2);
+  background:rgba(255,255,255,.075);
+}
+
+.glass-task.checked{opacity:.62}
+
+.task-check{
+  width:20px;
+  height:20px;
+  flex:0 0 auto;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.25);
+  border-radius:50%;
+  color:#17130d;
+  background:transparent;
+}
+
+.glass-task.checked .task-check{
+  border-color:#d8a65d;
+  background:#d8a65d;
+}
+
+.task-text{
+  min-width:0;
+  flex:1;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  font:500 13px 'Manrope';
+  letter-spacing:-.015em;
+}
+
+.task-progress{
+  flex:0 0 auto;
+  color:rgba(235,232,224,.4);
+  font:8px 'DM Mono';
+  letter-spacing:.08em;
+}
+
+.task-loading{
+  cursor:default;
+  color:rgba(235,232,224,.4);
+}
+
+.daily-insight{
+  position:relative;
+  overflow:hidden;
+  padding:28px 0 8px;
+}
+
+.daily-insight::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:74px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(216,166,93,.9),transparent);
+}
+
+.daily-insight h2{
+  margin:12px 0 10px;
+  color:#f3eee6;
+  font:500 clamp(30px,5vw,48px) 'Manrope';
+  letter-spacing:-.055em;
+}
+
+.daily-insight p{
+  max-width:620px;
+  margin:0;
+  color:rgba(232,228,218,.52);
+  font-size:12px;
+  line-height:1.8;
+}
+
+.app-bottom-nav{
+  position:fixed;
+  z-index:20;
+  left:50%;
+  bottom:max(14px,env(safe-area-inset-bottom));
+  transform:translateX(-50%);
+  width:min(calc(100% - 28px),440px);
+  padding:7px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:4px;
+  border:1px solid rgba(255,255,255,.13);
+  border-radius:25px;
+  background:rgba(19,17,15,.66);
+  box-shadow:0 18px 55px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.07);
+  backdrop-filter:blur(28px) saturate(135%);
+  -webkit-backdrop-filter:blur(28px) saturate(135%);
+}
+
+.app-bottom-nav button{
+  min-width:0;
+  min-height:54px;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:4px;
+  border:0;
+  border-radius:18px;
+  background:transparent;
+  color:rgba(238,235,228,.43);
+  cursor:pointer;
+}
+
+.app-bottom-nav button span{
+  width:34px;
+  height:26px;
+  display:grid;
+  place-items:center;
+}
+
+.app-bottom-nav button small{
+  font:8px 'DM Mono';
+  letter-spacing:.05em;
+}
+
+.app-bottom-nav button.bottom-active{
+  color:#f4f0e9;
+  background:rgba(255,255,255,.09);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+
+.dashboard-panel{
+  width:min(100%,900px);
+  margin:0 auto;
+  padding-bottom:40px;
+}
+
+@media(max-width:800px){
+  .dashboard .app-topbar{padding:18px 16px 0}
+  .dashboard .app-logo-button .brand img{width:27px;height:27px}
+  .dashboard .dash-main{padding:42px 16px 122px}
+  .dashboard-welcome{
+    align-items:flex-start;
+    margin:8px 0 48px;
+    gap:20px;
+  }
+  .dashboard-welcome-copy h1{font-size:clamp(44px,14vw,68px)}
+  .state-ring{width:118px;height:118px;padding:6px}
+  .state-ring-center strong{font-size:23px}
+  .state-ring-center span{font-size:6px}
+  .frequency-section{margin-bottom:50px}
+  .frequency-heading>span{font-size:8px;letter-spacing:.16em}
+  .glass-task{min-height:64px;padding:13px 14px;border-radius:19px}
+  .task-text{font-size:12px}
+  .daily-insight{padding-top:24px}
+  .daily-insight h2{font-size:34px}
+  .daily-insight p{font-size:11px}
+  .app-bottom-nav{width:calc(100% - 24px);bottom:max(10px,env(safe-area-inset-bottom))}
+  .app-bottom-nav button{min-height:52px}
+  .dashboard-panel{padding-bottom:25px}
+}
+
+@media(min-width:801px){
+  .dashboard .dash-main{padding-top:72px}
+  .app-bottom-nav{width:min(440px,calc(100% - 40px))}
+}
