@@ -1427,3 +1427,31 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .goal-actions button{flex:1}
 }
 
+
+
+/* EVOLV AI */
+.ai-page{max-width:980px}
+.ai-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:28px;margin-bottom:30px}
+.ai-heading h2{margin:8px 0 10px;font-size:clamp(32px,4vw,52px);letter-spacing:-.045em}
+.ai-heading p{margin:0;max-width:620px;color:#747c75;line-height:1.7;font-size:13px}
+.ai-status{display:inline-flex;align-items:center;gap:8px;padding:8px 11px;border:1px solid #ffffff12;color:#7f887f;font:8px 'DM Mono';letter-spacing:.12em}
+.ai-status i{width:6px;height:6px;border-radius:50%;background:#b8d982;box-shadow:0 0 12px #b8d982;display:block}
+.ai-chat{border:1px solid #ffffff10;background:#ffffff03}
+.ai-messages{height:min(58vh,560px);min-height:360px;overflow:auto;padding:24px;display:grid;align-content:start;gap:18px}
+.ai-message{max-width:78%;display:grid;gap:6px}
+.ai-message.user{justify-self:end;text-align:right}
+.ai-message-role{font:8px 'DM Mono';letter-spacing:.13em;color:#4f5751}
+.ai-message p{margin:0;padding:13px 15px;border:1px solid #ffffff10;background:#ffffff04;color:#cbd0ca;font-size:13px;line-height:1.75;white-space:pre-wrap}
+.ai-message.user p{background:#dfe7d8;color:#0a0c0a;border-color:#dfe7d8}
+.ai-typing{color:#7d857e!important}
+.ai-input{display:flex;gap:10px;padding:14px;border-top:1px solid #ffffff10}
+.ai-input input{flex:1;min-width:0;background:transparent;border:0;outline:0;color:#eef2eb;padding:12px 8px;font:13px 'Manrope'}
+.ai-input input::placeholder{color:#555d57}
+.ai-input button{width:44px;height:44px;display:grid;place-items:center;border:1px solid #ffffff15;background:#dfe7d8;color:#090b0a;cursor:pointer}
+.ai-input button:disabled{opacity:.3;cursor:not-allowed}
+@media(max-width:800px){
+  .ai-heading{display:grid;gap:18px}
+  .ai-messages{height:55vh;min-height:330px;padding:16px}
+  .ai-message{max-width:90%}
+  .ai-input{padding:10px}
+}
