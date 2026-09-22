@@ -1330,26 +1330,308 @@ function Dashboard({ data, onLogout }) {
 function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onClose}){
   const [values,setValues]=useState({})
   const [error,setError]=useState('')
-  const areaMeta={health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},money:{title:'Money',icon:WalletCards,color:'#62e6bd'},career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},mind:{title:'Mind',icon:Brain,color:'#9b7cff'},life:{title:'Life',icon:Sprout,color:'#62e6bd'}}
-  const metricArea={sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',mood:'mind',focus:'mind',reflection:'mind',stress:'mind',learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',income:'money',spending:'money',savings:'money',bills:'money',habits:'life',reading:'life',social:'life',personal:'life',meals:'nutrition'}
-  const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout}
-  const rows=definitions.filter(d=>metricArea[d.slug]===area)
-  async function save(){
-    setError('');if(!metric)return;setSaving(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){setError('Your session has expired.');setSaving(false);return}
-    if(metric.value_type==='meal'){if(!values.meal_type){setError('Choose breakfast, lunch, dinner or snack.');setSaving(false);return}if(!values.description?.trim()){setError('Add what you ate first.');setSaving(false);return}const n=k=>values[k]===''||values[k]==null?null:Number(values[k]);const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString();const {error:x}=await supabase.from('meal_logs').insert({user_id:u.id,meal_type:values.meal_type,description:values.description.trim(),calories:n('calories'),protein_g:n('protein_g'),carbs_g:n('carbs_g'),fat_g:n('fat_g'),water_ml:n('water_ml'),note:values.note?.trim()||null,logged_at:loggedAt,eaten_at:loggedAt});setSaving(false);if(x){setError(x.message);return}onClose();return}
-    const value=Number(values.value);if(!Number.isFinite(value)||(metric.value_type==='scale'&&(value<1||value>5))){setError(metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.');setSaving(false);return}
-    const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString();const {error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:metric.unit||null,note:values.note?.trim()||null,logged_at:loggedAt,value_numeric:value});setSaving(false);if(x){setError(x.message);return}onClose()
-  }
-  const I=metric?(icons[metric.slug]||Sparkles):(area?areaMeta[area].icon:ClipboardPlus)
-  return <div className="log-overlay" role="dialog" aria-modal="true" onMouseDown={e=>{if(e.target===e.currentTarget&&!saving)onClose()}}><section className="log-sheet">
-    <header className="log-sheet-head"><div><span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'QUICK LOG'}</span><h2>{metric?'Log '+metric.name.toLowerCase():area?'What happened?':'What would you like to log?'}</h2></div><button className="log-close" onClick={onClose}><X size={18}/></button></header>
-    {!area&&!metric&&<div className="log-area-grid">{Object.entries(areaMeta).map(([id,m])=>{const I2=m.icon;return <button className="log-area-choice" key={id} onClick={()=>{onArea(id);onMetric(null)}}><span style={{'--area-color':m.color}}><I2 size={19}/></span><strong>{m.title}</strong><ChevronRight size={15}/></button>})}</div>}
-    {area&&!metric&&<><button className="log-back" onClick={()=>onArea(null)}><ChevronLeft size={15}/> All areas</button><div className="log-metric-list">{rows.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="log-metric-choice" key={d.id} onClick={()=>{onMetric(d);setValues({});setError('')}}><span style={{'--metric-color':d.color||areaMeta[area].color}}><M size={17}/></span><div><strong>{d.name}</strong><small>{d.unit||'Track it simply'}</small></div><ChevronRight size={15}/></button>})}{area==='nutrition'&&<button className="log-metric-choice" onClick={()=>{onMetric({slug:'meals',name:'Meal',value_type:'meal'});setValues({});setError('')}}><span style={{'--metric-color':'#ffd66b'}}><Utensils size={17}/></span><div><strong>Meal</strong><small>Breakfast, lunch, dinner or snack</small></div><ChevronRight size={15}/></button>}</div></>}
-    {metric&&metric.value_type!=='meal'&&<div className="log-form"><div className="log-selected-metric"><span style={{'--metric-color':metric.color||'#c8f36a'}}><I size={19}/></span><div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div></div>{metric.value_type==='scale'?<div className="scale-picker">{[1,2,3,4,5].map(n=><button type="button" key={n} className={Number(values.value)===n?'active':''} onClick={()=>setValues(v=>({...v,value:n}))}>{n}</button>)}</div>:<label className="log-input-label"><span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span><input autoFocus type="number" min="0" step="any" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))}/></label>}<label className="log-input-label"><span>When</span><input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/></label><label className="log-input-label"><span>Note <small>optional</small></span><textarea rows="2" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))}/></label>{error&&<p className="log-error">{error}</p>}<button className="button button-primary log-save" onClick={save} disabled={saving}>{saving?'Saving…':'Save log'} <Check size={15}/></button></div>}
-    {metric&&metric.value_type==='meal'&&<div className="log-form"><div className="meal-type-row">{['breakfast','lunch','dinner','snack'].map(t=><button type="button" key={t} className={values.meal_type===t?'active':''} onClick={()=>setValues(v=>({...v,meal_type:t}))}>{t}</button>)}</div><label className="log-input-label"><span>What did you eat?</span><textarea autoFocus rows="3" value={values.description||''} onChange={e=>setValues(v=>({...v,description:e.target.value}))} placeholder="e.g. Rice, chicken and vegetables"/></label><div className="optional-nutrition"><label className="log-input-label"><span>Calories <small>optional</small></span><input type="number" min="0" value={values.calories||''} onChange={e=>setValues(v=>({...v,calories:e.target.value}))}/></label><label className="log-input-label"><span>Protein (g) <small>optional</small></span><input type="number" min="0" value={values.protein_g||''} onChange={e=>setValues(v=>({...v,protein_g:e.target.value}))}/></label></div><label className="log-input-label"><span>When</span><input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/></label>{error&&<p className="log-error">{error}</p>}<button className="button button-primary log-save" onClick={save} disabled={saving}>{saving?'Saving…':'Save meal'} <Check size={15}/></button></div>}
-  </section></div>
-}
+  const sheetRef=useRef(null)
 
+  const areaMeta={
+    health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
+    nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
+    money:{title:'Money',icon:WalletCards,color:'#62e6bd'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},
+    mind:{title:'Mind',icon:Brain,color:'#9b7cff'},
+    life:{title:'Life',icon:Sprout,color:'#62e6bd'}
+  }
+
+  const metricArea={
+    sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',
+    mood:'mind',focus:'mind',reflection:'mind',stress:'mind',
+    learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',
+    income:'money',spending:'money',savings:'money',bills:'money',
+    habits:'life',reading:'life',social:'life',personal:'life',meals:'nutrition'
+  }
+
+  const icons={
+    sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,
+    mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,
+    learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,
+    income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,
+    habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout
+  }
+
+  const rows=definitions.filter(d=>metricArea[d.slug]===area)
+
+  useEffect(()=>{
+    const previousOverflow=document.body.style.overflow
+    const previousTouchAction=document.body.style.touchAction
+    document.body.style.overflow='hidden'
+    document.body.style.touchAction='none'
+
+    function handleKey(event){
+      if(event.key==='Escape'&&!saving) onClose()
+    }
+
+    window.addEventListener('keydown',handleKey)
+    window.setTimeout(()=>sheetRef.current?.querySelector('button,input,textarea')?.focus(),80)
+
+    return ()=>{
+      document.body.style.overflow=previousOverflow
+      document.body.style.touchAction=previousTouchAction
+      window.removeEventListener('keydown',handleKey)
+    }
+  },[onClose,saving])
+
+  async function save(){
+    setError('')
+    if(!metric)return
+
+    setSaving(true)
+
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+
+    if(!u){
+      setError('Your session has expired.')
+      setSaving(false)
+      return
+    }
+
+    if(metric.value_type==='meal'){
+      if(!values.meal_type){
+        setError('Choose breakfast, lunch, dinner or snack.')
+        setSaving(false)
+        return
+      }
+
+      if(!values.description?.trim()){
+        setError('Add what you ate first.')
+        setSaving(false)
+        return
+      }
+
+      const n=k=>values[k]===''||values[k]==null?null:Number(values[k])
+      const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()
+
+      const {error:x}=await supabase.from('meal_logs').insert({
+        user_id:u.id,
+        meal_type:values.meal_type,
+        description:values.description.trim(),
+        calories:n('calories'),
+        protein_g:n('protein_g'),
+        carbs_g:n('carbs_g'),
+        fat_g:n('fat_g'),
+        water_ml:n('water_ml'),
+        note:values.note?.trim()||null,
+        logged_at:loggedAt,
+        eaten_at:loggedAt
+      })
+
+      setSaving(false)
+
+      if(x){
+        setError(x.message)
+        return
+      }
+
+      onClose()
+      return
+    }
+
+    const value=Number(values.value)
+
+    if(!Number.isFinite(value)||(metric.value_type==='scale'&&(value<1||value>5))){
+      setError(metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
+      setSaving(false)
+      return
+    }
+
+    const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()
+
+    const {error:x}=await supabase.from('metric_logs').insert({
+      user_id:u.id,
+      metric_id:metric.id,
+      value,
+      unit:metric.unit||null,
+      note:values.note?.trim()||null,
+      logged_at:loggedAt,
+      value_numeric:value
+    })
+
+    setSaving(false)
+
+    if(x){
+      setError(x.message)
+      return
+    }
+
+    onClose()
+  }
+
+  function selectMetric(nextMetric){
+    onMetric(nextMetric)
+    setValues({})
+    setError('')
+  }
+
+  const I=metric?(icons[metric.slug]||Sparkles):(area?areaMeta[area].icon:ClipboardPlus)
+
+  return (
+    <div
+      className="log-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="log-sheet-title"
+      onMouseDown={e=>{if(e.target===e.currentTarget&&!saving)onClose()}}
+    >
+      <section ref={sheetRef} className="log-sheet">
+        <div className="log-sheet-handle" aria-hidden="true"><span /></div>
+
+        <header className="log-sheet-head">
+          <div className="log-sheet-heading">
+            <span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'QUICK LOG'}</span>
+            <h2 id="log-sheet-title">
+              {metric?'Log '+metric.name.toLowerCase():area?'What happened?':'What would you like to log?'}
+            </h2>
+            <p>{metric?'A small entry is enough. Keep it real.':area?'Choose one thing to capture from your '+areaMeta[area].title.toLowerCase()+'.':'Pick an area of your life to start with.'}</p>
+          </div>
+
+          <button className="log-close" type="button" onClick={onClose} disabled={saving} aria-label="Close logging sheet">
+            <X size={18}/>
+          </button>
+        </header>
+
+        <div className="log-sheet-scroll">
+          {!area&&!metric&&(
+            <div className="log-area-grid">
+              {Object.entries(areaMeta).map(([id,m])=>{
+                const I2=m.icon
+                return (
+                  <button className="log-area-choice" type="button" key={id} onClick={()=>{onArea(id);onMetric(null)}}>
+                    <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={20}/></span>
+                    <span className="log-choice-copy"><strong>{m.title}</strong><small>{m.title==='Health'?'Body, energy & routine':m.title==='Nutrition'?'Meals & food routine':m.title==='Money'?'Income, spending & saving':m.title==='Career'?'Learning & work':m.title==='Mind'?'Mood, focus & reflection':'Habits, people & personal life'}</small></span>
+                    <ChevronRight size={16}/>
+                  </button>
+                )
+              })}
+            </div>
+          )}
+
+          {area&&!metric&&(
+            <div className="log-picker-view">
+              <button className="log-back" type="button" onClick={()=>onArea(null)}>
+                <ChevronLeft size={15}/> All areas
+              </button>
+
+              <div className="log-metric-list">
+                {rows.map(d=>{
+                  const M=icons[d.slug]||Sparkles
+                  return (
+                    <button className="log-metric-choice" type="button" key={d.id} onClick={()=>selectMetric(d)}>
+                      <span className="log-choice-icon" style={{'--metric-color':d.color||areaMeta[area].color}}><M size={18}/></span>
+                      <span className="log-choice-copy"><strong>{d.name}</strong><small>{d.unit||'Track it simply'}</small></span>
+                      <ChevronRight size={16}/>
+                    </button>
+                  )
+                })}
+
+                {area==='nutrition'&&(
+                  <button className="log-metric-choice" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
+                    <span className="log-choice-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={18}/></span>
+                    <span className="log-choice-copy"><strong>Meal</strong><small>Breakfast, lunch, dinner or snack</small></span>
+                    <ChevronRight size={16}/>
+                  </button>
+                )}
+              </div>
+            </div>
+          )}
+
+          {metric&&metric.value_type!=='meal'&&(
+            <div className="log-form">
+              <div className="log-selected-metric">
+                <span className="log-choice-icon" style={{'--metric-color':metric.color||'#c8f36a'}}><I size={19}/></span>
+                <div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div>
+              </div>
+
+              {metric.value_type==='scale'?(
+                <div className="log-field-group">
+                  <div className="log-field-title"><span>How would you rate it?</span><small>1–5</small></div>
+                  <div className="scale-picker">
+                    {[1,2,3,4,5].map(n=>(
+                      <button type="button" key={n} className={Number(values.value)===n?'active':''} onClick={()=>setValues(v=>({...v,value:n}))}>{n}</button>
+                    ))}
+                  </div>
+                </div>
+              ):(
+                <label className="log-input-label">
+                  <span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span>
+                  <input autoFocus type="number" min="0" step="any" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))} placeholder={metric.unit==='NGN'?'0':'0'}/>
+                </label>
+              )}
+
+              <label className="log-input-label">
+                <span>When</span>
+                <input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/>
+              </label>
+
+              <label className="log-input-label">
+                <span>Note <small>optional</small></span>
+                <textarea rows="3" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))} placeholder="Anything worth remembering?"/>
+              </label>
+
+              {error&&<p className="log-error" role="alert">{error}</p>}
+            </div>
+          )}
+
+          {metric&&metric.value_type==='meal'&&(
+            <div className="log-form">
+              <div className="log-field-group">
+                <div className="log-field-title"><span>What kind of meal?</span></div>
+                <div className="meal-type-row">
+                  {['breakfast','lunch','dinner','snack'].map(t=>(
+                    <button type="button" key={t} className={values.meal_type===t?'active':''} onClick={()=>setValues(v=>({...v,meal_type:t}))}>{t}</button>
+                  ))}
+                </div>
+              </div>
+
+              <label className="log-input-label">
+                <span>What did you eat?</span>
+                <textarea autoFocus rows="3" value={values.description||''} onChange={e=>setValues(v=>({...v,description:e.target.value}))} placeholder="e.g. Rice, chicken and vegetables"/>
+              </label>
+
+              <div className="optional-nutrition">
+                <label className="log-input-label"><span>Calories <small>optional</small></span><input type="number" min="0" value={values.calories||''} onChange={e=>setValues(v=>({...v,calories:e.target.value}))}/></label>
+                <label className="log-input-label"><span>Protein (g) <small>optional</small></span><input type="number" min="0" value={values.protein_g||''} onChange={e=>setValues(v=>({...v,protein_g:e.target.value}))}/></label>
+              </div>
+
+              <label className="log-input-label">
+                <span>When</span>
+                <input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/>
+              </label>
+
+              <label className="log-input-label">
+                <span>Note <small>optional</small></span>
+                <textarea rows="2" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))} placeholder="Anything worth remembering?"/>
+              </label>
+
+              {error&&<p className="log-error" role="alert">{error}</p>}
+            </div>
+          )}
+        </div>
+
+        {metric&&(
+          <footer className="log-sheet-footer">
+            <div>
+              <span>PRIVATE ENTRY</span>
+              <small>Saved to your Evolv history.</small>
+            </div>
+            <button className="button button-primary log-save" type="button" onClick={save} disabled={saving}>
+              {saving?'Saving…':metric.value_type==='meal'?'Save meal':'Save log'}
+              <Check size={15}/>
+            </button>
+          </footer>
+        )}
+      </section>
+    </div>
+  )
+}
 function WeeklyProgressChart({ checkins = [], goals = [] }) {
   const today = new Date()
   const days = Array.from({ length: 7 }, (_, index) => {
