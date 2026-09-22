@@ -2821,3 +2821,133 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:clamp(3.4rem,10vw,5.6rem);
   }
 }
+
+/* Dashboard — Liquid Glass reference pass */
+.dashboard .dash-main{padding-bottom:140px}
+.dashboard .dashboard-home{width:min(100%,1040px)}
+.dashboard .dashboard-welcome{align-items:center;gap:28px;margin:22px 0 68px}
+.dashboard .dashboard-welcome-copy{min-width:0;flex:1 1 auto}
+.dashboard .dashboard-welcome-copy h1{font-size:clamp(56px,8vw,92px)}
+
+.dashboard .state-ring{
+  width:164px;height:164px;padding:7px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 24px 65px rgba(0,0,0,.28),0 0 50px rgba(74,157,107,.13),inset 0 1px 0 rgba(255,255,255,.12);
+}
+.dashboard .state-ring-track{
+  background:conic-gradient(from -90deg,#7ed6a6 0 var(--ring-progress),rgba(126,214,166,.10) var(--ring-progress) 360deg);
+}
+.dashboard .state-ring-track::after{
+  inset:7px;
+  background:radial-gradient(circle at 34% 20%,rgba(255,255,255,.08),transparent 32%),linear-gradient(145deg,rgba(8,18,13,.88),rgba(3,8,6,.97));
+  border-color:rgba(255,255,255,.075);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
+}
+.dashboard .state-ring-center{gap:4px}
+.dashboard .state-ring-center strong{display:flex;align-items:baseline;gap:1px;font-size:35px;color:#f3f7f4}
+.dashboard .state-ring-center strong span{color:rgba(238,244,240,.58);font:500 16px 'Manrope';letter-spacing:-.03em}
+.dashboard .state-ring-center > span{color:rgba(238,244,240,.48);font-size:8px;letter-spacing:.12em}
+
+.dashboard .frequency-section{margin-bottom:74px}
+.dashboard .frequency-heading{margin-bottom:17px}
+.dashboard .frequency-heading>span{color:rgba(235,242,238,.52);font-size:10px;letter-spacing:.16em}
+.dashboard .frequency-heading button{
+  width:32px;height:32px;border-color:rgba(133,213,171,.16);background:rgba(111,181,143,.06);
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+}
+.dashboard .frequency-list{gap:13px}
+
+.dashboard .glass-task{
+  min-height:78px;padding:17px 20px;gap:15px;border-radius:40px;
+  border-color:rgba(158,220,185,.14);
+  background:linear-gradient(135deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),rgba(4,11,8,.48);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 -1px 0 rgba(0,0,0,.20),0 16px 42px rgba(0,0,0,.22);
+  backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);
+  transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease;
+  touch-action:auto;
+}
+.dashboard .glass-task::before{background:linear-gradient(115deg,rgba(255,255,255,.075),transparent 35%);opacity:.72}
+.dashboard .glass-task:hover{
+  transform:translateY(-1px);border-color:rgba(169,225,194,.21);
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.022)),rgba(5,13,9,.50);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.085),0 18px 44px rgba(0,0,0,.25);
+}
+.dashboard .task-check{
+  width:31px;height:31px;border:1px solid rgba(227,239,231,.22);color:#eef8f1;
+  background:rgba(255,255,255,.012);box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.dashboard .glass-task.checked{opacity:.78}
+.dashboard .glass-task.checked .task-check{
+  border-color:rgba(126,214,166,.72);background:rgba(126,214,166,.10);color:#dff6e8;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px rgba(92,180,128,.10);
+}
+.dashboard .task-text{font-size:15px;color:rgba(239,243,240,.74)}
+.dashboard .task-progress{font-size:9px;color:rgba(231,239,234,.34)}
+
+.dashboard .daily-insight{padding-top:34px}
+.dashboard .daily-insight-label{color:rgba(232,241,236,.48)}
+.dashboard .daily-insight h2{font-size:clamp(42px,5.5vw,62px);color:#f1f5f2}
+.dashboard .daily-insight p{color:rgba(232,239,235,.56);font-size:15px;line-height:1.8}
+.dashboard .daily-insight-points > div{
+  border-color:rgba(158,220,185,.09);border-radius:18px;background:rgba(255,255,255,.025);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+}
+
+/* Floating Liquid Glass tab bar */
+.dashboard .app-bottom-nav{
+  width:min(360px,calc(100% - 28px));padding:5px;gap:3px;border:1px solid rgba(255,255,255,.14);border-radius:42px;
+  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),rgba(8,12,10,.55);
+  box-shadow:0 20px 65px rgba(0,0,0,.46),0 5px 24px rgba(27,85,54,.12),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.22);
+  backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);
+}
+.dashboard .app-bottom-nav::before{
+  content:"";position:absolute;inset:1px;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(105deg,rgba(255,255,255,.055),transparent 30%,transparent 72%,rgba(255,255,255,.025));opacity:.9;
+}
+.dashboard .app-bottom-nav button{
+  min-height:58px;border-radius:34px;color:rgba(237,241,238,.32);
+  transition:background .28s cubic-bezier(.22,1,.36,1),color .22s ease,box-shadow .28s ease,transform .28s ease;
+}
+.dashboard .app-bottom-nav button span{width:32px;height:24px}
+.dashboard .app-bottom-nav button small{font:500 9px 'Manrope';letter-spacing:-.01em}
+.dashboard .app-bottom-nav button.bottom-active{
+  position:relative;color:#f0f5f1;
+  background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.055)),rgba(126,154,140,.08);
+  border:1px solid rgba(255,255,255,.15);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(0,0,0,.14),0 7px 20px rgba(0,0,0,.16);
+}
+.dashboard .app-bottom-nav button.bottom-active::after{
+  content:"";position:absolute;inset:2px;border-radius:31px;pointer-events:none;
+  background:linear-gradient(115deg,rgba(255,255,255,.055),transparent 38%);
+}
+.dashboard .app-bottom-nav button.bottom-active span{color:#c7d4cc}
+.dashboard .app-bottom-nav button:active{transform:scale(.96)}
+
+@media(max-width:800px){
+  .dashboard .dash-main{padding:34px 16px 126px}
+  .dashboard .dashboard-home{width:100%}
+  .dashboard .dashboard-welcome{gap:12px;margin:10px 0 54px;align-items:center}
+  .dashboard .dashboard-welcome-copy{flex:1 1 52%}
+  .dashboard .dashboard-eyebrow{font-size:10px;letter-spacing:.13em}
+  .dashboard .dashboard-welcome-copy h1{font-size:clamp(48px,15vw,70px);line-height:.94}
+  .dashboard .state-ring{width:154px;height:154px;flex:0 0 154px;padding:7px}
+  .dashboard .state-ring-center strong{font-size:30px}
+  .dashboard .state-ring-center strong span{font-size:14px}
+  .dashboard .state-ring-center > span{font-size:7px}
+  .dashboard .frequency-section{margin-bottom:58px}
+  .dashboard .frequency-heading{margin-bottom:15px}
+  .dashboard .frequency-heading>span{font-size:9px;letter-spacing:.13em}
+  .dashboard .glass-task{min-height:78px;padding:17px 18px;border-radius:40px}
+  .dashboard .task-check{width:30px;height:30px}
+  .dashboard .task-text{font-size:15px}
+  .dashboard .daily-insight{padding-top:28px}
+  .dashboard .daily-insight h2{font-size:clamp(38px,10vw,48px)}
+  .dashboard .daily-insight p{font-size:14px}
+  .dashboard .app-bottom-nav{width:calc(100% - 34px);max-width:360px;bottom:max(12px,env(safe-area-inset-bottom));padding:5px;border-radius:40px}
+  .dashboard .app-bottom-nav button{min-height:58px;border-radius:34px}
+}
+@media(min-width:801px){
+  .dashboard .state-ring{width:176px;height:176px}
+  .dashboard .app-bottom-nav{width:min(370px,calc(100% - 40px))}
+}
