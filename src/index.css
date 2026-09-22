@@ -5957,3 +5957,58 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .app-bottom-nav button small{
   opacity:1 !important;
 }
+
+
+/* EVOLV — bottom nav clean active indicator */
+.dashboard .app-bottom-nav{
+  overflow:hidden !important;
+}
+.dashboard .app-bottom-nav button{
+  position:relative !important;
+  overflow:hidden !important;
+  isolation:isolate !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .app-bottom-nav button.bottom-active{
+  color:#c4df59 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .app-bottom-nav button.bottom-active::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:50%;
+  top:4px;
+  width:42px;
+  height:28px;
+  transform:translateX(-50%);
+  border-radius:16px;
+  background:rgba(183,217,76,.075);
+  box-shadow:inset 0 1px 0 rgba(183,217,76,.10);
+  pointer-events:none;
+}
+.dashboard .app-bottom-nav button.bottom-active::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  left:50%;
+  bottom:4px;
+  width:3px;
+  height:3px;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:#b7d94c;
+  box-shadow:0 0 8px rgba(183,217,76,.45);
+  pointer-events:none;
+}
+.dashboard .app-bottom-nav button.bottom-active > span,
+.dashboard .app-bottom-nav button.bottom-active > small{
+  position:relative !important;
+  z-index:2 !important;
+  display:grid;
+}
+.dashboard .app-bottom-nav button.bottom-active > small{
+  display:block;
+}
