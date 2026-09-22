@@ -1710,7 +1710,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   padding:14px 16px;
   text-align:left;
   border:1px solid var(--glass-border);
-  border-radius:22px;
+  border-radius:34px;
   color:#ece9e2;
   background:
     linear-gradient(120deg,rgba(255,255,255,.075),rgba(255,255,255,.025)),
@@ -1842,10 +1842,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   grid-template-columns:repeat(4,1fr);
   gap:4px;
   border:1px solid rgba(255,255,255,.13);
-  border-radius:25px;
-  background:rgba(10,19,16,.72);
-  box-shadow:0 18px 55px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.07);
-  backdrop-filter:blur(28px) saturate(135%);
+  border-radius:38px;
+  background:rgba(10,19,16,.56);
+  box-shadow:0 20px 60px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(255,255,255,.035);
+  backdrop-filter:blur(34px) saturate(155%);
+  -webkit-backdrop-filter:blur(34px) saturate(155%);
   -webkit-backdrop-filter:blur(28px) saturate(135%);
 }
 
@@ -1857,8 +1858,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   align-content:center;
   gap:4px;
   border:0;
-  border-radius:18px;
-  background:transparent;
+  border-radius:28px;
+  background:rgba(255,255,255,.018);
   color:rgba(238,235,228,.43);
   cursor:pointer;
 }
