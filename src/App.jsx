@@ -673,6 +673,7 @@ function PricingPage({ onStart, onBack }) {
 function ArticlePage({ article, onStart, onBack }) {
   const isFeatures = article?.type === 'features'
   const isMood = article?.type === 'mood'
+  const isHealthReading = isMood || ['health','nutrition'].includes(article?.areaId)
   const area = growthAreas.find(a => a.id === article?.areaId)
   const title = isFeatures ? 'The system behind your becoming.' : isMood ? 'When your mood feels heavy.' : area?.title || 'Growth areas'
   const eyebrow = isFeatures ? '03 — THE SYSTEM' : isMood ? 'YOUR HEALTH / MOOD' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
@@ -699,6 +700,35 @@ function ArticlePage({ article, onStart, onBack }) {
       text: 'Life changes. A goal that made sense three months ago may not fit anymore. EVOLV is built around adjustment, not perfection — review what is working, change what is not, and keep moving without feeling like you are starting from zero.'
     },
   ]
+
+  const healthLibrary = {
+    health: {
+      intro: 'Your health is not one number. It is a collection of everyday signals — sleep, movement, energy, stress and the routines that help you feel more like yourself.',
+      sections: [
+        ['START WITH THE BASICS', 'You do not need to rebuild your entire routine at once. Sleep, regular meals, movement, hydration and time to recover are practical places to begin noticing what your body and mind need.'],
+        ['LOOK FOR PATTERNS', 'One day rarely tells the whole story. A few weeks of simple logs can make routines easier to see: when you sleep better, when your energy changes, or when movement becomes more consistent.'],
+        ['MAKE THE NEXT STEP SMALL', 'Choose one action that fits your actual day. A short walk, a regular meal, a little more water or protecting your bedtime can be more useful than an unrealistic plan you cannot maintain.']
+      ],
+      resources: [
+        { title: 'Self-care for health and well-being', source: 'World Health Organization', url: 'https://www.who.int/news-room/fact-sheets/detail/self-care-health-interventions', text: 'An overview of everyday self-care and healthy lifestyle choices.' },
+        { title: 'Caring for Your Mental Health', source: 'National Institute of Mental Health', url: 'https://www.nimh.nih.gov/health/topics/caring-for-your-mental-health', text: 'Practical guidance on sleep, movement, connection, stress and getting support.' },
+        { title: 'Taking Care of Your Body', source: 'CDC', url: 'https://cdc.gov/howrightnow/taking-care/index.html', text: 'Accessible guidance on sleep, nutrition and physical activity.' }
+      ]
+    },
+    nutrition: {
+      intro: 'Food is part of your everyday life. A useful food log should help you understand your routine, not make you feel like every meal needs a score.',
+      sections: [
+        ['BALANCE, NOT PERFECTION', 'Healthy eating can look different across cultures, budgets and lifestyles. WHO describes healthy diets through principles such as adequacy, balance, moderation and diversity rather than one perfect menu.'],
+        ['NOTICE YOUR ROUTINE', 'Logging what you actually eat can help you see whether meals are regular, where variety is missing, or when you tend to skip food. You do not have to count every calorie to learn something useful.'],
+        ['MAKE IT PRACTICAL', 'Think about what is available to you. A balanced meal can be built from familiar foods, including staples, beans and other legumes, vegetables or fruit, and protein sources such as eggs, fish or meat.']
+      ],
+      resources: [
+        { title: 'Healthy diet', source: 'World Health Organization', url: 'https://www.who.int/news-room/fact-sheets/detail/healthy-diet', text: 'Current WHO guidance on adequacy, balance, moderation and diversity.' },
+        { title: 'What are healthy diets?', source: 'WHO & FAO', url: 'https://www.who.int/publications/i/item/9789240101876', text: 'A detailed joint explanation of healthy diet principles and cultural context.' },
+        { title: 'Improve Your Emotional Well-Being', source: 'CDC', url: 'https://www.cdc.gov/emotional-well-being/improve-your-emotional-well-being/index.html', text: 'Guidance connecting regular meals, physical activity, sleep and emotional wellbeing.' }
+      ]
+    }
+  }
 
   const moodContent = {
     intro: 'A low day does not need to become a verdict about your life. Your mood is something you can notice, understand and respond to — gently, one small step at a time.',
@@ -773,7 +803,9 @@ function ArticlePage({ article, onStart, onBack }) {
       }
     : isMood
       ? moodContent
-      : (areaContent[article?.areaId] || {
+      : isHealthReading && healthLibrary[article?.areaId]
+        ? healthLibrary[article?.areaId]
+        : (areaContent[article?.areaId] || {
           intro: 'Whatever you are working toward, progress becomes easier to understand when you give it a direction and a next step.',
           sections: [
             ['WHY IT MATTERS', 'Give this part of your life a clear place in the bigger picture.'],
@@ -835,9 +867,9 @@ function ArticlePage({ article, onStart, onBack }) {
               : `The difference is often surprisingly small. Instead of keeping “I want to improve my ${area?.title?.toLowerCase() || 'life'}” as a thought, choose one thing you can do this week, record it, and return to it. Over time, those small pieces become evidence that your life is actually changing.`}
           </p>
         </section>
-        {isMood&&<section className="article-resources article-block">
+        {isHealthReading&&<section className="article-resources article-block">
           <div className="article-resource-head"><div><span className="section-label">GO DEEPER</span><h2>Good places to keep reading.</h2><p>These are trusted health resources. They are here to help you learn, not to label you.</p></div></div>
-          <div className="article-resource-grid">{moodContent.resources.map(resource=><a className="article-resource-card" href={resource.url} target="_blank" rel="noreferrer" key={resource.url}>
+          <div className="article-resource-grid">{(isMood?moodContent.resources:healthLibrary[article?.areaId]?.resources||[]).map(resource=><a className="article-resource-card" href={resource.url} target="_blank" rel="noreferrer" key={resource.url}>
             <div><span>{resource.source}</span><h3>{resource.title}</h3><p>{resource.text}</p></div><ExternalLink size={17}/></a>)}</div>
         </section>}
 
