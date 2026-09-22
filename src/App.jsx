@@ -261,6 +261,32 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     }
   }
 
+  async function requestPasswordReset() {
+    const cleanEmail = email.trim()
+
+    if (!cleanEmail) {
+      setError('Enter your email first.')
+      return
+    }
+
+    setSending(true)
+    setError('')
+    setMessage('')
+
+    const { error: resetError } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
+      redirectTo: window.location.origin,
+    })
+
+    setSending(false)
+
+    if (resetError) {
+      setError(resetError.message || 'Could not send the password reset email. Please try again.')
+      return
+    }
+
+    setMessage('Password reset instructions have been sent to your email.')
+  }
+
   async function submit(event) {
     event.preventDefault()
     const cleanEmail = email.trim()
@@ -376,6 +402,12 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
               autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
             />
           </label>
+
+          {mode === 'login' && (
+            <button className="forgot-password" type="button" onClick={requestPasswordReset} disabled={sending}>
+              Forgot password?
+            </button>
+          )}
 
           {error && <p className="auth-error" role="alert">{error}</p>}
           {message && <p className="auth-message">{message}</p>}
