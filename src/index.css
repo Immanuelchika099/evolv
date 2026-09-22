@@ -4854,27 +4854,31 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   }
 }
 
-/* EVOLV — dashboard welcome alignment */
+/* EVOLV — dashboard welcome alignment v2 */
 .dashboard .dashboard-welcome{
   display:flex !important;
   flex-direction:column !important;
-  align-items:flex-start !important;
+  align-items:stretch !important;
   justify-content:flex-end !important;
 }
 .dashboard .dashboard-welcome .dashboard-eyebrow,
 .dashboard .dashboard-welcome h1{
+  width:100% !important;
   align-self:flex-start !important;
   text-align:left !important;
 }
 .dashboard .dashboard-welcome .area-pills{
+  display:flex !important;
   align-self:center !important;
   justify-content:center !important;
+  align-items:center !important;
   width:100% !important;
-  margin-left:0 !important;
-  margin-right:0 !important;
+  margin:32px 0 0 !important;
+  text-align:center !important;
 }
 @media(max-width:800px){
   .dashboard .dashboard-welcome .area-pills{
     justify-content:center !important;
+    margin-top:24px !important;
   }
 }
