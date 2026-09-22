@@ -1891,8 +1891,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .app-bottom-nav{
-  --nav-drag-x:0px;
-  --nav-drag-y:0px;
   --glass-shift-x:0px;
   --glass-shift-y:0px;
   --glass-light-x:50%;
@@ -1901,10 +1899,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   z-index:20;
   left:50%;
   bottom:max(14px,env(safe-area-inset-bottom));
-  transform:translate3d(calc(-50% + var(--nav-drag-x)),var(--nav-drag-y),0);
-  transition:transform .55s cubic-bezier(.22,1,.36,1);
-  touch-action:none;
-  user-select:none;
+  transform:translateX(-50%);
   width:min(calc(100% - 28px),440px);
   padding:7px;
   display:grid;
@@ -1958,18 +1953,10 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   z-index:0;
   border-radius:inherit;
   pointer-events:none;
-  background:
-    radial-gradient(circle at var(--glass-light-x) var(--glass-light-y),rgba(150,255,208,.14),transparent 28%),
-    linear-gradient(180deg,rgba(255,255,255,.07),transparent 34%);
+  background:linear-gradient(180deg,rgba(255,255,255,.07),transparent 34%);
   opacity:.82;
-  transform:translate3d(var(--glass-shift-x),var(--glass-shift-y),0) scale(1.012);
-  transition:opacity .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
 }
 
-.app-bottom-nav.glass-dragging::before{
-  opacity:1;
-  transition:none;
-}
 
 .app-bottom-nav button.bottom-active{
   color:#f4f0e9;
@@ -2457,13 +2444,3 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .weekly-chart-visual svg{height:125px}
 }
 
-.app-bottom-nav.glass-dragging{
-  cursor:grabbing;
-  transition:none;
-  filter:brightness(1.08);
-}
-
-.app-bottom-nav.glass-dragging::before{
-  opacity:1;
-  transition:none;
-}
