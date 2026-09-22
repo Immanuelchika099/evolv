@@ -1418,7 +1418,7 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
 function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
   const firstName = profile?.first_name || 'there'
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: `Hey ${firstName} — I’m EVOLV AI. I know what you’re working toward, so you don’t have to start from scratch. What’s on your mind?` },
+    { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
   ])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
@@ -1498,7 +1498,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
       return
     }
 
-    const reply = result.reply || `I’m here, ${firstName}. What would you like to work through next?`
+    const reply = result.reply || `I’m here, ${firstName}. We can take it one step at a time.`
     setTyping(true)
     setMessages(current => [...current, { role: 'assistant', content: '' }])
 
@@ -1522,35 +1522,35 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
     <section className="panel-page ai-page">
       <div className="ai-heading">
         <div>
-          <span className="section-label">EVOLV AI</span>
-          <h2>Talk it through.</h2>
-          <p>Hey {firstName}. I can use your goals, momentum and check-ins to make the conversation personal — not generic.</p>
+          <span className="section-label">A SPACE FOR YOU</span>
+          <h2>What’s on your mind?</h2>
+          <p>Talk things through, make sense of what you’re feeling, or figure out what to do next.</p>
         </div>
-        <span className="ai-status"><i /> HERE FOR YOU</span>
+        <span className="ai-status"><i /> I’M HERE</span>
       </div>
       <div className="ai-context-strip">
-        <span>{goals.length} GOAL{goals.length === 1 ? '' : 'S'}</span>
-        <span>{momentum}% PROGRESS</span>
-        <span>{checkins.length} CHECK-IN{checkins.length === 1 ? '' : 'S'}</span>
+        <span>{goals.length} goal{goals.length === 1 ? '' : 's'}</span>
+        <span>{momentum}% progress</span>
+        <span>{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
       </div>
       <div className="ai-chat">
         <div className="ai-messages">
           {messages.map((message, index) => (
             <div className={`ai-message ${message.role}`} key={index}>
-              <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV AI' : 'YOU'}</span>
+              <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
               <p>{message.content}{message.role === 'assistant' && typing && index === messages.length - 1 ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</p>
             </div>
           ))}
           {sending && !typing && (
             <div className="ai-message assistant">
-              <span className="ai-message-role">EVOLV AI</span>
+              <span className="ai-message-role">EVOLV</span>
               <div className="ai-thinking" aria-label="EVOLV AI is thinking"><i /><i /><i /></div>
             </div>
           )}
           <div ref={bottomRef} />
         </div>
         <form className="ai-input" onSubmit={sendMessage}>
-          <input value={input} onChange={e => setInput(e.target.value)} placeholder={`Talk to me, ${firstName}…`} maxLength={2000} />
+          <input value={input} onChange={e => setInput(e.target.value)} placeholder="Write what’s on your mind…" maxLength={2000} />
           <button type="submit" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
         </form>
       </div>
