@@ -244,7 +244,6 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
-  const [otpSent, setOtpSent] = useState(false)
 
   async function continueWithProvider(provider) {
     setSending(true)
@@ -260,38 +259,6 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
       setError(oauthError.message || `Could not continue with ${provider}. Please try again.`)
       setSending(false)
     }
-  }
-
-  async function sendEmailCode(event) {
-    event.preventDefault()
-    const cleanEmail = email.trim()
-
-    if (!cleanEmail) {
-      setError('Enter your email to continue.')
-      return
-    }
-
-    setSending(true)
-    setError('')
-    setMessage('')
-
-    const { error: linkError } = await supabase.auth.signInWithOtp({
-      email: cleanEmail,
-      options: {
-        shouldCreateUser: mode === 'signup',
-        emailRedirectTo: window.location.origin,
-      },
-    })
-
-    setSending(false)
-
-    if (linkError) {
-      setError(linkError.message || 'Could not send your sign-in link. Please try again.')
-      return
-    }
-
-    setOtpSent(true)
-    setMessage(`We sent a secure sign-in link to ${cleanEmail}. Open the link in your email to continue.`)
   }
 
   async function submit(event) {
@@ -385,31 +352,41 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
           ? 'Create your account so the progress you build in EVOLV can stay connected to you.'
           : 'Sign in and continue from where you left off.'}</p>
 
-        {otpSent ? (
-          <div className="auth-form auth-link-sent">
-            <div className="auth-link-icon">↗</div>
-            <span className="section-label">CHECK YOUR EMAIL</span>
-            <p className="auth-message">{message}</p>
-            <button
-              className="auth-switch"
-              type="button"
-              onClick={() => { setOtpSent(false); setError(''); setMessage('') }}
-            >
-              Use a different email
-            </button>
-          </div>
-        ) : (
-          <>
-            <form className="auth-form" onSubmit={sendEmailCode}>
-              <label><span>Email</span><input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" /></label>
-              {error && <p className="auth-error" role="alert">{error}</p>}
-              {message && <p className="auth-message">{message}</p>}
-              <button className="button button-primary auth-submit" disabled={sending} type="submit">
-                {sending ? 'Sending link…' : 'Continue with email'} {!sending && <ArrowRight size={16} />}
-              </button>
-            </form>
-          </>
-        )}
+        <form className="auth-form" onSubmit={submit}>
+          <label>
+            <span>Email</span>
+            <input
+              required
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              autoComplete="email"
+            />
+          </label>
+
+          <label>
+            <span>Password</span>
+            <input
+              required
+              type="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="••••••••"
+              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
+            />
+          </label>
+
+          {error && <p className="auth-error" role="alert">{error}</p>}
+          {message && <p className="auth-message">{message}</p>}
+
+          <button className="button button-primary auth-submit" disabled={sending} type="submit">
+            {sending
+              ? (mode === 'signup' ? 'Creating account…' : 'Signing in…')
+              : (mode === 'signup' ? 'Create account' : 'Sign in')}
+            {!sending && <ArrowRight size={16} />}
+          </button>
+        </form>
 
         <div className="auth-divider"><span>OR</span></div>
         <button className="google-auth-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
