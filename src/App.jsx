@@ -1030,6 +1030,9 @@ function Dashboard({ data, onLogout }) {
     setGoals(current => current.filter(goal => goal.id !== goalId))
   }
 
+  const navDragRef = useRef({ dragging: false, moved: false, startX: 0, startY: 0, baseTop: 0 })
+  const navClickLockRef = useRef(false)
+
   function updateGlassMotion(event) {
     const element = event.currentTarget
     const rect = element.getBoundingClientRect()
@@ -1054,6 +1057,52 @@ function Dashboard({ data, onLogout }) {
     element.style.setProperty('--glass-shift-y', '0px')
     element.style.setProperty('--glass-light-x', '50%')
     element.style.setProperty('--glass-light-y', '50%')
+  }
+
+  function startNavDrag(event) {
+    if (event.pointerType === 'mouse' && event.button !== 0) return
+    const nav = event.currentTarget
+    const rect = nav.getBoundingClientRect()
+    navDragRef.current = { dragging: true, moved: false, startX: event.clientX, startY: event.clientY, baseTop: rect.top }
+    nav.classList.add('glass-dragging')
+    nav.setPointerCapture?.(event.pointerId)
+  }
+
+  function updateNavDrag(event) {
+    const nav = event.currentTarget
+    const drag = navDragRef.current
+    if (!drag.dragging) return
+    const dx = event.clientX - drag.startX
+    const dy = event.clientY - drag.startY
+    if (Math.hypot(dx, dy) > 6) drag.moved = true
+    const rect = nav.getBoundingClientRect()
+    const maxX = Math.max(0, (window.innerWidth - rect.width) / 2 - 8)
+    const minY = 8 - drag.baseTop
+    const maxY = window.innerHeight - rect.height - 8 - drag.baseTop
+    const nextX = Math.max(-maxX, Math.min(maxX, dx))
+    const nextY = Math.max(minY, Math.min(maxY, dy))
+    nav.style.setProperty('--nav-drag-x', nextX + 'px')
+    nav.style.setProperty('--nav-drag-y', nextY + 'px')
+    nav.style.setProperty('--glass-shift-x', (nextX * .18) + 'px')
+    nav.style.setProperty('--glass-shift-y', (nextY * .18) + 'px')
+  }
+
+  function endNavDrag(event) {
+    const nav = event.currentTarget
+    const drag = navDragRef.current
+    if (!drag.dragging) return
+    navDragRef.current.dragging = false
+    if (drag.moved) {
+      navClickLockRef.current = true
+      window.setTimeout(() => { navClickLockRef.current = false }, 80)
+    }
+    nav.classList.remove('glass-dragging')
+    nav.releasePointerCapture?.(event.pointerId)
+  }
+
+  function handleNavClick(next) {
+    if (navClickLockRef.current) return
+    setActive(next)
   }
 
   async function checkIn(goal) {
@@ -1327,25 +1376,24 @@ function Dashboard({ data, onLogout }) {
       <nav
         className="app-bottom-nav"
         aria-label="App navigation"
-        onPointerDown={startGlassMotion}
-        onPointerMove={updateGlassMotion}
-        onPointerUp={endGlassMotion}
-        onPointerCancel={endGlassMotion}
-        onPointerLeave={(event) => { if (event.currentTarget.hasPointerCapture?.(event.pointerId)) return; endGlassMotion(event) }}
+        onPointerDown={startNavDrag}
+        onPointerMove={updateNavDrag}
+        onPointerUp={endNavDrag}
+        onPointerCancel={endNavDrag}
       >
-        <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => setActive('overview')}>
+        <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => handleNavClick('overview')}>
           <span><Home size={18} /></span>
           <small>Home</small>
         </button>
-        <button className={active === 'ai' ? 'bottom-active' : ''} onClick={() => setActive('ai')}>
+        <button className={active === 'ai' ? 'bottom-active' : ''} onClick={() => handleNavClick('ai')}>
           <span><MessageCircle size={18} /></span>
           <small>Chats</small>
         </button>
-        <button className={active === 'goals' ? 'bottom-active' : ''} onClick={() => setActive('goals')}>
+        <button className={active === 'goals' ? 'bottom-active' : ''} onClick={() => handleNavClick('goals')}>
           <span><LineChart size={18} /></span>
           <small>Progress</small>
         </button>
-        <button className={active === 'profile' ? 'bottom-active' : ''} onClick={() => setActive('profile')}>
+        <button className={active === 'profile' ? 'bottom-active' : ''} onClick={() => handleNavClick('profile')}>
           <span><UserRound size={18} /></span>
           <small>Profile</small>
         </button>
