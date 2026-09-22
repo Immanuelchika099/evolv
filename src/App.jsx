@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils } from 'lucide-react'
+import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -672,9 +672,10 @@ function PricingPage({ onStart, onBack }) {
 
 function ArticlePage({ article, onStart, onBack }) {
   const isFeatures = article?.type === 'features'
+  const isMood = article?.type === 'mood'
   const area = growthAreas.find(a => a.id === article?.areaId)
-  const title = isFeatures ? 'The system behind your becoming.' : area?.title || 'Growth areas'
-  const eyebrow = isFeatures ? '03 — THE SYSTEM' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
+  const title = isFeatures ? 'The system behind your becoming.' : isMood ? 'When your mood feels heavy.' : area?.title || 'Growth areas'
+  const eyebrow = isFeatures ? '03 — THE SYSTEM' : isMood ? 'YOUR HEALTH / MOOD' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
 
   const featureSections = [
     {
@@ -698,6 +699,21 @@ function ArticlePage({ article, onStart, onBack }) {
       text: 'Life changes. A goal that made sense three months ago may not fit anymore. EVOLV is built around adjustment, not perfection — review what is working, change what is not, and keep moving without feeling like you are starting from zero.'
     },
   ]
+
+  const moodContent = {
+    intro: 'A low day does not need to become a verdict about your life. Your mood is something you can notice, understand and respond to — gently, one small step at a time.',
+    sections: [
+      ['NOTICE WITHOUT JUDGING', 'You do not have to force yourself to feel positive. Start by naming what is actually there: low, stressed, tired, okay, joyful, disconnected or something else. Naming a feeling can make it easier to decide what you need next.'],
+      ['LOOK FOR THE CONTEXT', 'Sleep, food, movement, stress, relationships, money, work and your surroundings can all be useful pieces of context. Evolv is not trying to diagnose the reason you feel a certain way; it helps you notice patterns in your own life when there is enough information.'],
+      ['CHOOSE ONE SMALL RESPONSE', 'When everything feels like too much, shrink the next step. Drink some water. Eat something. Step outside. Take a short walk. Message someone you trust. Rest. Do one useful thing, then let that be enough for now. Small actions can be a way back into your day, not a test you have to pass.'],
+      ['YOU DO NOT HAVE TO DO THIS ALONE', 'If low mood keeps affecting your everyday life, lasts for a couple of weeks, gets worse, or you are struggling to cope, talking with a healthcare professional or someone you trust can be an important next step.']
+    ],
+    resources: [
+      { title: 'Caring for your mental health', source: 'National Institute of Mental Health', url: 'https://www.nimh.nih.gov/health/topics/caring-for-your-mental-health', text: 'Practical guidance on self-care, sleep, movement, connection and when to seek professional help.' },
+      { title: 'Low mood, sadness and depression', source: 'NHS', url: 'https://www.nhs.uk/mental-health/feelings-symptoms-behaviours/feelings-and-symptoms/low-mood-sadness-depression/', text: 'A clear guide to low mood, small steps that may help, and when extra support may be needed.' },
+      { title: 'Sadness & depression', source: 'CDC', url: 'https://www.cdc.gov/emotional-well-being/managing-difficult-emotions/sadness-depression.html', text: 'Simple ideas for caring for yourself, noticing emotions and staying connected.' }
+    ]
+  }
 
   const areaContent = {
     career: {
@@ -755,14 +771,16 @@ function ArticlePage({ article, onStart, onBack }) {
         intro: 'Growth sounds simple until real life gets in the way. EVOLV gives your intentions a structure you can return to when motivation fades, plans change and the week gets busy.',
         sections: featureSections
       }
-    : (areaContent[article?.areaId] || {
-        intro: 'Whatever you are working toward, progress becomes easier to understand when you give it a direction and a next step.',
-        sections: [
-          ['WHY IT MATTERS', 'Give this part of your life a clear place in the bigger picture.'],
-          ['MAKE IT VISIBLE', 'Turn an idea into a goal you can act on and return to.'],
-          ['KEEP MOVING', 'Use what you learn to adjust the next step rather than giving up.'],
-        ]
-      })
+    : isMood
+      ? moodContent
+      : (areaContent[article?.areaId] || {
+          intro: 'Whatever you are working toward, progress becomes easier to understand when you give it a direction and a next step.',
+          sections: [
+            ['WHY IT MATTERS', 'Give this part of your life a clear place in the bigger picture.'],
+            ['MAKE IT VISIBLE', 'Turn an idea into a goal you can act on and return to.'],
+            ['KEEP MOVING', 'Use what you learn to adjust the next step rather than giving up.'],
+          ]
+        })
 
 
 
@@ -782,7 +800,9 @@ function ArticlePage({ article, onStart, onBack }) {
           <span>01</span>
           <p>{isFeatures
             ? 'The point is not to become obsessed with productivity. It is to stop letting important goals disappear into the noise of everyday life.'
-            : `Your ${area?.title?.toLowerCase() || 'growth'} deserves more than a vague promise to “do better.” Give it a direction, then give yourself a way to see that you are moving.`}
+            : isMood
+              ? 'You are allowed to have a difficult day without turning it into a difficult life. Start with what is true today, then look for one kind thing you can do next.'
+              : `Your ${area?.title?.toLowerCase() || 'growth'} deserves more than a vague promise to “do better.” Give it a direction, then give yourself a way to see that you are moving.`}
           </p>
         </div>
 
@@ -800,16 +820,25 @@ function ArticlePage({ article, onStart, onBack }) {
         </div>
 
         <section className="article-example article-block">
-          <span className="section-label">REAL LIFE</span>
+          <span className="section-label">{isMood ? 'A SMALL RESET' : 'REAL LIFE'}</span>
           <h2>{isFeatures
             ? 'From “I should” to “I did.”'
-            : `What this could look like in ${area?.title?.toLowerCase() || 'your life'}.`}
+            : isMood
+              ? 'You do not have to fix everything tonight.'
+              : `What this could look like in ${area?.title?.toLowerCase() || 'your life'}.`}
           </h2>
           <p>{isFeatures
             ? 'You open your notes and see “learn backend.” Three months later, nothing has changed. With a visible system, that idea can become: finish one lesson tonight → build a small API this weekend → connect a database next week → publish the project → look for the next opportunity. The goal did not change. Your relationship with it did.'
-            : `The difference is often surprisingly small. Instead of keeping “I want to improve my ${area?.title?.toLowerCase() || 'life'}” as a thought, choose one thing you can do this week, record it, and return to it. Over time, those small pieces become evidence that your life is actually changing.`}
+            : isMood
+              ? 'Try a smaller question: “What would make the next hour a little kinder?” Maybe it is a meal, a shower, fresh air, music, prayer or a conversation with someone safe. You do not need to solve your whole future before you are allowed to feel a little better.'
+              : `The difference is often surprisingly small. Instead of keeping “I want to improve my ${area?.title?.toLowerCase() || 'life'}” as a thought, choose one thing you can do this week, record it, and return to it. Over time, those small pieces become evidence that your life is actually changing.`}
           </p>
         </section>
+        {isMood&&<section className="article-resources article-block">
+          <div className="article-resource-head"><div><span className="section-label">GO DEEPER</span><h2>Good places to keep reading.</h2><p>These are trusted health resources. They are here to help you learn, not to label you.</p></div></div>
+          <div className="article-resource-grid">{moodContent.resources.map(resource=><a className="article-resource-card" href={resource.url} target="_blank" rel="noreferrer" key={resource.url}>
+            <div><span>{resource.source}</span><h3>{resource.title}</h3><p>{resource.text}</p></div><ExternalLink size={17}/></a>)}</div>
+        </section>}
 
         <section className="article-end article-block">
           <span className="section-label">THE NEXT MOVE</span>
@@ -1078,11 +1107,14 @@ function Dashboard({ data, onLogout }) {
                 return <section className="health-subsection" key={section.title}>
                   <div className="health-subsection-head"><div><span className="section-label">{section.title.toUpperCase()}</span><h3>{section.title}</h3></div><p>{section.text}</p></div>
                   <div className="metric-detail-list">
-                    {available.map(d=>{const M=icons[d.slug]||Sparkles;const l=healthLatest(d.slug);return <button className="metric-detail-row health-metric-row" key={d.id} onClick={()=>openLog('health',d)}>
-                      <span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span>
-                      <span><strong>{d.name}</strong><small>{l?valueText(l,d):'Not logged yet'}</small></span>
-                      <span className="health-row-action">{l?'View history':'Log'}</span><ChevronRight size={16}/>
-                    </button>})}
+                    {available.map(d=>{const M=icons[d.slug]||Sparkles;const l=healthLatest(d.slug);return <div className={d.slug==='mood'?'health-metric-wrap mood-metric-wrap':'health-metric-wrap'} key={d.id}>
+                      <button className="metric-detail-row health-metric-row" onClick={()=>openLog('health',d)}>
+                        <span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span>
+                        <span><strong>{d.name}</strong><small>{l?valueText(l,d):'Not logged yet'}</small></span>
+                        <span className="health-row-action">{l?'View history':'Log'}</span><ChevronRight size={16}/>
+                      </button>
+                      {d.slug==='mood'&&<button className="mood-reading-button" onClick={()=>openArticle('mood','health')}><BookOpen size={15}/> Read something uplifting <ArrowRight size={14}/></button>}
+                    </div>})}
                   </div>
                 </section>
               })}
