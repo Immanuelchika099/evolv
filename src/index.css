@@ -1886,3 +1886,90 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .dash-main{padding-top:72px}
   .app-bottom-nav{width:min(440px,calc(100% - 40px))}
 }
+
+
+/* EVOLV signature green atmosphere */
+.dashboard{
+  background:
+    radial-gradient(circle at 88% 6%, rgba(93,170,121,.16), transparent 28%),
+    radial-gradient(circle at 8% 42%, rgba(45,116,78,.18), transparent 32%),
+    radial-gradient(circle at 52% 82%, rgba(38,91,61,.10), transparent 34%),
+    linear-gradient(145deg,#050807 0%,#07100c 52%,#09140f 100%);
+}
+
+.dashboard .notification-button{
+  border-color:rgba(109,189,161,.14);
+  background:rgba(76,133,103,.08);
+  box-shadow:inset 0 1px 0 rgba(145,220,185,.07),0 12px 35px rgba(20,75,47,.2);
+}
+
+.dashboard .state-ring{
+  box-shadow:0 0 70px rgba(79,171,112,.15);
+}
+
+.dashboard .state-ring-track{
+  background:
+    conic-gradient(from -90deg,#6dbda1 0 var(--ring-progress),rgba(109,189,161,.10) var(--ring-progress) 360deg);
+}
+
+.dashboard .state-ring-track::after{
+  background:radial-gradient(circle at 35% 25%,rgba(109,189,161,.10),rgba(5,11,8,.95) 66%);
+  border-color:rgba(109,189,161,.08);
+}
+
+.dashboard .frequency-heading button{
+  border-color:rgba(109,189,161,.13);
+  background:rgba(70,139,101,.07);
+}
+
+.dashboard .glass-task{
+  border-color:rgba(109,189,161,.12);
+  background:
+    linear-gradient(120deg,rgba(109,189,161,.075),rgba(255,255,255,.018)),
+    rgba(5,13,9,.48);
+  box-shadow:inset 0 1px 0 rgba(139,221,177,.045),0 14px 38px rgba(12,55,34,.18);
+}
+
+.dashboard .glass-task:hover{
+  border-color:rgba(109,189,161,.24);
+  background:rgba(79,145,108,.09);
+}
+
+.dashboard .glass-task.checked .task-check{
+  border-color:#6dbda1;
+  background:#6dbda1;
+}
+
+.dashboard .daily-insight::before{
+  background:linear-gradient(90deg,rgba(109,189,161,.9),transparent);
+}
+
+.dashboard .app-bottom-nav{
+  border-color:rgba(109,189,161,.14);
+  background:rgba(5,15,10,.68);
+  box-shadow:0 18px 55px rgba(0,0,0,.48),0 0 35px rgba(25,89,55,.12),inset 0 1px 0 rgba(139,221,177,.07);
+}
+
+.dashboard .app-bottom-nav button.bottom-active{
+  background:rgba(109,189,161,.105);
+  color:#e8f4ed;
+  box-shadow:inset 0 1px 0 rgba(139,221,177,.09),0 0 22px rgba(62,139,91,.10);
+}
+
+.dashboard .app-bottom-nav button.bottom-active span{
+  color:#6dbda1;
+}
+
+.dashboard .dashboard-welcome-copy h1,
+.dashboard .daily-insight h2{
+  text-shadow:0 0 35px rgba(73,160,103,.08);
+}
+
+@media(max-width:800px){
+  .dashboard{
+    background:
+      radial-gradient(circle at 90% 4%,rgba(93,170,121,.13),transparent 31%),
+      radial-gradient(circle at 0% 48%,rgba(45,116,78,.14),transparent 34%),
+      linear-gradient(150deg,#050807 0%,#07100c 58%,#09130e 100%);
+  }
+}
