@@ -2369,20 +2369,23 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:rgba(109,189,161,.22);
 }
 .google-auth-button:disabled{opacity:.55;cursor:not-allowed}
-.google-mark{
+.auth-provider-logo{
   width:20px;
   height:20px;
-  display:grid;
-  place-items:center;
-  border-radius:50%;
-  background:#fff;
-  color:#4285f4;
-  font-family:Arial,sans-serif;
-  font-size:14px;
-  font-weight:700;
+  flex:0 0 20px;
+  display:block;
 }
-
-.github-mark{color:#fff;font-size:14px;line-height:1}
+.google-provider-logo{
+  width:20px;
+  height:20px;
+}
+.github-provider-logo{
+  width:21px;
+  height:21px;
+}
+.google-auth-button + .google-auth-button{
+  margin-top:10px;
+}
 
 
 .weekly-progress-card{
