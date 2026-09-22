@@ -6361,3 +6361,62 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .today-metrics{display:block}
   .dashboard .today-metric,.dashboard .today-metric:nth-child(even),.dashboard .today-metric:nth-child(odd){grid-template-columns:40px 1fr 15px;padding:15px 0;border-right:0}
 }
+
+/* EVOLV — Progress evolution system */
+.dashboard .progress-page{max-width:1040px}
+.dashboard .progress-heading h2{font-size:clamp(52px,7vw,84px)!important}
+.dashboard .progress-heading p{font-size:1rem!important;line-height:1.7}
+.dashboard .progress-range-switch{display:flex;gap:8px;margin:30px 0 42px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:14px}
+.dashboard .progress-range-switch button{min-width:72px;border:0;border-bottom:1px solid transparent;background:transparent;color:rgba(244,241,234,.38);padding:10px 8px;font-size:1rem;font-weight:600;cursor:pointer}
+.dashboard .progress-range-switch button.active{color:#c8f36a;border-bottom-color:#c8f36a}
+.dashboard .progress-focus-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid rgba(255,255,255,.08);padding:0 0 22px}
+.dashboard .progress-focus-head h3{font-size:1.8rem!important;margin:7px 0 0;letter-spacing:-.03em}
+.dashboard .progress-focus-value{font-size:2.2rem;font-weight:650;letter-spacing:-.04em;color:#f4f1ea}
+.dashboard .progress-metric-picker{display:flex;gap:8px;overflow-x:auto;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06);scrollbar-width:none}
+.dashboard .progress-metric-picker::-webkit-scrollbar{display:none}
+.dashboard .progress-metric-picker button{white-space:nowrap;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(255,255,255,.025);color:rgba(244,241,234,.48);padding:10px 15px;font-size:.95rem;cursor:pointer}
+.dashboard .progress-metric-picker button.active{color:#c8f36a;border-color:rgba(200,243,106,.35);background:rgba(200,243,106,.06)}
+.dashboard .progress-period-summary{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(255,255,255,.08)}
+.dashboard .progress-period-summary>div{padding:24px 20px 24px 0;border-right:1px solid rgba(255,255,255,.07)}
+.dashboard .progress-period-summary>div+div{padding-left:20px}
+.dashboard .progress-period-summary>div:last-child{border-right:0}
+.dashboard .progress-period-summary span{display:block;font-size:.9rem;color:rgba(244,241,234,.38);margin-bottom:8px}
+.dashboard .progress-period-summary strong{display:block;font-size:1.55rem;color:#f4f1ea}
+.dashboard .progress-period-summary small{display:block;margin-top:5px;font-size:.85rem;color:rgba(200,243,106,.7)}
+.dashboard .progress-period-summary strong.up{color:#c8f36a}.dashboard .progress-period-summary strong.down{color:#ff8f87}.dashboard .progress-period-summary strong.neutral{color:rgba(244,241,234,.4);font-size:1rem}
+.dashboard .progress-chart-card{margin-top:34px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:24px 0 20px}
+.dashboard .progress-chart-top{display:flex;justify-content:space-between;gap:20px;margin-bottom:20px}
+.dashboard .progress-chart-top p{margin:7px 0 0;font-size:1rem;color:rgba(244,241,234,.4)}
+.dashboard .progress-chart-top>span{font-size:.9rem;color:rgba(244,241,234,.28)}
+.dashboard .progress-line-chart{height:250px}
+.dashboard .progress-line-chart svg{width:100%;height:205px;display:block;overflow:visible}
+.dashboard .progress-chart-labels{display:flex;justify-content:space-between;gap:8px;color:rgba(244,241,234,.28);font-size:.8rem}
+.dashboard .progress-insight-block{margin-top:64px;border-top:1px solid rgba(255,255,255,.08);padding-top:28px}
+.dashboard .progress-insight-head{display:flex;justify-content:space-between;align-items:center;color:#c8f36a}
+.dashboard .progress-insight-head .section-label{font-size:.9rem}
+.dashboard .progress-observations{border-top:1px solid rgba(255,255,255,.07);margin-top:20px}
+.dashboard .progress-observations>div{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.dashboard .progress-observations>div>span{font-size:.9rem;color:rgba(200,243,106,.62)}
+.dashboard .progress-observations p{margin:0;font-size:1.15rem;line-height:1.65;color:rgba(244,241,234,.75)}
+.dashboard .progress-not-enough{margin:20px 0 0;max-width:650px;font-size:1.05rem;line-height:1.75;color:rgba(244,241,234,.42)}
+.dashboard .progress-empty-large{padding:70px 0!important}
+.dashboard .progress-empty-large h3{font-size:1.8rem!important;margin:15px 0 8px}
+.dashboard .progress-empty-large p{font-size:1.05rem;max-width:540px;line-height:1.7}
+.dashboard .progress-empty-large svg{color:#c8f36a}
+.dashboard .progress-page .progress-stats strong{font-size:2rem}
+.dashboard .progress-page .progress-stats span{font-size:.9rem}
+.dashboard .progress-page .secondary-head .section-label{font-size:.9rem}
+.dashboard .progress-page .secondary-goal{font-size:1rem;padding:20px 0}
+.dashboard .progress-page .secondary-goal b{font-size:1rem}
+@media(max-width:650px){
+  .dashboard .progress-heading h2{font-size:clamp(44px,14vw,62px)!important}
+  .dashboard .progress-focus-head{align-items:flex-start;flex-direction:column;gap:8px}
+  .dashboard .progress-focus-head h3{font-size:1.6rem!important}
+  .dashboard .progress-focus-value{font-size:2rem}
+  .dashboard .progress-period-summary{grid-template-columns:1fr}
+  .dashboard .progress-period-summary>div,.dashboard .progress-period-summary>div+div{padding:18px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .dashboard .progress-period-summary>div:last-child{border-bottom:0}
+  .dashboard .progress-line-chart{height:220px}
+  .dashboard .progress-chart-labels{font-size:.72rem}
+  .dashboard .progress-observations p{font-size:1rem}
+}
