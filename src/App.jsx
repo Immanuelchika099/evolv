@@ -211,6 +211,13 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
 
   async function submit(event) {
     event.preventDefault()
+    const cleanEmail = email.trim()
+
+    if (!cleanEmail || !password) {
+      setError('Enter your email and password to continue.')
+      return
+    }
+
     setSending(true)
     setError('')
     setMessage('')
@@ -218,26 +225,62 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     try {
       const result = mode === 'signup'
         ? await supabase.auth.signUp({
-          email: email.trim(),
+          email: cleanEmail,
           password,
-          options: { emailRedirectTo: 'https://evolv-track.vercel.app' },
+          options: { emailRedirectTo: window.location.origin },
         })
-        : await supabase.auth.signInWithPassword({ email: email.trim(), password })
+        : await supabase.auth.signInWithPassword({
+          email: cleanEmail,
+          password,
+        })
 
       if (result.error) {
-        setError(result.error.message)
+        console.error('EVOLV auth error:', {
+          message: result.error.message,
+          code: result.error.code,
+          status: result.error.status,
+          name: result.error.name,
+        })
+
+        const code = result.error.code || ''
+        if (code === 'signup_disabled') {
+          setError('Account creation is currently disabled. Check your EVOLV authentication settings.')
+        } else if (code === 'email_provider_disabled') {
+          setError('Email sign-up is not enabled yet. Check EVOLV authentication settings.')
+        } else if (code === 'weak_password') {
+          setError('That password is too weak. Please choose a stronger password.')
+        } else if (code === 'user_already_exists') {
+          setError('An account with this email already exists. Try signing in instead.')
+        } else if (code === 'over_email_send_rate_limit') {
+          setError('Too many confirmation emails have been requested. Please wait a little and try again.')
+        } else {
+          setError(result.error.message || 'EVOLV could not create your account. Please try again.')
+        }
         return
       }
 
       if (mode === 'signup' && !result.data.session) {
-        setMessage('Check your email to confirm your account. Once confirmed, come back and sign in.')
+        setMessage('Your account was created. Check your email to confirm it, then come back and sign in.')
         return
       }
 
-      if (result.data.user) await onSuccess(result.data.user)
+      if (result.data.user) {
+        try {
+          await onSuccess(result.data.user)
+        } catch (profileError) {
+          console.error('EVOLV profile setup failed:', profileError)
+          setError(profileError?.message || 'Your account was created, but we could not finish setting up your EVOLV profile.')
+        }
+      }
     } catch (submitError) {
-      console.error('EVOLV authentication failed:', submitError)
-      setError(submitError?.message || 'We could not connect to EVOLV right now. Please check your connection and try again.')
+      console.error('EVOLV authentication request failed:', submitError)
+
+      const message = submitError?.message || ''
+      if (/failed to fetch|network|load failed/i.test(message)) {
+        setError('EVOLV could not reach its authentication service. Check your connection and try again.')
+      } else {
+        setError(message || 'Something went wrong while creating your account. Please try again.')
+      }
     } finally {
       setSending(false)
     }
