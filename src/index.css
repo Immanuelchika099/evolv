@@ -1320,3 +1320,61 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .onboarding .onboard-step h1{margin-top:16px}
   .onboarding .onboard-footer{padding-top:22px}
 }
+
+/* Final integrated onboarding back navigation */
+.onboarding .onboard-back-row{
+  width:min(720px,100%);
+  margin:0 auto 30px;
+  min-height:24px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  gap:12px;
+}
+.onboarding .onboard-back-row:has(+ .onboard-step.wide){width:min(900px,100%)}
+.onboarding .onboard-back-row .back-button{
+  position:static !important;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  margin:0 !important;
+  padding:4px 0 !important;
+  background:none !important;
+  border:0 !important;
+  color:#858d86;
+  font:9px 'DM Mono';
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  opacity:1;
+  transform:none;
+}
+.onboarding .onboard-back-row .back-icon{
+  width:auto;
+  height:auto;
+  border:0;
+  border-radius:0;
+  background:none;
+  display:grid;
+  place-items:center;
+  transition:transform .25s ease,color .25s ease;
+}
+.onboarding .onboard-back-row .back-label{line-height:1}
+.onboarding .onboard-back-row .back-button:hover{color:#f0f3ed;transform:none}
+.onboarding .onboard-back-row .back-button:hover .back-icon{transform:translateX(-3px);border:0;background:none}
+.onboarding .onboard-back-row .back-context{
+  color:#424a44;
+  font:8px 'DM Mono';
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  padding-left:12px;
+  border-left:1px solid #ffffff12;
+}
+@media(max-width:800px){
+  .onboarding .onboard-back-row,
+  .onboarding .onboard-back-row:has(+ .onboard-step.wide){
+    width:100%;
+    margin:0 0 24px;
+  }
+  .onboarding .onboard-back-row .back-button{top:auto !important}
+  .onboarding .onboard-back-row .back-context{font-size:7px;letter-spacing:.11em}
+}
