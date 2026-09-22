@@ -208,22 +208,86 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
+  const [otpSent, setOtpSent] = useState(false)
+  const [otp, setOtp] = useState('')
 
-  async function continueWithGoogle() {
+  async function continueWithProvider(provider) {
     setSending(true)
     setError('')
     setMessage('')
 
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: {
-        redirectTo: window.location.origin,
-      },
+      provider,
+      options: { redirectTo: window.location.origin },
     })
 
     if (oauthError) {
-      setError(oauthError.message || 'Google sign-in is not available yet. Please try again.')
+      setError(oauthError.message || `Could not continue with ${provider}. Please try again.`)
       setSending(false)
+    }
+  }
+
+  async function sendEmailCode(event) {
+    event.preventDefault()
+    const cleanEmail = email.trim()
+
+    if (!cleanEmail) {
+      setError('Enter your email to continue.')
+      return
+    }
+
+    setSending(true)
+    setError('')
+    setMessage('')
+
+    const { error: otpError } = await supabase.auth.signInWithOtp({
+      email: cleanEmail,
+      options: { shouldCreateUser: true },
+    })
+
+    setSending(false)
+
+    if (otpError) {
+      setError(otpError.message || 'Could not send your verification code. Please try again.')
+      return
+    }
+
+    setOtpSent(true)
+    setMessage(`We sent a 6-digit code to ${cleanEmail}.`)
+  }
+
+  async function verifyEmailCode(event) {
+    event.preventDefault()
+    const cleanEmail = email.trim()
+    const cleanOtp = otp.trim()
+
+    if (!/^\\d{6}$/.test(cleanOtp)) {
+      setError('Enter the 6-digit code from your email.')
+      return
+    }
+
+    setSending(true)
+    setError('')
+
+    const { data: authData, error: otpError } = await supabase.auth.verifyOtp({
+      email: cleanEmail,
+      token: cleanOtp,
+      type: 'email',
+    })
+
+    setSending(false)
+
+    if (otpError) {
+      setError(otpError.message || 'That code is invalid or has expired.')
+      return
+    }
+
+    if (authData?.user) {
+      try {
+        await onSuccess(authData.user)
+      } catch (profileError) {
+        setError(profileError?.message || 'Your account was created, but we could not finish setting up your EVOLV profile.')
+      }
     }
   }
 
@@ -318,20 +382,37 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
           ? 'Create your account so the progress you build in EVOLV can stay connected to you.'
           : 'Sign in and continue from where you left off.'}</p>
 
-        <form className="auth-form" onSubmit={submit}>
-          <label><span>Email</span><input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" /></label>
-          <label><span>Password</span><input required minLength="6" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="At least 6 characters" autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} /></label>
-          {error && <p className="auth-error" role="alert">{error}</p>}
-          {message && <p className="auth-message">{message}</p>}
-          <button className="button button-primary auth-submit" disabled={sending} type="submit">
-            {sending ? 'Working…' : mode === 'signup' ? 'Create my account' : 'Sign in'} {!sending && <ArrowRight size={16} />}
-          </button>
-        </form>
+        {otpSent ? (
+          <form className="auth-form" onSubmit={verifyEmailCode}>
+            <label><span>6-digit code</span><input required inputMode="numeric" pattern="[0-9]{6}" maxLength="6" value={otp} onChange={e => setOtp(e.target.value.replace(/\\D/g, '').slice(0, 6))} placeholder="000000" autoComplete="one-time-code" /></label>
+            {error && <p className="auth-error" role="alert">{error}</p>}
+            {message && <p className="auth-message">{message}</p>}
+            <button className="button button-primary auth-submit" disabled={sending} type="submit">
+              {sending ? 'Verifying…' : 'Verify & continue'} {!sending && <ArrowRight size={16} />}
+            </button>
+            <button className="auth-switch" type="button" onClick={() => { setOtpSent(false); setOtp(''); setError(''); setMessage('') }}>Use a different email</button>
+          </form>
+        ) : (
+          <>
+            <form className="auth-form" onSubmit={sendEmailCode}>
+              <label><span>Email</span><input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" /></label>
+              {error && <p className="auth-error" role="alert">{error}</p>}
+              {message && <p className="auth-message">{message}</p>}
+              <button className="button button-primary auth-submit" disabled={sending} type="submit">
+                {sending ? 'Sending code…' : 'Continue with email'} {!sending && <ArrowRight size={16} />}
+              </button>
+            </form>
+          </>
+        )}
 
         <div className="auth-divider"><span>OR</span></div>
-        <button className="google-auth-button" type="button" onClick={continueWithGoogle} disabled={sending}>
+        <button className="google-auth-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
           <span className="google-mark">G</span>
           Continue with Google
+        </button>
+        <button className="google-auth-button" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
+          <span className="github-mark">◆</span>
+          Continue with GitHub
         </button>
 
         <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setError(''); setMessage('') }}>
