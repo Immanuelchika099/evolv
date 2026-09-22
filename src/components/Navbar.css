@@ -168,3 +168,27 @@
 @media(max-width:800px){
   .evolv-brand-svg{width:22px;height:22px}
 }
+
+
+.evolv-sign-in{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:38px;
+  padding:0 13px;
+  border:1px solid #ffffff18;
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:#bdbbb5;
+  font:12px 'DM Mono',monospace;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.evolv-sign-in:hover{
+  color:#f3f1ea;
+  border-color:#ffffff30;
+  background:rgba(255,255,255,.07);
+}
+.evolv-mobile-sign-in{
+  color:#bdbbb5 !important;
+}
