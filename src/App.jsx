@@ -287,7 +287,12 @@ function ContactModal({ contactSent, setContactSent, onClose }) {
 }
 
 function Brand() {
-  return <a className="brand" href="/"><span className="brand-mark"><span /></span><span>EVOLV</span></a>
+  return (
+    <a className="brand" href="/" aria-label="EVOLV home">
+      <img src="/evolv-mark.svg" alt="" aria-hidden="true" />
+      <span>EVOLV</span>
+    </a>
+  )
 }
 
 function Landing({ onStart, onArticle, onPricing, onContact }) {
