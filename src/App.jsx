@@ -219,7 +219,7 @@ function App() {
           onExit={returnHome}
         />
       )}
-      {view === 'dashboard' && <Dashboard data={data} onLogout={logout} />}
+      {view === 'dashboard' && <Dashboard data={data} onLogout={logout} onArticle={openArticle} />}
       {contactOpen && <ContactModal contactSent={contactSent} setContactSent={setContactSent} onClose={closeContact} />}
     </main>
   )
@@ -1033,7 +1033,7 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
   )
 }
 
-function Dashboard({ data, onLogout }) {
+function Dashboard({ data, onLogout, onArticle }) {
   const [active,setActive]=useState('overview')
   const [logOpen,setLogOpen]=useState(false)
   const [area,setArea]=useState(null)
@@ -1154,7 +1154,7 @@ function Dashboard({ data, onLogout }) {
             </div>
             <section className="health-reading-strip">
               <div><span className="section-label">EXPLORE HEALTH</span><h3>Understand the signals, not just the numbers.</h3><p>Short, friendly explainers grounded in trusted health guidance.</p></div>
-              <button className="health-reading-link" onClick={()=>openArticle('area','health')}>Read health guide <ArrowRight size={15}/></button>
+              <button className="health-reading-link" onClick={()=>onArticle?.('area','health')}>Read health guide <ArrowRight size={15}/></button>
             </section>
             <section className="wellbeing-guide">
               <span className="section-label">UNDERSTANDING YOUR WELLBEING</span>
