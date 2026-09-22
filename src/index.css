@@ -2979,3 +2979,71 @@ html,body,#root{max-width:100%;overflow-x:hidden}
       #020303;
   }
 }
+
+/* Auth type scale + password recovery */
+.auth-page .auth-content{
+  max-width:760px;
+}
+.auth-page .auth-content>p{
+  font-size:1.8rem;
+  line-height:1.75;
+  max-width:640px;
+}
+.auth-page .auth-form label>span{
+  font-size:1.35rem;
+}
+.auth-page .auth-form input{
+  min-height:56px;
+  font-size:1.6rem;
+}
+.auth-page .auth-submit{
+  font-size:1.5rem;
+}
+.auth-page .auth-switch{
+  font-size:1.4rem;
+}
+.auth-page .auth-error,
+.auth-page .auth-message{
+  font-size:1.4rem;
+  line-height:1.6;
+}
+.forgot-password{
+  align-self:flex-end;
+  margin-top:-2px;
+  border:0;
+  background:none;
+  color:rgba(196,225,210,.72);
+  font:500 1.3rem 'Manrope';
+  cursor:pointer;
+  padding:3px 0;
+  transition:color .2s ease;
+}
+.forgot-password:hover:not(:disabled){
+  color:#dff1e6;
+}
+.forgot-password:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+@media(max-width:800px){
+  .auth-page .auth-content>p{
+    font-size:1.7rem;
+    line-height:1.75;
+  }
+  .auth-page .auth-form label>span{
+    font-size:1.3rem;
+  }
+  .auth-page .auth-form input{
+    min-height:58px;
+    font-size:16px !important;
+  }
+  .auth-page .auth-submit{
+    font-size:1.5rem;
+  }
+  .auth-page .auth-switch{
+    font-size:1.35rem;
+  }
+  .forgot-password{
+    font-size:1.3rem;
+  }
+}
