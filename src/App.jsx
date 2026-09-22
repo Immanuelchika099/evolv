@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send } from 'lucide-react'
+import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -956,24 +956,146 @@ function Dashboard({ data, onLogout }) {
 
   return (
     <div className="page-enter dashboard">
-      <aside className="sidebar"><Brand /><nav>
-        <button className={active === 'overview' ? 'side-active' : ''} onClick={() => setActive('overview')}><TrendingUp size={17}/> Overview</button>
-        <button className={active === 'goals' ? 'side-active' : ''} onClick={() => setActive('goals')}><Target size={17}/> Goals</button>
-        <button className={active === 'profile' ? 'side-active' : ''} onClick={() => setActive('profile')}><UserRound size={17}/> Profile</button>
-        <button className={active === 'ai' ? 'side-active' : ''} onClick={() => setActive('ai')}><Bot size={17}/> EVOLV AI</button>
-      </nav><button className="logout" onClick={onLogout}><LogOut size={16}/> Sign out</button></aside>
+      <header className="app-topbar">
+        <button className="app-logo-button" onClick={() => setActive('overview')} aria-label="Go to home">
+          <Brand />
+        </button>
+        <button className="notification-button" aria-label="Notifications">
+          <Bell size={17} />
+        </button>
+      </header>
+
       <main className="dash-main">
-        <header className="dash-header"><div><span className="section-label">YOUR SPACE</span><h1>Hello {name}.</h1></div><button className="icon-button" onClick={() => setActive('profile')} aria-label="Open profile settings"><Settings size={18}/></button></header>
         {goalError && <p className="auth-error" role="alert">{goalError}</p>}
-        {active === 'overview' && <><section className="dash-hero"><div><span className="section-label">WEEKLY MOMENTUM</span><strong>{momentum}<span>%</span></strong><p>{goals.length ? activeGoals.length + ' active ' + (activeGoals.length === 1 ? 'goal' : 'goals') + ' · ' + completedGoals.length + ' completed' : 'Your journey starts with one small promise.'}</p></div><div className="dash-circle"><span>{goals.length ? 'MOVING' : 'START'}</span></div></section>
-        <section className="dash-grid"><article className="dash-card"><div className="card-head"><span>YOUR FOCUS</span><span>01</span></div><h2>{profile?.focus || data.focus || 'Find your direction'}</h2><p>{profile?.first_goal || data.goal || 'Add your first goal to begin.'}</p><div className="mini-progress"><i style={{ width: momentum + '%' }}/></div></article>
-        <article className="dash-card"><div className="card-head"><span>ACTIVE AREAS</span><span>{String(areaNames.length).padStart(2, '0')}</span></div><div className="area-pills">{areaNames.map(a => <span key={a}>{a}</span>)}</div><button className="add-goal" onClick={() => setActive('goals')}><Plus size={15}/> Add a goal</button></article></section>
-        <section className="empty-state"><span>YOUR PROGRESS</span><h2>{goals.length ? completedGoals.length + ' goal' + (completedGoals.length === 1 ? '' : 's') + ' completed.' : 'Show up. Then do it again tomorrow.'}</h2><p>{checkins.length ? checkins.length + ' check-in' + (checkins.length === 1 ? '' : 's') + ' recorded so far.' : 'Your activity, streaks and progress will appear here as you use EVOLV.'}</p></section></>}
-        {active === 'goals' && <section className="panel-page"><span className="section-label">GOALS</span><h2>Your goals</h2><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What do you want to work toward?" maxLength={240} required/><textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Optional: add a little context" rows="3"/><button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Create goal'}</button></form>
-        <div className="goal-list">{loadingGoals && <p>Loading your goals…</p>}{!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>No goals yet. Create your first one above.</p></div>}{goals.map(goal => <article className="goal-item" key={goal.id}><div className="goal-item-top"><div><span className="section-label">{goal.status.toUpperCase()}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div><strong>{goal.progress}%</strong></div><div className="mini-progress"><i style={{ width: goal.progress + '%' }}/></div><div className="goal-actions"><button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in today</button><button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen' : 'Complete'}</button><button onClick={() => deleteGoal(goal.id)}>Delete</button></div></article>)}</div></section>}
-        {active === 'profile' && <section className="panel-page"><span className="section-label">PROFILE</span><h2>Your profile</h2><div className="profile-box"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label><button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save profile'}</button>{profileMessage && <p className="auth-message">{profileMessage}</p>}</form><p>Focus</p><strong>{profile?.focus || data.focus || '—'}</strong><p>Growth areas</p><strong>{areaNames.join(' · ') || '—'}</strong><p>First goal</p><strong>{profile?.first_goal || data.goal || '—'}</strong></div></section>}
+
+        {active === 'overview' && (
+          <div className="dashboard-home">
+            <section className="dashboard-welcome">
+              <div className="dashboard-welcome-copy">
+                <span className="dashboard-eyebrow">WELCOME BACK,</span>
+                <h1>{name}.</h1>
+              </div>
+
+              <div className="state-ring" aria-label={`${momentum}% current state`}>
+                <div className="state-ring-track">
+                  <div className="state-ring-fill" style={{ '--ring-progress': `${momentum * 3.6}deg` }} />
+                  <div className="state-ring-center">
+                    <strong>{momentum}%</strong>
+                    <span>CURRENT STATE</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section className="frequency-section">
+              <div className="frequency-heading">
+                <span>TODAY'S FRQNCY BUILDING TASKS:</span>
+                <button onClick={() => setActive('goals')} aria-label="Open goals"><Plus size={14} /></button>
+              </div>
+
+              <div className="frequency-list">
+                {loadingGoals && <div className="glass-task task-loading">Loading…</div>}
+                {!loadingGoals && goals.slice(0, 3).map(goal => {
+                  const checked = goal.status === 'completed'
+                  return (
+                    <button
+                      className={`glass-task ${checked ? 'checked' : ''}`}
+                      key={goal.id}
+                      onClick={() => checkIn(goal)}
+                      disabled={checked}
+                    >
+                      <span className="task-check">{checked && <Check size={12} />}</span>
+                      <span className="task-text">{goal.title}</span>
+                      <span className="task-progress">{goal.progress}%</span>
+                    </button>
+                  )
+                })}
+                {!loadingGoals && goals.length === 0 && (
+                  <button className="glass-task" onClick={() => setActive('goals')}>
+                    <span className="task-check" />
+                    <span className="task-text">Create your first goal</span>
+                    <ArrowRight size={15} />
+                  </button>
+                )}
+              </div>
+            </section>
+
+            <section className="daily-insight">
+              <span className="daily-insight-label">DAILY INSIGHT</span>
+              <h2>The blueprint trap</h2>
+              <p>{profile?.first_goal || data.goal || 'Progress begins when you stop waiting for the perfect plan and start building.'}</p>
+            </section>
+          </div>
+        )}
+
+        {active === 'goals' && (
+          <section className="panel-page dashboard-panel">
+            <span className="section-label">GOALS</span>
+            <h2>Your goals</h2>
+            <form className="goal-create-form" onSubmit={createGoal}>
+              <input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What do you want to work toward?" maxLength={240} required />
+              <textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Optional: add a little context" rows="3" />
+              <button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Create goal'}</button>
+            </form>
+            <div className="goal-list">
+              {loadingGoals && <p>Loading your goals…</p>}
+              {!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>No goals yet. Create your first one above.</p></div>}
+              {goals.map(goal => (
+                <article className="goal-item" key={goal.id}>
+                  <div className="goal-item-top">
+                    <div><span className="section-label">{goal.status.toUpperCase()}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div>
+                    <strong>{goal.progress}%</strong>
+                  </div>
+                  <div className="mini-progress"><i style={{ width: goal.progress + '%' }}/></div>
+                  <div className="goal-actions">
+                    <button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in today</button>
+                    <button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen' : 'Complete'}</button>
+                    <button onClick={() => deleteGoal(goal.id)}>Delete</button>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {active === 'profile' && (
+          <section className="panel-page dashboard-panel">
+            <span className="section-label">PROFILE</span>
+            <h2>Your profile</h2>
+            <div className="profile-box">
+              <form onSubmit={saveProfile}>
+                <label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label>
+                <button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save profile'}</button>
+                {profileMessage && <p className="auth-message">{profileMessage}</p>}
+              </form>
+              <p>Focus</p><strong>{profile?.focus || data.focus || '—'}</strong>
+              <p>Growth areas</p><strong>{areaNames.join(' · ') || '—'}</strong>
+              <p>First goal</p><strong>{profile?.first_goal || data.goal || '—'}</strong>
+            </div>
+          </section>
+        )}
+
         {active === 'ai' && <EvolvAI profile={profile} goals={goals} checkins={checkins} momentum={momentum} />}
       </main>
+
+      <nav className="app-bottom-nav" aria-label="App navigation">
+        <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => setActive('overview')}>
+          <span><Home size={18} /></span>
+          <small>Home</small>
+        </button>
+        <button className={active === 'ai' ? 'bottom-active' : ''} onClick={() => setActive('ai')}>
+          <span><MessageCircle size={18} /></span>
+          <small>Chats</small>
+        </button>
+        <button className={active === 'goals' ? 'bottom-active' : ''} onClick={() => setActive('goals')}>
+          <span><LineChart size={18} /></span>
+          <small>Progress</small>
+        </button>
+        <button className={active === 'profile' ? 'bottom-active' : ''} onClick={() => setActive('profile')}>
+          <span><UserRound size={18} /></span>
+          <small>Profile</small>
+        </button>
+      </nav>
     </div>
   )
 }
