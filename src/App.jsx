@@ -38,6 +38,22 @@ function App() {
     catch { return initialData }
   })
 
+  async function ensureProfile(user) {
+    const { data: existing } = await supabase.from('profiles').select('id').eq('id', user.id).maybeSingle()
+    if (existing) return
+
+    let saved = initialData
+    try { saved = { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } } catch {}
+
+    await supabase.from('profiles').upsert({
+      id: user.id,
+      first_name: saved.name?.trim() || '',
+      growth_areas: saved.areas || [],
+      focus: saved.focus || '',
+      first_goal: saved.goal?.trim() || '',
+    })
+  }
+
   useEffect(() => {
     let mounted = true
 
@@ -45,6 +61,7 @@ function App() {
       const { data: sessionData } = await supabase.auth.getSession()
       if (!mounted) return
       if (sessionData?.session?.user) {
+        await ensureProfile(sessionData.session.user)
         localStorage.setItem('evolv-view', 'dashboard')
         setView('dashboard')
       }
@@ -898,7 +915,7 @@ function Dashboard({ data, onLogout }) {
         <button className={active === 'ai' ? 'side-active' : ''} onClick={() => setActive('ai')}><Bot size={17}/> EVOLV AI</button>
       </nav><button className="logout" onClick={onLogout}><LogOut size={16}/> Sign out</button></aside>
       <main className="dash-main">
-        <header className="dash-header"><div><span className="section-label">YOUR SPACE</span><h1>Good evening, {name}.</h1></div><button className="icon-button" onClick={() => setActive('profile')} aria-label="Open profile settings"><Settings size={18}/></button></header>
+        <header className="dash-header"><div><span className="section-label">YOUR SPACE</span><h1>Hello {name}.</h1></div><button className="icon-button" onClick={() => setActive('profile')} aria-label="Open profile settings"><Settings size={18}/></button></header>
         {goalError && <p className="auth-error" role="alert">{goalError}</p>}
         {active === 'overview' && <><section className="dash-hero"><div><span className="section-label">WEEKLY MOMENTUM</span><strong>{momentum}<span>%</span></strong><p>{goals.length ? activeGoals.length + ' active ' + (activeGoals.length === 1 ? 'goal' : 'goals') + ' · ' + completedGoals.length + ' completed' : 'Your journey starts with one small promise.'}</p></div><div className="dash-circle"><span>{goals.length ? 'MOVING' : 'START'}</span></div></section>
         <section className="dash-grid"><article className="dash-card"><div className="card-head"><span>YOUR FOCUS</span><span>01</span></div><h2>{profile?.focus || data.focus || 'Find your direction'}</h2><p>{profile?.first_goal || data.goal || 'Add your first goal to begin.'}</p><div className="mini-progress"><i style={{ width: momentum + '%' }}/></div></article>
