@@ -4530,3 +4530,200 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     width:min(370px,calc(100% - 40px));
   }
 }
+
+
+/* EVOLV — luxury art direction */
+.dashboard{
+  --evolv-black:#020302;
+  --evolv-surface:#080a08;
+  --evolv-cream:#f4f1e8;
+  --evolv-soft:rgba(244,241,232,.54);
+  --evolv-accent:#b7d94c;
+  background:
+    radial-gradient(780px 520px at 72% -12%,rgba(183,217,76,.055),transparent 66%),
+    radial-gradient(900px 700px at -10% 70%,rgba(255,255,255,.018),transparent 70%),
+    var(--evolv-black) !important;
+}
+.dashboard .dash-main{
+  max-width:1320px;
+  padding-left:clamp(28px,5vw,84px);
+  padding-right:clamp(28px,5vw,84px);
+}
+.dashboard .dashboard-welcome{
+  min-height:390px;
+  display:flex !important;
+  flex-direction:column;
+  justify-content:flex-end;
+  margin-bottom:96px !important;
+  padding-bottom:28px !important;
+}
+.dashboard .dashboard-welcome .dashboard-eyebrow{
+  color:rgba(244,241,232,.4);
+  font:400 14px 'Manrope' !important;
+  letter-spacing:-.01em !important;
+  margin-bottom:24px;
+}
+.dashboard .dashboard-welcome h1{
+  font-size:clamp(86px,12.5vw,168px) !important;
+  letter-spacing:-.085em !important;
+  line-height:.78 !important;
+  font-weight:500 !important;
+}
+.dashboard .dashboard-welcome::after{
+  width:680px;
+  height:360px;
+  left:2%;
+  top:12%;
+  background:radial-gradient(ellipse,rgba(183,217,76,.055),transparent 67%);
+  filter:blur(24px);
+}
+.dashboard .frequency-section{
+  max-width:920px;
+  margin-bottom:116px !important;
+}
+.dashboard .frequency-heading{
+  padding-bottom:17px;
+  border-bottom:1px solid rgba(255,255,255,.055);
+}
+.dashboard .frequency-heading>span{
+  color:rgba(244,241,232,.36);
+  font:500 10px 'DM Mono' !important;
+  letter-spacing:.13em !important;
+}
+.dashboard .frequency-list{
+  gap:0 !important;
+}
+.dashboard .glass-task{
+  min-height:76px;
+  border:0 !important;
+  border-bottom:1px solid rgba(255,255,255,.055) !important;
+  border-radius:0 !important;
+  padding:20px 4px !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  backdrop-filter:none;
+}
+.dashboard .glass-task:hover{
+  transform:none;
+  padding-left:12px !important;
+  background:linear-gradient(90deg,rgba(183,217,76,.035),transparent 65%) !important;
+}
+.dashboard .glass-task .task-text{
+  font-size:17px !important;
+  color:rgba(244,241,232,.82);
+}
+.dashboard .glass-task .task-check{
+  width:22px;
+  height:22px;
+  border-color:rgba(244,241,232,.17);
+  background:transparent;
+}
+.dashboard .glass-task.checked .task-check{
+  background:var(--evolv-accent);
+  border-color:var(--evolv-accent);
+}
+.dashboard .weekly-progress-card{
+  max-width:1060px;
+  margin-bottom:118px !important;
+}
+.dashboard .weekly-progress-head{
+  padding-bottom:38px;
+}
+.dashboard .weekly-progress-head h2{
+  font-size:clamp(48px,6vw,78px) !important;
+  font-weight:500 !important;
+}
+.dashboard .weekly-progress-head p{
+  font-size:15px !important;
+}
+.dashboard .weekly-progress-total{
+  color:rgba(244,241,232,.4);
+}
+.dashboard .dashboard-panel>h2{
+  font-size:clamp(52px,6.5vw,86px) !important;
+  font-weight:500 !important;
+}
+.dashboard .goal-list{
+  max-width:1060px;
+}
+.dashboard .goal-item{
+  padding:36px 4px 38px !important;
+}
+.dashboard .goal-item h3{
+  font-size:clamp(27px,3vw,38px) !important;
+  font-weight:500 !important;
+}
+.dashboard .goal-item-top>strong{
+  color:rgba(244,241,232,.5) !important;
+  font-size:18px !important;
+}
+.dashboard .goal-actions{
+  opacity:.72;
+  transition:opacity .25s ease;
+}
+.dashboard .goal-item:hover .goal-actions{
+  opacity:1;
+}
+.dashboard .daily-insight{
+  max-width:920px;
+  margin-top:110px;
+  padding-top:0 !important;
+}
+.dashboard .daily-insight-label{
+  color:rgba(244,241,232,.34) !important;
+}
+.dashboard .daily-insight h2{
+  font-size:clamp(48px,6vw,78px) !important;
+  font-weight:500 !important;
+}
+.dashboard .daily-insight-points{
+  margin-top:44px;
+}
+.dashboard .daily-insight-points > div{
+  border:0 !important;
+  border-top:1px solid rgba(255,255,255,.055) !important;
+  border-radius:0 !important;
+  padding:18px 0 !important;
+  background:transparent !important;
+}
+.dashboard .daily-insight-points span{
+  color:rgba(183,217,76,.55) !important;
+}
+.dashboard .daily-insight-points p{
+  color:rgba(244,241,232,.5) !important;
+}
+.dashboard .app-bottom-nav{
+  border-color:rgba(255,255,255,.06);
+  background:rgba(2,3,2,.82);
+}
+@media(max-width:800px){
+  .dashboard .dash-main{
+    padding-left:18px;
+    padding-right:18px;
+  }
+  .dashboard .dashboard-welcome{
+    min-height:330px;
+    margin-bottom:72px !important;
+  }
+  .dashboard .dashboard-welcome h1{
+    font-size:clamp(70px,23vw,110px) !important;
+  }
+  .dashboard .frequency-section{
+    margin-bottom:82px !important;
+  }
+  .dashboard .glass-task{
+    min-height:68px;
+    padding:18px 2px !important;
+  }
+  .dashboard .weekly-progress-card{
+    margin-bottom:82px !important;
+  }
+  .dashboard .weekly-progress-head h2,
+  .dashboard .dashboard-panel>h2,
+  .dashboard .daily-insight h2{
+    font-size:44px !important;
+  }
+  .dashboard .goal-item{
+    padding:28px 0 30px !important;
+  }
+}
