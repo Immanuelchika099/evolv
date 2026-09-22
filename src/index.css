@@ -4853,3 +4853,124 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     animation:none !important;
   }
 }
+
+/* EVOLV — progress section art direction */
+.dashboard .weekly-progress-card{
+  max-width:none !important;
+  margin-bottom:132px !important;
+  padding:0 !important;
+}
+.dashboard .weekly-progress-head{
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto;
+  align-items:end;
+  gap:40px;
+  padding:0 0 42px !important;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.dashboard .weekly-progress-head .section-label{
+  margin-bottom:17px !important;
+}
+.dashboard .weekly-progress-head h2{
+  max-width:780px;
+  margin:0 !important;
+  font-size:clamp(54px,7vw,92px) !important;
+  line-height:.9 !important;
+  letter-spacing:-.075em !important;
+}
+.dashboard .weekly-progress-head p{
+  max-width:560px !important;
+  margin-top:18px !important;
+  font-size:15px !important;
+  line-height:1.75 !important;
+  color:rgba(244,241,232,.43) !important;
+}
+.dashboard .weekly-progress-total{
+  align-self:end;
+  padding:0 0 7px !important;
+  font:400 13px 'Manrope' !important;
+  letter-spacing:0 !important;
+  color:rgba(244,241,232,.46) !important;
+  white-space:nowrap;
+}
+.dashboard .weekly-progress-total::first-letter{
+  color:var(--evolv-accent);
+}
+.dashboard .weekly-progress-card .weekly-chart{
+  position:relative;
+  display:flex;
+  align-items:flex-end;
+  gap:clamp(10px,2vw,24px);
+  min-height:300px;
+  padding:58px 0 0 !important;
+}
+.dashboard .weekly-progress-card .weekly-chart > *{
+  flex:1 1 0;
+}
+.dashboard .weekly-progress-card .weekly-chart::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:34px;
+  height:1px;
+  background:rgba(255,255,255,.075);
+  pointer-events:none;
+}
+.dashboard .weekly-progress-card .weekly-chart-bar{
+  position:relative;
+  min-height:12px;
+  border-radius:2px 2px 0 0 !important;
+  background:linear-gradient(180deg,rgba(183,217,76,.72),rgba(183,217,76,.16)) !important;
+  box-shadow:none !important;
+  transition:height .7s cubic-bezier(.16,.8,.24,1),opacity .3s ease;
+}
+.dashboard .weekly-progress-card .weekly-chart-bar:hover{
+  opacity:.82;
+}
+.dashboard .weekly-progress-card .weekly-chart-label{
+  color:rgba(244,241,232,.35) !important;
+  font:500 10px 'DM Mono' !important;
+  letter-spacing:.08em !important;
+}
+.dashboard .weekly-progress-card .weekly-chart-value{
+  color:rgba(244,241,232,.55) !important;
+  font:500 11px 'Manrope' !important;
+}
+.dashboard .weekly-progress-card .weekly-chart-empty{
+  min-height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:rgba(244,241,232,.35);
+  font-size:14px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.dashboard .weekly-progress-card + .section-label{
+  margin-top:0 !important;
+}
+@media(max-width:800px){
+  .dashboard .weekly-progress-card{
+    margin-bottom:94px !important;
+  }
+  .dashboard .weekly-progress-head{
+    grid-template-columns:1fr;
+    gap:18px;
+    padding-bottom:28px !important;
+  }
+  .dashboard .weekly-progress-head h2{
+    font-size:48px !important;
+  }
+  .dashboard .weekly-progress-head p{
+    font-size:15px !important;
+  }
+  .dashboard .weekly-progress-total{
+    align-self:start;
+    padding:0 !important;
+  }
+  .dashboard .weekly-progress-card .weekly-chart{
+    min-height:240px;
+    gap:8px;
+    padding-top:42px !important;
+  }
+}
