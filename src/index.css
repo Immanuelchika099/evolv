@@ -5162,3 +5162,258 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     padding-top:38px !important;
   }
 }
+
+
+/* EVOLV — home + profile visual correction / 2026-09-22 */
+.dashboard{
+  background:
+    radial-gradient(760px 460px at 78% 0%, rgba(183,217,76,.045), transparent 68%),
+    radial-gradient(680px 500px at 12% 52%, rgba(255,255,255,.014), transparent 72%),
+    #020302 !important;
+}
+.dashboard .dashboard-home{
+  min-height:calc(100vh - 80px);
+}
+.dashboard .dashboard-welcome{
+  min-height:420px !important;
+  margin-bottom:92px !important;
+  padding-bottom:20px !important;
+  justify-content:flex-end !important;
+}
+.dashboard .dashboard-welcome::after{
+  opacity:.32 !important;
+  width:180px !important;
+  height:180px !important;
+  right:7% !important;
+  top:23% !important;
+}
+.dashboard .dashboard-focus-row{
+  margin-top:28px !important;
+  width:min(500px,100%) !important;
+  border-color:rgba(255,255,255,.045) !important;
+  background:transparent !important;
+}
+.dashboard .dashboard-welcome .area-pills{
+  margin-top:16px !important;
+}
+
+/* Today's building task: actual rounded pills, centered */
+.dashboard .frequency-section{
+  max-width:900px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+}
+.dashboard .frequency-heading{
+  justify-content:center !important;
+  position:relative;
+  border-bottom:0 !important;
+  margin-bottom:22px;
+}
+.dashboard .frequency-heading > span{
+  text-align:center !important;
+}
+.dashboard .frequency-heading button{
+  position:absolute;
+  right:0;
+}
+.dashboard .frequency-list{
+  display:flex !important;
+  flex-wrap:wrap !important;
+  justify-content:center !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding-left:0 !important;
+}
+.dashboard .frequency-list::before{
+  display:none !important;
+}
+.dashboard .glass-task{
+  width:auto !important;
+  min-height:0 !important;
+  min-width:0 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:10px !important;
+  padding:13px 19px !important;
+  border:1px solid rgba(255,255,255,.075) !important;
+  border-radius:999px !important;
+  background:rgba(255,255,255,.025) !important;
+  box-shadow:0 12px 35px rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.025) !important;
+  color:rgba(244,241,232,.7) !important;
+  backdrop-filter:blur(16px) !important;
+  transition:transform .25s ease,border-color .25s ease,background .25s ease !important;
+}
+.dashboard .glass-task::after{
+  display:none !important;
+}
+.dashboard .glass-task:hover{
+  transform:translateY(-2px) !important;
+  padding-left:19px !important;
+  background:rgba(183,217,76,.045) !important;
+  border-color:rgba(183,217,76,.18) !important;
+}
+.dashboard .glass-task .task-check{
+  width:19px !important;
+  height:19px !important;
+  flex:0 0 19px;
+  border-radius:50% !important;
+}
+.dashboard .glass-task .task-text{
+  font-size:13px !important;
+  line-height:1 !important;
+  color:inherit !important;
+  white-space:nowrap;
+}
+.dashboard .glass-task.checked{
+  border-color:rgba(183,217,76,.2) !important;
+  background:rgba(183,217,76,.07) !important;
+  color:rgba(235,242,208,.82) !important;
+}
+
+/* Profile: remove the boxed/settings-project feeling */
+.dashboard .settings-page{
+  max-width:1080px !important;
+  padding-top:72px !important;
+  padding-bottom:150px !important;
+  background:transparent !important;
+}
+.dashboard .settings-page .settings-heading{
+  padding:0 0 48px !important;
+  border-bottom:1px solid rgba(255,255,255,.055) !important;
+  background:transparent !important;
+}
+.dashboard .settings-page .settings-heading h2{
+  font-size:clamp(56px,7vw,92px) !important;
+  line-height:.9 !important;
+  letter-spacing:-.065em !important;
+}
+.dashboard .settings-page .settings-heading p{
+  margin-top:18px !important;
+  max-width:480px !important;
+}
+.dashboard .settings-page .settings-section{
+  padding:38px 0 !important;
+  border-bottom:1px solid rgba(255,255,255,.055) !important;
+  background:transparent !important;
+}
+.dashboard .settings-page .settings-section-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  margin-bottom:28px;
+}
+.dashboard .settings-page .settings-section-head > svg{
+  color:rgba(244,241,232,.25) !important;
+}
+.dashboard .settings-page .settings-section h3{
+  font-size:22px !important;
+  font-weight:500 !important;
+}
+.dashboard .settings-page .settings-card{
+  border:0 !important;
+  border-radius:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .settings-page .settings-card form{
+  max-width:560px;
+}
+.dashboard .settings-page .settings-card input{
+  width:100%;
+  min-height:58px !important;
+  border-radius:16px !important;
+  background:rgba(255,255,255,.025) !important;
+  border-color:rgba(255,255,255,.07) !important;
+}
+.dashboard .settings-page .settings-facts{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px !important;
+  border-top:1px solid rgba(255,255,255,.055) !important;
+  border-bottom:1px solid rgba(255,255,255,.055) !important;
+}
+.dashboard .settings-page .settings-facts > div{
+  min-height:150px;
+  padding:24px 22px !important;
+  border:0 !important;
+  border-right:1px solid rgba(255,255,255,.055) !important;
+  background:rgba(255,255,255,.012) !important;
+}
+.dashboard .settings-page .settings-facts > div:last-child{
+  border-right:0 !important;
+}
+.dashboard .settings-page .settings-facts span{
+  display:block;
+  margin-bottom:18px;
+  color:rgba(244,241,232,.32) !important;
+  font:500 9px 'DM Mono' !important;
+  letter-spacing:.13em !important;
+  text-transform:uppercase;
+}
+.dashboard .settings-page .settings-facts strong{
+  color:rgba(244,241,232,.76) !important;
+  font-size:15px !important;
+  line-height:1.5 !important;
+  font-weight:500 !important;
+}
+.dashboard .settings-page .settings-action-row{
+  border-top:1px solid rgba(255,255,255,.045) !important;
+  padding:22px 0 !important;
+  background:transparent !important;
+}
+.dashboard .settings-page .settings-action-row:first-of-type{
+  border-top:0 !important;
+}
+.dashboard .settings-page .settings-danger{
+  border-bottom:0 !important;
+}
+@media(max-width:800px){
+  .dashboard .dashboard-home{
+    min-height:auto;
+  }
+  .dashboard .dashboard-welcome{
+    min-height:350px !important;
+    margin-bottom:70px !important;
+  }
+  .dashboard .frequency-heading{
+    margin-bottom:18px;
+  }
+  .dashboard .frequency-heading button{
+    right:4px;
+  }
+  .dashboard .frequency-list{
+    gap:9px !important;
+  }
+  .dashboard .glass-task{
+    padding:11px 15px !important;
+  }
+  .dashboard .glass-task:hover{
+    padding-left:15px !important;
+  }
+  .dashboard .glass-task .task-text{
+    font-size:12px !important;
+  }
+  .dashboard .settings-page{
+    padding-top:40px !important;
+    padding-bottom:130px !important;
+  }
+  .dashboard .settings-page .settings-heading{
+    padding-bottom:34px !important;
+  }
+  .dashboard .settings-page .settings-heading h2{
+    font-size:48px !important;
+  }
+  .dashboard .settings-page .settings-facts{
+    grid-template-columns:1fr !important;
+  }
+  .dashboard .settings-page .settings-facts > div{
+    min-height:auto;
+    border-right:0 !important;
+    border-bottom:1px solid rgba(255,255,255,.055) !important;
+  }
+  .dashboard .settings-page .settings-facts > div:last-child{
+    border-bottom:0 !important;
+  }
+}
