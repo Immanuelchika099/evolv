@@ -2455,3 +2455,86 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .weekly-chart-visual svg{height:125px}
 }
 
+/* Mobile dashboard typography pass */
+@media(max-width:800px){
+  .dashboard .dash-main{
+    font-size:15px;
+  }
+
+  .dashboard .dashboard-welcome-copy h1{
+    font-size:clamp(48px,15vw,72px);
+  }
+
+  .dashboard .frequency-heading>span{
+    font-size:9px;
+  }
+
+  .dashboard .glass-task{
+    min-height:72px;
+    padding:15px 17px;
+  }
+
+  .dashboard .task-text{
+    font-size:15px;
+  }
+
+  .dashboard .task-progress{
+    font-size:9px;
+  }
+
+  .dashboard .daily-insight-label,
+  .dashboard .section-label{
+    font-size:9px;
+  }
+
+  .dashboard .daily-insight h2{
+    font-size:clamp(32px,9vw,44px);
+  }
+
+  .dashboard .daily-insight p{
+    font-size:14px;
+    line-height:1.75;
+  }
+
+  .dashboard .daily-insight-points p{
+    font-size:13px;
+  }
+
+  .dashboard .weekly-progress-head h2,
+  .dashboard .dashboard-panel>h2{
+    font-size:30px;
+  }
+
+  .dashboard .weekly-progress-head p{
+    font-size:13px;
+  }
+
+  .dashboard .weekly-progress-total{
+    font-size:10px;
+  }
+
+  .dashboard .goal-card h3,
+  .dashboard .goal-title{
+    font-size:16px;
+  }
+
+  .dashboard .goal-card p,
+  .dashboard .goal-description{
+    font-size:14px;
+    line-height:1.65;
+  }
+
+  .dashboard .ai-input input{
+    font-size:16px !important;
+  }
+
+  .dashboard .profile-box,
+  .dashboard .profile-box p,
+  .dashboard .profile-box label{
+    font-size:14px;
+  }
+
+  .dashboard .app-bottom-nav button small{
+    font-size:9px;
+  }
+}
