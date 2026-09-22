@@ -7158,3 +7158,134 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:.84rem;
   }
 }
+
+
+/* EVOLV — final log card polish */
+.dashboard .log-area-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+.dashboard .log-area-choice,
+.dashboard .log-metric-choice{
+  min-height:94px;
+  grid-template-columns:52px minmax(0,1fr) 30px;
+  padding:16px;
+  border-radius:22px;
+  text-decoration:none;
+  text-transform:none;
+}
+.dashboard .log-area-choice .log-choice-icon,
+.dashboard .log-metric-choice .log-choice-icon{
+  width:52px;
+  height:52px;
+  border-radius:17px;
+}
+.dashboard .log-choice-copy strong{
+  display:block;
+  margin:0;
+  color:#f7f5ef;
+  font-size:1.18rem;
+  font-weight:650;
+  line-height:1.15;
+}
+.dashboard .log-choice-copy small{
+  display:block;
+  margin-top:6px;
+  color:rgba(244,241,234,.46);
+  font-size:.92rem;
+  line-height:1.4;
+}
+.dashboard .log-area-choice > svg,
+.dashboard .log-metric-choice > svg{
+  justify-self:end;
+}
+.dashboard .log-picker-view{
+  display:grid;
+  gap:2px;
+}
+.dashboard .log-back{
+  width:max-content;
+  min-height:38px;
+  padding:7px 10px 7px 4px;
+  border-radius:10px;
+  color:rgba(244,241,234,.52);
+  background:rgba(255,255,255,.025);
+}
+.dashboard .log-back:hover{
+  background:rgba(255,255,255,.06);
+}
+.dashboard .log-form{
+  gap:20px;
+}
+.dashboard .log-field-group{
+  gap:11px;
+}
+.dashboard .log-field-title span,
+.dashboard .log-input-label > span{
+  font-size:1rem;
+}
+.dashboard .log-input-label input,
+.dashboard .log-input-label textarea{
+  border-color:rgba(255,255,255,.12);
+  background:rgba(255,255,255,.035);
+  border-radius:16px;
+  min-height:54px;
+}
+.dashboard .log-input-label textarea{
+  min-height:92px;
+}
+.dashboard .log-input-label input:hover,
+.dashboard .log-input-label textarea:hover{
+  border-color:rgba(255,255,255,.19);
+}
+.dashboard .scale-picker button{
+  min-height:62px;
+  border-radius:16px;
+  font-weight:650;
+}
+.dashboard .meal-type-row button{
+  min-height:54px;
+  border-radius:15px;
+  font-weight:600;
+}
+.dashboard .optional-nutrition{
+  gap:12px;
+}
+.dashboard .log-selected-metric{
+  margin-bottom:2px;
+}
+.dashboard .log-selected-metric .log-choice-icon{
+  flex:0 0 50px;
+}
+.dashboard .log-selected-metric strong{
+  color:#f7f5ef;
+}
+.dashboard .log-sheet-scroll{
+  padding-top:22px;
+}
+@media(max-width:650px){
+  .dashboard .log-area-grid{
+    grid-template-columns:1fr;
+    gap:11px;
+  }
+  .dashboard .log-area-choice,
+  .dashboard .log-metric-choice{
+    min-height:86px;
+    grid-template-columns:50px minmax(0,1fr) 28px;
+    padding:14px;
+  }
+  .dashboard .log-area-choice .log-choice-icon,
+  .dashboard .log-metric-choice .log-choice-icon{
+    width:50px;
+    height:50px;
+  }
+  .dashboard .log-choice-copy strong{
+    font-size:1.08rem;
+  }
+  .dashboard .log-choice-copy small{
+    font-size:.84rem;
+  }
+  .dashboard .log-sheet-scroll{
+    padding-top:18px;
+  }
+}
