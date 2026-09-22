@@ -675,8 +675,8 @@ function ArticlePage({ article, onStart, onBack }) {
   const isMood = article?.type === 'mood'
   const isHealthReading = isMood || ['health','nutrition'].includes(article?.areaId)
   const area = growthAreas.find(a => a.id === article?.areaId)
-  const title = isFeatures ? 'The system behind your becoming.' : isMood ? 'When your mood feels heavy.' : area?.title || 'Growth areas'
-  const eyebrow = isFeatures ? '03 — THE SYSTEM' : isMood ? 'YOUR HEALTH / MOOD' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
+  const title = isFeatures ? 'The system behind your becoming.' : isMood ? 'When your mood feels heavy.' : article?.areaId === 'health' ? 'Your health, understood.' : article?.areaId === 'nutrition' ? 'Your food, understood.' : area?.title || 'Growth areas'
+  const eyebrow = isFeatures ? '03 — THE SYSTEM' : isMood ? 'YOUR HEALTH / MOOD' : article?.areaId === 'health' ? 'YOUR HEALTH / THE BASICS' : article?.areaId === 'nutrition' ? 'YOUR HEALTH / NUTRITION' : `05 — YOUR WORLD / ${area?.title?.toUpperCase() || 'GROWTH AREAS'}`
 
   const featureSections = [
     {
