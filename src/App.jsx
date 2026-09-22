@@ -1160,7 +1160,7 @@ function Dashboard({ data, onLogout }) {
 
             <section className="frequency-section">
               <div className="frequency-heading">
-                <span>TODAY</span>
+                <span>TODAY’S BUILDING TASK</span>
                 <button onClick={() => setActive('goals')} aria-label="Open goals"><Plus size={14} /></button>
               </div>
 
