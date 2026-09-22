@@ -990,6 +990,8 @@ function Dashboard({ data, onLogout }) {
   const [deleteOpen,setDeleteOpen]=useState(false)
   const [deleting,setDeleting]=useState(false)
   const [error,setError]=useState('')
+  const [progressRange,setProgressRange]=useState(7)
+  const [progressMetric,setProgressMetric]=useState(null)
 
   const areas={
     health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
@@ -1041,7 +1043,129 @@ function Dashboard({ data, onLogout }) {
         <section className="daily-insight evolv-empty-insight"><span className="daily-insight-label">YOUR CLARITY BUILDS HERE</span><h2>{todayLogs.length+todayMeals.length<3?'Start with what’s real.':'You’re building a picture of your day.'}</h2><p>{todayLogs.length+todayMeals.length<3?'The more useful things you log, the more clearly Evolv can show patterns and changes over time.':'Keep logging naturally. Evolv will turn your history into observations when there is enough data to say something useful.'}</p></section>
       </div>
       {active==='area'&&<section className="panel-page dashboard-panel area-detail-page"><button className="area-back" onClick={()=>setActive('overview')}><ChevronLeft size={16}/> Home</button>{(()=>{const m=areas[area||'health'],I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===(area||'health'));return <><div className="area-detail-head"><span className="life-area-icon large" style={{'--area-color':m.color}}><I size={20}/></span><span className="section-label">YOUR {m.title.toUpperCase()}</span><h2>{m.title}</h2><p>Only the things you choose to track.</p></div><div className="metric-detail-list">{rs.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="metric-detail-row" key={d.id} onClick={()=>openLog(area,d)}><span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span><span><strong>{d.name}</strong><small>{latest[d.slug]?valueText(latest[d.slug],d):'Log '+d.name.toLowerCase()}</small></span><ChevronRight size={16}/></button>})}{area==='nutrition'&&<button className="metric-detail-row" onClick={()=>openLog(area,{slug:'meals',name:'Meal',value_type:'meal'})}><span className="metric-row-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={17}/></span><span><strong>Meal</strong><small>{todayMeals.length} logged today</small></span><ChevronRight size={16}/></button>}</div><div className="area-note"><span>ONE STEP AT A TIME</span><p>You do not need to measure everything. Track what helps you understand your life.</p></div></>})()}</section>}
-      {active==='progress'&&<section className="panel-page dashboard-panel progress-page"><div className="progress-heading"><span className="section-label">YOUR EVOLUTION</span><h2>What’s changing.</h2><p>Real measurements from the things you’ve logged.</p></div><div className="evolv-progress-list">{defs.filter(d=>latest[d.slug]).slice(0,12).map(d=>{const M=icons[d.slug]||Sparkles;return <div className="progress-metric-row" key={d.id}><span className="metric-row-icon" style={{'--metric-color':d.color||'#c8f36a'}}><M size={17}/></span><div><strong>{d.name}</strong><small>Latest logged value</small></div><b>{valueText(latest[d.slug],d)}</b></div>})}{!loading&&!defs.some(d=>latest[d.slug])&&<div className="progress-empty"><TrendingUp size={20}/><p>Nothing to compare yet. Start logging and your evolution will appear here.</p><button className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button></div>}</div><div className="progress-stats"><div><strong>{todayLogs.length+todayMeals.length}</strong><span>things logged today</span></div><div><strong>{goals.filter(g=>g.status==='active').length}</strong><span>active goals</span></div><div><strong>{logs.length+meals.length}</strong><span>total logs</span></div></div><div className="goals-secondary"><div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>setActive('goals')}>View goals <ArrowRight size={14}/></button></div>{goals.filter(g=>g.status==='active').slice(0,3).map(g=><div className="secondary-goal" key={g.id}><span>{g.title}</span><b>{g.progress||0}%</b></div>)}</div></section>}
+      {active==='progress'&&(()=>{
+        const now=new Date()
+        const periodStart=new Date(now)
+        periodStart.setHours(0,0,0,0)
+        periodStart.setDate(periodStart.getDate()-(progressRange-1))
+        const previousStart=new Date(periodStart)
+        previousStart.setDate(previousStart.getDate()-progressRange)
+        const previousEnd=new Date(periodStart)
+        previousEnd.setMilliseconds(-1)
+
+        const metricById=Object.fromEntries(defs.map(d=>[d.id,d]))
+        const periodLogs=logs.filter(l=>new Date(l.logged_at)>=periodStart&&new Date(l.logged_at)<=now)
+        const previousLogs=logs.filter(l=>new Date(l.logged_at)>=previousStart&&new Date(l.logged_at)<=previousEnd)
+        const sumSlugs=new Set(['exercise','learning','building','outreach','applications','skills','income','spending','savings','bills','habits','reading','social','personal','reflection','focus'])
+        const directionFor=d=>sumSlugs.has(d.slug)?'sum':'average'
+        const aggregate=(items,d)=>{
+          const values=items.filter(l=>l.metric_id===d.id).map(l=>Number(l.value)).filter(Number.isFinite)
+          if(!values.length)return null
+          return directionFor(d)==='sum'?values.reduce((a,b)=>a+b,0):values.reduce((a,b)=>a+b,0)/values.length
+        }
+        const candidates=defs.filter(d=>periodLogs.some(l=>l.metric_id===d.id))
+        const selected=metricById[progressMetric]&&candidates.some(d=>d.slug===progressMetric)?metricById[progressMetric]:candidates[0]
+        const currentValue=selected?aggregate(periodLogs,selected):null
+        const previousValue=selected?aggregate(previousLogs,selected):null
+        const delta=currentValue!=null&&previousValue!=null?currentValue-previousValue:null
+        const percent=delta!=null&&previousValue!==0?(delta/Math.abs(previousValue))*100:null
+        const displayMetric=(value,d)=>{
+          if(value==null)return '—'
+          if(d.value_type==='duration'){
+            const total=Math.round(value),h=Math.floor(total/60),m=total%60
+            return h?(h+'h '+m+'m'):m+'m'
+          }
+          if(d.value_type==='scale')return value.toFixed(1)+'/5'
+          if(d.unit==='NGN')return '₦'+Math.round(value).toLocaleString()
+          return Number.isInteger(value)?value.toLocaleString():value.toFixed(1)+(d.unit?' '+d.unit:'')
+        }
+        const daily=selected?Array.from({length:progressRange},(_,i)=>{
+          const day=new Date(periodStart)
+          day.setDate(periodStart.getDate()+i)
+          const next=new Date(day);next.setDate(day.getDate()+1)
+          const dayLogs=periodLogs.filter(l=>new Date(l.logged_at)>=day&&new Date(l.logged_at)<next)
+          return {label:day.toLocaleDateString(undefined,{month:'short',day:'numeric'}),value:aggregate(dayLogs,selected)||0}
+        }):[]
+        const max=Math.max(1,...daily.map(x=>x.value))
+        const min=Math.min(0,...daily.map(x=>x.value))
+        const range=max-min||1
+        const chartWidth=760
+        const chartHeight=190
+        const points=daily.map((d,i)=>{
+          const x=daily.length===1?chartWidth/2:24+(i*(chartWidth-48)/(daily.length-1))
+          const y=24+((max-d.value)/range)*(chartHeight-48)
+          return {x,y,...d}
+        })
+        const path=points.map((p,i)=>`${i?'L':'M'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ')
+        const thingsLogged=periodLogs.length+meals.filter(m=>new Date(m.logged_at)>=periodStart&&new Date(m.logged_at)<=now).length
+        const activeDays=new Set(periodLogs.map(l=>l.logged_at.slice(0,10))).size+new Set(meals.filter(m=>new Date(m.logged_at)>=periodStart&&new Date(m.logged_at)<=now).map(m=>m.logged_at.slice(0,10))).size
+        const previousCount=previousLogs.length+meals.filter(m=>new Date(m.logged_at)>=previousStart&&new Date(m.logged_at)<=previousEnd).length
+        const changeCount=thingsLogged-previousCount
+        const observations=[]
+        if(selected&&currentValue!=null&&previousValue!=null&&delta!==0){
+          observations.push(`${selected.name} is ${delta>0?'up':'down'} ${displayMetric(Math.abs(delta),selected)} compared with the previous ${progressRange}-day period.`)
+        }
+        if(changeCount!==0) observations.push(`You logged ${Math.abs(changeCount)} more thing${Math.abs(changeCount)===1?'':'s'} than in the previous period.`)
+        if(activeDays>0) observations.push(`You showed up on ${activeDays} day${activeDays===1?'':'s'} during this period.`)
+        const shortPeriod=progressRange<=7
+        return <section className="panel-page dashboard-panel progress-page">
+          <div className="progress-heading">
+            <span className="section-label">YOUR EVOLUTION</span>
+            <h2>What’s changing.</h2>
+            <p>Real measurements from the things you’ve logged.</p>
+          </div>
+
+          <div className="progress-range-switch" role="tablist" aria-label="Progress time range">
+            {[7,30,90].map(days=><button key={days} className={progressRange===days?'active':''} onClick={()=>setProgressRange(days)}>{days}D</button>)}
+          </div>
+
+          {!selected ? <div className="progress-empty progress-empty-large">
+            <TrendingUp size={24}/>
+            <h3>Nothing to compare yet.</h3>
+            <p>Start logging a few things and Evolv will turn your history into real trends. You do not need to track everything.</p>
+            <button className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button>
+          </div> : <>
+            <div className="progress-focus-head">
+              <div><span className="section-label">TRACKED OVER TIME</span><h3>{selected.name}</h3></div>
+              <span className="progress-focus-value">{displayMetric(currentValue,selected)}</span>
+            </div>
+            <div className="progress-metric-picker">
+              {candidates.slice(0,8).map(d=><button key={d.id} className={selected.id===d.id?'active':''} onClick={()=>setProgressMetric(d.slug)}>{d.name}</button>)}
+            </div>
+            <div className="progress-period-summary">
+              <div><span>{directionFor(selected)==='sum'?'This period':'Average this period'}</span><strong>{displayMetric(currentValue,selected)}</strong></div>
+              <div><span>Previous period</span><strong>{displayMetric(previousValue,selected)}</strong></div>
+              <div><span>Change</span><strong className={delta==null?'neutral':delta>0?'up':'down'}>{delta==null?'Not enough data':(delta>0?'↑ ':'↓ ')+displayMetric(Math.abs(delta),selected)}</strong>{percent!=null&&<small>{percent>0?'+':''}{percent.toFixed(0)}%</small>}</div>
+            </div>
+            <div className="progress-chart-card">
+              <div className="progress-chart-top"><div><span className="section-label">{shortPeriod?'LAST 7 DAYS':`LAST ${progressRange} DAYS`}</span><p>{directionFor(selected)==='sum'?'Total logged in this period':'Average logged value by day'}</p></div><span>{selected.unit||'value'}</span></div>
+              <div className="progress-line-chart">
+                <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none" role="img" aria-label={`${selected.name} trend over ${progressRange} days`}>
+                  <path d={path} fill="none" stroke="rgba(200,243,106,.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  {points.filter((_,i)=>shortPeriod||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><circle key={i} cx={p.x} cy={p.y} r="4" fill="#c8f36a"/>)}
+                </svg>
+                <div className="progress-chart-labels">{points.filter((_,i)=>shortPeriod||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><span key={i}>{p.label}</span>)}</div>
+              </div>
+            </div>
+          </>}
+
+          <div className="progress-insight-block">
+            <div className="progress-insight-head"><span className="section-label">WHAT CHANGED</span><Sparkles size={18}/></div>
+            {observations.length ? <div className="progress-observations">{observations.slice(0,3).map((item,i)=><div key={i}><span>0{i+1}</span><p>{item}</p></div>)}</div> : <p className="progress-not-enough">Not enough data yet to make a useful comparison. Keep logging naturally and Evolv will only surface patterns when there is enough information.</p>}
+          </div>
+
+          <div className="progress-stats">
+            <div><strong>{thingsLogged}</strong><span>things logged</span></div>
+            <div><strong>{activeDays}</strong><span>days you showed up</span></div>
+            <div><strong>{candidates.length}</strong><span>metrics tracked</span></div>
+          </div>
+
+          <div className="goals-secondary">
+            <div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>setActive('goals')}>View goals <ArrowRight size={14}/></button></div>
+            {goals.filter(g=>g.status==='active').slice(0,3).map(g=><div className="secondary-goal" key={g.id}><span>{g.title}</span><b>{g.progress||0}%</b></div>)}
+          </div>
+        </section>
+      })()}
       {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>setActive('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
       {active==='profile'&&<section className="panel-page dashboard-panel settings-page"><div className="settings-heading"><span className="section-label">SETTINGS</span><h2>Your space.</h2><p>Keep your personal details up to date.</p></div><div className="settings-section"><div className="settings-section-head"><div><span className="section-label">ACCOUNT</span><h3>Your details</h3></div><Settings size={18}/></div><div className="settings-card"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e=>setProfileName(e.target.value)}/></label><button className="button button-primary" type="submit">Save changes</button>{profileMessage&&<p className="auth-message">{profileMessage}</p>}</form></div></div><div className="settings-section settings-danger"><div className="settings-action-row"><div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div><button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15}/> Sign out</button></div><div className="settings-action-row danger"><div><strong>Delete account</strong><span>Permanently remove your account.</span></div><button className="settings-delete-button" type="button" onClick={()=>setDeleteOpen(true)}>Delete</button></div></div>{deleteOpen&&<div className="settings-delete-overlay" role="dialog" aria-modal="true"><div className="settings-delete-modal"><span className="section-label">DELETE ACCOUNT</span><h3>Delete your account?</h3><p>This permanently removes your account and saved information.</p><div className="settings-delete-actions"><button onClick={()=>setDeleteOpen(false)}>Cancel</button><button className="settings-delete-confirm" onClick={deleteAccount} disabled={deleting}>{deleting?'Deleting…':'Delete account'}</button></div></div></div>}</section>}
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0}/>}
