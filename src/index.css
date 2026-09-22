@@ -2207,3 +2207,53 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .settings-action-row{padding:16px}
   .dashboard .settings-action-row span{max-width:210px;line-height:1.5}
 }
+
+
+.auth-divider{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:18px 0 12px;
+  color:rgba(232,244,237,.28);
+  font-size:9px;
+  letter-spacing:.16em;
+}
+.auth-divider::before,.auth-divider::after{
+  content:"";
+  flex:1;
+  height:1px;
+  background:rgba(109,189,161,.09);
+}
+.google-auth-button{
+  width:100%;
+  min-height:48px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  border:1px solid rgba(109,189,161,.12);
+  border-radius:12px;
+  background:rgba(255,255,255,.035);
+  color:#edf5f0;
+  font:inherit;
+  font-size:13px;
+  cursor:pointer;
+  transition:.25s ease;
+}
+.google-auth-button:hover:not(:disabled){
+  background:rgba(109,189,161,.065);
+  border-color:rgba(109,189,161,.22);
+}
+.google-auth-button:disabled{opacity:.55;cursor:not-allowed}
+.google-mark{
+  width:20px;
+  height:20px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+  background:#fff;
+  color:#4285f4;
+  font-family:Arial,sans-serif;
+  font-size:14px;
+  font-weight:700;
+}
