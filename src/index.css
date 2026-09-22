@@ -3969,3 +3969,117 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     padding:13px 14px !important;
   }
 }
+
+
+/* EVOLV — refined navigation + settings */
+.dashboard .sidebar{
+  background:rgba(2,4,2,.72) !important;
+  border-right:1px solid rgba(255,255,255,.055) !important;
+  backdrop-filter:blur(24px) saturate(120%);
+}
+.dashboard .sidebar-logo{
+  color:#f3f1e9 !important;
+}
+.dashboard .sidebar nav{
+  gap:6px !important;
+}
+.dashboard .sidebar nav button{
+  position:relative;
+  min-height:44px;
+  padding:11px 13px !important;
+  border-radius:12px !important;
+  color:rgba(243,241,233,.45) !important;
+  background:transparent !important;
+  transition:color .25s ease,background .25s ease,transform .25s ease;
+}
+.dashboard .sidebar nav button:hover{
+  color:rgba(243,241,233,.82) !important;
+  background:rgba(255,255,255,.035) !important;
+  transform:translateX(2px);
+}
+.dashboard .sidebar nav button.active{
+  color:#f3f1e9 !important;
+  background:rgba(183,217,76,.065) !important;
+}
+.dashboard .sidebar nav button.active::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:10px;
+  bottom:10px;
+  width:2px;
+  border-radius:2px;
+  background:#b7d94c;
+  box-shadow:0 0 12px rgba(183,217,76,.16);
+}
+.dashboard .sidebar-profile{
+  border-top:1px solid rgba(255,255,255,.055) !important;
+  background:transparent !important;
+}
+.dashboard .sidebar-profile:hover{
+  background:rgba(255,255,255,.025) !important;
+}
+.dashboard .panel-page.settings-page{
+  padding-top:34px;
+}
+.dashboard .settings-page .settings-heading{
+  margin-bottom:54px !important;
+}
+.dashboard .settings-page .settings-heading .section-label{
+  color:rgba(243,241,233,.4);
+  font-size:10px;
+  letter-spacing:.14em;
+}
+.dashboard .settings-page .settings-heading h2{
+  margin-top:13px !important;
+  color:#f3f1e9 !important;
+  font:500 clamp(48px,6vw,76px) 'Manrope' !important;
+  line-height:.94 !important;
+  letter-spacing:-.065em !important;
+}
+.dashboard .settings-page .settings-heading p{
+  max-width:580px;
+  margin-top:15px !important;
+  color:rgba(232,237,228,.5) !important;
+  font-size:15px !important;
+  line-height:1.75 !important;
+}
+.dashboard .settings-page .settings-section{
+  border-top:1px solid rgba(255,255,255,.07) !important;
+  padding:30px 0 34px !important;
+  background:transparent !important;
+  border-radius:0 !important;
+}
+.dashboard .settings-page .settings-section h3{
+  color:#f3f1e9 !important;
+  font:500 22px 'Manrope' !important;
+  letter-spacing:-.03em;
+}
+.dashboard .settings-page .settings-section p{
+  color:rgba(232,237,228,.48) !important;
+}
+.dashboard .settings-page input,
+.dashboard .settings-page select{
+  border-color:rgba(255,255,255,.08) !important;
+  background:rgba(255,255,255,.025) !important;
+  color:#f3f1e9 !important;
+}
+.dashboard .settings-page input:focus,
+.dashboard .settings-page select:focus{
+  border-color:rgba(183,217,76,.28) !important;
+  box-shadow:0 0 0 3px rgba(183,217,76,.055) !important;
+}
+@media(max-width:800px){
+  .dashboard .panel-page.settings-page{
+    padding-top:18px;
+  }
+  .dashboard .settings-page .settings-heading{
+    margin-bottom:38px !important;
+  }
+  .dashboard .settings-page .settings-heading h2{
+    font-size:43px !important;
+  }
+  .dashboard .settings-page .settings-section{
+    padding:25px 0 29px !important;
+  }
+}
