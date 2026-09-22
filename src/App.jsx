@@ -178,7 +178,7 @@ function App() {
   return (
     <main ref={root} className="app">
       <div className="noise" />
-      {view !== 'onboarding' && view !== 'auth' && (
+      {view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
         <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
       {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
