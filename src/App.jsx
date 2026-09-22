@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound } from 'lucide-react'
+import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -37,6 +37,34 @@ function App() {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
     catch { return initialData }
   })
+
+  useEffect(() => {
+    let mounted = true
+
+    async function restoreAuth() {
+      const { data: sessionData } = await supabase.auth.getSession()
+      if (!mounted) return
+      if (sessionData?.session?.user) {
+        localStorage.setItem('evolv-view', 'dashboard')
+        setView('dashboard')
+      }
+    }
+
+    restoreAuth()
+
+    const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return
+      if (session?.user) {
+        localStorage.setItem('evolv-view', 'dashboard')
+        setView('dashboard')
+      }
+    })
+
+    return () => {
+      mounted = false
+      listener?.subscription?.unsubscribe()
+    }
+  }, [])
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -171,7 +199,11 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     setMessage('')
 
     const result = mode === 'signup'
-      ? await supabase.auth.signUp({ email: email.trim(), password })
+      ? await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: { emailRedirectTo: window.location.origin },
+      })
       : await supabase.auth.signInWithPassword({ email: email.trim(), password })
 
     setSending(false)
@@ -863,6 +895,7 @@ function Dashboard({ data, onLogout }) {
         <button className={active === 'overview' ? 'side-active' : ''} onClick={() => setActive('overview')}><TrendingUp size={17}/> Overview</button>
         <button className={active === 'goals' ? 'side-active' : ''} onClick={() => setActive('goals')}><Target size={17}/> Goals</button>
         <button className={active === 'profile' ? 'side-active' : ''} onClick={() => setActive('profile')}><UserRound size={17}/> Profile</button>
+        <button className={active === 'ai' ? 'side-active' : ''} onClick={() => setActive('ai')}><Bot size={17}/> EVOLV AI</button>
       </nav><button className="logout" onClick={onLogout}><LogOut size={16}/> Sign out</button></aside>
       <main className="dash-main">
         <header className="dash-header"><div><span className="section-label">YOUR SPACE</span><h1>Good evening, {name}.</h1></div><button className="icon-button" onClick={() => setActive('profile')} aria-label="Open profile settings"><Settings size={18}/></button></header>
@@ -878,4 +911,83 @@ function Dashboard({ data, onLogout }) {
     </div>
   )
 }
+function EvolvAI({ profile }) {
+  const [messages, setMessages] = useState([
+    { role: 'assistant', content: `Hey ${profile?.first_name || 'there'} — I’m EVOLV AI. Tell me what you’re working toward, what’s getting in the way, or what you want to figure out next.` },
+  ])
+  const [input, setInput] = useState('')
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState('')
+
+  useEffect(() => {
+    let mounted = true
+    async function loadMessages() {
+      const { data } = await supabase.from('ai_messages').select('role,content').order('created_at', { ascending: true }).limit(50)
+      if (mounted && data?.length) setMessages(data)
+    }
+    loadMessages()
+    return () => { mounted = false }
+  }, [])
+
+  async function sendMessage(event) {
+    event.preventDefault()
+    const text = input.trim()
+    if (!text || sending) return
+    const nextMessages = [...messages, { role: 'user', content: text }]
+    setMessages(nextMessages)
+    setInput('')
+    setSending(true)
+    setError('')
+
+    const { data: authData } = await supabase.auth.getSession()
+    const token = authData?.session?.access_token
+    const userId = authData?.session?.user?.id
+    if (!token || !userId) {
+      setSending(false)
+      setError('Your session has expired. Please sign in again.')
+      return
+    }
+
+    await supabase.from('ai_messages').insert({ user_id: userId, role: 'user', content: text })
+
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ messages: nextMessages, profile }),
+    })
+
+    const result = await response.json().catch(() => ({}))
+    setSending(false)
+    if (!response.ok) {
+      setError(result.error || 'The AI assistant could not respond right now.')
+      return
+    }
+
+    const reply = result.reply || 'I’m here. What would you like to work through next?'
+    setMessages(current => [...current, { role: 'assistant', content: reply }])
+    await supabase.from('ai_messages').insert({ user_id: userId, role: 'assistant', content: reply })
+  }
+
+  return (
+    <section className="panel-page ai-page">
+      <div className="ai-heading"><div><span className="section-label">EVOLV AI</span><h2>Your growth companion.</h2><p>Ask questions, work through a goal, or turn an idea into your next practical step.</p></div><span className="ai-status"><i /> ONLINE</span></div>
+      <div className="ai-chat">
+        <div className="ai-messages">
+          {messages.map((message, index) => <div className={`ai-message ${message.role}`} key={index}><span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV AI' : 'YOU'}</span><p>{message.content}</p></div>)}
+          {sending && <div className="ai-message assistant"><span className="ai-message-role">EVOLV AI</span><p className="ai-typing">Thinking…</p></div>}
+        </div>
+        <form className="ai-input" onSubmit={sendMessage}>
+          <input value={input} onChange={e => setInput(e.target.value)} placeholder="What are you thinking about?" maxLength={2000} />
+          <button type="submit" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
+        </form>
+      </div>
+      {error && <p className="auth-error" role="alert">{error}</p>}
+    </section>
+  )
+}
+
 export default App
