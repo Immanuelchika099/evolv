@@ -1800,6 +1800,36 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   line-height:1.8;
 }
 
+.daily-insight-points{
+  max-width:620px;
+  margin-top:22px;
+  display:grid;
+  gap:10px;
+}
+
+.daily-insight-points > div{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:11px 13px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+}
+
+.daily-insight-points span{
+  flex:0 0 auto;
+  color:rgba(109,207,173,.72);
+  font:8px 'DM Mono';
+  letter-spacing:.12em;
+}
+
+.daily-insight-points p{
+  color:rgba(232,228,218,.58);
+  font-size:11px;
+  line-height:1.5;
+}
+
 .app-bottom-nav{
   position:fixed;
   z-index:20;
