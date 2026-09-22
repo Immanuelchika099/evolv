@@ -6479,3 +6479,57 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .meal-history-row{grid-template-columns:36px 1fr}
   .dashboard .meal-nutrition{grid-column:2}
 }
+
+
+/* EVOLV — Mood reading + trusted resources */
+.dashboard .health-metric-wrap{border-bottom:1px solid rgba(255,255,255,.065)}
+.dashboard .health-metric-wrap .health-metric-row{border-bottom:0}
+.dashboard .mood-reading-button{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px 52px;border:1px solid rgba(155,124,255,.28);background:rgba(155,124,255,.055);color:#d8ccff;border-radius:999px;padding:10px 14px;font-size:.95rem;font-weight:600;cursor:pointer;transition:.2s ease}
+.dashboard .mood-reading-button:hover{background:rgba(155,124,255,.10);border-color:rgba(155,124,255,.48);transform:translateY(-1px)}
+
+/* EVOLV — readable health articles */
+.article-page{min-height:100vh;background:#020302;color:#f4f1ea;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.article-page .article-hero{max-width:1100px;margin:0 auto;padding:150px 28px 80px;border-bottom:1px solid rgba(255,255,255,.08)}
+.article-page .article-hero-copy{max-width:850px}
+.article-page .article-kicker{font-size:.9rem!important;color:rgba(200,243,106,.72)!important}
+.article-page .article-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(3rem,7vw,6.5rem);line-height:.98;letter-spacing:-.055em;font-weight:700;margin:22px 0 28px;max-width:900px}
+.article-page .article-intro{font-size:1.25rem;line-height:1.75;color:rgba(244,241,234,.64);max-width:760px;margin:0}
+.article-page .article-body{max-width:1000px;margin:0 auto;padding:0 28px 110px}
+.article-page .article-block p{font-size:1.08rem;line-height:1.85;color:rgba(244,241,234,.67)}
+.article-page .article-lead{display:grid;grid-template-columns:52px 1fr;gap:22px;padding:58px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.article-page .article-lead>span,.article-page .article-content-card>span{font-size:.9rem;color:rgba(200,243,106,.7);padding-top:5px}
+.article-page .article-lead p{font-size:1.45rem;line-height:1.7;color:#f4f1ea;margin:0;max-width:800px}
+.article-page .article-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 46px;border-bottom:1px solid rgba(255,255,255,.08)}
+.article-page .article-content-card{padding:42px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.article-page .article-content-card h2{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:1.65rem;line-height:1.25;letter-spacing:-.025em;margin:10px 0 14px}
+.article-page .article-example{margin:70px 0 0;padding:34px 0 42px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)}
+.article-page .article-example h2{font-size:2rem;line-height:1.2;margin:12px 0 12px;letter-spacing:-.035em}
+.article-page .article-resources{margin-top:0;padding:55px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.article-page .article-resource-head h2{font-size:2rem;letter-spacing:-.035em;margin:10px 0}
+.article-page .article-resource-head p{max-width:700px;margin:0;color:rgba(244,241,234,.48);font-size:1.05rem;line-height:1.7}
+.article-page .article-resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:28px}
+.article-page .article-resource-card{display:flex;justify-content:space-between;gap:18px;min-height:220px;padding:22px;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);border-radius:18px;color:#f4f1ea;text-decoration:none;transition:.25s ease}
+.article-page .article-resource-card:hover{transform:translateY(-3px);border-color:rgba(200,243,106,.28);background:rgba(255,255,255,.04)}
+.article-page .article-resource-card span{font-size:.82rem;color:rgba(200,243,106,.7);letter-spacing:.04em}
+.article-page .article-resource-card h3{font-size:1.2rem;line-height:1.3;margin:10px 0}
+.article-page .article-resource-card p{font-size:1rem;line-height:1.65;margin:0;color:rgba(244,241,234,.52)}
+.article-page .article-resource-card>svg{flex:0 0 auto;color:#c8f36a;margin-top:2px}
+.article-page .article-end{padding:85px 0 0;text-align:center}
+.article-page .article-end h2{font-size:clamp(2.5rem,6vw,5rem);line-height:1.02;letter-spacing:-.05em;margin:15px auto 30px;max-width:750px}
+.article-page .article-end .button{margin:auto}
+@media(max-width:760px){
+  .dashboard .mood-reading-button{margin-left:0;margin-bottom:14px}
+  .article-page .article-hero{padding:115px 20px 58px}
+  .article-page .article-body{padding:0 20px 80px}
+  .article-page .article-title{font-size:clamp(2.7rem,13vw,4.4rem)}
+  .article-page .article-intro{font-size:1.1rem;line-height:1.7}
+  .article-page .article-lead{grid-template-columns:34px 1fr;gap:12px;padding:42px 0}
+  .article-page .article-lead p{font-size:1.2rem;line-height:1.65}
+  .article-page .article-grid{grid-template-columns:1fr;gap:0}
+  .article-page .article-content-card{padding:34px 0}
+  .article-page .article-content-card h2{font-size:1.55rem}
+  .article-page .article-block p{font-size:1.05rem;line-height:1.8}
+  .article-page .article-example h2,.article-page .article-resource-head h2{font-size:1.7rem}
+  .article-page .article-resource-grid{grid-template-columns:1fr}
+  .article-page .article-resource-card{min-height:0}
+}
