@@ -4727,3 +4727,129 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     padding:28px 0 30px !important;
   }
 }
+
+/* EVOLV — restrained motion + mobile polish */
+.dashboard .dash-main > *{
+  animation:evolvEditorialIn .8s cubic-bezier(.16,.8,.24,1) both;
+}
+.dashboard .dash-main > *:nth-child(2){animation-delay:.04s}
+.dashboard .dash-main > *:nth-child(3){animation-delay:.08s}
+.dashboard .dash-main > *:nth-child(4){animation-delay:.12s}
+@keyframes evolvEditorialIn{
+  from{opacity:0;transform:translateY(18px)}
+  to{opacity:1;transform:translateY(0)}
+}
+.dashboard .frequency-list,
+.dashboard .goal-list,
+.dashboard .daily-insight-points{
+  position:relative;
+}
+.dashboard .frequency-list::before,
+.dashboard .goal-list::before{
+  content:"";
+  position:absolute;
+  left:-18px;
+  top:0;
+  width:1px;
+  height:100%;
+  background:linear-gradient(180deg,rgba(183,217,76,.16),transparent 45%);
+  opacity:.55;
+}
+.dashboard .goal-item h3,
+.dashboard .glass-task .task-text{
+  text-wrap:balance;
+}
+.dashboard .goal-actions button{
+  border-color:rgba(255,255,255,.06) !important;
+  background:transparent !important;
+  color:rgba(244,241,232,.42) !important;
+}
+.dashboard .goal-actions button:hover{
+  border-color:rgba(183,217,76,.2) !important;
+  color:rgba(244,241,232,.8) !important;
+  background:rgba(183,217,76,.035) !important;
+}
+.dashboard .mini-progress{
+  margin-top:30px !important;
+  background:rgba(255,255,255,.055) !important;
+}
+.dashboard .mini-progress i{
+  background:var(--evolv-accent) !important;
+}
+.dashboard .weekly-progress-card .weekly-chart{
+  min-height:230px;
+}
+.dashboard .daily-insight-label{
+  font:500 10px 'DM Mono' !important;
+  letter-spacing:.14em !important;
+}
+.dashboard .daily-insight-points p{
+  font-size:15px !important;
+  line-height:1.65 !important;
+}
+.dashboard .ai-page .ai-status{
+  border:0 !important;
+  background:transparent !important;
+  padding:0 !important;
+}
+.dashboard .ai-page .ai-status i{
+  width:6px;
+  height:6px;
+}
+.dashboard .ai-page .ai-message.user{
+  justify-content:flex-end;
+}
+.dashboard .ai-page .ai-message.user p{
+  max-width:620px;
+}
+.dashboard .ai-page .ai-input{
+  min-height:64px;
+}
+.dashboard .ai-page .ai-input input{
+  color:var(--evolv-cream);
+}
+.dashboard .settings-page .settings-heading{
+  margin-bottom:0;
+}
+.dashboard .settings-page .settings-section h3{
+  color:rgba(244,241,232,.86);
+}
+.dashboard .settings-page .settings-section p{
+  color:rgba(244,241,232,.48);
+}
+@media(max-width:800px){
+  .dashboard .frequency-list::before,
+  .dashboard .goal-list::before{
+    display:none;
+  }
+  .dashboard .dashboard-welcome{
+    min-height:300px;
+  }
+  .dashboard .dashboard-welcome .dashboard-eyebrow{
+    font-size:13px !important;
+    margin-bottom:18px;
+  }
+  .dashboard .dashboard-welcome h1{
+    letter-spacing:-.075em !important;
+  }
+  .dashboard .frequency-heading{
+    padding-bottom:14px;
+  }
+  .dashboard .glass-task .task-text{
+    font-size:16px !important;
+  }
+  .dashboard .weekly-progress-card .weekly-chart{
+    min-height:200px;
+  }
+  .dashboard .ai-page .ai-message p{
+    font-size:16px !important;
+  }
+  .dashboard .ai-page .ai-input{
+    min-height:60px;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard .dash-main > *{
+    animation:none !important;
+  }
+}
