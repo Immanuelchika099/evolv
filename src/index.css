@@ -3468,3 +3468,110 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     top:-35px;
   }
 }
+
+
+/* EVOLV — hero + today's task refinement */
+.dashboard .dashboard-welcome{
+  margin:32px 0 76px !important;
+  padding:42px 0 18px !important;
+}
+.dashboard .dashboard-welcome .dashboard-eyebrow{
+  margin-bottom:18px;
+  font-size:13px !important;
+  line-height:1.4;
+  letter-spacing:.01em !important;
+  text-transform:none !important;
+}
+.dashboard .dashboard-welcome h1{
+  margin:0 !important;
+  font-size:clamp(72px,10vw,132px) !important;
+  line-height:.82 !important;
+  letter-spacing:-.075em !important;
+  font-weight:600 !important;
+}
+.dashboard .dashboard-welcome::after{
+  width:560px;
+  height:300px;
+  left:4%;
+  top:-55px;
+  background:radial-gradient(ellipse,rgba(183,217,76,.075),transparent 68%);
+  filter:blur(18px);
+}
+.dashboard .frequency-section{
+  margin-bottom:88px !important;
+}
+.dashboard .frequency-heading{
+  margin-bottom:20px !important;
+  align-items:center;
+}
+.dashboard .frequency-heading>span{
+  font-size:10px !important;
+  letter-spacing:.14em !important;
+}
+.dashboard .frequency-heading button{
+  width:32px;
+  height:32px;
+  border:1px solid rgba(255,255,255,.08);
+  background:rgba(255,255,255,.025);
+  color:rgba(243,241,233,.7);
+  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+.dashboard .frequency-heading button:hover{
+  transform:translateY(-1px);
+  border-color:rgba(183,217,76,.2);
+  background:rgba(183,217,76,.06);
+}
+.dashboard .frequency-list{
+  gap:10px !important;
+}
+.dashboard .glass-task{
+  min-height:68px;
+  padding:18px 20px !important;
+  border-radius:20px !important;
+}
+.dashboard .glass-task .task-text{
+  font-size:16px !important;
+  line-height:1.4;
+  letter-spacing:-.01em;
+}
+.dashboard .glass-task .task-check{
+  width:21px;
+  height:21px;
+  flex:0 0 21px;
+}
+.dashboard .glass-task.checked .task-text{
+  color:rgba(243,241,233,.48);
+  text-decoration:line-through;
+  text-decoration-color:rgba(183,217,76,.32);
+}
+@media(max-width:800px){
+  .dashboard .dashboard-welcome{
+    margin:18px 0 58px !important;
+    padding:28px 0 10px !important;
+  }
+  .dashboard .dashboard-welcome .dashboard-eyebrow{
+    margin-bottom:14px;
+    font-size:12px !important;
+  }
+  .dashboard .dashboard-welcome h1{
+    font-size:clamp(62px,20vw,94px) !important;
+    line-height:.86 !important;
+  }
+  .dashboard .dashboard-welcome::after{
+    width:330px;
+    height:220px;
+    left:-8%;
+    top:-28px;
+  }
+  .dashboard .frequency-section{
+    margin-bottom:66px !important;
+  }
+  .dashboard .glass-task{
+    min-height:62px;
+    padding:16px 17px !important;
+    border-radius:17px !important;
+  }
+  .dashboard .glass-task .task-text{
+    font-size:15px !important;
+  }
+}
