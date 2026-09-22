@@ -1218,3 +1218,93 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .onboarding .onboard-content{padding-top:22px}
   .onboarding .onboard-back-row{width:100%;margin-bottom:20px}
 }
+
+
+/* Final EVOLV journey navigation restructure */
+.onboarding .onboard-content{
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:0 0 72px;
+}
+.onboarding .onboard-stage{
+  width:min(900px,100%);
+  margin:0 auto;
+  padding-top:26px;
+}
+.onboarding .onboard-back-row{
+  width:100%;
+  min-height:30px;
+  margin:0 0 38px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+}
+.onboarding .back-button{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  margin:0;
+  padding:0;
+  border:0;
+  background:none;
+  color:#777f78;
+  font:9px 'DM Mono';
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  cursor:pointer;
+  opacity:1;
+  transform:none;
+  transition:color .25s ease,opacity .25s ease;
+}
+.onboarding .back-icon{
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border:1px solid #ffffff16;
+  border-radius:50%;
+  background:#ffffff04;
+  transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .25s ease,background .25s ease;
+}
+.onboarding .back-button::after{display:none}
+.onboarding .back-label{line-height:1}
+.onboarding .back-button:hover{color:#eef2eb;transform:none}
+.onboarding .back-button:hover .back-icon{
+  transform:translateX(-3px);
+  border-color:#ffffff30;
+  background:#ffffff09;
+}
+.onboarding .back-context{
+  color:#444c46;
+  font:8px 'DM Mono';
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+.onboarding .onboard-step{
+  width:100%;
+  margin:0 auto;
+}
+.onboarding .onboard-step h1{
+  margin-top:20px;
+}
+.onboarding .onboard-step>p{
+  margin-bottom:34px;
+}
+.onboarding .onboard-footer{
+  position:relative;
+  z-index:3;
+  background:linear-gradient(180deg,transparent,#090b0a 28%);
+  padding-top:30px;
+}
+@media(max-width:800px){
+  .onboarding .onboard-content{padding-bottom:55px}
+  .onboarding .onboard-stage{padding-top:20px}
+  .onboarding .onboard-back-row{margin-bottom:28px}
+  .onboarding .back-context{font-size:7px;letter-spacing:.12em}
+  .onboarding .back-icon{width:26px;height:26px}
+  .onboarding .onboard-step h1{margin-top:16px}
+  .onboarding .onboard-footer{padding-top:22px}
+}
