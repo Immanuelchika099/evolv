@@ -4882,3 +4882,283 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     margin-top:24px !important;
   }
 }
+
+
+/* EVOLV — logged-in dashboard refinement / 2026-09-22 */
+.dashboard{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(900px 560px at 76% -10%, rgba(183,217,76,.065), transparent 62%),
+    radial-gradient(760px 520px at 8% 38%, rgba(255,255,255,.022), transparent 68%),
+    #020302 !important;
+}
+.dashboard::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  background:
+    linear-gradient(115deg, transparent 0 38%, rgba(183,217,76,.018) 50%, transparent 62%),
+    radial-gradient(circle at 50% 55%, transparent 0 32%, rgba(0,0,0,.18) 78%);
+}
+.dashboard .app-topbar{
+  position:relative;
+  z-index:5;
+  border-bottom:1px solid rgba(255,255,255,.045);
+  background:rgba(2,3,2,.54);
+  backdrop-filter:blur(24px) saturate(120%);
+}
+.dashboard .dash-main{
+  position:relative;
+}
+.dashboard .dashboard-home{
+  position:relative;
+}
+.dashboard .dashboard-welcome{
+  position:relative;
+  min-height:470px !important;
+  margin-bottom:112px !important;
+  padding:0 0 34px !important;
+  justify-content:flex-end !important;
+}
+.dashboard .dashboard-welcome-copy{
+  position:relative;
+  z-index:2;
+}
+.dashboard .dashboard-welcome::before{
+  content:"";
+  position:absolute;
+  width:min(760px,75vw);
+  height:420px;
+  left:-16%;
+  bottom:-80px;
+  background:radial-gradient(ellipse,rgba(183,217,76,.075),rgba(183,217,76,.018) 38%,transparent 72%);
+  filter:blur(26px);
+  pointer-events:none;
+}
+.dashboard .dashboard-welcome::after{
+  content:"";
+  position:absolute;
+  right:3%;
+  top:18%;
+  width:240px;
+  height:240px;
+  border:1px solid rgba(183,217,76,.075);
+  border-radius:50%;
+  box-shadow:0 0 100px rgba(183,217,76,.035);
+  pointer-events:none;
+  opacity:.65;
+}
+.dashboard .dashboard-eyebrow{
+  position:relative;
+  display:block;
+  margin-bottom:22px !important;
+  color:rgba(244,241,232,.42) !important;
+  font-size:14px !important;
+}
+.dashboard .dashboard-welcome h1{
+  position:relative;
+  z-index:2;
+  max-width:100%;
+  font-size:clamp(82px,11.5vw,158px) !important;
+  letter-spacing:-.085em !important;
+  line-height:.8 !important;
+  text-wrap:balance;
+}
+.dashboard .dashboard-focus-row{
+  position:relative;
+  z-index:3;
+  width:min(560px,100%);
+  margin:34px auto 0;
+  padding:14px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:13px;
+  border-top:1px solid rgba(255,255,255,.06);
+  border-bottom:1px solid rgba(255,255,255,.06);
+  color:rgba(244,241,232,.5);
+  text-align:center;
+}
+.dashboard .dashboard-focus-label{
+  color:rgba(183,217,76,.58);
+  font:500 9px 'DM Mono';
+  letter-spacing:.15em;
+}
+.dashboard .dashboard-focus-value{
+  color:rgba(244,241,232,.72);
+  font:500 12px 'Manrope';
+}
+.dashboard .dashboard-welcome .area-pills{
+  position:relative;
+  z-index:3;
+  width:100%;
+  margin:18px auto 0 !important;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:7px;
+}
+.dashboard .dashboard-welcome .area-pills span{
+  padding:8px 12px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:999px;
+  background:rgba(255,255,255,.018);
+  color:rgba(244,241,232,.42);
+  font:500 9px 'DM Mono';
+  letter-spacing:.06em;
+  transition:border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+}
+.dashboard .dashboard-welcome .area-pills span:hover{
+  color:rgba(244,241,232,.76);
+  border-color:rgba(183,217,76,.18);
+  background:rgba(183,217,76,.035);
+  transform:translateY(-1px);
+}
+.dashboard .frequency-section{
+  position:relative;
+  max-width:980px !important;
+  margin-bottom:132px !important;
+}
+.dashboard .frequency-heading{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.dashboard .frequency-heading button{
+  width:30px;
+  height:30px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:50%;
+  background:rgba(255,255,255,.02);
+  color:rgba(244,241,232,.52);
+  display:grid;
+  place-items:center;
+  transition:.25s ease;
+}
+.dashboard .frequency-heading button:hover{
+  color:#d8e7a0;
+  border-color:rgba(183,217,76,.22);
+  background:rgba(183,217,76,.04);
+  transform:rotate(90deg);
+}
+.dashboard .frequency-list{
+  padding-left:18px;
+}
+.dashboard .glass-task{
+  position:relative;
+  transition:padding-left .28s ease, background .28s ease, color .28s ease !important;
+}
+.dashboard .glass-task::after{
+  content:"";
+  position:absolute;
+  left:-19px;
+  top:0;
+  width:1px;
+  height:100%;
+  background:linear-gradient(180deg,rgba(183,217,76,.18),transparent);
+  opacity:.6;
+}
+.dashboard .glass-task:hover::after{
+  background:linear-gradient(180deg,rgba(183,217,76,.42),transparent);
+}
+.dashboard .daily-insight{
+  position:relative;
+  max-width:980px;
+  margin-top:120px !important;
+  padding-top:54px !important;
+}
+.dashboard .daily-insight::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,rgba(183,217,76,.18),rgba(255,255,255,.055),transparent);
+}
+.dashboard .weekly-progress-card{
+  position:relative;
+}
+.dashboard .weekly-progress-card::before{
+  content:"";
+  position:absolute;
+  right:-120px;
+  top:-80px;
+  width:420px;
+  height:300px;
+  background:radial-gradient(ellipse,rgba(183,217,76,.045),transparent 70%);
+  filter:blur(20px);
+  pointer-events:none;
+}
+.dashboard .weekly-progress-head{
+  position:relative;
+  z-index:1;
+}
+.dashboard .weekly-chart-summary{
+  position:relative;
+  z-index:1;
+}
+.dashboard .goal-create-form{
+  max-width:1060px;
+}
+.dashboard .goal-list{
+  position:relative;
+}
+.dashboard .settings-page,
+.dashboard .ai-page{
+  position:relative;
+}
+@media(max-width:800px){
+  .dashboard .dashboard-welcome{
+    min-height:390px !important;
+    margin-bottom:78px !important;
+    padding-bottom:20px !important;
+  }
+  .dashboard .dashboard-welcome h1{
+    font-size:clamp(68px,22vw,106px) !important;
+    line-height:.82 !important;
+  }
+  .dashboard .dashboard-welcome::after{
+    width:150px;
+    height:150px;
+    right:-35px;
+    top:18%;
+  }
+  .dashboard .dashboard-focus-row{
+    width:100%;
+    margin-top:26px;
+    padding:13px 8px;
+    gap:9px;
+    flex-wrap:wrap;
+  }
+  .dashboard .dashboard-focus-value{
+    font-size:11px;
+  }
+  .dashboard .dashboard-welcome .area-pills{
+    margin-top:15px !important;
+    gap:6px;
+  }
+  .dashboard .dashboard-welcome .area-pills span{
+    padding:7px 9px;
+    font-size:8px;
+  }
+  .dashboard .frequency-section{
+    margin-bottom:92px !important;
+  }
+  .dashboard .frequency-list{
+    padding-left:0;
+  }
+  .dashboard .glass-task::after{
+    left:0;
+    opacity:.35;
+  }
+  .dashboard .daily-insight{
+    margin-top:88px !important;
+    padding-top:38px !important;
+  }
+}
