@@ -1001,7 +1001,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   letter-spacing:.06em;
 }
 .choice{
-  transition:transform .25s ease,border-color .25s ease,background .25s ease;
+  transition:transform .28s cubic-bezier(.22,1,.36,1),border-color .25s ease,background .25s ease;
 }
 .choice:hover{
   transform:translateY(-3px);
@@ -1701,7 +1701,44 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   gap:10px;
 }
 
+.glass-motion-surface{
+  --glass-shift-x:0px;
+  --glass-shift-y:0px;
+  --glass-light-x:50%;
+  --glass-light-y:50%;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  touch-action:none;
+}
+
+.glass-motion-surface::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  z-index:-1;
+  border-radius:inherit;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--glass-light-x) var(--glass-light-y),rgba(150,255,208,.16),transparent 32%);
+  opacity:.65;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
+  transform:translate3d(var(--glass-shift-x),var(--glass-shift-y),0) scale(1.015);
+}
+
+.glass-motion-surface.glass-dragging::before{
+  opacity:1;
+  transition:none;
+}
+
 .glass-task{
+  --glass-shift-x:0px;
+  --glass-shift-y:0px;
+  --glass-light-x:50%;
+  --glass-light-y:50%;
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
+  touch-action:none;
   width:100%;
   min-height:68px;
   display:flex;
@@ -1720,6 +1757,29 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   -webkit-backdrop-filter:blur(22px) saturate(125%);
   cursor:pointer;
   transition:transform .25s ease,border-color .25s ease,background .25s ease;
+}
+
+.glass-task::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  z-index:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--glass-light-x) var(--glass-light-y),rgba(150,255,208,.13),transparent 31%);
+  opacity:.55;
+  transform:translate3d(var(--glass-shift-x),var(--glass-shift-y),0) scale(1.012);
+  transition:opacity .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
+}
+
+.glass-task.glass-dragging::before{
+  opacity:1;
+  transition:none;
+}
+
+.glass-task > *{
+  position:relative;
+  z-index:1;
 }
 
 .glass-task:hover{
@@ -1831,6 +1891,10 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .app-bottom-nav{
+  --glass-shift-x:0px;
+  --glass-shift-y:0px;
+  --glass-light-x:50%;
+  --glass-light-y:50%;
   position:fixed;
   z-index:20;
   left:50%;
@@ -1851,6 +1915,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .app-bottom-nav button{
+  position:relative;
+  overflow:hidden;
+  isolation:isolate;
   min-width:0;
   min-height:54px;
   display:grid;
@@ -1865,6 +1932,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .app-bottom-nav button span{
+  position:relative;
+  z-index:1;
   width:34px;
   height:26px;
   display:grid;
@@ -1872,8 +1941,28 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .app-bottom-nav button small{
+  position:relative;
+  z-index:1;
   font:8px 'DM Mono';
   letter-spacing:.05em;
+}
+
+.app-bottom-nav::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  z-index:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:radial-gradient(circle at var(--glass-light-x) var(--glass-light-y),rgba(150,255,208,.13),transparent 30%);
+  opacity:.72;
+  transform:translate3d(var(--glass-shift-x),var(--glass-shift-y),0) scale(1.012);
+  transition:opacity .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
+}
+
+.app-bottom-nav.glass-dragging::before{
+  opacity:1;
+  transition:none;
 }
 
 .app-bottom-nav button.bottom-active{
@@ -1903,7 +1992,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .state-ring-center span{font-size:6px}
   .frequency-section{margin-bottom:50px}
   .frequency-heading>span{font-size:8px;letter-spacing:.16em}
-  .glass-task{min-height:64px;padding:13px 14px;border-radius:19px}
+  .glass-task{min-height:64px;padding:13px 14px;border-radius:34px}
   .task-text{font-size:12px}
   .daily-insight{padding-top:24px}
   .daily-insight h2{font-size:34px}
