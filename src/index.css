@@ -2504,6 +2504,20 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .landing .nav{
     font-size:1.3rem;
   }
+
+  /* Section 03 — system cards */
+  .landing .feature-step h3{
+    font-size:2rem;
+  }
+
+  .landing .feature-step p{
+    font-size:1.5rem;
+    line-height:1.7;
+  }
+
+  .landing .feature-step>span{
+    font-size:1.3rem;
+  }
 }
 
 /* Mobile dashboard typography pass */
