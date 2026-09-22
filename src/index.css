@@ -4171,3 +4171,94 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     animation:none !important;
   }
 }
+
+
+/* EVOLV — weekly progress journal */
+.dashboard .weekly-progress-card{
+  position:relative;
+  margin-bottom:86px !important;
+  padding:0 0 4px !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .weekly-progress-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:30px;
+  padding-bottom:30px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.dashboard .weekly-progress-head .section-label{
+  display:block;
+  margin-bottom:13px;
+  color:rgba(243,241,233,.42);
+  font:500 10px 'DM Mono';
+  letter-spacing:.14em;
+  text-transform:uppercase;
+}
+.dashboard .weekly-progress-head h2{
+  margin:0 !important;
+  color:#f3f1e9 !important;
+  font:500 clamp(38px,5vw,62px) 'Manrope' !important;
+  letter-spacing:-.06em !important;
+  line-height:.98 !important;
+}
+.dashboard .weekly-progress-head p{
+  max-width:500px;
+  margin:13px 0 0 !important;
+  color:rgba(232,237,228,.48) !important;
+  font-size:14px !important;
+  line-height:1.75 !important;
+}
+.dashboard .weekly-progress-total{
+  flex:0 0 auto;
+  padding-bottom:8px;
+  color:rgba(183,217,76,.7);
+  font:500 11px 'DM Mono';
+  letter-spacing:.04em;
+}
+.dashboard .weekly-progress-card .weekly-chart{
+  padding-top:30px;
+}
+.dashboard .weekly-progress-card .weekly-chart > *{
+  border-color:rgba(255,255,255,.055) !important;
+}
+.dashboard .weekly-progress-card .weekly-chart [style*="background"]{
+  box-shadow:none !important;
+}
+.dashboard .weekly-progress-card .weekly-chart strong{
+  color:#f3f1e9 !important;
+}
+.dashboard .weekly-progress-card .weekly-chart span,
+.dashboard .weekly-progress-card .weekly-chart p{
+  color:rgba(232,237,228,.5) !important;
+}
+.dashboard .weekly-progress-card .weekly-chart svg{
+  opacity:.86;
+}
+@media(max-width:800px){
+  .dashboard .weekly-progress-card{
+    margin-bottom:66px !important;
+  }
+  .dashboard .weekly-progress-head{
+    display:block;
+    padding-bottom:24px;
+  }
+  .dashboard .weekly-progress-head h2{
+    font-size:40px !important;
+  }
+  .dashboard .weekly-progress-head p{
+    font-size:14px !important;
+  }
+  .dashboard .weekly-progress-total{
+    display:inline-block;
+    margin-top:18px;
+    padding-bottom:0;
+  }
+  .dashboard .weekly-progress-card .weekly-chart{
+    padding-top:24px;
+  }
+}
