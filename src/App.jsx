@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send } from 'lucide-react'
+import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -972,391 +972,100 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
 }
 
 function Dashboard({ data, onLogout }) {
-  const [active, setActive] = useState('overview')
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [deletingAccount, setDeletingAccount] = useState(false)
-  const [deleteError, setDeleteError] = useState('')
-  const [goals, setGoals] = useState([])
-  const [loadingGoals, setLoadingGoals] = useState(true)
-  const [goalTitle, setGoalTitle] = useState('')
-  const [goalDescription, setGoalDescription] = useState('')
-  const [goalError, setGoalError] = useState('')
-  const [savingGoal, setSavingGoal] = useState(false)
-  const [checkins, setCheckins] = useState([])
-  const [profile, setProfile] = useState(null)
-  const [profileSaving, setProfileSaving] = useState(false)
-  const [profileMessage, setProfileMessage] = useState('')
-  const [profileName, setProfileName] = useState(data.name || '')
-  const name = profile?.first_name || data.name || 'there'
-  const areaNames = (profile?.growth_areas || data.areas || []).map(id => growthAreas.find(a => a.id === id)?.title).filter(Boolean)
+  const [active,setActive]=useState('overview')
+  const [logOpen,setLogOpen]=useState(false)
+  const [area,setArea]=useState(null)
+  const [metric,setMetric]=useState(null)
+  const [defs,setDefs]=useState([])
+  const [logs,setLogs]=useState([])
+  const [meals,setMeals]=useState([])
+  const [goals,setGoals]=useState([])
+  const [profile,setProfile]=useState(null)
+  const [loading,setLoading]=useState(true)
+  const [saving,setSaving]=useState(false)
+  const [goalTitle,setGoalTitle]=useState('')
+  const [goalDescription,setGoalDescription]=useState('')
+  const [profileName,setProfileName]=useState(data.name||'')
+  const [profileMessage,setProfileMessage]=useState('')
+  const [deleteOpen,setDeleteOpen]=useState(false)
+  const [deleting,setDeleting]=useState(false)
+  const [error,setError]=useState('')
 
-  useEffect(() => {
-    let mounted = true
-    async function loadDashboard() {
-      setLoadingGoals(true)
-      const { data: authData } = await supabase.auth.getUser()
-      const user = authData?.user
-      if (!user) { if (mounted) { setLoadingGoals(false); await onLogout() }; return }
-      const [profileResult, goalsResult, checkinResult] = await Promise.all([
-        supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id', user.id).maybeSingle(),
-        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at', { ascending: false }),
-        supabase.from('goal_checkins').select('id,goal_id,checkin_date,note,created_at').order('checkin_date', { ascending: false }),
-      ])
-      if (!mounted) return
-      if (profileResult.data) { setProfile(profileResult.data); setProfileName(profileResult.data.first_name || '') }
-      if (goalsResult.error) setGoalError('We could not load your goals. Please refresh and try again.')
-      else setGoals(goalsResult.data || [])
-      if (!checkinResult.error) setCheckins(checkinResult.data || [])
-      setLoadingGoals(false)
-    }
-    loadDashboard()
-    return () => { mounted = false }
-  }, [onLogout])
-
-  async function createGoal(event) {
-    event.preventDefault()
-    const title = goalTitle.trim()
-    if (!title) return
-    setSavingGoal(true); setGoalError('')
-    const { data: authData } = await supabase.auth.getUser()
-    const user = authData?.user
-    if (!user) { setSavingGoal(false); setGoalError('Your session has expired. Please sign in again.'); return }
-    const { data: created, error } = await supabase.from('goals').insert({ user_id: user.id, title, description: goalDescription.trim() || null }).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
-    setSavingGoal(false)
-    if (error) { setGoalError(error.message || 'Could not create this goal.'); return }
-    setGoals(current => [created, ...current]); setGoalTitle(''); setGoalDescription('')
+  const areas={
+    health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
+    nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
+    money:{title:'Money',icon:WalletCards,color:'#62e6bd'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},
+    mind:{title:'Mind',icon:Brain,color:'#9b7cff'},
+    life:{title:'Life',icon:Sprout,color:'#62e6bd'}
   }
+  const metricArea={sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',mood:'mind',focus:'mind',reflection:'mind',stress:'mind',learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',income:'money',spending:'money',savings:'money',bills:'money',habits:'life',reading:'life',social:'life',personal:'life',meals:'nutrition'}
+  const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout,meals:Utensils}
+  const name=profile?.first_name||data.name||'there'
+  const latest=defs.reduce((acc,d)=>{const x=logs.find(l=>l.metric_id===d.id);if(x)acc[d.slug]=x;return acc},{})
+  const today=new Date().toISOString().slice(0,10)
+  const todayLogs=logs.filter(x=>x.logged_at?.slice(0,10)===today)
+  const todayMeals=meals.filter(x=>x.logged_at?.slice(0,10)===today)
 
-  async function updateGoal(goalId, updates) {
-    setGoalError('')
-    const { data: updated, error } = await supabase.from('goals').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', goalId).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
-    if (error) { setGoalError(error.message || 'Could not update this goal.'); return }
-    setGoals(current => current.map(goal => goal.id === goalId ? updated : goal))
-  }
+  useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
+    const [p,d,l,m,g]=await Promise.all([
+      supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id',u.id).maybeSingle(),
+      supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
+      supabase.from('metric_logs').select('id,metric_id,value,unit,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
+      supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
+      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
+    ]);if(!mounted)return;if(p.data){setProfile(p.data);setProfileName(p.data.first_name||'')}setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
-  async function completeGoal(goal) {
-    await updateGoal(goal.id, { status: goal.status === 'completed' ? 'active' : 'completed', progress: goal.status === 'completed' ? goal.progress : 100 })
-  }
+  function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.value_type==='duration'){const h=Math.floor(v/60),m=Math.round(v%60);return h?h+'h '+m+'m':m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
+  function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
+  async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
+  async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile(p);setProfileMessage('Profile saved.')}
+  async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
-  async function deleteGoal(goalId) {
-    setGoalError('')
-    const { error } = await supabase.from('goals').delete().eq('id', goalId)
-    if (error) { setGoalError(error.message || 'Could not delete this goal.'); return }
-    setGoals(current => current.filter(goal => goal.id !== goalId))
-  }
-
-  function updateGlassMotion(event) {
-    const element = event.currentTarget
-    const rect = element.getBoundingClientRect()
-    const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
-    const y = ((event.clientY - rect.top) / rect.height) * 2 - 1
-    element.style.setProperty('--glass-shift-x', (x * 7) + 'px')
-    element.style.setProperty('--glass-shift-y', (y * 7) + 'px')
-    element.style.setProperty('--glass-light-x', (50 + x * 34) + '%')
-    element.style.setProperty('--glass-light-y', (50 + y * 34) + '%')
-  }
-
-  function startGlassMotion(event) {
-    event.currentTarget.classList.add('glass-dragging')
-    event.currentTarget.setPointerCapture?.(event.pointerId)
-    updateGlassMotion(event)
-  }
-
-  function endGlassMotion(event) {
-    const element = event.currentTarget
-    element.classList.remove('glass-dragging')
-    element.style.setProperty('--glass-shift-x', '0px')
-    element.style.setProperty('--glass-shift-y', '0px')
-    element.style.setProperty('--glass-light-x', '50%')
-    element.style.setProperty('--glass-light-y', '50%')
-  }
-
-  async function checkIn(goal) {
-    setGoalError('')
-    const today = new Date().toISOString().slice(0, 10)
-    const { data: authData } = await supabase.auth.getUser()
-    const user = authData?.user
-    if (!user) { setGoalError('Your session has expired. Please sign in again.'); return }
-    if (checkins.some(item => item.goal_id === goal.id && item.checkin_date === today)) return
-    const { data: inserted, error } = await supabase.from('goal_checkins').insert({ goal_id: goal.id, user_id: user.id, checkin_date: today }).select('id,goal_id,checkin_date,note,created_at').single()
-    if (error) { setGoalError(error.message || 'Could not record your check-in.'); return }
-    setCheckins(current => [inserted, ...current])
-    const nextProgress = Math.min(100, Number(goal.progress || 0) + 10)
-    await updateGoal(goal.id, { progress: nextProgress, status: nextProgress === 100 ? 'completed' : goal.status })
-  }
-
-  async function deleteAccount() {
-    setDeletingAccount(true)
-    setDeleteError('')
-    const { data: sessionData } = await supabase.auth.getSession()
-    const token = sessionData?.session?.access_token
-    if (!token) {
-      setDeleteError('Your session has expired. Please sign in again.')
-      setDeletingAccount(false)
-      return
-    }
-
-    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-        'Content-Type': 'application/json',
-      },
-    })
-    const result = await response.json().catch(() => ({}))
-    if (!response.ok) {
-      setDeleteError(result.error || 'Could not delete your account. Please try again.')
-      setDeletingAccount(false)
-      return
-    }
-
-    await supabase.auth.signOut()
-    localStorage.removeItem('evolv-view')
-    localStorage.removeItem('evolv-onboarding')
-    window.location.href = '/'
-  }
-
-  async function saveProfile(event) {
-    event.preventDefault()
-    const firstName = profileName.trim()
-    if (!firstName) return
-    setProfileSaving(true); setProfileMessage('')
-    const { data: authData } = await supabase.auth.getUser()
-    const user = authData?.user
-    if (!user) { setProfileSaving(false); setProfileMessage('Your session has expired. Please sign in again.'); return }
-    const { data: updated, error } = await supabase.from('profiles').update({ first_name: firstName, updated_at: new Date().toISOString() }).eq('id', user.id).select('first_name,growth_areas,focus,first_goal').single()
-    setProfileSaving(false)
-    if (error) { setProfileMessage('Could not save your profile. Please try again.'); return }
-    setProfile(updated); setProfileMessage('Profile saved.')
-  }
-
-  const activeGoals = goals.filter(goal => goal.status === 'active')
-  const completedGoals = goals.filter(goal => goal.status === 'completed')
-  const momentum = goals.length ? Math.round(goals.reduce((sum, goal) => sum + Number(goal.progress || 0), 0) / goals.length) : 0
-
-  return (
-    <div className="page-enter dashboard">
-      <header className="app-topbar">
-        <button className="app-logo-button" onClick={() => setActive('overview')} aria-label="Go to home">
-          <Brand />
-        </button>
-        <button className="notification-button" aria-label="Notifications">
-          <Bell size={17} />
-        </button>
-      </header>
-
-      <main className="dash-main">
-        {goalError && <p className="auth-error" role="alert">{goalError}</p>}
-
-        {active === 'overview' && (
-          <div className="dashboard-home">
-            <section className="dashboard-welcome">
-              <div className="dashboard-welcome-copy">
-                <span className="dashboard-eyebrow">Welcome back,</span>
-                <h1>{name}</h1>
-              </div>
-
-            </section>
-
-            <section className="frequency-section">
-              <div className="frequency-heading">
-                <span>TODAY’S BUILDING TASK</span>
-                <button onClick={() => setActive('goals')} aria-label="Open goals"><Plus size={14} /></button>
-              </div>
-
-              <div className="frequency-list">
-                {loadingGoals && <div className="glass-task task-loading">Loading…</div>}
-                {!loadingGoals && goals.slice(0, 3).map(goal => {
-                  const checked = goal.status === 'completed'
-                  return (
-                    <button
-                      className={`glass-task ${checked ? 'checked' : ''}`}
-                      key={goal.id}
-                      onClick={() => checkIn(goal)}
-                      onPointerDown={startGlassMotion}
-                      onPointerMove={updateGlassMotion}
-                      onPointerUp={endGlassMotion}
-                      onPointerCancel={endGlassMotion}
-                      onPointerLeave={(event) => { if (event.currentTarget.hasPointerCapture?.(event.pointerId)) return; endGlassMotion(event) }}
-                    >
-                      <span className="task-check">{checked && <Check size={12} />}</span>
-                      <span className="task-text">{goal.title}</span>
-                    </button>
-                  )
-                })}
-                {!loadingGoals && goals.length === 0 && (
-                  <button className="glass-task" onClick={() => setActive('goals')}>
-                    <span className="task-check" />
-                    <span className="task-text">Create your first goal</span>
-                    <ArrowRight size={15} />
-                  </button>
-                )}
-              </div>
-            </section>
-
-            <section className="daily-insight">
-              <span className="daily-insight-label">A LITTLE FOR TODAY</span>
-              <h2>Keep going</h2>
-              <p>{profile?.first_goal || data.goal || 'Progress begins when you stop waiting for the perfect plan and start building.'}</p>
-              <div className="daily-insight-points">
-                <div><span>01</span><p>Choose one thing that matters today.</p></div>
-                <div><span>02</span><p>Give yourself room to focus.</p></div>
-                <div><span>03</span><p>Let tomorrow be a little easier.</p></div>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {active === 'goals' && (
-          <section className="panel-page dashboard-panel">
-            <section className="weekly-progress-card">
-              <div className="weekly-progress-head">
-                <div>
-                  <span className="section-label">THIS WEEK</span>
-                  <h2>Your week so far.</h2>
-                  <p>A quiet look at the small steps you've made this week.</p>
-                </div>
-                <span className="weekly-progress-total">{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
-              </div>
-              <WeeklyProgressChart checkins={checkins} goals={goals} />
-            </section>
-
-            <span className="section-label">YOUR GOALS</span>
-            <h2>Your goals</h2>
-            <form className="goal-create-form" onSubmit={createGoal}>
-              <input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" maxLength={240} required />
-              <textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3" />
-              <button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Add goal'}</button>
-            </form>
-            <div className="goal-list">
-              {loadingGoals && <p>Loading your goals…</p>}
-              {!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>Nothing here yet. Add your first goal above.</p></div>}
-              {goals.map(goal => (
-                <article className="goal-item" key={goal.id}>
-                  <div className="goal-item-top">
-                    <div><span className="goal-status-copy">{goal.status === 'completed' ? 'Completed' : 'In progress'}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div>
-                    <strong>{goal.progress}%</strong>
-                  </div>
-                  <div className="mini-progress"><i style={{ width: goal.progress + '%' }}/></div>
-                  <div className="goal-actions">
-                    <button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in</button>
-                    <button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen goal' : 'Mark complete'}</button>
-                    <button onClick={() => deleteGoal(goal.id)}>Remove</button>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {active === 'profile' && (
-          <section className="panel-page dashboard-panel settings-page">
-            <div className="settings-heading">
-              <span className="section-label">SETTINGS</span>
-              <h2>Your space.</h2>
-              <p>Keep your personal details up to date.</p>
-            </div>
-
-            <div className="settings-section">
-              <div className="settings-section-head">
-                <div>
-                  <span className="section-label">ACCOUNT</span>
-                  <h3>Your details</h3>
-                </div>
-                <Settings size={18} />
-              </div>
-
-              <div className="settings-card">
-                <form onSubmit={saveProfile}>
-                  <label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label>
-                  <button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save changes'}</button>
-                  {profileMessage && <p className="auth-message">{profileMessage}</p>}
-                </form>
-              </div>
-            </div>
-
-            <div className="settings-section">
-              <div className="settings-section-head">
-                <div>
-                  <span className="section-label">YOUR JOURNEY</span>
-                  <h3>About you</h3>
-                </div>
-                <Target size={18} />
-              </div>
-
-              <div className="settings-card settings-facts">
-                <div><span>Focus</span><strong>{profile?.focus || data.focus || '—'}</strong></div>
-                <div><span>Growth areas</span><strong>{areaNames.join(' · ') || '—'}</strong></div>
-                <div><span>First goal</span><strong>{profile?.first_goal || data.goal || '—'}</strong></div>
-              </div>
-            </div>
-
-            <div className="settings-section settings-danger">
-              <div className="settings-section-head">
-                <div>
-                  <span className="section-label">ACCOUNT</span>
-                  <h3>Your account</h3>
-                </div>
-              </div>
-              <div className="settings-action-row">
-                <div>
-                  <strong>Sign out</strong>
-                  <span>Sign out of EVOLV on this device.</span>
-                </div>
-                <button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15} /> Sign out</button>
-              </div>
-              <div className="settings-action-row danger">
-                <div>
-                  <strong>Delete account</strong>
-                  <span>Permanently remove your account and everything saved with it.</span>
-                </div>
-                <button className="settings-delete-button" type="button" onClick={() => { setDeleteError(''); setDeleteOpen(true) }}>Delete</button>
-              </div>
-              {deleteError && <p className="auth-error" role="alert">{deleteError}</p>}
-            </div>
-
-            {deleteOpen && (
-              <div className="settings-delete-overlay" role="dialog" aria-modal="true" aria-labelledby="delete-account-title">
-                <div className="settings-delete-modal">
-                  <span className="section-label">DELETE ACCOUNT</span>
-                  <h3 id="delete-account-title">Your account for good?</h3>
-                  <p>This will permanently delete your account, goals, check-ins and saved information.</p>
-                  <div className="settings-delete-actions">
-                    <button type="button" onClick={() => setDeleteOpen(false)} disabled={deletingAccount}>Cancel</button>
-                    <button type="button" className="settings-delete-confirm" onClick={deleteAccount} disabled={deletingAccount}>
-                      {deletingAccount ? 'Deleting…' : 'Delete account'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-          </section>
-        )}
-
-        {active === 'ai' && <EvolvAI profile={profile} goals={goals} checkins={checkins} momentum={momentum} />}
-      </main>
-
-      <nav className="app-bottom-nav" aria-label="App navigation">
-        <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => setActive('overview')} aria-current={active === 'overview' ? 'page' : undefined}>
-          <span><Home size={19} strokeWidth={2.2} /></span>
-          <small>Home</small>
-        </button>
-        <button className={active === 'ai' ? 'bottom-active' : ''} onClick={() => setActive('ai')} aria-current={active === 'ai' ? 'page' : undefined}>
-          <span><MessageCircle size={19} strokeWidth={2.2} /></span>
-          <small>Chats</small>
-        </button>
-        <button className={active === 'goals' ? 'bottom-active' : ''} onClick={() => setActive('goals')} aria-current={active === 'goals' ? 'page' : undefined}>
-          <span><LineChart size={19} strokeWidth={2.2} /></span>
-          <small>Progress</small>
-        </button>
-        <button className={active === 'profile' ? 'bottom-active' : ''} onClick={() => setActive('profile')} aria-current={active === 'profile' ? 'page' : undefined}>
-          <span><UserRound size={19} strokeWidth={2.2} /></span>
-          <small>Profile</small>
-        </button>
-      </nav>    </div>
-  )
+  return <div className="page-enter dashboard">
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>setActive('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" aria-label="Notifications"><Bell size={17}/></button></header>
+    <main className="dash-main">
+      {error&&<p className="auth-error" role="alert">{error}</p>}
+      {active==='overview'&&<div className="dashboard-home">
+        <section className="dashboard-welcome"><div className="dashboard-welcome-copy"><span className="dashboard-eyebrow">Welcome back,</span><h1>{name}</h1><p className="dashboard-subline">Here’s where you are today.</p></div></section>
+        <section className="evolv-life-overview">{Object.entries(areas).map(([id,m])=>{const I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===id);const preview=id==='nutrition'?(todayMeals.length?todayMeals.length+' meals logged today':'No meals logged yet'):rs.slice(0,2).map(d=>d.name+' '+valueText(latest[d.slug],d)).join(' · ')||'Nothing logged yet';return <button className="life-area-row" key={id} onClick={()=>{setArea(id);setActive('area')}}><span className="life-area-icon" style={{'--area-color':m.color}}><I size={17}/></span><span className="life-area-main"><strong>{m.title}</strong><small>{preview}</small></span><span className="life-area-values"><b>{id==='nutrition'?todayMeals.length:rs.filter(d=>latest[d.slug]).length}</b><small>{id==='nutrition'?'meals':'tracked'}</small></span><ChevronRight size={17}/></button>})}</section>
+        <section className="today-action-strip"><div><span className="section-label">TODAY</span><h2>What happened?</h2><p>Record one thing. You can always add more later.</p></div><button className="button button-primary" onClick={()=>openLog()}><Plus size={16}/> Log something</button></section>
+        <section className="daily-insight evolv-empty-insight"><span className="daily-insight-label">YOUR DATA WILL BECOME INSIGHT</span><h2>Start with what’s real.</h2><p>Log sleep, food, movement, money, work and how you feel. Evolv will show you what is changing instead of guessing.</p></section>
+      </div>}
+      {active==='area'&&<section className="panel-page dashboard-panel area-detail-page"><button className="area-back" onClick={()=>setActive('overview')}><ChevronLeft size={16}/> Home</button>{(()=>{const m=areas[area||'health'],I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===(area||'health'));return <><div className="area-detail-head"><span className="life-area-icon large" style={{'--area-color':m.color}}><I size={20}/></span><span className="section-label">YOUR {m.title.toUpperCase()}</span><h2>{m.title}</h2><p>Only the things you choose to track.</p></div><div className="metric-detail-list">{rs.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="metric-detail-row" key={d.id} onClick={()=>openLog(area,d)}><span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span><span><strong>{d.name}</strong><small>{latest[d.slug]?valueText(latest[d.slug],d):'Log '+d.name.toLowerCase()}</small></span><ChevronRight size={16}/></button>})}{area==='nutrition'&&<button className="metric-detail-row" onClick={()=>openLog(area,{slug:'meals',name:'Meal',value_type:'meal'})}><span className="metric-row-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={17}/></span><span><strong>Meal</strong><small>{todayMeals.length} logged today</small></span><ChevronRight size={16}/></button>}</div><div className="area-note"><span>ONE STEP AT A TIME</span><p>You do not need to measure everything. Track what helps you understand your life.</p></div></>})()}</section>}
+      {active==='progress'&&<section className="panel-page dashboard-panel progress-page"><div className="progress-heading"><span className="section-label">YOUR EVOLUTION</span><h2>What’s changing.</h2><p>Real measurements from the things you’ve logged.</p></div><div className="evolv-progress-list">{defs.filter(d=>latest[d.slug]).slice(0,12).map(d=>{const M=icons[d.slug]||Sparkles;return <div className="progress-metric-row" key={d.id}><span className="metric-row-icon" style={{'--metric-color':d.color||'#c8f36a'}}><M size={17}/></span><div><strong>{d.name}</strong><small>Latest logged value</small></div><b>{valueText(latest[d.slug],d)}</b></div>})}{!loading&&!defs.some(d=>latest[d.slug])&&<div className="progress-empty"><TrendingUp size={20}/><p>Nothing to compare yet. Start logging and your evolution will appear here.</p><button className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button></div>}</div><div className="progress-stats"><div><strong>{todayLogs.length+todayMeals.length}</strong><span>things logged today</span></div><div><strong>{goals.filter(g=>g.status==='active').length}</strong><span>active goals</span></div><div><strong>{logs.length+meals.length}</strong><span>total logs</span></div></div><div className="goals-secondary"><div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>setActive('goals')}>View goals <ArrowRight size={14}/></button></div>{goals.filter(g=>g.status==='active').slice(0,3).map(g=><div className="secondary-goal" key={g.id}><span>{g.title}</span><b>{g.progress||0}%</b></div>)}</div></section>}
+      {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>setActive('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
+      {active==='profile'&&<section className="panel-page dashboard-panel settings-page"><div className="settings-heading"><span className="section-label">SETTINGS</span><h2>Your space.</h2><p>Keep your personal details up to date.</p></div><div className="settings-section"><div className="settings-section-head"><div><span className="section-label">ACCOUNT</span><h3>Your details</h3></div><Settings size={18}/></div><div className="settings-card"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e=>setProfileName(e.target.value)}/></label><button className="button button-primary" type="submit">Save changes</button>{profileMessage&&<p className="auth-message">{profileMessage}</p>}</form></div></div><div className="settings-section settings-danger"><div className="settings-action-row"><div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div><button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15}/> Sign out</button></div><div className="settings-action-row danger"><div><strong>Delete account</strong><span>Permanently remove your account.</span></div><button className="settings-delete-button" type="button" onClick={()=>setDeleteOpen(true)}>Delete</button></div></div>{deleteOpen&&<div className="settings-delete-overlay" role="dialog" aria-modal="true"><div className="settings-delete-modal"><span className="section-label">DELETE ACCOUNT</span><h3>Delete your account?</h3><p>This permanently removes your account and saved information.</p><div className="settings-delete-actions"><button onClick={()=>setDeleteOpen(false)}>Cancel</button><button className="settings-delete-confirm" onClick={deleteAccount} disabled={deleting}>{deleting?'Deleting…':'Delete account'}</button></div></div></div>}</section>}
+      {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0}/>}
+    </main>
+    <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>setActive('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>setActive('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={active==='profile'?'bottom-active':''} onClick={()=>setActive('profile')}><span><UserRound size={19}/></span><small>You</small></button></nav>
+    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
+  </div>
 }
+
+function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onClose}){
+  const [values,setValues]=useState({})
+  const [error,setError]=useState('')
+  const areaMeta={health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},money:{title:'Money',icon:WalletCards,color:'#62e6bd'},career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},mind:{title:'Mind',icon:Brain,color:'#9b7cff'},life:{title:'Life',icon:Sprout,color:'#62e6bd'}}
+  const metricArea={sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',mood:'mind',focus:'mind',reflection:'mind',stress:'mind',learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',income:'money',spending:'money',savings:'money',bills:'money',habits:'life',reading:'life',social:'life',personal:'life'}
+  const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout}
+  const rows=definitions.filter(d=>metricArea[d.slug]===area)
+  async function save(){
+    setError('');if(!metric)return;setSaving(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){setError('Your session has expired.');setSaving(false);return}
+    if(metric.value_type==='meal'){if(!values.description?.trim()){setError('Add what you ate first.');setSaving(false);return}const n=k=>values[k]===''||values[k]==null?null:Number(values[k]);const {error:x}=await supabase.from('meal_logs').insert({user_id:u.id,meal_type:values.meal_type||'meal',description:values.description.trim(),calories:n('calories'),protein_g:n('protein_g'),carbs_g:n('carbs_g'),fat_g:n('fat_g'),water_ml:n('water_ml'),note:values.note?.trim()||null,logged_at:values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()});setSaving(false);if(x){setError(x.message);return}onClose();return}
+    const value=Number(values.value);if(!Number.isFinite(value)||(metric.value_type==='scale'&&(value<1||value>5))){setError(metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.');setSaving(false);return}
+    const {error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:metric.unit||null,note:values.note?.trim()||null,logged_at:values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()});setSaving(false);if(x){setError(x.message);return}onClose()
+  }
+  const I=metric?(icons[metric.slug]||Sparkles):(area?areaMeta[area].icon:ClipboardPlus)
+  return <div className="log-overlay" role="dialog" aria-modal="true" onMouseDown={e=>{if(e.target===e.currentTarget&&!saving)onClose()}}><section className="log-sheet">
+    <header className="log-sheet-head"><div><span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'QUICK LOG'}</span><h2>{metric?'Log '+metric.name.toLowerCase():area?'What happened?':'What would you like to log?'}</h2></div><button className="log-close" onClick={onClose}><X size={18}/></button></header>
+    {!area&&!metric&&<div className="log-area-grid">{Object.entries(areaMeta).map(([id,m])=>{const I2=m.icon;return <button className="log-area-choice" key={id} onClick={()=>{onArea(id);onMetric(null)}}><span style={{'--area-color':m.color}}><I2 size={19}/></span><strong>{m.title}</strong><ChevronRight size={15}/></button>})}</div>}
+    {area&&!metric&&<><button className="log-back" onClick={()=>onArea(null)}><ChevronLeft size={15}/> All areas</button><div className="log-metric-list">{rows.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="log-metric-choice" key={d.id} onClick={()=>{onMetric(d);setValues({});setError('')}}><span style={{'--metric-color':d.color||areaMeta[area].color}}><M size={17}/></span><div><strong>{d.name}</strong><small>{d.unit||'Track it simply'}</small></div><ChevronRight size={15}/></button>})}{area==='nutrition'&&<button className="log-metric-choice" onClick={()=>{onMetric({slug:'meals',name:'Meal',value_type:'meal'});setValues({});setError('')}}><span style={{'--metric-color':'#ffd66b'}}><Utensils size={17}/></span><div><strong>Meal</strong><small>Breakfast, lunch, dinner or snack</small></div><ChevronRight size={15}/></button>}</div></>}
+    {metric&&metric.value_type!=='meal'&&<div className="log-form"><div className="log-selected-metric"><span style={{'--metric-color':metric.color||'#c8f36a'}}><I size={19}/></span><div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div></div>{metric.value_type==='scale'?<div className="scale-picker">{[1,2,3,4,5].map(n=><button type="button" key={n} className={Number(values.value)===n?'active':''} onClick={()=>setValues(v=>({...v,value:n}))}>{n}</button>)}</div>:<label className="log-input-label"><span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span><input autoFocus type="number" min="0" step="any" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))}/></label>}<label className="log-input-label"><span>When</span><input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/></label><label className="log-input-label"><span>Note <small>optional</small></span><textarea rows="2" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))}/></label>{error&&<p className="log-error">{error}</p>}<button className="button button-primary log-save" onClick={save} disabled={saving}>{saving?'Saving…':'Save log'} <Check size={15}/></button></div>}
+    {metric&&metric.value_type==='meal'&&<div className="log-form"><div className="meal-type-row">{['breakfast','lunch','dinner','snack'].map(t=><button type="button" key={t} className={values.meal_type===t?'active':''} onClick={()=>setValues(v=>({...v,meal_type:t}))}>{t}</button>)}</div><label className="log-input-label"><span>What did you eat?</span><textarea autoFocus rows="3" value={values.description||''} onChange={e=>setValues(v=>({...v,description:e.target.value}))} placeholder="e.g. Rice, chicken and vegetables"/></label><div className="optional-nutrition"><label className="log-input-label"><span>Calories <small>optional</small></span><input type="number" min="0" value={values.calories||''} onChange={e=>setValues(v=>({...v,calories:e.target.value}))}/></label><label className="log-input-label"><span>Protein (g) <small>optional</small></span><input type="number" min="0" value={values.protein_g||''} onChange={e=>setValues(v=>({...v,protein_g:e.target.value}))}/></label></div><label className="log-input-label"><span>When</span><input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/></label>{error&&<p className="log-error">{error}</p>}<button className="button button-primary log-save" onClick={save} disabled={saving}>{saving?'Saving…':'Save meal'} <Check size={15}/></button></div>}
+  </section></div>
+}
+
 function WeeklyProgressChart({ checkins = [], goals = [] }) {
   const today = new Date()
   const days = Array.from({ length: 7 }, (_, index) => {
