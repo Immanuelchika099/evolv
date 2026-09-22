@@ -4,7 +4,7 @@ import './Footer.css'
 function Brand() {
   return (
     <a className="footer-brand-logo" href="#story" aria-label="EVOLV home">
-      <span className="footer-brand-mark"><span /></span>
+      <img className="footer-brand-svg" src="/evolv-mark.svg" alt="" aria-hidden="true" />
       <span>EVOLV</span>
     </a>
   )
