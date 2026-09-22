@@ -2006,11 +2006,10 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   position:relative;
   isolation:isolate;
   background:
-    radial-gradient(ellipse 70% 55% at 78% 0%, rgba(78,190,130,.20), transparent 62%),
-    radial-gradient(ellipse 58% 48% at 5% 32%, rgba(27,130,82,.18), transparent 64%),
-    radial-gradient(ellipse 65% 52% at 58% 92%, rgba(24,104,68,.16), transparent 66%),
-    radial-gradient(ellipse 35% 30% at 48% 48%, rgba(71,153,108,.055), transparent 70%),
-    linear-gradient(135deg,#030504 0%,#06100b 42%,#07140e 72%,#030806 100%);
+    radial-gradient(ellipse 70% 55% at 78% 0%, rgba(78,190,130,.12), transparent 62%),
+    radial-gradient(ellipse 58% 48% at 5% 32%, rgba(27,130,82,.10), transparent 64%),
+    radial-gradient(ellipse 65% 52% at 58% 92%, rgba(24,104,68,.09), transparent 66%),
+    linear-gradient(135deg,#030404 0%,#070b09 42%,#08100c 72%,#030605 100%);
 }
 .dashboard::before{
   content:"";
@@ -2064,14 +2063,14 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task{
   border-color:rgba(109,189,161,.12);
   background:
-    linear-gradient(120deg,rgba(109,189,161,.075),rgba(255,255,255,.018)),
-    rgba(5,13,9,.48);
-  box-shadow:inset 0 1px 0 rgba(139,221,177,.045),0 14px 38px rgba(12,55,34,.18);
+    linear-gradient(120deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),
+    rgba(5,8,7,.54);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 14px 38px rgba(0,0,0,.22);
 }
 
 .dashboard .glass-task:hover{
-  border-color:rgba(109,189,161,.24);
-  background:rgba(79,145,108,.09);
+  border-color:rgba(255,255,255,.14);
+  background:rgba(255,255,255,.045);
 }
 
 .dashboard .glass-task.checked .task-check{
@@ -2107,9 +2106,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 @media(max-width:800px){
   .dashboard{
     background:
-      radial-gradient(circle at 90% 4%,rgba(93,170,121,.13),transparent 31%),
-      radial-gradient(circle at 0% 48%,rgba(45,116,78,.14),transparent 34%),
-      linear-gradient(150deg,#050807 0%,#07100c 58%,#09130e 100%);
+      radial-gradient(circle at 90% 4%,rgba(93,170,121,.09),transparent 31%),
+      radial-gradient(circle at 0% 48%,rgba(45,116,78,.08),transparent 34%),
+      linear-gradient(150deg,#040505 0%,#080c0a 58%,#090f0c 100%);
   }
 }
 
