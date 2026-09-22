@@ -2800,3 +2800,24 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.3rem;
   }
 }
+
+
+/* Real Life section — readable editorial body copy */
+.article-example>p{
+  font-size:1.6rem;
+  line-height:1.85;
+  max-width:760px;
+}
+.article-example>h2{
+  font-size:clamp(3.6rem,5vw,6.8rem);
+  line-height:.98;
+}
+@media(max-width:800px){
+  .article-example>p{
+    font-size:1.6rem;
+    line-height:1.85;
+  }
+  .article-example>h2{
+    font-size:clamp(3.4rem,10vw,5.6rem);
+  }
+}
