@@ -2687,3 +2687,116 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 @keyframes evolv-loader-exit{
   to{opacity:0;visibility:hidden;pointer-events:none}
 }
+
+
+/* Final responsive type scale — FAQ + external pages */
+.faq-item p{
+  font-size:1.6rem;
+  line-height:1.8;
+}
+
+/* Keep external EVOLV pages on the same readable type system */
+.pricing-page .pricing-hero>p,
+.pricing-page .pricing-comparison-copy>p,
+.pricing-page .pricing-faq>p,
+.pricing-page .pricing-card-top>p,
+.pricing-page .pricing-card li,
+.pricing-page .pricing-points p{
+  font-size:1.6rem;
+  line-height:1.75;
+}
+
+.pricing-page .pricing-plan,
+.pricing-page .pricing-includes,
+.pricing-page .pricing-coming,
+.pricing-page .pricing-footer>span{
+  font-size:1.3rem;
+}
+
+.pricing-page .pricing-points b{
+  font-size:1.8rem;
+}
+
+.pricing-page .pricing-back,
+.pricing-page .pricing-start,
+.pricing-page .pricing-card-cta{
+  font-size:1.3rem;
+}
+
+.article-page .article-intro,
+.article-page .article-content-card p{
+  font-size:1.6rem;
+  line-height:1.8;
+}
+
+.article-page .article-content-card>span,
+.article-page .article-visual span{
+  font-size:1.3rem;
+}
+
+.article-page .article-content-card h2{
+  font-size:clamp(2.8rem,3vw,3.8rem);
+}
+
+.auth-page .auth-content>p{
+  font-size:1.6rem;
+  line-height:1.75;
+}
+
+.auth-page .auth-switch{
+  font-size:1.3rem;
+}
+
+.contact-copy,
+.contact-success p{
+  font-size:1.6rem;
+  line-height:1.75;
+}
+
+.onboarding .onboard-step>p{
+  font-size:1.6rem;
+  line-height:1.75;
+}
+
+.onboarding .back-button,
+.onboarding .exit-journey,
+.onboarding .back-context{
+  font-size:1.3rem;
+}
+
+@media(max-width:800px){
+  .faq-item p{
+    font-size:1.6rem;
+  }
+
+  .pricing-page .pricing-hero>p,
+  .pricing-page .pricing-comparison-copy>p,
+  .pricing-page .pricing-faq>p,
+  .pricing-page .pricing-card-top>p,
+  .pricing-page .pricing-card li,
+  .pricing-page .pricing-points p,
+  .article-page .article-intro,
+  .article-page .article-content-card p,
+  .auth-page .auth-content>p,
+  .contact-copy,
+  .contact-success p,
+  .onboarding .onboard-step>p{
+    font-size:1.6rem;
+  }
+
+  .pricing-page .pricing-plan,
+  .pricing-page .pricing-includes,
+  .pricing-page .pricing-coming,
+  .pricing-page .pricing-footer>span,
+  .pricing-page .pricing-back,
+  .pricing-page .pricing-start,
+  .pricing-page .pricing-card-cta,
+  .article-page .article-content-card>span,
+  .article-page .article-visual span,
+  .auth-page .auth-switch,
+  .onboarding .back-button,
+  .onboarding .exit-journey,
+  .onboarding .back-context{
+    font-size:1.3rem;
+  }
+}
