@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Check, ChevronLeft, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -121,9 +121,13 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  function logout() {
+  async function logout() {
+    await supabase.auth.signOut()
     localStorage.removeItem('evolv-view')
+    localStorage.removeItem('evolv-onboarding')
     setView('landing')
+    setData(initialData)
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   return (
@@ -752,19 +756,126 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
 
 function Dashboard({ data, onLogout }) {
   const [active, setActive] = useState('overview')
-  const name = data.name || 'there'
-  const areaNames = data.areas.map(id => growthAreas.find(a=>a.id===id)?.title).filter(Boolean)
+  const [goals, setGoals] = useState([])
+  const [loadingGoals, setLoadingGoals] = useState(true)
+  const [goalTitle, setGoalTitle] = useState('')
+  const [goalDescription, setGoalDescription] = useState('')
+  const [goalError, setGoalError] = useState('')
+  const [savingGoal, setSavingGoal] = useState(false)
+  const [checkins, setCheckins] = useState([])
+  const [profile, setProfile] = useState(null)
+  const [profileSaving, setProfileSaving] = useState(false)
+  const [profileMessage, setProfileMessage] = useState('')
+  const [profileName, setProfileName] = useState(data.name || '')
+  const name = profile?.first_name || data.name || 'there'
+  const areaNames = (profile?.growth_areas || data.areas || []).map(id => growthAreas.find(a => a.id === id)?.title).filter(Boolean)
+
+  useEffect(() => {
+    let mounted = true
+    async function loadDashboard() {
+      setLoadingGoals(true)
+      const { data: authData } = await supabase.auth.getUser()
+      const user = authData?.user
+      if (!user) { if (mounted) { setLoadingGoals(false); await onLogout() }; return }
+      const [profileResult, goalsResult, checkinResult] = await Promise.all([
+        supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id', user.id).maybeSingle(),
+        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at', { ascending: false }),
+        supabase.from('goal_checkins').select('id,goal_id,checkin_date,note,created_at').order('checkin_date', { ascending: false }),
+      ])
+      if (!mounted) return
+      if (profileResult.data) { setProfile(profileResult.data); setProfileName(profileResult.data.first_name || '') }
+      if (goalsResult.error) setGoalError('We could not load your goals. Please refresh and try again.')
+      else setGoals(goalsResult.data || [])
+      if (!checkinResult.error) setCheckins(checkinResult.data || [])
+      setLoadingGoals(false)
+    }
+    loadDashboard()
+    return () => { mounted = false }
+  }, [onLogout])
+
+  async function createGoal(event) {
+    event.preventDefault()
+    const title = goalTitle.trim()
+    if (!title) return
+    setSavingGoal(true); setGoalError('')
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) { setSavingGoal(false); setGoalError('Your session has expired. Please sign in again.'); return }
+    const { data: created, error } = await supabase.from('goals').insert({ user_id: user.id, title, description: goalDescription.trim() || null }).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    setSavingGoal(false)
+    if (error) { setGoalError(error.message || 'Could not create this goal.'); return }
+    setGoals(current => [created, ...current]); setGoalTitle(''); setGoalDescription('')
+  }
+
+  async function updateGoal(goalId, updates) {
+    setGoalError('')
+    const { data: updated, error } = await supabase.from('goals').update({ ...updates, updated_at: new Date().toISOString() }).eq('id', goalId).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    if (error) { setGoalError(error.message || 'Could not update this goal.'); return }
+    setGoals(current => current.map(goal => goal.id === goalId ? updated : goal))
+  }
+
+  async function completeGoal(goal) {
+    await updateGoal(goal.id, { status: goal.status === 'completed' ? 'active' : 'completed', progress: goal.status === 'completed' ? goal.progress : 100 })
+  }
+
+  async function deleteGoal(goalId) {
+    setGoalError('')
+    const { error } = await supabase.from('goals').delete().eq('id', goalId)
+    if (error) { setGoalError(error.message || 'Could not delete this goal.'); return }
+    setGoals(current => current.filter(goal => goal.id !== goalId))
+  }
+
+  async function checkIn(goal) {
+    setGoalError('')
+    const today = new Date().toISOString().slice(0, 10)
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) { setGoalError('Your session has expired. Please sign in again.'); return }
+    if (checkins.some(item => item.goal_id === goal.id && item.checkin_date === today)) { setGoalError('You already checked in for this goal today.'); return }
+    const { data: inserted, error } = await supabase.from('goal_checkins').insert({ goal_id: goal.id, user_id: user.id, checkin_date: today }).select('id,goal_id,checkin_date,note,created_at').single()
+    if (error) { setGoalError(error.message || 'Could not record your check-in.'); return }
+    setCheckins(current => [inserted, ...current])
+    const nextProgress = Math.min(100, Number(goal.progress || 0) + 10)
+    await updateGoal(goal.id, { progress: nextProgress, status: nextProgress === 100 ? 'completed' : goal.status })
+  }
+
+  async function saveProfile(event) {
+    event.preventDefault()
+    const firstName = profileName.trim()
+    if (!firstName) return
+    setProfileSaving(true); setProfileMessage('')
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (!user) { setProfileSaving(false); setProfileMessage('Your session has expired. Please sign in again.'); return }
+    const { data: updated, error } = await supabase.from('profiles').update({ first_name: firstName, updated_at: new Date().toISOString() }).eq('id', user.id).select('first_name,growth_areas,focus,first_goal').single()
+    setProfileSaving(false)
+    if (error) { setProfileMessage('Could not save your profile. Please try again.'); return }
+    setProfile(updated); setProfileMessage('Profile saved.')
+  }
+
+  const activeGoals = goals.filter(goal => goal.status === 'active')
+  const completedGoals = goals.filter(goal => goal.status === 'completed')
+  const momentum = goals.length ? Math.round(goals.reduce((sum, goal) => sum + Number(goal.progress || 0), 0) / goals.length) : 0
+
   return (
     <div className="page-enter dashboard">
-      <aside className="sidebar"><Brand /><nav><button className={active==='overview'?'side-active':''} onClick={()=>setActive('overview')}><TrendingUp size={17}/> Overview</button><button className={active==='goals'?'side-active':''} onClick={()=>setActive('goals')}><Target size={17}/> Goals</button><button className={active==='profile'?'side-active':''} onClick={()=>setActive('profile')}><UserRound size={17}/> Profile</button></nav><button className="logout" onClick={onLogout}><LogOut size={16}/> Sign out</button></aside>
+      <aside className="sidebar"><Brand /><nav>
+        <button className={active === 'overview' ? 'side-active' : ''} onClick={() => setActive('overview')}><TrendingUp size={17}/> Overview</button>
+        <button className={active === 'goals' ? 'side-active' : ''} onClick={() => setActive('goals')}><Target size={17}/> Goals</button>
+        <button className={active === 'profile' ? 'side-active' : ''} onClick={() => setActive('profile')}><UserRound size={17}/> Profile</button>
+      </nav><button className="logout" onClick={onLogout}><LogOut size={16}/> Sign out</button></aside>
       <main className="dash-main">
-        <header className="dash-header"><div><span className="section-label">YOUR SPACE</span><h1>Good evening, {name}.</h1></div><button className="icon-button"><Settings size={18}/></button></header>
-        {active === 'overview' && <><section className="dash-hero"><div><span className="section-label">WEEKLY MOMENTUM</span><strong>0<span>%</span></strong><p>Your journey starts with one small promise.</p></div><div className="dash-circle"><span>START</span></div></section><section className="dash-grid"><article className="dash-card"><div className="card-head"><span>YOUR FOCUS</span><span>01</span></div><h2>{data.focus || 'Find your direction'}</h2><p>{data.goal}</p><div className="mini-progress"><i/></div></article><article className="dash-card"><div className="card-head"><span>ACTIVE AREAS</span><span>{String(areaNames.length).padStart(2,'0')}</span></div><div className="area-pills">{areaNames.map(a=><span key={a}>{a}</span>)}</div><button className="add-goal"><Plus size={15}/> Add a goal</button></article></section><section className="empty-state"><span>YOUR FIRST DAY</span><h2>Show up. Then do it again tomorrow.</h2><p>Your activity, streaks and progress will appear here as you use EVOLV.</p></section></>}
-        {active === 'goals' && <section className="panel-page"><span className="section-label">GOALS</span><h2>Your goals</h2><div className="goal-empty"><Target size={24}/><p>Your first goal will live here.</p><button className="button button-primary"><Plus size={15}/> Create goal</button></div></section>}
-        {active === 'profile' && <section className="panel-page"><span className="section-label">PROFILE</span><h2>{name}</h2><div className="profile-box"><p>Focus</p><strong>{data.focus}</strong><p>Growth areas</p><strong>{areaNames.join(' · ')}</strong><p>First goal</p><strong>{data.goal}</strong></div></section>}
+        <header className="dash-header"><div><span className="section-label">YOUR SPACE</span><h1>Good evening, {name}.</h1></div><button className="icon-button" onClick={() => setActive('profile')} aria-label="Open profile settings"><Settings size={18}/></button></header>
+        {goalError && <p className="auth-error" role="alert">{goalError}</p>}
+        {active === 'overview' && <><section className="dash-hero"><div><span className="section-label">WEEKLY MOMENTUM</span><strong>{momentum}<span>%</span></strong><p>{goals.length ? activeGoals.length + ' active ' + (activeGoals.length === 1 ? 'goal' : 'goals') + ' · ' + completedGoals.length + ' completed' : 'Your journey starts with one small promise.'}</p></div><div className="dash-circle"><span>{goals.length ? 'MOVING' : 'START'}</span></div></section>
+        <section className="dash-grid"><article className="dash-card"><div className="card-head"><span>YOUR FOCUS</span><span>01</span></div><h2>{profile?.focus || data.focus || 'Find your direction'}</h2><p>{profile?.first_goal || data.goal || 'Add your first goal to begin.'}</p><div className="mini-progress"><i style={{ width: momentum + '%' }}/></div></article>
+        <article className="dash-card"><div className="card-head"><span>ACTIVE AREAS</span><span>{String(areaNames.length).padStart(2, '0')}</span></div><div className="area-pills">{areaNames.map(a => <span key={a}>{a}</span>)}</div><button className="add-goal" onClick={() => setActive('goals')}><Plus size={15}/> Add a goal</button></article></section>
+        <section className="empty-state"><span>YOUR PROGRESS</span><h2>{goals.length ? completedGoals.length + ' goal' + (completedGoals.length === 1 ? '' : 's') + ' completed.' : 'Show up. Then do it again tomorrow.'}</h2><p>{checkins.length ? checkins.length + ' check-in' + (checkins.length === 1 ? '' : 's') + ' recorded so far.' : 'Your activity, streaks and progress will appear here as you use EVOLV.'}</p></section></>}
+        {active === 'goals' && <section className="panel-page"><span className="section-label">GOALS</span><h2>Your goals</h2><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What do you want to work toward?" maxLength={240} required/><textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Optional: add a little context" rows="3"/><button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Create goal'}</button></form>
+        <div className="goal-list">{loadingGoals && <p>Loading your goals…</p>}{!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>No goals yet. Create your first one above.</p></div>}{goals.map(goal => <article className="goal-item" key={goal.id}><div className="goal-item-top"><div><span className="section-label">{goal.status.toUpperCase()}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div><strong>{goal.progress}%</strong></div><div className="mini-progress"><i style={{ width: goal.progress + '%' }}/></div><div className="goal-actions"><button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in today</button><button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen' : 'Complete'}</button><button onClick={() => deleteGoal(goal.id)}>Delete</button></div></article>)}</div></section>}
+        {active === 'profile' && <section className="panel-page"><span className="section-label">PROFILE</span><h2>Your profile</h2><div className="profile-box"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label><button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save profile'}</button>{profileMessage && <p className="auth-message">{profileMessage}</p>}</form><p>Focus</p><strong>{profile?.focus || data.focus || '—'}</strong><p>Growth areas</p><strong>{areaNames.join(' · ') || '—'}</strong><p>First goal</p><strong>{profile?.first_goal || data.goal || '—'}</strong></div></section>}
       </main>
     </div>
   )
 }
-
 export default App
