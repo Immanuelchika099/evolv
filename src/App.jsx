@@ -977,8 +977,8 @@ function Dashboard({ data, onLogout }) {
               </div>
 
               <div className="state-ring" aria-label={`${momentum}% current state`}>
-                <div className="state-ring-track">
-                  <div className="state-ring-fill" style={{ '--ring-progress': `${momentum * 3.6}deg` }} />
+                <div className="state-ring-track" style={{ '--ring-progress': `${momentum * 3.6}deg` }}>
+                  <div className="state-ring-fill" />
                   <div className="state-ring-center">
                     <strong>{momentum}%</strong>
                     <span>CURRENT STATE</span>
