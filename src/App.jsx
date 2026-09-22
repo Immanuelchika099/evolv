@@ -209,6 +209,24 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
 
+  async function continueWithGoogle() {
+    setSending(true)
+    setError('')
+    setMessage('')
+
+    const { error: oauthError } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: window.location.origin,
+      },
+    })
+
+    if (oauthError) {
+      setError(oauthError.message || 'Google sign-in is not available yet. Please try again.')
+      setSending(false)
+    }
+  }
+
   async function submit(event) {
     event.preventDefault()
     const cleanEmail = email.trim()
@@ -309,6 +327,12 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
             {sending ? 'Working…' : mode === 'signup' ? 'Create my account' : 'Sign in'} {!sending && <ArrowRight size={16} />}
           </button>
         </form>
+
+        <div className="auth-divider"><span>OR</span></div>
+        <button className="google-auth-button" type="button" onClick={continueWithGoogle} disabled={sending}>
+          <span className="google-mark">G</span>
+          Continue with Google
+        </button>
 
         <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setError(''); setMessage('') }}>
           {mode === 'signup' ? 'Already have an account? Sign in' : "New to EVOLV? Create an account"}
