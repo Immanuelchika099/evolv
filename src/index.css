@@ -6216,3 +6216,51 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .app-bottom-nav button.bottom-active:before{
   background:linear-gradient(135deg,rgba(200,243,106,.11),rgba(98,230,189,.07)) !important;
 }
+
+
+/* EVOLV — cinematic structure pass: dark canvas, color only as accents */
+.dashboard{background:#020302 !important}
+.dashboard:before{background:none !important}
+.dashboard .dashboard-welcome:after{display:none !important}
+.dashboard .glass-task{background:rgba(255,255,255,.025) !important;border-color:rgba(255,255,255,.10) !important}
+.dashboard .glass-task:hover{background:rgba(255,255,255,.045) !important;border-color:rgba(200,243,106,.28) !important}
+.dashboard .daily-insight{background:transparent !important}
+.dashboard .daily-insight:after,.dashboard .weekly-progress-card:after{display:none !important}
+.dashboard .dashboard-eyebrow{color:rgba(200,243,106,.68) !important}
+.dashboard .frequency-heading{position:relative;padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.08)}
+.dashboard .frequency-heading>span{color:rgba(244,241,232,.55) !important}
+.dashboard .frequency-heading:after{content:"";position:absolute;left:0;bottom:-1px;width:72px;height:1px;background:linear-gradient(90deg,#c8f36a,#62e6bd,transparent)}
+.dashboard .glass-task .task-check{border-color:rgba(200,243,106,.40) !important}
+.dashboard .glass-task.checked{border-color:rgba(98,230,189,.28) !important;background:rgba(98,230,189,.035) !important}
+.dashboard .daily-insight{margin-top:110px !important;padding:80px 0 95px !important;border-top:1px solid rgba(255,255,255,.08) !important}
+.dashboard .daily-insight-label{color:rgba(255,214,107,.72) !important}
+.dashboard .daily-insight h2{background:none !important;-webkit-text-fill-color:initial !important;color:#f4f1ea !important}
+.dashboard .daily-insight-points{border-top:1px solid rgba(255,255,255,.08) !important}
+.dashboard .daily-insight-points>div{border-bottom:1px solid rgba(255,255,255,.07) !important}
+.dashboard .daily-insight-points>div:nth-child(1) span{color:#63d9ff !important}
+.dashboard .daily-insight-points>div:nth-child(2) span{color:#9b7cff !important}
+.dashboard .daily-insight-points>div:nth-child(3) span{color:#ff8f87 !important}
+.dashboard .weekly-progress-head{border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:26px}
+.dashboard .weekly-progress-total{color:#c8f36a !important;border-left:1px solid rgba(200,243,106,.35);padding-left:14px}
+.dashboard .weekly-chart-summary{border-bottom:1px solid rgba(255,255,255,.07)}
+.dashboard .weekly-chart-summary>div{background:transparent !important}
+.dashboard .weekly-chart-summary>div:nth-child(1) strong{color:#c8f36a !important}
+.dashboard .weekly-chart-summary>div:nth-child(2) strong{color:#63d9ff !important}
+.dashboard .weekly-chart-summary>div:nth-child(3) strong{color:#9b7cff !important}
+.dashboard .weekly-chart-visual{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:26px}
+.dashboard .weekly-chart-visual svg path[stroke]{stroke:#62e6bd !important}
+.dashboard .weekly-chart-visual svg circle{fill:#c8f36a !important}
+.dashboard .weekly-flow-dot{background:#ff8f87 !important}
+.dashboard .goal-list{border-top:1px solid rgba(255,255,255,.09)}
+.dashboard .goal-item{border:0 !important;border-bottom:1px solid rgba(255,255,255,.08) !important;border-radius:0 !important;background:transparent !important;padding:30px 0 !important}
+.dashboard .goal-item:hover{background:linear-gradient(90deg,rgba(255,255,255,.018),transparent) !important}
+.dashboard .goal-item .goal-status-copy{letter-spacing:.08em;text-transform:uppercase}
+.dashboard .goal-item:nth-child(3n+1) .goal-status-copy{color:#63d9ff !important}
+.dashboard .goal-item:nth-child(3n+2) .goal-status-copy{color:#9b7cff !important}
+.dashboard .goal-item:nth-child(3n) .goal-status-copy{color:#ff8f87 !important}
+.dashboard .goal-item .mini-progress{background:rgba(255,255,255,.08) !important}
+.dashboard .goal-item .mini-progress i{background:linear-gradient(90deg,#c8f36a,#62e6bd) !important}
+.dashboard .goal-actions button{border-color:rgba(255,255,255,.08) !important;background:transparent !important}
+.dashboard .settings-card{background:transparent !important;border-color:rgba(255,255,255,.08) !important}
+.dashboard .app-bottom-nav{background:rgba(4,6,6,.76) !important;border-color:rgba(255,255,255,.13) !important}
+.dashboard .app-bottom-nav button.bottom-active{color:#c8f36a !important}
