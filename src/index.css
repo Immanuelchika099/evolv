@@ -1973,3 +1973,28 @@ html,body,#root{max-width:100%;overflow-x:hidden}
       linear-gradient(150deg,#050807 0%,#07100c 58%,#09130e 100%);
   }
 }
+
+
+.dashboard .profile-signout{
+  margin-top:28px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  width:100%;
+  min-height:46px;
+  padding:0 18px;
+  border:1px solid rgba(109,189,161,.14);
+  border-radius:14px;
+  background:rgba(7,18,12,.52);
+  color:rgba(240,247,242,.78);
+  font:inherit;
+  font-size:13px;
+  cursor:pointer;
+  transition:background .25s ease,border-color .25s ease,color .25s ease;
+}
+.dashboard .profile-signout:hover{
+  background:rgba(109,189,161,.08);
+  border-color:rgba(109,189,161,.28);
+  color:#fff;
+}
