@@ -6420,3 +6420,62 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .progress-chart-labels{font-size:.72rem}
   .dashboard .progress-observations p{font-size:1rem}
 }
+
+/* EVOLV — Health + Nutrition */
+.dashboard .health-command-row,.dashboard .nutrition-overview{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;padding:28px 0 34px;border-bottom:1px solid rgba(255,255,255,.08)}
+.dashboard .health-command-row h3,.dashboard .nutrition-overview h3{font-size:1.7rem!important;margin:8px 0}
+.dashboard .health-command-row p,.dashboard .nutrition-overview p{max-width:650px;margin:0;color:rgba(244,241,234,.42);font-size:1rem;line-height:1.7}
+.dashboard .health-section-list{display:grid;gap:52px;margin-top:52px}
+.dashboard .health-subsection{border-top:1px solid rgba(255,255,255,.08);padding-top:24px}
+.dashboard .health-subsection-head{display:flex;justify-content:space-between;gap:30px;align-items:flex-end;margin-bottom:18px}
+.dashboard .health-subsection-head h3{font-size:1.6rem!important;margin:7px 0 0}
+.dashboard .health-subsection-head p{max-width:470px;margin:0;color:rgba(244,241,234,.38);font-size:1rem;line-height:1.6}
+.dashboard .health-metric-row{min-height:74px}
+.dashboard .health-row-action{margin-left:auto;color:rgba(200,243,106,.6);font-size:.9rem}
+.dashboard .wellbeing-guide,.dashboard .nutrition-note{margin-top:72px;border-top:1px solid rgba(255,255,255,.08);padding:32px 0 20px}
+.dashboard .wellbeing-guide h3,.dashboard .nutrition-note h3{font-size:2rem!important;margin:12px 0 10px}
+.dashboard .wellbeing-guide>p,.dashboard .nutrition-note>p{max-width:760px;color:rgba(244,241,234,.45);font-size:1.05rem;line-height:1.8;margin:0}
+.dashboard .wellbeing-guide-grid{display:grid;grid-template-columns:repeat(3,1fr);margin-top:34px;border-top:1px solid rgba(255,255,255,.07)}
+.dashboard .wellbeing-guide-grid div{padding:22px 18px 22px 0;border-right:1px solid rgba(255,255,255,.07)}
+.dashboard .wellbeing-guide-grid div+div{padding-left:18px}
+.dashboard .wellbeing-guide-grid div:last-child{border-right:0}
+.dashboard .wellbeing-guide-grid strong{display:block;font-size:1.15rem;color:#f4f1ea;margin-bottom:6px}
+.dashboard .wellbeing-guide-grid span{font-size:.95rem;color:rgba(244,241,234,.4)}
+.dashboard .nutrition-overview{align-items:center}
+.dashboard .nutrition-stats{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(255,255,255,.08)}
+.dashboard .nutrition-stats div{padding:26px 20px 26px 0;border-right:1px solid rgba(255,255,255,.07)}
+.dashboard .nutrition-stats div+div{padding-left:20px}
+.dashboard .nutrition-stats div:last-child{border-right:0}
+.dashboard .nutrition-stats strong{display:block;font-size:2rem;color:#ffd66b}
+.dashboard .nutrition-stats span{display:block;margin-top:6px;font-size:.9rem;color:rgba(244,241,234,.38)}
+.dashboard .nutrition-meal-types{display:flex;gap:10px;overflow-x:auto;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.07);scrollbar-width:none}
+.dashboard .nutrition-meal-types::-webkit-scrollbar{display:none}
+.dashboard .nutrition-meal-types div{min-width:130px;border:1px solid rgba(255,255,255,.08);padding:16px 18px;background:rgba(255,255,255,.018)}
+.dashboard .nutrition-meal-types span{display:block;text-transform:capitalize;color:rgba(244,241,234,.4);font-size:.9rem}
+.dashboard .nutrition-meal-types strong{display:block;font-size:1.45rem;margin-top:6px;color:#f4f1ea}
+.dashboard .meal-history{margin-top:58px;border-top:1px solid rgba(255,255,255,.08);padding-top:24px}
+.dashboard .meal-history-list{border-top:1px solid rgba(255,255,255,.07)}
+.dashboard .meal-history-row{display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:15px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.dashboard .meal-type-dot{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:rgba(255,214,107,.08);border:1px solid rgba(255,214,107,.2);color:#ffd66b;font-size:.8rem}
+.dashboard .meal-history-row strong{display:block;font-size:1.05rem;color:#f4f1ea}
+.dashboard .meal-history-row small{display:block;margin-top:5px;color:rgba(244,241,234,.35);font-size:.85rem;text-transform:capitalize}
+.dashboard .meal-nutrition{color:rgba(244,241,234,.35);font-size:.85rem}
+.dashboard .nutrition-empty{padding:48px 0;color:rgba(244,241,234,.38);display:flex;align-items:center;gap:14px}
+.dashboard .nutrition-empty svg{color:#ffd66b}
+.dashboard .nutrition-empty p{font-size:1rem}
+@media(max-width:650px){
+  .dashboard .health-command-row,.dashboard .nutrition-overview{display:block}
+  .dashboard .health-command-row .button,.dashboard .nutrition-overview .button{margin-top:22px}
+  .dashboard .health-command-row h3,.dashboard .nutrition-overview h3{font-size:1.5rem!important}
+  .dashboard .health-subsection-head{display:block}
+  .dashboard .health-subsection-head p{margin-top:10px}
+  .dashboard .wellbeing-guide h3,.dashboard .nutrition-note h3{font-size:1.6rem!important}
+  .dashboard .wellbeing-guide-grid{grid-template-columns:1fr}
+  .dashboard .wellbeing-guide-grid div,.dashboard .wellbeing-guide-grid div+div{padding:18px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .dashboard .wellbeing-guide-grid div:last-child{border-bottom:0}
+  .dashboard .nutrition-stats{grid-template-columns:1fr}
+  .dashboard .nutrition-stats div,.dashboard .nutrition-stats div+div{padding:18px 0;border-right:0;border-bottom:1px solid rgba(255,255,255,.07)}
+  .dashboard .nutrition-stats div:last-child{border-bottom:0}
+  .dashboard .meal-history-row{grid-template-columns:36px 1fr}
+  .dashboard .meal-nutrition{grid-column:2}
+}
