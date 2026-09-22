@@ -788,6 +788,7 @@ function ArticlePage({ article, onStart, onBack }) {
     <div className="article-page">
 
       <header className="article-hero">
+        <button className="article-back" onClick={onBack}><ChevronLeft size={16}/> Back to EVOLV</button>
         <div className="article-hero-copy">
           <span className="section-label article-kicker">{eyebrow}</span>
           <h1 className="article-title">{title}</h1>
