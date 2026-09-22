@@ -2458,67 +2458,38 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 /* Mobile homepage typography pass */
 @media(max-width:800px){
-  .landing .hero-description{
-    font-size:1.5rem;
-    line-height:1.6;
-  }
-
+  .landing .hero-description,
   .landing .statement p,
   .landing .preview-copy p,
   .landing .area p{
-    font-size:1.5rem;
-    line-height:1.55;
-  }
-
-  .landing .button{
-    font-size:13px;
-    min-height:50px;
-    padding-inline:20px;
-  }
-
-  .landing .statement p,
-  .landing .preview-copy p{
-    font-size:15px;
-    line-height:1.8;
+    font-size:1.6rem;
+    line-height:1.65;
   }
 
   .landing .section-heading p{
-    font-size:13px;
-  }
-
-  .landing .area p{
-    font-size:14px;
-    line-height:1.7;
-  }
-
-  .landing .area{
-    gap:16px;
-  }
-
-  .landing .mock-header{
-    font-size:13px;
+    font-size:1.3rem;
   }
 
   .landing .footer-brand p{
-    font-size:14px;
-    line-height:1.75;
+    font-size:1.5rem;
+    line-height:1.7;
   }
 
   .landing .footer-links a{
-    font-size:13px;
+    font-size:1.3rem;
   }
 
   .landing .footer-links span{
-    font-size:10px;
+    font-size:1.1rem;
   }
 
   .landing .footer-bottom{
-    font-size:10px;
+    font-size:1.1rem;
     letter-spacing:.1em;
   }
 
   .landing .nav{
-    font-size:13px;
+    font-size:1.3rem;
   }
 }
 
