@@ -1,6 +1,13 @@
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = 'https://teufwhvkfjluawtcvjwh.supabase.co'
-const supabasePublishableKey = 'sb_publishable_yWyeVy6oGOgIPjzVb6hpWA_Hk4Korw9'
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabasePublishableKey = import.meta.env.VITE_SUPABASE_ANON_KEY
 
-export const supabase = createClient(supabaseUrl, supabasePublishableKey)
+if (!supabaseUrl || !supabasePublishableKey) {
+  console.warn('Supabase environment variables are missing. Add VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY before using the live app.')
+}
+
+export const supabase = createClient(
+  supabaseUrl || 'https://placeholder.supabase.co',
+  supabasePublishableKey || 'placeholder-key',
+)
