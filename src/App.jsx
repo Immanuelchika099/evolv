@@ -853,6 +853,9 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
 
 function Dashboard({ data, onLogout }) {
   const [active, setActive] = useState('overview')
+  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deletingAccount, setDeletingAccount] = useState(false)
+  const [deleteError, setDeleteError] = useState('')
   const [goals, setGoals] = useState([])
   const [loadingGoals, setLoadingGoals] = useState(true)
   const [goalTitle, setGoalTitle] = useState('')
@@ -934,6 +937,38 @@ function Dashboard({ data, onLogout }) {
     setCheckins(current => [inserted, ...current])
     const nextProgress = Math.min(100, Number(goal.progress || 0) + 10)
     await updateGoal(goal.id, { progress: nextProgress, status: nextProgress === 100 ? 'completed' : goal.status })
+  }
+
+  async function deleteAccount() {
+    setDeletingAccount(true)
+    setDeleteError('')
+    const { data: sessionData } = await supabase.auth.getSession()
+    const token = sessionData?.session?.access_token
+    if (!token) {
+      setDeleteError('Your session has expired. Please sign in again.')
+      setDeletingAccount(false)
+      return
+    }
+
+    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+        'Content-Type': 'application/json',
+      },
+    })
+    const result = await response.json().catch(() => ({}))
+    if (!response.ok) {
+      setDeleteError(result.error || 'Could not delete your account. Please try again.')
+      setDeletingAccount(false)
+      return
+    }
+
+    await supabase.auth.signOut()
+    localStorage.removeItem('evolv-view')
+    localStorage.removeItem('evolv-onboarding')
+    window.location.href = '/'
   }
 
   async function saveProfile(event) {
@@ -1051,20 +1086,86 @@ function Dashboard({ data, onLogout }) {
         )}
 
         {active === 'profile' && (
-          <section className="panel-page dashboard-panel">
-            <span className="section-label">PROFILE</span>
-            <h2>Your profile</h2>
-            <div className="profile-box">
-              <form onSubmit={saveProfile}>
-                <label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label>
-                <button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save profile'}</button>
-                {profileMessage && <p className="auth-message">{profileMessage}</p>}
-              </form>
-              <p>Focus</p><strong>{profile?.focus || data.focus || '—'}</strong>
-              <p>Growth areas</p><strong>{areaNames.join(' · ') || '—'}</strong>
-              <p>First goal</p><strong>{profile?.first_goal || data.goal || '—'}</strong>
-              <button className="profile-signout" type="button" onClick={onLogout}><LogOut size={15} /> Sign out</button>
+          <section className="panel-page dashboard-panel settings-page">
+            <div className="settings-heading">
+              <span className="section-label">SETTINGS</span>
+              <h2>Your space.</h2>
+              <p>Manage your account and personal details.</p>
             </div>
+
+            <div className="settings-section">
+              <div className="settings-section-head">
+                <div>
+                  <span className="section-label">ACCOUNT</span>
+                  <h3>Personal details</h3>
+                </div>
+                <Settings size={18} />
+              </div>
+
+              <div className="settings-card">
+                <form onSubmit={saveProfile}>
+                  <label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label>
+                  <button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save changes'}</button>
+                  {profileMessage && <p className="auth-message">{profileMessage}</p>}
+                </form>
+              </div>
+            </div>
+
+            <div className="settings-section">
+              <div className="settings-section-head">
+                <div>
+                  <span className="section-label">YOUR JOURNEY</span>
+                  <h3>Growth profile</h3>
+                </div>
+                <Target size={18} />
+              </div>
+
+              <div className="settings-card settings-facts">
+                <div><span>Focus</span><strong>{profile?.focus || data.focus || '—'}</strong></div>
+                <div><span>Growth areas</span><strong>{areaNames.join(' · ') || '—'}</strong></div>
+                <div><span>First goal</span><strong>{profile?.first_goal || data.goal || '—'}</strong></div>
+              </div>
+            </div>
+
+            <div className="settings-section settings-danger">
+              <div className="settings-section-head">
+                <div>
+                  <span className="section-label">ACCOUNT ACTIONS</span>
+                  <h3>Leave EVOLV</h3>
+                </div>
+              </div>
+              <div className="settings-action-row">
+                <div>
+                  <strong>Sign out</strong>
+                  <span>End your current session on this device.</span>
+                </div>
+                <button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15} /> Sign out</button>
+              </div>
+              <div className="settings-action-row danger">
+                <div>
+                  <strong>Delete account</strong>
+                  <span>Permanently remove your EVOLV account and journey data.</span>
+                </div>
+                <button className="settings-delete-button" type="button" onClick={() => { setDeleteError(''); setDeleteOpen(true) }}>Delete</button>
+              </div>
+              {deleteError && <p className="auth-error" role="alert">{deleteError}</p>}
+            </div>
+
+            {deleteOpen && (
+              <div className="settings-delete-overlay" role="dialog" aria-modal="true" aria-labelledby="delete-account-title">
+                <div className="settings-delete-modal">
+                  <span className="section-label">DELETE ACCOUNT</span>
+                  <h3 id="delete-account-title">Leave EVOLV for good?</h3>
+                  <p>This will permanently delete your account, goals, check-ins and saved journey data.</p>
+                  <div className="settings-delete-actions">
+                    <button type="button" onClick={() => setDeleteOpen(false)} disabled={deletingAccount}>Cancel</button>
+                    <button type="button" className="settings-delete-confirm" onClick={deleteAccount} disabled={deletingAccount}>
+                      {deletingAccount ? 'Deleting…' : 'Delete account'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         )}
 
