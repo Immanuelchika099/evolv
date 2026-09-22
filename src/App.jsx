@@ -1087,7 +1087,7 @@ function Dashboard({ data, onLogout }) {
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
   return <div className="page-enter dashboard">
-    <header className="app-topbar"><button className="app-logo-button" onClick={()=>setActive('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" aria-label="Notifications"><Bell size={17}/></button></header>
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>setActive('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>setActive('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='overview'&&<div className="dashboard-home">
@@ -1320,7 +1320,7 @@ function Dashboard({ data, onLogout }) {
       })()}
       {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>setActive('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
       {active==='profile'&&<section className="panel-page dashboard-panel settings-page"><div className="settings-heading"><span className="section-label">SETTINGS</span><h2>Your space.</h2><p>Keep your personal details up to date.</p></div><div className="settings-section"><div className="settings-section-head"><div><span className="section-label">ACCOUNT</span><h3>Your details</h3></div><Settings size={18}/></div><div className="settings-card"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e=>setProfileName(e.target.value)}/></label><button className="button button-primary" type="submit">Save changes</button>{profileMessage&&<p className="auth-message">{profileMessage}</p>}</form></div></div><div className="settings-section settings-danger"><div className="settings-action-row"><div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div><button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15}/> Sign out</button></div><div className="settings-action-row danger"><div><strong>Delete account</strong><span>Permanently remove your account.</span></div><button className="settings-delete-button" type="button" onClick={()=>setDeleteOpen(true)}>Delete</button></div></div>{deleteOpen&&<div className="settings-delete-overlay" role="dialog" aria-modal="true"><div className="settings-delete-modal"><span className="section-label">DELETE ACCOUNT</span><h3>Delete your account?</h3><p>This permanently removes your account and saved information.</p><div className="settings-delete-actions"><button onClick={()=>setDeleteOpen(false)}>Cancel</button><button className="settings-delete-confirm" onClick={deleteAccount} disabled={deleting}>{deleting?'Deleting…':'Delete account'}</button></div></div></div>}</section>}
-      {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0}/>}
+      {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
     <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>setActive('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>setActive('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={active==='profile'?'bottom-active':''} onClick={()=>setActive('profile')}><span><UserRound size={19}/></span><small>You</small></button></nav>
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
@@ -1409,7 +1409,7 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
   )
 }
 
-function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
+function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
   const firstName = profile?.first_name || 'there'
   const [messages, setMessages] = useState([
     { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
@@ -1423,7 +1423,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
   useEffect(() => {
     let mounted = true
     async function loadMessages() {
-      const { data } = await supabase.from('ai_messages').select('role,content').order('created_at', { ascending: true }).limit(50)
+      const { data } = await supabase.from('ai_messages').select('role,content').eq('user_id', (await supabase.auth.getUser()).data.user?.id).order('created_at', { ascending: true }).limit(50)
       if (mounted && data?.length) setMessages(data)
     }
     loadMessages()
@@ -1458,6 +1458,27 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
 
     await supabase.from('ai_messages').insert({ user_id: userId, role: 'user', content: text })
 
+    const metricById = Object.fromEntries(definitions.map(definition => [definition.id, definition]))
+    const recentLogs = logs.slice(0, 40).map(log => {
+      const definition = metricById[log.metric_id]
+      return {
+        metric: definition?.name || 'Metric',
+        slug: definition?.slug || null,
+        value: Number(log.value),
+        unit: log.unit || definition?.unit || null,
+        note: log.note || null,
+        loggedAt: log.logged_at,
+      }
+    })
+    const recentMeals = meals.slice(0, 20).map(meal => ({
+      type: meal.meal_type,
+      description: meal.description,
+      calories: meal.calories,
+      protein: meal.protein_g,
+      waterMl: meal.water_ml,
+      loggedAt: meal.logged_at,
+    }))
+
     const progressContext = {
       momentum,
       totalGoals: goals.length,
@@ -1472,6 +1493,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
       })),
       totalCheckins: checkins.length,
       recentCheckins: checkins.slice(0, 7).map(item => item.checkin_date),
+      recentLogs,
+      recentMeals,
     }
 
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
@@ -1524,8 +1547,13 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
       </div>
       <div className="ai-context-strip">
         <span>{goals.length} goal{goals.length === 1 ? '' : 's'}</span>
-        <span>{momentum}% progress</span>
+        <span>{logs.length + meals.length} life log{logs.length + meals.length === 1 ? '' : 's'}</span>
         <span>{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
+      </div>
+      <div className="ai-starters">
+        {['Help me understand my week', 'I feel stuck', 'Why have I been so tired?', 'Help me plan tomorrow'].map(starter => (
+          <button key={starter} type="button" onClick={() => setInput(starter)}>{starter}</button>
+        ))}
       </div>
       <div className="ai-chat">
         <div className="ai-messages">
