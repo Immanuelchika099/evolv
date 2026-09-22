@@ -1162,6 +1162,18 @@ function Dashboard({ data, onLogout }) {
 
         {active === 'goals' && (
           <section className="panel-page dashboard-panel">
+            <section className="weekly-progress-card">
+              <div className="weekly-progress-head">
+                <div>
+                  <span className="section-label">THIS WEEK</span>
+                  <h2>Your progress flow.</h2>
+                  <p>Watch your consistency build across the week.</p>
+                </div>
+                <span className="weekly-progress-total">{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
+              </div>
+              <WeeklyProgressChart checkins={checkins} goals={goals} />
+            </section>
+
             <span className="section-label">GOALS</span>
             <h2>Your goals</h2>
             <form className="goal-create-form" onSubmit={createGoal}>
@@ -1298,6 +1310,65 @@ function Dashboard({ data, onLogout }) {
     </div>
   )
 }
+function WeeklyProgressChart({ checkins = [], goals = [] }) {
+  const today = new Date()
+  const days = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(today)
+    date.setDate(today.getDate() - (6 - index))
+    const key = date.toISOString().slice(0, 10)
+    const count = checkins.filter(item => item.checkin_date === key).length
+    return {
+      key,
+      label: date.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 3),
+      date: date.getDate(),
+      count,
+    }
+  })
+
+  const maxCount = Math.max(1, ...days.map(day => day.count))
+  const points = days.map((day, index) => {
+    const x = 20 + (index * 260 / 6)
+    const y = 92 - ((day.count / maxCount) * 62)
+    return { ...day, x, y }
+  })
+  const path = points.map((point, index) => `${index ? 'L' : 'M'} ${point.x} ${point.y}`).join(' ')
+  const total = days.reduce((sum, day) => sum + day.count, 0)
+  const activeDays = days.filter(day => day.count > 0).length
+  const avgProgress = goals.length ? Math.round(goals.reduce((sum, goal) => sum + Number(goal.progress || 0), 0) / goals.length) : 0
+
+  return (
+    <div className="weekly-progress-chart">
+      <div className="weekly-chart-summary">
+        <div><strong>{avgProgress}%</strong><span>overall goal progress</span></div>
+        <div><strong>{activeDays}/7</strong><span>active days</span></div>
+        <div><strong>{total}</strong><span>weekly check-ins</span></div>
+      </div>
+      <div className="weekly-chart-visual">
+        <svg viewBox="0 0 300 125" preserveAspectRatio="none" role="img" aria-label="Weekly check-in progress chart">
+          <defs>
+            <linearGradient id="weeklyFlowFill" x1="0" x2="0" y1="0" y2="1">
+              <stop offset="0%" stopColor="rgba(82,190,145,.28)" />
+              <stop offset="100%" stopColor="rgba(82,190,145,0)" />
+            </linearGradient>
+          </defs>
+          <path d={`${path} L 280 108 L 20 108 Z`} fill="url(#weeklyFlowFill)" />
+          <path d={path} fill="none" stroke="rgba(103,218,170,.95)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          {points.map(point => (
+            <circle key={point.key} cx={point.x} cy={point.y} r={point.count ? 4 : 2.5} fill="rgba(103,218,170,1)" />
+          ))}
+        </svg>
+        <div className="weekly-chart-days">
+          {points.map(point => <span key={point.key}><b>{point.label}</b><small>{point.date}</small></span>)}
+        </div>
+      </div>
+      <div className="weekly-flow-note">
+        <span className="weekly-flow-dot" />
+        <span>{activeDays ? `You've shown up ${activeDays} day${activeDays === 1 ? '' : 's'} this week.` : 'Your first check-in starts the flow.'}</span>
+      </div>
+    </div>
+  )
+}
+
 function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
   const firstName = profile?.first_name || 'there'
   const [messages, setMessages] = useState([
