@@ -245,7 +245,6 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [otpSent, setOtpSent] = useState(false)
-  const [otp, setOtp] = useState('')
 
   async function continueWithProvider(provider) {
     setSending(true)
@@ -276,55 +275,23 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     setError('')
     setMessage('')
 
-    const { error: otpError } = await supabase.auth.signInWithOtp({
+    const { error: linkError } = await supabase.auth.signInWithOtp({
       email: cleanEmail,
-      options: { shouldCreateUser: mode === 'signup' },
+      options: {
+        shouldCreateUser: mode === 'signup',
+        emailRedirectTo: window.location.origin,
+      },
     })
 
     setSending(false)
 
-    if (otpError) {
-      setError(otpError.message || 'Could not send your verification code. Please try again.')
+    if (linkError) {
+      setError(linkError.message || 'Could not send your sign-in link. Please try again.')
       return
     }
 
     setOtpSent(true)
-    setMessage(`We sent a 6-digit code to ${cleanEmail}.`)
-  }
-
-  async function verifyEmailCode(event) {
-    event.preventDefault()
-    const cleanEmail = email.trim()
-    const cleanOtp = otp.trim()
-
-    if (!/^\\d{6}$/.test(cleanOtp)) {
-      setError('Enter the 6-digit code from your email.')
-      return
-    }
-
-    setSending(true)
-    setError('')
-
-    const { data: authData, error: otpError } = await supabase.auth.verifyOtp({
-      email: cleanEmail,
-      token: cleanOtp,
-      type: 'email',
-    })
-
-    setSending(false)
-
-    if (otpError) {
-      setError(otpError.message || 'That code is invalid or has expired.')
-      return
-    }
-
-    if (authData?.user) {
-      try {
-        await onSuccess(authData.user, mode)
-      } catch (profileError) {
-        setError(profileError?.message || 'Your account was created, but we could not finish setting up your EVOLV profile.')
-      }
-    }
+    setMessage(`We sent a secure sign-in link to ${cleanEmail}. Open the link in your email to continue.`)
   }
 
   async function submit(event) {
@@ -419,15 +386,18 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
           : 'Sign in and continue from where you left off.'}</p>
 
         {otpSent ? (
-          <form className="auth-form" onSubmit={verifyEmailCode}>
-            <label><span>6-digit code</span><input required inputMode="numeric" pattern="[0-9]{6}" maxLength="6" value={otp} onChange={e => setOtp(e.target.value.replace(/\\D/g, '').slice(0, 6))} placeholder="000000" autoComplete="one-time-code" /></label>
-            {error && <p className="auth-error" role="alert">{error}</p>}
-            {message && <p className="auth-message">{message}</p>}
-            <button className="button button-primary auth-submit" disabled={sending} type="submit">
-              {sending ? 'Verifying…' : 'Verify & continue'} {!sending && <ArrowRight size={16} />}
+          <div className="auth-form auth-link-sent">
+            <div className="auth-link-icon">↗</div>
+            <span className="section-label">CHECK YOUR EMAIL</span>
+            <p className="auth-message">{message}</p>
+            <button
+              className="auth-switch"
+              type="button"
+              onClick={() => { setOtpSent(false); setError(''); setMessage('') }}
+            >
+              Use a different email
             </button>
-            <button className="auth-switch" type="button" onClick={() => { setOtpSent(false); setOtp(''); setError(''); setMessage('') }}>Use a different email</button>
-          </form>
+          </div>
         ) : (
           <>
             <form className="auth-form" onSubmit={sendEmailCode}>
@@ -435,7 +405,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
               {error && <p className="auth-error" role="alert">{error}</p>}
               {message && <p className="auth-message">{message}</p>}
               <button className="button button-primary auth-submit" disabled={sending} type="submit">
-                {sending ? 'Sending code…' : 'Continue with email'} {!sending && <ArrowRight size={16} />}
+                {sending ? 'Sending link…' : 'Continue with email'} {!sending && <ArrowRight size={16} />}
               </button>
             </form>
           </>
