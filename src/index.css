@@ -2456,6 +2456,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 
+/* FAQ readability */
+.faq-item p{font-size:1.5rem;line-height:1.8}
+
 /* Mobile homepage typography system */
 @media(max-width:800px){
   .landing .hero-description,
