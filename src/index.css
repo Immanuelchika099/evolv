@@ -2259,3 +2259,74 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .github-mark{color:#fff;font-size:14px;line-height:1}
+
+
+.weekly-progress-card{
+  margin-bottom:34px;
+  padding:24px;
+  border:1px solid rgba(103,218,170,.11);
+  border-radius:24px;
+  background:linear-gradient(145deg,rgba(30,70,54,.28),rgba(8,18,14,.52));
+  box-shadow:0 18px 60px rgba(0,0,0,.18);
+}
+.weekly-progress-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:20px;
+}
+.weekly-progress-head h2{margin:5px 0 5px;font-size:clamp(24px,3vw,34px);letter-spacing:-.04em}
+.weekly-progress-head p{margin:0;color:rgba(226,239,232,.58);font-size:13px}
+.weekly-progress-total{
+  padding:8px 11px;
+  border-radius:999px;
+  border:1px solid rgba(103,218,170,.12);
+  color:rgba(198,237,219,.78);
+  font-size:10px;
+  letter-spacing:.08em;
+  white-space:nowrap;
+}
+.weekly-chart-summary{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:25px 0 8px;
+}
+.weekly-chart-summary>div{
+  padding:13px 14px;
+  border-radius:15px;
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.045);
+}
+.weekly-chart-summary strong{display:block;font-size:21px;letter-spacing:-.03em}
+.weekly-chart-summary span{display:block;margin-top:3px;color:rgba(226,239,232,.43);font-size:9px;text-transform:uppercase;letter-spacing:.09em}
+.weekly-chart-visual{position:relative;margin-top:18px}
+.weekly-chart-visual svg{display:block;width:100%;height:145px;overflow:visible}
+.weekly-chart-days{
+  display:grid;
+  grid-template-columns:repeat(7,1fr);
+  margin-top:2px;
+}
+.weekly-chart-days span{text-align:center}
+.weekly-chart-days b{display:block;color:rgba(226,239,232,.55);font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.weekly-chart-days small{display:block;margin-top:4px;color:rgba(226,239,232,.25);font-size:9px}
+.weekly-flow-note{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:18px;
+  color:rgba(226,239,232,.48);
+  font-size:11px;
+}
+.weekly-flow-dot{width:6px;height:6px;border-radius:50%;background:#67daaa;box-shadow:0 0 12px rgba(103,218,170,.6)}
+@media(max-width:600px){
+  .weekly-progress-card{padding:18px;border-radius:20px}
+  .weekly-progress-head{gap:10px}
+  .weekly-progress-head p{font-size:11px}
+  .weekly-progress-total{font-size:8px;padding:7px 9px}
+  .weekly-chart-summary{gap:7px}
+  .weekly-chart-summary>div{padding:11px 9px}
+  .weekly-chart-summary strong{font-size:17px}
+  .weekly-chart-summary span{font-size:7px}
+  .weekly-chart-visual svg{height:125px}
+}
