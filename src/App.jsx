@@ -1155,6 +1155,11 @@ function Dashboard({ data, onLogout }) {
               <span className="daily-insight-label">DAILY INSIGHT</span>
               <h2>The blueprint trap</h2>
               <p>{profile?.first_goal || data.goal || 'Progress begins when you stop waiting for the perfect plan and start building.'}</p>
+              <div className="daily-insight-points">
+                <div><span>01</span><p>Pick one thing that moves the goal forward.</p></div>
+                <div><span>02</span><p>Protect your focus before chasing more.</p></div>
+                <div><span>03</span><p>Leave tomorrow with a clear next step.</p></div>
+              </div>
             </section>
           </div>
         )}
