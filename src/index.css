@@ -3329,3 +3329,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .daily-insight::before{
   display:none;
 }
+
+
+/* Remove the original dashboard daily-insight accent as well */
+.dashboard .daily-insight::before{
+  content:none !important;
+  display:none !important;
+  background:none !important;
+}
