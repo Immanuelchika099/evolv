@@ -1497,17 +1497,27 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       recentMeals,
     }
 
-    const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ messages: nextMessages, profile, progress: progressContext }),
-    })
+    let response
+    let result = {}
 
-    const result = await response.json().catch(() => ({}))
+    try {
+      response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages: nextMessages, profile, progress: progressContext }),
+      })
+
+      result = await response.json().catch(() => ({}))
+    } catch (requestError) {
+      console.error('EVOLV AI request failed:', requestError)
+      setSending(false)
+      setError('EVOLV could not reach the AI service. Check your connection and try again.')
+      return
+    }
 
     if (!response.ok) {
       setSending(false)
