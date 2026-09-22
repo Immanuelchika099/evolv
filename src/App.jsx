@@ -1181,7 +1181,6 @@ function Dashboard({ data, onLogout }) {
                     >
                       <span className="task-check">{checked && <Check size={12} />}</span>
                       <span className="task-text">{goal.title}</span>
-                      <span className="task-progress">{goal.progress}%</span>
                     </button>
                   )
                 })}
