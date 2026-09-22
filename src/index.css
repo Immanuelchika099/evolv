@@ -1766,15 +1766,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   z-index:0;
   border-radius:inherit;
   pointer-events:none;
-  background:radial-gradient(circle at var(--glass-light-x) var(--glass-light-y),rgba(150,255,208,.13),transparent 31%);
-  opacity:.55;
-  transform:translate3d(var(--glass-shift-x),var(--glass-shift-y),0) scale(1.012);
-  transition:opacity .35s ease,transform .45s cubic-bezier(.22,1,.36,1);
-}
-
-.glass-task.glass-dragging::before{
-  opacity:1;
-  transition:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.045),transparent 38%);
+  opacity:.8;
 }
 
 .glass-task > *{
