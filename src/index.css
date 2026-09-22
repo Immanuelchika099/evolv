@@ -2459,8 +2459,15 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 /* Mobile homepage typography pass */
 @media(max-width:800px){
   .landing .hero-description{
-    font-size:16px;
-    line-height:1.75;
+    font-size:1.5rem;
+    line-height:1.55;
+  }
+
+  .landing .statement p,
+  .landing .preview-copy p,
+  .landing .area p{
+    font-size:1.5rem;
+    line-height:1.55;
   }
 
   .landing .button{
