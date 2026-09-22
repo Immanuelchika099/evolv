@@ -5790,3 +5790,36 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     flex-wrap:wrap;
   }
 }
+
+
+/* EVOLV — home task pill sizing / 2026-09-22 */
+.dashboard .frequency-list{
+  width:100% !important;
+  max-width:980px !important;
+  margin-left:auto !important;
+  margin-right:auto !important;
+  gap:14px 16px !important;
+}
+.dashboard .glass-task{
+  flex:1 1 240px !important;
+  width:auto !important;
+  min-width:220px !important;
+  max-width:360px !important;
+  min-height:48px !important;
+  padding:14px 24px !important;
+}
+.dashboard .glass-task .task-text{
+  font-size:13px !important;
+}
+@media(max-width:800px){
+  .dashboard .frequency-list{gap:10px !important;}
+  .dashboard .glass-task{
+    flex:1 1 calc(50% - 5px) !important;
+    min-width:0 !important;
+    max-width:none !important;
+    padding:13px 17px !important;
+  }
+}
+@media(max-width:430px){
+  .dashboard .glass-task{flex-basis:100% !important;}
+}
