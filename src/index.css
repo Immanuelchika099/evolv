@@ -2456,9 +2456,12 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 
-/* Mobile homepage typography pass */
+/* Mobile homepage typography system */
 @media(max-width:800px){
   .landing .hero-description,
+  .landing .story-intro p,
+  .landing .story-statement p,
+  .landing .manifesto p,
   .landing .statement p,
   .landing .preview-copy p,
   .landing .area p{
@@ -2466,8 +2469,22 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     line-height:1.65;
   }
 
-  .landing .section-heading p{
+  .landing .section-heading p,
+  .landing .button,
+  .landing .faq p,
+  .landing .faq-answer,
+  .landing .mock-header,
+  .landing .mock-card p,
+  .landing .landing-nav .nav-login{
     font-size:1.3rem;
+  }
+
+  .landing .button{
+    min-height:5rem;
+  }
+
+  .landing .area{
+    font-size:1.5rem;
   }
 
   .landing .footer-brand p{
@@ -2479,13 +2496,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.3rem;
   }
 
-  .landing .footer-links span{
-    font-size:1.1rem;
-  }
-
+  .landing .footer-links span,
   .landing .footer-bottom{
-    font-size:1.1rem;
-    letter-spacing:.1em;
+    font-size:1.3rem;
   }
 
   .landing .nav{
@@ -2577,11 +2590,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   }
 }
 
-/* Global mobile typography pass */
-@media(max-width:800px){
-  .landing{
-    font-size:15px;
-  }
+
 
   .landing .hero-description{
     font-size:16px;
