@@ -1238,8 +1238,20 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   margin:0 0 38px;
   display:flex;
   align-items:center;
-  justify-content:space-between;
-  gap:20px;
+  justify-content:flex-start;
+  gap:14px;
+}
+.onboarding .onboard-back-row::after{
+  content:"";
+  width:1px;
+  height:18px;
+  background:#ffffff12;
+  order:2;
+}
+.onboarding .onboard-back-row .back-context{
+  order:3;
+  margin-left:0;
+  padding-left:0;
 }
 .onboarding .back-button{
   position:relative;
