@@ -152,3 +152,16 @@
     color:#090909;
   }
 }
+
+
+/* EVOLV vector brand mark */
+.evolv-brand-svg{
+  width:24px;
+  height:24px;
+  display:block;
+  color:#f2f1eb;
+  flex:none;
+}
+@media(max-width:800px){
+  .evolv-brand-svg{width:22px;height:22px}
+}
