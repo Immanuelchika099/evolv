@@ -20,7 +20,7 @@ function Brand({ onHome }) {
   )
 }
 
-export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onContact, onHome, menuOpen, setMenuOpen }) {
+export default function Navbar({ onStart, onSignIn, onFeatures, onAreas, onPricing, onContact, onHome, menuOpen, setMenuOpen }) {
   const open = menuOpen
   const [visible, setVisible] = useState(true)
   const lastScroll = useRef(0)
@@ -79,7 +79,7 @@ export default function Navbar({ onStart, onFeatures, onAreas, onPricing, onCont
             <button type="button" onClick={() => run(onAreas)}>Growth areas</button>
             <button type="button" onClick={() => run(onPricing)}>Pricing</button>
             <button type="button" onClick={() => run(onContact)}>Contact</button>
-            <button type="button" className="evolv-mobile-start" onClick={() => run(onStart)}>Get started <ArrowRight size={15} /></button>
+            <button type="button" className="evolv-mobile-sign-in" onClick={() => run(onSignIn)}>Sign in</button>\n            <button type="button" className="evolv-mobile-start" onClick={() => run(onStart)}>Get started <ArrowRight size={15} /></button>
           </div>
         </div>,
         document.body
