@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" fill="none">
+  <g color="currentColor">
+    <circle cx="32" cy="32" r="29" stroke="currentColor" stroke-width="2"/>
+    <path d="M39.5 18.5C35.8 15.9 30.9 15 26.2 16.1C19.8 17.6 15 23.3 15 30.3C15 38.7 21.8 45.5 30.2 45.5C37.2 45.5 43.1 40.8 44.6 34.3" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M35 27.5L46 27.5L40.5 22" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="31.5" cy="32" r="3" fill="currentColor"/>
+    <text x="76" y="40" fill="currentColor" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="600" letter-spacing="7">EVOLV</text>
+  </g>
+</svg>
