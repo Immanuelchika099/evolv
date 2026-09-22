@@ -924,17 +924,21 @@ function Dashboard({ data, onLogout }) {
         {active === 'goals' && <section className="panel-page"><span className="section-label">GOALS</span><h2>Your goals</h2><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What do you want to work toward?" maxLength={240} required/><textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Optional: add a little context" rows="3"/><button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Create goal'}</button></form>
         <div className="goal-list">{loadingGoals && <p>Loading your goals…</p>}{!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>No goals yet. Create your first one above.</p></div>}{goals.map(goal => <article className="goal-item" key={goal.id}><div className="goal-item-top"><div><span className="section-label">{goal.status.toUpperCase()}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div><strong>{goal.progress}%</strong></div><div className="mini-progress"><i style={{ width: goal.progress + '%' }}/></div><div className="goal-actions"><button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in today</button><button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen' : 'Complete'}</button><button onClick={() => deleteGoal(goal.id)}>Delete</button></div></article>)}</div></section>}
         {active === 'profile' && <section className="panel-page"><span className="section-label">PROFILE</span><h2>Your profile</h2><div className="profile-box"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)}/></label><button className="button button-primary" disabled={profileSaving} type="submit">{profileSaving ? 'Saving…' : 'Save profile'}</button>{profileMessage && <p className="auth-message">{profileMessage}</p>}</form><p>Focus</p><strong>{profile?.focus || data.focus || '—'}</strong><p>Growth areas</p><strong>{areaNames.join(' · ') || '—'}</strong><p>First goal</p><strong>{profile?.first_goal || data.goal || '—'}</strong></div></section>}
+        {active === 'ai' && <EvolvAI profile={profile} goals={goals} checkins={checkins} momentum={momentum} />}
       </main>
     </div>
   )
 }
-function EvolvAI({ profile }) {
+function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
+  const firstName = profile?.first_name || 'there'
   const [messages, setMessages] = useState([
-    { role: 'assistant', content: `Hey ${profile?.first_name || 'there'} — I’m EVOLV AI. Tell me what you’re working toward, what’s getting in the way, or what you want to figure out next.` },
+    { role: 'assistant', content: `Hey ${firstName} — I’m EVOLV AI. I know what you’re working toward, so you don’t have to start from scratch. What’s on your mind?` },
   ])
   const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
+  const [typing, setTyping] = useState(false)
+  const bottomRef = useRef(null)
 
   useEffect(() => {
     let mounted = true
@@ -946,19 +950,26 @@ function EvolvAI({ profile }) {
     return () => { mounted = false }
   }, [])
 
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+  }, [messages, sending, typing])
+
   async function sendMessage(event) {
     event.preventDefault()
     const text = input.trim()
     if (!text || sending) return
+
     const nextMessages = [...messages, { role: 'user', content: text }]
     setMessages(nextMessages)
     setInput('')
     setSending(true)
+    setTyping(false)
     setError('')
 
     const { data: authData } = await supabase.auth.getSession()
     const token = authData?.session?.access_token
     const userId = authData?.session?.user?.id
+
     if (!token || !userId) {
       setSending(false)
       setError('Your session has expired. Please sign in again.')
@@ -967,6 +978,22 @@ function EvolvAI({ profile }) {
 
     await supabase.from('ai_messages').insert({ user_id: userId, role: 'user', content: text })
 
+    const progressContext = {
+      momentum,
+      totalGoals: goals.length,
+      activeGoals: goals.filter(goal => goal.status === 'active').map(goal => ({
+        title: goal.title,
+        progress: Number(goal.progress || 0),
+        dueDate: goal.due_date || null,
+      })),
+      completedGoals: goals.filter(goal => goal.status === 'completed').map(goal => ({
+        title: goal.title,
+        progress: Number(goal.progress || 0),
+      })),
+      totalCheckins: checkins.length,
+      recentCheckins: checkins.slice(0, 7).map(item => item.checkin_date),
+    }
+
     const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
       method: 'POST',
       headers: {
@@ -974,31 +1001,70 @@ function EvolvAI({ profile }) {
         apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ messages: nextMessages, profile }),
+      body: JSON.stringify({ messages: nextMessages, profile, progress: progressContext }),
     })
 
     const result = await response.json().catch(() => ({}))
-    setSending(false)
+
     if (!response.ok) {
+      setSending(false)
       setError(result.error || 'The AI assistant could not respond right now.')
       return
     }
 
-    const reply = result.reply || 'I’m here. What would you like to work through next?'
-    setMessages(current => [...current, { role: 'assistant', content: reply }])
+    const reply = result.reply || `I’m here, ${firstName}. What would you like to work through next?`
+    setTyping(true)
+    setMessages(current => [...current, { role: 'assistant', content: '' }])
+
+    for (let index = 0; index < reply.length; index += 2) {
+      await new Promise(resolve => window.setTimeout(resolve, index < 10 ? 28 : 14))
+      const visible = reply.slice(0, Math.min(index + 2, reply.length))
+      setMessages(current => {
+        const updated = [...current]
+        const last = updated.length - 1
+        if (updated[last]?.role === 'assistant') updated[last] = { ...updated[last], content: visible }
+        return updated
+      })
+    }
+
+    setTyping(false)
+    setSending(false)
     await supabase.from('ai_messages').insert({ user_id: userId, role: 'assistant', content: reply })
   }
 
   return (
     <section className="panel-page ai-page">
-      <div className="ai-heading"><div><span className="section-label">EVOLV AI</span><h2>Your growth companion.</h2><p>Ask questions, work through a goal, or turn an idea into your next practical step.</p></div><span className="ai-status"><i /> ONLINE</span></div>
+      <div className="ai-heading">
+        <div>
+          <span className="section-label">EVOLV AI</span>
+          <h2>Talk it through.</h2>
+          <p>Hey {firstName}. I can use your goals, momentum and check-ins to make the conversation personal — not generic.</p>
+        </div>
+        <span className="ai-status"><i /> PERSONALIZED</span>
+      </div>
+      <div className="ai-context-strip">
+        <span>{goals.length} GOAL{goals.length === 1 ? '' : 'S'}</span>
+        <span>{momentum}% MOMENTUM</span>
+        <span>{checkins.length} CHECK-IN{checkins.length === 1 ? '' : 'S'}</span>
+      </div>
       <div className="ai-chat">
         <div className="ai-messages">
-          {messages.map((message, index) => <div className={`ai-message ${message.role}`} key={index}><span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV AI' : 'YOU'}</span><p>{message.content}</p></div>)}
-          {sending && <div className="ai-message assistant"><span className="ai-message-role">EVOLV AI</span><p className="ai-typing">Thinking…</p></div>}
+          {messages.map((message, index) => (
+            <div className={`ai-message ${message.role}`} key={index}>
+              <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV AI' : 'YOU'}</span>
+              <p>{message.content}{message.role === 'assistant' && typing && index === messages.length - 1 ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</p>
+            </div>
+          ))}
+          {sending && !typing && (
+            <div className="ai-message assistant">
+              <span className="ai-message-role">EVOLV AI</span>
+              <div className="ai-thinking" aria-label="EVOLV AI is thinking"><i /><i /><i /></div>
+            </div>
+          )}
+          <div ref={bottomRef} />
         </div>
         <form className="ai-input" onSubmit={sendMessage}>
-          <input value={input} onChange={e => setInput(e.target.value)} placeholder="What are you thinking about?" maxLength={2000} />
+          <input value={input} onChange={e => setInput(e.target.value)} placeholder={`Talk to me, ${firstName}…`} maxLength={2000} />
           <button type="submit" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
         </form>
       </div>
