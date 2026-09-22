@@ -215,27 +215,32 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     setError('')
     setMessage('')
 
-    const result = mode === 'signup'
-      ? await supabase.auth.signUp({
-        email: email.trim(),
-        password,
-        options: { emailRedirectTo: window.location.origin },
-      })
-      : await supabase.auth.signInWithPassword({ email: email.trim(), password })
+    try {
+      const result = mode === 'signup'
+        ? await supabase.auth.signUp({
+          email: email.trim(),
+          password,
+          options: { emailRedirectTo: 'https://evolv-track.vercel.app' },
+        })
+        : await supabase.auth.signInWithPassword({ email: email.trim(), password })
 
-    setSending(false)
+      if (result.error) {
+        setError(result.error.message)
+        return
+      }
 
-    if (result.error) {
-      setError(result.error.message)
-      return
+      if (mode === 'signup' && !result.data.session) {
+        setMessage('Check your email to confirm your account. Once confirmed, come back and sign in.')
+        return
+      }
+
+      if (result.data.user) await onSuccess(result.data.user)
+    } catch (submitError) {
+      console.error('EVOLV authentication failed:', submitError)
+      setError(submitError?.message || 'We could not connect to EVOLV right now. Please check your connection and try again.')
+    } finally {
+      setSending(false)
     }
-
-    if (mode === 'signup' && !result.data.session) {
-      setMessage('Check your email to confirm your account. Once confirmed, come back and sign in.')
-      return
-    }
-
-    if (result.data.user) await onSuccess(result.data.user)
   }
 
   return (
