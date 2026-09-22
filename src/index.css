@@ -1378,3 +1378,22 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .onboarding .onboard-back-row .back-button{top:auto !important}
   .onboarding .onboard-back-row .back-context{font-size:7px;letter-spacing:.11em}
 }
+
+
+/* EVOLV SVG brand */
+.brand{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  color:#f2f1eb;
+  text-decoration:none;
+}
+.brand img{
+  width:24px;
+  height:24px;
+  display:block;
+  color:#f2f1eb;
+}
+@media(max-width:800px){
+  .brand img{width:22px;height:22px}
+}
