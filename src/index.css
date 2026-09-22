@@ -3047,3 +3047,37 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.3rem;
   }
 }
+
+
+/* Dashboard welcome hierarchy — name leads */
+.dashboard .dashboard-welcome{
+  display:block;
+  margin:22px 0 68px;
+}
+.dashboard .dashboard-eyebrow{
+  margin:0 0 10px;
+  color:rgba(235,232,224,.52);
+  font:500 clamp(15px,1.5vw,18px) 'Manrope';
+  letter-spacing:-.025em;
+  text-transform:none;
+}
+.dashboard .dashboard-welcome-copy h1{
+  margin:0;
+  color:#f5f2eb;
+  font:600 clamp(64px,8vw,96px) 'Manrope';
+  letter-spacing:-.075em;
+  line-height:.88;
+}
+@media(max-width:800px){
+  .dashboard .dashboard-welcome{
+    margin:10px 0 54px;
+  }
+  .dashboard .dashboard-eyebrow{
+    margin-bottom:8px;
+    font-size:16px;
+  }
+  .dashboard .dashboard-welcome-copy h1{
+    font-size:clamp(62px,18vw,82px);
+    line-height:.88;
+  }
+}
