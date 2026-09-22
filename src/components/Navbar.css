@@ -63,7 +63,7 @@
 .evolv-nav-links button:focus-visible{color:#f2f1eb;background:transparent!important;box-shadow:none!important;outline:none}
 .evolv-nav-actions{display:flex;align-items:center;gap:8px}
 @media(min-width:801px){
-  .evolv-menu-toggle{display:none}
+  .evolv-menu-toggle{display:none !important}
 }
 .evolv-start{
   display:flex;
