@@ -159,14 +159,31 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  async function finishAuth(user) {
-    await supabase.from('profiles').upsert({
-      id: user.id,
-      first_name: data.name.trim(),
-      growth_areas: data.areas,
-      focus: data.focus,
-      first_goal: data.goal.trim(),
-    })
+  async function finishAuth(user, authMode = 'signup') {
+    if (authMode === 'signup') {
+      await supabase.from('profiles').upsert({
+        id: user.id,
+        first_name: data.name.trim(),
+        growth_areas: data.areas,
+        focus: data.focus,
+        first_goal: data.goal.trim(),
+      })
+    } else {
+      const { data: profile } = await supabase
+        .from('profiles')
+        .select('first_name,growth_areas,focus,first_goal')
+        .eq('id', user.id)
+        .maybeSingle()
+
+      if (profile) {
+        setData({
+          name: profile.first_name || '',
+          areas: profile.growth_areas || [],
+          focus: profile.focus || '',
+          goal: profile.first_goal || '',
+        })
+      }
+    }
     localStorage.setItem('evolv-view', 'dashboard')
     setView('dashboard')
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -186,7 +203,7 @@ function App() {
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
-        <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <Navbar onStart={enterApp} onSignIn={() => { setAuthMode('login'); setView('auth'); localStorage.setItem('evolv-view', 'auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
       {view === 'landing' && <Landing onStart={enterApp} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
@@ -261,7 +278,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
 
     const { error: otpError } = await supabase.auth.signInWithOtp({
       email: cleanEmail,
-      options: { shouldCreateUser: true },
+      options: { shouldCreateUser: mode === 'signup' },
     })
 
     setSending(false)
@@ -303,7 +320,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
 
     if (authData?.user) {
       try {
-        await onSuccess(authData.user)
+        await onSuccess(authData.user, mode)
       } catch (profileError) {
         setError(profileError?.message || 'Your account was created, but we could not finish setting up your EVOLV profile.')
       }
@@ -367,7 +384,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
 
       if (result.data.user) {
         try {
-          await onSuccess(result.data.user)
+          await onSuccess(result.data.user, mode)
         } catch (profileError) {
           console.error('EVOLV profile setup failed:', profileError)
           setError(profileError?.message || 'Your account was created, but we could not finish setting up your EVOLV profile.')
