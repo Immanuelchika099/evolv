@@ -644,15 +644,17 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
       </div>
 
       <section className="onboard-content">
-        {step > 0 && (
-          <div className="onboard-back-row">
-            <button className="back-button" onClick={back} aria-label="Go to previous step">
-              <ChevronLeft size={14} />
-              <span>Back</span>
-            </button>
-          </div>
-        )}
-        <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
+        <div className="onboard-stage">
+          {step > 0 && (
+            <div className="onboard-back-row">
+              <button className="back-button" onClick={back} aria-label={`Go back to step ${step}`}>
+                <span className="back-icon"><ChevronLeft size={14} /></span>
+                <span className="back-label">Back</span>
+              </button>
+              <span className="back-context">{current.label}</span>
+            </div>
+          )}
+          <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
           <span className="section-label">{current.label}</span>
           <h1>{current.title}</h1>
           <p>{current.copy}</p>
@@ -729,6 +731,7 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
               <p className="ready-small">Next, we'll create your account so your journey can stay connected to you.</p>
             </div>
           )}
+          </div>
         </div>
       </section>
 
