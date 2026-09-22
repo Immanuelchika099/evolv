@@ -3714,3 +3714,88 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     margin-top:22px !important;
   }
 }
+
+
+/* EVOLV — cinematic weekly progress */
+.dashboard .weekly-progress-card{
+  position:relative;
+  margin-bottom:88px !important;
+  padding:0 0 42px !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  overflow:visible !important;
+}
+.dashboard .weekly-progress-card::after{
+  content:"";
+  position:absolute;
+  width:420px;
+  height:220px;
+  right:-100px;
+  top:-70px;
+  pointer-events:none;
+  background:radial-gradient(ellipse,rgba(183,217,76,.045),transparent 70%);
+  filter:blur(20px);
+}
+.dashboard .weekly-progress-head{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:32px;
+  margin-bottom:38px !important;
+}
+.dashboard .weekly-progress-head .section-label{
+  display:block;
+  margin-bottom:13px;
+  color:rgba(243,241,233,.4);
+  font:500 10px 'DM Mono';
+  letter-spacing:.14em;
+}
+.dashboard .weekly-progress-head h2{
+  margin:0 !important;
+  color:#f3f1e9 !important;
+  font:500 clamp(38px,5vw,60px) 'Manrope' !important;
+  line-height:.98 !important;
+  letter-spacing:-.06em !important;
+}
+.dashboard .weekly-progress-head p{
+  margin:12px 0 0 !important;
+  color:rgba(232,237,228,.48) !important;
+  font-size:14px !important;
+  line-height:1.7 !important;
+}
+.dashboard .weekly-progress-total{
+  flex:0 0 auto;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:rgba(243,241,233,.48) !important;
+  font:500 12px 'Manrope' !important;
+}
+.dashboard .weekly-progress-card .weekly-chart,
+.dashboard .weekly-progress-card .progress-chart,
+.dashboard .weekly-progress-card canvas{
+  position:relative;
+  z-index:1;
+}
+@media(max-width:800px){
+  .dashboard .weekly-progress-card{
+    margin-bottom:66px !important;
+    padding-bottom:34px !important;
+  }
+  .dashboard .weekly-progress-head{
+    display:block;
+    margin-bottom:28px !important;
+  }
+  .dashboard .weekly-progress-head h2{
+    font-size:40px !important;
+  }
+  .dashboard .weekly-progress-total{
+    display:block;
+    margin-top:16px;
+  }
+}
