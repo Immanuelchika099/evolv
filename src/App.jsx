@@ -1036,7 +1036,7 @@ function Dashboard({ data, onLogout }) {
     const { data: authData } = await supabase.auth.getUser()
     const user = authData?.user
     if (!user) { setGoalError('Your session has expired. Please sign in again.'); return }
-    if (checkins.some(item => item.goal_id === goal.id && item.checkin_date === today)) { setGoalError('You already checked in for this goal today.'); return }
+    if (checkins.some(item => item.goal_id === goal.id && item.checkin_date === today)) return
     const { data: inserted, error } = await supabase.from('goal_checkins').insert({ goal_id: goal.id, user_id: user.id, checkin_date: today }).select('id,goal_id,checkin_date,note,created_at').single()
     if (error) { setGoalError(error.message || 'Could not record your check-in.'); return }
     setCheckins(current => [inserted, ...current])
@@ -1134,7 +1134,6 @@ function Dashboard({ data, onLogout }) {
                       className={`glass-task ${checked ? 'checked' : ''}`}
                       key={goal.id}
                       onClick={() => checkIn(goal)}
-                      disabled={checked}
                     >
                       <span className="task-check">{checked && <Check size={12} />}</span>
                       <span className="task-text">{goal.title}</span>
