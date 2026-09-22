@@ -1063,6 +1063,7 @@ function Dashboard({ data, onLogout }) {
               <p>Focus</p><strong>{profile?.focus || data.focus || '—'}</strong>
               <p>Growth areas</p><strong>{areaNames.join(' · ') || '—'}</strong>
               <p>First goal</p><strong>{profile?.first_goal || data.goal || '—'}</strong>
+              <button className="profile-signout" type="button" onClick={onLogout}><LogOut size={15} /> Sign out</button>
             </div>
           </section>
         )}
