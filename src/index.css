@@ -1397,3 +1397,33 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 @media(max-width:800px){
   .brand img{width:22px;height:22px}
 }
+
+
+/* Supabase-powered dashboard controls */
+.goal-create-form{display:grid;gap:12px;margin:28px 0 34px;padding:22px;border:1px solid #ffffff10;background:#ffffff03}
+.goal-create-form input,.goal-create-form textarea,.profile-box input{width:100%;box-sizing:border-box;background:#ffffff04;border:1px solid #ffffff12;color:#eef2eb;border-radius:0;padding:14px 15px;font:12px 'DM Mono';outline:none}
+.goal-create-form input:focus,.goal-create-form textarea:focus,.profile-box input:focus{border-color:#ffffff35;background:#ffffff06}
+.goal-create-form textarea{resize:vertical;min-height:90px}
+.goal-create-form .button{justify-self:start}
+.goal-list{display:grid;gap:14px}
+.goal-item{padding:22px;border:1px solid #ffffff10;background:#ffffff03}
+.goal-item-top{display:flex;justify-content:space-between;gap:24px}
+.goal-item-top h3{margin:8px 0 7px;font-size:22px;letter-spacing:-.03em}
+.goal-item-top p{margin:0;color:#737b74;font-size:13px;line-height:1.7;max-width:620px}
+.goal-item-top>strong{font:18px 'DM Mono';color:#dfe7d8}
+.goal-item .mini-progress{margin:18px 0 15px}
+.goal-actions{display:flex;flex-wrap:wrap;gap:8px}
+.goal-actions button{padding:9px 12px;border:1px solid #ffffff12;background:#ffffff04;color:#8f9890;font:9px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
+.goal-actions button:hover{color:#eef2eb;border-color:#ffffff2b}
+.goal-actions button:disabled{opacity:.35;cursor:not-allowed}
+.profile-box form{display:grid;gap:12px;margin-bottom:28px}
+.profile-box label{display:grid;gap:8px}
+.profile-box label span{font:9px 'DM Mono';letter-spacing:.12em;text-transform:uppercase;color:#59615b}
+.profile-box form .button{justify-self:start}
+@media(max-width:800px){
+  .goal-create-form{padding:16px}
+  .goal-item{padding:17px}
+  .goal-item-top h3{font-size:18px}
+  .goal-actions button{flex:1}
+}
+
