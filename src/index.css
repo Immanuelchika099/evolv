@@ -3270,3 +3270,56 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     flex-wrap:wrap;
   }
 }
+
+
+/* Chats — clearer, more comfortable type */
+.ai-page .ai-heading h2{
+  font-size:clamp(40px,5vw,62px);
+  line-height:1.02;
+}
+.ai-page .ai-heading p{
+  font-size:16px;
+  line-height:1.75;
+}
+.ai-page .ai-status{
+  font-size:10px;
+}
+.ai-page .ai-context-strip span{
+  font:500 11px 'Manrope';
+  letter-spacing:0;
+}
+.ai-page .ai-message-role{
+  font:500 10px 'Manrope';
+  letter-spacing:.02em;
+}
+.ai-page .ai-message p{
+  padding:15px 17px;
+  font-size:16px;
+  line-height:1.7;
+}
+.ai-page .ai-input input{
+  font-size:16px;
+}
+@media(max-width:800px){
+  .ai-page .ai-heading h2{
+    font-size:40px;
+  }
+  .ai-page .ai-heading p{
+    font-size:16px;
+    line-height:1.7;
+  }
+  .ai-page .ai-status{
+    font-size:10px;
+  }
+  .ai-page .ai-context-strip span{
+    font-size:11px;
+  }
+  .ai-page .ai-message-role{
+    font-size:10px;
+  }
+  .ai-page .ai-message p{
+    padding:14px 16px;
+    font-size:16px;
+    line-height:1.7;
+  }
+}
