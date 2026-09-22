@@ -1156,6 +1156,17 @@ function Dashboard({ data, onLogout }) {
                 <span className="dashboard-eyebrow">Welcome back,</span>
                 <h1>{name}</h1>
               </div>
+
+              <div className="dashboard-focus-row">
+                <span className="dashboard-focus-label">CURRENT FOCUS</span>
+                <span className="dashboard-focus-value">{profile?.focus || data.focus || 'Your next chapter'}</span>
+              </div>
+
+              {areaNames.length > 0 && (
+                <div className="area-pills" aria-label="Your growth areas">
+                  {areaNames.map(area => <span key={area}>{area}</span>)}
+                </div>
+              )}
             </section>
 
             <section className="frequency-section">
