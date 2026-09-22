@@ -6012,3 +6012,29 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .app-bottom-nav button.bottom-active > small{
   display:block;
 }
+
+
+/* EVOLV — remove extra weekly progress surface */
+.dashboard .weekly-progress-card,
+.dashboard .weekly-progress-card::before,
+.dashboard .weekly-progress-chart,
+.dashboard .weekly-chart-visual,
+.dashboard .weekly-chart-summary,
+.dashboard .weekly-flow-note{
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .weekly-progress-card{
+  border:0 !important;
+  border-radius:0 !important;
+}
+.dashboard .weekly-progress-card::before{
+  display:none !important;
+}
+.dashboard .weekly-progress-chart{
+  border:0 !important;
+  border-radius:0 !important;
+}
+.dashboard .weekly-chart-summary > div{
+  background:transparent !important;
+}
