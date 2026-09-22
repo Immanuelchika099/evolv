@@ -3799,3 +3799,173 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     margin-top:16px;
   }
 }
+
+
+/* EVOLV — private, cinematic chat space */
+.dashboard .ai-page{
+  position:relative;
+  padding-top:34px;
+}
+.dashboard .ai-page::before{
+  content:"";
+  position:absolute;
+  width:620px;
+  height:420px;
+  left:8%;
+  top:-80px;
+  pointer-events:none;
+  background:radial-gradient(ellipse,rgba(183,217,76,.045),transparent 70%);
+  filter:blur(24px);
+}
+.dashboard .ai-page .ai-heading{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:32px;
+  margin-bottom:34px;
+}
+.dashboard .ai-page .ai-heading .section-label{
+  color:rgba(243,241,233,.4);
+  font-size:10px;
+  letter-spacing:.12em;
+}
+.dashboard .ai-page .ai-heading h2{
+  margin-top:12px !important;
+  color:#f3f1e9 !important;
+  font:500 clamp(46px,6vw,76px) 'Manrope' !important;
+  line-height:.94 !important;
+  letter-spacing:-.065em !important;
+}
+.dashboard .ai-page .ai-heading p{
+  max-width:620px;
+  margin-top:15px !important;
+  color:rgba(232,237,228,.5) !important;
+  font-size:15px !important;
+  line-height:1.75 !important;
+}
+.dashboard .ai-page .ai-status{
+  flex:0 0 auto;
+  color:rgba(243,241,233,.44) !important;
+  font-size:10px !important;
+  letter-spacing:.08em !important;
+}
+.dashboard .ai-page .ai-status i{
+  background:#b7d94c !important;
+  box-shadow:0 0 14px rgba(183,217,76,.2) !important;
+}
+.dashboard .ai-page .ai-context-strip{
+  position:relative;
+  z-index:1;
+  display:flex;
+  gap:26px;
+  margin-bottom:18px;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+}
+.dashboard .ai-page .ai-context-strip span{
+  color:rgba(243,241,233,.4) !important;
+  font-size:11px !important;
+}
+.dashboard .ai-page .ai-chat{
+  position:relative;
+  z-index:1;
+  min-height:540px;
+  border:1px solid rgba(255,255,255,.055) !important;
+  border-radius:28px !important;
+  background:linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.012)) !important;
+  box-shadow:0 30px 90px rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.025) !important;
+  backdrop-filter:blur(22px);
+  overflow:hidden;
+}
+.dashboard .ai-page .ai-messages{
+  min-height:440px;
+  padding:34px !important;
+}
+.dashboard .ai-page .ai-message{
+  max-width:720px;
+  margin-bottom:28px !important;
+}
+.dashboard .ai-page .ai-message-role{
+  margin-bottom:8px !important;
+  color:rgba(243,241,233,.34) !important;
+  font-size:9px !important;
+  letter-spacing:.1em !important;
+}
+.dashboard .ai-page .ai-message p{
+  max-width:680px;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:rgba(243,241,233,.82) !important;
+  font-size:17px !important;
+  line-height:1.75 !important;
+}
+.dashboard .ai-page .ai-message.user{
+  margin-left:auto;
+  text-align:right;
+}
+.dashboard .ai-page .ai-message.user p{
+  color:#f3f1e9 !important;
+}
+.dashboard .ai-page .ai-input{
+  margin:0 !important;
+  padding:18px 20px !important;
+  border-top:1px solid rgba(255,255,255,.055) !important;
+  background:rgba(2,4,2,.38) !important;
+}
+.dashboard .ai-page .ai-input input{
+  min-height:48px;
+  color:#f3f1e9 !important;
+  font-size:15px !important;
+}
+.dashboard .ai-page .ai-input button{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  background:#b7d94c !important;
+  color:#10140a !important;
+  box-shadow:0 8px 25px rgba(183,217,76,.12);
+}
+@media(max-width:800px){
+  .dashboard .ai-page{
+    padding-top:18px;
+  }
+  .dashboard .ai-page .ai-heading{
+    display:block;
+    margin-bottom:26px;
+  }
+  .dashboard .ai-page .ai-heading h2{
+    font-size:43px !important;
+  }
+  .dashboard .ai-page .ai-heading p{
+    font-size:15px !important;
+  }
+  .dashboard .ai-page .ai-status{
+    display:inline-block;
+    margin-top:18px;
+  }
+  .dashboard .ai-page .ai-context-strip{
+    gap:16px;
+    flex-wrap:wrap;
+    margin-bottom:16px;
+  }
+  .dashboard .ai-page .ai-chat{
+    min-height:500px;
+    border-radius:22px !important;
+  }
+  .dashboard .ai-page .ai-messages{
+    min-height:405px;
+    padding:24px 18px !important;
+  }
+  .dashboard .ai-page .ai-message p{
+    font-size:16px !important;
+    line-height:1.7 !important;
+  }
+  .dashboard .ai-page .ai-input{
+    padding:13px 14px !important;
+  }
+}
