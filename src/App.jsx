@@ -561,7 +561,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
           <div className="hero-actions"><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button><a className="button button-ghost" href="#story">Explore EVOLV ↓</a></div>
         </div>
-        <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR MOMENTUM</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
+        <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
       <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
       <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
@@ -571,7 +571,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       </section>
       <section className="experience story-reveal">
         <div className="preview-copy"><span className="section-label">04 — YOUR SPACE</span><h2>A dashboard built around <em>your becoming.</em></h2><p>Once you enter EVOLV, everything becomes personal — your goals, your growth areas, your momentum and the story you're building day by day.</p><button className="button button-primary" onClick={onStart}>Create your space <ArrowRight size={16} /></button></div>
-        <div className="mock-dashboard"><div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR MOMENTUM</span></div><div className="mock-main"><div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div><div className="mock-tasks"><div><small>CURRENT FOCUS</small><b>Build with intention.</b></div><div className="task"><i /> Learn something new <span>IN PROGRESS</span></div><div className="task"><i /> Show up today <span>ACTIVE</span></div><div className="task"><i /> Review the week <span>FRI</span></div></div></div></div>
+        <div className="mock-dashboard"><div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR PROGRESS</span></div><div className="mock-main"><div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div><div className="mock-tasks"><div><small>CURRENT FOCUS</small><b>Build with intention.</b></div><div className="task"><i /> Learn something new <span>IN PROGRESS</span></div><div className="task"><i /> Show up today <span>ACTIVE</span></div><div className="task"><i /> Review the week <span>FRI</span></div></div></div></div>
       </section>
       <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id} onClick={() => onArticle('area', a.id)} role="button" tabIndex="0"><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
@@ -1160,7 +1160,7 @@ function Dashboard({ data, onLogout }) {
 
             <section className="frequency-section">
               <div className="frequency-heading">
-                <span>TODAY'S BUILDING TASKS:</span>
+                <span>TODAY</span>
                 <button onClick={() => setActive('goals')} aria-label="Open goals"><Plus size={14} /></button>
               </div>
 
@@ -1196,13 +1196,13 @@ function Dashboard({ data, onLogout }) {
             </section>
 
             <section className="daily-insight">
-              <span className="daily-insight-label">DAILY INSIGHT</span>
-              <h2>The blueprint trap</h2>
+              <span className="daily-insight-label">A LITTLE FOR TODAY</span>
+              <h2>Keep going</h2>
               <p>{profile?.first_goal || data.goal || 'Progress begins when you stop waiting for the perfect plan and start building.'}</p>
               <div className="daily-insight-points">
-                <div><span>01</span><p>Pick one thing that moves the goal forward.</p></div>
-                <div><span>02</span><p>Protect your focus before chasing more.</p></div>
-                <div><span>03</span><p>Leave tomorrow with a clear next step.</p></div>
+                <div><span>01</span><p>Choose one thing that matters today.</p></div>
+                <div><span>02</span><p>Give yourself room to focus.</p></div>
+                <div><span>03</span><p>Let tomorrow be a little easier.</p></div>
               </div>
             </section>
           </div>
@@ -1214,8 +1214,8 @@ function Dashboard({ data, onLogout }) {
               <div className="weekly-progress-head">
                 <div>
                   <span className="section-label">THIS WEEK</span>
-                  <h2>A look at your week.</h2>
-                  <p>See the small steps you've been making.</p>
+                  <h2>Your week so far.</h2>
+                  <p>A simple look at the progress you've made.</p>
                 </div>
                 <span className="weekly-progress-total">{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
               </div>
@@ -1225,13 +1225,13 @@ function Dashboard({ data, onLogout }) {
             <span className="section-label">YOUR GOALS</span>
             <h2>Your goals</h2>
             <form className="goal-create-form" onSubmit={createGoal}>
-              <input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What do you want to work toward?" maxLength={240} required />
-              <textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Optional: add a little context" rows="3" />
-              <button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Create goal'}</button>
+              <input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" maxLength={240} required />
+              <textarea value={goalDescription} onChange={e => setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3" />
+              <button className="button button-primary" disabled={savingGoal} type="submit"><Plus size={15}/>{savingGoal ? 'Saving…' : 'Add goal'}</button>
             </form>
             <div className="goal-list">
               {loadingGoals && <p>Loading your goals…</p>}
-              {!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>No goals yet. Create your first one above.</p></div>}
+              {!loadingGoals && goals.length === 0 && <div className="goal-empty"><Target size={24}/><p>Nothing here yet. Add your first goal above.</p></div>}
               {goals.map(goal => (
                 <article className="goal-item" key={goal.id}>
                   <div className="goal-item-top">
@@ -1255,14 +1255,14 @@ function Dashboard({ data, onLogout }) {
             <div className="settings-heading">
               <span className="section-label">SETTINGS</span>
               <h2>Your space.</h2>
-              <p>Manage your account and personal details.</p>
+              <p>Keep your personal details up to date.</p>
             </div>
 
             <div className="settings-section">
               <div className="settings-section-head">
                 <div>
                   <span className="section-label">ACCOUNT</span>
-                  <h3>Personal details</h3>
+                  <h3>Your details</h3>
                 </div>
                 <Settings size={18} />
               </div>
@@ -1280,7 +1280,7 @@ function Dashboard({ data, onLogout }) {
               <div className="settings-section-head">
                 <div>
                   <span className="section-label">YOUR JOURNEY</span>
-                  <h3>Growth profile</h3>
+                  <h3>About you</h3>
                 </div>
                 <Target size={18} />
               </div>
@@ -1295,21 +1295,21 @@ function Dashboard({ data, onLogout }) {
             <div className="settings-section settings-danger">
               <div className="settings-section-head">
                 <div>
-                  <span className="section-label">ACCOUNT ACTIONS</span>
-                  <h3>Leave EVOLV</h3>
+                  <span className="section-label">ACCOUNT</span>
+                  <h3>Your account</h3>
                 </div>
               </div>
               <div className="settings-action-row">
                 <div>
                   <strong>Sign out</strong>
-                  <span>End your current session on this device.</span>
+                  <span>Sign out of EVOLV on this device.</span>
                 </div>
                 <button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15} /> Sign out</button>
               </div>
               <div className="settings-action-row danger">
                 <div>
                   <strong>Delete account</strong>
-                  <span>Permanently remove your EVOLV account and journey data.</span>
+                  <span>Permanently remove your account and everything saved with it.</span>
                 </div>
                 <button className="settings-delete-button" type="button" onClick={() => { setDeleteError(''); setDeleteOpen(true) }}>Delete</button>
               </div>
@@ -1320,8 +1320,8 @@ function Dashboard({ data, onLogout }) {
               <div className="settings-delete-overlay" role="dialog" aria-modal="true" aria-labelledby="delete-account-title">
                 <div className="settings-delete-modal">
                   <span className="section-label">DELETE ACCOUNT</span>
-                  <h3 id="delete-account-title">Leave EVOLV for good?</h3>
-                  <p>This will permanently delete your account, goals, check-ins and saved journey data.</p>
+                  <h3 id="delete-account-title">Your account for good?</h3>
+                  <p>This will permanently delete your account, goals, check-ins and saved information.</p>
                   <div className="settings-delete-actions">
                     <button type="button" onClick={() => setDeleteOpen(false)} disabled={deletingAccount}>Cancel</button>
                     <button type="button" className="settings-delete-confirm" onClick={deleteAccount} disabled={deletingAccount}>
@@ -1386,9 +1386,9 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
   return (
     <div className="weekly-progress-chart">
       <div className="weekly-chart-summary">
-        <div><strong>{avgProgress}%</strong><span>overall goal progress</span></div>
-        <div><strong>{activeDays}/7</strong><span>active days</span></div>
-        <div><strong>{total}</strong><span>weekly check-ins</span></div>
+        <div><strong>{avgProgress}%</strong><span>overall progress</span></div>
+        <div><strong>{activeDays}/7</strong><span>days you showed up</span></div>
+        <div><strong>{total}</strong><span>check-ins this week</span></div>
       </div>
       <div className="weekly-chart-visual">
         <svg viewBox="0 0 300 125" preserveAspectRatio="none" role="img" aria-label="Weekly check-in progress chart">
@@ -1410,7 +1410,7 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
       </div>
       <div className="weekly-flow-note">
         <span className="weekly-flow-dot" />
-        <span>{activeDays ? `You've shown up ${activeDays} day${activeDays === 1 ? '' : 's'} this week.` : 'Your first check-in starts the flow.'}</span>
+        <span>{activeDays ? `You've shown up ${activeDays} day${activeDays === 1 ? '' : 's'} this week.` : 'Your first check-in starts here.'}</span>
       </div>
     </div>
   )
@@ -1527,11 +1527,11 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0 }) {
           <h2>Talk it through.</h2>
           <p>Hey {firstName}. I can use your goals, momentum and check-ins to make the conversation personal — not generic.</p>
         </div>
-        <span className="ai-status"><i /> PERSONALIZED</span>
+        <span className="ai-status"><i /> HERE FOR YOU</span>
       </div>
       <div className="ai-context-strip">
         <span>{goals.length} GOAL{goals.length === 1 ? '' : 'S'}</span>
-        <span>{momentum}% MOMENTUM</span>
+        <span>{momentum}% PROGRESS</span>
         <span>{checkins.length} CHECK-IN{checkins.length === 1 ? '' : 'S'}</span>
       </div>
       <div className="ai-chat">
