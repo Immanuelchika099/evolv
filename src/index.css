@@ -1455,3 +1455,57 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .ai-message{max-width:90%}
   .ai-input{padding:10px}
 }
+
+
+/* EVOLV AI — human, responsive conversation */
+.ai-context-strip{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin:-10px 0 18px;
+}
+.ai-context-strip span{
+  padding:7px 9px;
+  border:1px solid #ffffff10;
+  color:#59615b;
+  font:8px 'DM Mono';
+  letter-spacing:.1em;
+}
+.ai-thinking{
+  width:max-content;
+  min-width:54px;
+  display:flex;
+  align-items:center;
+  gap:5px;
+  padding:13px 15px;
+  border:1px solid #ffffff10;
+  background:#ffffff04;
+}
+.ai-thinking i{
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#b8d982;
+  opacity:.35;
+  animation:aiDot 1.1s infinite ease-in-out;
+}
+.ai-thinking i:nth-child(2){animation-delay:.16s}
+.ai-thinking i:nth-child(3){animation-delay:.32s}
+@keyframes aiDot{
+  0%,70%,100%{opacity:.25;transform:translateY(0)}
+  35%{opacity:1;transform:translateY(-3px)}
+}
+.ai-cursor{
+  display:inline-block;
+  margin-left:2px;
+  color:#b8d982;
+  animation:aiCursor .8s steps(1) infinite;
+}
+@keyframes aiCursor{50%{opacity:0}}
+.ai-message.assistant p:empty{
+  display:none;
+}
+@media(max-width:800px){
+  .ai-context-strip{margin:-5px 0 14px}
+  .ai-context-strip span{font-size:7px}
+}
