@@ -1178,7 +1178,18 @@ function Dashboard({ data, onLogout }) {
                 <h1>{name}.</h1>
               </div>
 
->
+              <div
+                className="state-ring"
+                style={{ '--ring-progress': `${momentum * 3.6}deg` }}
+                aria-label={`${momentum}% current state`}
+              >
+                <div className="state-ring-track">
+                  <div className="state-ring-center">
+                    <strong>{momentum}<span>%</span></strong>
+                    <span>CURRENT STATE</span>
+                  </div>
+                </div>
+              </div>
             </section>
 
             <section className="frequency-section">
@@ -1360,29 +1371,21 @@ function Dashboard({ data, onLogout }) {
         {active === 'ai' && <EvolvAI profile={profile} goals={goals} checkins={checkins} momentum={momentum} />}
       </main>
 
-      <nav
-        className="app-bottom-nav"
-        aria-label="App navigation"
-        onPointerDown={startGlassMotion}
-        onPointerMove={updateGlassMotion}
-        onPointerUp={endGlassMotion}
-        onPointerCancel={endGlassMotion}
-        onPointerLeave={(event) => { if (event.currentTarget.hasPointerCapture?.(event.pointerId)) return; endGlassMotion(event) }}
-      >
-        <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => setActive('overview')}>
-          <span><Home size={18} /></span>
+      <nav className="app-bottom-nav" aria-label="App navigation">
+        <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => setActive('overview')} aria-current={active === 'overview' ? 'page' : undefined}>
+          <span><Home size={19} strokeWidth={2.2} /></span>
           <small>Home</small>
         </button>
-        <button className={active === 'ai' ? 'bottom-active' : ''} onClick={() => setActive('ai')}>
-          <span><MessageCircle size={18} /></span>
+        <button className={active === 'ai' ? 'bottom-active' : ''} onClick={() => setActive('ai')} aria-current={active === 'ai' ? 'page' : undefined}>
+          <span><MessageCircle size={19} strokeWidth={2.2} /></span>
           <small>Chats</small>
         </button>
-        <button className={active === 'goals' ? 'bottom-active' : ''} onClick={() => setActive('goals')}>
-          <span><LineChart size={18} /></span>
+        <button className={active === 'goals' ? 'bottom-active' : ''} onClick={() => setActive('goals')} aria-current={active === 'goals' ? 'page' : undefined}>
+          <span><LineChart size={19} strokeWidth={2.2} /></span>
           <small>Progress</small>
         </button>
-        <button className={active === 'profile' ? 'bottom-active' : ''} onClick={() => setActive('profile')}>
-          <span><UserRound size={18} /></span>
+        <button className={active === 'profile' ? 'bottom-active' : ''} onClick={() => setActive('profile')} aria-current={active === 'profile' ? 'page' : undefined}>
+          <span><UserRound size={19} strokeWidth={2.2} /></span>
           <small>Profile</small>
         </button>
       </nav>    </div>
