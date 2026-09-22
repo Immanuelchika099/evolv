@@ -6984,3 +6984,177 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .log-sheet-footer>div{display:none}
   .dashboard .log-save{width:100%;min-height:52px}
 }
+
+
+/* EVOLV — richer logging choice cards */
+.dashboard .log-area-grid,
+.dashboard .log-metric-list{
+  gap:12px;
+}
+
+.dashboard .log-area-choice,
+.dashboard .log-metric-choice{
+  position:relative;
+  isolation:isolate;
+  min-height:82px;
+  grid-template-columns:50px minmax(0,1fr) 28px;
+  gap:15px;
+  padding:14px 15px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.095);
+  border-radius:20px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.018) 55%,rgba(0,0,0,.14)),
+    rgba(10,13,11,.72);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.055),
+    0 10px 28px rgba(0,0,0,.18);
+  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);
+  transform:none;
+}
+
+.dashboard .log-area-choice::before,
+.dashboard .log-metric-choice::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(circle at 0% 50%,color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 11%,transparent),transparent 48%);
+  opacity:.9;
+}
+
+.dashboard .log-area-choice::after,
+.dashboard .log-metric-choice::after{
+  content:"";
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:1px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 38%,transparent),transparent 70%);
+  opacity:.65;
+}
+
+.dashboard .log-area-choice:hover,
+.dashboard .log-metric-choice:hover{
+  transform:translateY(-2px);
+  border-color:color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 30%,rgba(255,255,255,.12));
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.025)),
+    rgba(10,13,11,.82);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 16px 36px rgba(0,0,0,.25),
+    0 0 30px color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 7%,transparent);
+}
+
+.dashboard .log-choice-icon{
+  position:relative;
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  border:1px solid color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 32%,rgba(255,255,255,.08));
+  background:
+    radial-gradient(circle at 35% 25%,color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 18%,transparent),transparent 65%),
+    rgba(255,255,255,.025);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 8px 22px color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 8%,transparent);
+}
+
+.dashboard .log-choice-icon svg{
+  filter:drop-shadow(0 0 8px color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 20%,transparent));
+}
+
+.dashboard .log-choice-copy{
+  align-content:center;
+  gap:5px;
+}
+
+.dashboard .log-choice-copy strong{
+  font-size:1.18rem;
+  font-weight:650;
+  letter-spacing:-.025em;
+}
+
+.dashboard .log-choice-copy small{
+  font-size:.9rem;
+  color:rgba(244,241,234,.42);
+}
+
+.dashboard .log-area-choice>svg,
+.dashboard .log-metric-choice>svg{
+  width:28px;
+  height:28px;
+  padding:6px;
+  box-sizing:border-box;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:50%;
+  color:rgba(244,241,234,.42);
+  background:rgba(255,255,255,.025);
+  transition:transform .22s ease,color .22s ease,border-color .22s ease;
+}
+
+.dashboard .log-area-choice:hover>svg,
+.dashboard .log-metric-choice:hover>svg{
+  transform:translateX(2px);
+  color:var(--area-color,var(--metric-color,#c8f36a));
+  border-color:color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 24%,transparent);
+}
+
+.dashboard .log-selected-metric{
+  position:relative;
+  overflow:hidden;
+  min-height:72px;
+  padding:12px 14px;
+  border-radius:20px;
+  background:
+    linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.018)),
+    rgba(10,13,11,.72);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06),0 12px 28px rgba(0,0,0,.18);
+}
+
+.dashboard .log-selected-metric::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:12px;
+  bottom:12px;
+  width:2px;
+  border-radius:999px;
+  background:var(--metric-color,#c8f36a);
+  box-shadow:0 0 16px color-mix(in srgb,var(--metric-color,#c8f36a) 30%,transparent);
+}
+
+.dashboard .log-selected-metric strong{
+  font-size:1.18rem;
+  letter-spacing:-.025em;
+}
+
+.dashboard .log-selected-metric small{
+  font-size:.86rem;
+}
+
+@media(max-width:650px){
+  .dashboard .log-area-choice,
+  .dashboard .log-metric-choice{
+    min-height:84px;
+    grid-template-columns:48px minmax(0,1fr) 28px;
+    gap:13px;
+    padding:14px;
+    border-radius:19px;
+  }
+  .dashboard .log-choice-icon{
+    width:48px;
+    height:48px;
+    border-radius:15px;
+  }
+  .dashboard .log-choice-copy strong{
+    font-size:1.08rem;
+  }
+  .dashboard .log-choice-copy small{
+    font-size:.84rem;
+  }
+}
