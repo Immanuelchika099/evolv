@@ -27,6 +27,7 @@ const initialData = {
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
+  const [isBooting, setIsBooting] = useState(true)
   const [article, setArticle] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
@@ -53,6 +54,11 @@ function App() {
       first_goal: saved.goal?.trim() || '',
     })
   }
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => setIsBooting(false), 1350)
+    return () => window.clearTimeout(timer)
+  }, [])
 
   useEffect(() => {
     let mounted = true
@@ -177,6 +183,7 @@ function App() {
 
   return (
     <main ref={root} className="app">
+      {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
         <Navbar onStart={enterApp} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
@@ -201,6 +208,18 @@ function App() {
   )
 }
 
+
+function EvolvLoader() {
+  return (
+    <div className="evolv-loader" aria-label="Loading EVOLV">
+      <div className="evolv-loader-core">
+        <div className="evolv-loader-mark"><span /></div>
+        <div className="evolv-loader-word">EVOLV</div>
+        <div className="evolv-loader-line"><i /></div>
+      </div>
+    </div>
+  )
+}
 
 function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [email, setEmail] = useState('')
