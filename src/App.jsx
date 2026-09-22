@@ -413,11 +413,11 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
 
         <div className="auth-divider"><span>OR</span></div>
         <button className="google-auth-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
-          <span className="google-mark">G</span>
+          <img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" aria-hidden="true" />
           Continue with Google
         </button>
         <button className="google-auth-button" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
-          <span className="github-mark">◆</span>
+          <img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" aria-hidden="true" />
           Continue with GitHub
         </button>
 
