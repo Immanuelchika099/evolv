@@ -1030,6 +1030,32 @@ function Dashboard({ data, onLogout }) {
     setGoals(current => current.filter(goal => goal.id !== goalId))
   }
 
+  function updateGlassMotion(event) {
+    const element = event.currentTarget
+    const rect = element.getBoundingClientRect()
+    const x = ((event.clientX - rect.left) / rect.width) * 2 - 1
+    const y = ((event.clientY - rect.top) / rect.height) * 2 - 1
+    element.style.setProperty('--glass-shift-x', (x * 7) + 'px')
+    element.style.setProperty('--glass-shift-y', (y * 7) + 'px')
+    element.style.setProperty('--glass-light-x', (50 + x * 34) + '%')
+    element.style.setProperty('--glass-light-y', (50 + y * 34) + '%')
+  }
+
+  function startGlassMotion(event) {
+    event.currentTarget.classList.add('glass-dragging')
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+    updateGlassMotion(event)
+  }
+
+  function endGlassMotion(event) {
+    const element = event.currentTarget
+    element.classList.remove('glass-dragging')
+    element.style.setProperty('--glass-shift-x', '0px')
+    element.style.setProperty('--glass-shift-y', '0px')
+    element.style.setProperty('--glass-light-x', '50%')
+    element.style.setProperty('--glass-light-y', '50%')
+  }
+
   async function checkIn(goal) {
     setGoalError('')
     const today = new Date().toISOString().slice(0, 10)
@@ -1134,6 +1160,11 @@ function Dashboard({ data, onLogout }) {
                       className={`glass-task ${checked ? 'checked' : ''}`}
                       key={goal.id}
                       onClick={() => checkIn(goal)}
+                      onPointerDown={startGlassMotion}
+                      onPointerMove={updateGlassMotion}
+                      onPointerUp={endGlassMotion}
+                      onPointerCancel={endGlassMotion}
+                      onPointerLeave={(event) => { if (event.currentTarget.hasPointerCapture?.(event.pointerId)) return; endGlassMotion(event) }}
                     >
                       <span className="task-check">{checked && <Check size={12} />}</span>
                       <span className="task-text">{goal.title}</span>
@@ -1293,7 +1324,15 @@ function Dashboard({ data, onLogout }) {
         {active === 'ai' && <EvolvAI profile={profile} goals={goals} checkins={checkins} momentum={momentum} />}
       </main>
 
-      <nav className="app-bottom-nav" aria-label="App navigation">
+      <nav
+        className="app-bottom-nav"
+        aria-label="App navigation"
+        onPointerDown={startGlassMotion}
+        onPointerMove={updateGlassMotion}
+        onPointerUp={endGlassMotion}
+        onPointerCancel={endGlassMotion}
+        onPointerLeave={(event) => { if (event.currentTarget.hasPointerCapture?.(event.pointerId)) return; endGlassMotion(event) }}
+      >
         <button className={active === 'overview' ? 'bottom-active' : ''} onClick={() => setActive('overview')}>
           <span><Home size={18} /></span>
           <small>Home</small>
