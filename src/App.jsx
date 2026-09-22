@@ -1214,15 +1214,15 @@ function Dashboard({ data, onLogout }) {
               <div className="weekly-progress-head">
                 <div>
                   <span className="section-label">THIS WEEK</span>
-                  <h2>Your progress flow.</h2>
-                  <p>Watch your consistency build across the week.</p>
+                  <h2>A look at your week.</h2>
+                  <p>See the small steps you've been making.</p>
                 </div>
                 <span className="weekly-progress-total">{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
               </div>
               <WeeklyProgressChart checkins={checkins} goals={goals} />
             </section>
 
-            <span className="section-label">GOALS</span>
+            <span className="section-label">YOUR GOALS</span>
             <h2>Your goals</h2>
             <form className="goal-create-form" onSubmit={createGoal}>
               <input value={goalTitle} onChange={e => setGoalTitle(e.target.value)} placeholder="What do you want to work toward?" maxLength={240} required />
@@ -1235,14 +1235,14 @@ function Dashboard({ data, onLogout }) {
               {goals.map(goal => (
                 <article className="goal-item" key={goal.id}>
                   <div className="goal-item-top">
-                    <div><span className="section-label">{goal.status.toUpperCase()}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div>
+                    <div><span className="goal-status-copy">{goal.status === 'completed' ? 'Completed' : 'In progress'}</span><h3>{goal.title}</h3>{goal.description && <p>{goal.description}</p>}</div>
                     <strong>{goal.progress}%</strong>
                   </div>
                   <div className="mini-progress"><i style={{ width: goal.progress + '%' }}/></div>
                   <div className="goal-actions">
-                    <button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in today</button>
-                    <button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen' : 'Complete'}</button>
-                    <button onClick={() => deleteGoal(goal.id)}>Delete</button>
+                    <button onClick={() => checkIn(goal)} disabled={goal.status === 'completed'}>Check in</button>
+                    <button onClick={() => completeGoal(goal)}>{goal.status === 'completed' ? 'Reopen goal' : 'Mark complete'}</button>
+                    <button onClick={() => deleteGoal(goal.id)}>Remove</button>
                   </div>
                 </article>
               ))}
