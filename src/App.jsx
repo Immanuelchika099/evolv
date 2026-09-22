@@ -1214,7 +1214,7 @@ function Dashboard({ data, onLogout }) {
                 <div>
                   <span className="section-label">THIS WEEK</span>
                   <h2>Your week so far.</h2>
-                  <p>A simple look at the progress you've made.</p>
+                  <p>A quiet look at the small steps you've made this week.</p>
                 </div>
                 <span className="weekly-progress-total">{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
               </div>
