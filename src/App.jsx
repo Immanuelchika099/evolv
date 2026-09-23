@@ -1080,7 +1080,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
     ]);if(!mounted)return;if(p.data){setProfile(p.data);setProfileName(p.data.first_name||'')}setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
-  function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
+  function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
   function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile(p);setProfileMessage('Profile saved.')}
@@ -1451,14 +1451,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       ? sleepMinutes/60
       : Number(values.value)
 
-    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(
-      !Number.isFinite(Number(values.sleep_hours||0))||
-      !Number.isFinite(Number(values.sleep_minutes||0))||
-      Number(values.sleep_hours||0)<0||
-      Number(values.sleep_minutes||0)<0||
-      Number(values.sleep_minutes||0)>59||
-      sleepMinutes<=0
-    ))||(metric.value_type==='scale'&&(value<1||value>5))){
+    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(sleepMinutes)||sleepMinutes<=0))||(metric.value_type==='scale'&&(value<1||value>5))){
       setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
       setSaving(false)
       return
