@@ -196,3 +196,80 @@
 .evolv-mobile-sign-in{
   color:#bdbbb5 !important;
 }
+
+
+@media(min-width:801px){
+  .evolv-mobile-menu{
+    top:88px;
+    left:auto;
+    right:24px;
+    width:420px;
+    max-width:calc(100vw - 48px);
+    padding:10px;
+    gap:2px;
+    transform:none;
+    border:1px solid rgba(255,255,255,.11);
+    border-radius:26px;
+    background:rgba(5,8,6,.97) !important;
+    box-shadow:0 30px 90px rgba(0,0,0,.58), inset 0 1px 0 rgba(255,255,255,.045);
+    backdrop-filter:blur(28px);
+    -webkit-backdrop-filter:blur(28px);
+  }
+
+  .evolv-mobile-menu a,
+  .evolv-mobile-menu button{
+    display:flex;
+    align-items:center;
+    justify-content:flex-start;
+    width:100%;
+    min-height:56px;
+    padding:0 18px !important;
+    border:1px solid transparent !important;
+    border-radius:16px !important;
+    background:transparent !important;
+    color:#aaa9a3;
+    font:13px 'DM Mono',monospace;
+    letter-spacing:.01em;
+    text-align:left;
+    text-decoration:none;
+    box-shadow:none !important;
+    cursor:pointer;
+    transition:background .22s ease,color .22s ease,border-color .22s ease,transform .22s ease;
+  }
+
+  .evolv-mobile-menu a:hover,
+  .evolv-mobile-menu button:hover,
+  .evolv-mobile-menu a:focus-visible,
+  .evolv-mobile-menu button:focus-visible{
+    background:rgba(255,255,255,.055) !important;
+    border-color:rgba(255,255,255,.06) !important;
+    color:#f3f1ea;
+    outline:none;
+  }
+
+  .evolv-mobile-menu .evolv-mobile-sign-in{
+    margin-top:6px;
+    border-top:1px solid rgba(255,255,255,.07) !important;
+    border-radius:16px !important;
+    color:#d7d5ce !important;
+  }
+
+  .evolv-mobile-menu .evolv-mobile-start{
+    justify-content:center;
+    margin-top:6px;
+    min-height:52px;
+    border:1px solid #f3f1ea !important;
+    border-radius:999px !important;
+    background:#f3f1ea !important;
+    color:#090909 !important;
+    font-weight:600;
+  }
+
+  .evolv-mobile-menu .evolv-mobile-start:hover,
+  .evolv-mobile-menu .evolv-mobile-start:focus-visible{
+    background:#ffffff !important;
+    border-color:#ffffff !important;
+    color:#090909 !important;
+    transform:translateY(-1px);
+  }
+}
