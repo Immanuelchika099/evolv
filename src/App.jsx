@@ -1613,16 +1613,26 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                     <small>Choose when you went to bed and woke up</small>
                   </div>
                   <div className="sleep-time-grid">
-                    <label className="sleep-time-card">
+                    <div className="sleep-time-card">
                       <span className="sleep-time-icon"><Moon size={17}/></span>
                       <span className="sleep-time-copy"><b>Bedtime</b><small>When you went to sleep</small></span>
-                      <input aria-label="Bedtime" type="time" step="300" value={values.bedtime||''} onChange={e=>setValues(v=>({...v,bedtime:e.target.value}))}/>
-                    </label>
-                    <label className="sleep-time-card">
+                      <div className="sleep-time-control">
+                        <button type="button" className="sleep-time-display" aria-label="Choose bedtime">
+                          {formatSleepTime(values.bedtime)}
+                        </button>
+                        <input className="sleep-native-time" aria-label="Bedtime" type="time" step="300" value={values.bedtime||''} onChange={e=>setValues(v=>({...v,bedtime:e.target.value}))}/>
+                      </div>
+                    </div>
+                    <div className="sleep-time-card">
                       <span className="sleep-time-icon"><Sunrise size={17}/></span>
                       <span className="sleep-time-copy"><b>Wake-up</b><small>When you woke up</small></span>
-                      <input aria-label="Wake-up time" type="time" step="300" value={values.wake_up||''} onChange={e=>setValues(v=>({...v,wake_up:e.target.value}))}/>
-                    </label>
+                      <div className="sleep-time-control">
+                        <button type="button" className="sleep-time-display" aria-label="Choose wake-up time">
+                          {formatSleepTime(values.wake_up)}
+                        </button>
+                        <input className="sleep-native-time" aria-label="Wake-up time" type="time" step="300" value={values.wake_up||''} onChange={e=>setValues(v=>({...v,wake_up:e.target.value}))}/>
+                      </div>
+                    </div>
                   </div>
                   {calculateSleepDuration(values.bedtime,values.wake_up)!=null&&(
                     <div className="sleep-duration-result">
