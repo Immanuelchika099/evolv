@@ -1080,7 +1080,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
     ]);if(!mounted)return;if(p.data){setProfile(p.data);setProfileName(p.data.first_name||'')}setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
-  function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.value_type==='duration'){const h=Math.floor(v/60),m=Math.round(v%60);return h?h+'h '+m+'m':m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
+  function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
   function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile(p);setProfileMessage('Profile saved.')}
@@ -1224,8 +1224,10 @@ function Dashboard({ data, onLogout, onArticle }) {
         const displayMetric=(value,d)=>{
           if(value==null)return '—'
           if(d.value_type==='duration'){
-            const total=Math.round(value),h=Math.floor(total/60),m=total%60
-            return h?(h+'h '+m+'m'):m+'m'
+            const total=Math.max(0,Math.round(value)),h=Math.floor(total/60),m=total%60
+            if(h&&m)return h+'h '+m+'m'
+            if(h)return h+'h'
+            return m+'m'
           }
           if(d.value_type==='scale')return value.toFixed(1)+'/5'
           if(d.unit==='NGN')return '₦'+Math.round(value).toLocaleString()
@@ -1435,10 +1437,12 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       return
     }
 
-    const value=Number(values.value)
+    const value=metric.slug==='sleep'
+      ? (Number(values.sleep_hours||0)*60 + Number(values.sleep_minutes||0))
+      : Number(values.value)
 
-    if(!Number.isFinite(value)||(metric.value_type==='scale'&&(value<1||value>5))){
-      setError(metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
+    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(Number(values.sleep_hours||0))||!Number.isFinite(Number(values.sleep_minutes||0))||Number(values.sleep_hours||0)<0||Number(values.sleep_minutes||0)<0||Number(values.sleep_minutes||0)>59))||(metric.value_type==='scale'&&(value<1||value>5))){
+      setError(metric.slug==='sleep'?'Enter a valid sleep duration.':metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
       setSaving(false)
       return
     }
@@ -1560,6 +1564,20 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                   </div>
                 </div>
 
+              ):metric.slug==='sleep'?(
+                <div className="sleep-duration-picker">
+                  <div className="log-field-title"><span>Sleep duration</span><small>Enter your time asleep</small></div>
+                  <div className="sleep-duration-fields">
+                    <label className="log-input-label">
+                      <span>Hours</span>
+                      <input autoFocus type="number" min="0" step="1" inputMode="numeric" value={values.sleep_hours||''} onChange={e=>setValues(v=>({...v,sleep_hours:e.target.value}))} placeholder="0"/>
+                    </label>
+                    <label className="log-input-label">
+                      <span>Minutes</span>
+                      <input type="number" min="0" max="59" step="1" inputMode="numeric" value={values.sleep_minutes||''} onChange={e=>setValues(v=>({...v,sleep_minutes:e.target.value}))} placeholder="0"/>
+                    </label>
+                  </div>
+                </div>
               ):(
                 <label className="log-input-label">
                   <span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span>
