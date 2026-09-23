@@ -9652,3 +9652,21 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:clamp(3.8rem,11vw,6rem);
   }
 }
+
+
+/* EVOLV notifications settings */
+.notifications-settings-section{overflow:hidden}
+.notification-master-row,.notification-preference{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:20px 0}
+.notification-master-row{border-bottom:1px solid rgba(255,255,255,.08)}
+.notification-master-row strong,.notification-preference strong{display:block;font-size:15px;letter-spacing:-.01em}
+.notification-master-row span,.notification-preference span{display:block;margin-top:5px;color:rgba(255,255,255,.48);font-size:12px;line-height:1.5}
+.notification-preferences{transition:opacity .25s ease,transform .25s ease}
+.notification-preferences.disabled{opacity:.45}
+.notification-preference{border-bottom:1px solid rgba(255,255,255,.06)}
+.notification-preference:last-child{border-bottom:0}
+.settings-toggle{position:relative;width:46px;height:27px;min-width:46px;padding:0;border:0;border-radius:999px;background:rgba(255,255,255,.12);cursor:pointer;transition:background .25s ease}
+.settings-toggle span{position:absolute!important;top:4px;left:4px;width:19px;height:19px;margin:0!important;border-radius:50%;background:#fff;transition:transform .25s ease}
+.settings-toggle.active{background:#c8f36a}
+.settings-toggle.active span{transform:translateX(19px);background:#10130d}
+.settings-toggle:disabled{cursor:not-allowed}
+@media(max-width:700px){.notification-master-row,.notification-preference{gap:16px;padding:17px 0}.notification-master-row strong,.notification-preference strong{font-size:14px}.notification-master-row span,.notification-preference span{font-size:11px;max-width:260px}}
