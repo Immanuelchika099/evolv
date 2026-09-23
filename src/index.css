@@ -8592,8 +8592,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .dashboard .settings-page .settings-danger{
-  margin-top:50px;
-  padding-top:14px;
+  margin-top:66px !important;
+  padding-top:0 !important;
 }
 .dashboard .settings-page .settings-action-row{
   min-height:92px;
