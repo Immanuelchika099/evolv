@@ -245,6 +245,24 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
 
+  useEffect(() => {
+    function resetOAuthLoading() {
+      setSending(false)
+    }
+
+    function handlePageShow(event) {
+      if (event.persisted) resetOAuthLoading()
+    }
+
+    window.addEventListener('pageshow', handlePageShow)
+    window.addEventListener('popstate', resetOAuthLoading)
+
+    return () => {
+      window.removeEventListener('pageshow', handlePageShow)
+      window.removeEventListener('popstate', resetOAuthLoading)
+    }
+  }, [])
+
   async function continueWithProvider(provider) {
     setSending(true)
     setError('')
