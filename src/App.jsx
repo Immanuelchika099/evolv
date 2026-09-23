@@ -1160,7 +1160,7 @@ function Dashboard({ data, onLogout, onArticle }) {
         <section className="daily-insight evolv-empty-insight"><span className="daily-insight-label">YOUR CLARITY BUILDS HERE</span><h2>{todayLogs.length+todayMeals.length<3?'Start with what’s real.':'You’re building a picture of your day.'}</h2><p>{todayLogs.length+todayMeals.length<3?'The more useful things you log, the more clearly Evolv can show patterns and changes over time.':'Keep logging naturally. Evolv will turn your history into observations when there is enough data to say something useful.'}</p></section>
       </div>}
       {active==='area'&&(()=>{
-        const currentArea=area||'health'
+        const currentArea=areas[area]?area:'health'
         const m=areas[currentArea],I=m.icon
         const rs=defs.filter(d=>metricArea[d.slug]===currentArea)
         const areaLogs=logs.filter(l=>rs.some(d=>d.id===l.metric_id))
