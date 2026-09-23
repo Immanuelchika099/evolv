@@ -9555,3 +9555,100 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     min-height:62px;
   }
 }
+
+
+/* EVOLV — Your World article typography */
+.article-page,
+.article-page button,
+.article-page input,
+.article-page textarea{
+  font-family:Manrope,sans-serif;
+}
+
+.article-page .article-back,
+.article-page .article-kicker,
+.article-page .article-lead > span,
+.article-page .article-content-card > span,
+.article-page .article-resource-source,
+.article-page .article-resource-meta{
+  font-family:'DM Mono',monospace;
+}
+
+.article-page .article-title,
+.article-page .article-lead p,
+.article-page .article-content-card h2,
+.article-page .article-example h2,
+.article-page .article-end h2{
+  font-family:'Space Grotesk',sans-serif;
+}
+
+.article-page .article-back{
+  font-size:1.2rem;
+}
+
+.article-page .article-title{
+  font-size:clamp(5.5rem,8vw,8rem);
+  line-height:.92;
+  letter-spacing:-.07em;
+}
+
+.article-page .article-intro{
+  font-family:Manrope,sans-serif;
+  font-size:1.6rem;
+  line-height:1.8;
+}
+
+.article-page .article-lead p{
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(2.8rem,4vw,4.8rem);
+  line-height:1.08;
+}
+
+.article-page .article-content-card h2{
+  font-size:clamp(2.8rem,3.2vw,4rem);
+  line-height:1.02;
+}
+
+.article-page .article-content-card p,
+.article-page .article-example p{
+  font-family:Manrope,sans-serif;
+  font-size:1.5rem;
+  line-height:1.85;
+}
+
+.article-page .article-example h2{
+  font-size:clamp(3.8rem,5vw,6rem);
+  line-height:.98;
+}
+
+.article-page .article-end h2{
+  font-size:clamp(4.8rem,7vw,7.5rem);
+  line-height:.92;
+}
+
+@media(max-width:800px){
+  .article-page .article-title{
+    font-size:clamp(4.8rem,13vw,6.8rem);
+  }
+
+  .article-page .article-intro{
+    font-size:1.5rem;
+  }
+
+  .article-page .article-lead p{
+    font-size:3rem;
+  }
+
+  .article-page .article-content-card h2{
+    font-size:3rem;
+  }
+
+  .article-page .article-content-card p,
+  .article-page .article-example p{
+    font-size:1.5rem;
+  }
+
+  .article-page .article-example h2{
+    font-size:clamp(3.8rem,11vw,6rem);
+  }
+}
