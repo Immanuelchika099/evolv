@@ -63,7 +63,7 @@
 .evolv-nav-links button:focus-visible{color:#f2f1eb;background:transparent!important;box-shadow:none!important;outline:none}
 .evolv-nav-actions{display:flex;align-items:center;gap:8px}
 @media(min-width:801px){
-  .evolv-menu-toggle{display:none !important}
+  .evolv-menu-toggle{display:grid !important}
 }
 .evolv-start{
   display:flex;
@@ -119,6 +119,7 @@
   .evolv-nav{top:12px;left:50%;width:calc(100% - 32px);max-width:520px;height:54px;padding:0 15px;justify-content:space-between}
   .evolv-nav-links{display:none}
   .evolv-start{display:none}
+  .evolv-sign-in{display:none}
   .evolv-menu-toggle{width:44px;height:44px}
   .evolv-menu-layer{z-index:1100}
   .evolv-mobile-menu{
