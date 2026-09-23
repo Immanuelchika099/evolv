@@ -9047,3 +9047,58 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.5rem !important;
   }
 }
+
+
+/* EVOLV — universal logging form sizing */
+.dashboard .log-form > .log-input-label,
+.dashboard .log-form > label.log-input-label{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+.dashboard .log-form > .log-input-label input,
+.dashboard .log-form > label.log-input-label input,
+.dashboard .log-form > .log-input-label textarea,
+.dashboard .log-form > label.log-input-label textarea{
+  display:block;
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+.dashboard .log-form > .log-input-label input[type="datetime-local"],
+.dashboard .log-form > label.log-input-label input[type="datetime-local"]{
+  inline-size:100%;
+  max-inline-size:100%;
+  flex:1 1 auto;
+}
+@media(max-width:650px){
+  .dashboard .log-form > .log-input-label input[type="datetime-local"],
+  .dashboard .log-form > label.log-input-label input[type="datetime-local"]{
+    width:100%;
+    max-width:100%;
+    padding:0 10px 0 14px;
+    font-size:1.5rem !important;
+  }
+}
+
+/* EVOLV — section typography floor */
+.dashboard .panel-page,
+.dashboard .panel-page *{
+  --evolv-min-font:1.5rem;
+}
+.dashboard .panel-page p,
+.dashboard .panel-page li,
+.dashboard .panel-page label,
+.dashboard .panel-page input,
+.dashboard .panel-page textarea,
+.dashboard .panel-page select,
+.dashboard .panel-page button,
+.dashboard .panel-page small,
+.dashboard .panel-page span{
+  font-size:max(var(--evolv-min-font), 1em);
+}
+.dashboard .panel-page .section-label{
+  font-size:1.5rem !important;
+}
