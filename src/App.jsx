@@ -1535,6 +1535,42 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     }
   },[onClose,saving])
 
+  const specialMetric = ['income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress'].includes(metric?.slug)
+
+  function specialValue(){
+    const slug=metric?.slug
+    if(['income','spending','savings','bills'].includes(slug)) return Number(values.amount)
+    if(['learning','building','reading','personal','focus'].includes(slug)) return Number(values.minutes)
+    if(slug==='skills') return Number(values.confidence)
+    if(slug==='habits') return Number(values.statusValue)
+    if(slug==='social') return Number(values.quality)
+    if(['applications','outreach','reflection'].includes(slug)) return 1
+    if(slug==='stress') return Number(values.level)
+    return Number(values.value)
+  }
+
+  function specialNote(){
+    const slug=metric?.slug
+    const clean=v=>String(v||'').trim()
+    if(slug==='income') return [clean(values.source)&&'Source: '+clean(values.source),clean(values.category)&&'Category: '+clean(values.category),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='spending') return [clean(values.merchant)&&'Merchant: '+clean(values.merchant),clean(values.category)&&'Category: '+clean(values.category),clean(values.payment)&&'Paid via: '+clean(values.payment),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='savings') return [clean(values.goal)&&'For: '+clean(values.goal),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='bills') return [clean(values.bill)&&'Bill: '+clean(values.bill),clean(values.provider)&&'Provider: '+clean(values.provider),clean(values.status)&&'Status: '+clean(values.status),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='applications') return [clean(values.company)&&'Company: '+clean(values.company),clean(values.role)&&'Role: '+clean(values.role),clean(values.status)&&'Status: '+clean(values.status),clean(values.nextStep)&&'Next: '+clean(values.nextStep),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='learning') return [clean(values.topic)&&'Topic: '+clean(values.topic),clean(values.learned)&&'Learned: '+clean(values.learned),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='building') return [clean(values.project)&&'Project: '+clean(values.project),clean(values.milestone)&&'Milestone: '+clean(values.milestone),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='outreach') return [clean(values.person)&&'Who: '+clean(values.person),clean(values.platform)&&'Platform: '+clean(values.platform),clean(values.outcome)&&'Outcome: '+clean(values.outcome),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='skills') return [clean(values.skill)&&'Skill: '+clean(values.skill),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='habits') return [clean(values.habit)&&'Habit: '+clean(values.habit),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='reading') return [clean(values.book)&&'Reading: '+clean(values.book),clean(values.takeaway)&&'Takeaway: '+clean(values.takeaway),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='social') return [clean(values.person)&&'With: '+clean(values.person),clean(values.context)&&'Context: '+clean(values.context),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='personal') return [clean(values.activity)&&'Activity: '+clean(values.activity),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='focus') return [clean(values.task)&&'Focus: '+clean(values.task),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='reflection') return [clean(values.prompt)&&'Reflection: '+clean(values.prompt),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='stress') return [clean(values.trigger)&&'Trigger: '+clean(values.trigger),clean(values.note)].filter(Boolean).join(' · ')
+    return clean(values.note)
+  }
+
   async function save(){
     setError('')
     if(!metric)return
@@ -1588,6 +1624,22 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
       }
 
       onSaved?.('meal',meal)
+      return
+    }
+
+    if(specialMetric){
+      const value=specialValue()
+      const loggedAt=values.logged_at?new Date(values.logged_at):new Date()
+      if(!Number.isFinite(value)||(value<0)){
+        setError('Complete the main detail before saving.')
+        setSaving(false)
+        return
+      }
+      const note=specialNote()||null
+      const {data:entry,error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:metric.unit||null,note,logged_at:loggedAt.toISOString(),value_numeric:value}).select('id,metric_id,value,unit,note,logged_at,created_at').single()
+      setSaving(false)
+      if(x){setError(x.message);return}
+      onSaved?.('metric',entry)
       return
     }
 
@@ -1653,7 +1705,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     onMetric(nextMetric)
     setValues(nextMetric.slug==='sleep'
       ? {bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)}
-      : {})
+      : {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)})
     setError('')
   }
 
@@ -1676,7 +1728,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
             <h2 id="log-sheet-title">
               {metric?'Log '+metric.name.toLowerCase():area?'What happened?':'What would you like to log?'}
             </h2>
-            <p>{metric?'A small entry is enough. Keep it real.':area?'Choose one thing to capture from your '+areaMeta[area].title.toLowerCase()+'.':'Pick an area of your life to start with.'}</p>
+            <p>{metric?specialMetric?'Capture the real-world detail, not just a number.':'A small entry is enough. Keep it real.':area?area==='money'?'Track money the way it actually moves — income, spending, savings and bills.':area==='career'?'Capture the work behind your career — applications, learning, projects and outreach.':area==='life'?'Log the moments that shape your days — habits, reading, people and personal wins.':area==='mind'?'Give your inner life a place to be recorded — focus, reflection and stress.':area==='health'?'Simple health signals, without turning your life into a spreadsheet.':area==='nutrition'?'Meals, nourishment and the details you actually want to remember.':'Pick an area of your life to start with.'}</p>
           </div>
 
           <button className="log-close" type="button" onClick={onClose} disabled={saving} aria-label="Close logging sheet">
@@ -1736,7 +1788,9 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                 <div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div>
               </div>
 
-              {metric.value_type==='scale'?(
+              {specialMetric?(
+                <SpecialMetricFields metric={metric} values={values} setValues={setValues}/>
+              ):metric.value_type==='scale'?(
                 <div className="log-field-group">
                   <div className="log-field-title"><span>{metric.slug==='mood'?'How are you feeling?':'How would you rate it?'}</span><small>{metric.slug==='mood'?'Choose what feels closest':'1–5'}</small></div>
                   {metric.slug==='mood'?(
