@@ -1057,6 +1057,8 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [error,setError]=useState('')
   const [progressRange,setProgressRange]=useState(7)
   const [progressMetric,setProgressMetric]=useState(null)
+  const dashboardMainRef=useRef(null)
+  const goTo=(page)=>{setActive(page);setArea(null);setMetric(null);window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))}
 
   const areas={
     health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
@@ -1140,7 +1142,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
   return <div className="page-enter dashboard">
-    <header className="app-topbar"><button className="app-logo-button" onClick={()=>setActive('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>setActive('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>setActive('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='overview'&&<div className="dashboard-home">
@@ -1393,12 +1395,12 @@ function Dashboard({ data, onLogout, onArticle }) {
           </div>
 
           <div className="goals-secondary">
-            <div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>setActive('goals')}>View goals <ArrowRight size={14}/></button></div>
+            <div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>goTo('goals')}>View goals <ArrowRight size={14}/></button></div>
             {goals.filter(g=>g.status==='active').slice(0,3).map(g=><div className="secondary-goal" key={g.id}><span>{g.title}</span><b>{g.progress||0}%</b></div>)}
           </div>
         </section>
       })()}
-      {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>setActive('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
+      {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
       {active==='profile'&&<section className="panel-page dashboard-panel settings-page">
   <div className="settings-heading">
     <span className="section-label">YOUR SPACE</span>
@@ -1476,7 +1478,7 @@ function Dashboard({ data, onLogout, onArticle }) {
 </section>}
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
-    <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>setActive('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>setActive('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>setActive('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>
+    <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>setActive('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>setActive('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
   </div>
 }
