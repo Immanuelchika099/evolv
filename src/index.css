@@ -8847,3 +8847,43 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     height:30px;
   }
 }
+
+
+/* EVOLV — profile photo nav item: image stays a true circle, no active-state surface */
+.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active{
+  color:inherit !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active::before,
+.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active::after{
+  display:none !important;
+}
+.dashboard .app-bottom-nav button.bottom-profile-nav-button .bottom-profile-icon{
+  width:30px !important;
+  height:30px !important;
+  min-width:30px !important;
+  min-height:30px !important;
+  padding:0 !important;
+  margin:0 !important;
+  display:block !important;
+  overflow:hidden !important;
+  border:0 !important;
+  outline:0 !important;
+  border-radius:50% !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .app-bottom-nav button.bottom-profile-nav-button .bottom-profile-image{
+  width:30px !important;
+  height:30px !important;
+  min-width:30px !important;
+  min-height:30px !important;
+  display:block !important;
+  object-fit:cover !important;
+  border:0 !important;
+  outline:0 !important;
+  border-radius:50% !important;
+  box-shadow:none !important;
+  clip-path:circle(50% at 50% 50%);
+}
