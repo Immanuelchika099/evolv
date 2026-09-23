@@ -7816,3 +7816,103 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.28rem;
   }
 }
+
+
+/* EVOLV — premium logging card typography + alignment */
+.dashboard .log-area-choice,
+.dashboard .log-metric-choice{
+  min-height:104px;
+  grid-template-columns:54px minmax(0,1fr) 32px;
+  gap:16px;
+  padding:17px 18px;
+  border-radius:22px;
+  align-items:center;
+}
+
+.dashboard .log-area-choice .log-choice-icon,
+.dashboard .log-metric-choice .log-choice-icon{
+  width:54px;
+  height:54px;
+  border-radius:17px;
+  align-self:center;
+}
+
+.dashboard .log-choice-copy{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  gap:6px;
+}
+
+.dashboard .log-choice-copy strong{
+  margin:0;
+  color:#f7f5ef;
+  font:650 1.6rem/1.12 'Space Grotesk';
+  letter-spacing:-.025em;
+}
+
+.dashboard .log-choice-copy small{
+  margin:0;
+  color:rgba(244,241,234,.48);
+  font:500 1.5rem/1.25 'Manrope';
+  letter-spacing:-.01em;
+}
+
+.dashboard .log-area-choice > svg,
+.dashboard .log-metric-choice > svg{
+  width:30px;
+  height:30px;
+  padding:6px;
+  justify-self:end;
+  align-self:center;
+}
+
+.dashboard .log-selected-metric strong{
+  font-size:1.6rem;
+  line-height:1.15;
+}
+
+.dashboard .log-selected-metric small{
+  font-size:1.5rem;
+  line-height:1.25;
+}
+
+@media(max-width:650px){
+  .dashboard .log-area-choice,
+  .dashboard .log-metric-choice{
+    min-height:96px;
+    grid-template-columns:52px minmax(0,1fr) 30px;
+    gap:14px;
+    padding:16px;
+    border-radius:20px;
+  }
+
+  .dashboard .log-area-choice .log-choice-icon,
+  .dashboard .log-metric-choice .log-choice-icon{
+    width:52px;
+    height:52px;
+    border-radius:16px;
+  }
+
+  .dashboard .log-choice-copy{
+    gap:6px;
+  }
+
+  .dashboard .log-choice-copy strong{
+    font-size:1.6rem;
+    line-height:1.12;
+  }
+
+  .dashboard .log-choice-copy small{
+    font-size:1.5rem;
+    line-height:1.25;
+  }
+
+  .dashboard .log-area-choice > svg,
+  .dashboard .log-metric-choice > svg{
+    width:30px;
+    height:30px;
+  }
+}
