@@ -75,11 +75,11 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:
 }
 
 
-/* Final quieter background treatment */
-.landing{background:radial-gradient(circle at 73% 10%,#12302426 0,transparent 28%),radial-gradient(circle at 15% 40%,#0a211a24 0,transparent 30%),#040605}
-.landing:before{background:linear-gradient(180deg,transparent,#0820190c 38%,transparent 62%,#0820190e)}
-.hero-aura{background:radial-gradient(circle,#789b7812,transparent 62%)}
-.final-cta{background:radial-gradient(circle,#12302422,transparent 65%)}
+/* Final homepage palette — dark lemon-green family, matched to the signed-in EVOLV accent */
+.landing{background:radial-gradient(circle at 73% 10%,#2638122e 0,transparent 28%),radial-gradient(circle at 15% 40%,#17270c26 0,transparent 30%),#040605}
+.landing:before{background:linear-gradient(180deg,transparent,#1a2b0d0c 38%,transparent 62%,#1a2b0d0e)}
+.hero-aura{background:radial-gradient(circle,#9fcf5815,transparent 62%)}
+.final-cta{background:radial-gradient(circle,#26381224,transparent 65%)}
 
 
 /* Reliable menu state: hidden until the hamburger opens it */
