@@ -1711,12 +1711,28 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
 
               {metric.value_type==='scale'?(
                 <div className="log-field-group">
-                  <div className="log-field-title"><span>How would you rate it?</span><small>1–5</small></div>
-                  <div className="scale-picker">
-                    {[1,2,3,4,5].map(n=>(
-                      <button type="button" key={n} className={Number(values.value)===n?'active':''} onClick={()=>setValues(v=>({...v,value:n}))}>{n}</button>
-                    ))}
-                  </div>
+                  <div className="log-field-title"><span>{metric.slug==='mood'?'How are you feeling?':'How would you rate it?'}</span><small>{metric.slug==='mood'?'Choose what feels closest':'1–5'}</small></div>
+                  {metric.slug==='mood'?(
+                    <div className="mood-scale-picker" aria-label="Choose your mood">
+                      {[
+                        {value:1,emoji:'😞',label:'Very low'},
+                        {value:2,emoji:'😕',label:'Low'},
+                        {value:3,emoji:'😐',label:'Okay'},
+                        {value:4,emoji:'🙂',label:'Good'},
+                        {value:5,emoji:'😄',label:'Great'},
+                      ].map(option=>(
+                        <button type="button" key={option.value} className={Number(values.value)===option.value?'active':''} onClick={()=>setValues(v=>({...v,value:option.value}))}>
+                          <span aria-hidden="true">{option.emoji}</span><small>{option.label}</small>
+                        </button>
+                      ))}
+                    </div>
+                  ): (
+                    <div className="scale-picker">
+                      {[1,2,3,4,5].map(n=>(
+                        <button type="button" key={n} className={Number(values.value)===n?'active':''} onClick={()=>setValues(v=>({...v,value:n}))}>{n}</button>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
               ):metric.slug==='sleep'?(
