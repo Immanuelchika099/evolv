@@ -1545,7 +1545,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                 return (
                   <button className="log-area-choice" type="button" key={id} onClick={()=>{onArea(id);onMetric(null)}}>
                     <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={20}/></span>
-                    <span className="log-choice-copy"><strong>{m.title}</strong><small>{m.title==='Health'?'Body, energy & routine':m.title==='Nutrition'?'Meals & food routine':m.title==='Money'?'Income, spending & saving':m.title==='Career'?'Learning & work':m.title==='Mind'?'Mood, focus & reflection':'Habits, people & personal life'}</small></span>
+                    <span className="log-choice-copy"><strong>{m.title}</strong></span>
                     <ChevronRight size={16}/>
                   </button>
                 )
@@ -1565,7 +1565,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                   return (
                     <button className="log-metric-choice" type="button" key={d.id} onClick={()=>selectMetric(d)}>
                       <span className="log-choice-icon" style={{'--metric-color':d.color||areaMeta[area].color}}><M size={18}/></span>
-                      <span className="log-choice-copy"><strong>{d.name}</strong><small>{d.unit||'Track it simply'}</small></span>
+                      <span className="log-choice-copy"><strong>{d.name}</strong></span>
                       <ChevronRight size={16}/>
                     </button>
                   )
@@ -1574,7 +1574,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                 {area==='nutrition'&&(
                   <button className="log-metric-choice" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
                     <span className="log-choice-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={18}/></span>
-                    <span className="log-choice-copy"><strong>Meal</strong><small>Breakfast, lunch, dinner or snack</small></span>
+                    <span className="log-choice-copy"><strong>Meal</strong></span>
                     <ChevronRight size={16}/>
                   </button>
                 )}
