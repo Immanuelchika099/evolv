@@ -8824,27 +8824,25 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 /* EVOLV — bottom nav profile identity */
 .dashboard .bottom-profile-icon{
-  width:32px;
-  height:32px;
+  width:30px;
+  height:30px;
   display:grid;
   place-items:center;
   overflow:hidden;
   border-radius:50%;
 }
 .dashboard .bottom-profile-image{
-  width:100%;
-  height:100%;
+  width:30px;
+  height:30px;
   display:block;
   object-fit:cover;
+  border:0;
   border-radius:50%;
-  border:1px solid rgba(255,255,255,.16);
-  box-shadow:inset 0 0 0 1px rgba(255,255,255,.04),0 6px 18px rgba(0,0,0,.22);
-}
-.dashboard .app-bottom-nav button.bottom-active .bottom-profile-icon{
-  box-shadow:0 0 0 1px rgba(159,207,88,.18);
+  box-shadow:none;
 }
 @media(max-width:800px){
-  .dashboard .bottom-profile-icon{
+  .dashboard .bottom-profile-icon,
+  .dashboard .bottom-profile-image{
     width:30px;
     height:30px;
   }
