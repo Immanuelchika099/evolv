@@ -8404,3 +8404,294 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.9rem!important;
   }
 }
+
+
+/* EVOLV — richer profile / You experience */
+.dashboard .settings-page{
+  max-width:1080px !important;
+  padding-bottom:150px !important;
+}
+.dashboard .settings-page .settings-heading{
+  margin-bottom:42px !important;
+}
+.dashboard .settings-page .settings-heading h2{
+  font-size:clamp(3.25rem,7vw,5.25rem) !important;
+  line-height:1.02;
+}
+.dashboard .settings-page .settings-heading p{
+  font-size:1.5rem !important;
+  line-height:1.5;
+  max-width:620px;
+}
+
+.dashboard .profile-hero-card{
+  position:relative;
+  display:grid;
+  grid-template-columns:92px minmax(0,1fr) auto;
+  align-items:center;
+  gap:24px;
+  min-height:190px;
+  padding:30px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:30px;
+  background:
+    radial-gradient(circle at 88% 20%,rgba(200,243,106,.09),transparent 34%),
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
+    rgba(7,12,9,.68);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 24px 70px rgba(0,0,0,.22);
+  overflow:hidden;
+}
+.dashboard .profile-avatar{
+  width:92px;
+  height:92px;
+  display:grid;
+  place-items:center;
+  border-radius:28px;
+  border:1px solid rgba(200,243,106,.25);
+  background:linear-gradient(145deg,rgba(200,243,106,.18),rgba(200,243,106,.035));
+  color:#c8f36a;
+  font:650 3rem/1 'Space Grotesk';
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 14px 36px rgba(0,0,0,.18);
+}
+.dashboard .profile-hero-copy{
+  min-width:0;
+  display:grid;
+  gap:8px;
+}
+.dashboard .profile-hero-copy .section-label{
+  font-size:1.5rem !important;
+  line-height:1.2;
+}
+.dashboard .profile-hero-copy h3{
+  margin:0;
+  color:#f7f5ef;
+  font:600 2.35rem/1.05 'Space Grotesk';
+  letter-spacing:-.045em;
+}
+.dashboard .profile-hero-copy p{
+  margin:0;
+  color:rgba(244,241,234,.48);
+  font-size:1.5rem;
+  line-height:1.35;
+  overflow-wrap:anywhere;
+}
+.dashboard .profile-hero-status{
+  align-self:start;
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:10px 14px;
+  border:1px solid rgba(200,243,106,.16);
+  border-radius:999px;
+  background:rgba(200,243,106,.045);
+  color:rgba(244,241,234,.68);
+  font-size:1.5rem;
+}
+.dashboard .profile-hero-status span{
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  background:#c8f36a;
+  box-shadow:0 0 14px rgba(200,243,106,.55);
+}
+
+.dashboard .profile-facts-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  margin-top:18px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;
+  overflow:hidden;
+  background:rgba(255,255,255,.012);
+}
+.dashboard .profile-facts-grid > div{
+  min-height:150px;
+  padding:24px;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.dashboard .profile-facts-grid > div:last-child{
+  border-right:0;
+}
+.dashboard .profile-facts-grid span{
+  display:block;
+  margin-bottom:18px;
+  color:rgba(244,241,234,.34);
+  font:500 1.5rem/1.2 'DM Mono';
+  letter-spacing:.1em;
+}
+.dashboard .profile-facts-grid strong{
+  display:block;
+  color:#f4f1ea;
+  font-size:1.6rem;
+  line-height:1.35;
+  font-weight:550;
+}
+
+.dashboard .settings-page .settings-section{
+  margin-top:46px;
+}
+.dashboard .settings-page .settings-section-head{
+  margin-bottom:20px;
+}
+.dashboard .settings-page .settings-section-head h3{
+  font-size:2rem !important;
+  line-height:1.15;
+}
+.dashboard .settings-page .settings-section-head > svg{
+  width:24px;
+  height:24px;
+}
+.dashboard .settings-page .settings-card{
+  padding:26px !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:24px !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),
+    rgba(7,12,9,.58) !important;
+}
+.dashboard .settings-page .settings-card form{
+  max-width:none;
+  gap:18px;
+}
+.dashboard .settings-page .settings-card label{
+  gap:10px;
+}
+.dashboard .settings-page .settings-card label span,
+.dashboard .settings-page .profile-account-email span{
+  font-size:1.5rem !important;
+  line-height:1.2;
+  letter-spacing:.09em;
+}
+.dashboard .settings-page .settings-card input{
+  min-height:64px !important;
+  padding:0 18px !important;
+  border-radius:17px !important;
+  font-size:1.6rem !important;
+}
+.dashboard .profile-account-email{
+  display:grid;
+  gap:8px;
+  padding:18px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:17px;
+  background:rgba(255,255,255,.018);
+}
+.dashboard .profile-account-email span{
+  color:rgba(244,241,234,.34);
+}
+.dashboard .profile-account-email strong{
+  color:rgba(244,241,234,.7);
+  font-size:1.5rem;
+  line-height:1.35;
+  font-weight:500;
+  overflow-wrap:anywhere;
+}
+.dashboard .settings-page .settings-card .button{
+  min-height:58px;
+  font-size:1.5rem !important;
+}
+
+.dashboard .settings-page .settings-danger{
+  margin-top:50px;
+}
+.dashboard .settings-page .settings-action-row{
+  min-height:92px;
+  padding:22px 24px !important;
+  border-color:rgba(255,255,255,.07) !important;
+  background:rgba(7,12,9,.42) !important;
+}
+.dashboard .settings-page .settings-action-row strong{
+  font-size:1.6rem !important;
+}
+.dashboard .settings-page .settings-action-row span{
+  font-size:1.5rem !important;
+  line-height:1.35;
+}
+.dashboard .settings-page .settings-outline-button,
+.dashboard .settings-page .settings-delete-button{
+  min-height:50px;
+  padding:0 18px;
+  font-size:1.5rem !important;
+  border-radius:14px;
+}
+
+@media(max-width:650px){
+  .dashboard .settings-page{
+    padding-top:44px !important;
+    padding-bottom:130px !important;
+  }
+  .dashboard .settings-page .settings-heading{
+    margin-bottom:30px !important;
+  }
+  .dashboard .settings-page .settings-heading h2{
+    font-size:3.25rem !important;
+  }
+  .dashboard .settings-page .settings-heading p{
+    font-size:1.5rem !important;
+  }
+  .dashboard .profile-hero-card{
+    grid-template-columns:70px minmax(0,1fr);
+    gap:16px;
+    min-height:170px;
+    padding:20px;
+    border-radius:24px;
+  }
+  .dashboard .profile-avatar{
+    width:70px;
+    height:70px;
+    border-radius:22px;
+    font-size:2.3rem;
+  }
+  .dashboard .profile-hero-copy .section-label{
+    font-size:1.5rem !important;
+  }
+  .dashboard .profile-hero-copy h3{
+    font-size:2rem;
+  }
+  .dashboard .profile-hero-copy p{
+    font-size:1.5rem;
+  }
+  .dashboard .profile-hero-status{
+    grid-column:1 / -1;
+    justify-self:start;
+    font-size:1.5rem;
+  }
+  .dashboard .profile-facts-grid{
+    grid-template-columns:1fr;
+    border-radius:20px;
+  }
+  .dashboard .profile-facts-grid > div{
+    min-height:auto;
+    padding:20px;
+    border-right:0;
+    border-bottom:1px solid rgba(255,255,255,.07);
+  }
+  .dashboard .profile-facts-grid > div:last-child{
+    border-bottom:0;
+  }
+  .dashboard .profile-facts-grid span{
+    margin-bottom:10px;
+    font-size:1.5rem;
+  }
+  .dashboard .profile-facts-grid strong{
+    font-size:1.6rem;
+  }
+  .dashboard .settings-page .settings-section{
+    margin-top:36px;
+  }
+  .dashboard .settings-page .settings-section-head h3{
+    font-size:1.9rem !important;
+  }
+  .dashboard .settings-page .settings-card{
+    padding:20px !important;
+    border-radius:20px !important;
+  }
+  .dashboard .settings-page .settings-action-row{
+    min-height:110px;
+    align-items:flex-start;
+    padding:20px !important;
+  }
+  .dashboard .settings-page .settings-action-row > div{
+    min-width:0;
+  }
+}
