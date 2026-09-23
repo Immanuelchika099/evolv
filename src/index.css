@@ -8244,3 +8244,23 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     height:32px;
   }
 }
+
+/* EVOLV — center the heading-only logging pill content */
+.dashboard .log-choice-copy{
+  align-self:center;
+  justify-content:center;
+  align-items:flex-start;
+  gap:0;
+}
+.dashboard .log-choice-copy strong{
+  display:block;
+  margin:0;
+  line-height:1.2;
+}
+@media(max-width:650px){
+  .dashboard .log-choice-copy{
+    align-self:center;
+    justify-content:center;
+    gap:0;
+  }
+}
