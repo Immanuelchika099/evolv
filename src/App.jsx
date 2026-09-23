@@ -1085,6 +1085,13 @@ function Dashboard({ data, onLogout, onArticle }) {
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
   function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
+  function handleLogSaved(kind,entry){
+    if(kind==='meal') setMeals(current=>[entry,...current.filter(x=>x.id!==entry.id)])
+    else setLogs(current=>[entry,...current.filter(x=>x.id!==entry.id)])
+    setLogOpen(false)
+    setMetric(null)
+    setArea(null)
+  }
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
   async function handleAvatarChange(event){
@@ -1474,7 +1481,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   </div>
 }
 
-function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onClose}){
+function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSaved,onClose}){
   const [values,setValues]=useState({})
   const [error,setError]=useState('')
   const sheetRef=useRef(null)
@@ -1557,7 +1564,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       const n=k=>values[k]===''||values[k]==null?null:Number(values[k])
       const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()
 
-      const {error:x}=await supabase.from('meal_logs').insert({
+      const {data:meal,error:x}=await supabase.from('meal_logs').insert({
         user_id:u.id,
         meal_type:values.meal_type,
         description:values.description.trim(),
@@ -1569,7 +1576,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
         note:values.note?.trim()||null,
         logged_at:loggedAt,
         eaten_at:loggedAt
-      })
+      }).select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').single()
 
       setSaving(false)
 
@@ -1578,7 +1585,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
         return
       }
 
-      onClose()
+      onSaved?.('meal',meal)
       return
     }
 
@@ -1603,7 +1610,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       ? `Bedtime ${formatSleepTime(values.bedtime)} · Wake-up ${formatSleepTime(values.wake_up)}`
       : values.note?.trim()||null
 
-    const {error:x}=await supabase.from('metric_logs').insert({
+    const {data:entry,error:x}=await supabase.from('metric_logs').insert({
       user_id:u.id,
       metric_id:metric.id,
       value,
@@ -1611,7 +1618,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       note:sleepNote,
       logged_at:loggedAt.toISOString(),
       value_numeric:value
-    })
+    }).select('id,metric_id,value,unit,note,logged_at,created_at').single()
 
     setSaving(false)
 
@@ -1620,7 +1627,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       return
     }
 
-    onClose()
+    onSaved?.('metric',entry)
   }
 
   function formatSleepTime(value){
