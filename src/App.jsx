@@ -1177,13 +1177,92 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
-  async function toggleNotifications(){
-    if(notificationsEnabled){setNotificationsEnabled(false);localStorage.setItem('evolv-notifications-enabled','false');return}
-    if(!('Notification' in window)){setProfileMessage('Notifications are not supported in this browser.');return}
-    const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
-    if(permission==='granted'){setNotificationsEnabled(true);localStorage.setItem('evolv-notifications-enabled','true');setProfileMessage('Notifications enabled.')}else setProfileMessage('Allow notifications in your browser settings to turn this on.')
+  async function syncPushSettings(payload){
+    try{
+      const {error:pushError}=await supabase.functions.invoke('save-push-subscription',{body:payload})
+      if(pushError) throw pushError
+      return true
+    }catch(pushError){
+      console.error('EVOLV push sync failed:',pushError)
+      return false
+    }
   }
-  function toggleNotificationTime(key){setNotificationTimes(current=>{const next={...current,[key]:!current[key]};localStorage.setItem('evolv-notification-times',JSON.stringify(next));return next})}
+
+  function urlBase64ToUint8Array(base64String){
+    const padding='='.repeat((4-base64String.length%4)%4)
+    const base64=(base64String+padding).replace(/-/g,'+').replace(/_/g,'/')
+    const raw=window.atob(base64)
+    return Uint8Array.from([...raw].map(char=>char.charCodeAt(0)))
+  }
+
+  async function toggleNotifications(){
+    if(notificationsEnabled){
+      setNotificationsEnabled(false)
+      localStorage.setItem('evolv-notifications-enabled','false')
+      await syncPushSettings({enabled:false})
+      setProfileMessage('Daily notifications turned off.')
+      return
+    }
+
+    if(!('Notification' in window) || !('serviceWorker' in navigator) || !('PushManager' in window)){
+      setProfileMessage('Push notifications are not supported in this browser.')
+      return
+    }
+
+    const vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
+    if(!vapidPublicKey){
+      setProfileMessage('Push notifications are almost ready. Add the EVOLV VAPID public key to the app environment first.')
+      return
+    }
+
+    try{
+      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
+      if(permission!=='granted'){
+        setProfileMessage('Allow notifications in your browser settings to turn this on.')
+        return
+      }
+
+      const registration=await navigator.serviceWorker.ready
+      let subscription=await registration.pushManager.getSubscription()
+
+      if(!subscription){
+        subscription=await registration.pushManager.subscribe({
+          userVisibleOnly:true,
+          applicationServerKey:urlBase64ToUint8Array(vapidPublicKey)
+        })
+      }
+
+      const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos'
+      const saved=await syncPushSettings({
+        subscription:subscription.toJSON(),
+        timezone,
+        preferences:notificationTimes,
+        enabled:true
+      })
+
+      if(!saved){
+        setProfileMessage('Your browser allowed notifications, but EVOLV could not save the push subscription yet.')
+        return
+      }
+
+      setNotificationsEnabled(true)
+      localStorage.setItem('evolv-notifications-enabled','true')
+      setProfileMessage('Notifications enabled. EVOLV can now reach you even when the app is closed.')
+    }catch(pushError){
+      console.error('EVOLV push subscription failed:',pushError)
+      setProfileMessage(pushError?.message||'EVOLV could not enable push notifications. Please try again.')
+    }
+  }
+
+  async function toggleNotificationTime(key){
+    const next={...notificationTimes,[key]:!notificationTimes[key]}
+    setNotificationTimes(next)
+    localStorage.setItem('evolv-notification-times',JSON.stringify(next))
+    if(notificationsEnabled){
+      const synced=await syncPushSettings({preferences:next,enabled:true})
+      if(!synced) setProfileMessage('Saved on this device. EVOLV will sync this reminder when push is connected.')
+    }
+  }
   async function handleAvatarChange(event){
     const file=event.target.files?.[0]
     if(!file)return
