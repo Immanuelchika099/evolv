@@ -67,7 +67,47 @@ function App() {
       const { data: sessionData } = await supabase.auth.getSession()
       if (!mounted) return
       if (sessionData?.session?.user) {
-        await ensureProfile(sessionData.session.user)
+        const user = sessionData.session.user
+        const oauthIntent = sessionStorage.getItem('evolv-oauth-intent')
+
+        if (oauthIntent === 'login') {
+          const { data: existingProfile, error: profileError } = await supabase
+            .from('profiles')
+            .select('id')
+            .eq('id', user.id)
+            .maybeSingle()
+
+          sessionStorage.removeItem('evolv-oauth-intent')
+
+          if (profileError) {
+            await supabase.auth.signOut()
+            sessionStorage.setItem(
+              'evolv-auth-error',
+              'We couldn’t verify an EVOLV account for this Google or GitHub profile. Please create an EVOLV account first, then you can use this sign-in option.'
+            )
+            localStorage.setItem('evolv-view', 'auth')
+            setAuthMode('login')
+            setView('auth')
+            return
+          }
+
+          if (!existingProfile) {
+            await supabase.auth.signOut()
+            sessionStorage.setItem(
+              'evolv-auth-error',
+              'No EVOLV account was found for this Google or GitHub profile. Please create an account first, then come back and sign in.'
+            )
+            localStorage.setItem('evolv-view', 'auth')
+            setAuthMode('login')
+            setView('auth')
+            return
+          }
+
+          await finishAuth(user, 'login')
+          return
+        }
+
+        await ensureProfile(user)
         localStorage.setItem('evolv-view', 'dashboard')
         setView('dashboard')
       }
@@ -78,6 +118,11 @@ function App() {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!mounted) return
       if (session?.user) {
+        // OAuth login is validated in restoreAuth before the app is allowed
+        // to enter the dashboard. This prevents OAuth from silently behaving
+        // like account creation when the user chose "Sign in".
+        if (sessionStorage.getItem('evolv-oauth-intent') === 'login') return
+
         localStorage.setItem('evolv-view', 'dashboard')
         setView('dashboard')
       }
@@ -242,7 +287,11 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [sending, setSending] = useState(false)
-  const [error, setError] = useState('')
+  const [error, setError] = useState(() => {
+    const storedError = sessionStorage.getItem('evolv-auth-error')
+    if (storedError) sessionStorage.removeItem('evolv-auth-error')
+    return storedError || ''
+  })
   const [message, setMessage] = useState('')
 
   useEffect(() => {
@@ -268,12 +317,22 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     setError('')
     setMessage('')
 
+    // Remember that this OAuth attempt was explicitly made from the
+    // sign-in screen. After the provider redirects back, App validates
+    // that an EVOLV profile already exists before allowing access.
+    if (mode === 'login') {
+      sessionStorage.setItem('evolv-oauth-intent', 'login')
+    } else {
+      sessionStorage.removeItem('evolv-oauth-intent')
+    }
+
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
       provider,
       options: { redirectTo: window.location.origin },
     })
 
     if (oauthError) {
+      sessionStorage.removeItem('evolv-oauth-intent')
       setError(oauthError.message || `Could not continue with ${provider}. Please try again.`)
       setSending(false)
     }
