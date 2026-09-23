@@ -56,14 +56,8 @@ export default function Navbar({ onStart, onSignIn, onFeatures, onAreas, onPrici
     <>
       <nav className={open ? 'evolv-nav is-menu-open' : (visible ? 'evolv-nav is-visible' : 'evolv-nav is-hidden')}>
         <Brand onHome={onHome} />
-        <div className="evolv-nav-links" aria-label="Primary navigation">
-          <a href="#story">Why EVOLV</a>
-          <button type="button" onClick={onFeatures}>Features</button>
-          <button type="button" onClick={onAreas}>Growth areas</button>
-          <button type="button" onClick={onPricing}>Pricing</button>
-          <button type="button" onClick={onContact}>Contact</button>
-        </div>
         <div className="evolv-nav-actions">
+          <button type="button" className="evolv-sign-in" onClick={onSignIn}>Sign in</button>
           <button type="button" className="evolv-start" onClick={onStart}>Get started <ArrowRight size={15} /></button>
           <button type="button" className={open ? 'evolv-menu-toggle is-open' : 'evolv-menu-toggle'} onClick={() => setMenuOpen(v => !v)} aria-label={open ? 'Close menu' : 'Open menu'} aria-expanded={open}>
             <span /><span />
