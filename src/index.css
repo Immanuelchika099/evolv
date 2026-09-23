@@ -8695,3 +8695,128 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     min-width:0;
   }
 }
+
+
+/* EVOLV — profile photo / real account identity */
+.dashboard .profile-avatar-wrap{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+.dashboard .profile-avatar-button{
+  position:relative;
+  width:104px;
+  height:104px;
+  padding:0;
+  border:0;
+  border-radius:50%;
+  background:transparent;
+  cursor:pointer;
+  overflow:visible;
+}
+.dashboard .profile-avatar-button:disabled{cursor:wait;opacity:.75}
+.dashboard .profile-avatar,
+.dashboard .profile-avatar-image{
+  width:104px;
+  height:104px;
+  display:grid;
+  place-items:center;
+  border-radius:50%;
+}
+.dashboard .profile-avatar{
+  border:1px solid rgba(200,243,106,.28);
+  background:linear-gradient(145deg,rgba(200,243,106,.2),rgba(200,243,106,.035));
+  color:#c8f36a;
+  font:650 3rem/1 'Space Grotesk';
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 40px rgba(0,0,0,.22);
+}
+.dashboard .profile-avatar-image{
+  object-fit:cover;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.04),0 16px 40px rgba(0,0,0,.25);
+}
+.dashboard .profile-avatar-camera{
+  position:absolute;
+  right:-2px;
+  bottom:1px;
+  width:34px;
+  height:34px;
+  display:grid;
+  place-items:center;
+  border:2px solid #07100a;
+  border-radius:50%;
+  background:#c8f36a;
+  color:#07100a;
+  box-shadow:0 7px 20px rgba(0,0,0,.28);
+}
+.dashboard .profile-avatar-input{display:none}
+.dashboard .profile-photo-actions{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.dashboard .profile-photo-actions button{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  min-height:42px;
+  padding:0 14px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:12px;
+  background:rgba(255,255,255,.025);
+  color:rgba(244,241,234,.72);
+  font:500 1.5rem/1 'Manrope';
+  cursor:pointer;
+}
+.dashboard .profile-photo-actions button:first-child{
+  border-color:rgba(200,243,106,.16);
+  background:rgba(200,243,106,.045);
+  color:#dcebcf;
+}
+.dashboard .profile-photo-actions button:hover{
+  border-color:rgba(200,243,106,.28);
+  background:rgba(200,243,106,.075);
+}
+.dashboard .profile-hero-copy small{
+  display:block;
+  max-width:560px;
+  color:rgba(244,241,234,.35);
+  font-size:1.5rem;
+  line-height:1.45;
+}
+
+@media(max-width:650px){
+  .dashboard .profile-hero-card{
+    grid-template-columns:1fr;
+    justify-items:center;
+    text-align:center;
+    gap:18px;
+    padding:24px 20px;
+  }
+  .dashboard .profile-avatar-button,
+  .dashboard .profile-avatar,
+  .dashboard .profile-avatar-image{
+    width:112px;
+    height:112px;
+  }
+  .dashboard .profile-avatar{
+    font-size:3.1rem;
+  }
+  .dashboard .profile-avatar-camera{
+    width:36px;
+    height:36px;
+  }
+  .dashboard .profile-hero-copy{
+    justify-items:center;
+  }
+  .dashboard .profile-hero-copy small{
+    max-width:320px;
+    font-size:1.5rem;
+  }
+  .dashboard .profile-hero-status{
+    grid-column:auto;
+    justify-self:center;
+  }
+}
