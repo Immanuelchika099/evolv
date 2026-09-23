@@ -77,13 +77,12 @@ function App() {
             .eq('id', user.id)
             .maybeSingle()
 
-          sessionStorage.removeItem('evolv-oauth-intent')
-
           if (profileError) {
             await supabase.auth.signOut()
+            sessionStorage.removeItem('evolv-oauth-intent')
             sessionStorage.setItem(
               'evolv-auth-error',
-              'We couldn’t verify an EVOLV account for this Google or GitHub profile. Please create an EVOLV account first, then you can use this sign-in option.'
+              'We couldn’t verify your EVOLV account. Please create an account first, then return here to sign in with Google or GitHub.'
             )
             localStorage.setItem('evolv-view', 'auth')
             setAuthMode('login')
@@ -93,6 +92,7 @@ function App() {
 
           if (!existingProfile) {
             await supabase.auth.signOut()
+            sessionStorage.removeItem('evolv-oauth-intent')
             sessionStorage.setItem(
               'evolv-auth-error',
               'No EVOLV account was found for this Google or GitHub profile. Please create an account first, then come back and sign in.'
@@ -104,6 +104,7 @@ function App() {
           }
 
           await finishAuth(user, 'login')
+          sessionStorage.removeItem('evolv-oauth-intent')
           return
         }
 
@@ -118,9 +119,10 @@ function App() {
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => {
       if (!mounted) return
       if (session?.user) {
-        // OAuth login is validated in restoreAuth before the app is allowed
-        // to enter the dashboard. This prevents OAuth from silently behaving
-        // like account creation when the user chose "Sign in".
+        // A Google/GitHub attempt from the sign-in screen must be validated
+        // against an existing EVOLV profile before entering the dashboard.
+        // Do not let the auth event race ahead of restoreAuth and create a
+        // new-account experience by sending the user straight into the app.
         if (sessionStorage.getItem('evolv-oauth-intent') === 'login') return
 
         localStorage.setItem('evolv-view', 'dashboard')
