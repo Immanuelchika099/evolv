@@ -1,0 +1,35 @@
+/* EVOLV — authorization page back-home link */
+.auth-page .auth-back{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:9px;
+  margin-top:24px;
+  padding:10px 4px;
+  border:0;
+  background:transparent;
+  color:#aaa;
+  font:500 15px/1.4 Manrope,sans-serif;
+  letter-spacing:0;
+  cursor:pointer;
+  transition:color .25s ease,transform .25s ease;
+}
+.auth-page .auth-back svg{
+  width:17px;
+  height:17px;
+  flex:0 0 auto;
+}
+.auth-page .auth-back:hover{
+  color:#f3f1ea;
+  transform:translateX(-2px);
+}
+@media(max-width:800px){
+  .auth-page .auth-back{
+    font-size:16px;
+    padding:11px 4px;
+  }
+  .auth-page .auth-back svg{
+    width:18px;
+    height:18px;
+  }
+}
