@@ -8087,3 +8087,160 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.6rem;
   }
 }
+
+
+/* EVOLV — logging sheet final polish
+   Cleaner cards, stronger hierarchy, no visible outer scrollbar.
+   Existing background is intentionally untouched.
+*/
+.dashboard .log-sheet-heading{
+  padding-right:8px;
+}
+.dashboard .log-sheet-heading .section-label{
+  display:block;
+  margin-bottom:10px;
+  font-size:1.5rem!important;
+  line-height:1.2;
+  letter-spacing:.13em;
+}
+.dashboard .log-sheet-heading h2{
+  margin:0 0 10px!important;
+  font:600 2.6rem/1.08 'Space Grotesk'!important;
+  letter-spacing:-.045em;
+  color:#f7f5ef;
+}
+.dashboard .log-sheet-heading p{
+  margin:0!important;
+  max-width:520px;
+  font-size:1.5rem!important;
+  line-height:1.45;
+  color:rgba(244,241,234,.52);
+}
+
+.dashboard .log-sheet-scroll{
+  overflow-y:auto;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+  overscroll-behavior:contain;
+}
+.dashboard .log-sheet-scroll::-webkit-scrollbar{
+  width:0;
+  height:0;
+  display:none;
+}
+
+.dashboard .log-area-grid,
+.dashboard .log-metric-list{
+  gap:12px;
+}
+
+.dashboard .log-area-choice,
+.dashboard .log-metric-choice{
+  min-height:124px;
+  grid-template-columns:56px minmax(0,1fr) 34px;
+  gap:17px;
+  padding:19px;
+  border-radius:24px;
+  align-items:center;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018)),
+    rgba(10,13,11,.72);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 14px 34px rgba(0,0,0,.16);
+}
+.dashboard .log-area-choice:hover,
+.dashboard .log-metric-choice:hover{
+  transform:translateY(-1px);
+  border-color:rgba(200,243,106,.22);
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.022)),
+    rgba(10,13,11,.78);
+}
+.dashboard .log-area-choice .log-choice-icon,
+.dashboard .log-metric-choice .log-choice-icon{
+  width:56px;
+  height:56px;
+  border-radius:18px;
+}
+.dashboard .log-choice-copy{
+  min-width:0;
+  gap:8px;
+  justify-content:center;
+}
+.dashboard .log-choice-copy strong{
+  font:650 1.7rem/1.18 'Space Grotesk';
+  letter-spacing:-.025em;
+  color:#f7f5ef;
+}
+.dashboard .log-choice-copy small{
+  max-width:100%;
+  font:500 1.5rem/1.38 'Manrope';
+  letter-spacing:-.01em;
+  color:rgba(244,241,234,.5);
+}
+.dashboard .log-area-choice > svg,
+.dashboard .log-metric-choice > svg{
+  width:34px;
+  height:34px;
+  padding:7px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  color:rgba(244,241,234,.52);
+  justify-self:end;
+}
+
+@media(max-width:650px){
+  .dashboard .log-sheet-heading{
+    padding-right:4px;
+  }
+  .dashboard .log-sheet-heading .section-label{
+    margin-bottom:9px;
+    font-size:1.5rem!important;
+  }
+  .dashboard .log-sheet-heading h2{
+    font-size:2.35rem!important;
+    line-height:1.08;
+    margin-bottom:9px!important;
+  }
+  .dashboard .log-sheet-heading p{
+    font-size:1.5rem!important;
+    line-height:1.42;
+  }
+  .dashboard .log-sheet-scroll{
+    padding-left:16px;
+    padding-right:16px;
+    scrollbar-width:none;
+  }
+  .dashboard .log-area-choice,
+  .dashboard .log-metric-choice{
+    min-height:122px;
+    grid-template-columns:54px minmax(0,1fr) 32px;
+    gap:15px;
+    padding:18px;
+    border-radius:22px;
+  }
+  .dashboard .log-area-choice .log-choice-icon,
+  .dashboard .log-metric-choice .log-choice-icon{
+    width:54px;
+    height:54px;
+    border-radius:17px;
+  }
+  .dashboard .log-choice-copy{
+    gap:8px;
+  }
+  .dashboard .log-choice-copy strong{
+    font-size:1.7rem;
+    line-height:1.18;
+  }
+  .dashboard .log-choice-copy small{
+    font-size:1.5rem;
+    line-height:1.38;
+  }
+  .dashboard .log-area-choice > svg,
+  .dashboard .log-metric-choice > svg{
+    width:32px;
+    height:32px;
+  }
+}
