@@ -1142,7 +1142,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
   return <div className="page-enter dashboard">
-    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>setActive('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='overview'&&<div className="dashboard-home">
@@ -1155,7 +1155,7 @@ function Dashboard({ data, onLogout, onArticle }) {
             {!todayLogs.length&&!todayMeals.length&&<div className="today-empty"><Sparkles size={18}/><p>Nothing logged yet. Start with one small thing.</p></div>}
           </div>
         </section>
-        <section className="evolv-life-overview">{Object.entries(areas).map(([id,m])=>{const I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===id);const tracked=rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).length;const preview=id==='nutrition'?(todayMeals.length?todayMeals.length+' meals logged today':'Nothing logged yet'):rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).slice(0,2).map(d=>d.name+' '+valueText(todayLogs.find(l=>l.metric_id===d.id),d)).join(' · ')||'Nothing logged today';return <button className="life-area-row" key={id} onClick={()=>{setArea(id);setActive('area')}}><span className="life-area-icon" style={{'--area-color':m.color}}><I size={17}/></span><span className="life-area-main"><strong>{m.title}</strong><small>{preview}</small></span><span className="life-area-values"><b>{id==='nutrition'?todayMeals.length:tracked}</b><small>{id==='nutrition'?'meals':'today'}</small></span><ChevronRight size={17}/></button>})}</section>
+        <section className="evolv-life-overview">{Object.entries(areas).map(([id,m])=>{const I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===id);const tracked=rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).length;const preview=id==='nutrition'?(todayMeals.length?todayMeals.length+' meals logged today':'Nothing logged yet'):rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).slice(0,2).map(d=>d.name+' '+valueText(todayLogs.find(l=>l.metric_id===d.id),d)).join(' · ')||'Nothing logged today';return <button className="life-area-row" key={id} onClick={()=>{goTo('area');setArea(id)}}><span className="life-area-icon" style={{'--area-color':m.color}}><I size={17}/></span><span className="life-area-main"><strong>{m.title}</strong><small>{preview}</small></span><span className="life-area-values"><b>{id==='nutrition'?todayMeals.length:tracked}</b><small>{id==='nutrition'?'meals':'today'}</small></span><ChevronRight size={17}/></button>})}</section>
         <section className="today-action-strip"><div><span className="section-label">KEEP GOING</span><h2>What happened today?</h2><p>Record one thing. You can always add more later.</p></div><button className="button button-primary" onClick={()=>openLog()}><Plus size={16}/> Log something</button></section>
         <section className="daily-insight evolv-empty-insight"><span className="daily-insight-label">YOUR CLARITY BUILDS HERE</span><h2>{todayLogs.length+todayMeals.length<3?'Start with what’s real.':'You’re building a picture of your day.'}</h2><p>{todayLogs.length+todayMeals.length<3?'The more useful things you log, the more clearly Evolv can show patterns and changes over time.':'Keep logging naturally. Evolv will turn your history into observations when there is enough data to say something useful.'}</p></section>
       </div>}
@@ -1176,7 +1176,7 @@ function Dashboard({ data, onLogout, onArticle }) {
         const healthMetric=slug=>defs.find(d=>d.slug===slug)
         const healthLatest=slug=>{const d=healthMetric(slug);return d?latest[slug]:null}
         return <section className="panel-page dashboard-panel area-detail-page">
-          <button className="area-back" onClick={()=>setActive('overview')}><ChevronLeft size={16}/> Home</button>
+          <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
           <div className="area-detail-head">
             <span className="life-area-icon large" style={{'--area-color':m.color}}><I size={20}/></span>
             <span className="section-label">YOUR {m.title.toUpperCase()}</span>
@@ -1478,7 +1478,7 @@ function Dashboard({ data, onLogout, onArticle }) {
 </section>}
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
-    <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>setActive('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>setActive('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>
+    <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
   </div>
 }
