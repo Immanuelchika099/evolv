@@ -8063,3 +8063,27 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     line-height:1.4;
   }
 }
+
+
+/* EVOLV — sleep picker cleanup */
+.dashboard .sleep-time-card::after{
+  display:none;
+}
+
+.dashboard .sleep-schedule-picker .log-field-title span,
+.dashboard .sleep-schedule-picker .log-field-title small{
+  font-size:1.6rem;
+  line-height:1.35;
+}
+
+.dashboard .sleep-schedule-picker .log-field-title span{
+  font-weight:650;
+  color:#f7f5ef;
+}
+
+@media(max-width:650px){
+  .dashboard .sleep-schedule-picker .log-field-title span,
+  .dashboard .sleep-schedule-picker .log-field-title small{
+    font-size:1.6rem;
+  }
+}
