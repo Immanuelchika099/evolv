@@ -1129,7 +1129,14 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
-  const [notificationTimes,setNotificationTimes]=useState(()=>{try{return JSON.parse(localStorage.getItem('evolv-notification-times')||'{"morning":true,"hydration":true,"evening":true,"sleep":true}')}catch{return {morning:true,hydration:true,evening:true,sleep:true}}})
+  const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...{morning:true,hydration:true,evening:true,sleep:true,reflection:true},...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return {morning:true,hydration:true,evening:true,sleep:true,reflection:true}}})
+  const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
+  const [reflectionOpen,setReflectionOpen]=useState(()=>new URLSearchParams(window.location.search).get('reflection')==='1')
+  const [reflectionStep,setReflectionStep]=useState(0)
+  const [reflectionMood,setReflectionMood]=useState(null)
+  const [reflectionFeeling,setReflectionFeeling]=useState('')
+  const [reflectionNote,setReflectionNote]=useState('')
+  const [reflectionSaving,setReflectionSaving]=useState(false)
   const [avatarUrl,setAvatarUrl]=useState('')
   const [avatarUploading,setAvatarUploading]=useState(false)
   const avatarInputRef=useRef(null)
@@ -1237,6 +1244,7 @@ function Dashboard({ data, onLogout, onArticle }) {
         subscription:subscription.toJSON(),
         timezone,
         preferences:notificationTimes,
+        reflectionTime,
         enabled:true
       })
 
@@ -1259,9 +1267,59 @@ function Dashboard({ data, onLogout, onArticle }) {
     setNotificationTimes(next)
     localStorage.setItem('evolv-notification-times',JSON.stringify(next))
     if(notificationsEnabled){
-      const synced=await syncPushSettings({preferences:next,enabled:true})
+      const synced=await syncPushSettings({preferences:next,reflectionTime,enabled:true})
       if(!synced) setProfileMessage('Saved on this device. EVOLV will sync this reminder when push is connected.')
     }
+  }
+
+  async function saveReflectionTime(event){
+    const next=event.target.value||'22:30'
+    setReflectionTime(next)
+    localStorage.setItem('evolv-reflection-time',next)
+    if(notificationsEnabled){
+      const synced=await syncPushSettings({preferences:notificationTimes,reflectionTime:next,enabled:true})
+      setProfileMessage(synced?'Daily reflection time saved.':'Saved on this device. EVOLV will sync this reflection time when push is connected.')
+    }
+  }
+
+  function openReflection(){
+    setReflectionStep(0)
+    setReflectionMood(null)
+    setReflectionFeeling('')
+    setReflectionNote('')
+    setReflectionOpen(true)
+    window.history.replaceState({},'',window.location.pathname)
+  }
+
+  function closeReflection(){
+    setReflectionOpen(false)
+    setReflectionStep(0)
+    if(new URLSearchParams(window.location.search).get('reflection')){
+      window.history.replaceState({},'',window.location.pathname)
+    }
+  }
+
+  async function saveReflection(){
+    setReflectionSaving(true)
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u){setReflectionSaving(false);return}
+    const reflectionDate=new Date().toLocaleDateString('en-CA')
+    const {error:reflectionError}=await supabase.from('daily_reflections').upsert({
+      user_id:u.id,
+      reflection_date:reflectionDate,
+      mood:reflectionMood,
+      day_feeling:reflectionFeeling||null,
+      note:reflectionNote.trim()||null,
+      updated_at:new Date().toISOString()
+    },{onConflict:'user_id,reflection_date'})
+    setReflectionSaving(false)
+    if(reflectionError){
+      setProfileMessage('Your reflection could not be saved. Please try again.')
+      return
+    }
+    closeReflection()
+    setProfileMessage('Reflection saved. You showed up for yourself today.')
   }
   async function handleAvatarChange(event){
     const file=event.target.files?.[0]
@@ -1628,6 +1686,9 @@ function Dashboard({ data, onLogout, onArticle }) {
       <div className="notification-preference"><div><strong>Hydration reminder</strong><span>A midday reminder to check in with water</span></div><button type="button" onClick={()=>toggleNotificationTime('hydration')} className={notificationTimes.hydration?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
       <div className="notification-preference"><div><strong>Evening check-in</strong><span>Pause and reflect on your day</span></div><button type="button" onClick={()=>toggleNotificationTime('evening')} className={notificationTimes.evening?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
       <div className="notification-preference"><div><strong>Sleep reminder</strong><span>A gentle nudge when it is time to wind down</span></div><button type="button" onClick={()=>toggleNotificationTime('sleep')} className={notificationTimes.sleep?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
+      <div className="notification-preference reflection-preference"><div><strong>Daily reflection</strong><span>Let EVOLV ask how your day felt.</span></div><button type="button" onClick={()=>toggleNotificationTime('reflection')} className={notificationTimes.reflection?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
+      <div className="reflection-time-row"><div><strong>Reflection time</strong><span>A quiet moment chosen by you.</span></div><input type="time" value={reflectionTime} onChange={saveReflectionTime} disabled={!notificationsEnabled||!notificationTimes.reflection} aria-label="Daily reflection time"/></div>
+      <button className="reflection-preview-button" type="button" onClick={openReflection}><Moon size={15}/> Try tonight's reflection now</button>
     </div>
   </div>
 
@@ -1658,6 +1719,22 @@ function Dashboard({ data, onLogout, onArticle }) {
     </main>
     <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
+    {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
+  </div>
+}
+
+function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,onSave,onClose}){
+  const moods=[{value:1,label:'Rough',emoji:'😔'},{value:2,label:'Low',emoji:'😕'},{value:3,label:'Okay',emoji:'😐'},{value:4,label:'Good',emoji:'🙂'},{value:5,label:'Great',emoji:'😊'}]
+  const feelings=['Calm','Okay','Stressful','Energised','Heavy','Productive']
+  return <div className="reflection-overlay" role="dialog" aria-modal="true" aria-label="Daily reflection">
+    <div className="reflection-sheet">
+      <div className="reflection-sheet-handle"/>
+      <div className="reflection-sheet-head"><div><span className="section-label">DAILY REFLECTION</span><span className="reflection-step-label">{step+1} / 3</span></div><button type="button" className="reflection-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button></div>
+      {step===0&&<div className="reflection-step"><span className="reflection-kicker">BEFORE YOU WIND DOWN</span><h2>How are you feeling tonight?</h2><p>A small pause. No right answer. Just where you are.</p><div className="reflection-mood-grid">{moods.map(item=><button type="button" key={item.value} className={mood===item.value?'selected':''} onClick={()=>setMood(item.value)}><span>{item.emoji}</span><small>{item.label}</small></button>)}</div><button className="button button-primary reflection-next" type="button" disabled={!mood} onClick={()=>setStep(1)}>Continue <ArrowRight size={16}/></button></div>}
+      {step===1&&<div className="reflection-step"><span className="reflection-kicker">LOOKING BACK</span><h2>How did today feel overall?</h2><p>Pick the feeling that comes closest.</p><div className="reflection-feeling-grid">{feelings.map(item=><button type="button" key={item} className={feeling===item?'selected':''} onClick={()=>setFeeling(item)}>{item}</button>)}</div><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(0)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" disabled={!feeling} onClick={()=>setStep(2)}>Continue <ArrowRight size={16}/></button></div></div>}
+      {step===2&&<div className="reflection-step"><span className="reflection-kicker">A LITTLE SPACE</span><h2>Anything on your mind?</h2><p>Leave a note for yourself, or simply finish here.</p><textarea className="reflection-note" value={note} onChange={e=>setNote(e.target.value)} placeholder="Write anything you want to remember…" rows={5}/><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(1)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" onClick={onSave} disabled={saving}>{saving?'Saving…':'Save reflection'} {!saving&&<Check size={16}/>}</button></div></div>}
+      <div className="reflection-progress"><span className="active"/><span className={step>=1?'active':''}/><span className={step>=2?'active':''}/></div>
+    </div>
   </div>
 }
 
