@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink } from 'lucide-react'
+import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -1223,6 +1223,13 @@ function Dashboard({ data, onLogout, onArticle }) {
         const percent=delta!=null&&previousValue!==0?(delta/Math.abs(previousValue))*100:null
         const displayMetric=(value,d)=>{
           if(value==null)return '—'
+          if(d.slug==='sleep'){
+            const totalMinutes=Math.max(0,Math.round(Number(value)*60))
+            const h=Math.floor(totalMinutes/60),m=totalMinutes%60
+            if(h&&m)return h+'h '+m+'m'
+            if(h)return h+'h'
+            return m+'m'
+          }
           if(d.value_type==='duration'){
             const total=Math.max(0,Math.round(value)),h=Math.floor(total/60),m=total%60
             if(h&&m)return h+'h '+m+'m'
@@ -1437,25 +1444,41 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
       return
     }
 
-    const value=metric.slug==='sleep'
+    const sleepMinutes=metric.slug==='sleep'
       ? (Number(values.sleep_hours||0)*60 + Number(values.sleep_minutes||0))
+      : null
+    const value=metric.slug==='sleep'
+      ? sleepMinutes/60
       : Number(values.value)
 
-    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(Number(values.sleep_hours||0))||!Number.isFinite(Number(values.sleep_minutes||0))||Number(values.sleep_hours||0)<0||Number(values.sleep_minutes||0)<0||Number(values.sleep_minutes||0)>59))||(metric.value_type==='scale'&&(value<1||value>5))){
-      setError(metric.slug==='sleep'?'Enter a valid sleep duration.':metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
+    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(
+      !Number.isFinite(Number(values.sleep_hours||0))||
+      !Number.isFinite(Number(values.sleep_minutes||0))||
+      Number(values.sleep_hours||0)<0||
+      Number(values.sleep_minutes||0)<0||
+      Number(values.sleep_minutes||0)>59||
+      sleepMinutes<=0
+    ))||(metric.value_type==='scale'&&(value<1||value>5))){
+      setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
       setSaving(false)
       return
     }
 
-    const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()
+    const loggedAt=metric.slug==='sleep'
+      ? (values.wake_up_date ? new Date(`${values.wake_up_date}T${values.wake_up}`) : new Date())
+      : (values.logged_at?new Date(values.logged_at):new Date())
+
+    const sleepNote=metric.slug==='sleep'
+      ? `Bedtime ${formatSleepTime(values.bedtime)} · Wake-up ${formatSleepTime(values.wake_up)}`
+      : values.note?.trim()||null
 
     const {error:x}=await supabase.from('metric_logs').insert({
       user_id:u.id,
       metric_id:metric.id,
       value,
-      unit:metric.unit||null,
-      note:values.note?.trim()||null,
-      logged_at:loggedAt,
+      unit:metric.slug==='sleep'?'hours':(metric.unit||null),
+      note:sleepNote,
+      logged_at:loggedAt.toISOString(),
       value_numeric:value
     })
 
@@ -1469,9 +1492,28 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
     onClose()
   }
 
+  function formatSleepTime(value){
+    if(!value)return '—'
+    const [hour,minute]=value.split(':').map(Number)
+    const date=new Date()
+    date.setHours(hour,minute,0,0)
+    return date.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})
+  }
+
+  function calculateSleepDuration(bedtime,wakeUp){
+    if(!bedtime||!wakeUp)return null
+    const [bh,bm]=bedtime.split(':').map(Number)
+    const [wh,wm]=wakeUp.split(':').map(Number)
+    let minutes=(wh*60+wm)-(bh*60+bm)
+    if(minutes<=0)minutes+=24*60
+    return minutes
+  }
+
   function selectMetric(nextMetric){
     onMetric(nextMetric)
-    setValues({})
+    setValues(nextMetric.slug==='sleep'
+      ? {bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)}
+      : {})
     setError('')
   }
 
@@ -1565,30 +1607,41 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                 </div>
 
               ):metric.slug==='sleep'?(
-                <div className="sleep-duration-picker">
-                  <div className="log-field-title"><span>Sleep duration</span><small>Enter your time asleep</small></div>
-                  <div className="sleep-duration-fields">
-                    <label className="log-input-label">
-                      <span>Hours</span>
-                      <input autoFocus type="number" min="0" step="1" inputMode="numeric" value={values.sleep_hours||''} onChange={e=>setValues(v=>({...v,sleep_hours:e.target.value}))} placeholder="0"/>
+                <div className="sleep-schedule-picker">
+                  <div className="log-field-title">
+                    <span>Sleep schedule</span>
+                    <small>Choose when you went to bed and woke up</small>
+                  </div>
+                  <div className="sleep-time-grid">
+                    <label className="sleep-time-card">
+                      <span className="sleep-time-icon"><Moon size={17}/></span>
+                      <span className="sleep-time-copy"><b>Bedtime</b><small>When you went to sleep</small></span>
+                      <input aria-label="Bedtime" type="time" step="300" value={values.bedtime||''} onChange={e=>setValues(v=>({...v,bedtime:e.target.value}))}/>
                     </label>
-                    <label className="log-input-label">
-                      <span>Minutes</span>
-                      <input type="number" min="0" max="59" step="1" inputMode="numeric" value={values.sleep_minutes||''} onChange={e=>setValues(v=>({...v,sleep_minutes:e.target.value}))} placeholder="0"/>
+                    <label className="sleep-time-card">
+                      <span className="sleep-time-icon"><Sunrise size={17}/></span>
+                      <span className="sleep-time-copy"><b>Wake-up</b><small>When you woke up</small></span>
+                      <input aria-label="Wake-up time" type="time" step="300" value={values.wake_up||''} onChange={e=>setValues(v=>({...v,wake_up:e.target.value}))}/>
                     </label>
                   </div>
+                  {calculateSleepDuration(values.bedtime,values.wake_up)!=null&&(
+                    <div className="sleep-duration-result">
+                      <span>Sleep duration</span>
+                      <strong>{Math.floor(calculateSleepDuration(values.bedtime,values.wake_up)/60)}h {calculateSleepDuration(values.bedtime,values.wake_up)%60}m</strong>
+                    </div>
+                  )}
                 </div>
-              ):(
+              ):
                 <label className="log-input-label">
                   <span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span>
                   <input autoFocus type="number" min="0" step="any" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))} placeholder={metric.unit==='NGN'?'0':'0'}/>
                 </label>
               )}
 
-              <label className="log-input-label">
+              {metric.slug!=='sleep'&&<label className="log-input-label">
                 <span>When</span>
                 <input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/>
-              </label>
+              </label>}
 
               <label className="log-input-label">
                 <span>Note <small>optional</small></span>
