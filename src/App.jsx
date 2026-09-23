@@ -1445,7 +1445,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
     }
 
     const sleepMinutes=metric.slug==='sleep'
-      ? (Number(values.sleep_hours||0)*60 + Number(values.sleep_minutes||0))
+      ? calculateSleepDuration(values.bedtime,values.wake_up)
       : null
     const value=metric.slug==='sleep'
       ? sleepMinutes/60
