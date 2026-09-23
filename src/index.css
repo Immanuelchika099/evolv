@@ -9724,3 +9724,25 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .reflection-mood-grid button span{font-size:23px}
   .reflection-mood-grid button small{font-size:9px}
 }
+
+
+/* EVOLV — clean card scrolling
+   Keep scrolling functional where a panel needs it, but remove the browser
+   scrollbar chrome so cards/sheets don't show an external-looking rail. */
+.contact-modal,
+.dashboard .log-sheet,
+.dashboard .log-sheet-scroll,
+.dashboard .ai-messages,
+.dashboard .sleep-time-grid{
+  scrollbar-width:none;
+}
+
+.contact-modal::-webkit-scrollbar,
+.dashboard .log-sheet::-webkit-scrollbar,
+.dashboard .log-sheet-scroll::-webkit-scrollbar,
+.dashboard .ai-messages::-webkit-scrollbar,
+.dashboard .sleep-time-grid::-webkit-scrollbar{
+  display:none;
+  width:0;
+  height:0;
+}
