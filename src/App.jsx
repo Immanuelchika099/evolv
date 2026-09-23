@@ -1128,6 +1128,8 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [goalDescription,setGoalDescription]=useState('')
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
+  const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
+  const [notificationTimes,setNotificationTimes]=useState(()=>{try{return JSON.parse(localStorage.getItem('evolv-notification-times')||'{"morning":true,"hydration":true,"evening":true,"sleep":true}')}catch{return {morning:true,hydration:true,evening:true,sleep:true}}})
   const [avatarUrl,setAvatarUrl]=useState('')
   const [avatarUploading,setAvatarUploading]=useState(false)
   const avatarInputRef=useRef(null)
@@ -1175,6 +1177,13 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
+  async function toggleNotifications(){
+    if(notificationsEnabled){setNotificationsEnabled(false);localStorage.setItem('evolv-notifications-enabled','false');return}
+    if(!('Notification' in window)){setProfileMessage('Notifications are not supported in this browser.');return}
+    const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
+    if(permission==='granted'){setNotificationsEnabled(true);localStorage.setItem('evolv-notifications-enabled','true');setProfileMessage('Notifications enabled.')}else setProfileMessage('Allow notifications in your browser settings to turn this on.')
+  }
+  function toggleNotificationTime(key){setNotificationTimes(current=>{const next={...current,[key]:!current[key]};localStorage.setItem('evolv-notification-times',JSON.stringify(next));return next})}
   async function handleAvatarChange(event){
     const file=event.target.files?.[0]
     if(!file)return
@@ -1529,6 +1538,17 @@ function Dashboard({ data, onLogout, onArticle }) {
         <button className="button button-primary" type="submit">Save changes</button>
         {profileMessage&&<p className="auth-message">{profileMessage}</p>}
       </form>
+    </div>
+  </div>
+
+  <div className="settings-section notifications-settings-section">
+    <div className="settings-section-head"><div><span className="section-label">REMINDERS</span><h3>Notifications</h3></div><Bell size={20}/></div>
+    <div className="notification-master-row"><div><strong>Daily reminders</strong><span>Gentle prompts to help you keep showing up.</span></div><button type="button" className={notificationsEnabled?'settings-toggle active':'settings-toggle'} onClick={toggleNotifications} aria-pressed={notificationsEnabled}><span /></button></div>
+    <div className={notificationsEnabled?'notification-preferences':'notification-preferences disabled'}>
+      <div className="notification-preference"><div><strong>Morning check-in</strong><span>Start your day with a gentle prompt</span></div><button type="button" onClick={()=>toggleNotificationTime('morning')} className={notificationTimes.morning?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
+      <div className="notification-preference"><div><strong>Hydration reminder</strong><span>A midday reminder to check in with water</span></div><button type="button" onClick={()=>toggleNotificationTime('hydration')} className={notificationTimes.hydration?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
+      <div className="notification-preference"><div><strong>Evening check-in</strong><span>Pause and reflect on your day</span></div><button type="button" onClick={()=>toggleNotificationTime('evening')} className={notificationTimes.evening?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
+      <div className="notification-preference"><div><strong>Sleep reminder</strong><span>A gentle nudge when it is time to wind down</span></div><button type="button" onClick={()=>toggleNotificationTime('sleep')} className={notificationTimes.sleep?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
     </div>
   </div>
 
