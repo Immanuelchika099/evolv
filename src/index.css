@@ -9478,3 +9478,80 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     gap:14px;
   }
 }
+
+
+/* EVOLV — real-world logging fields */
+.dashboard .special-metric-fields{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+.dashboard .special-log-intro{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+}
+.dashboard .special-log-intro strong{
+  color:#f4f1ea;
+  font-size:1.7rem !important;
+  line-height:1.15;
+}
+.dashboard .special-log-intro span{
+  color:rgba(244,241,234,.45);
+  font-size:1.5rem !important;
+  line-height:1.4;
+}
+.dashboard .special-metric-fields .log-input-label{
+  gap:9px;
+}
+.dashboard .special-metric-fields .log-input-label > span{
+  font-size:1.5rem !important;
+}
+.dashboard .special-metric-fields input,
+.dashboard .special-metric-fields select{
+  min-height:56px;
+  border-radius:16px;
+}
+.dashboard .special-choice-grid{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:9px;
+}
+.dashboard .special-choice-grid button{
+  min-height:58px;
+  padding:10px 8px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:15px;
+  background:rgba(255,255,255,.025);
+  color:rgba(244,241,234,.58);
+  font-size:1.5rem !important;
+  line-height:1.15;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.dashboard .special-choice-grid button:hover{
+  border-color:rgba(200,243,106,.25);
+  color:#f4f1ea;
+}
+.dashboard .special-choice-grid button.active{
+  border-color:rgba(200,243,106,.32);
+  background:rgba(200,243,106,.1);
+  color:#c8f36a;
+  box-shadow:0 8px 24px rgba(0,0,0,.14);
+}
+@media(max-width:650px){
+  .dashboard .special-log-intro{
+    padding:17px 18px;
+    border-radius:16px;
+  }
+  .dashboard .special-choice-grid{
+    grid-template-columns:1fr 1fr;
+  }
+  .dashboard .special-choice-grid button{
+    min-height:62px;
+  }
+}
