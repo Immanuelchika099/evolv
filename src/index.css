@@ -6380,7 +6380,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .progress-period-summary>div{padding:24px 20px 24px 0;border-right:1px solid rgba(255,255,255,.07)}
 .dashboard .progress-period-summary>div+div{padding-left:20px}
 .dashboard .progress-period-summary>div:last-child{border-right:0}
-.dashboard .progress-period-summary span{display:block;font-size:.9rem;color:rgba(244,241,234,.38);margin-bottom:8px}
+.dashboard .progress-period-summary span{display:block;font-size:1.5rem;color:rgba(244,241,234,.38);margin-bottom:8px}
 .dashboard .progress-period-summary strong{display:block;font-size:1.55rem;color:#f4f1ea}
 .dashboard .progress-period-summary small{display:block;margin-top:5px;font-size:.85rem;color:rgba(200,243,106,.7)}
 .dashboard .progress-period-summary strong.up{color:#c8f36a}.dashboard .progress-period-summary strong.down{color:#ff8f87}.dashboard .progress-period-summary strong.neutral{color:rgba(244,241,234,.4);font-size:1rem}
@@ -6564,7 +6564,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .ai-message.user{margin-left:auto;padding-left:22%;text-align:right}
 .dashboard .ai-message.user .ai-message-role{color:rgba(244,241,234,.3)}
 .dashboard .ai-message p{margin:0;white-space:pre-wrap;font-size:1.15rem;line-height:1.75;color:rgba(244,241,234,.78)}
-.dashboard .ai-message.assistant p{font-size:1.28rem;color:#f4f1ea}
+.dashboard .ai-message.assistant p{font-size:1.6rem;color:#f4f1ea}
 .dashboard .ai-cursor{display:inline-block;color:#c8f36a;margin-left:3px;animation:aiBlink 1s steps(1,end) infinite}
 @keyframes aiBlink{50%{opacity:0}}
 .dashboard .ai-thinking{display:flex;gap:5px;padding:8px 0}
@@ -7074,7 +7074,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .dashboard .log-choice-copy strong{
-  font-size:1.18rem;
+  font-size:1.5rem;
   font-weight:650;
   letter-spacing:-.025em;
 }
@@ -7658,6 +7658,22 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:12px;
+  overflow-y:auto;
+  overflow-x:hidden;
+  max-height:calc(100dvh - 270px);
+  padding:2px;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+}
+.dashboard .sleep-time-grid::-webkit-scrollbar{
+  width:5px;
+}
+.dashboard .sleep-time-grid::-webkit-scrollbar-track{
+  background:transparent;
+}
+.dashboard .sleep-time-grid::-webkit-scrollbar-thumb{
+  background:rgba(255,255,255,.18);
+  border-radius:999px;
 }
 .dashboard .sleep-time-card{
   position:relative;
@@ -7721,7 +7737,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .sleep-time-copy small{
   color:rgba(244,241,234,.4);
-  font-size:.69rem;
+  font-size:1.5rem;
   line-height:1.3;
 }
 .dashboard .sleep-time-control{
@@ -7777,7 +7793,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .sleep-duration-result span{
   color:rgba(244,241,234,.5);
-  font-size:.8rem;
+  font-size:1.5rem;
   letter-spacing:.01em;
 }
 .dashboard .sleep-duration-result strong{
