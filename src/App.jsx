@@ -1354,6 +1354,24 @@ function Dashboard({ data, onLogout, onArticle }) {
                 <div className="progress-chart-labels">{points.filter((_,i)=>shortPeriod||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><span key={i}>{p.label}</span>)}</div>
               </div>
             </div>
+            <div className="progress-log-details">
+              <div className="progress-log-details-head">
+                <div><span className="section-label">RECENT ENTRIES</span><h3>Your {selected.name.toLowerCase()} logs.</h3></div>
+                <span>{periodLogs.filter(l=>l.metric_id===selected.id).length} logged</span>
+              </div>
+              <div className="progress-log-entry-list">
+                {periodLogs.filter(l=>l.metric_id===selected.id).sort((a,b)=>new Date(b.logged_at)-new Date(a.logged_at)).slice(0,8).map((entry,index)=>{
+                  const entryValue=Number(entry.value)
+                  const moodLabels={1:'😞 Very low',2:'😕 Low',3:'😐 Okay',4:'🙂 Good',5:'😄 Great'}
+                  const shown=selected.slug==='mood'&&moodLabels[entryValue]?moodLabels[entryValue]:displayMetric(entryValue,selected)
+                  return <div className="progress-log-entry" key={entry.id||index}>
+                    <div><strong>{shown}</strong>{entry.note&&<p>{entry.note}</p>}</div>
+                    <time>{new Date(entry.logged_at).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</time>
+                  </div>
+                })}
+                {!periodLogs.some(l=>l.metric_id===selected.id)&&<p className="progress-log-empty">No entries for this metric in this period.</p>}
+              </div>
+            </div>
           </>}
 
           <div className="progress-insight-block">
