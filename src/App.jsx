@@ -1631,7 +1631,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onCl
                     </div>
                   )}
                 </div>
-              ):
+              ):(
                 <label className="log-input-label">
                   <span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span>
                   <input autoFocus type="number" min="0" step="any" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))} placeholder={metric.unit==='NGN'?'0':'0'}/>
