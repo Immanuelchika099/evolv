@@ -1483,6 +1483,171 @@ function Dashboard({ data, onLogout, onArticle }) {
   </div>
 }
 
+function SpecialMetricFields({metric,values,setValues}){
+  const slug=metric?.slug
+  const set=(key,value)=>setValues(v=>({...v,[key]:value}))
+  const input=(label,key,type='text',placeholder='')=>(
+    <label className="log-input-label">
+      <span>{label}</span>
+      <input type={type} value={values[key]??''} onChange={e=>set(key,e.target.value)} placeholder={placeholder}/>
+    </label>
+  )
+  const choices=(label,key,items)=>(
+    <div className="log-field-group">
+      <div className="log-field-title"><span>{label}</span></div>
+      <div className="special-choice-grid">
+        {items.map(item=>(
+          <button type="button" key={item.value} className={values[key]===item.value?'active':''} onClick={()=>set(key,item.value)}>
+            {item.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+
+  if(slug==='income') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Money in.</strong><span>Record income when it actually lands.</span></div>
+    {input('Amount','amount','number','0')}
+    {input('Where did it come from?','source','text','e.g. Freelance client')}
+    {choices('Category','category',[
+      {value:'work',label:'Work'},{value:'business',label:'Business'},{value:'freelance',label:'Freelance'},
+      {value:'gift',label:'Gift'},{value:'other',label:'Other'}
+    ])}
+  </div>
+
+  if(slug==='spending') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Money out.</strong><span>Capture what you spent and why.</span></div>
+    {input('Amount','amount','number','0')}
+    {input('Merchant or reason','merchant','text','e.g. Transport')}
+    {choices('Category','category',[
+      {value:'food',label:'Food'},{value:'transport',label:'Transport'},{value:'shopping',label:'Shopping'},
+      {value:'education',label:'Education'},{value:'subscriptions',label:'Subscriptions'},{value:'family',label:'Family'},
+      {value:'other',label:'Other'}
+    ])}
+    {choices('Paid via','payment',[
+      {value:'transfer',label:'Bank transfer'},{value:'card',label:'Card'},{value:'cash',label:'Cash'},
+      {value:'mobile',label:'Mobile money'},{value:'other',label:'Other'}
+    ])}
+  </div>
+
+  if(slug==='savings') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Put money aside.</strong><span>Keep a record of what you saved and what it is for.</span></div>
+    {input('Amount saved','amount','number','0')}
+    {input('Saving for','goal','text','e.g. New MacBook')}
+  </div>
+
+  if(slug==='bills') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Stay ahead of bills.</strong><span>Record the payment, provider and current status.</span></div>
+    {input('Amount','amount','number','0')}
+    {input('Bill or payment','bill','text','e.g. Internet')}
+    {input('Provider','provider','text','e.g. MTN')}
+    {choices('Status','status',[
+      {value:'paid',label:'Paid'},{value:'due',label:'Due'},{value:'part-paid',label:'Part-paid'}
+    ])}
+  </div>
+
+  if(slug==='applications') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Career application.</strong><span>Keep the opportunity, stage and next move together.</span></div>
+    {input('Company or organisation','company','text','e.g. Google')}
+    {input('Role','role','text','e.g. Frontend Developer')}
+    {choices('Status','status',[
+      {value:'saved',label:'Saved'},{value:'applied',label:'Applied'},{value:'interview',label:'Interview'},
+      {value:'assessment',label:'Assessment'},{value:'offer',label:'Offer'},{value:'rejected',label:'Rejected'}
+    ])}
+    {input('Next step','nextStep','text','e.g. Follow up Friday')}
+  </div>
+
+  if(slug==='learning') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Learning session.</strong><span>Capture what you worked on, how long you spent and what stayed with you.</span></div>
+    {input('What did you learn?','topic','text','e.g. Express middleware')}
+    {input('Minutes','minutes','number','0')}
+    {input('Key takeaway','learned','text','What did you understand better?')}
+  </div>
+
+  if(slug==='building') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Build something.</strong><span>Record the project work that moves your ideas forward.</span></div>
+    {input('Project','project','text','e.g. Evolv')}
+    {input('Minutes spent','minutes','number','0')}
+    {input('Milestone','milestone','text','e.g. Finished logging flow')}
+  </div>
+
+  if(slug==='outreach') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Make the connection.</strong><span>Track who you reached out to and what happened next.</span></div>
+    {input('Who did you contact?','person','text','e.g. Potential client')}
+    {choices('Platform','platform',[
+      {value:'instagram',label:'Instagram'},{value:'linkedin',label:'LinkedIn'},{value:'email',label:'Email'},
+      {value:'whatsapp',label:'WhatsApp'},{value:'other',label:'Other'}
+    ])}
+    {choices('Outcome','outcome',[
+      {value:'sent',label:'Sent'},{value:'replied',label:'Replied'},{value:'call',label:'Call booked'},
+      {value:'interested',label:'Interested'},{value:'no-response',label:'No response'}
+    ])}
+  </div>
+
+  if(slug==='skills') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Skill check-in.</strong><span>Record the skill you are developing and how confident you feel today.</span></div>
+    {input('Skill','skill','text','e.g. React')}
+    {choices('Confidence','confidence',[
+      {value:1,label:'New'},{value:2,label:'Learning'},{value:3,label:'Getting there'},
+      {value:4,label:'Confident'},{value:5,label:'Strong'}
+    ])}
+  </div>
+
+  if(slug==='habits') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Habit check-in.</strong><span>Keep it simple: done, partly done or skipped.</span></div>
+    {input('Habit','habit','text','e.g. Read for 20 minutes')}
+    {choices('Status','statusValue',[
+      {value:1,label:'Done'},{value:0.5,label:'Partly'},{value:0,label:'Skipped'}
+    ])}
+  </div>
+
+  if(slug==='reading') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Reading session.</strong><span>Save the resource and the idea worth carrying forward.</span></div>
+    {input('Book, article or resource','book','text','e.g. Atomic Habits')}
+    {input('Minutes','minutes','number','0')}
+    {input('Takeaway','takeaway','text','What stood out?')}
+  </div>
+
+  if(slug==='social') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>People matter.</strong><span>Record meaningful time with someone and how it felt.</span></div>
+    {input('Who were you with?','person','text','e.g. Friend')}
+    {input('Context','context','text','e.g. Dinner together')}
+    {choices('How did it feel?','quality',[
+      {value:1,label:'Draining'},{value:2,label:'Low'},{value:3,label:'Okay'},{value:4,label:'Good'},{value:5,label:'Great'}
+    ])}
+  </div>
+
+  if(slug==='personal') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Time for yourself.</strong><span>Log an activity that mattered to you today.</span></div>
+    {input('Activity','activity','text','e.g. Walked by the beach')}
+    {input('Minutes','minutes','number','0')}
+  </div>
+
+  if(slug==='focus') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Deep focus.</strong><span>Capture the task and the time you gave it your attention.</span></div>
+    {input('What did you focus on?','task','text','e.g. Build the dashboard')}
+    {input('Minutes','minutes','number','0')}
+  </div>
+
+  if(slug==='reflection') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Reflection.</strong><span>Give one thought a place to live instead of letting it disappear.</span></div>
+    {input('What are you reflecting on?','prompt','text','What is on your mind?')}
+  </div>
+
+  if(slug==='stress') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Stress check-in.</strong><span>Notice the intensity and what may have contributed to it.</span></div>
+    {input('What triggered it?','trigger','text','e.g. Deadline')}
+    {choices('Intensity','level',[
+      {value:1,label:'Very low'},{value:2,label:'Low'},{value:3,label:'Moderate'},{value:4,label:'High'},{value:5,label:'Very high'}
+    ])}
+  </div>
+
+  return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Log this.</strong><span>Add the details you want to remember.</span></div>
+    {input('Value','value','number','0')}
+  </div>
+}
+
 function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSaved,onClose}){
   const [values,setValues]=useState({})
   const [error,setError]=useState('')
