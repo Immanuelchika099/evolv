@@ -1078,7 +1078,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
-    ]);if(!mounted)return;if(p.data){setProfile(p.data);setProfileName(p.data.first_name||'')}setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
   function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
@@ -1328,7 +1328,70 @@ function Dashboard({ data, onLogout, onArticle }) {
         </section>
       })()}
       {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>setActive('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
-      {active==='profile'&&<section className="panel-page dashboard-panel settings-page"><div className="settings-heading"><span className="section-label">SETTINGS</span><h2>Your space.</h2><p>Keep your personal details up to date.</p></div><div className="settings-section"><div className="settings-section-head"><div><span className="section-label">ACCOUNT</span><h3>Your details</h3></div><Settings size={18}/></div><div className="settings-card"><form onSubmit={saveProfile}><label><span>First name</span><input value={profileName} onChange={e=>setProfileName(e.target.value)}/></label><button className="button button-primary" type="submit">Save changes</button>{profileMessage&&<p className="auth-message">{profileMessage}</p>}</form></div></div><div className="settings-section settings-danger"><div className="settings-action-row"><div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div><button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15}/> Sign out</button></div><div className="settings-action-row danger"><div><strong>Delete account</strong><span>Permanently remove your account.</span></div><button className="settings-delete-button" type="button" onClick={()=>setDeleteOpen(true)}>Delete</button></div></div>{deleteOpen&&<div className="settings-delete-overlay" role="dialog" aria-modal="true"><div className="settings-delete-modal"><span className="section-label">DELETE ACCOUNT</span><h3>Delete your account?</h3><p>This permanently removes your account and saved information.</p><div className="settings-delete-actions"><button onClick={()=>setDeleteOpen(false)}>Cancel</button><button className="settings-delete-confirm" onClick={deleteAccount} disabled={deleting}>{deleting?'Deleting…':'Delete account'}</button></div></div></div>}</section>}
+      {active==='profile'&&<section className="panel-page dashboard-panel settings-page">
+  <div className="settings-heading">
+    <span className="section-label">YOUR SPACE</span>
+    <h2>Profile.</h2>
+    <p>A home for the person behind your EVOLV journey.</p>
+  </div>
+
+  <div className="profile-hero-card">
+    <div className="profile-avatar" aria-hidden="true">{(profileName||'E').trim().charAt(0).toUpperCase()}</div>
+    <div className="profile-hero-copy">
+      <span className="section-label">EVOLV MEMBER</span>
+      <h3>{profileName||'Your name'}</h3>
+      <p>{profile?.email||'Your account email'}</p>
+    </div>
+    <div className="profile-hero-status"><span></span> Active</div>
+  </div>
+
+  <div className="profile-facts-grid">
+    <div><span>FOCUS</span><strong>{profile?.focus||data.focus||'Choose your direction'}</strong></div>
+    <div><span>GROWTH AREAS</span><strong>{(profile?.growth_areas||data.areas||[]).length || 0} selected</strong></div>
+    <div><span>FIRST GOAL</span><strong>{profile?.first_goal||data.goal||'Add your first goal'}</strong></div>
+  </div>
+
+  <div className="settings-section">
+    <div className="settings-section-head">
+      <div><span className="section-label">ACCOUNT</span><h3>Personal details</h3></div>
+      <Settings size={20}/>
+    </div>
+    <div className="settings-card">
+      <form onSubmit={saveProfile}>
+        <label><span>First name</span><input value={profileName} onChange={e=>setProfileName(e.target.value)} /></label>
+        <div className="profile-account-email">
+          <span>ACCOUNT EMAIL</span>
+          <strong>{profile?.email||'Connected to your EVOLV account'}</strong>
+        </div>
+        <button className="button button-primary" type="submit">Save changes</button>
+        {profileMessage&&<p className="auth-message">{profileMessage}</p>}
+      </form>
+    </div>
+  </div>
+
+  <div className="settings-section settings-danger">
+    <div className="settings-action-row">
+      <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
+      <button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15}/> Sign out</button>
+    </div>
+    <div className="settings-action-row danger">
+      <div><strong>Delete account</strong><span>Permanently remove your account and saved information.</span></div>
+      <button className="settings-delete-button" type="button" onClick={()=>setDeleteOpen(true)}>Delete</button>
+    </div>
+  </div>
+
+  {deleteOpen&&<div className="settings-delete-overlay" role="dialog" aria-modal="true">
+    <div className="settings-delete-modal">
+      <span className="section-label">DELETE ACCOUNT</span>
+      <h3>Delete your account?</h3>
+      <p>This permanently removes your account and saved information.</p>
+      <div className="settings-delete-actions">
+        <button onClick={()=>setDeleteOpen(false)}>Cancel</button>
+        <button className="settings-delete-confirm" onClick={deleteAccount} disabled={deleting}>{deleting?'Deleting…':'Delete account'}</button>
+      </div>
+    </div>
+  </div>}
+</section>}
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
     <nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>setActive('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>setActive('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={active==='profile'?'bottom-active':''} onClick={()=>setActive('profile')}><span><UserRound size={19}/></span><small>You</small></button></nav>
