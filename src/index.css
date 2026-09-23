@@ -9102,3 +9102,20 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .panel-page .section-label{
   font-size:1.5rem !important;
 }
+
+
+/* EVOLV — compact native When field */
+.dashboard .log-input-label input[type="datetime-local"]{
+  width:fit-content !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  flex:none !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:650px){
+  .dashboard .log-input-label input[type="datetime-local"]{
+    width:100% !important;
+    max-width:280px !important;
+    min-width:0 !important;
+  }
+}
