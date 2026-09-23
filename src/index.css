@@ -9670,3 +9670,57 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .settings-toggle.active span{transform:translateX(19px);background:#10130d}
 .settings-toggle:disabled{cursor:not-allowed}
 @media(max-width:700px){.notification-master-row,.notification-preference{gap:16px;padding:17px 0}.notification-master-row strong,.notification-preference strong{font-size:14px}.notification-master-row span,.notification-preference span{font-size:11px;max-width:260px}}
+
+
+/* EVOLV — nightly reflection. This layer intentionally leaves the existing app background untouched. */
+.reflection-preference{border-top:1px solid rgba(255,255,255,.06);padding-top:18px;margin-top:6px}
+.reflection-time-row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:17px 0;border-top:1px solid rgba(255,255,255,.06)}
+.reflection-time-row strong,.reflection-time-row span{display:block}
+.reflection-time-row strong{font-size:14px;letter-spacing:-.01em}
+.reflection-time-row span{margin-top:5px;color:rgba(255,255,255,.48);font-size:12px}
+.reflection-time-row input{appearance:none;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.045);color:inherit;padding:10px 11px;font:inherit;font-size:13px;outline:none}
+.reflection-time-row input:focus{border-color:rgba(200,243,106,.5);box-shadow:0 0 0 3px rgba(200,243,106,.08)}
+.reflection-preview-button{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;padding:13px 15px;border:1px solid rgba(200,243,106,.22);border-radius:13px;background:rgba(200,243,106,.07);color:inherit;font:inherit;font-size:13px;cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.reflection-preview-button:hover{transform:translateY(-1px);border-color:rgba(200,243,106,.42);background:rgba(200,243,106,.1)}
+
+.reflection-overlay{position:fixed;inset:0;z-index:1200;display:flex;align-items:flex-end;justify-content:center;padding:18px;isolation:isolate}
+.reflection-overlay::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:-1}
+.reflection-sheet{width:min(640px,100%);max-height:min(760px,calc(100dvh - 28px));overflow:auto;border:1px solid rgba(255,255,255,.1);border-radius:28px;padding:11px 26px 24px;box-shadow:0 30px 100px rgba(0,0,0,.45);animation:reflection-sheet-in .45s cubic-bezier(.16,1,.3,1);scrollbar-width:none}
+.reflection-sheet::-webkit-scrollbar{display:none}
+.reflection-sheet-handle{width:42px;height:4px;border-radius:999px;background:rgba(255,255,255,.2);margin:2px auto 22px}
+.reflection-sheet-head{display:flex;align-items:center;justify-content:space-between}
+.reflection-sheet-head>div{display:flex;align-items:center;gap:10px}
+.reflection-step-label{font-size:11px;letter-spacing:.08em;color:rgba(255,255,255,.38)}
+.reflection-close,.reflection-back{border:0;background:transparent;color:inherit;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
+.reflection-close{width:36px;height:36px;justify-content:center;border-radius:50%;background:rgba(255,255,255,.05)}
+.reflection-step{padding:38px 0 20px}
+.reflection-kicker{font-size:10px;letter-spacing:.16em;color:#c8f36a;font-weight:700}
+.reflection-step h2{font-size:clamp(28px,5vw,42px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 11px;max-width:520px}
+.reflection-step p{font-size:14px;line-height:1.7;color:rgba(255,255,255,.5);max-width:500px;margin:0 0 26px}
+.reflection-mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:22px 0 30px}
+.reflection-mood-grid button,.reflection-feeling-grid button{border:1px solid rgba(255,255,255,.08);border-radius:16px;background:rgba(255,255,255,.035);color:inherit;cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.reflection-mood-grid button{padding:16px 7px;display:flex;flex-direction:column;align-items:center;gap:8px}
+.reflection-mood-grid button span{font-size:27px}
+.reflection-mood-grid button small{font-size:10px;color:rgba(255,255,255,.48)}
+.reflection-mood-grid button.selected,.reflection-feeling-grid button.selected{border-color:rgba(200,243,106,.58);background:rgba(200,243,106,.1);transform:translateY(-2px)}
+.reflection-feeling-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:24px 0 30px}
+.reflection-feeling-grid button{padding:17px 15px;text-align:left;font-size:13px}
+.reflection-next{margin-left:auto;display:inline-flex;align-items:center;gap:8px}
+.reflection-step-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.reflection-back{padding:10px 0;color:rgba(255,255,255,.55);font-size:12px}
+.reflection-note{width:100%;resize:vertical;min-height:150px;border:1px solid rgba(255,255,255,.1);border-radius:17px;background:rgba(255,255,255,.035);color:inherit;padding:16px;font:inherit;font-size:14px;line-height:1.65;outline:none;margin:8px 0 28px;box-sizing:border-box}
+.reflection-note:focus{border-color:rgba(200,243,106,.5);box-shadow:0 0 0 3px rgba(200,243,106,.07)}
+.reflection-progress{display:flex;justify-content:center;gap:6px;padding-top:8px}
+.reflection-progress span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .25s ease}
+.reflection-progress span.active{width:18px;border-radius:99px;background:#c8f36a}
+@keyframes reflection-sheet-in{from{opacity:0;transform:translateY(35px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:640px){
+  .reflection-overlay{padding:0}
+  .reflection-sheet{border-radius:28px 28px 0 0;border-left:0;border-right:0;border-bottom:0;width:100%;max-height:calc(100dvh - 8px);padding:10px 20px 22px}
+  .reflection-step{padding-top:30px}
+  .reflection-step h2{font-size:32px}
+  .reflection-mood-grid{gap:6px}
+  .reflection-mood-grid button{padding:13px 3px;border-radius:14px}
+  .reflection-mood-grid button span{font-size:23px}
+  .reflection-mood-grid button small{font-size:9px}
+}
