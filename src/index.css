@@ -9021,3 +9021,29 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     text-align:right;
   }
 }
+
+
+/* EVOLV — prevent mobile overflow from log date/time inputs */
+.dashboard .log-input-label{
+  min-width:0;
+  width:100%;
+}
+.dashboard .log-input-label input{
+  width:100%;
+  max-width:100%;
+  min-width:0;
+  box-sizing:border-box;
+}
+@media(max-width:650px){
+  .dashboard .log-input-label input[type="datetime-local"],
+  .dashboard .log-input-label input[type="date"],
+  .dashboard .log-input-label input[type="time"]{
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+    padding-left:14px;
+    padding-right:10px;
+    font-size:1.5rem !important;
+  }
+}
