@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -1049,6 +1049,9 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [goalDescription,setGoalDescription]=useState('')
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
+  const [avatarUrl,setAvatarUrl]=useState('')
+  const [avatarUploading,setAvatarUploading]=useState(false)
+  const avatarInputRef=useRef(null)
   const [deleteOpen,setDeleteOpen]=useState(false)
   const [deleting,setDeleting]=useState(false)
   const [error,setError]=useState('')
@@ -1078,12 +1081,55 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
-    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'')setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
   function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
-  async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile(p);setProfileMessage('Profile saved.')}
+  async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
+  async function handleAvatarChange(event){
+    const file=event.target.files?.[0]
+    if(!file)return
+    if(!file.type.startsWith('image/')){setProfileMessage('Please choose an image file.');return}
+    if(file.size>8*1024*1024){setProfileMessage('Choose an image smaller than 8 MB.');return}
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    setAvatarUploading(true);setProfileMessage('')
+    try{
+      const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg'
+      const path=u.id+'/avatar.'+ext
+      const upload=await supabase.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type,cacheControl:'3600'})
+      if(!upload.error){
+        const {data:publicData}=supabase.storage.from('avatars').getPublicUrl(path)
+        const url=publicData.publicUrl+'?v='+Date.now()
+        await supabase.auth.updateUser({data:{avatar_url:url}})
+        setAvatarUrl(url)
+        localStorage.setItem('evolv-avatar-'+u.id,url)
+        setProfileMessage('Profile photo updated.')
+      }else{
+        const reader=new FileReader()
+        reader.onload=async()=>{const url=String(reader.result||'');setAvatarUrl(url);localStorage.setItem('evolv-avatar-'+u.id,url);setProfileMessage('Profile photo updated on this device.')}
+        reader.readAsDataURL(file)
+      }
+    }catch{
+      setProfileMessage('Could not update your profile photo.')
+    }finally{
+      setAvatarUploading(false)
+      if(avatarInputRef.current)avatarInputRef.current.value=''
+    }
+  }
+  async function removeAvatar(){
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    setAvatarUploading(true)
+    try{await supabase.auth.updateUser({data:{avatar_url:null}})}catch{}
+    localStorage.removeItem('evolv-avatar-'+u.id)
+    setAvatarUrl('')
+    setProfileMessage('Profile photo removed.')
+    setAvatarUploading(false)
+  }
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
   return <div className="page-enter dashboard">
@@ -1336,11 +1382,22 @@ function Dashboard({ data, onLogout, onArticle }) {
   </div>
 
   <div className="profile-hero-card">
-    <div className="profile-avatar" aria-hidden="true">{(profileName||'E').trim().charAt(0).toUpperCase()}</div>
+    <div className="profile-avatar-wrap">
+      <button className="profile-avatar-button" type="button" onClick={()=>avatarInputRef.current?.click()} aria-label="Change profile photo" disabled={avatarUploading}>
+        {avatarUrl?<img src={avatarUrl} alt="" className="profile-avatar-image"/>:<span className="profile-avatar">{(profileName||'E').trim().charAt(0).toUpperCase()}</span>}
+        <span className="profile-avatar-camera"><Camera size={17}/></span>
+      </button>
+      <input ref={avatarInputRef} className="profile-avatar-input" type="file" accept="image/*" onChange={handleAvatarChange}/>
+      <div className="profile-photo-actions">
+        <button type="button" onClick={()=>avatarInputRef.current?.click()} disabled={avatarUploading}><Upload size={15}/>{avatarUploading?'Uploading…':'Change photo'}</button>
+        {avatarUrl&&<button type="button" onClick={removeAvatar} disabled={avatarUploading}>Remove</button>}
+      </div>
+    </div>
     <div className="profile-hero-copy">
       <span className="section-label">EVOLV MEMBER</span>
       <h3>{profileName||'Your name'}</h3>
       <p>{profile?.email||'Your account email'}</p>
+      <small>Personalise your space with a photo and keep your journey recognisably yours.</small>
     </div>
     <div className="profile-hero-status"><span></span> Active</div>
   </div>
