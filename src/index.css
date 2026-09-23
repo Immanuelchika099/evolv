@@ -7999,3 +7999,67 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     font-size:1.7rem;
   }
 }
+
+
+/* EVOLV — log card text breathing room */
+.dashboard .log-area-choice,
+.dashboard .log-metric-choice{
+  min-height:112px;
+  grid-template-columns:54px minmax(0,1fr) 30px;
+  gap:17px;
+  padding:18px;
+}
+
+.dashboard .log-choice-copy{
+  min-width:0;
+  gap:9px;
+  justify-content:center;
+  align-self:stretch;
+}
+
+.dashboard .log-choice-copy strong{
+  display:block;
+  margin:0;
+  font-size:1.6rem;
+  line-height:1.2;
+  letter-spacing:-.02em;
+}
+
+.dashboard .log-choice-copy small{
+  display:block;
+  margin:0;
+  max-width:100%;
+  font-size:1.5rem;
+  line-height:1.4;
+  letter-spacing:-.01em;
+}
+
+.dashboard .log-area-choice > svg,
+.dashboard .log-metric-choice > svg{
+  align-self:center;
+  flex-shrink:0;
+}
+
+@media(max-width:650px){
+  .dashboard .log-area-choice,
+  .dashboard .log-metric-choice{
+    min-height:116px;
+    grid-template-columns:50px minmax(0,1fr) 30px;
+    gap:15px;
+    padding:17px;
+  }
+
+  .dashboard .log-choice-copy{
+    gap:9px;
+  }
+
+  .dashboard .log-choice-copy strong{
+    font-size:1.6rem;
+    line-height:1.2;
+  }
+
+  .dashboard .log-choice-copy small{
+    font-size:1.5rem;
+    line-height:1.4;
+  }
+}
