@@ -9957,3 +9957,18 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     padding-right:12px !important;
   }
 }
+
+
+/* EVOLV — no ambient glow on AI page */
+.dashboard-ai-active .ai-page::before,
+.dashboard-ai-active .ai-page::after,
+.dashboard-ai-active .dash-main::before,
+.dashboard-ai-active .dash-main::after{
+  display:none !important;
+  content:none !important;
+}
+.dashboard-ai-active .app-topbar::before,
+.dashboard-ai-active .app-topbar::after{
+  display:none !important;
+  content:none !important;
+}
