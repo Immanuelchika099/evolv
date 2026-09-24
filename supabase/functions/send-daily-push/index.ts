@@ -80,7 +80,8 @@ Deno.serve(async (req) => {
     for (const [kind, message] of Object.entries(DEFAULTS)) {
       if (!preferences[kind]) continue
       const target = preferences[kind + "Time"] || message.defaultTime
-      const deliveryKey = clock.date + ":" + target\n      if (!isDue(clock, target) || lastSent[kind] === deliveryKey) continue
+      const deliveryKey = clock.date + ":" + target
+      if (!isDue(clock, target) || lastSent[kind] === deliveryKey) continue
 
       let skip = false
 
