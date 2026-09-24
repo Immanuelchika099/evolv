@@ -2628,17 +2628,17 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         </div>
         <span className="ai-status"><i /> I’M HERE</span>
       </div>
-      <div className="ai-context-strip">
-        <span>{goals.length} goal{goals.length === 1 ? '' : 's'}</span>
-        <span>{logs.length + meals.length} life log{logs.length + meals.length === 1 ? '' : 's'}</span>
-        <span>{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
-      </div>
       <div className="ai-starters">
         {['Help me understand my week', 'I feel stuck', 'Why have I been so tired?', 'Help me plan tomorrow'].map(starter => (
           <button key={starter} type="button" onClick={() => setInput(starter)}>{starter}</button>
         ))}
       </div>
       <div className="ai-chat">
+        <div className="ai-context-strip">
+          <span>{goals.length} goal{goals.length === 1 ? '' : 's'}</span>
+          <span>{logs.length + meals.length} life log{logs.length + meals.length === 1 ? '' : 's'}</span>
+          <span>{checkins.length} check-in{checkins.length === 1 ? '' : 's'}</span>
+        </div>
         <div className="ai-messages">
           {messages.map((message, index) => (
             <div className={`ai-message ${message.role}`} key={index}>
