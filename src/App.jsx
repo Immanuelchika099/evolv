@@ -608,19 +608,55 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
-      // Cinematic marquee: one restrained editorial track that loops endlessly.
-      const marqueeTrack = document.querySelector('.cinematic-marquee-track')
-      if (marqueeTrack) {
-        const distance = marqueeTrack.scrollWidth / 2
-        gsap.to(marqueeTrack, {
-          x: -distance,
-          duration: 28,
-          repeat: -1,
-          ease: 'none',
-          modifiers: {
-            x: gsap.utils.unitize(value => parseFloat(value) % distance)
-          }
-        })
+      // Scroll-driven marquee: scrolling down pushes the track left;
+      // scrolling up reverses it to the right, with an infinite loop.
+      const marqueeTrack = document.querySelector('.evolv-scroll-marquee-track')
+      const marquee = document.querySelector('.evolv-scroll-marquee')
+      if (marqueeTrack && marquee) {
+        let targetX = 0
+        let currentX = 0
+        let lastTime = performance.now()
+
+        const getLoopDistance = () => marqueeTrack.scrollWidth / 2
+        const wrapX = (value) => {
+          const distance = getLoopDistance()
+          if (!distance) return 0
+          return gsap.utils.wrap(-distance, 0, value)
+        }
+
+        const onScroll = () => {
+          const rect = marquee.getBoundingClientRect()
+          const inRange = rect.top < window.innerHeight && rect.bottom > 0
+          if (!inRange) return
+
+          const scrollY = window.scrollY
+          const previousY = marquee.dataset.scrollY ? Number(marquee.dataset.scrollY) : scrollY
+          const delta = scrollY - previousY
+          marquee.dataset.scrollY = String(scrollY)
+
+          if (!delta) return
+          const distance = Math.abs(delta) * 0.9
+          targetX = wrapX(targetX - Math.sign(delta) * distance)
+        }
+
+        marquee.dataset.scrollY = String(window.scrollY)
+        window.addEventListener('scroll', onScroll, { passive: true })
+
+        const tick = (time) => {
+          const deltaTime = Math.min(40, time - lastTime)
+          lastTime = time
+          const easing = 1 - Math.pow(0.0001, deltaTime / 1000)
+          currentX += (targetX - currentX) * easing
+          currentX = wrapX(currentX)
+          gsap.set(marqueeTrack, { x: currentX })
+        }
+
+        gsap.ticker.add(tick)
+
+        return () => {
+          window.removeEventListener('scroll', onScroll)
+          gsap.ticker.remove(tick)
+        }
       }
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
@@ -679,21 +715,6 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
         </div>
         <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
-      <section className="cinematic-marquee" aria-label="EVOLV principles">
-        <div className="cinematic-marquee-glow" />
-        <div className="cinematic-marquee-edge cinematic-marquee-edge-left" />
-        <div className="cinematic-marquee-edge cinematic-marquee-edge-right" />
-        <div className="cinematic-marquee-row">
-          <div className="cinematic-marquee-track">
-            <div className="cinematic-marquee-content">
-              <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
-            </div>
-            <div className="cinematic-marquee-content" aria-hidden="true">
-              <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
-            </div>
-          </div>
-        </div>
-      </section>
       <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
       <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
       <section className="features-story story-reveal" id="features">
@@ -707,6 +728,18 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span><p>Choose what you're becoming.</p></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id} onClick={() => onArticle('area', a.id)} role="button" tabIndex="0"><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
       <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
+      <section className="evolv-scroll-marquee" aria-label="EVOLV principles">
+        <div className="evolv-scroll-marquee-viewport">
+          <div className="evolv-scroll-marquee-track">
+            <div className="evolv-scroll-marquee-content">
+              <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
+            </div>
+            <div className="evolv-scroll-marquee-content" aria-hidden="true">
+              <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
+            </div>
+          </div>
+        </div>
+      </section>
       <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
       <Footer onContact={onContact} />
     </div>
