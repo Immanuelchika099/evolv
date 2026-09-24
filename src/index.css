@@ -10594,3 +10594,164 @@ body{
 .dashboard-ai-active .ai-send:not(:disabled):hover{
   background:#f0f0ee !important;
 }
+
+
+/* EVOLV — iPhone-inspired liquid glass controls
+   Neutral glass: no green tint on the AI composer. */
+.dashboard-ai-active .ai-page .ai-composer{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:32px !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.115),rgba(255,255,255,.035) 48%,rgba(255,255,255,.06)) !important;
+  box-shadow:
+    0 18px 55px rgba(0,0,0,.42),
+    0 3px 12px rgba(0,0,0,.22),
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -1px 0 rgba(255,255,255,.035) !important;
+  backdrop-filter:blur(30px) saturate(150%) brightness(1.08) !important;
+  -webkit-backdrop-filter:blur(30px) saturate(150%) brightness(1.08) !important;
+}
+
+.dashboard-ai-active .ai-page .ai-composer::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:1px;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 120% at 12% 0%,rgba(255,255,255,.13),transparent 55%),
+    radial-gradient(ellipse 55% 90% at 92% 100%,rgba(255,255,255,.055),transparent 62%);
+  opacity:.9;
+}
+
+.dashboard-ai-active .ai-page .ai-composer::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  top:-80%;
+  left:-25%;
+  width:55%;
+  height:260%;
+  pointer-events:none;
+  transform:rotate(18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.065),transparent);
+  filter:blur(12px);
+  opacity:.55;
+}
+
+.dashboard-ai-active .ai-page .ai-composer textarea{
+  position:relative;
+  z-index:1;
+}
+
+.dashboard-ai-active .ai-page .ai-send{
+  position:relative;
+  z-index:2;
+  border:1px solid rgba(255,255,255,.48) !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.98),rgba(225,228,224,.86)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.95),
+    0 5px 16px rgba(0,0,0,.22) !important;
+}
+
+.dashboard-ai-active .ai-page .ai-send:not(:disabled):hover{
+  transform:translateY(-1px) scale(1.04);
+  background:linear-gradient(145deg,#fff,#e9ebe8) !important;
+}
+
+/* Bottom navigation — floating liquid-glass pill */
+.dashboard .app-bottom-nav{
+  overflow:hidden;
+  isolation:isolate;
+  border:1px solid rgba(255,255,255,.16) !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035) 48%,rgba(255,255,255,.075)) !important;
+  box-shadow:
+    0 22px 70px rgba(0,0,0,.48),
+    0 5px 20px rgba(0,0,0,.24),
+    inset 0 1px 0 rgba(255,255,255,.20),
+    inset 0 -1px 0 rgba(255,255,255,.035) !important;
+  backdrop-filter:blur(34px) saturate(165%) brightness(1.02) !important;
+  -webkit-backdrop-filter:blur(34px) saturate(165%) brightness(1.02) !important;
+}
+
+.dashboard .app-bottom-nav::before{
+  content:"";
+  position:absolute;
+  z-index:0;
+  inset:1px;
+  border-radius:inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse 65% 150% at 10% 0%,rgba(255,255,255,.12),transparent 58%),
+    radial-gradient(ellipse 50% 110% at 92% 100%,rgba(255,255,255,.055),transparent 62%);
+}
+
+.dashboard .app-bottom-nav::after{
+  content:"";
+  position:absolute;
+  z-index:0;
+  top:-115%;
+  left:-18%;
+  width:42%;
+  height:320%;
+  pointer-events:none;
+  transform:rotate(17deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
+  filter:blur(13px);
+  opacity:.6;
+  animation:evolv-glass-sheen 7s ease-in-out infinite;
+}
+
+@keyframes evolv-glass-sheen{
+  0%,100%{transform:translateX(-8%) rotate(17deg);opacity:.28}
+  50%{transform:translateX(250%) rotate(17deg);opacity:.65}
+}
+
+.dashboard .app-bottom-nav button{
+  z-index:1;
+}
+
+.dashboard .app-bottom-nav button.bottom-active{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.045)) !important;
+  border:1px solid rgba(255,255,255,.11);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.17),
+    inset 0 -1px 0 rgba(0,0,0,.12),
+    0 4px 15px rgba(0,0,0,.14) !important;
+}
+
+.dashboard .app-bottom-nav button:active{
+  transform:scale(.965);
+  transition:transform .12s ease;
+}
+
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page .ai-composer{
+    border-radius:29px !important;
+    box-shadow:
+      0 14px 42px rgba(0,0,0,.46),
+      inset 0 1px 0 rgba(255,255,255,.18),
+      inset 0 -1px 0 rgba(255,255,255,.03) !important;
+    backdrop-filter:blur(28px) saturate(145%) brightness(1.06) !important;
+    -webkit-backdrop-filter:blur(28px) saturate(145%) brightness(1.06) !important;
+  }
+
+  .dashboard .app-bottom-nav{
+    border-radius:34px !important;
+    backdrop-filter:blur(32px) saturate(160%) brightness(1.02) !important;
+    -webkit-backdrop-filter:blur(32px) saturate(160%) brightness(1.02) !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .dashboard .app-bottom-nav::after{
+    animation:none;
+  }
+}
