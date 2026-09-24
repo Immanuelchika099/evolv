@@ -608,10 +608,11 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
-      // The marquee is always alive. Its direction follows the latest page-scroll
-      // direction and stays there, so scrolling up makes it travel right forever
-      // until the page direction changes again.
-      const marqueeTrack = document.querySelector('.evolv-scroll-marquee-track')
+      // Keep the marquee independent from the page-scroll animations.
+      // IMPORTANT: do not return from this GSAP context callback here — that
+      // would skip every ScrollTrigger created below.
+      let cleanupMarquee = null
+      const marqueeTrack = page.current?.querySelector('.evolv-scroll-marquee-track')
       if (marqueeTrack) {
         let marqueeX = 0
         let lastTime = performance.now()
@@ -623,23 +624,16 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           return gsap.utils.wrap(-distance, 0, value)
         }
 
-        // Slow, continuous leftward movement. The marquee is independent of
-        // page scrolling so the rest of the page's GSAP scroll animations can
-        // behave normally.
         const animateMarquee = () => {
           const now = performance.now()
           const elapsed = Math.min(40, now - lastTime)
           lastTime = now
-
           marqueeX = wrapMarquee(marqueeX - (0.018 * elapsed))
           gsap.set(marqueeTrack, { x: marqueeX })
         }
 
         gsap.ticker.add(animateMarquee)
-
-        return () => {
-          gsap.ticker.remove(animateMarquee)
-        }
+        cleanupMarquee = () => gsap.ticker.remove(animateMarquee)
       }
 
 
@@ -670,7 +664,10 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.utils.toArray('.area').forEach((el, i) => gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } }))
       gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
     }, page)
-    return () => ctx.revert()
+    return () => {
+      if (typeof cleanupMarquee === 'function') cleanupMarquee()
+      ctx.revert()
+    }
   }, [])
 
   function openContact() {
