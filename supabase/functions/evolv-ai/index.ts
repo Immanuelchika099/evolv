@@ -451,6 +451,7 @@ ${progressContext}`
     const models = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
     let lastStatus = 503
     let lastMessage = ""
+    let preparedCalendarEvent: any = null
 
     for (const model of models) {
       let modelContents = [...contents]
@@ -502,6 +503,7 @@ ${progressContext}`
 
         if (!functionCalls.length) {
           return json({
+            ...(preparedCalendarEvent ? { calendarEvent: preparedCalendarEvent } : {}),
             reply:
               extractText(result) ||
               `I'm here, ${firstName}. What would you like to talk through?`,
@@ -522,6 +524,10 @@ ${progressContext}`
               call.name,
               call.args || {},
             )
+
+            if (call.name === "prepare_calendar_event" && toolResult?.requires_confirmation && toolResult?.event) {
+              preparedCalendarEvent = toolResult.event
+            }
 
             functionResponses.push({
               functionResponse: {
