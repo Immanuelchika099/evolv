@@ -10802,3 +10802,21 @@ body{
 .app:has(.dashboard-ai-active) > .noise{
   display:none !important;
 }
+
+
+/* EVOLV AI — no floating gap under the composer */
+.dashboard-ai-active .ai-page .ai-input{
+  bottom:0 !important;
+  padding-top:8px !important;
+  padding-bottom:0 !important;
+  align-items:flex-end !important;
+}
+.dashboard-ai-active .ai-page .ai-composer{
+  margin-bottom:0 !important;
+}
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page .ai-input{
+    padding-top:6px !important;
+    padding-bottom:0 !important;
+  }
+}
