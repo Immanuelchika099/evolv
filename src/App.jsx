@@ -2653,7 +2653,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         </div>
         <form className="ai-input" onSubmit={sendMessage}>
           <div className="ai-composer">
-            <button type="button" className="ai-attach" aria-label="Add to chat"><Plus size={19}/></button>
             <input value={input} onChange={e => setInput(e.target.value)} placeholder="What’s on your mind?" maxLength={2000} />
             <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
           </div>
