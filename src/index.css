@@ -9874,3 +9874,86 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     padding-right:12px;
   }
 }
+
+
+/* EVOLV — AI page is a locked viewport; only messages scroll */
+.dashboard-ai-active{
+  height:100dvh !important;
+  min-height:100dvh !important;
+  overflow:hidden !important;
+}
+.dashboard-ai-active .dash-main{
+  height:calc(100dvh - 68px) !important;
+  min-height:0 !important;
+  padding:0 24px !important;
+  overflow:hidden !important;
+}
+.dashboard-ai-active .ai-page{
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-width:none !important;
+  padding:0 !important;
+  margin:0 !important;
+  overflow:hidden !important;
+}
+.dashboard-ai-active .ai-page .ai-chat{
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  margin:0 !important;
+  overflow:hidden !important;
+}
+.dashboard-ai-active .ai-page .ai-messages{
+  height:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  overflow-y:auto !important;
+  overscroll-behavior:contain;
+  padding:28px 0 130px !important;
+  scrollbar-width:none;
+}
+.dashboard-ai-active .ai-page .ai-messages::-webkit-scrollbar{
+  display:none;
+  width:0;
+  height:0;
+}
+.dashboard-ai-active .ai-page .ai-input{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:100 !important;
+  margin:0 !important;
+  padding:12px max(24px,calc((100vw - 1120px)/2)) max(12px,env(safe-area-inset-bottom)) !important;
+  border-top:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(2,3,2,.9) !important;
+  backdrop-filter:blur(22px) saturate(130%) !important;
+  -webkit-backdrop-filter:blur(22px) saturate(130%) !important;
+}
+.dashboard-ai-active .ai-page .ai-composer{
+  width:100%;
+  max-width:980px;
+  margin:0 auto;
+}
+.dashboard-ai-active .ai-page .auth-error{
+  position:fixed;
+  left:50%;
+  bottom:82px;
+  z-index:101;
+  transform:translateX(-50%);
+  margin:0;
+}
+@media(max-width:800px){
+  .dashboard-ai-active .dash-main{
+    height:calc(100dvh - 68px) !important;
+    padding:0 18px !important;
+  }
+  .dashboard-ai-active .ai-page .ai-messages{
+    padding:20px 0 120px !important;
+  }
+  .dashboard-ai-active .ai-page .ai-input{
+    padding-left:12px !important;
+    padding-right:12px !important;
+  }
+}
