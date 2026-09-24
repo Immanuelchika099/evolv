@@ -9768,13 +9768,16 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 @media(max-width:800px){.daily-brief-card,.weekly-report-card{padding:18px;border-radius:22px}.daily-brief-grid{grid-template-columns:repeat(2,1fr)}.weekly-report-stats{grid-template-columns:repeat(3,1fr)}.notification-preference-timed{align-items:flex-start}.notification-time-control{flex-wrap:wrap;justify-content:flex-end}.notification-time-control input{width:92px}.notification-quiet-row{align-items:flex-start;flex-direction:column}.notification-quiet-controls{width:100%;justify-content:space-between}.notification-quiet-controls input{flex:1;min-width:0}}
 
 
-/* EVOLV — simple AI thinking circle */
+/* EVOLV — simple native thinking circle */
 .ai-thinking{
   display:inline-block;
   width:10px;
   height:10px;
+  min-width:10px;
+  min-height:10px;
   border-radius:50%;
-  background:rgba(244,241,234,.72);
+  background:#f4f1ea;
   vertical-align:middle;
   margin:2px 0 0 1px;
+  flex:none;
 }
