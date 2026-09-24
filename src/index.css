@@ -10093,86 +10093,79 @@ body{
 }
 
 
-/* EVOLV — restrained cinematic homepage marquee */
-.cinematic-marquee{
+/* EVOLV — scroll-direction marquee */
+.evolv-scroll-marquee{
   position:relative;
   width:100%;
-  height:clamp(108px,10vw,142px);
-  margin:0 0 170px;
+  height:clamp(120px,11vw,170px);
+  margin:120px 0 180px;
   overflow:hidden;
   display:flex;
   align-items:center;
-  border-top:1px solid rgba(200,243,106,.10);
-  border-bottom:1px solid rgba(200,243,106,.07);
+  border-top:1px solid rgba(200,243,106,.11);
+  border-bottom:1px solid rgba(200,243,106,.08);
   background:rgba(159,207,88,.025);
 }
-.cinematic-marquee-glow{
-  position:absolute;
-  inset:-160% 15%;
-  background:radial-gradient(ellipse,rgba(200,243,106,.075),transparent 62%);
-  filter:blur(42px);
-  pointer-events:none;
-}
-.cinematic-marquee-row{
-  position:relative;
+.evolv-scroll-marquee-viewport{
   width:100%;
   overflow:hidden;
   white-space:nowrap;
-  display:flex;
-  align-items:center;
 }
-.cinematic-marquee-track{
+.evolv-scroll-marquee-track{
   display:flex;
   width:max-content;
   flex-shrink:0;
   will-change:transform;
 }
-.cinematic-marquee-content{
+.evolv-scroll-marquee-content{
   display:flex;
   align-items:center;
-  gap:32px;
-  padding-right:32px;
+  gap:42px;
+  padding-right:42px;
   flex-shrink:0;
 }
-.cinematic-marquee-content span{
-  font:500 clamp(24px,3.25vw,48px)/1 'Space Grotesk';
-  letter-spacing:-.055em;
-  color:rgba(200,243,106,.72);
+.evolv-scroll-marquee-content span{
+  font:500 clamp(28px,4.2vw,64px)/1 'Space Grotesk';
+  letter-spacing:-.065em;
+  color:#c8f36a;
 }
-.cinematic-marquee-content i{
+.evolv-scroll-marquee-content i{
   font-style:normal;
-  color:rgba(200,243,106,.30);
-  font-size:10px;
+  color:rgba(200,243,106,.42);
+  font-size:12px;
 }
-.cinematic-marquee-edge{
+.evolv-scroll-marquee::before,
+.evolv-scroll-marquee::after{
+  content:"";
   position:absolute;
-  z-index:4;
+  z-index:3;
   top:0;
   bottom:0;
-  width:16%;
+  width:13%;
   pointer-events:none;
 }
-.cinematic-marquee-edge-left{
+.evolv-scroll-marquee::before{
   left:0;
   background:linear-gradient(90deg,#040605,transparent);
 }
-.cinematic-marquee-edge-right{
+.evolv-scroll-marquee::after{
   right:0;
   background:linear-gradient(270deg,#040605,transparent);
 }
 @media(max-width:800px){
-  .cinematic-marquee{
-    height:104px;
-    margin-bottom:140px;
+  .evolv-scroll-marquee{
+    height:110px;
+    margin:90px 0 130px;
   }
-  .cinematic-marquee-content{
-    gap:22px;
-    padding-right:22px;
+  .evolv-scroll-marquee-content{
+    gap:26px;
+    padding-right:26px;
   }
-  .cinematic-marquee-content span{
-    font-size:24px;
+  .evolv-scroll-marquee-content span{
+    font-size:28px;
   }
-  .cinematic-marquee-edge{
-    width:22%;
+  .evolv-scroll-marquee::before,
+  .evolv-scroll-marquee::after{
+    width:18%;
   }
 }
