@@ -640,9 +640,10 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           }
         }
 
-        const animateMarquee = (time) => {
-          const elapsed = Math.min(40, time - lastTime)
-          lastTime = time
+        const animateMarquee = () => {
+          const now = performance.now()
+          const elapsed = Math.min(40, now - lastTime)
+          lastTime = now
 
           // Ease velocity toward the new direction instead of instantly flipping it.
           currentVelocity += (targetVelocity - currentVelocity) * 0.075
