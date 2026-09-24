@@ -614,7 +614,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       const marqueeTrack = document.querySelector('.evolv-scroll-marquee-track')
       if (marqueeTrack) {
         let marqueeX = 0
-        let previousScrollY = window.scrollY
+        let lastTime = performance.now()
 
         const getLoopDistance = () => marqueeTrack.scrollWidth / 2
         const wrapMarquee = (value) => {
@@ -623,25 +623,25 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           return gsap.utils.wrap(-distance, 0, value)
         }
 
-        // Drive the marquee directly from the user's actual page scroll.
-        // Down = left, up = right. When the finger/wheel stops, the marquee stops.
-        const updateMarqueeFromScroll = () => {
-          const scrollY = window.scrollY
-          const delta = scrollY - previousScrollY
-          previousScrollY = scrollY
+        // Slow, continuous leftward movement. The marquee is independent of
+        // page scrolling so the rest of the page's GSAP scroll animations can
+        // behave normally.
+        const animateMarquee = () => {
+          const now = performance.now()
+          const elapsed = Math.min(40, now - lastTime)
+          lastTime = now
 
-          if (!delta) return
-
-          marqueeX = wrapMarquee(marqueeX - (delta * 0.16))
+          marqueeX = wrapMarquee(marqueeX - (0.018 * elapsed))
           gsap.set(marqueeTrack, { x: marqueeX })
         }
 
-        window.addEventListener('scroll', updateMarqueeFromScroll, { passive: true })
+        gsap.ticker.add(animateMarquee)
 
         return () => {
-          window.removeEventListener('scroll', updateMarqueeFromScroll)
+          gsap.ticker.remove(animateMarquee)
         }
       }
+
 
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
