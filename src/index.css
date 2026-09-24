@@ -2694,7 +2694,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 /* Final responsive type scale — FAQ + external pages */
 .faq-item p{
-  font-size:1.6rem;
+  font-size:1.8rem;
   line-height:1.8;
 }
 
