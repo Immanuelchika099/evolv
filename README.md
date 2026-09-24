@@ -10,7 +10,7 @@ It gives users one place to set goals, track everyday habits and wellbeing, refl
 - **Personal onboarding** — guides new users through setting up their EVOLV experience.
 - **Personal dashboard** — a personalized home for goals, progress, momentum, and daily activity.
 - **Goal tracking** — create and manage meaningful goals and track progress over time.
-- **Health & wellbeing logs** — record sleep, food intake, mood, joy, environment, and other daily check-ins.
+- **Health & wellbeing  logs** — record sleep, food intake, mood, joy, environment, and other daily check-ins.
 - **Sleep tracking** — log sleep using bedtime and wake-up times and view it in hours.
 - **Progress visualization** — see activity and momentum through visual progress indicators and charts.
 - **AI companion** — chat with an AI assistant that can use the user's profile and progress context to provide more relevant responses.
