@@ -9853,10 +9853,10 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   margin:0 auto;
 }
 .dashboard .ai-page .ai-thinking{
-  width:34px !important;
-  min-width:34px !important;
-  height:34px !important;
-  min-height:34px !important;
+  width:20px !important;
+  min-width:20px !important;
+  height:20px !important;
+  min-height:20px !important;
   padding:0 !important;
   gap:4px;
   display:inline-flex !important;
@@ -9989,4 +9989,13 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   backdrop-filter:none !important;
   -webkit-backdrop-filter:none !important;
   box-shadow:none !important;
+}
+
+
+@keyframes ai-thinking-scale{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.25)}
+}
+.dashboard .ai-page .ai-thinking{
+  animation:ai-thinking-scale 1.1s ease-in-out infinite;
 }
