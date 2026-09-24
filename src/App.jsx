@@ -1216,13 +1216,20 @@ function Dashboard({ data, onLogout, onArticle }) {
       return
     }
 
-    const vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
-    if(!vapidPublicKey){
-      setProfileMessage('Push notifications are almost ready. Add the EVOLV VAPID public key to the app environment first.')
-      return
-    }
+    let vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
 
     try{
+      if(!vapidPublicKey){
+        const {data:pushConfig,error:configError}=await supabase.functions.invoke('save-push-subscription',{body:{action:'config'}})
+        if(configError) throw configError
+        vapidPublicKey=pushConfig?.vapidPublicKey
+      }
+
+      if(!vapidPublicKey){
+        setProfileMessage('Push notifications are not configured on EVOLV yet. Please try again after the push setup is completed.')
+        return
+      }
+
       const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
       if(permission!=='granted'){
         setProfileMessage('Allow notifications in your browser settings to turn this on.')
