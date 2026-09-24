@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -2573,6 +2573,13 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
 
 function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
   const firstName = profile?.first_name || 'there'
+  const [chatId, setChatId] = useState(() => {
+    try {
+      return localStorage.getItem('evolv-ai-chat-id') || crypto.randomUUID()
+    } catch {
+      return `${Date.now()}-${Math.random().toString(36).slice(2)}`
+    }
+  })
   const [messages, setMessages] = useState([
     { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
   ])
@@ -2580,21 +2587,100 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [typing, setTyping] = useState(false)
+  const [copiedMessage, setCopiedMessage] = useState('')
+  const [speakingMessage, setSpeakingMessage] = useState('')
   const bottomRef = useRef(null)
 
   useEffect(() => {
+    localStorage.setItem('evolv-ai-chat-id', chatId)
     let mounted = true
     async function loadMessages() {
-      const { data } = await supabase.from('ai_messages').select('role,content').eq('user_id', (await supabase.auth.getUser()).data.user?.id).order('created_at', { ascending: true }).limit(50)
+      const userId = (await supabase.auth.getUser()).data.user?.id
+      if (!userId) return
+      const { data } = await supabase
+        .from('ai_messages')
+        .select('id,role,content')
+        .eq('user_id', userId)
+        .eq('chat_id', chatId)
+        .order('created_at', { ascending: true })
+        .limit(100)
       if (mounted && data?.length) setMessages(data)
     }
     loadMessages()
     return () => { mounted = false }
-  }, [])
+  }, [chatId])
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [messages, sending, typing])
+
+  useEffect(() => () => {
+    window.speechSynthesis?.cancel()
+  }, [])
+
+  function startNewChat() {
+    window.speechSynthesis?.cancel()
+    setSpeakingMessage('')
+    setCopiedMessage('')
+    setTyping(false)
+    setSending(false)
+    setError('')
+    setInput('')
+    try {
+      setChatId(crypto.randomUUID())
+    } catch {
+      setChatId(`${Date.now()}-${Math.random().toString(36).slice(2)}`)
+    }
+    setMessages([
+      { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
+    ])
+  }
+
+  async function copyMessage(content, key) {
+    try {
+      await navigator.clipboard.writeText(content)
+      setCopiedMessage(key)
+      window.setTimeout(() => setCopiedMessage(current => current === key ? '' : current), 1400)
+    } catch {
+      setError('Could not copy that message. Please try again.')
+    }
+  }
+
+  function speakMessage(content, key) {
+    if (!('speechSynthesis' in window)) {
+      setError('Voice playback is not supported on this device/browser.')
+      return
+    }
+
+    if (speakingMessage === key) {
+      window.speechSynthesis.cancel()
+      setSpeakingMessage('')
+      return
+    }
+
+    window.speechSynthesis.cancel()
+    const utterance = new SpeechSynthesisUtterance(content)
+    utterance.rate = 1
+    utterance.pitch = 1
+    utterance.onstart = () => setSpeakingMessage(key)
+    utterance.onend = () => setSpeakingMessage(current => current === key ? '' : current)
+    utterance.onerror = () => setSpeakingMessage(current => current === key ? '' : current)
+    window.speechSynthesis.speak(utterance)
+  }
+
+  async function shareMessage(content, key) {
+    try {
+      if (navigator.share) {
+        await navigator.share({ text: content })
+        return
+      }
+      await navigator.clipboard.writeText(content)
+      setCopiedMessage(key)
+      window.setTimeout(() => setCopiedMessage(current => current === key ? '' : current), 1400)
+    } catch (shareError) {
+      if (shareError?.name !== 'AbortError') setError('Could not share that message. Please try again.')
+    }
+  }
 
   async function sendMessage(event) {
     event.preventDefault()
@@ -2618,7 +2704,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       return
     }
 
-    await supabase.from('ai_messages').insert({ user_id: userId, role: 'user', content: text })
+    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'user', content: text })
 
     const metricById = Object.fromEntries(definitions.map(definition => [definition.id, definition]))
     const recentLogs = logs.slice(0, 40).map(log => {
@@ -2704,11 +2790,21 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
     setTyping(false)
     setSending(false)
-    await supabase.from('ai_messages').insert({ user_id: userId, role: 'assistant', content: reply })
+    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'assistant', content: reply })
   }
 
   return (
     <section className="panel-page ai-page">
+      <div className="ai-topbar">
+        <div>
+          <span className="ai-topbar-label">EVOLV AI</span>
+          <span className="ai-topbar-caption">A space to think things through.</span>
+        </div>
+        <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
+          <Plus size={15} />
+          <span>New chat</span>
+        </button>
+      </div>
       <div className={`ai-chat ${messages.length ? 'has-messages' : 'is-empty'}`}>
         {!messages.length && (
           <div className="ai-empty">
@@ -2723,12 +2819,29 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           </div>
         )}
         <div className="ai-messages">
-          {messages.map((message, index) => (
-            <div className={`ai-message ${message.role}`} key={index}>
-              <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
-              <p>{message.content}{message.role === 'assistant' && typing && index === messages.length - 1 ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</p>
-            </div>
-          ))}
+          {messages.map((message, index) => {
+            const messageKey = String(message.id || index)
+            const isTypingMessage = message.role === 'assistant' && typing && index === messages.length - 1
+            return (
+              <div className={`ai-message ${message.role}`} key={messageKey}>
+                <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
+                <p>{message.content}{isTypingMessage ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</p>
+                {message.role === 'assistant' && !isTypingMessage && message.content && (
+                  <div className="ai-message-actions" aria-label="Message actions">
+                    <button type="button" onClick={() => copyMessage(message.content, messageKey)} aria-label={copiedMessage === messageKey ? 'Copied' : 'Copy message'} title={copiedMessage === messageKey ? 'Copied' : 'Copy'}>
+                      {copiedMessage === messageKey ? <Check size={13} /> : <Copy size={13} />}
+                    </button>
+                    <button type="button" onClick={() => speakMessage(message.content, messageKey)} aria-label={speakingMessage === messageKey ? 'Stop speaking' : 'Read aloud'} title={speakingMessage === messageKey ? 'Stop' : 'Listen'}>
+                      {speakingMessage === messageKey ? <VolumeX size={13} /> : <Volume2 size={13} />}
+                    </button>
+                    <button type="button" onClick={() => shareMessage(message.content, messageKey)} aria-label="Share message" title="Share">
+                      <Share2 size={13} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          })}
           {sending && !typing && (
             <div className="ai-message assistant">
               <span className="ai-message-role">EVOLV</span>
