@@ -697,6 +697,16 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
         </div>
         <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
+      <section className="evolv-hero-marquee" aria-label="EVOLV values">
+        <div className="evolv-hero-marquee-track">
+          <div className="evolv-hero-marquee-content">
+            <span>YOUR GOALS</span><i>•</i><span>YOUR PACE</span><i>•</i><span>YOUR LIFE</span><i>•</i><span>SMALL STEPS</span><i>•</i><span>REAL PROGRESS</span><i>•</i>
+          </div>
+          <div className="evolv-hero-marquee-content" aria-hidden="true">
+            <span>YOUR GOALS</span><i>•</i><span>YOUR PACE</span><i>•</i><span>YOUR LIFE</span><i>•</i><span>SMALL STEPS</span><i>•</i><span>REAL PROGRESS</span><i>•</i>
+          </div>
+        </div>
+      </section>
       <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
       <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
       <section className="features-story story-reveal" id="features">
