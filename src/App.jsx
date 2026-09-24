@@ -615,9 +615,6 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       if (marqueeTrack) {
         let marqueeX = 0
         let previousScrollY = window.scrollY
-        let targetVelocity = -0.055
-        let currentVelocity = -0.055
-        let lastTime = performance.now()
 
         const getLoopDistance = () => marqueeTrack.scrollWidth / 2
         const wrapMarquee = (value) => {
@@ -626,34 +623,26 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           return gsap.utils.wrap(-distance, 0, value)
         }
 
-        const updateScrollDirection = () => {
+        // Drive the marquee directly from the user's actual page scroll.
+        // Down = left, up = right. When the finger/wheel stops, the marquee stops.
+        const updateMarqueeFromScroll = () => {
           const scrollY = window.scrollY
           const delta = scrollY - previousScrollY
           previousScrollY = scrollY
 
-          if (Math.abs(delta) > 0.05) {
-            const scrollInfluence = gsap.utils.clamp(0, 0.18, Math.abs(delta) * 0.004)
-            targetVelocity = delta > 0
-              ? -0.055 - scrollInfluence
-              : 0.055 + scrollInfluence
-          }
-        }
+          if (!delta) return
 
-        const animateMarquee = () => {
-          const now = performance.now()
-          const elapsed = Math.min(40, now - lastTime)
-          lastTime = now
-
-          // Smoothly change direction, then keep travelling that way indefinitely.
-          currentVelocity += (targetVelocity - currentVelocity) * 0.075
-          marqueeX = wrapMarquee(marqueeX + currentVelocity * elapsed)
+          marqueeX = wrapMarquee(marqueeX - (delta * 0.16))
           gsap.set(marqueeTrack, { x: marqueeX })
         }
 
-        window.addEventListener('scroll', updateScrollDirection, { passive: true })
-        gsap.ticker.add(animateMarquee)
-        gsap.set(marqueeTrack, { x: marqueeX })
+        window.addEventListener('scroll', updateMarqueeFromScroll, { passive: true })
+
+        return () => {
+          window.removeEventListener('scroll', updateMarqueeFromScroll)
+        }
       }
+
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
       const revealTextGroups = [
