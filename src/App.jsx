@@ -679,7 +679,6 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
         </div>
         <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
-      </section>
       <section className="cinematic-marquee" aria-label="EVOLV principles">
         <div className="cinematic-marquee-glow" />
         <div className="cinematic-marquee-edge cinematic-marquee-edge-left" />
