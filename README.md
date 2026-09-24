@@ -1,19 +1,64 @@
-# React + Vite
+# EVOLV
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**EVOLV** is a full-stack personal growth and wellbeing web app built to help people turn intentions into consistent, visible progress.
 
-Currently, two official plugins are available:
+It gives users one place to set goals, track everyday habits and wellbeing, reflect on their progress, and get personalized support through an AI assistant. The experience is designed to feel calm, focused, and premium rather than overwhelming.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## What EVOLV does
 
-## React Compiler
+- **Authentication** — secure account access with email/password, Google, and GitHub sign-in.
+- **Personal onboarding** — guides new users through setting up their EVOLV experience.
+- **Personal dashboard** — a personalized home for goals, progress, momentum, and daily activity.
+- **Goal tracking** — create and manage meaningful goals and track progress over time.
+- **Health & wellbeing logs** — record sleep, food intake, mood, joy, environment, and other daily check-ins.
+- **Sleep tracking** — log sleep using bedtime and wake-up times and view it in hours.
+- **Progress visualization** — see activity and momentum through visual progress indicators and charts.
+- **AI companion** — chat with an AI assistant that can use the user's profile and progress context to provide more relevant responses.
+- **Persistent data** — user progress and activity are stored in a real backend so information remains available across sessions.
+- **Notifications** — notification infrastructure for scheduled wellbeing check-ins and reminders.
+- **Profile & account management** — manage profile information, avatar, notification preferences, and account actions.
+- **Health guides & articles** — access practical wellbeing content directly inside the app.
+- **Responsive experience** — carefully designed for both mobile and desktop, with a mobile-first interaction style.
+- **Premium UI & motion** — cinematic layouts, glass-style navigation, subtle green accents, animated interactions, and GSAP-powered motion.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Tech Stack
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+- **React**
+- **Vite**
+- **JavaScript**
+- **CSS**
+- **Supabase**
+  - Authentication
+  - PostgreSQL database
+  - Edge Functions
+- **GSAP**
+- **Recharts**
+- **AI integration**
+- **GitHub**
+- **Vercel**
 
-## Expanding the ESLint configuration
+## Architecture
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+EVOLV is built as a real full-stack application rather than a static frontend concept.
+
+The React client handles the user experience and application state, while Supabase provides authentication, persistent database storage, and server-side Edge Functions. AI requests and notification functionality are connected through backend services, allowing the application to work with real user data.
+
+## Why I built EVOLV
+
+EVOLV was created around a simple idea: personal growth becomes easier to understand when you can actually see it.
+
+Instead of treating goals, health, habits, and reflection as disconnected activities, EVOLV brings them together into one focused experience where users can build consistency, understand their momentum, and keep moving forward.
+
+## Project highlights
+
+This project covers the full product development process:
+
+**Concept → UX/UI design → frontend development → authentication → database design → backend integration → AI integration → responsive design → animations → deployment.**
+
+EVOLV is one of my main portfolio projects and demonstrates my ability to build and polish a functional product from idea to production.
+
+---
+
+### Built by Iman Chika
+
+Software Engineering Student & Developer
