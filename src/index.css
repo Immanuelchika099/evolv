@@ -10782,3 +10782,17 @@ body{
     bottom:76px !important;
   }
 }
+
+
+/* EVOLV AI — composer sits on the actual viewport bottom */
+.dashboard-ai-active .ai-page .ai-input{
+  bottom:0 !important;
+  padding-bottom:max(14px,env(safe-area-inset-bottom)) !important;
+  background:#000 !important;
+}
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page .ai-input{
+    bottom:0 !important;
+    padding-bottom:max(10px,env(safe-area-inset-bottom)) !important;
+  }
+}
