@@ -10093,46 +10093,86 @@ body{
 }
 
 
-/* EVOLV — cinematic homepage marquee */
+/* EVOLV — restrained cinematic homepage marquee */
 .cinematic-marquee{
   position:relative;
   width:100%;
-  height:clamp(150px,17vw,220px);
+  height:clamp(108px,10vw,142px);
   margin:0 0 170px;
   overflow:hidden;
   display:flex;
-  flex-direction:column;
-  justify-content:center;
-  border-top:1px solid rgba(200,243,106,.12);
-  border-bottom:1px solid rgba(200,243,106,.09);
-  background:linear-gradient(180deg,rgba(159,207,88,.035),rgba(159,207,88,.075),rgba(159,207,88,.025));
+  align-items:center;
+  border-top:1px solid rgba(200,243,106,.10);
+  border-bottom:1px solid rgba(200,243,106,.07);
+  background:rgba(159,207,88,.025);
 }
 .cinematic-marquee-glow{
-  position:absolute;inset:-100% 20%;
-  background:radial-gradient(ellipse,rgba(200,243,106,.13),transparent 62%);
-  filter:blur(30px);pointer-events:none;
+  position:absolute;
+  inset:-160% 15%;
+  background:radial-gradient(ellipse,rgba(200,243,106,.075),transparent 62%);
+  filter:blur(42px);
+  pointer-events:none;
 }
-.cinematic-marquee-row{position:relative;overflow:hidden;white-space:nowrap;display:flex;align-items:center;transform-origin:center}
-.cinematic-marquee-row-top{transform:rotate(-1.4deg) scale(1.04);margin-bottom:-5px}
-.cinematic-marquee-row-bottom{transform:rotate(1.4deg) scale(1.04);opacity:.42}
-.cinematic-marquee-track{display:flex;width:max-content;flex-shrink:0}
-.cinematic-marquee-content{display:flex;align-items:center;gap:30px;padding-right:30px;flex-shrink:0}
-.cinematic-marquee-content span{font:500 clamp(28px,4vw,58px)/1 'Space Grotesk';letter-spacing:-.065em;color:rgba(200,243,106,.88)}
-.cinematic-marquee-content i{font-style:normal;color:rgba(200,243,106,.42);font-size:13px}
-.cinematic-marquee-row-bottom .cinematic-marquee-content{gap:24px;padding-right:24px}
-.cinematic-marquee-row-bottom .cinematic-marquee-content span{font:500 clamp(13px,1.4vw,19px)/1 'DM Mono';letter-spacing:.14em;color:rgba(200,243,106,.65)}
-.cinematic-marquee-center{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:12px;padding:9px 15px;border:1px solid rgba(200,243,106,.25);border-radius:999px;background:rgba(4,7,4,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 0 40px rgba(200,243,106,.08);white-space:nowrap}
-.cinematic-marquee-center span{font:600 11px 'Space Grotesk';letter-spacing:.18em;color:#c8f36a}
-.cinematic-marquee-center b{font:500 9px 'DM Mono';letter-spacing:.1em;color:rgba(244,241,234,.58)}
-.cinematic-marquee-edge{position:absolute;z-index:4;top:0;bottom:0;width:18%;pointer-events:none}
-.cinematic-marquee-edge-left{left:0;background:linear-gradient(90deg,#040605,transparent)}
-.cinematic-marquee-edge-right{right:0;background:linear-gradient(270deg,#040605,transparent)}
+.cinematic-marquee-row{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  white-space:nowrap;
+  display:flex;
+  align-items:center;
+}
+.cinematic-marquee-track{
+  display:flex;
+  width:max-content;
+  flex-shrink:0;
+  will-change:transform;
+}
+.cinematic-marquee-content{
+  display:flex;
+  align-items:center;
+  gap:32px;
+  padding-right:32px;
+  flex-shrink:0;
+}
+.cinematic-marquee-content span{
+  font:500 clamp(24px,3.25vw,48px)/1 'Space Grotesk';
+  letter-spacing:-.055em;
+  color:rgba(200,243,106,.72);
+}
+.cinematic-marquee-content i{
+  font-style:normal;
+  color:rgba(200,243,106,.30);
+  font-size:10px;
+}
+.cinematic-marquee-edge{
+  position:absolute;
+  z-index:4;
+  top:0;
+  bottom:0;
+  width:16%;
+  pointer-events:none;
+}
+.cinematic-marquee-edge-left{
+  left:0;
+  background:linear-gradient(90deg,#040605,transparent);
+}
+.cinematic-marquee-edge-right{
+  right:0;
+  background:linear-gradient(270deg,#040605,transparent);
+}
 @media(max-width:800px){
-  .cinematic-marquee{height:145px;margin-bottom:140px}
-  .cinematic-marquee-row-top{transform:rotate(-2deg) scale(1.08)}
-  .cinematic-marquee-row-bottom{transform:rotate(2deg) scale(1.08)}
-  .cinematic-marquee-content{gap:22px;padding-right:22px}
-  .cinematic-marquee-center{gap:8px;padding:8px 11px}
-  .cinematic-marquee-center b{display:none}
-  .cinematic-marquee-edge{width:22%}
+  .cinematic-marquee{
+    height:104px;
+    margin-bottom:140px;
+  }
+  .cinematic-marquee-content{
+    gap:22px;
+    padding-right:22px;
+  }
+  .cinematic-marquee-content span{
+    font-size:24px;
+  }
+  .cinematic-marquee-edge{
+    width:22%;
+  }
 }
