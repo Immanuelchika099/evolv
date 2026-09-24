@@ -10383,3 +10383,165 @@ body{
   background-image:none !important;
   box-shadow:none !important;
 }
+
+
+/* EVOLV AI — restrained product-grade chat polish */
+.dashboard-ai-active .ai-topbar{
+  max-width:860px !important;
+  padding:18px 0 14px !important;
+}
+.dashboard-ai-active .ai-topbar-label{
+  font-size:1rem !important;
+  letter-spacing:.14em !important;
+  color:rgba(200,243,106,.78) !important;
+}
+.dashboard-ai-active .ai-topbar-caption{
+  font-size:1.2rem !important;
+  color:rgba(235,232,224,.28) !important;
+}
+
+.dashboard-ai-active .ai-messages{
+  max-width:860px;
+  margin:0 auto;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+.dashboard-ai-active .ai-message{
+  width:100%;
+  max-width:100%;
+  padding:0;
+  margin:0 0 28px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+.dashboard-ai-active .ai-message-role{
+  margin:0 0 8px !important;
+  color:rgba(235,232,224,.28) !important;
+  font:500 1rem/1 'DM Mono' !important;
+  letter-spacing:.12em !important;
+}
+.dashboard-ai-active .ai-message p{
+  max-width:720px;
+  margin:0 !important;
+  color:rgba(244,242,235,.88) !important;
+  font:400 1.6rem/1.72 'Manrope',sans-serif !important;
+  letter-spacing:-.015em !important;
+}
+.dashboard-ai-active .ai-message.user{
+  align-items:flex-end;
+}
+.dashboard-ai-active .ai-message.user .ai-message-role{
+  display:none;
+}
+.dashboard-ai-active .ai-message.user p{
+  max-width:min(680px,82%);
+  padding:12px 17px !important;
+  border:1px solid rgba(255,255,255,.065);
+  border-radius:20px 20px 5px 20px;
+  background:rgba(255,255,255,.055);
+  color:#f3f1eb !important;
+}
+.dashboard-ai-active .ai-message-actions{
+  margin-top:10px !important;
+  padding-left:0 !important;
+  opacity:.72;
+}
+.dashboard-ai-active .ai-message-actions button{
+  width:30px !important;
+  height:30px !important;
+  border-radius:9px !important;
+}
+
+.dashboard-ai-active .ai-input{
+  padding:10px max(24px,calc((100vw - 900px)/2)) max(14px,env(safe-area-inset-bottom)) !important;
+}
+.dashboard-ai-active .ai-composer{
+  max-width:860px !important;
+  min-height:56px;
+  padding:6px 7px 6px 18px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border:1px solid rgba(255,255,255,.105);
+  border-radius:30px;
+  background:#0b0e0c;
+  box-shadow:0 10px 35px rgba(0,0,0,.28);
+}
+.dashboard-ai-active .ai-composer input{
+  min-width:0;
+  flex:1;
+  height:42px;
+  padding:0 !important;
+  border:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#f3f1eb !important;
+  font:400 1.5rem/1.4 'Manrope',sans-serif !important;
+}
+.dashboard-ai-active .ai-composer input::placeholder{
+  color:rgba(235,232,224,.32) !important;
+}
+.dashboard-ai-active .ai-send{
+  width:40px !important;
+  height:40px !important;
+  min-width:40px !important;
+  padding:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:#e9ede6 !important;
+  color:#080a09 !important;
+  box-shadow:none !important;
+  transition:transform .18s ease,opacity .18s ease,background .18s ease !important;
+}
+.dashboard-ai-active .ai-send:not(:disabled):hover{
+  transform:scale(1.04);
+  background:#c8f36a !important;
+}
+.dashboard-ai-active .ai-send:disabled{
+  opacity:.28;
+  cursor:default;
+}
+.dashboard-ai-active .ai-send svg{
+  width:18px !important;
+  height:18px !important;
+  stroke-width:2.2;
+}
+
+@media(max-width:800px){
+  .dashboard-ai-active .ai-topbar{
+    padding:12px 0 10px !important;
+  }
+  .dashboard-ai-active .ai-messages{
+    padding-left:0 !important;
+    padding-right:0 !important;
+  }
+  .dashboard-ai-active .ai-message{
+    margin-bottom:24px;
+  }
+  .dashboard-ai-active .ai-message p{
+    font-size:1.55rem !important;
+    line-height:1.68 !important;
+  }
+  .dashboard-ai-active .ai-message.user p{
+    max-width:86%;
+  }
+  .dashboard-ai-active .ai-input{
+    padding:8px 12px max(10px,env(safe-area-inset-bottom)) !important;
+  }
+  .dashboard-ai-active .ai-composer{
+    min-height:54px;
+    padding-left:16px;
+  }
+  .dashboard-ai-active .ai-composer input{
+    font-size:1.5rem !important;
+  }
+  .dashboard-ai-active .ai-send{
+    width:38px !important;
+    height:38px !important;
+    min-width:38px !important;
+  }
+}
