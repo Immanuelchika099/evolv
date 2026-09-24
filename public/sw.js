@@ -14,6 +14,7 @@ self.addEventListener('push', event => {
     badge: payload.badge || EVOLV_ICON,
     tag: payload.tag || 'evolv-daily',
     renotify: true,
+    actions: Array.isArray(payload.actions) ? payload.actions : [],
     data: { url: payload.url || '/dashboard', ...(payload.data || {}) }
   }
 
