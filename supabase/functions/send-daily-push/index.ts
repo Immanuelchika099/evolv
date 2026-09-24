@@ -2,7 +2,7 @@ import { createClient } from "npm:@supabase/supabase-js@2"
 import webpush from "npm:web-push@3.6.7"
 
 const cors = { "Access-Control-Allow-Origin": "*" }
-const DELIVERY_WINDOW_MINUTES = 3
+const DELIVERY_WINDOW_MINUTES = 5
 
 const DEFAULTS = {
   morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Start gently. Choose one thing that would make today feel worthwhile.", defaultTime: "08:00", url: "/dashboard" },
@@ -43,8 +43,10 @@ function isDue(clock, target) {
 }
 
 Deno.serve(async (req) => {
-  const cronSecret = Deno.env.get("EVOLV_CRON_SECRET")
-  if (!cronSecret || req.headers.get("x-evolv-cron-secret") !== cronSecret) return new Response("Unauthorized", { status: 401, headers: cors })
+  const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!)
+  const cronSecret = req.headers.get("x-evolv-cron-secret")
+  const { data: cronAuthorized, error: cronAuthError } = await admin.rpc("validate_evolv_cron_secret", { p_secret: cronSecret })
+  if (cronAuthError || cronAuthorized !== true) return new Response("Unauthorized", { status: 401, headers: cors })
 
   const vapidPublic = Deno.env.get("VAPID_PUBLIC_KEY")
   const vapidPrivate = Deno.env.get("VAPID_PRIVATE_KEY")
@@ -53,7 +55,6 @@ Deno.serve(async (req) => {
 
   webpush.setVapidDetails(vapidSubject, vapidPublic, vapidPrivate)
 
-  const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!)
   const { data: rows, error } = await admin.from("push_subscriptions")
     .select("id,user_id,subscription,timezone,preferences,last_sent,reflection_time").eq("enabled", true)
   if (error) return Response.json({ error: error.message }, { status: 500, headers: cors })
