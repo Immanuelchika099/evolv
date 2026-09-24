@@ -3,11 +3,10 @@ import webpush from "npm:web-push@3.6.7"
 
 const cors = { "Access-Control-Allow-Origin": "*" }
 
-const MESSAGES = {
-  morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Take a moment to check in and start your day intentionally.", hour: 8, minute: 0 },
-  hydration: { title: () => "Time to check in 💧", body: "How are you doing with your hydration today?", hour: 13, minute: 0 },
-  evening: { title: () => "Evening check-in ✨", body: "Take a moment to reflect on how today went.", hour: 20, minute: 0 },
-  sleep: { title: () => "Time to wind down 🌙", body: "Give yourself a little space to slow down and rest.", hour: 22, minute: 30 }
+const DEFAULTS = {
+  morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Start gently. Choose one thing that would make today feel worthwhile.", defaultTime: "08:00", url: "/dashboard" },
+  hydration: { title: () => "A little reset 💧", body: "Take a moment, have some water, and check in with yourself.", defaultTime: "13:00", url: "/dashboard?log=water" },
+  reflection: { title: () => "Your day, before you close it 🌙", body: "A quiet moment is waiting. How did today feel?", defaultTime: "22:30", url: "/dashboard?reflection=1" }
 }
 
 function localClock(timezone) {
@@ -17,6 +16,21 @@ function localClock(timezone) {
   }).formatToParts(new Date())
   const get = (type) => parts.find((part) => part.type === type)?.value || ""
   return { date: get("year") + "-" + get("month") + "-" + get("day"), hour: Number(get("hour")), minute: Number(get("minute")) }
+}
+
+function toMinutes(value, fallback) {
+  const match = /^([01]\d|2[0-3]):([0-5]\d)$/.exec(value || "")
+  if (!match) return toMinutes(fallback)
+  return Number(match[1]) * 60 + Number(match[2])
+}
+
+function inQuietHours(clock, preferences) {
+  if (!preferences.quietHours) return false
+  const now = clock.hour * 60 + clock.minute
+  const start = toMinutes(preferences.quietStart, "23:00")
+  const end = toMinutes(preferences.quietEnd, "07:00")
+  if (start === end) return false
+  return start < end ? now >= start && now < end : now >= start || now < end
 }
 
 Deno.serve(async (req) => {
@@ -32,9 +46,15 @@ Deno.serve(async (req) => {
 
   const admin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!)
   const { data: rows, error } = await admin.from("push_subscriptions")
-    .select("id,user_id,subscription,timezone,preferences,last_sent").eq("enabled", true)
-
+    .select("id,user_id,subscription,timezone,preferences,last_sent,reflection_time").eq("enabled", true)
   if (error) return Response.json({ error: error.message }, { status: 500, headers: cors })
+
+  const userIds = [...new Set((rows || []).map(row => row.user_id).filter(Boolean))]
+  const [{ data: profiles }, { data: waterMetric }] = await Promise.all([
+    userIds.length ? admin.from("profiles").select("id,first_name").in("id", userIds) : Promise.resolve({data:[]}),
+    admin.from("metric_definitions").select("id").eq("slug","water").maybeSingle()
+  ])
+  const names = Object.fromEntries((profiles || []).map(profile => [profile.id, profile.first_name?.trim() || "there"]))
 
   let sent = 0
   let removed = 0
@@ -42,18 +62,48 @@ Deno.serve(async (req) => {
 
   for (const row of rows || []) {
     const clock = localClock(row.timezone || "Africa/Lagos")
-    const preferences = row.preferences || {}
+    const preferences = { ...row.preferences }
+    if (row.reflection_time) preferences.reflectionTime = row.reflection_time
     const lastSent = row.last_sent || {}
+    if (inQuietHours(clock, preferences)) continue
 
-    for (const [kind, message] of Object.entries(MESSAGES)) {
-      if (!preferences[kind] || clock.hour !== message.hour || clock.minute !== message.minute || lastSent[kind] === clock.date) continue
+    for (const [kind, message] of Object.entries(DEFAULTS)) {
+      if (!preferences[kind]) continue
+      const target = preferences[kind + "Time"] || message.defaultTime
+      const [targetHour,targetMinute]=target.split(":").map(Number)
+      if (clock.hour !== targetHour || clock.minute !== targetMinute || lastSent[kind] === clock.date) continue
 
-      const { data: profile } = await admin.from("profiles").select("first_name").eq("id", row.user_id).maybeSingle()
-      const name = profile?.first_name?.trim() || "there"
+      let skip = false
+
+      if (kind === "hydration" && waterMetric?.id) {
+        const since = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+        const { data: recentWater } = await admin.from("metric_logs").select("id").eq("user_id",row.user_id).eq("metric_id",waterMetric.id).gte("logged_at",since).limit(1)
+        if (recentWater?.length) skip = true
+      }
+
+      if (kind === "reflection") {
+        const { data: reflection } = await admin.from("daily_reflections").select("id").eq("user_id",row.user_id).eq("reflection_date",clock.date).maybeSingle()
+        if (reflection) skip = true
+      }
+
+      if (skip) {
+        lastSent[kind] = clock.date
+        continue
+      }
+
       const payload = {
-        title: message.title(name), body: message.body,
-        icon: "/evolv-mark.svg", badge: "/evolv-mark.svg",
-        tag: "evolv-" + kind, url: "/dashboard", data: { reminder: kind }
+        title: message.title(names[row.user_id] || "there"),
+        body: message.body,
+        icon: "/evolv-mark.svg",
+        badge: "/evolv-mark.svg",
+        tag: "evolv-" + kind,
+        url: message.url,
+        data: { reminder: kind },
+        actions: kind === "reflection"
+          ? [{ action: "open", title: "Reflect now" }]
+          : kind === "hydration"
+            ? [{ action: "open", title: "Log water" }]
+            : [{ action: "open", title: "Open EVOLV" }]
       }
 
       try {
