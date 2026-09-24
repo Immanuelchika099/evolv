@@ -2,6 +2,7 @@ import { createClient } from "npm:@supabase/supabase-js@2"
 import webpush from "npm:web-push@3.6.7"
 
 const cors = { "Access-Control-Allow-Origin": "*" }
+const DELIVERY_WINDOW_MINUTES = 3
 
 const DEFAULTS = {
   morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Start gently. Choose one thing that would make today feel worthwhile.", defaultTime: "08:00", url: "/dashboard" },
@@ -31,6 +32,14 @@ function inQuietHours(clock, preferences) {
   const end = toMinutes(preferences.quietEnd, "07:00")
   if (start === end) return false
   return start < end ? now >= start && now < end : now >= start || now < end
+}
+
+function isDue(clock, target) {
+  const now = clock.hour * 60 + clock.minute
+  const scheduled = toMinutes(target, "08:00")
+  let delta = now - scheduled
+  if (delta < 0) delta += 24 * 60
+  return delta >= 0 && delta < DELIVERY_WINDOW_MINUTES
 }
 
 Deno.serve(async (req) => {
@@ -70,8 +79,7 @@ Deno.serve(async (req) => {
     for (const [kind, message] of Object.entries(DEFAULTS)) {
       if (!preferences[kind]) continue
       const target = preferences[kind + "Time"] || message.defaultTime
-      const [targetHour,targetMinute]=target.split(":").map(Number)
-      if (clock.hour !== targetHour || clock.minute !== targetMinute || lastSent[kind] === clock.date) continue
+      if (!isDue(clock, target) || lastSent[kind] === clock.date) continue
 
       let skip = false
 
@@ -112,12 +120,17 @@ Deno.serve(async (req) => {
         sent += 1
       } catch (pushError) {
         const status = pushError?.statusCode
+        console.error("EVOLV push failed", JSON.stringify({
+          subscriptionId: row.id,
+          kind,
+          status,
+          error: String(pushError?.message || pushError)
+        }))
         if (status === 404 || status === 410) {
           await admin.from("push_subscriptions").delete().eq("id", row.id)
           removed += 1
           break
         }
-        console.error("push failed:", row.id, kind, pushError)
       }
     }
 
