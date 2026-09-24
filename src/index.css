@@ -10069,3 +10069,25 @@ body{
 .dashboard:before{
   background:linear-gradient(180deg,transparent,#1a2b0d0c 38%,transparent 62%,#1a2b0d0e) !important;
 }
+
+
+/* EVOLV — scroll-revealed homepage typography */
+.landing .story-reveal h2,
+.landing .story-reveal h3,
+.landing .story-reveal p,
+.landing .section-heading p,
+.landing .area p,
+.landing .story-reveal .section-label,
+.landing .statement-number,
+.landing .faq-item summary,
+.landing .faq-item p{
+  transition:none;
+}
+
+/* Keep interactive/card UI out of the text reveal system. */
+.landing .feature-card,
+.landing .feature-card *,
+.landing .mock-dashboard,
+.landing .mock-dashboard *{
+  /* intentionally excluded from scroll text reveal */
+}
