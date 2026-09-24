@@ -10869,3 +10869,12 @@ body{
 
 /* EVOLV — remove film-grain noise overlay */
 .noise{display:none !important;}
+
+
+/* EVOLV AI — prevent iOS Safari keyboard zoom in the composer */
+@media (max-width:800px){
+  .dashboard-ai-active .ai-page .ai-composer textarea{
+    font-size:16px !important;
+    line-height:1.5 !important;
+  }
+}
