@@ -609,6 +609,29 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
+      // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
+      const revealTextGroups = [
+        { selector: '.story-reveal h2, .story-reveal h3', from: '#6f756f', to: '#f4f1ea' },
+        { selector: '.story-reveal p, .section-heading p, .area p', from: '#656b65', to: '#b9bdb6' },
+        { selector: '.story-reveal .section-label, .statement-number', from: '#555d57', to: '#9aa39a' },
+        { selector: '.faq-item summary', from: '#727872', to: '#f0eee7' },
+        { selector: '.faq-item p', from: '#5f655f', to: '#aeb3ac' }
+      ]
+
+      revealTextGroups.forEach(({ selector, from, to }) => {
+        gsap.utils.toArray(selector).forEach((text) => {
+          gsap.fromTo(text, { color: from }, {
+            color: to,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: text,
+              start: 'top 82%',
+              end: 'top 48%',
+              scrub: 0.7
+            }
+          })
+        })
+      })
       gsap.utils.toArray('.area').forEach((el, i) => gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } }))
       gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
     }, page)
