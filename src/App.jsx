@@ -618,6 +618,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
         .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
         .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
+      gsap.to('.hero-outer-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       // Keep the marquee independent from the page-scroll animations.
       // IMPORTANT: do not return from this GSAP context callback here — that
       // would skip every ScrollTrigger created below.
@@ -705,7 +706,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
           <div className="hero-actions"><button className="button button-primary" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button><button className="button button-ghost" type="button" onClick={onExplore}>Explore EVOLV ↓</button></div>
         </div>
-        <div className="hero-visual"><div className="hero-aura" /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
+        <div className="hero-visual"><div className="hero-aura" /><div className="hero-outer-ring" aria-hidden="true" /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
       <section className="evolv-hero-marquee" aria-label="EVOLV values">
         <div className="evolv-hero-marquee-track">
