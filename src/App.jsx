@@ -5,6 +5,7 @@ import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
