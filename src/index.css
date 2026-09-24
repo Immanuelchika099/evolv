@@ -6567,10 +6567,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .ai-message.assistant p{font-size:1.6rem;color:#f4f1ea}
 .dashboard .ai-cursor{display:inline-block;color:#c8f36a;margin-left:3px;animation:aiBlink 1s steps(1,end) infinite}
 @keyframes aiBlink{50%{opacity:0}}
-.dashboard .ai-thinking{display:flex;gap:5px;padding:8px 0}
-.dashboard .ai-thinking i{width:6px;height:6px;border-radius:50%;background:#c8f36a;opacity:.45;animation:aiPulse 1s ease-in-out infinite}
-.dashboard .ai-thinking i:nth-child(2){animation-delay:.14s}.dashboard .ai-thinking i:nth-child(3){animation-delay:.28s}
-@keyframes aiPulse{50%{opacity:1;transform:translateY(-2px)}}
+.dashboard .ai-thinking{display:inline-block;width:8px;height:8px;min-width:8px;min-height:8px;border-radius:50%;background:#c8f36a;transform:scale(.78);animation:aiPulse 1s ease-in-out infinite}
+@keyframes aiPulse{0%,100%{transform:scale(.78)}50%{transform:scale(1.15)}}
 .dashboard .ai-input{display:flex;align-items:center;gap:12px;padding:16px 0}
 .dashboard .ai-input input{flex:1;min-width:0;border:0;border-bottom:1px solid rgba(255,255,255,.13);background:transparent;color:#f4f1ea;padding:15px 4px;font:500 1.05rem Inter,ui-sans-serif,system-ui,sans-serif;outline:none}
 .dashboard .ai-input input:focus{border-bottom-color:rgba(200,243,106,.55)}
