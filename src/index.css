@@ -10796,3 +10796,9 @@ body{
     padding-bottom:max(10px,env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* EVOLV AI — remove the global film-grain noise from the chat canvas */
+.app:has(.dashboard-ai-active) > .noise{
+  display:none !important;
+}
