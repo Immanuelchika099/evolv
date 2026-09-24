@@ -628,7 +628,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           const now = performance.now()
           const elapsed = Math.min(40, now - lastTime)
           lastTime = now
-          marqueeX = wrapMarquee(marqueeX - (0.018 * elapsed))
+          marqueeX = wrapMarquee(marqueeX - (0.022 * elapsed))
           gsap.set(marqueeTrack, { x: marqueeX })
         }
 
