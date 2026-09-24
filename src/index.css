@@ -10311,3 +10311,40 @@ body{
     padding:8px 10px;
   }
 }
+
+
+/* EVOLV AI fallback error — calm, native-looking inline alert */
+.dashboard-ai-active .ai-page .auth-error{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:min(100% - 32px, 760px);
+  box-sizing:border-box;
+  padding:11px 14px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;
+  background:rgba(20,22,19,.94);
+  color:rgba(244,241,234,.72);
+  font:500 1.15rem/1.45 'Manrope',sans-serif;
+  box-shadow:0 12px 35px rgba(0,0,0,.28);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+.dashboard-ai-active .ai-page .auth-error::before{
+  content:'';
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+  background:#c8f36a;
+  box-shadow:0 0 12px rgba(200,243,106,.3);
+}
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page .auth-error{
+    width:calc(100% - 24px);
+    bottom:76px;
+    padding:10px 12px;
+    border-radius:12px;
+    font-size:1.05rem;
+  }
+}
