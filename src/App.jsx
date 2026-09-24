@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -2653,7 +2653,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         </div>
         <form className="ai-input" onSubmit={sendMessage}>
           <div className="ai-composer">
-            <button type="button" className="ai-attach" aria-label="Add to chat"><Plus size={19}/></button>
             <input value={input} onChange={e => setInput(e.target.value)} placeholder="What’s on your mind?" maxLength={2000} />
             <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
           </div>
