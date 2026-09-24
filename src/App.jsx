@@ -704,7 +704,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
           <h1 className="hero-title"><span className="line">Become the person</span><span className="line"><em>you keep imagining.</em></span></h1>
           <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
-          <div className="hero-actions"><button className="button button-primary" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button><button className="button button-ghost" type="button" onClick={onExplore}>Explore EVOLV ↓</button></div>
+          <div className="hero-actions"><button className="button button-primary hero-action-button" type="button" onClick={(event) => { event.stopPropagation(); onStart() }} aria-label="Start evolving with EVOLV">Start evolving <ArrowRight size={17} /></button><button className="button button-ghost hero-action-button" type="button" onClick={(event) => { event.stopPropagation(); onExplore() }} aria-label="Explore EVOLV">Explore EVOLV ↓</button></div>
         </div>
         <div className="hero-visual"><div className="hero-aura" /><div className="hero-outer-ring" aria-hidden="true" /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
