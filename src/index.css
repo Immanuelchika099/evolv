@@ -10094,63 +10094,43 @@ body{
 }
 
 
-/* EVOLV — hero follow-up marquee */
+/* EVOLV — cinematic hero follow-up marquee */
 .evolv-hero-marquee{
+  position:relative;
   width:100%;
   overflow:hidden;
-  margin:72px 0 130px;
-  padding:22px 0;
-  border-top:1px solid rgba(200,243,106,.14);
-  border-bottom:1px solid rgba(200,243,106,.14);
-  background:rgba(255,255,255,.018);
-  transform:rotate(-.5deg);
+  margin:76px 0 136px;
+  padding:28px 0;
+  border-top:1px solid rgba(200,243,106,.12);
+  border-bottom:1px solid rgba(200,243,106,.12);
+  background:linear-gradient(90deg,rgba(200,243,106,.025),rgba(255,255,255,.018),rgba(200,243,106,.025));
+  transform:rotate(-.65deg) scale(1.015);
+  box-shadow:0 0 55px rgba(200,243,106,.045),inset 0 0 35px rgba(200,243,106,.018);
 }
+.evolv-hero-marquee::before,.evolv-hero-marquee::after{
+  content:"";position:absolute;z-index:2;top:0;bottom:0;width:16%;pointer-events:none;
+}
+.evolv-hero-marquee::before{left:0;background:linear-gradient(90deg,#040605,transparent)}
+.evolv-hero-marquee::after{right:0;background:linear-gradient(270deg,#040605,transparent)}
 .evolv-hero-marquee-track{
-  display:flex;
-  width:max-content;
-  animation:evolvHeroMarquee 28s linear infinite;
-  will-change:transform;
+  display:flex;width:max-content;flex-shrink:0;will-change:transform;
+  animation:evolvHeroMarquee 20s linear infinite;
 }
-.evolv-hero-marquee-content{
-  display:flex;
-  align-items:center;
-  gap:30px;
-  padding-right:30px;
-  flex-shrink:0;
-}
+.evolv-hero-marquee-content{display:flex;align-items:center;gap:34px;padding-right:34px;flex-shrink:0}
 .evolv-hero-marquee-content span{
-  color:rgba(244,241,234,.76);
-  font:500 clamp(16px,1.55vw,24px)/1 'Space Grotesk';
-  letter-spacing:.08em;
-  text-transform:uppercase;
-  white-space:nowrap;
+  color:#c8f36a;font:500 clamp(18px,1.8vw,28px)/1 'Space Grotesk';
+  letter-spacing:.055em;text-transform:uppercase;white-space:nowrap;
+  text-shadow:0 0 20px rgba(200,243,106,.12);
 }
-.evolv-hero-marquee-content i{
-  color:rgba(200,243,106,.58);
-  font-style:normal;
-  font-size:14px;
-}
-@keyframes evolvHeroMarquee{
-  from{transform:translate3d(0,0,0)}
-  to{transform:translate3d(-50%,0,0)}
-}
-@media(prefers-reduced-motion:reduce){
-  .evolv-hero-marquee-track{animation-play-state:paused}
-}
+.evolv-hero-marquee-content i{color:rgba(200,243,106,.42);font-style:normal;font-size:12px}
+@keyframes evolvHeroMarquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@media(prefers-reduced-motion:reduce){.evolv-hero-marquee-track{animation-play-state:paused}}
 @media(max-width:800px){
-  .evolv-hero-marquee{
-    margin:58px 0 100px;
-    padding:19px 0;
-    transform:rotate(-.35deg);
-  }
-  .evolv-hero-marquee-content{
-    gap:22px;
-    padding-right:22px;
-  }
-  .evolv-hero-marquee-content span{font-size:16px}
-  .evolv-hero-marquee-content i{font-size:12px}
+  .evolv-hero-marquee{margin:58px 0 105px;padding:22px 0;transform:rotate(-.45deg) scale(1.02)}
+  .evolv-hero-marquee-content{gap:24px;padding-right:24px}
+  .evolv-hero-marquee-content span{font-size:17px}
+  .evolv-hero-marquee-content i{font-size:11px}
 }
-
 /* EVOLV — slanted scroll-direction marquee */
 .evolv-scroll-marquee{
   position:relative;
