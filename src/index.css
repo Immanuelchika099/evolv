@@ -33,7 +33,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:
 @media(max-width:800px){.landing-nav{top:12px;height:54px!important}.hero{padding-top:75px}.landing-nav .nav-links,.landing-nav .nav-login{display:none}.mobile-menu{right:16px;top:75px;width:calc(100% - 32px)}.story-intro,.story-statement,.manifesto{width:calc(100% - 32px);margin:110px auto 150px}.story-intro{min-height:420px}.story-intro h2,.story-statement h2,.manifesto h2{font-size:clamp(48px,13vw,68px)}.story-statement{display:block}.statement-number{margin-bottom:35px}.features-story,.experience,.faq{width:calc(100% - 32px);margin-bottom:150px}.feature-steps{grid-template-columns:1fr}.feature-step:nth-child(odd){border-right:0}.feature-step{min-height:170px;padding:25px 0}.experience{display:block}.preview-copy{margin-bottom:55px}.faq{display:block}.faq-head{margin-bottom:55px}.final-cta{width:calc(100% - 32px);min-height:420px;margin-bottom:110px}.final-cta h2{font-size:clamp(50px,13vw,70px)}}
 
 /* Refined EVOLV palette: quieter growth green */
-.landing{background:radial-gradient(circle at 73% 10%,#173b2b40 0,transparent 28%),radial-gradient(circle at 15% 40%,#0d2c2238 0,transparent 30%),#050806}.hero-aura{background:radial-gradient(circle,#789b7820,transparent 62%)}.orb-glow{background:radial-gradient(circle,#9fcf5860,#9fcf580d 42%,transparent 70%)}.orb-ring{border-color:#9fcf5825;border-right-color:#9fcf5880}.orb-dot{background:var(--accent);box-shadow:0 0 12px #9fcf5866}.progress-line i,.mini-progress i{background:var(--accent);box-shadow:0 0 9px #9fcf5860}.panel-bottom b{color:var(--accent)}.final-cta{background:radial-gradient(circle,#153b2b38,transparent 65%)}
+.landing{background:radial-gradient(circle at 73% 10%,#173b2b22 0,transparent 28%),radial-gradient(circle at 15% 40%,#0d2c2218 0,transparent 30%),#050806}.hero-aura{background:radial-gradient(circle,#789b7820,transparent 62%)}.orb-glow{background:radial-gradient(circle,#9fcf5860,#9fcf580d 42%,transparent 70%)}.orb-ring{border-color:#9fcf5825;border-right-color:#9fcf5880}.orb-dot{background:var(--accent);box-shadow:0 0 12px #9fcf5866}.progress-line i,.mini-progress i{background:var(--accent);box-shadow:0 0 9px #9fcf5860}.panel-bottom b{color:var(--accent)}.final-cta{background:radial-gradient(circle,#153b2b38,transparent 65%)}
 .mobile-menu{z-index:30}.landing-nav{z-index:40}
 
 
@@ -10072,29 +10072,7 @@ body{
 }
 
 
-/* EVOLV — scroll-revealed homepage typography */
-.landing .story-reveal h2,
-.landing .story-reveal h3,
-.landing .story-reveal p,
-.landing .section-heading p,
-.landing .area p,
-.landing .story-reveal .section-label,
-.landing .statement-number,
-.landing .faq-item summary,
-.landing .faq-item p{
-  transition:none;
-}
-
-/* Keep interactive/card UI out of the text reveal system. */
-.landing .feature-card,
-.landing .feature-card *,
-.landing .mock-dashboard,
-.landing .mock-dashboard *{
-  /* intentionally excluded from scroll text reveal */
-}
-
-
-/* EVOLV — subtle hero follow-up marquee */
+/* EVOLV — homepage typography */
 .evolv-hero-marquee{
   position:relative;
   width:100%;
@@ -10128,95 +10106,6 @@ body{
   .evolv-hero-marquee-content{gap:24px;padding-right:24px}
   .evolv-hero-marquee-content span{font-size:17px}
   .evolv-hero-marquee-content i{font-size:11px}
-}
-/* EVOLV — slanted scroll-direction marquee */
-.evolv-scroll-marquee{
-  position:relative;
-  width:100%;
-  height:clamp(120px,11vw,170px);
-  margin:120px 0 180px;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  transform:rotate(-1.4deg) scale(1.015);
-  border:0;
-  background:rgba(159,207,88,.025);
-  box-shadow:0 0 28px rgba(200,243,106,.10),0 0 75px rgba(200,243,106,.055),inset 0 0 35px rgba(200,243,106,.025);
-}
-.evolv-scroll-marquee-viewport{
-  width:100%;
-  overflow:hidden;
-  white-space:nowrap;
-}
-.evolv-scroll-marquee-track{
-  display:flex;
-  width:max-content;
-  flex-shrink:0;
-  will-change:transform;
-}
-.evolv-scroll-marquee-content{
-  display:flex;
-  align-items:center;
-  gap:42px;
-  padding-right:42px;
-  flex-shrink:0;
-}
-.evolv-scroll-marquee-content span{
-  font:500 clamp(28px,4.2vw,64px)/1 'Space Grotesk';
-  letter-spacing:-.065em;
-  color:#c8f36a;
-  text-shadow:0 0 18px rgba(200,243,106,.16);
-}
-.evolv-scroll-marquee-content i{
-  font-style:normal;
-  color:rgba(200,243,106,.42);
-  font-size:12px;
-  text-shadow:0 0 14px rgba(200,243,106,.25);
-}
-.evolv-scroll-marquee::before,
-.evolv-scroll-marquee::after{
-  content:"";
-  position:absolute;
-  z-index:3;
-  top:0;
-  bottom:0;
-  width:13%;
-  pointer-events:none;
-}
-.evolv-scroll-marquee::before{
-  left:0;
-  background:linear-gradient(90deg,#040605,transparent);
-}
-.evolv-scroll-marquee::after{
-  right:0;
-  background:linear-gradient(270deg,#040605,transparent);
-}
-@media(max-width:800px){
-  .evolv-scroll-marquee{
-    height:110px;
-    margin:90px 0 130px;
-    transform:rotate(-1.1deg) scale(1.02);
-  }
-  .evolv-scroll-marquee-content{
-    gap:26px;
-    padding-right:26px;
-  }
-  .evolv-scroll-marquee-content span{
-    font-size:28px;
-  }
-  .evolv-scroll-marquee::before,
-  .evolv-scroll-marquee::after{
-    width:18%;
-  }
-}
-
-
-/* EVOLV — hide section 03/05 heading descriptions on mobile */
-@media(max-width:800px){
-  .landing .features-story .section-heading p,
-  .landing .areas .section-heading p{
-    display:none !important;
-  }
 }
 
 
@@ -10373,38 +10262,9 @@ body{
   height:100% !important;
   display:block;
 }
-.hero-liquid-highlight{
-  position:absolute;
-  width:28%;
-  aspect-ratio:1.7;
-  top:17%;
-  left:22%;
-  border-radius:50%;
-  transform:rotate(-27deg);
-  background:radial-gradient(ellipse,rgba(244,255,215,.34),rgba(190,230,125,.08) 38%,transparent 72%);
-  filter:blur(7px);
-  pointer-events:none;
-  mix-blend-mode:screen;
-}
-.hero-liquid-orb::after{
-  content:"";
-  position:absolute;
-  inset:8%;
-  border-radius:50%;
-  border:1px solid rgba(210,244,155,.16);
-  box-shadow:
-    inset 10px 10px 30px rgba(255,255,255,.035),
-    inset -18px -24px 45px rgba(0,0,0,.2);
-  pointer-events:none;
-}
 @media(max-width:800px){
   .hero-liquid-orb{
     width:min(82vw,360px);
     margin-top:10px;
-  }
-  .hero-liquid-highlight{
-    width:30%;
-    top:16%;
-    left:21%;
   }
 }
