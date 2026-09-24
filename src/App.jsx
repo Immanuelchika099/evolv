@@ -2852,7 +2852,21 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       </div>
       <form className="ai-input" onSubmit={sendMessage}>
         <div className="ai-composer">
-          <input value={input} onChange={e => setInput(e.target.value)} placeholder="What’s on your mind?" maxLength={2000} />
+          <textarea
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === "Enter") {
+              e.stopPropagation()
+              // Enter is always a new line in the Evolv composer.
+              // Messages are sent only with the button.
+            }
+          }}
+          placeholder="What’s on your mind?"
+          maxLength={2000}
+          rows={1}
+          aria-label="Message"
+        />
           <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><ArrowUp size={18}/></button>
         </div>
       </form>
