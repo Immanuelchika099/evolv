@@ -9853,13 +9853,21 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   margin:0 auto;
 }
 .dashboard .ai-page .ai-thinking{
-  min-width:44px;
-  padding:11px 13px;
+  width:34px !important;
+  min-width:34px !important;
+  height:34px !important;
+  min-height:34px !important;
+  padding:0 !important;
   gap:4px;
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  border-radius:50% !important;
 }
 .dashboard .ai-page .ai-thinking i{
   width:4px;
   height:4px;
+  flex:0 0 4px;
 }
 
 @media(max-width:800px){
