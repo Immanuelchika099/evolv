@@ -644,7 +644,6 @@ function LiquidGlassOrb() {
           enableTransition={false}
         />
       </ShaderGradientCanvas>
-      <span className="hero-liquid-highlight" />
     </div>
   )
 }
