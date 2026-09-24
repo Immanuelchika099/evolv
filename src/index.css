@@ -10352,3 +10352,13 @@ body{
     margin-top:10px;
   }
 }
+
+
+/* Main homepage section labels — 01 to 05 */
+.landing .story-intro > .section-label,
+.landing .story-statement .section-label,
+.landing .features-story .section-label,
+.landing .experience .section-label,
+.landing .areas .section-label{
+  font-size:1.6rem;
+}
