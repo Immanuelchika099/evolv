@@ -10362,3 +10362,24 @@ body{
 .landing .areas .section-label{
   font-size:1.6rem;
 }
+
+
+/* EVOLV AI — pure dark canvas, no gradient ambience */
+.dashboard-ai-active,
+.dashboard-ai-active .dash-main,
+.dashboard-ai-active .ai-page,
+.dashboard-ai-active .ai-page .ai-chat{
+  background:#040605 !important;
+  background-image:none !important;
+}
+
+.dashboard-ai-active::before,
+.dashboard-ai-active::after,
+.dashboard-ai-active .dash-main::before,
+.dashboard-ai-active .dash-main::after,
+.dashboard-ai-active .ai-page::before,
+.dashboard-ai-active .ai-page::after{
+  background:none !important;
+  background-image:none !important;
+  box-shadow:none !important;
+}
