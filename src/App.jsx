@@ -2649,7 +2649,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           {sending && !typing && (
             <div className="ai-message assistant">
               <span className="ai-message-role">EVOLV</span>
-              <div className="ai-thinking" aria-label="EVOLV AI is thinking"><i /><i /><i /></div>
+              <span className="ai-thinking" aria-label="EVOLV AI is thinking" />
             </div>
           )}
           <div ref={bottomRef} />
