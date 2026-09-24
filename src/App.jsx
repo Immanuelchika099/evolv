@@ -608,8 +608,9 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
-      // The marquee is always alive: it drifts left by default, then gently
-      // responds to page-scroll direction without snapping or reversing harshly.
+      // The marquee is always alive. Its direction follows the latest page-scroll
+      // direction and stays there, so scrolling up makes it travel right forever
+      // until the page direction changes again.
       const marqueeTrack = document.querySelector('.evolv-scroll-marquee-track')
       if (marqueeTrack) {
         let marqueeX = 0
@@ -631,8 +632,6 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           previousScrollY = scrollY
 
           if (Math.abs(delta) > 0.05) {
-            // Down keeps the marquee moving left; up smoothly pulls it toward the right.
-            // Scroll speed influences the amount, but the base drift remains active.
             const scrollInfluence = gsap.utils.clamp(0, 0.75, Math.abs(delta) * 0.018)
             targetVelocity = delta > 0
               ? -0.16 - scrollInfluence
@@ -645,7 +644,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           const elapsed = Math.min(40, now - lastTime)
           lastTime = now
 
-          // Ease velocity toward the new direction instead of instantly flipping it.
+          // Smoothly change direction, then keep travelling that way indefinitely.
           currentVelocity += (targetVelocity - currentVelocity) * 0.075
           marqueeX = wrapMarquee(marqueeX + currentVelocity * elapsed)
           gsap.set(marqueeTrack, { x: marqueeX })
@@ -654,16 +653,6 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
         window.addEventListener('scroll', updateScrollDirection, { passive: true })
         gsap.ticker.add(animateMarquee)
         gsap.set(marqueeTrack, { x: marqueeX })
-
-        // When scrolling stops, settle back into the normal leftward drift.
-        let settleTimer
-        const settleToDefault = () => {
-          window.clearTimeout(settleTimer)
-          settleTimer = window.setTimeout(() => {
-            targetVelocity = -0.16
-          }, 140)
-        }
-        window.addEventListener('scroll', settleToDefault, { passive: true })
       }
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
