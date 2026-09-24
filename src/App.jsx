@@ -608,55 +608,34 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
-      // Scroll-driven marquee: scrolling down pushes the track left;
-      // scrolling up reverses it to the right, with an infinite loop.
+      // Scroll-driven marquee: the track follows the page scroll direction.
+      // Down = left, up = right. The duplicated content makes the movement infinite.
       const marqueeTrack = document.querySelector('.evolv-scroll-marquee-track')
-      const marquee = document.querySelector('.evolv-scroll-marquee')
-      if (marqueeTrack && marquee) {
-        let targetX = 0
-        let currentX = 0
-        let lastTime = performance.now()
+      if (marqueeTrack) {
+        let marqueeX = 0
+        let previousScrollY = window.scrollY
 
         const getLoopDistance = () => marqueeTrack.scrollWidth / 2
-        const wrapX = (value) => {
+        const wrapMarquee = (value) => {
           const distance = getLoopDistance()
           if (!distance) return 0
           return gsap.utils.wrap(-distance, 0, value)
         }
 
-        const onScroll = () => {
-          const rect = marquee.getBoundingClientRect()
-          const inRange = rect.top < window.innerHeight && rect.bottom > 0
-          if (!inRange) return
-
+        const updateMarquee = () => {
           const scrollY = window.scrollY
-          const previousY = marquee.dataset.scrollY ? Number(marquee.dataset.scrollY) : scrollY
-          const delta = scrollY - previousY
-          marquee.dataset.scrollY = String(scrollY)
+          const delta = scrollY - previousScrollY
+          previousScrollY = scrollY
 
-          if (!delta) return
-          const distance = Math.abs(delta) * 0.9
-          targetX = wrapX(targetX - Math.sign(delta) * distance)
+          if (delta !== 0) {
+            // A larger scroll produces a faster sweep, while the wrapping keeps it endless.
+            marqueeX = wrapMarquee(marqueeX - delta * 0.85)
+            gsap.set(marqueeTrack, { x: marqueeX })
+          }
         }
 
-        marquee.dataset.scrollY = String(window.scrollY)
-        window.addEventListener('scroll', onScroll, { passive: true })
-
-        const tick = (time) => {
-          const deltaTime = Math.min(40, time - lastTime)
-          lastTime = time
-          const easing = 1 - Math.pow(0.0001, deltaTime / 1000)
-          currentX += (targetX - currentX) * easing
-          currentX = wrapX(currentX)
-          gsap.set(marqueeTrack, { x: currentX })
-        }
-
-        gsap.ticker.add(tick)
-
-        return () => {
-          window.removeEventListener('scroll', onScroll)
-          gsap.ticker.remove(tick)
-        }
+        window.addEventListener('scroll', updateMarquee, { passive: true })
+        gsap.set(marqueeTrack, { x: marqueeX })
       }
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
