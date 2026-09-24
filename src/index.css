@@ -2482,7 +2482,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .landing .mock-header,
   .landing .mock-card p,
   .landing .landing-nav .nav-login{
-    font-size:1.3rem;
+    font-size:1.6rem;
+    line-height:1.7;
   }
 
   .landing .button{
