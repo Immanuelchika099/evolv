@@ -82,6 +82,43 @@ const toolDeclarations = [
       required: ["goal_id", "progress"],
     },
   },
+  {
+    name: "log_metric",
+    description: "Logs a value to one of the user's Evolv metrics. Use when the user clearly asks to log, record, track, or save something such as sleep, water, exercise, steps, learning, focus, mood, stress, energy, spending, income, savings, weight, or another available metric.",
+    parameters: { type: "object", properties: {
+      metric: { type: "string", description: "Metric name, key, or title." },
+      value: { type: "number", description: "Numeric value to log." },
+      note: { type: "string", description: "Optional note." },
+      date: { type: "string", description: "Optional YYYY-MM-DD date. Defaults to today." },
+    }, required: ["metric", "value"] },
+  },
+  {
+    name: "log_meal",
+    description: "Logs a meal for the signed-in user. Use when the user clearly asks to log or record breakfast, lunch, dinner, or a snack.",
+    parameters: { type: "object", properties: {
+      meal_type: { type: "string", description: "breakfast, lunch, dinner, or snack." },
+      description: { type: "string", description: "What the user ate." },
+      calories: { type: "number" }, protein_g: { type: "number" }, carbs_g: { type: "number" }, fat_g: { type: "number" }, water_ml: { type: "number" },
+      note: { type: "string" },
+    }, required: ["meal_type", "description"] },
+  },
+  {
+    name: "log_reflection",
+    description: "Logs the user's daily reflection. Use when the user clearly asks to record how they felt, their mood, or a reflection.",
+    parameters: { type: "object", properties: {
+      mood: { type: "integer", description: "Mood from 1 to 5." },
+      day_feeling: { type: "string" }, note: { type: "string" },
+      date: { type: "string", description: "Optional YYYY-MM-DD date." },
+    } },
+  },
+  {
+    name: "checkin_goal",
+    description: "Records a check-in note on one of the user's goals.",
+    parameters: { type: "object", properties: {
+      goal_id: { type: "string" }, note: { type: "string" },
+      date: { type: "string", description: "Optional YYYY-MM-DD date." },
+    }, required: ["goal_id"] },
+  },
 ]
 
 async function executeTool(
@@ -189,6 +226,62 @@ async function executeTool(
       success: true,
       goal: data,
     }
+  }
+
+  if (name === "log_metric") {
+    const metricName = typeof args.metric === "string" ? args.metric.trim() : "";
+    const value = Number(args.value);
+    if (!metricName) throw new Error("A metric name is required.");
+    if (!Number.isFinite(value) || value < 0) throw new Error("A valid non-negative numeric value is required.");
+    const { data: definitions, error: definitionError } = await supabase.from("metric_definitions").select("id,title,metric_key,slug,name,unit,input_type").eq("is_active", true).limit(100);
+    if (definitionError) throw definitionError;
+    const needle = metricName.toLowerCase();
+    const metric = (definitions || []).find((item:any) => [item.title,item.metric_key,item.slug,item.name].filter(Boolean).some((v:string) => v.toLowerCase() === needle))
+      || (definitions || []).find((item:any) => [item.title,item.metric_key,item.slug,item.name].filter(Boolean).some((v:string) => v.toLowerCase().includes(needle) || needle.includes(v.toLowerCase())));
+    if (!metric) throw new Error("I couldn't find an Evolv metric called " + metricName + ".");
+    if (metric.input_type === "scale" && (value < 1 || value > 5)) throw new Error(metric.title + " must be between 1 and 5.");
+    const date = typeof args.date === "string" && /^\d{4}-\d{2}-\d{2}$/.test(args.date) ? args.date : new Date().toISOString().slice(0,10);
+    const { data, error } = await supabase.from("metric_logs").insert({user_id:userId,metric_id:metric.id,logged_for:date,value_numeric:value,value,unit:metric.unit || null,note:typeof args.note==="string"?args.note.trim().slice(0,1000)||null:null}).select("id,metric_id,logged_for,value_numeric,value,unit,note").single();
+    if (error) throw error;
+    return {success:true,metric:metric.title,log:data};
+  }
+
+  if (name === "log_meal") {
+    const mealType = typeof args.meal_type === "string" ? args.meal_type.toLowerCase().trim() : "";
+    const description = typeof args.description === "string" ? args.description.trim() : "";
+    if (!["breakfast","lunch","dinner","snack"].includes(mealType)) throw new Error("Meal type must be breakfast, lunch, dinner, or snack.");
+    if (!description) throw new Error("A meal description is required.");
+    const num=(v:any)=>v==null||v===""?null:Number(v);
+    const calories=num(args.calories),protein=num(args.protein_g),carbs=num(args.carbs_g),fat=num(args.fat_g),water=num(args.water_ml);
+    for (const v of [calories,protein,carbs,fat,water]) if(v!==null&&(!Number.isFinite(v)||v<0)) throw new Error("Meal numbers must be valid non-negative values.");
+    const {data,error}=await supabase.from("meal_logs").insert({user_id:userId,meal_type:mealType,description:description.slice(0,2000),calories,protein_g:protein,carbs_g:carbs,fat_g:fat,water_ml:water,note:typeof args.note==="string"?args.note.trim().slice(0,1000)||null:null}).select("id,meal_type,eaten_at,description,calories,protein_g,carbs_g,fat_g,water_ml,note").single();
+    if(error) throw error;
+    return {success:true,meal:data};
+  }
+
+  if (name === "log_reflection") {
+    const mood=args.mood==null||args.mood===""?null:Number(args.mood);
+    if(mood!==null&&(!Number.isInteger(mood)||mood<1||mood>5)) throw new Error("Mood must be a whole number from 1 to 5.");
+    const date=typeof args.date==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(args.date)?args.date:new Date().toISOString().slice(0,10);
+    const {data:existing,error:existingError}=await supabase.from("daily_reflections").select("id").eq("user_id",userId).eq("reflection_date",date).maybeSingle();
+    if(existingError) throw existingError;
+    const payload={user_id:userId,reflection_date:date,mood,day_feeling:typeof args.day_feeling==="string"?args.day_feeling.trim().slice(0,500)||null:null,note:typeof args.note==="string"?args.note.trim().slice(0,2000)||null:null,updated_at:new Date().toISOString()};
+    const query=existing?supabase.from("daily_reflections").update(payload).eq("id",existing.id).eq("user_id",userId):supabase.from("daily_reflections").insert(payload);
+    const {data,error}=await query.select("id,reflection_date,mood,day_feeling,note,updated_at").single();
+    if(error) throw error;
+    return {success:true,reflection:data};
+  }
+
+  if (name === "checkin_goal") {
+    const goalId=typeof args.goal_id==="string"?args.goal_id:"";
+    if(!goalId) throw new Error("A goal ID is required.");
+    const date=typeof args.date==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(args.date)?args.date:new Date().toISOString().slice(0,10);
+    const {data:goal,error:goalError}=await supabase.from("goals").select("id,title").eq("id",goalId).eq("user_id",userId).maybeSingle();
+    if(goalError) throw goalError;
+    if(!goal) throw new Error("That goal does not belong to the signed-in user.");
+    const {data,error}=await supabase.from("goal_checkins").insert({goal_id:goalId,user_id:userId,checkin_date:date,note:typeof args.note==="string"?args.note.trim().slice(0,2000)||null:null}).select("id,goal_id,checkin_date,note,created_at").single();
+    if(error) throw error;
+    return {success:true,goal,checkin:data};
   }
 
   if (name === "update_goal_progress") {
