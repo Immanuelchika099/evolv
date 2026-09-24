@@ -9999,3 +9999,24 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .ai-page .ai-thinking{
   animation:ai-thinking-scale 1.1s ease-in-out infinite;
 }
+
+
+/* EVOLV — tighten AI thinking pulse and eliminate horizontal overflow */
+.dashboard-ai-active,
+.dashboard-ai-active .dash-main,
+.dashboard-ai-active .ai-page,
+.dashboard-ai-active .ai-page .ai-chat,
+.dashboard-ai-active .ai-page .ai-messages{
+  max-width:100%;
+  overflow-x:hidden !important;
+}
+
+.dashboard-ai-active .ai-page .ai-thinking{
+  animation:ai-thinking-scale-tight 1.1s ease-in-out infinite !important;
+  transform-origin:center;
+}
+
+@keyframes ai-thinking-scale-tight{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.15)}
+}
