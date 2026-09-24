@@ -10209,3 +10209,12 @@ body{
     width:18%;
   }
 }
+
+
+/* EVOLV — hide section 03/05 heading descriptions on mobile */
+@media(max-width:800px){
+  .landing .features-story .section-heading p,
+  .landing .areas .section-heading p{
+    display:none !important;
+  }
+}
