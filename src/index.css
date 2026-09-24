@@ -10350,3 +10350,61 @@ body{
     color:rgba(255,142,142,.94);
   }
 }
+
+/* Hero liquid glass object */
+.hero-liquid-orb{
+  position:relative;
+  width:min(430px,40vw);
+  aspect-ratio:1;
+  display:grid;
+  place-items:center;
+  filter:drop-shadow(0 35px 55px rgba(0,0,0,.42));
+}
+.hero-liquid-canvas{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  pointer-events:none !important;
+  display:block;
+}
+.hero-liquid-canvas canvas{
+  width:100% !important;
+  height:100% !important;
+  display:block;
+}
+.hero-liquid-highlight{
+  position:absolute;
+  width:28%;
+  aspect-ratio:1.7;
+  top:17%;
+  left:22%;
+  border-radius:50%;
+  transform:rotate(-27deg);
+  background:radial-gradient(ellipse,rgba(244,255,215,.34),rgba(190,230,125,.08) 38%,transparent 72%);
+  filter:blur(7px);
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
+.hero-liquid-orb::after{
+  content:"";
+  position:absolute;
+  inset:8%;
+  border-radius:50%;
+  border:1px solid rgba(210,244,155,.16);
+  box-shadow:
+    inset 10px 10px 30px rgba(255,255,255,.035),
+    inset -18px -24px 45px rgba(0,0,0,.2);
+  pointer-events:none;
+}
+@media(max-width:800px){
+  .hero-liquid-orb{
+    width:min(82vw,360px);
+    margin-top:10px;
+  }
+  .hero-liquid-highlight{
+    width:30%;
+    top:16%;
+    left:21%;
+  }
+}
