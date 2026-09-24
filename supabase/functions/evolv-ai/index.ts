@@ -106,28 +106,47 @@ ${progressContext}`
       parts: [{ text: message.content }]
     }))
 
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent", {
-      method:"POST",
-      headers:{
-        "Content-Type":"application/json",
-        "x-goog-api-key":geminiKey
-      },
-      body:JSON.stringify({
-        systemInstruction:{parts:[{text:instructions}]},
-        contents,
-        generationConfig:{
-          maxOutputTokens:700,
-          temperature:0.7
-        }
+    const models = ["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
+    let lastStatus = 503
+    let lastMessage = ""
+
+    for (const model of models) {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json",
+          "x-goog-api-key":geminiKey
+        },
+        body:JSON.stringify({
+          systemInstruction:{parts:[{text:instructions}]},
+          contents,
+          generationConfig:{
+            maxOutputTokens:700,
+            temperature:0.7
+          }
+        })
       })
-    })
-    const result = await response.json().catch(() => ({}))
-    if (!response.ok) {
-      console.error("Gemini error", result?.error)
-      const message = typeof result?.error?.message === "string" ? result.error.message : ""
-      return json({error: message ? `Evolv AI could not reach the model: ${message}` : `Evolv AI could not reach the model (Gemini HTTP ${response.status}).`},502)
+
+      const result = await response.json().catch(() => ({}))
+
+      if (response.ok) {
+        return json({reply:extractReply(result) || `I'm here, ${firstName}. What would you like to talk through?`})
+      }
+
+      lastStatus = response.status
+      lastMessage = typeof result?.error?.message === "string" ? result.error.message : ""
+      console.error(`Gemini ${model} error`, result?.error)
+
+      // Capacity/availability errors are often temporary. Try the next
+      // available Flash-Lite model before showing an error to the user.
+      if (![429, 500, 502, 503, 504].includes(response.status)) break
     }
-    return json({reply:extractReply(result) || `I'm here, ${firstName}. What would you like to talk through?`})
+
+    return json({
+      error: lastMessage
+        ? `Evolv AI could not reach the model: ${lastMessage}`
+        : `Evolv AI could not reach the model (Gemini HTTP ${lastStatus}).`
+    }, 502)
   } catch (error) {
     console.error("Evolv AI function error", error)
     return json({error:"The Evolv AI service hit an unexpected error. Please try again."},500)
