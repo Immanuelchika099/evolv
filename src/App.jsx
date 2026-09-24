@@ -142,6 +142,32 @@ function App() {
       if (view !== 'article') {
         gsap.from('.page-enter > *', { y: 24, opacity: 0, duration: .75, stagger: .06, ease: 'power3.out' })
       }
+
+      if (view === 'landing') {
+        const heroItems = gsap.utils.toArray('.hero-copy > *, .hero-liquid-orb, .hero-panel')
+        gsap.from(heroItems, {
+          y: 18,
+          opacity: 0,
+          duration: .9,
+          stagger: .08,
+          ease: 'power3.out',
+          delay: .12,
+        })
+
+        gsap.utils.toArray('.story-intro, .story-statement, .features-story, .experience, .manifesto, .faq, .final-cta').forEach(section => {
+          gsap.from(section, {
+            y: 34,
+            opacity: 0,
+            duration: .9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: section,
+              start: 'top 82%',
+              once: true,
+            },
+          })
+        })
+      }
     }, root)
     return () => ctx.revert()
   }, [view, step])
