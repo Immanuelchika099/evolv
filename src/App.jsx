@@ -5,7 +5,6 @@ import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -608,45 +607,6 @@ function Brand() {
   )
 }
 
-function LiquidGlassOrb() {
-  return (
-    <div className="hero-liquid-orb" aria-hidden="true">
-      <ShaderGradientCanvas
-        className="hero-liquid-canvas"
-        pixelDensity={1}
-        fov={38}
-        gl={{ antialias: true, powerPreference: 'low-power', alpha: true }}
-      >
-        <ShaderGradient
-          animate="off"
-          type="sphere"
-          shader="defaults"
-          uTime={0.18}
-          uStrength={0.34}
-          uDensity={0.72}
-          uFrequency={1.55}
-          uAmplitude={0.72}
-          color1="#08100B"
-          color2="#23452A"
-          color3="#B9DF70"
-          reflection={0.62}
-          cAzimuthAngle={230}
-          cPolarAngle={88}
-          cDistance={3.7}
-          cameraZoom={1.02}
-          lightType="env"
-          envPreset="lobby"
-          brightness={0.42}
-          grain="off"
-          zoomOut={false}
-          toggleAxis={false}
-          hoverState=""
-          enableTransition={false}
-        />
-      </ShaderGradientCanvas>
-    </div>
-  )
-}
 
 function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
   const page = useRef(null)
@@ -745,7 +705,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
           <div className="hero-actions"><button className="button button-primary" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button><button className="button button-ghost" type="button" onClick={onExplore}>Explore EVOLV ↓</button></div>
         </div>
-        <div className="hero-visual"><div className="hero-aura" /><LiquidGlassOrb /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
+        <div className="hero-visual"><div className="hero-aura" /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
       <section className="evolv-hero-marquee" aria-label="EVOLV values">
         <div className="evolv-hero-marquee-track">
