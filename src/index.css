@@ -10865,3 +10865,7 @@ body{
 .dashboard-ai-active .ai-page .ai-composer{width:100% !important;max-width:860px !important;margin:0 auto !important;box-sizing:border-box !important;}
 .dashboard-ai-active .ai-page .ai-messages{padding-bottom:110px !important;}
 @media(max-width:800px){.dashboard-ai-active .ai-page .ai-input{padding:6px 12px 0 !important;}.dashboard-ai-active .ai-page .ai-messages{padding-bottom:100px !important;}}
+
+
+/* EVOLV — remove film-grain noise overlay */
+.noise{display:none !important;}
