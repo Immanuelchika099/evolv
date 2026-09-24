@@ -10755,3 +10755,30 @@ body{
     animation:none;
   }
 }
+
+
+/* EVOLV AI — dock the composer to the bottom of the viewport */
+.dashboard-ai-active .ai-page{
+  padding-bottom:120px !important;
+}
+.dashboard-ai-active .ai-page .ai-input{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:78px !important;
+  z-index:19 !important;
+  width:100% !important;
+  margin:0 !important;
+  border-top:1px solid rgba(255,255,255,.055) !important;
+  background:rgba(0,0,0,.92) !important;
+  backdrop-filter:blur(18px) !important;
+  -webkit-backdrop-filter:blur(18px) !important;
+}
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page{
+    padding-bottom:112px !important;
+  }
+  .dashboard-ai-active .ai-page .ai-input{
+    bottom:76px !important;
+  }
+}
