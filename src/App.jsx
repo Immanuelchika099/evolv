@@ -1280,12 +1280,37 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
 
   async function saveReflectionTime(event){
-    const next=event.target.value||'22:30'
+    const next=event.currentTarget.value||'22:30'
     setReflectionTime(next)
     localStorage.setItem('evolv-reflection-time',next)
-    if(notificationsEnabled){
-      const synced=await syncPushSettings({preferences:notificationTimes,reflectionTime:next,enabled:true})
-      setProfileMessage(synced?'Daily reflection time saved.':'Saved on this device. EVOLV will sync this reflection time when push is connected.')
+
+    if(!notificationsEnabled){
+      setProfileMessage('Turn notifications on to schedule the daily reflection.')
+      return
+    }
+
+    try{
+      const registration=await navigator.serviceWorker.ready
+      const subscription=await registration.pushManager.getSubscription()
+
+      if(!subscription){
+        setProfileMessage('Your push subscription is missing. Turn notifications off and on again, then choose your reflection time.')
+        return
+      }
+
+      const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos'
+      const synced=await syncPushSettings({
+        subscription:subscription.toJSON(),
+        timezone,
+        preferences:notificationTimes,
+        reflectionTime:next,
+        enabled:true
+      })
+
+      setProfileMessage(synced?'Daily reflection time saved.':'EVOLV could not save that reflection time. Please try again.')
+    }catch(pushError){
+      console.error('EVOLV reflection time sync failed:',pushError)
+      setProfileMessage('EVOLV could not save that reflection time. Please try again.')
     }
   }
 
