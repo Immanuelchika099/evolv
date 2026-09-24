@@ -9805,6 +9805,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 
+
+
+/* EVOLV — hide the temporarily disabled AI attach action */
+.ai-attach{display:none !important}
+
 /* EVOLV — slightly smaller loading mark */
-.evolv-loader-mark{width:78px;height:78px}
-.evolv-loader-mark span{width:22px;height:22px}
+.evolv-loader-mark{width:36px;height:36px}
+.evolv-loader-mark span{width:9px;height:9px}
