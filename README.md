@@ -24,7 +24,6 @@ It gives users one place to set goals, track everyday habits and wellbeing, refl
 ## Tech Stack
 
 - **React**
-- **Vite**
 - **JavaScript**
 - **CSS**
 - **Supabase**
