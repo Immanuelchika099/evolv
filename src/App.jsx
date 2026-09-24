@@ -2570,6 +2570,82 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
   )
 }
 
+function EvolvCalendarBridge({ event, onCancel, onAdded }) {
+  if (!event) return null
+
+  async function addEvent() {
+    try {
+      const payload = {
+        title: event.title,
+        startDate: event.startDate,
+        endDate: event.endDate,
+        notes: event.notes || '',
+        location: event.location || '',
+      }
+
+      const plugin = window.Capacitor?.Plugins?.EvolvCalendar
+      if (plugin?.createEvent) {
+        await plugin.createEvent(payload)
+        onAdded?.()
+        return
+      }
+
+      if (window.webkit?.messageHandlers?.evolvCalendar?.postMessage) {
+        window.webkit.messageHandlers.evolvCalendar.postMessage(payload)
+        onAdded?.()
+        return
+      }
+
+      const start = new Date(event.startDate)
+      const end = new Date(event.endDate)
+      if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime())) throw new Error('The event time is invalid.')
+
+      const pad = value => String(value).padStart(2, '0')
+      const toIcsDate = date => (
+        date.getUTCFullYear() + pad(date.getUTCMonth() + 1) + pad(date.getUTCDate()) + 'T' +
+        pad(date.getUTCHours()) + pad(date.getUTCMinutes()) + pad(date.getUTCSeconds()) + 'Z'
+      )
+      const escapeIcs = value => String(value || '').replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/;/g, '\\;').replace(/,/g, '\\,')
+      const ics = [
+        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//EVOLV//Calendar//EN','BEGIN:VEVENT',
+        `UID:evolv-${Date.now()}@${window.location.hostname}`,
+        `DTSTAMP:${toIcsDate(new Date())}`,`DTSTART:${toIcsDate(start)}`,`DTEND:${toIcsDate(end)}`,
+        `SUMMARY:${escapeIcs(event.title)}`,
+        ...(event.notes ? [`DESCRIPTION:${escapeIcs(event.notes)}`] : []),
+        ...(event.location ? [`LOCATION:${escapeIcs(event.location)}`] : []),
+        'END:VEVENT','END:VCALENDAR',
+      ].join('\\r\\n')
+
+      const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }))
+      const anchor = document.createElement('a')
+      anchor.href = url
+      anchor.download = `${String(event.title || 'evolv-event').replace(/[^a-z0-9]+/gi, '-').toLowerCase() || 'evolv-event'}.ics`
+      document.body.appendChild(anchor)
+      anchor.click()
+      anchor.remove()
+      window.setTimeout(() => URL.revokeObjectURL(url), 1000)
+      onAdded?.()
+    } catch (error) {
+      console.error('EVOLV calendar event failed:', error)
+    }
+  }
+
+  return (
+    <div className="ai-calendar-confirm" role="dialog" aria-label="Confirm calendar event">
+      <div className="ai-calendar-confirm-copy">
+        <span className="ai-calendar-label">ADD TO CALENDAR</span>
+        <strong>{event.title}</strong>
+        <span>{event.displayTime}</span>
+        {event.notes ? <small>{event.notes}</small> : null}
+      </div>
+      <div className="ai-calendar-confirm-actions">
+        <button type="button" onClick={onCancel}>Not now</button>
+        <button type="button" className="ai-calendar-add" onClick={addEvent}>Add to Calendar</button>
+      </div>
+    </div>
+  )
+}
+
 function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
   const firstName = profile?.first_name || 'there'
   const [chatId, setChatId] = useState(() => {
@@ -2588,6 +2664,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [typing, setTyping] = useState(false)
   const [copiedMessage, setCopiedMessage] = useState('')
   const [speakingMessage, setSpeakingMessage] = useState('')
+  const [pendingCalendarEvent, setPendingCalendarEvent] = useState(null)
   const bottomRef = useRef(null)
 
   useEffect(() => {
@@ -2624,6 +2701,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setTyping(false)
     setSending(false)
     setError('')
+    setPendingCalendarEvent(null)
     setInput('')
     try {
       setChatId(crypto.randomUUID())
@@ -2772,6 +2850,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       return
     }
 
+    if (result.calendarEvent) setPendingCalendarEvent(result.calendarEvent)
+
     const reply = result.reply || `I’m here, ${firstName}. We can take it one step at a time.`
     setTyping(true)
     setMessages(current => [...current, { role: 'assistant', content: '' }])
@@ -2850,6 +2930,13 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           <div ref={bottomRef} />
         </div>
       </div>
+      {pendingCalendarEvent && (
+        <EvolvCalendarBridge
+          event={pendingCalendarEvent}
+          onCancel={() => setPendingCalendarEvent(null)}
+          onAdded={() => setPendingCalendarEvent(null)}
+        />
+      )}
       <form className="ai-input" onSubmit={sendMessage}>
         <div className="ai-composer">
           <textarea
