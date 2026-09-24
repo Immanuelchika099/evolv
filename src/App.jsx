@@ -614,8 +614,8 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       if (marqueeTrack) {
         let marqueeX = 0
         let previousScrollY = window.scrollY
-        let targetVelocity = -0.42
-        let currentVelocity = -0.42
+        let targetVelocity = -0.16
+        let currentVelocity = -0.16
         let lastTime = performance.now()
 
         const getLoopDistance = () => marqueeTrack.scrollWidth / 2
@@ -633,10 +633,10 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           if (Math.abs(delta) > 0.05) {
             // Down keeps the marquee moving left; up smoothly pulls it toward the right.
             // Scroll speed influences the amount, but the base drift remains active.
-            const scrollInfluence = gsap.utils.clamp(0, 2.2, Math.abs(delta) * 0.045)
+            const scrollInfluence = gsap.utils.clamp(0, 0.75, Math.abs(delta) * 0.018)
             targetVelocity = delta > 0
-              ? -0.42 - scrollInfluence
-              : 0.42 + scrollInfluence
+              ? -0.16 - scrollInfluence
+              : 0.16 + scrollInfluence
           }
         }
 
@@ -660,7 +660,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
         const settleToDefault = () => {
           window.clearTimeout(settleTimer)
           settleTimer = window.setTimeout(() => {
-            targetVelocity = -0.42
+            targetVelocity = -0.16
           }, 140)
         }
         window.addEventListener('scroll', settleToDefault, { passive: true })
