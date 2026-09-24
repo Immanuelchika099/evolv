@@ -1129,7 +1129,8 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
-  const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...{morning:true,hydration:true,evening:true,sleep:true,reflection:true},...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return {morning:true,hydration:true,evening:true,sleep:true,reflection:true}}})
+  const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
+  const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
   const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
   const [reflectionOpen,setReflectionOpen]=useState(()=>new URLSearchParams(window.location.search).get('reflection')==='1')
   const [reflectionStep,setReflectionStep]=useState(0)
@@ -1173,6 +1174,17 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
     ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
+  useEffect(()=>{
+    const params=new URLSearchParams(window.location.search)
+    const requested=params.get('log')
+    if(!requested||!defs.length) return
+    const d=defs.find(item=>item.slug===requested)
+    if(d){
+      openLog(metricArea[d.slug]||d.area,d)
+      window.history.replaceState({},'',window.location.pathname)
+    }
+  },[defs])
+
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
   function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
   function handleLogSaved(kind,entry){
@@ -1193,6 +1205,29 @@ function Dashboard({ data, onLogout, onArticle }) {
       console.error('EVOLV push sync failed:',pushError)
       return false
     }
+  }
+
+  function persistNotificationTimes(next){
+    setNotificationTimes(next)
+    localStorage.setItem('evolv-notification-times',JSON.stringify(next))
+  }
+
+  async function syncCurrentPushSettings(nextOverrides={}){
+    const next={...notificationTimes,...nextOverrides}
+    if(next.reflectionTime) setReflectionTime(next.reflectionTime)
+    persistNotificationTimes(next)
+    if(!notificationsEnabled) return true
+    const registration=await navigator.serviceWorker.ready
+    const subscription=await registration.pushManager.getSubscription()
+    if(!subscription) return false
+    const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos'
+    return syncPushSettings({
+      subscription:subscription.toJSON(),
+      timezone,
+      preferences:next,
+      reflectionTime:next.reflectionTime||reflectionTime,
+      enabled:true
+    })
   }
 
   function urlBase64ToUint8Array(base64String){
@@ -1271,47 +1306,45 @@ function Dashboard({ data, onLogout, onArticle }) {
 
   async function toggleNotificationTime(key){
     const next={...notificationTimes,[key]:!notificationTimes[key]}
-    setNotificationTimes(next)
-    localStorage.setItem('evolv-notification-times',JSON.stringify(next))
+    persistNotificationTimes(next)
     if(notificationsEnabled){
-      const synced=await syncPushSettings({preferences:next,reflectionTime,enabled:true})
-      if(!synced) setProfileMessage('Saved on this device. EVOLV will sync this reminder when push is connected.')
+      const synced=await syncCurrentPushSettings(next)
+      if(!synced) setProfileMessage('Saved on this device. EVOLV could not sync the reminder settings yet.')
     }
   }
 
-  async function saveReflectionTime(event){
-    const next=event.currentTarget.value||'22:30'
-    setReflectionTime(next)
-    localStorage.setItem('evolv-reflection-time',next)
-
+  async function saveNotificationTime(key,event){
+    const value=event.currentTarget.value
+    if(!value) return
+    const next={...notificationTimes,[key]:value}
+    if(key==='reflectionTime'){
+      setReflectionTime(value)
+      localStorage.setItem('evolv-reflection-time',value)
+    }
+    persistNotificationTimes(next)
     if(!notificationsEnabled){
-      setProfileMessage('Turn notifications on to schedule the daily reflection.')
+      setProfileMessage('Turn notifications on to schedule your daily reminders.')
       return
     }
-
     try{
-      const registration=await navigator.serviceWorker.ready
-      const subscription=await registration.pushManager.getSubscription()
-
-      if(!subscription){
-        setProfileMessage('Your push subscription is missing. Turn notifications off and on again, then choose your reflection time.')
-        return
-      }
-
-      const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos'
-      const synced=await syncPushSettings({
-        subscription:subscription.toJSON(),
-        timezone,
-        preferences:notificationTimes,
-        reflectionTime:next,
-        enabled:true
-      })
-
-      setProfileMessage(synced?'Daily reflection time saved.':'EVOLV could not save that reflection time. Please try again.')
-    }catch(pushError){
-      console.error('EVOLV reflection time sync failed:',pushError)
-      setProfileMessage('EVOLV could not save that reflection time. Please try again.')
+      const synced=await syncCurrentPushSettings(next)
+      setProfileMessage(synced?'Reminder time saved.':'EVOLV could not sync that reminder time. Please try again.')
+    }catch{
+      setProfileMessage('EVOLV could not sync that reminder time. Please try again.')
     }
+  }
+
+  async function toggleQuietHours(){
+    const next={...notificationTimes,quietHours:!notificationTimes.quietHours}
+    persistNotificationTimes(next)
+    if(notificationsEnabled) await syncCurrentPushSettings(next)
+  }
+
+  async function saveQuietHour(key,event){
+    const value=event.currentTarget.value
+    const next={...notificationTimes,[key]:value}
+    persistNotificationTimes(next)
+    if(notificationsEnabled) await syncCurrentPushSettings(next)
   }
 
   function openReflection(){
@@ -1411,6 +1444,16 @@ function Dashboard({ data, onLogout, onArticle }) {
             {todayMeals.length>0&&<button className="today-metric" onClick={()=>openLog('nutrition',{slug:'meals',name:'Meal',value_type:'meal'})}><span className="metric-row-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={16}/></span><span><strong>Meals</strong><small>{todayMeals.length} logged</small></span><ChevronRight size={14}/></button>}
             {!todayLogs.length&&!todayMeals.length&&<div className="today-empty"><Sparkles size={18}/><p>Nothing logged yet. Start with one small thing.</p></div>}
           </div>
+        </section>
+        <section className="daily-brief-card">
+          <div className="daily-brief-head"><div><span className="section-label">DAILY BRIEF</span><h2>Your day, so far.</h2></div><span className="daily-brief-status">{todayLogs.length+todayMeals.length} logged</span></div>
+          <div className="daily-brief-grid">
+            <div><span>SLEEP</span><strong>{(()=>{const d=defs.find(x=>x.slug==='sleep');const l=d&&todayLogs.find(x=>x.metric_id===d.id);return l?valueText(l,d):'Not logged'})()}</strong></div>
+            <div><span>HYDRATION</span><strong>{(()=>{const d=defs.find(x=>x.slug==='water');const l=d&&todayLogs.find(x=>x.metric_id===d.id);return l?valueText(l,d):'Not logged'})()}</strong></div>
+            <div><span>MOVEMENT</span><strong>{(()=>{const d=defs.find(x=>x.slug==='exercise');const l=d&&todayLogs.find(x=>x.metric_id===d.id);return l?valueText(l,d):'Not logged'})()}</strong></div>
+            <div><span>EVENING</span><strong>{notificationTimes.reflectionTime}</strong></div>
+          </div>
+          <p>{todayLogs.length+todayMeals.length<3?'Small steps count. Log what feels useful and let EVOLV build the picture with you.':'You are building a clearer picture of your day. Keep going at your own pace.'}</p>
         </section>
         <section className="evolv-life-overview">{Object.entries(areas).map(([id,m])=>{const I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===id);const tracked=rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).length;const preview=id==='nutrition'?(todayMeals.length?todayMeals.length+' meals logged today':'Nothing logged yet'):rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).slice(0,2).map(d=>d.name+' '+valueText(todayLogs.find(l=>l.metric_id===d.id),d)).join(' · ')||'Nothing logged today';return <button className="life-area-row" key={id} onClick={()=>{goTo('area');setArea(id)}}><span className="life-area-icon" style={{'--area-color':m.color}}><I size={17}/></span><span className="life-area-main"><strong>{m.title}</strong><small>{preview}</small></span><span className="life-area-values"><b>{id==='nutrition'?todayMeals.length:tracked}</b><small>{id==='nutrition'?'meals':'today'}</small></span><ChevronRight size={17}/></button>})}</section>
         <section className="today-action-strip"><div><span className="section-label">KEEP GOING</span><h2>What happened today?</h2><p>Record one thing. You can always add more later.</p></div><button className="button button-primary" onClick={()=>openLog()}><Plus size={16}/> Log something</button></section>
@@ -1651,6 +1694,12 @@ function Dashboard({ data, onLogout, onArticle }) {
             <div><strong>{candidates.length}</strong><span>metrics tracked</span></div>
           </div>
 
+          <section className="weekly-report-card">
+            <div className="weekly-report-head"><div><span className="section-label">WEEK IN REVIEW</span><h3>Your week with EVOLV.</h3></div><span>{activeDays}/7 days</span></div>
+            <div className="weekly-report-stats"><div><strong>{thingsLogged}</strong><span>things logged</span></div><div><strong>{activeDays}</strong><span>days you showed up</span></div><div><strong>{candidates.length}</strong><span>metrics tracked</span></div></div>
+            <p>{activeDays>=5?'A consistent week. You kept showing up for yourself.':activeDays>0?'You made some space for yourself this week. Keep it gentle and keep going.':'Your first week starts with one small check-in.'}</p>
+          </section>
+
           <div className="goals-secondary">
             <div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>goTo('goals')}>View goals <ArrowRight size={14}/></button></div>
             {goals.filter(g=>g.status==='active').slice(0,3).map(g=><div className="secondary-goal" key={g.id}><span>{g.title}</span><b>{g.progress||0}%</b></div>)}
@@ -1712,14 +1761,12 @@ function Dashboard({ data, onLogout, onArticle }) {
 
   <div className="settings-section notifications-settings-section">
     <div className="settings-section-head"><div><span className="section-label">REMINDERS</span><h3>Notifications</h3></div><Bell size={20}/></div>
-    <div className="notification-master-row"><div><strong>Daily reminders</strong><span>Gentle prompts to help you keep showing up.</span></div><button type="button" className={notificationsEnabled?'settings-toggle active':'settings-toggle'} onClick={toggleNotifications} aria-pressed={notificationsEnabled}><span /></button></div>
+    <div className="notification-master-row"><div><strong>Daily reminders</strong><span>Three thoughtful check-ins, spaced through your day.</span></div><button type="button" className={notificationsEnabled?'settings-toggle active':'settings-toggle'} onClick={toggleNotifications} aria-pressed={notificationsEnabled}><span /></button></div>
     <div className={notificationsEnabled?'notification-preferences':'notification-preferences disabled'}>
-      <div className="notification-preference"><div><strong>Morning check-in</strong><span>Start your day with a gentle prompt</span></div><button type="button" onClick={()=>toggleNotificationTime('morning')} className={notificationTimes.morning?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
-      <div className="notification-preference"><div><strong>Hydration reminder</strong><span>A midday reminder to check in with water</span></div><button type="button" onClick={()=>toggleNotificationTime('hydration')} className={notificationTimes.hydration?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
-      <div className="notification-preference"><div><strong>Evening check-in</strong><span>Pause and reflect on your day</span></div><button type="button" onClick={()=>toggleNotificationTime('evening')} className={notificationTimes.evening?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
-      <div className="notification-preference"><div><strong>Sleep reminder</strong><span>A gentle nudge when it is time to wind down</span></div><button type="button" onClick={()=>toggleNotificationTime('sleep')} className={notificationTimes.sleep?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
-      <div className="notification-preference reflection-preference"><div><strong>Daily reflection</strong><span>Let EVOLV ask how your day felt.</span></div><button type="button" onClick={()=>toggleNotificationTime('reflection')} className={notificationTimes.reflection?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div>
-      <div className="reflection-time-row"><div><strong>Reflection time</strong><span>A quiet moment chosen by you.</span></div><input type="time" value={reflectionTime} onChange={saveReflectionTime} disabled={!notificationsEnabled||!notificationTimes.reflection} aria-label="Daily reflection time"/></div>
+      <div className="notification-preference notification-preference-timed"><div><strong>Morning</strong><span>Start the day with intention.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.morningTime} onChange={e=>saveNotificationTime('morningTime',e)} disabled={!notificationsEnabled||!notificationTimes.morning}/><button type="button" onClick={()=>toggleNotificationTime('morning')} className={notificationTimes.morning?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+      <div className="notification-preference notification-preference-timed"><div><strong>Midday reset</strong><span>A gentle hydration and check-in moment.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.hydrationTime} onChange={e=>saveNotificationTime('hydrationTime',e)} disabled={!notificationsEnabled||!notificationTimes.hydration}/><button type="button" onClick={()=>toggleNotificationTime('hydration')} className={notificationTimes.hydration?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+      <div className="notification-preference notification-preference-timed"><div><strong>Evening reflection</strong><span>Close the day with a quiet check-in.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.reflectionTime||reflectionTime} onChange={e=>saveNotificationTime('reflectionTime',e)} disabled={!notificationsEnabled||!notificationTimes.reflection}/><button type="button" onClick={()=>toggleNotificationTime('reflection')} className={notificationTimes.reflection?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+      <div className="notification-quiet-row"><div><strong>Quiet hours</strong><span>EVOLV will never interrupt this window.</span></div><div className="notification-quiet-controls"><input type="time" value={notificationTimes.quietStart} onChange={e=>saveQuietHour('quietStart',e)} disabled={!notificationsEnabled||!notificationTimes.quietHours}/><span>to</span><input type="time" value={notificationTimes.quietEnd} onChange={e=>saveQuietHour('quietEnd',e)} disabled={!notificationsEnabled||!notificationTimes.quietHours}/><button type="button" onClick={toggleQuietHours} className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
       <button className="reflection-preview-button" type="button" onClick={openReflection}><Moon size={15}/> Try tonight's reflection now</button>
     </div>
   </div>
