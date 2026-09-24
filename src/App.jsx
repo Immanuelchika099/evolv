@@ -615,8 +615,8 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       if (marqueeTrack) {
         let marqueeX = 0
         let previousScrollY = window.scrollY
-        let targetVelocity = -0.16
-        let currentVelocity = -0.16
+        let targetVelocity = -0.055
+        let currentVelocity = -0.055
         let lastTime = performance.now()
 
         const getLoopDistance = () => marqueeTrack.scrollWidth / 2
@@ -632,10 +632,10 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
           previousScrollY = scrollY
 
           if (Math.abs(delta) > 0.05) {
-            const scrollInfluence = gsap.utils.clamp(0, 0.75, Math.abs(delta) * 0.018)
+            const scrollInfluence = gsap.utils.clamp(0, 0.18, Math.abs(delta) * 0.004)
             targetVelocity = delta > 0
-              ? -0.16 - scrollInfluence
-              : 0.16 + scrollInfluence
+              ? -0.055 - scrollInfluence
+              : 0.055 + scrollInfluence
           }
         }
 
