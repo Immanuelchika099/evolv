@@ -2,7 +2,6 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Bot, Send, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
-import ShaderGradientBackground from './components/ShaderGradientBackground'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -260,7 +259,6 @@ function App() {
 
   return (
     <main ref={root} className="app">
-      <ShaderGradientBackground />
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
@@ -609,6 +607,47 @@ function Brand() {
   )
 }
 
+function LiquidGlassOrb() {
+  return (
+    <div className="hero-liquid-orb" aria-hidden="true">
+      <ShaderGradientCanvas
+        className="hero-liquid-canvas"
+        pixelDensity={1}
+        fov={38}
+        gl={{ antialias: true, powerPreference: 'low-power', alpha: true }}
+      >
+        <ShaderGradient
+          animate="off"
+          type="sphere"
+          shader="defaults"
+          uTime={0.18}
+          uStrength={0.34}
+          uDensity={0.72}
+          uFrequency={1.55}
+          uAmplitude={0.72}
+          color1="#08100B"
+          color2="#23452A"
+          color3="#B9DF70"
+          reflection={0.62}
+          cAzimuthAngle={230}
+          cPolarAngle={88}
+          cDistance={3.7}
+          cameraZoom={1.02}
+          lightType="env"
+          envPreset="lobby"
+          brightness={0.42}
+          grain="off"
+          zoomOut={false}
+          toggleAxis={false}
+          hoverState=""
+          enableTransition={false}
+        />
+      </ShaderGradientCanvas>
+      <span className="hero-liquid-highlight" />
+    </div>
+  )
+}
+
 function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
   const page = useRef(null)
   useLayoutEffect(() => {
@@ -619,9 +658,6 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
         .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
         .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
-      gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
-      gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
-      gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
       // Keep the marquee independent from the page-scroll animations.
       // IMPORTANT: do not return from this GSAP context callback here — that
       // would skip every ScrollTrigger created below.
@@ -709,7 +745,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
           <div className="hero-actions"><button className="button button-primary" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button><button className="button button-ghost" type="button" onClick={onExplore}>Explore EVOLV ↓</button></div>
         </div>
-        <div className="hero-visual"><div className="hero-aura" /><div className="hero-orb"><div className="orb-glow orb-core" /><div className="orb-ring" /><div className="orb-ring orb-ring-two" /><div className="orb-dot dot-one" /><div className="orb-dot dot-two" /></div><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
+        <div className="hero-visual"><div className="hero-aura" /><LiquidGlassOrb /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
       </section>
       <section className="evolv-hero-marquee" aria-label="EVOLV values">
         <div className="evolv-hero-marquee-track">
