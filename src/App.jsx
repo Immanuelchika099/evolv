@@ -2853,7 +2853,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       <form className="ai-input" onSubmit={sendMessage}>
         <div className="ai-composer">
           <input value={input} onChange={e => setInput(e.target.value)} placeholder="What’s on your mind?" maxLength={2000} />
-          <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
+          <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><ArrowUp size={18}/></button>
         </div>
       </form>
       {error && <p className="auth-error" role="alert">{error}</p>}
