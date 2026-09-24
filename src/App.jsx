@@ -608,20 +608,20 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
       gsap.to('.hero-orb', { y: -14, rotation: 2, duration: 4.5, repeat: -1, yoyo: true, ease: 'sine.inOut' })
       gsap.to('.orb-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
       gsap.to('.orb-ring-two', { rotation: -360, duration: 30, repeat: -1, ease: 'none' })
-      // Cinematic marquee: two offset infinite tracks with subtle opposing drift.
-      const marqueeTracks = gsap.utils.toArray('.cinematic-marquee-track')
-      marqueeTracks.forEach((track, index) => {
-        const distance = track.scrollWidth / 2
-        gsap.to(track, {
-          x: index === 0 ? -distance : distance,
-          duration: index === 0 ? 24 : 30,
+      // Cinematic marquee: one restrained editorial track that loops endlessly.
+      const marqueeTrack = document.querySelector('.cinematic-marquee-track')
+      if (marqueeTrack) {
+        const distance = marqueeTrack.scrollWidth / 2
+        gsap.to(marqueeTrack, {
+          x: -distance,
+          duration: 28,
           repeat: -1,
           ease: 'none',
           modifiers: {
             x: gsap.utils.unitize(value => parseFloat(value) % distance)
           }
         })
-      })
+      }
       gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
       const revealTextGroups = [
@@ -683,7 +683,7 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
         <div className="cinematic-marquee-glow" />
         <div className="cinematic-marquee-edge cinematic-marquee-edge-left" />
         <div className="cinematic-marquee-edge cinematic-marquee-edge-right" />
-        <div className="cinematic-marquee-row cinematic-marquee-row-top">
+        <div className="cinematic-marquee-row">
           <div className="cinematic-marquee-track">
             <div className="cinematic-marquee-content">
               <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
@@ -692,22 +692,9 @@ function Landing({ onStart, onArticle, onPricing, onContact }) {
               <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
             </div>
           </div>
-        </div>
-        <div className="cinematic-marquee-row cinematic-marquee-row-bottom">
-          <div className="cinematic-marquee-track">
-            <div className="cinematic-marquee-content">
-              <span>YOUR GOALS</span><i>•</i><span>YOUR DAYS</span><i>•</i><span>YOUR ENERGY</span><i>•</i><span>YOUR NEXT SELF</span><i>•</i>
-            </div>
-            <div className="cinematic-marquee-content" aria-hidden="true">
-              <span>YOUR GOALS</span><i>•</i><span>YOUR DAYS</span><i>•</i><span>YOUR ENERGY</span><i>•</i><span>YOUR NEXT SELF</span><i>•</i>
-            </div>
-          </div>
-        </div>
-        <div className="cinematic-marquee-center">
-          <span>EVOLV</span><b>MAKE THE INVISIBLE VISIBLE</b>
         </div>
       </section>
-      <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
+      <section className="story-intro story-reveal id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
       <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
       <section className="features-story story-reveal" id="features">
         <div className="section-heading"><span className="section-label">03 — THE SYSTEM</span><p>A simple rhythm for becoming.</p></div>
