@@ -10094,18 +10094,16 @@ body{
 }
 
 
-/* EVOLV — cinematic hero follow-up marquee */
+/* EVOLV — subtle hero follow-up marquee */
 .evolv-hero-marquee{
   position:relative;
   width:100%;
   overflow:hidden;
   margin:76px 0 136px;
-  padding:28px 0;
-  border-top:1px solid rgba(200,243,106,.12);
-  border-bottom:1px solid rgba(200,243,106,.12);
-  background:linear-gradient(90deg,rgba(200,243,106,.025),rgba(255,255,255,.018),rgba(200,243,106,.025));
-  transform:rotate(-.65deg) scale(1.015);
-  box-shadow:0 0 55px rgba(200,243,106,.045),inset 0 0 35px rgba(200,243,106,.018);
+  padding:24px 0;
+  border-top:1px solid rgba(200,243,106,.055);
+  border-bottom:1px solid rgba(200,243,106,.055);
+  background:rgba(200,243,106,.008);
 }
 .evolv-hero-marquee::before,.evolv-hero-marquee::after{
   content:"";position:absolute;z-index:2;top:0;bottom:0;width:16%;pointer-events:none;
@@ -10118,15 +10116,15 @@ body{
 }
 .evolv-hero-marquee-content{display:flex;align-items:center;gap:34px;padding-right:34px;flex-shrink:0}
 .evolv-hero-marquee-content span{
-  color:#c8f36a;font:500 clamp(18px,1.8vw,28px)/1 'Space Grotesk';
+  color:rgba(200,243,106,.18);font:500 clamp(18px,1.8vw,28px)/1 'Space Grotesk';
   letter-spacing:.055em;text-transform:uppercase;white-space:nowrap;
-  text-shadow:0 0 20px rgba(200,243,106,.12);
+  text-shadow:0 0 16px rgba(200,243,106,.035);
 }
-.evolv-hero-marquee-content i{color:rgba(200,243,106,.42);font-style:normal;font-size:12px}
+.evolv-hero-marquee-content i{color:rgba(200,243,106,.11);font-style:normal;font-size:12px}
 @keyframes evolvHeroMarquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @media(prefers-reduced-motion:reduce){.evolv-hero-marquee-track{animation-play-state:paused}}
 @media(max-width:800px){
-  .evolv-hero-marquee{margin:58px 0 105px;padding:22px 0;transform:rotate(-.45deg) scale(1.02)}
+  .evolv-hero-marquee{margin:58px 0 105px;padding:20px 0}
   .evolv-hero-marquee-content{gap:24px;padding-right:24px}
   .evolv-hero-marquee-content span{font-size:17px}
   .evolv-hero-marquee-content i{font-size:11px}
