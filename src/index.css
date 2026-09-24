@@ -10545,3 +10545,15 @@ body{
     min-width:38px !important;
   }
 }
+
+/* EVOLV — signed-in dashboard: black canvas, floating cards */
+.dashboard:not(.dashboard-ai-active){
+  background:#030303 !important;
+}
+.dashboard:not(.dashboard-ai-active)::before{
+  background:none !important;
+  background-image:none !important;
+}
+.dashboard:not(.dashboard-ai-active) .dash-main{
+  background:transparent !important;
+}
