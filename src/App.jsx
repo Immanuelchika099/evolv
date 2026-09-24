@@ -1431,7 +1431,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
-  return <div className="page-enter dashboard">
+  return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
     <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
@@ -2620,9 +2620,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   return (
     <section className="panel-page ai-page">
-      <div className="ai-heading">
-        <h2>What’s on your mind?</h2>
-      </div>
       <div className={`ai-chat ${messages.length ? 'has-messages' : 'is-empty'}`}>
         {!messages.length && (
           <div className="ai-empty">
@@ -2651,13 +2648,13 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           )}
           <div ref={bottomRef} />
         </div>
-        <form className="ai-input" onSubmit={sendMessage}>
-          <div className="ai-composer">
-            <input value={input} onChange={e => setInput(e.target.value)} placeholder="What’s on your mind?" maxLength={2000} />
-            <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
-          </div>
-        </form>
       </div>
+      <form className="ai-input" onSubmit={sendMessage}>
+        <div className="ai-composer">
+          <input value={input} onChange={e => setInput(e.target.value)} placeholder="What’s on your mind?" maxLength={2000} />
+          <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><Send size={17}/></button>
+        </div>
+      </form>
       {error && <p className="auth-error" role="alert">{error}</p>}
     </section>
   )
