@@ -11582,3 +11582,74 @@ body{
     padding:1.4rem 1.6rem max(1.6rem,env(safe-area-inset-bottom)) !important;
   }
 }
+
+
+/* Log cards use the existing, production-safe markup restored above. */
+.dashboard .log-card-bottom{
+  min-width:0 !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:space-between !important;
+  gap:2rem !important;
+}
+
+.dashboard .log-card-count{
+  min-width:0 !important;
+  display:grid !important;
+  gap:.45rem !important;
+  align-self:end !important;
+}
+
+.dashboard .log-card-count strong{
+  color:#f5f5f7 !important;
+  font-size:2.8rem !important;
+  line-height:1 !important;
+  letter-spacing:-.05em !important;
+  overflow-wrap:anywhere !important;
+}
+
+.dashboard .log-card-count small{
+  color:rgba(245,245,247,.5) !important;
+  font-size:1.5rem !important;
+  line-height:1.2 !important;
+}
+
+.dashboard .log-card-description{
+  width:15rem !important;
+  max-width:15rem !important;
+  flex:0 0 15rem !important;
+  color:rgba(245,245,247,.42) !important;
+  font-size:1.5rem !important;
+  line-height:1.35 !important;
+  text-align:right !important;
+}
+
+.dashboard .log-metric-card .log-card-count strong{
+  font-size:1.8rem !important;
+  letter-spacing:-.025em !important;
+}
+
+@media(max-width:650px){
+  .dashboard .log-card-bottom{
+    gap:1.2rem !important;
+  }
+
+  .dashboard .log-card-count strong{
+    font-size:2.4rem !important;
+  }
+
+  .dashboard .log-metric-card .log-card-count strong{
+    font-size:1.7rem !important;
+  }
+
+  .dashboard .log-card-count small{
+    font-size:1.5rem !important;
+  }
+
+  .dashboard .log-card-description{
+    width:10.5rem !important;
+    max-width:10.5rem !important;
+    flex-basis:10.5rem !important;
+    font-size:1.5rem !important;
+  }
+}
