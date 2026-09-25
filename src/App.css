@@ -953,3 +953,22 @@
     margin-top:1.25rem;
   }
 }
+
+
+/* Compact uplifting reading pill */
+.mood-reading-button{
+  width:max-content;
+  max-width:100%;
+  min-height:3.6rem;
+  padding:.7rem 1.1rem;
+  gap:.65rem;
+  border-radius:999rem;
+  font-size:1.45rem;
+}
+@media (max-width:40rem){
+  .mood-reading-button{
+    min-height:3.4rem;
+    padding:.6rem 1rem;
+    font-size:1.45rem;
+  }
+}
