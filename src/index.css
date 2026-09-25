@@ -10615,32 +10615,9 @@ body{
   -webkit-backdrop-filter:blur(30px) saturate(150%) brightness(1.08) !important;
 }
 
-.dashboard-ai-active .ai-page .ai-composer::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:1px;
-  border-radius:inherit;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse 70% 120% at 12% 0%,rgba(255,255,255,.13),transparent 55%),
-    radial-gradient(ellipse 55% 90% at 92% 100%,rgba(255,255,255,.055),transparent 62%);
-  opacity:.9;
-}
-
+.dashboard-ai-active .ai-page .ai-composer::before,
 .dashboard-ai-active .ai-page .ai-composer::after{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  top:-80%;
-  left:-25%;
-  width:55%;
-  height:260%;
-  pointer-events:none;
-  transform:rotate(18deg);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.065),transparent);
-  filter:blur(12px);
-  opacity:.55;
+  content:none !important;
 }
 
 .dashboard-ai-active .ai-page .ai-composer textarea{
