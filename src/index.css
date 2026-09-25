@@ -10878,3 +10878,337 @@ body{
     line-height:1.5 !important;
   }
 }
+
+
+/* EVOLV — Log redesigned around Apple Health-style summary cards */
+.dashboard .log-overlay{
+  padding:0;
+  background:#000;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+
+.dashboard .log-sheet{
+  width:min(76rem,100%);
+  max-height:min(92dvh,92rem);
+  border:0.1rem solid rgba(255,255,255,.1);
+  border-radius:2.6rem;
+  background:#000;
+  box-shadow:0 3rem 9rem rgba(0,0,0,.72);
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+
+.dashboard .log-sheet-handle{
+  height:2.2rem;
+  flex-basis:2.2rem;
+}
+
+.dashboard .log-sheet-handle span{
+  width:4.4rem;
+  height:.4rem;
+  background:rgba(255,255,255,.22);
+}
+
+.dashboard .log-sheet-head{
+  padding:1.4rem 2.4rem 2rem;
+  border-bottom:0.1rem solid rgba(255,255,255,.08);
+}
+
+.dashboard .log-sheet-heading h2{
+  margin:.7rem 0 .8rem;
+  color:#f5f5f7;
+  font-size:clamp(2.2rem,4vw,3.2rem)!important;
+  line-height:1.02;
+  letter-spacing:-.05em;
+}
+
+.dashboard .log-sheet-heading p{
+  max-width:56rem;
+  color:rgba(245,245,247,.5);
+  font-size:1.5rem;
+  line-height:1.5;
+}
+
+.dashboard .log-close{
+  width:4.4rem;
+  height:4.4rem;
+  flex-basis:4.4rem;
+  border:0.1rem solid rgba(255,255,255,.1);
+  background:#1b1b1d;
+  color:rgba(245,245,247,.72);
+}
+
+.dashboard .log-sheet-scroll{
+  padding:2rem 2.4rem 2.4rem;
+  scrollbar-width:none;
+}
+
+.dashboard .log-sheet-scroll::-webkit-scrollbar{
+  display:none;
+}
+
+.dashboard .log-card-list{
+  display:grid;
+  gap:1.2rem;
+}
+
+.dashboard .log-health-card{
+  width:100%;
+  min-height:16.5rem;
+  display:grid;
+  gap:1.8rem;
+  padding:1.8rem;
+  text-align:left;
+  border:0.1rem solid rgba(255,255,255,.045);
+  border-radius:2.4rem;
+  background:#1b1b1d;
+  color:#f5f5f7;
+  box-shadow:0 .6rem 2rem rgba(0,0,0,.18),inset 0 .1rem 0 rgba(255,255,255,.025);
+  cursor:pointer;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease;
+}
+
+.dashboard .log-health-card:hover{
+  transform:translateY(-.15rem);
+  background:#202022;
+  border-color:rgba(255,255,255,.08);
+}
+
+.dashboard .log-health-card:active{
+  transform:scale(.992);
+}
+
+.dashboard .log-card-top{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:1.2rem;
+}
+
+.dashboard .log-card-title{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+}
+
+.dashboard .log-card-title strong{
+  color:var(--card-color,#f5f5f7);
+  font-size:1.8rem;
+  line-height:1.1;
+  letter-spacing:-.025em;
+}
+
+.dashboard .log-card-date{
+  color:rgba(245,245,247,.48);
+  font-size:1.45rem;
+  font-weight:600;
+  letter-spacing:.01em;
+}
+
+.dashboard .log-card-chevron{
+  color:rgba(245,245,247,.34);
+}
+
+.dashboard .log-choice-icon{
+  width:4.6rem;
+  height:4.6rem;
+  flex:0 0 4.6rem;
+  border-radius:1.35rem;
+  border:0.1rem solid color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 30%,transparent);
+  color:var(--area-color,var(--metric-color,#c8f36a));
+  background:color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 9%,#1b1b1d);
+}
+
+.dashboard .log-card-bottom{
+  min-width:0;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  align-items:end;
+  gap:1.6rem;
+}
+
+.dashboard .log-card-count{
+  display:grid;
+  gap:.35rem;
+  min-width:12rem;
+}
+
+.dashboard .log-card-count strong{
+  color:#f5f5f7;
+  font-size:2.4rem;
+  line-height:1;
+  letter-spacing:-.045em;
+}
+
+.dashboard .log-card-count small{
+  color:rgba(245,245,247,.48);
+  font-size:1.5rem;
+}
+
+.dashboard .log-card-description{
+  align-self:end;
+  max-width:42rem;
+  color:rgba(245,245,247,.52);
+  font-size:1.5rem;
+  line-height:1.45;
+}
+
+.dashboard .log-metric-card{
+  min-height:14rem;
+}
+
+.dashboard .log-metric-card .log-card-count strong{
+  font-size:1.8rem;
+  letter-spacing:-.025em;
+}
+
+.dashboard .log-back{
+  margin:0 0 1.2rem;
+  padding:.4rem 0;
+  color:rgba(245,245,247,.58);
+  font-size:1.5rem;
+}
+
+.dashboard .log-back:hover{
+  color:#f5f5f7;
+}
+
+.dashboard .log-selected-metric{
+  border:0.1rem solid rgba(255,255,255,.07);
+  border-radius:2rem;
+  background:#1b1b1d;
+}
+
+.dashboard .log-form{
+  gap:2rem;
+}
+
+.dashboard .log-input-label>span,
+.dashboard .log-field-title span{
+  font-size:1.5rem;
+}
+
+.dashboard .log-input-label input,
+.dashboard .log-input-label textarea{
+  border:0.1rem solid rgba(255,255,255,.1);
+  border-radius:1.5rem;
+  background:#1b1b1d;
+  font-size:1.6rem;
+}
+
+.dashboard .log-input-label input:focus,
+.dashboard .log-input-label textarea:focus{
+  border-color:rgba(255,255,255,.22);
+  box-shadow:none;
+  background:#202022;
+}
+
+.dashboard .scale-picker button,
+.dashboard .meal-type-row button{
+  min-height:5.8rem;
+  border:0.1rem solid rgba(255,255,255,.08);
+  border-radius:1.5rem;
+  background:#1b1b1d;
+  color:rgba(245,245,247,.6);
+  font-size:1.5rem;
+}
+
+.dashboard .scale-picker button.active{
+  border-color:rgba(200,243,106,.42);
+  background:rgba(200,243,106,.08);
+  color:#c8f36a;
+  box-shadow:none;
+}
+
+.dashboard .meal-type-row button.active{
+  border-color:rgba(255,184,77,.4);
+  background:rgba(255,184,77,.08);
+  color:#ffb84d;
+}
+
+.dashboard .log-sheet-footer{
+  padding:1.5rem 2.4rem max(1.7rem,env(safe-area-inset-bottom));
+  border-top:0.1rem solid rgba(255,255,255,.08);
+  background:#000;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
+
+.dashboard .log-sheet-footer>div>span{
+  color:rgba(245,245,247,.42);
+  font-size:1.3rem;
+}
+
+.dashboard .log-sheet-footer>div>small{
+  color:rgba(245,245,247,.34);
+  font-size:1.5rem;
+}
+
+@media(max-width:650px){
+  .dashboard .log-sheet{
+    width:100%;
+    max-height:100dvh;
+    border-radius:2.6rem 2.6rem 0 0;
+  }
+
+  .dashboard .log-sheet-head{
+    padding:1rem 1.6rem 1.8rem;
+  }
+
+  .dashboard .log-sheet-heading h2{
+    font-size:2.5rem!important;
+  }
+
+  .dashboard .log-sheet-heading p{
+    font-size:1.5rem;
+  }
+
+  .dashboard .log-sheet-scroll{
+    padding:1.6rem 1.2rem 2rem;
+  }
+
+  .dashboard .log-health-card{
+    min-height:15.5rem;
+    padding:1.6rem;
+    border-radius:2.1rem;
+  }
+
+  .dashboard .log-card-title strong{
+    font-size:1.7rem;
+  }
+
+  .dashboard .log-card-date{
+    font-size:1.5rem;
+  }
+
+  .dashboard .log-card-bottom{
+    grid-template-columns:1fr;
+    align-items:start;
+    gap:.9rem;
+  }
+
+  .dashboard .log-card-count{
+    min-width:0;
+  }
+
+  .dashboard .log-card-count strong{
+    font-size:2.2rem;
+  }
+
+  .dashboard .log-card-description{
+    font-size:1.5rem;
+    max-width:none;
+  }
+
+  .dashboard .log-metric-card{
+    min-height:14.5rem;
+  }
+
+  .dashboard .log-close{
+    width:4.2rem;
+    height:4.2rem;
+    flex-basis:4.2rem;
+  }
+}
