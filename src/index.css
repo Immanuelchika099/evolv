@@ -13415,3 +13415,279 @@ html.evolv-android .reflection-sheet *{
     gap:1.5rem !important;
   }
 }
+
+
+/* EVOLV — FINAL AI LAYOUT OVERRIDE
+   Header behaves like the main navbar: viewport-wide, outside page margins.
+   Floating AI button is explicitly positioned above the bottom dock. */
+.dashboard .ai-page{
+  width:100vw !important;
+  max-width:none !important;
+  margin-left:calc(50% - 50vw) !important;
+  margin-right:calc(50% - 50vw) !important;
+  padding-left:clamp(1.4rem,4vw,4.8rem) !important;
+  padding-right:clamp(1.4rem,4vw,4.8rem) !important;
+  box-sizing:border-box !important;
+  position:relative !important;
+}
+.dashboard .ai-page .ai-topbar{
+  position:fixed !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  width:100vw !important;
+  max-width:none !important;
+  min-height:7rem !important;
+  margin:0 !important;
+  padding:1.2rem clamp(1.4rem,4vw,4.8rem) !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  background:transparent !important;
+  overflow:visible !important;
+  z-index:100005 !important;
+}
+.dashboard .ai-page .ai-topbar::before{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:14rem !important;
+  transform:none !important;
+  background:linear-gradient(to bottom,rgba(0,0,0,.99) 0%,rgba(0,0,0,.94) 35%,rgba(0,0,0,.55) 65%,rgba(0,0,0,0) 100%) !important;
+  z-index:-1 !important;
+}
+.dashboard .ai-page .ai-topbar > div,
+.dashboard .ai-page .ai-topbar-actions{
+  position:relative !important;
+  z-index:3 !important;
+}
+.dashboard .ai-page .ai-topbar-label,
+.dashboard .ai-page .ai-topbar-caption{
+  position:relative !important;
+  z-index:4 !important;
+}
+.dashboard .ai-page .ai-topbar-actions{
+  display:flex !important;
+  align-items:center !important;
+  gap:.5rem !important;
+}
+.dashboard .ai-page .ai-history-button,
+.dashboard .ai-page .ai-new-chat{
+  position:relative !important;
+  z-index:100006 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:.55rem !important;
+  min-height:3.8rem !important;
+  margin:0 !important;
+  padding:.75rem 1rem !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  border-radius:999rem !important;
+  background:rgba(8,10,9,.72) !important;
+  color:#f4f1ea !important;
+  font:500 1.3rem/1 'Manrope',sans-serif !important;
+  box-shadow:0 .8rem 2.2rem rgba(0,0,0,.25) !important;
+  backdrop-filter:blur(1rem) !important;
+  -webkit-backdrop-filter:blur(1rem) !important;
+}
+.dashboard .ai-page .ai-history-button:hover,
+.dashboard .ai-page .ai-new-chat:hover{
+  background:rgba(255,255,255,.08) !important;
+  border-color:rgba(255,255,255,.16) !important;
+  color:#fff !important;
+}
+
+/* History popup: use unscoped selectors too, so no dashboard/component rule can
+   accidentally leave it looking like plain HTML. */
+.ai-history-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100dvh !important;
+  margin:0 !important;
+  padding:8rem 1.4rem 2rem !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  background:rgba(0,0,0,.72) !important;
+  backdrop-filter:blur(1.6rem) !important;
+  -webkit-backdrop-filter:blur(1.6rem) !important;
+  z-index:100000 !important;
+}
+.ai-history-sheet{
+  width:min(64rem,100%) !important;
+  max-width:64rem !important;
+  max-height:calc(100dvh - 10rem) !important;
+  margin:0 !important;
+  padding:2rem !important;
+  box-sizing:border-box !important;
+  overflow:auto !important;
+  border:1px solid rgba(255,255,255,.11) !important;
+  border-radius:2.4rem !important;
+  background:linear-gradient(145deg,#111512,#090b0a) !important;
+  color:#f4f1ea !important;
+  box-shadow:0 3rem 9rem rgba(0,0,0,.68) !important;
+}
+.ai-history-head{
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:space-between !important;
+  gap:1.5rem !important;
+  margin:0 0 1.8rem !important;
+}
+.ai-history-head .section-label{
+  display:block !important;
+  color:rgba(200,243,106,.72) !important;
+  font:500 1.1rem/1 'DM Mono',monospace !important;
+  letter-spacing:.12em !important;
+}
+.ai-history-head h3{
+  margin:.7rem 0 0 !important;
+  color:#f4f1ea !important;
+  font:500 3.2rem/.98 'Space Grotesk',sans-serif !important;
+  letter-spacing:-.05em !important;
+}
+.ai-history-close{
+  flex:0 0 4.2rem !important;
+  width:4.2rem !important;
+  height:4.2rem !important;
+  display:grid !important;
+  place-items:center !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  border-radius:1.3rem !important;
+  background:rgba(255,255,255,.05) !important;
+  color:#f4f1ea !important;
+}
+.ai-history-list{
+  display:grid !important;
+  gap:.9rem !important;
+}
+.ai-history-row{
+  appearance:none !important;
+  -webkit-appearance:none !important;
+  width:100% !important;
+  min-width:0 !important;
+  display:grid !important;
+  grid-template-columns:4.6rem minmax(0,1fr) 1.8rem !important;
+  align-items:center !important;
+  gap:1rem !important;
+  margin:0 !important;
+  padding:1.2rem !important;
+  box-sizing:border-box !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:1.6rem !important;
+  background:rgba(255,255,255,.035) !important;
+  color:#f4f1ea !important;
+  text-align:left !important;
+  cursor:pointer !important;
+}
+.ai-history-row:hover,
+.ai-history-row.active{
+  background:rgba(200,243,106,.08) !important;
+  border-color:rgba(200,243,106,.18) !important;
+}
+.ai-history-row-icon{
+  width:4.6rem !important;
+  height:4.6rem !important;
+  display:grid !important;
+  place-items:center !important;
+  border-radius:1.35rem !important;
+  background:rgba(200,243,106,.08) !important;
+  color:#c8f36a !important;
+}
+.ai-history-row-copy{
+  min-width:0 !important;
+  display:block !important;
+}
+.ai-history-row-copy strong{
+  display:block !important;
+  margin:0 !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  color:#f4f1ea !important;
+  font:600 1.55rem/1.3 'Manrope',sans-serif !important;
+}
+.ai-history-row-copy small{
+  display:block !important;
+  margin:.45rem 0 0 !important;
+  color:rgba(244,241,234,.42) !important;
+  font:400 1.2rem/1.4 'DM Mono',monospace !important;
+}
+.ai-history-empty{
+  min-height:22rem !important;
+  display:grid !important;
+  place-items:center !important;
+  align-content:center !important;
+  gap:.8rem !important;
+  padding:2rem !important;
+  box-sizing:border-box !important;
+  border:1px dashed rgba(255,255,255,.12) !important;
+  border-radius:1.8rem !important;
+  background:rgba(255,255,255,.02) !important;
+  color:rgba(244,241,234,.45) !important;
+  text-align:center !important;
+}
+.ai-history-empty strong{
+  color:#f4f1ea !important;
+  font:600 1.7rem/1.3 'Manrope',sans-serif !important;
+}
+.ai-history-empty p{
+  max-width:38rem !important;
+  margin:0 !important;
+  color:rgba(244,241,234,.42) !important;
+  font-size:1.35rem !important;
+  line-height:1.6 !important;
+}
+
+/* Absolute/fixed means it cannot participate in the bottom-nav layout. */
+.dashboard .ai-floating-button{
+  position:fixed !important;
+  right:1.6rem !important;
+  bottom:calc(env(safe-area-inset-bottom, 0px) + 10.8rem) !important;
+  z-index:100010 !important;
+  transform:none !important;
+}
+@media(max-width:800px){
+  .dashboard .ai-page{
+    padding-left:1.2rem !important;
+    padding-right:1.2rem !important;
+  }
+  .dashboard .ai-page .ai-topbar{
+    min-height:6.4rem !important;
+    padding:.9rem 1.2rem !important;
+  }
+  .dashboard .ai-page .ai-topbar::before{
+    height:13rem !important;
+  }
+  .dashboard .ai-page .ai-topbar-actions{
+    gap:.25rem !important;
+  }
+  .dashboard .ai-page .ai-history-button,
+  .dashboard .ai-page .ai-new-chat{
+    min-height:3.5rem !important;
+    padding:.65rem .8rem !important;
+    font-size:1.2rem !important;
+  }
+  .dashboard .ai-floating-button{
+    right:1.3rem !important;
+    bottom:calc(env(safe-area-inset-bottom, 0px) + 10.5rem) !important;
+    z-index:100010 !important;
+  }
+  .ai-history-overlay{
+    padding:7.2rem 1rem 1rem !important;
+  }
+  .ai-history-sheet{
+    max-height:calc(100dvh - 8.5rem) !important;
+    padding:1.5rem !important;
+    border-radius:2rem !important;
+  }
+  .ai-history-head h3{
+    font-size:2.8rem !important;
+  }
+}
