@@ -1,4 +1,5 @@
 const ALARM_PREFIX = 'evolv-alarm-'
+const IOS_DEFAULT_SOUND = 'default'
 
 function nativeAvailable() {
   return Boolean(
@@ -29,6 +30,7 @@ export async function scheduleEvolvAlarm(alarm) {
             id,
             title: alarm.title,
             body: alarm.note || 'Your Evolv alarm is ready.',
+            sound: IOS_DEFAULT_SOUND,
             schedule: { on: { hour: date.getHours(), minute: date.getMinutes() }, repeats: true },
             extra: { evolvAlarmId: alarm.id, kind: 'alarm' }
           }]
@@ -39,6 +41,7 @@ export async function scheduleEvolvAlarm(alarm) {
             id,
             title: alarm.title,
             body: alarm.note || 'Your Evolv alarm is ready.',
+            sound: IOS_DEFAULT_SOUND,
             schedule: { at: date },
             extra: { evolvAlarmId: alarm.id, kind: 'alarm' }
           }]
