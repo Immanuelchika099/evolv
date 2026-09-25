@@ -11212,3 +11212,373 @@ body{
     flex-basis:4.2rem;
   }
 }
+
+
+/* EVOLV — final Log surface: true-black canvas + Apple Health-style summary cards */
+.dashboard .log-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:1000 !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:center !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+
+.dashboard .log-sheet{
+  position:relative !important;
+  width:min(76rem,100%) !important;
+  max-height:92dvh !important;
+  display:flex !important;
+  flex-direction:column !important;
+  overflow:hidden !important;
+  border:0.1rem solid rgba(255,255,255,.08) !important;
+  border-radius:2.8rem 2.8rem 0 0 !important;
+  background:#000 !important;
+  box-shadow:0 -2rem 7rem rgba(0,0,0,.72) !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+
+.dashboard .log-sheet-head{
+  flex:0 0 auto !important;
+  padding:1.5rem 2.6rem 2.1rem !important;
+  background:#000 !important;
+  border-bottom:0.1rem solid rgba(255,255,255,.08) !important;
+}
+
+.dashboard .log-sheet-heading h2{
+  margin:.7rem 0 .8rem !important;
+  color:#f5f5f7 !important;
+  font-size:clamp(2.4rem,4vw,3.2rem) !important;
+  line-height:1.03 !important;
+  letter-spacing:-.05em !important;
+}
+
+.dashboard .log-sheet-heading p{
+  max-width:58rem !important;
+  color:rgba(245,245,247,.5) !important;
+  font-size:1.5rem !important;
+  line-height:1.5 !important;
+}
+
+.dashboard .log-close{
+  width:4.6rem !important;
+  height:4.6rem !important;
+  flex:0 0 4.6rem !important;
+  border:0.1rem solid rgba(255,255,255,.1) !important;
+  border-radius:50% !important;
+  background:#1c1c1e !important;
+  color:rgba(245,245,247,.76) !important;
+}
+
+.dashboard .log-sheet-scroll{
+  flex:1 1 auto !important;
+  min-height:0 !important;
+  overflow-y:auto !important;
+  padding:2rem 2.4rem 2.8rem !important;
+  scrollbar-width:none !important;
+  overscroll-behavior:contain !important;
+  background:#000 !important;
+}
+
+.dashboard .log-sheet-scroll::-webkit-scrollbar{
+  display:none !important;
+}
+
+.dashboard .log-card-list{
+  display:grid !important;
+  gap:1.4rem !important;
+}
+
+.dashboard .log-health-card{
+  width:100% !important;
+  min-height:17.2rem !important;
+  display:grid !important;
+  grid-template-rows:auto 1fr !important;
+  gap:1.8rem !important;
+  padding:1.9rem !important;
+  text-align:left !important;
+  border:0.1rem solid rgba(255,255,255,.045) !important;
+  border-radius:2.45rem !important;
+  background:#1c1c1e !important;
+  color:#f5f5f7 !important;
+  box-shadow:0 .7rem 2.4rem rgba(0,0,0,.22),inset 0 .1rem 0 rgba(255,255,255,.025) !important;
+  cursor:pointer !important;
+  transform:none !important;
+  transition:transform .18s ease,background .18s ease,border-color .18s ease !important;
+}
+
+.dashboard .log-health-card:hover{
+  transform:translateY(-.15rem) !important;
+  background:#202022 !important;
+  border-color:rgba(255,255,255,.08) !important;
+}
+
+.dashboard .log-health-card:active{
+  transform:scale(.992) !important;
+}
+
+.dashboard .log-card-top{
+  min-width:0 !important;
+  display:grid !important;
+  grid-template-columns:minmax(0,1fr) auto auto !important;
+  align-items:center !important;
+  gap:1.2rem !important;
+}
+
+.dashboard .log-card-title{
+  min-width:0 !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:1.2rem !important;
+}
+
+.dashboard .log-card-title strong{
+  min-width:0 !important;
+  color:var(--card-color,#f5f5f7) !important;
+  font-size:1.8rem !important;
+  line-height:1.1 !important;
+  letter-spacing:-.025em !important;
+}
+
+.dashboard .log-card-date{
+  color:rgba(245,245,247,.48) !important;
+  font-size:1.5rem !important;
+  font-weight:600 !important;
+  white-space:nowrap !important;
+}
+
+.dashboard .log-card-chevron{
+  color:rgba(245,245,247,.34) !important;
+}
+
+.dashboard .log-choice-icon{
+  width:4.7rem !important;
+  height:4.7rem !important;
+  flex:0 0 4.7rem !important;
+  display:grid !important;
+  place-items:center !important;
+  border-radius:1.4rem !important;
+  border:0.1rem solid color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 30%,transparent) !important;
+  color:var(--area-color,var(--metric-color,#c8f36a)) !important;
+  background:color-mix(in srgb,var(--area-color,var(--metric-color,#c8f36a)) 8%,#1c1c1e) !important;
+}
+
+.dashboard .log-card-body{
+  min-width:0 !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:space-between !important;
+  gap:2rem !important;
+}
+
+.dashboard .log-card-value{
+  min-width:0 !important;
+  display:grid !important;
+  gap:.45rem !important;
+  align-self:end !important;
+}
+
+.dashboard .log-card-value strong{
+  color:#f5f5f7 !important;
+  font-size:2.8rem !important;
+  line-height:1 !important;
+  letter-spacing:-.05em !important;
+  overflow-wrap:anywhere !important;
+}
+
+.dashboard .log-card-value small{
+  color:rgba(245,245,247,.5) !important;
+  font-size:1.5rem !important;
+  line-height:1.2 !important;
+}
+
+.dashboard .log-card-value-compact strong{
+  font-size:1.8rem !important;
+  letter-spacing:-.025em !important;
+}
+
+.dashboard .log-card-visual{
+  width:15rem !important;
+  height:8.2rem !important;
+  flex:0 0 15rem !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  justify-content:flex-end !important;
+  gap:.55rem !important;
+  padding:.3rem 0 !important;
+}
+
+.dashboard .log-card-visual i{
+  width:1.25rem !important;
+  min-height:.55rem !important;
+  display:block !important;
+  border-radius:.42rem .42rem .25rem .25rem !important;
+  background:rgba(255,255,255,.18) !important;
+  opacity:.9 !important;
+}
+
+.dashboard .log-card-visual i.active{
+  background:var(--card-color,#c8f36a) !important;
+  box-shadow:0 0 1.2rem color-mix(in srgb,var(--card-color,#c8f36a) 18%,transparent) !important;
+}
+
+.dashboard .log-metric-card{
+  min-height:15.4rem !important;
+}
+
+.dashboard .log-back{
+  display:inline-flex !important;
+  align-items:center !important;
+  gap:.55rem !important;
+  margin:0 0 1.2rem !important;
+  padding:.55rem .2rem !important;
+  color:rgba(245,245,247,.58) !important;
+  background:transparent !important;
+  font-size:1.5rem !important;
+}
+
+.dashboard .log-selected-metric{
+  border:0.1rem solid rgba(255,255,255,.07) !important;
+  border-radius:2rem !important;
+  background:#1c1c1e !important;
+}
+
+.dashboard .log-input-label>span,
+.dashboard .log-field-title span{
+  font-size:1.5rem !important;
+}
+
+.dashboard .log-input-label input,
+.dashboard .log-input-label textarea,
+.dashboard .scale-picker button,
+.dashboard .meal-type-row button{
+  background:#1c1c1e !important;
+  border-color:rgba(255,255,255,.09) !important;
+}
+
+.dashboard .log-sheet-footer{
+  flex:0 0 auto !important;
+  padding:1.5rem 2.4rem max(1.7rem,env(safe-area-inset-bottom)) !important;
+  background:#000 !important;
+  border-top:0.1rem solid rgba(255,255,255,.08) !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+}
+
+.dashboard .log-sheet-footer>div>span,
+.dashboard .log-sheet-footer>div>small{
+  font-size:1.5rem !important;
+}
+
+@media(max-width:650px){
+  .dashboard .log-overlay{
+    align-items:flex-end !important;
+  }
+
+  .dashboard .log-sheet{
+    width:100% !important;
+    max-height:100dvh !important;
+    border-radius:2.8rem 2.8rem 0 0 !important;
+    border-left:0 !important;
+    border-right:0 !important;
+    border-bottom:0 !important;
+  }
+
+  .dashboard .log-sheet-handle{
+    height:2rem !important;
+    flex-basis:2rem !important;
+  }
+
+  .dashboard .log-sheet-head{
+    padding:1rem 1.6rem 1.8rem !important;
+  }
+
+  .dashboard .log-sheet-heading h2{
+    font-size:2.5rem !important;
+  }
+
+  .dashboard .log-sheet-heading p{
+    font-size:1.5rem !important;
+  }
+
+  .dashboard .log-sheet-scroll{
+    padding:1.5rem 1.2rem 2rem !important;
+  }
+
+  .dashboard .log-card-list{
+    gap:1.2rem !important;
+  }
+
+  .dashboard .log-health-card{
+    min-height:15.8rem !important;
+    padding:1.6rem !important;
+    border-radius:2.25rem !important;
+    gap:1.5rem !important;
+  }
+
+  .dashboard .log-card-title{
+    gap:1rem !important;
+  }
+
+  .dashboard .log-card-title strong{
+    font-size:1.7rem !important;
+  }
+
+  .dashboard .log-card-date{
+    font-size:1.5rem !important;
+  }
+
+  .dashboard .log-choice-icon{
+    width:4.4rem !important;
+    height:4.4rem !important;
+    flex-basis:4.4rem !important;
+    border-radius:1.3rem !important;
+  }
+
+  .dashboard .log-card-body{
+    gap:1.2rem !important;
+  }
+
+  .dashboard .log-card-value strong{
+    font-size:2.4rem !important;
+  }
+
+  .dashboard .log-card-value-compact strong{
+    font-size:1.7rem !important;
+  }
+
+  .dashboard .log-card-value small{
+    font-size:1.5rem !important;
+  }
+
+  .dashboard .log-card-visual{
+    width:10.5rem !important;
+    height:6.6rem !important;
+    flex-basis:10.5rem !important;
+    gap:.38rem !important;
+  }
+
+  .dashboard .log-card-visual i{
+    width:.85rem !important;
+  }
+
+  .dashboard .log-metric-card{
+    min-height:14.8rem !important;
+  }
+
+  .dashboard .log-close{
+    width:4.3rem !important;
+    height:4.3rem !important;
+    flex-basis:4.3rem !important;
+  }
+
+  .dashboard .log-sheet-footer{
+    padding:1.4rem 1.6rem max(1.6rem,env(safe-area-inset-bottom)) !important;
+  }
+}
