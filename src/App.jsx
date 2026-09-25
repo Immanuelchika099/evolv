@@ -1651,6 +1651,19 @@ function Dashboard({ data, onLogout, onArticle }) {
         const metricById=Object.fromEntries(defs.map(d=>[d.id,d]))
         const periodLogs=logs.filter(l=>new Date(l.logged_at)>=periodStart&&new Date(l.logged_at)<=now)
         const previousLogs=logs.filter(l=>new Date(l.logged_at)>=previousStart&&new Date(l.logged_at)<=previousEnd)
+        const periodMeals=meals.filter(m=>new Date(m.logged_at)>=periodStart&&new Date(m.logged_at)<=now)
+        const previousMeals=meals.filter(m=>new Date(m.logged_at)>=previousStart&&new Date(m.logged_at)<=previousEnd)
+        const activeGoals=goals.filter(g=>g.status==='active')
+        const completedGoals=goals.filter(g=>g.status==='completed')
+        const goalProgress=activeGoals.length?Math.round(activeGoals.reduce((sum,g)=>sum+Math.min(100,Math.max(0,Number(g.progress)||0)),0)/activeGoals.length):0
+
+        const activeDaySet=new Set([...periodLogs.map(l=>new Date(l.logged_at).toISOString().slice(0,10)),...periodMeals.map(m=>new Date(m.logged_at).toISOString().slice(0,10))])
+        const previousDaySet=new Set([...previousLogs.map(l=>new Date(l.logged_at).toISOString().slice(0,10)),...previousMeals.map(m=>new Date(m.logged_at).toISOString().slice(0,10))])
+        const thingsLogged=periodLogs.length+periodMeals.length
+        const previousCount=previousLogs.length+previousMeals.length
+        const activeDays=activeDaySet.size
+        const activityChange=thingsLogged-previousCount
+
         const sumSlugs=new Set(['exercise','learning','building','outreach','applications','skills','income','spending','savings','bills','habits','reading','social','personal','reflection','focus'])
         const directionFor=d=>sumSlugs.has(d.slug)?'sum':'average'
         const aggregate=(items,d)=>{
@@ -1658,12 +1671,14 @@ function Dashboard({ data, onLogout, onArticle }) {
           if(!values.length)return null
           return directionFor(d)==='sum'?values.reduce((a,b)=>a+b,0):values.reduce((a,b)=>a+b,0)/values.length
         }
+
         const candidates=defs.filter(d=>periodLogs.some(l=>l.metric_id===d.id))
         const selected=metricById[progressMetric]&&candidates.some(d=>d.slug===progressMetric)?metricById[progressMetric]:candidates[0]
         const currentValue=selected?aggregate(periodLogs,selected):null
         const previousValue=selected?aggregate(previousLogs,selected):null
         const delta=currentValue!=null&&previousValue!=null?currentValue-previousValue:null
         const percent=delta!=null&&previousValue!==0?(delta/Math.abs(previousValue))*100:null
+
         const displayMetric=(value,d)=>{
           if(value==null)return '—'
           if(d.slug==='sleep'){
@@ -1683,114 +1698,196 @@ function Dashboard({ data, onLogout, onArticle }) {
           if(d.unit==='NGN')return '₦'+Math.round(value).toLocaleString()
           return Number.isInteger(value)?value.toLocaleString():value.toFixed(1)+(d.unit?' '+d.unit:'')
         }
-        const daily=selected?Array.from({length:progressRange},(_,i)=>{
+
+        const daily=Array.from({length:Math.min(progressRange,30)},(_,i)=>{
           const day=new Date(periodStart)
           day.setDate(periodStart.getDate()+i)
-          const next=new Date(day);next.setDate(day.getDate()+1)
+          const next=new Date(day)
+          next.setDate(day.getDate()+1)
           const dayLogs=periodLogs.filter(l=>new Date(l.logged_at)>=day&&new Date(l.logged_at)<next)
-          return {label:day.toLocaleDateString(undefined,{month:'short',day:'numeric'}),value:aggregate(dayLogs,selected)||0}
-        }):[]
-        const max=Math.max(1,...daily.map(x=>x.value))
-        const min=Math.min(0,...daily.map(x=>x.value))
-        const range=max-min||1
+          const dayMeals=periodMeals.filter(m=>new Date(m.logged_at)>=day&&new Date(m.logged_at)<next)
+          return {
+            key:day.toISOString().slice(0,10),
+            label:day.toLocaleDateString(undefined,{weekday:'short'}).slice(0,3),
+            date:day.getDate(),
+            count:dayLogs.length+dayMeals.length,
+            value:selected?aggregate(dayLogs,selected):null
+          }
+        })
+
+        const maxCount=Math.max(1,...daily.map(d=>d.count))
         const chartWidth=760
         const chartHeight=190
         const points=daily.map((d,i)=>{
           const x=daily.length===1?chartWidth/2:24+(i*(chartWidth-48)/(daily.length-1))
-          const y=24+((max-d.value)/range)*(chartHeight-48)
-          return {x,y,...d}
+          const y=24+((maxCount-d.count)/maxCount)*(chartHeight-48)
+          return {...d,x,y}
         })
         const path=points.map((p,i)=>`${i?'L':'M'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ')
-        const thingsLogged=periodLogs.length+meals.filter(m=>new Date(m.logged_at)>=periodStart&&new Date(m.logged_at)<=now).length
-        const activeDays=new Set(periodLogs.map(l=>l.logged_at.slice(0,10))).size+new Set(meals.filter(m=>new Date(m.logged_at)>=periodStart&&new Date(m.logged_at)<=now).map(m=>m.logged_at.slice(0,10))).size
-        const previousCount=previousLogs.length+meals.filter(m=>new Date(m.logged_at)>=previousStart&&new Date(m.logged_at)<=previousEnd).length
-        const changeCount=thingsLogged-previousCount
-        const observations=[]
-        if(selected&&currentValue!=null&&previousValue!=null&&delta!==0){
-          observations.push(`${selected.name} is ${delta>0?'up':'down'} ${displayMetric(Math.abs(delta),selected)} compared with the previous ${progressRange}-day period.`)
-        }
-        if(changeCount!==0) observations.push(`You logged ${Math.abs(changeCount)} more thing${Math.abs(changeCount)===1?'':'s'} than in the previous period.`)
-        if(activeDays>0) observations.push(`You showed up on ${activeDays} day${activeDays===1?'':'s'} during this period.`)
-        const shortPeriod=progressRange<=7
+
+        const recentActivity=[
+          ...periodLogs.map(entry=>({type:'log',date:new Date(entry.logged_at),entry})),
+          ...periodMeals.map(entry=>({type:'meal',date:new Date(entry.logged_at),entry}))
+        ].sort((a,b)=>b.date-a.date).slice(0,8)
+
+        const trendStatement=selected&&delta!=null
+          ? `${selected.name} is ${delta===0?'unchanged':delta>0?'up':'down'} ${delta===0?'from the previous period':displayMetric(Math.abs(delta),selected)+' compared with the previous period'}.`
+          : 'Log the same metric more than once to see a real comparison here.'
+
         return <section className="panel-page dashboard-panel progress-page">
           <div className="progress-heading">
-            <span className="section-label">YOUR EVOLUTION</span>
-            <h2>What’s changing.</h2>
-            <p>Real measurements from the things you’ve logged.</p>
+            <span className="section-label">PROGRESS</span>
+            <h2>Your progress.</h2>
+            <p>A clear view of your goals, activity and the things you are actually tracking.</p>
           </div>
 
           <div className="progress-range-switch" role="tablist" aria-label="Progress time range">
             {[7,30,90].map(days=><button key={days} className={progressRange===days?'active':''} onClick={()=>setProgressRange(days)}>{days}D</button>)}
           </div>
 
-          {!selected ? <div className="progress-empty progress-empty-large">
-            <TrendingUp size={24}/>
-            <h3>Nothing to compare yet.</h3>
-            <p>Start logging a few things and Evolv will turn your history into real trends. You do not need to track everything.</p>
-            <button className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button>
-          </div> : <>
-            <div className="progress-focus-head">
-              <div><span className="section-label">TRACKED OVER TIME</span><h3>{selected.name}</h3></div>
-              <span className="progress-focus-value">{displayMetric(currentValue,selected)}</span>
+          <div className="progress-overview-grid">
+            <article className="progress-overview-card progress-overview-primary">
+              <span className="section-label">GOAL PROGRESS</span>
+              <strong>{activeGoals.length?goalProgress+'%':'—'}</strong>
+              <p>{activeGoals.length?'Average across your active goals.':'Create a goal to start measuring direction.'}</p>
+            </article>
+            <article className="progress-overview-card">
+              <span className="section-label">ENTRIES</span>
+              <strong>{thingsLogged}</strong>
+              <p>Logs recorded in the last {progressRange} days.</p>
+            </article>
+            <article className="progress-overview-card">
+              <span className="section-label">ACTIVE DAYS</span>
+              <strong>{activeDays}<small> / {progressRange}</small></strong>
+              <p>Days with at least one recorded entry.</p>
+            </article>
+          </div>
+
+          <section className="progress-section-card progress-goals-card">
+            <div className="progress-section-head">
+              <div><span className="section-label">YOUR GOALS</span><h3>Where you are going.</h3></div>
+              <button type="button" onClick={()=>goTo('goals')}>Manage goals <ArrowRight size={14}/></button>
             </div>
-            <div className="progress-metric-picker">
-              {candidates.slice(0,8).map(d=><button key={d.id} className={selected.id===d.id?'active':''} onClick={()=>setProgressMetric(d.slug)}>{d.name}</button>)}
-            </div>
-            <div className="progress-period-summary">
-              <div><span>{directionFor(selected)==='sum'?'This period':'Average this period'}</span><strong>{displayMetric(currentValue,selected)}</strong></div>
-              <div><span>Previous period</span><strong>{displayMetric(previousValue,selected)}</strong></div>
-              <div><span>Change</span><strong className={delta==null?'neutral':delta>0?'up':'down'}>{delta==null?'Not enough data':(delta>0?'↑ ':'↓ ')+displayMetric(Math.abs(delta),selected)}</strong>{percent!=null&&<small>{percent>0?'+':''}{percent.toFixed(0)}%</small>}</div>
-            </div>
-            <div className="progress-chart-card">
-              <div className="progress-chart-top"><div><span className="section-label">{shortPeriod?'LAST 7 DAYS':`LAST ${progressRange} DAYS`}</span><p>{directionFor(selected)==='sum'?'Total logged in this period':'Average logged value by day'}</p></div><span>{selected.unit||'value'}</span></div>
-              <div className="progress-line-chart">
-                <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none" role="img" aria-label={`${selected.name} trend over ${progressRange} days`}>
-                  <path d={path} fill="none" stroke="rgba(200,243,106,.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                  {points.filter((_,i)=>shortPeriod||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><circle key={i} cx={p.x} cy={p.y} r="4" fill="#c8f36a"/>)}
-                </svg>
-                <div className="progress-chart-labels">{points.filter((_,i)=>shortPeriod||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><span key={i}>{p.label}</span>)}</div>
-              </div>
-            </div>
-            <div className="progress-log-details">
-              <div className="progress-log-details-head">
-                <div><span className="section-label">RECENT ENTRIES</span><h3>Your {selected.name.toLowerCase()} logs.</h3></div>
-                <span>{periodLogs.filter(l=>l.metric_id===selected.id).length} logged</span>
-              </div>
-              <div className="progress-log-entry-list">
-                {periodLogs.filter(l=>l.metric_id===selected.id).sort((a,b)=>new Date(b.logged_at)-new Date(a.logged_at)).slice(0,8).map((entry,index)=>{
-                  const entryValue=Number(entry.value)
-                  const moodLabels={1:'😞 Very low',2:'😕 Low',3:'😐 Okay',4:'🙂 Good',5:'😄 Great'}
-                  const shown=selected.slug==='mood'&&moodLabels[entryValue]?moodLabels[entryValue]:displayMetric(entryValue,selected)
-                  return <div className="progress-log-entry" key={entry.id||index}>
-                    <div><strong>{shown}</strong>{entry.note&&<p>{entry.note}</p>}</div>
-                    <time>{new Date(entry.logged_at).toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}</time>
-                  </div>
+
+            {activeGoals.length ? (
+              <div className="progress-goal-list">
+                {activeGoals.slice(0,5).map(goal=>{
+                  const value=Math.min(100,Math.max(0,Number(goal.progress)||0))
+                  return <article className="progress-goal-row" key={goal.id}>
+                    <div className="progress-goal-row-top">
+                      <div><strong>{goal.title}</strong>{goal.due_date&&<span>Due {new Date(goal.due_date).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</span>}</div>
+                      <b>{value}%</b>
+                    </div>
+                    <div className="progress-goal-track"><i style={{width:value+'%'}}/></div>
+                  </article>
                 })}
-                {!periodLogs.some(l=>l.metric_id===selected.id)&&<p className="progress-log-empty">No entries for this metric in this period.</p>}
               </div>
-            </div>
-          </>}
+            ) : (
+              <div className="progress-empty-inline">
+                <Target size={22}/>
+                <div><strong>No active goals yet.</strong><p>Your goals give Progress something concrete to measure.</p></div>
+                <button type="button" className="button button-primary" onClick={()=>goTo('goals')}><Plus size={15}/> Add goal</button>
+              </div>
+            )}
 
-          <div className="progress-insight-block">
-            <div className="progress-insight-head"><span className="section-label">WHAT CHANGED</span><Sparkles size={18}/></div>
-            {observations.length ? <div className="progress-observations">{observations.slice(0,3).map((item,i)=><div key={i}><span>0{i+1}</span><p>{item}</p></div>)}</div> : <p className="progress-not-enough">Not enough data yet to make a useful comparison. Keep logging naturally and Evolv will only surface patterns when there is enough information.</p>}
-          </div>
-
-          <div className="progress-stats">
-            <div><strong>{thingsLogged}</strong><span>things logged</span></div>
-            <div><strong>{activeDays}</strong><span>days you showed up</span></div>
-            <div><strong>{candidates.length}</strong><span>metrics tracked</span></div>
-          </div>
-
-          <section className="weekly-report-card">
-            <div className="weekly-report-head"><div><span className="section-label">WEEK IN REVIEW</span><h3>Your week with EVOLV.</h3></div><span>{activeDays}/7 days</span></div>
-            <div className="weekly-report-stats"><div><strong>{thingsLogged}</strong><span>things logged</span></div><div><strong>{activeDays}</strong><span>days you showed up</span></div><div><strong>{candidates.length}</strong><span>metrics tracked</span></div></div>
-            <p>{activeDays>=5?'A consistent week. You kept showing up for yourself.':activeDays>0?'You made some space for yourself this week. Keep it gentle and keep going.':'Your first week starts with one small check-in.'}</p>
+            {completedGoals.length>0&&<p className="progress-completed-note">{completedGoals.length} goal{completedGoals.length===1?'':'s'} completed. Keep building from there.</p>}
           </section>
 
-          <div className="goals-secondary">
-            <div className="secondary-head"><span className="section-label">GOALS</span><button onClick={()=>goTo('goals')}>View goals <ArrowRight size={14}/></button></div>
-            {goals.filter(g=>g.status==='active').slice(0,3).map(g=><div className="secondary-goal" key={g.id}><span>{g.title}</span><b>{g.progress||0}%</b></div>)}
+          <section className="progress-section-card progress-activity-card">
+            <div className="progress-section-head">
+              <div><span className="section-label">ACTIVITY</span><h3>How consistently are you logging?</h3></div>
+              <span>{activityChange===0?'No change':activityChange>0?'+'+activityChange:activityChange} vs previous {progressRange}D</span>
+            </div>
+
+            <div className="progress-activity-summary">
+              <div><strong>{thingsLogged}</strong><span>Total entries</span></div>
+              <div><strong>{activeDays}</strong><span>Active days</span></div>
+              <div><strong>{candidates.length}</strong><span>Metrics tracked</span></div>
+            </div>
+
+            <div className="progress-activity-chart" aria-label="Daily entries for this period">
+              {daily.map(day=><div className="progress-activity-day" key={day.key}>
+                <div className="progress-activity-bar"><i style={{height:Math.max(day.count?10:2,(day.count/maxCount)*100)+'%'}}/></div>
+                <b>{day.label}</b>
+                <small>{day.date}</small>
+                <span>{day.count}</span>
+              </div>)}
+            </div>
+          </section>
+
+          {selected ? (
+            <section className="progress-section-card progress-trend-card">
+              <div className="progress-section-head">
+                <div><span className="section-label">MEASURED TREND</span><h3>{selected.name}</h3></div>
+                <span>{directionFor(selected)==='sum'?'Total':'Average'}</span>
+              </div>
+
+              <div className="progress-metric-picker">
+                {candidates.slice(0,10).map(d=><button key={d.id} className={selected.id===d.id?'active':''} onClick={()=>setProgressMetric(d.slug)}>{d.name}</button>)}
+              </div>
+
+              <div className="progress-period-summary">
+                <div><span>Current period</span><strong>{displayMetric(currentValue,selected)}</strong></div>
+                <div><span>Previous period</span><strong>{displayMetric(previousValue,selected)}</strong></div>
+                <div><span>Change</span><strong className={delta==null?'neutral':delta>0?'up':delta<0?'down':'neutral'}>{delta==null?'—':delta===0?'No change':(delta>0?'↑ ':'↓ ')+displayMetric(Math.abs(delta),selected)}</strong>{percent!=null&&<small>{percent>0?'+':''}{percent.toFixed(0)}%</small>}</div>
+              </div>
+
+              <div className="progress-chart-card">
+                <div className="progress-chart-top"><div><span className="section-label">ENTRY FREQUENCY</span><p>How often you recorded something during this period.</p></div><span>{progressRange} days</span></div>
+                <div className="progress-line-chart">
+                  <svg viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none" role="img" aria-label={`Daily entries over ${progressRange} days`}>
+                    <path d={path} fill="none" stroke="rgba(200,243,106,.9)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    {points.filter((_,i)=>progressRange<=7||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><circle key={i} cx={p.x} cy={p.y} r="4" fill="#c8f36a"/>)}
+                  </svg>
+                  <div className="progress-chart-labels">{points.filter((_,i)=>progressRange<=7||i===0||i===points.length-1||i%Math.max(1,Math.floor(points.length/6))===0).map((p,i)=><span key={i}>{p.label} {p.date}</span>)}</div>
+                </div>
+              </div>
+
+              <div className="progress-fact">
+                <span className="section-label">WHAT THE DATA SAYS</span>
+                <p>{trendStatement}</p>
+              </div>
+            </section>
+          ) : (
+            <section className="progress-section-card progress-empty-large">
+              <TrendingUp size={24}/>
+              <h3>Your trends start with your first few logs.</h3>
+              <p>Log the things that matter to you. Evolv will compare real entries over time instead of inventing a score.</p>
+              <button className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button>
+            </section>
+          )}
+
+          <section className="progress-section-card progress-recent-card">
+            <div className="progress-section-head">
+              <div><span className="section-label">RECENT ACTIVITY</span><h3>What you recorded.</h3></div>
+              <span>Last {progressRange}D</span>
+            </div>
+
+            {recentActivity.length ? (
+              <div className="progress-recent-list">
+                {recentActivity.map((item,index)=>{
+                  const entry=item.entry
+                  const def=item.type==='log'?metricById[entry.metric_id]:null
+                  const shown=item.type==='meal'
+                    ? (entry.meal_type||'Meal')+' · '+entry.description
+                    : def?.slug==='mood'
+                      ? ({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||displayMetric(Number(entry.value),def))
+                      : def?displayMetric(Number(entry.value),def):'Entry'
+                  return <div className="progress-recent-row" key={entry.id||index}>
+                    <span className="progress-recent-icon">{item.type==='meal'?<Utensils size={17}/>:<LineChart size={17}/>}</span>
+                    <div><strong>{def?.name||'Meal'}</strong><p>{shown}</p></div>
+                    <time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}</time>
+                  </div>
+                })}
+              </div>
+            ) : (
+              <div className="progress-empty-inline"><Activity size={22}/><div><strong>No activity in this period.</strong><p>Once you log something, it will appear here.</p></div></div>
+            )}
+          </section>
+
+          <div className="progress-definition">
+            <span className="section-label">HOW PROGRESS WORKS</span>
+            <p><strong>Goals</strong> show how far you have moved toward what you said you wanted. <strong>Activity</strong> counts real entries you record. <strong>Trends</strong> compare your actual measurements with an earlier period. Evolv does not turn your life into one arbitrary score.</p>
           </div>
         </section>
       })()}
