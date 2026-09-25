@@ -3390,7 +3390,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           <span className="ai-topbar-caption">A space to think things through.</span>
         </div>
         <div className="ai-topbar-actions">
-          <button className="ai-history-button" type="button" onClick={openChatHistory} aria-label="Open chat history" title="Chat history">
+          <button className="ai-history-button" type="button" onClick={() => setHistoryOpen(open => !open)} aria-label={historyOpen ? "Close chat history" : "Open chat history"} title="Chat history">
             <History size={15} />
             <span>History</span>
           </button>
