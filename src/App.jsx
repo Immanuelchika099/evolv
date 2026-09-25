@@ -2179,30 +2179,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
   const [error,setError]=useState('')
   const sheetRef=useRef(null)
 
-  useEffect(()=>{
-    const sheet=sheetRef.current
-    if(!sheet) return
-    const cards=sheet.querySelectorAll('.log-health-card')
-    const move=(event)=>{
-      const card=event.currentTarget
-      const rect=card.getBoundingClientRect()
-      card.style.setProperty('--log-light-x',(event.clientX-rect.left)+'px')
-      card.style.setProperty('--log-light-y',(event.clientY-rect.top)+'px')
-      card.style.setProperty('--log-light-opacity','1')
-    }
-    const leave=(event)=>event.currentTarget.style.setProperty('--log-light-opacity','0')
-    cards.forEach(card=>{
-      card.addEventListener('pointermove',move)
-      card.addEventListener('pointerleave',leave)
-    })
-    return()=>{
-      cards.forEach(card=>{
-        card.removeEventListener('pointermove',move)
-        card.removeEventListener('pointerleave',leave)
-      })
-    }
-  },[area,metric,definitions])
-
   const areaMeta={
     health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
     nutrition:{title:'Nutrition',icon:Apple,color:'#ffb84d',description:'Meals, nourishment and the details you want to remember.'},
