@@ -296,3 +296,37 @@
   }
   .entry-detail-actions{position:sticky;bottom:0;background:rgba(15,20,17,.96);padding-bottom:.25rem}
 }
+
+
+/* Recent Activity — mobile dark treatment */
+@media (max-width: 40rem){
+  .progress-recent-row,
+  .progress-recent-row:hover,
+  .progress-recent-row:active,
+  .progress-recent-row:focus{
+    -webkit-appearance:none;
+    appearance:none;
+    background:transparent !important;
+    background-color:transparent !important;
+    color:inherit;
+    box-shadow:none;
+    border-color:transparent;
+  }
+
+  .progress-recent-row{
+    display:block;
+    width:100%;
+    margin:0;
+    padding:1rem 0;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  .progress-recent-row:focus-visible{
+    outline:2px solid rgba(200,243,106,.55);
+    outline-offset:-2px;
+  }
+
+  .progress-recent-row + .progress-recent-row{
+    border-top:1px solid rgba(255,255,255,.07);
+  }
+}
