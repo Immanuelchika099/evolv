@@ -2328,23 +2328,35 @@ function SpecialMetricFields({metric,values,setValues}){
     {input('Minutes','minutes','number','0')}
   </div>
 
+  if(slug==='mood') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>How are you feeling?</strong><span>Choose the mood that best describes you right now, then capture what may be influencing it.</span></div>
+    {choices('Mood','level',[{value:1,label:'Very low'},{value:2,label:'Low'},{value:3,label:'Okay'},{value:4,label:'Good'},{value:5,label:'Great'}])}
+    {choices('Mood label','moodLabel',[{value:'calm',label:'Calm'},{value:'happy',label:'Happy'},{value:'sad',label:'Sad'},{value:'anxious',label:'Anxious'},{value:'frustrated',label:'Frustrated'},{value:'excited',label:'Excited'},{value:'tired',label:'Tired'}])}
+    {input('What influenced your mood?','context','text','e.g. Work went well')}
+    {input('Energy','energyLabel','text','e.g. Low, steady, high')}
+  </div>
+
   if(slug==='focus') return <div className="special-metric-fields">
-    <div className="special-log-intro"><strong>Deep focus.</strong><span>Capture the task and the time you gave it your attention.</span></div>
-    {input('What did you focus on?','task','text','e.g. Build the dashboard')}
-    {input('Minutes','minutes','number','0')}
+    <div className="special-log-intro"><strong>What did you focus on?</strong><span>Make the session measurable: what you worked on, how long you stayed with it and what moved forward.</span></div>
+    {input('Task or goal','task','text','e.g. Build the Evolv dashboard')}
+    {input('Minutes focused','minutes','number','e.g. 45')}
+    {input('What did you accomplish?','accomplishment','text','e.g. Finished the logging flow')}
   </div>
 
   if(slug==='reflection') return <div className="special-metric-fields">
-    <div className="special-log-intro"><strong>Reflection.</strong><span>Give one thought a place to live instead of letting it disappear.</span></div>
-    {input('What are you reflecting on?','prompt','text','What is on your mind?')}
+    <div className="special-log-intro"><strong>Reflect on your day.</strong><span>Capture what happened, what you learned and what you want to carry into tomorrow.</span></div>
+    {input('What went well?','wentWell','text','e.g. I finished the feature I was avoiding')}
+    {input('What was difficult?','difficult','text','e.g. I lost focus in the afternoon')}
+    {input('What did you learn?','learned','text','e.g. I work better after a short walk')}
+    {input('What do you want to do tomorrow?','tomorrow','text','e.g. Start the backend task before noon')}
   </div>
 
   if(slug==='stress') return <div className="special-metric-fields">
-    <div className="special-log-intro"><strong>Stress check-in.</strong><span>Notice the intensity and what may have contributed to it.</span></div>
-    {input('What triggered it?','trigger','text','e.g. Deadline')}
-    {choices('Intensity','level',[
-      {value:1,label:'Very low'},{value:2,label:'Low'},{value:3,label:'Moderate'},{value:4,label:'High'},{value:5,label:'Very high'}
-    ])}
+    <div className="special-log-intro"><strong>Understand the stress.</strong><span>Log the intensity, what triggered it, how it showed up and what helped.</span></div>
+    {choices('Stress level','level',[{value:1,label:'Very low'},{value:2,label:'Low'},{value:3,label:'Moderate'},{value:4,label:'High'},{value:5,label:'Very high'}])}
+    {input('What triggered it?','trigger','text','e.g. Deadline or difficult conversation')}
+    {input('How did it show up?','body','text','e.g. Tight chest, racing thoughts')}
+    {input('What helped?','helped','text','e.g. Walk, prayer, music, talking to someone')}
   </div>
 
   return <div className="special-metric-fields">
@@ -2483,9 +2495,10 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     if(slug==='reading') return [clean(values.book)&&'Reading: '+clean(values.book),clean(values.takeaway)&&'Takeaway: '+clean(values.takeaway),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='social') return [clean(values.person)&&'With: '+clean(values.person),clean(values.context)&&'Context: '+clean(values.context),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='personal') return [clean(values.activity)&&'Activity: '+clean(values.activity),clean(values.note)].filter(Boolean).join(' · ')
-    if(slug==='focus') return [clean(values.task)&&'Focus: '+clean(values.task),clean(values.note)].filter(Boolean).join(' · ')
-    if(slug==='reflection') return [clean(values.prompt)&&'Reflection: '+clean(values.prompt),clean(values.note)].filter(Boolean).join(' · ')
-    if(slug==='stress') return [clean(values.trigger)&&'Trigger: '+clean(values.trigger),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='mood') return [clean(values.moodLabel)&&'Mood: '+clean(values.moodLabel),clean(values.context)&&'Influenced by: '+clean(values.context),clean(values.energyLabel)&&'Energy: '+clean(values.energyLabel),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='focus') return [clean(values.task)&&'Focus: '+clean(values.task),clean(values.durationLabel)&&'Duration: '+clean(values.durationLabel),clean(values.accomplishment)&&'Accomplished: '+clean(values.accomplishment),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='reflection') return [clean(values.wentWell)&&'Went well: '+clean(values.wentWell),clean(values.difficult)&&'Difficult: '+clean(values.difficult),clean(values.learned)&&'Learned: '+clean(values.learned),clean(values.tomorrow)&&'Tomorrow: '+clean(values.tomorrow),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='stress') return [clean(values.trigger)&&'Trigger: '+clean(values.trigger),clean(values.body)&&'How it showed up: '+clean(values.body),clean(values.helped)&&'Helped: '+clean(values.helped),clean(values.note)].filter(Boolean).join(' · ')
     return clean(values.note)
   }
 
