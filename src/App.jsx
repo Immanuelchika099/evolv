@@ -2024,6 +2024,34 @@ function SpecialMetricFields({metric,values,setValues}){
     </div>
   )
 
+  if(slug==='energy') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>How much energy did you have?</strong><span>Use how you actually felt today — not a guess about what you should feel.</span></div>
+    {choices('Energy level','energy',[
+      {value:1,label:'Very low'},{value:2,label:'Low'},{value:3,label:'Okay'},{value:4,label:'Good'},{value:5,label:'High'}
+    ])}
+  </div>
+
+  if(slug==='steps') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Track your movement.</strong><span>Enter the step count from your phone, smartwatch or fitness tracker.</span></div>
+    {input('Steps today','steps','number','e.g. 6,240')}
+  </div>
+
+  if(slug==='water') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Log the water you actually drank.</strong><span>Use cups, bottles, millilitres or litres. EVOLV converts the entry to litres for your daily history.</span></div>
+    {input('Amount','waterAmount','number','e.g. 4')}
+    {choices('Measure','waterMeasure',[
+      {value:'cup',label:'250 ml cup'},
+      {value:'bottle',label:'500 ml bottle'},
+      {value:'ml',label:'Millilitres'},
+      {value:'liter',label:'Litres'}
+    ])}
+  </div>
+
+  if(slug==='weight') return <div className="special-metric-fields">
+    <div className="special-log-intro"><strong>Record your current weight.</strong><span>Use kilograms and log the number shown by your scale. This is optional and only useful if you want to track it.</span></div>
+    {input('Weight (kg)','weight','number','e.g. 68.5')}
+  </div>
+
   if(slug==='income') return <div className="special-metric-fields">
     <div className="special-log-intro"><strong>Money in.</strong><span>Record income when it actually lands.</span></div>
     {input('Amount','amount','number','0')}
@@ -2248,11 +2276,20 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     }
   },[onClose,saving])
 
-  const specialMetric = ['exercise','income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress'].includes(metric?.slug)
+  const specialMetric = ['exercise','income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress','energy','steps','water','weight'].includes(metric?.slug)
 
   function specialValue(){
     const slug=metric?.slug
     if(slug==='exercise') return (values.exerciseRows||[]).reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
+    if(slug==='energy') return Number(values.energy)
+    if(slug==='steps') return Number(values.steps)
+    if(slug==='water'){
+      const amount=Number(values.waterAmount)
+      const measure=values.waterMeasure||'cup'
+      const litersPerUnit={cup:0.25,bottle:0.5,ml:0.001,liter:1}
+      return amount*(litersPerUnit[measure]||0.25)
+    }
+    if(slug==='weight') return Number(values.weight)
     if(['income','spending','savings','bills'].includes(slug)) return Number(values.amount)
     if(['learning','building','reading','personal','focus'].includes(slug)) return Number(values.minutes)
     if(slug==='skills') return Number(values.confidence)
@@ -2266,6 +2303,14 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
   function specialNote(){
     const slug=metric?.slug
     if(slug==='exercise') return (values.exerciseRows||[]).filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0).map(row=>`${row.exercise}: ${row.sets}×${row.reps}${Number(row.weight)>0?' @ '+row.weight+'kg':''}`).join(' · ') || null
+    if(slug==='energy') return values.energy ? `Energy: ${values.energy}/5` : null
+    if(slug==='steps') return values.steps ? `Steps: ${Number(values.steps).toLocaleString()}` : null
+    if(slug==='water'){
+      const labels={cup:'250 ml cup',bottle:'500 ml bottle',ml:'ml',liter:'litre'}
+      const amount=Number(values.waterAmount)
+      return amount>0 ? `Water: ${amount} ${labels[values.waterMeasure||'cup']}` : null
+    }
+    if(slug==='weight') return values.weight ? `Weight: ${values.weight} kg` : null
     const clean=v=>String(v||'').trim()
     if(slug==='income') return [clean(values.source)&&'Source: '+clean(values.source),clean(values.category)&&'Category: '+clean(values.category),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='spending') return [clean(values.merchant)&&'Merchant: '+clean(values.merchant),clean(values.category)&&'Category: '+clean(values.category),clean(values.payment)&&'Paid via: '+clean(values.payment),clean(values.note)].filter(Boolean).join(' · ')
@@ -2356,7 +2401,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
         return
       }
       const note=specialNote()||null
-      const {data:entry,error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:metric.unit||null,note,logged_at:loggedAt.toISOString(),value_numeric:value}).select('id,metric_id,value,unit,note,logged_at,created_at').single()
+      const storedUnit=metric.slug==='water'?'L':metric.unit||null
+      const {data:entry,error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:storedUnit,note,logged_at:loggedAt.toISOString(),value_numeric:value}).select('id,metric_id,value,unit,note,logged_at,created_at').single()
       setSaving(false)
       if(x){setError(x.message);return}
       onSaved?.('metric',entry)
