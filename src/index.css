@@ -12357,5 +12357,9 @@ body{
 
 /* Dashboard welcome name size */
 .dashboard .dashboard-welcome-copy h1{
-  font-size:4rem !important;
+  font-size:4.4rem !important;
+}
+
+.dashboard .dashboard-welcome-copy h1 span{
+  display:block;
 }
