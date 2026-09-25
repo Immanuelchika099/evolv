@@ -418,3 +418,58 @@
     padding-top:.15rem;
   }
 }
+
+
+/* Previous log manager */
+.manage-logs-button{
+  display:inline-flex;
+  align-items:center;
+  gap:.6rem;
+  margin-top:1.25rem;
+  padding:.85rem 1.1rem;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:999px;
+  background:rgba(255,255,255,.035);
+  color:inherit;
+  font:inherit;
+  cursor:pointer;
+}
+.manage-logs-button:hover{background:rgba(255,255,255,.06)}
+.log-history-sheet{max-height:min(82vh,58rem)}
+.log-history-intro{margin:.75rem 0 1.25rem;color:rgba(255,255,255,.58);line-height:1.55}
+.log-history-list{display:flex;flex-direction:column;gap:.45rem;max-height:52vh;overflow:auto}
+.log-history-row{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:1rem;
+  width:100%;
+  box-sizing:border-box;
+  padding:1rem 0;
+  border:0;
+  border-bottom:1px solid rgba(255,255,255,.07);
+  background:transparent;
+  color:inherit;
+  font:inherit;
+  text-align:left;
+  cursor:pointer;
+  -webkit-appearance:none;
+  appearance:none;
+}
+.log-history-row span{min-width:0}
+.log-history-row strong,.log-history-row small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.log-history-row small{margin-top:.25rem;color:rgba(255,255,255,.48)}
+.log-history-row time{color:rgba(255,255,255,.45);font-size:1.2rem;white-space:nowrap}
+.log-history-row svg{opacity:.45}
+.log-history-row:active{background:rgba(255,255,255,.025)}
+
+.ai-composer textarea{
+  text-align:left !important;
+  direction:ltr !important;
+  unicode-bidi:plaintext;
+  writing-mode:horizontal-tb;
+  vertical-align:top;
+}
+.ai-composer textarea:focus{
+  text-align:left !important;
+}
