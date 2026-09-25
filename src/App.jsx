@@ -3388,7 +3388,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         <button
           className="ai-history-button"
           type="button"
-          onClick={() => setHistoryOpen(open => !open)}
+          onClick={openChatHistory}
           aria-label={historyOpen ? "Close chat history" : "Open chat history"}
           title="Chat history"
         >
