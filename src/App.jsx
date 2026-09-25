@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, BookOpen, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, BookOpen, History, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -3130,6 +3130,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [copiedMessage, setCopiedMessage] = useState('')
   const [speakingMessage, setSpeakingMessage] = useState('')
   const [pendingCalendarEvent, setPendingCalendarEvent] = useState(null)
+  const [chatHistory, setChatHistory] = useState([])
+  const [historyOpen, setHistoryOpen] = useState(false)
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -3146,11 +3148,50 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         .eq('chat_id', chatId)
         .order('created_at', { ascending: true })
         .limit(100)
-      if (mounted && data?.length) setMessages(data)
+      if (mounted) {
+        setMessages(data?.length ? data : [{ role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` }])
+      }
     }
     loadMessages()
     return () => { mounted = false }
-  }, [chatId])
+  }, [chatId, firstName])
+
+  async function loadChatHistory() {
+    const userId = (await supabase.auth.getUser()).data.user?.id
+    if (!userId) return
+    const { data } = await supabase
+      .from('ai_messages')
+      .select('id,chat_id,role,content,created_at')
+      .eq('user_id', userId)
+      .order('created_at', { ascending: false })
+      .limit(500)
+    const grouped = new Map()
+    ;(data || []).forEach(message => {
+      if (!message.chat_id) return
+      const current = grouped.get(message.chat_id)
+      if (!current) {
+        grouped.set(message.chat_id, {
+          chatId: message.chat_id,
+          updatedAt: message.created_at,
+          preview: message.role === 'user' ? message.content : '',
+        })
+      } else if (!current.preview && message.role === 'user') {
+        current.preview = message.content
+      }
+    })
+    setChatHistory(Array.from(grouped.values()).sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt)))
+  }
+
+  function openChatHistory() {
+    loadChatHistory()
+    setHistoryOpen(true)
+  }
+
+  function selectChatFromHistory(id) {
+    setHistoryOpen(false)
+    setError('')
+    setChatId(id)
+  }
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
@@ -3348,11 +3389,38 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           <span className="ai-topbar-label">EVOLV AI</span>
           <span className="ai-topbar-caption">A space to think things through.</span>
         </div>
-        <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
-          <Plus size={15} />
-          <span>New chat</span>
-        </button>
+        <div className="ai-topbar-actions">
+          <button className="ai-history-button" type="button" onClick={openChatHistory} aria-label="Open chat history" title="Chat history">
+            <History size={15} />
+            <span>History</span>
+          </button>
+          <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
+            <Plus size={15} />
+            <span>New chat</span>
+          </button>
+        </div>
       </div>
+      {historyOpen && (
+        <div className="ai-history-overlay" role="dialog" aria-modal="true" aria-label="Previous AI chats">
+          <section className="ai-history-sheet">
+            <div className="ai-history-head">
+              <div><span className="section-label">YOUR AI HISTORY</span><h3>Previous chats.</h3></div>
+              <button type="button" className="ai-history-close" onClick={() => setHistoryOpen(false)} aria-label="Close chat history"><X size={18}/></button>
+            </div>
+            <div className="ai-history-list">
+              {chatHistory.length ? chatHistory.map(chat => (
+                <button type="button" className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'} key={chat.chatId} onClick={() => selectChatFromHistory(chat.chatId)}>
+                  <span className="ai-history-row-icon"><MessageCircle size={16}/></span>
+                  <span className="ai-history-row-copy"><strong>{chat.preview || 'Untitled chat'}</strong><small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small></span>
+                  <ChevronRight size={16}/>
+                </button>
+              )) : (
+                <div className="ai-history-empty"><History size={22}/><strong>No previous chats yet.</strong><p>Your AI conversations will appear here after you send a message.</p></div>
+              )}
+            </div>
+          </section>
+        </div>
+      )}
       <div className={`ai-chat ${messages.length ? 'has-messages' : 'is-empty'}`}>
         {!messages.length && (
           <div className="ai-empty">
