@@ -33,3 +33,13 @@
     height:18px;
   }
 }
+
+/* EVOLV alarm layout */
+.evolv-alarm-create{display:grid;gap:1rem;padding:1.5rem;border:1px solid rgba(255,255,255,.08);border-radius:1.8rem;background:rgba(255,255,255,.025)}
+.alarm-date-time-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.evolv-alarm-list{display:grid;gap:1rem;margin-top:1.5rem}
+.evolv-alarm-row{display:grid;grid-template-columns:6rem minmax(0,1fr) auto auto;align-items:center;gap:1rem;padding:1.2rem;border:1px solid rgba(255,255,255,.08);border-radius:1.5rem}
+.evolv-alarm-time strong{color:#c8f36a;font-size:1.8rem}
+.evolv-alarm-time span,.evolv-alarm-copy span{display:block;color:rgba(244,241,234,.45);font-size:1.2rem;margin-top:.2rem}
+.evolv-alarm-copy{min-width:0}.evolv-alarm-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.45rem}
+@media(max-width:650px){.alarm-date-time-grid{grid-template-columns:1fr}.evolv-alarm-row{grid-template-columns:5.8rem minmax(0,1fr) auto}.evolv-alarm-copy{grid-column:2;grid-row:1 / span 2}.evolv-alarm-time{grid-column:1;grid-row:1 / span 2}}
