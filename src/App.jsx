@@ -1336,6 +1336,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     const entry=item.entry
     const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
     setSelectedEntry({type:item.type,entry,definition})
+    goTo('log-detail')
   }
   function startEditEntry(item){
     const entry=item.entry
@@ -1364,14 +1365,17 @@ function Dashboard({ data, onLogout, onArticle }) {
     if(item.type==='meal')setMeals(current=>current.filter(x=>x.id!==item.entry.id))
     else setLogs(current=>current.filter(x=>x.id!==item.entry.id))
     setSelectedEntry(null)
+    goTo('logs')
   }
   function handleLogSaved(kind,entry){
+    const wasEditing=!!editingEntry
     if(kind==='meal') setMeals(current=>[entry,...current.filter(x=>x.id!==entry.id)])
     else setLogs(current=>[entry,...current.filter(x=>x.id!==entry.id)])
     setLogOpen(false)
     setMetric(null)
     setArea(null)
     setEditingEntry(null)
+    if(wasEditing) setActive('logs')
   }
   async function createGoal(e){
     e.preventDefault()
@@ -1870,6 +1874,43 @@ function Dashboard({ data, onLogout, onArticle }) {
           {!['health','nutrition'].includes(currentArea)&&<><div className="metric-detail-list">{rs.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="metric-detail-row" key={d.id} onClick={()=>openLog(currentArea,d)}><span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span><span><strong>{d.name}</strong><small>{latest[d.slug]?valueText(latest[d.slug],d):'Log '+d.name.toLowerCase()}</small></span><ChevronRight size={16}/></button>})}</div><div className="area-note"><span>ONE STEP AT A TIME</span><p>You do not need to measure everything. Track what helps you understand your life.</p></div></>}
         </section>
       })()}
+      {active==='logs'&&(()=>{
+        const metricById=Object.fromEntries(defs.map(d=>[d.id,d]))
+        const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
+        const formatValue=item=>{
+          if(item.type==='meal') return item.entry.description||'Meal logged'
+          const def=metricById[item.entry.metric_id],value=Number(item.entry.value)
+          if(!def) return 'Entry logged'
+          if(def.slug==='mood') return ({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[value]||String(item.entry.value))
+          if(def.slug==='sleep'){const minutes=Math.max(0,Math.round(value*60)),hours=Math.floor(minutes/60),mins=minutes%60;return hours?(mins?hours+'h '+mins+'m':hours+'h'):mins+'m'}
+          if(def.value_type==='scale') return value+'/5'
+          if(def.unit==='NGN') return '₦'+value.toLocaleString()
+          return value.toLocaleString()+(def.unit?' '+def.unit:'')
+        }
+        return <section className="panel-page dashboard-panel logs-page">
+          <button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button>
+          <div className="logs-page-hero"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2><p>A quiet record of the things you chose to notice. Open an entry for the full story.</p></div>
+          <div className="logs-page-toolbar"><div><strong>{items.length}</strong><span>{items.length===1?'saved entry':'saved entries'}</span></div><span>Newest first</span></div>
+          {items.length ? <div className="logs-page-list">{items.map((item,index)=>{
+            const def=item.type==='log'?metricById[item.entry.metric_id]:null,label=item.type==='meal'?(item.entry.meal_type||'Meal'):def?.name||'Entry',M=item.type==='meal'?Utensils:(icons[def?.slug]||Activity)
+            return <button type="button" className="logs-page-row" key={item.type+'-'+(item.entry.id||index)} onClick={()=>openEntry(item)}><span className="logs-page-icon"><M size={18}/></span><span className="logs-page-copy"><small>{item.type==='meal'?'NUTRITION':(def?.area||'LOG').toUpperCase()}</small><strong>{label}</strong><span>{formatValue(item)}</span></span><time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}<br/>{item.date.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</time><ChevronRight size={18}/></button>
+          })}</div> : <div className="logs-page-empty"><NotebookPen size={24}/><strong>No previous logs yet.</strong><p>Your saved health, life, money and meal entries will appear here.</p></div>}
+        </section>
+      })()}
+      {active==='log-detail'&&selectedEntry&&(()=>{
+        const {type,entry,definition}=selectedEntry,date=entry.logged_at||entry.created_at,title=type==='meal'?'Meal':definition?.name||'Entry',M=type==='meal'?Utensils:(icons[definition?.slug]||Activity)
+        const value=type==='meal'?(entry.description||'Meal logged'):definition?.slug==='mood'?({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||String(entry.value)):definition?(Number(entry.value).toLocaleString()+(entry.unit?' '+entry.unit:'')):'Entry logged'
+        return <section className="panel-page dashboard-panel log-detail-page">
+          <button className="area-back" onClick={()=>goTo('logs')}><ChevronLeft size={16}/> Previous logs</button>
+          <div className="log-detail-hero"><div className="log-detail-icon"><M size={22}/></div><span className="section-label">{type==='meal'?'NUTRITION':(definition?.area||'LOG').toUpperCase()}</span><h2>{title}.</h2><p>{type==='meal'?'A saved meal from your personal history.':'A saved check-in from your personal history.'}</p></div>
+          <div className="log-detail-sections">
+            <section className="log-detail-card log-detail-primary"><span className="section-label">WHAT YOU LOGGED</span><strong>{value}</strong><time>{date?new Date(date).toLocaleString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):'—'}</time></section>
+            {type==='meal'&&<section className="log-detail-card"><span className="section-label">NUTRITION DETAILS</span><div className="log-detail-stats">{[['Calories',entry.calories!=null?entry.calories+' kcal':null],['Protein',entry.protein_g!=null?entry.protein_g+' g':null],['Carbs',entry.carbs_g!=null?entry.carbs_g+' g':null],['Fat',entry.fat_g!=null?entry.fat_g+' g':null],['Water',entry.water_ml!=null?entry.water_ml+' ml':null]].filter(x=>x[1]!=null).map(([label,val])=><div key={label}><span>{label}</span><strong>{val}</strong></div>)}</div></section>}
+            <section className="log-detail-card"><span className="section-label">NOTE</span><p className="log-detail-note">{entry.note||'No note was added to this entry.'}</p></section>
+          </div>
+          <div className="log-detail-actions"><button type="button" className="log-detail-delete" onClick={()=>deleteEntry(selectedEntry)}><Trash2 size={16}/> Delete</button><button type="button" className="button button-primary" onClick={()=>startEditEntry(selectedEntry)}><Pencil size={16}/> Edit log <ArrowRight size={15}/></button></div>
+        </section>
+      })()}
       {active==='progress'&&(()=>{
         const now=new Date()
         const periodStart=new Date(now)
@@ -1893,7 +1934,7 @@ function Dashboard({ data, onLogout, onArticle }) {
             <span className="section-label">PROGRESS</span>
             <h2>Your progress.</h2>
             <p>See the few things that matter most.</p>
-            <button type="button" className="manage-logs-button" onClick={()=>setManageLogsOpen(true)}>
+            <button type="button" className="manage-logs-button" onClick={()=>goTo('logs')}>
               <span className="manage-logs-button-icon"><NotebookPen size={17}/></span>
               <span className="manage-logs-button-copy"><strong>Previous logs</strong><small>View, edit or delete</small></span>
               <span className="manage-logs-button-arrow"><ChevronRight size={17}/></span>
@@ -2093,8 +2134,6 @@ function Dashboard({ data, onLogout, onArticle }) {
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
     {active!=='ai'&&<nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>}
-    {selectedEntry&&<EntryDetailModal item={selectedEntry} onClose={()=>setSelectedEntry(null)} onEdit={()=>startEditEntry(selectedEntry)} onDelete={()=>deleteEntry(selectedEntry)}/>}
-    {manageLogsOpen&&<LogHistoryModal logs={logs} meals={meals} definitions={defs} onClose={()=>setManageLogsOpen(false)} onOpenEntry={item=>{setManageLogsOpen(false);openEntry(item)}}/>}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
