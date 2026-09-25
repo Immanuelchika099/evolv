@@ -14296,3 +14296,38 @@ html.evolv-android .reflection-sheet *{
   opacity:1 !important;
   visibility:visible !important;
 }
+
+
+/* EVOLV — ChatGPT-style composer focus expansion
+   The composer stays centered and gently grows from both sides on focus. */
+.dashboard .ai-page .ai-composer{
+  transform:scaleX(1) !important;
+  transform-origin:center center !important;
+  transition:
+    transform .32s cubic-bezier(.22,1,.36,1),
+    border-color .28s ease,
+    box-shadow .32s cubic-bezier(.22,1,.36,1) !important;
+  will-change:transform !important;
+}
+.dashboard .ai-page .ai-composer:focus-within{
+  max-width:76rem !important;
+  transform:scaleX(1.018) !important;
+}
+@media(max-width:800px){
+  .dashboard .ai-page .ai-composer{
+    transition:
+      transform .28s cubic-bezier(.22,1,.36,1),
+      border-color .24s ease,
+      box-shadow .28s cubic-bezier(.22,1,.36,1) !important;
+  }
+  .dashboard .ai-page .ai-composer:focus-within{
+    max-width:none !important;
+    transform:scaleX(1.008) !important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard .ai-page .ai-composer{
+    transform:none !important;
+    transition:none !important;
+  }
+}
