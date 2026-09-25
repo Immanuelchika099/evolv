@@ -12354,3 +12354,8 @@ body{
     height:4.2rem !important;
   }
 }
+
+/* Dashboard welcome name size */
+.dashboard .dashboard-welcome-copy h1{
+  font-size:2rem !important;
+}
