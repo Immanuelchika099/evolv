@@ -12113,3 +12113,54 @@ body{
     margin-top:.8rem !important;
   }
 }
+
+
+/* Final Progress mobile polish: separate summary values and cards */
+@media(max-width:650px){
+  .dashboard .progress-page{
+    row-gap:4rem !important;
+  }
+
+  .dashboard .progress-page > .progress-overview-grid{
+    row-gap:2.6rem !important;
+    margin-bottom:1rem !important;
+  }
+
+  .dashboard .progress-page > .progress-section-card{
+    margin-top:1rem !important;
+  }
+
+  .dashboard .progress-trend-card .progress-period-summary{
+    grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+    gap:1.2rem !important;
+  }
+
+  .dashboard .progress-trend-card .progress-period-summary > div{
+    min-width:0 !important;
+    padding:1.2rem 1rem !important;
+    border-radius:1.5rem !important;
+  }
+
+  .dashboard .progress-trend-card .progress-period-summary span{
+    display:block !important;
+    white-space:normal !important;
+    line-height:1.2 !important;
+    overflow-wrap:anywhere !important;
+    font-size:1.15rem !important;
+  }
+
+  .dashboard .progress-trend-card .progress-period-summary strong{
+    display:block !important;
+    margin-top:.55rem !important;
+    font-size:1.65rem !important;
+    line-height:1.15 !important;
+    white-space:normal !important;
+    overflow-wrap:anywhere !important;
+  }
+
+  .dashboard .progress-trend-card .progress-period-summary small{
+    display:block !important;
+    margin-top:.35rem !important;
+    font-size:1.15rem !important;
+  }
+}
