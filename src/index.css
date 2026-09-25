@@ -10680,36 +10680,9 @@ body{
   -webkit-backdrop-filter:blur(34px) saturate(165%) brightness(1.02) !important;
 }
 
-.dashboard .app-bottom-nav::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  inset:1px;
-  border-radius:inherit;
-  pointer-events:none;
-  background:
-    radial-gradient(ellipse 50% 110% at 92% 100%,rgba(255,255,255,.055),transparent 62%);
-}
-
+.dashboard .app-bottom-nav::before,
 .dashboard .app-bottom-nav::after{
-  content:"";
-  position:absolute;
-  z-index:0;
-  top:-115%;
-  left:-18%;
-  width:42%;
-  height:320%;
-  pointer-events:none;
-  transform:rotate(17deg);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.07),transparent);
-  filter:blur(13px);
-  opacity:.6;
-  animation:evolv-glass-sheen 7s ease-in-out infinite;
-}
-
-@keyframes evolv-glass-sheen{
-  0%,100%{transform:translateX(-8%) rotate(17deg);opacity:.28}
-  50%{transform:translateX(250%) rotate(17deg);opacity:.65}
+  content:none !important;
 }
 
 .dashboard .app-bottom-nav button{
