@@ -12237,3 +12237,119 @@ body{
 .dashboard .exercise-total{display:flex;align-items:center;justify-content:space-between;padding:14px 15px;border-top:1px solid rgba(255,255,255,.08);color:rgba(244,241,234,.48)}
 .dashboard .exercise-total strong{color:#c8f36a;font-size:18px}
 @media(max-width:600px){.dashboard .exercise-number-grid{grid-template-columns:1fr 1fr}.dashboard .exercise-entry{padding:13px}}
+
+
+/* EVOLV AI — ChatGPT-style fixed composer */
+.dashboard-ai-active .ai-page .ai-messages{
+  padding-bottom:16rem !important;
+}
+
+.dashboard-ai-active .ai-page .ai-input{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:80 !important;
+  display:flex !important;
+  justify-content:center !important;
+  padding:2.8rem max(1.8rem,calc((100vw - 98rem)/2)) max(1.2rem,env(safe-area-inset-bottom)) !important;
+  background:linear-gradient(
+    to bottom,
+    rgba(4,6,5,0),
+    rgba(4,6,5,.72) 28%,
+    rgba(4,6,5,.96) 55%,
+    #040605 100%
+  ) !important;
+  border:0 !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  box-shadow:none !important;
+}
+
+.dashboard-ai-active .ai-page .ai-composer{
+  width:100% !important;
+  max-width:98rem !important;
+  min-height:5.8rem !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  gap:.8rem !important;
+  padding:.7rem .8rem .7rem 1.2rem !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:2.2rem !important;
+  background:#111412 !important;
+  box-shadow:0 1.8rem 5rem rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.035) !important;
+  transition:max-width .22s ease,box-shadow .22s ease,border-color .22s ease !important;
+}
+
+.dashboard-ai-active .ai-page .ai-composer:focus-within{
+  max-width:104rem !important;
+  border-color:rgba(255,255,255,.18) !important;
+  box-shadow:0 2rem 6rem rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.045) !important;
+}
+
+.dashboard-ai-active .ai-page .ai-composer textarea{
+  flex:1 !important;
+  min-width:0 !important;
+  width:100% !important;
+  min-height:4.4rem !important;
+  max-height:15rem !important;
+  resize:none !important;
+  overflow-y:auto !important;
+  box-sizing:border-box !important;
+  padding:1.1rem .6rem !important;
+  margin:0 !important;
+  border:0 !important;
+  outline:0 !important;
+  background:#111412 !important;
+  color:#f4f1ea !important;
+  font:500 1.5rem/1.5 Manrope,ui-sans-serif,system-ui,sans-serif !important;
+  caret-color:#c8f36a !important;
+}
+
+.dashboard-ai-active .ai-page .ai-composer textarea::placeholder{
+  color:rgba(244,241,234,.4) !important;
+}
+
+.dashboard-ai-active .ai-page .ai-composer textarea:focus{
+  background:#111412 !important;
+  outline:0 !important;
+  box-shadow:none !important;
+}
+
+.dashboard-ai-active .ai-page .ai-send{
+  flex:0 0 4.6rem !important;
+  width:4.6rem !important;
+  height:4.6rem !important;
+  margin-bottom:.1rem !important;
+}
+
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page .ai-messages{
+    padding-bottom:14rem !important;
+  }
+
+  .dashboard-ai-active .ai-page .ai-input{
+    padding:2.4rem 1.2rem max(1rem,env(safe-area-inset-bottom)) !important;
+  }
+
+  .dashboard-ai-active .ai-page .ai-composer,
+  .dashboard-ai-active .ai-page .ai-composer:focus-within{
+    width:100% !important;
+    max-width:none !important;
+    min-height:5.6rem !important;
+    border-radius:2rem !important;
+  }
+
+  .dashboard-ai-active .ai-page .ai-composer textarea{
+    font-size:1.6rem !important;
+    min-height:4.2rem !important;
+    max-height:13rem !important;
+  }
+
+  .dashboard-ai-active .ai-page .ai-send{
+    flex-basis:4.2rem !important;
+    width:4.2rem !important;
+    height:4.2rem !important;
+  }
+}
