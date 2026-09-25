@@ -6230,7 +6230,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task:hover{background:rgba(255,255,255,.045) !important;border-color:rgba(200,243,106,.28) !important}
 .dashboard .daily-insight{background:transparent !important}
 .dashboard .daily-insight:after,.dashboard .weekly-progress-card:after{display:none !important}
-.dashboard .dashboard-eyebrow{color:rgba(200,243,106,.68) !important}
+.dashboard .dashboard-eyebrow{color:rgba(244,241,232,.58) !important}
 .dashboard .frequency-heading{position:relative;padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.08)}
 .dashboard .frequency-heading>span{color:rgba(244,241,232,.55) !important}
 .dashboard .frequency-heading:after{content:"";position:absolute;left:0;bottom:-1px;width:72px;height:1px;background:linear-gradient(90deg,#c8f36a,#62e6bd,transparent)}
