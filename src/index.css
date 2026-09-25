@@ -10688,7 +10688,6 @@ body{
   border-radius:inherit;
   pointer-events:none;
   background:
-    radial-gradient(ellipse 65% 150% at 10% 0%,rgba(255,255,255,.12),transparent 58%),
     radial-gradient(ellipse 50% 110% at 92% 100%,rgba(255,255,255,.055),transparent 62%);
 }
 
