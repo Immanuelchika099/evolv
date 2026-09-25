@@ -1263,6 +1263,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [progressMetric,setProgressMetric]=useState(null)
   const [selectedEntry,setSelectedEntry]=useState(null)
   const [editingEntry,setEditingEntry]=useState(null)
+  const [manageLogsOpen,setManageLogsOpen]=useState(false)
   const dashboardMainRef=useRef(null)
   const goTo=(page)=>{
     setActive(page)
@@ -1916,6 +1917,7 @@ function Dashboard({ data, onLogout, onArticle }) {
             <span className="section-label">PROGRESS</span>
             <h2>Your progress.</h2>
             <p>A clear view of your goals, activity and the things you are actually tracking.</p>
+            <button type="button" className="manage-logs-button" onClick={()=>setManageLogsOpen(true)}><NotebookPen size={16}/> Manage previous logs <ChevronRight size={15}/></button>
           </div>
 
           <div className="progress-range-switch" role="tablist" aria-label="Progress time range">
@@ -2033,35 +2035,6 @@ function Dashboard({ data, onLogout, onArticle }) {
               <button className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button>
             </section>
           )}
-
-          <section className="progress-section-card progress-recent-card">
-            <div className="progress-section-head">
-              <div><span className="section-label">RECENT ACTIVITY</span><h3>What you recorded.</h3></div>
-              <span>Last {progressRange}D</span>
-            </div>
-
-            {recentActivity.length ? (
-              <div className="progress-recent-list">
-                {recentActivity.map((item,index)=>{
-                  const entry=item.entry
-                  const def=item.type==='log'?metricById[entry.metric_id]:null
-                  const shown=item.type==='meal'
-                    ? (entry.meal_type||'Meal')+' · '+entry.description
-                    : def?.slug==='mood'
-                      ? ({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||displayMetric(Number(entry.value),def))
-                      : def?displayMetric(Number(entry.value),def):'Entry'
-                  return <button type="button" className="progress-recent-row" key={entry.id||index} onClick={()=>openEntry(item)} aria-label={`Open ${def?.name||'meal'} log to view, edit or delete`}>
-                    <span className="progress-recent-icon">{item.type==='meal'?<Utensils size={17}/>:<LineChart size={17}/>}</span>
-                    <div className="progress-recent-copy"><strong>{def?.name||'Meal'}</strong><p>{shown}</p><small>Tap to view, edit or delete</small></div>
-                    <time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}</time>
-                    <ChevronRight className="progress-recent-chevron" size={16} aria-hidden="true"/>
-                  </button>
-                })}
-              </div>
-            ) : (
-              <div className="progress-empty-inline"><Activity size={22}/><div><strong>No activity in this period.</strong><p>Once you log something, it will appear here.</p></div></div>
-            )}
-          </section>
 
           <div className="progress-definition">
             <span className="section-label">HOW PROGRESS WORKS</span>
@@ -2195,7 +2168,8 @@ function Dashboard({ data, onLogout, onArticle }) {
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
     {active!=='ai'&&<nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>}
-    {selectedEntry&&<EntryDetailModal item={selectedEntry} onClose={()=>setSelectedEntry(null)} onEdit={()=>startEditEntry(selectedEntry)} onDelete={()=>deleteEntry(selectedEntry)}/>}
+    {selectedEntry&&<EntryDetailModal item={selectedEntry} onClose={()=>setSelectedEntry(null)} onEdit={()=>startEditEntry(selectedEntry)} onDelete={()=>deleteEntry(selectedEntry)}/>
+    {manageLogsOpen&&<LogHistoryModal logs={logs} meals={meals} definitions={defs} onClose={()=>setManageLogsOpen(false)} onOpenEntry={item=>{setManageLogsOpen(false);openEntry(item)}}/>}}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
@@ -2449,6 +2423,23 @@ function ExerciseFields({values,setValues}){
     </div>
     <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add another exercise</button>
     <div className="exercise-total"><span>Total reps</span><strong>{totalReps}</strong></div>
+  </div>
+}
+
+function LogHistoryModal({logs=[],meals=[],definitions=[],onClose,onOpenEntry}){
+  const metricById=Object.fromEntries(definitions.map(d=>[d.id,d]))
+  const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
+  return <div className="entry-detail-overlay" role="dialog" aria-modal="true" onMouseDown={e=>{if(e.target===e.currentTarget)onClose()}}>
+    <section className="entry-detail-sheet log-history-sheet">
+      <div className="entry-detail-head"><div><span className="section-label">YOUR LOGS</span><h2>Previous logs.</h2></div><button type="button" className="log-close" onClick={onClose} aria-label="Close"><X size={18}/></button></div>
+      <p className="log-history-intro">Open any previous entry to edit it or delete it.</p>
+      <div className="log-history-list">{items.length?items.map((item,index)=>{
+        const def=item.type==='log'?metricById[item.entry.metric_id]:null
+        const label=item.type==='meal'?(item.entry.meal_type||'Meal'):def?.name||'Entry'
+        const value=item.type==='meal'?item.entry.description:(def?.slug==='mood'?({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(item.entry.value)]||item.entry.value):def?displayMetric(Number(item.entry.value),def):'Entry')
+        return <button type="button" className="log-history-row" key={item.entry.id||index} onClick={()=>onOpenEntry(item)}><span><strong>{label}</strong><small>{value}</small></span><time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</time><ChevronRight size={16}/></button>
+      }):<div className="progress-empty-inline"><Activity size={22}/><div><strong>No previous logs yet.</strong><p>Your entries will appear here after you log something.</p></div></div>}</div>
+    </section>
   </div>
 }
 
