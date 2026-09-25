@@ -2439,7 +2439,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                         <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={22}/></span>
                         <strong style={{'--card-color':m.color}}>{m.title}</strong>
                       </span>
-                      <span className="log-card-date">TODAY</span>
                       <ChevronRight className="log-card-chevron" size={22}/>
                     </span>
                     <span className="log-card-bottom">
@@ -2469,7 +2468,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                           <span className="log-choice-icon" style={{'--area-color':d.color||areaMeta[area].color}}><M size={22}/></span>
                           <strong style={{'--card-color':d.color||areaMeta[area].color}}>{d.name}</strong>
                         </span>
-                        <span className="log-card-date">LOG</span>
                         <ChevronRight className="log-card-chevron" size={22}/>
                       </span>
                       <span className="log-card-bottom">
