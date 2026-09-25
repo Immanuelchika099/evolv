@@ -12234,7 +12234,9 @@ body{
 .dashboard .exercise-picker strong{text-align:center;color:#f4f1ea;font-size:16px;font-weight:600}
 .dashboard .exercise-add-button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:1px solid rgba(200,243,106,.2);background:rgba(200,243,106,.045);color:#c8f36a;border-radius:13px;font-size:1.6rem;font-weight:600;cursor:pointer}
 .dashboard .exercise-total{display:flex;align-items:center;justify-content:space-between;padding:14px 15px;border-top:1px solid rgba(255,255,255,.08);color:rgba(244,241,234,.48)}
-.dashboard .exercise-total strong{color:#c8f36a;font-size:18px}
+.dashboard .exercise-total{font-size:1.6rem}
+.dashboard .exercise-total strong{font-size:2rem}
+.dashboard .exercise-total strong{color:#c8f36a;font-size:2rem}
 @media(max-width:600px){.dashboard .exercise-number-grid{grid-template-columns:1fr 1fr}.dashboard .exercise-entry{padding:13px}}
 
 
