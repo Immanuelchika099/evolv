@@ -1233,6 +1233,8 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [saving,setSaving]=useState(false)
   const [goalTitle,setGoalTitle]=useState('')
   const [goalDescription,setGoalDescription]=useState('')
+  const [goalDueDate,setGoalDueDate]=useState('')
+  const [editingGoal,setEditingGoal]=useState(null)
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [alarms,setAlarms]=useState([])
@@ -1371,7 +1373,59 @@ function Dashboard({ data, onLogout, onArticle }) {
     setArea(null)
     setEditingEntry(null)
   }
-  async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
+  async function createGoal(e){
+    e.preventDefault()
+    if(!goalTitle.trim())return
+    setSaving(true)
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u){setSaving(false);return}
+    const {data:g,error:x}=await supabase.from('goals').insert({
+      user_id:u.id,title:goalTitle.trim(),description:goalDescription.trim()||null,
+      due_date:goalDueDate||null,status:'active',progress:0
+    }).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    setSaving(false)
+    if(x){setError(x.message);return}
+    setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('');setGoalDueDate('')
+  }
+  function beginGoalEdit(g){
+    setEditingGoal(g)
+    setGoalTitle(g.title||'')
+    setGoalDescription(g.description||'')
+    setGoalDueDate(g.due_date||'')
+  }
+  async function saveGoalEdit(e){
+    e.preventDefault()
+    if(!editingGoal||!goalTitle.trim())return
+    setSaving(true)
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u){setSaving(false);return}
+    const {data:g,error:x}=await supabase.from('goals').update({
+      title:goalTitle.trim(),description:goalDescription.trim()||null,due_date:goalDueDate||null,updated_at:new Date().toISOString()
+    }).eq('id',editingGoal.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    setSaving(false)
+    if(x){setError(x.message);return}
+    setGoals(c=>c.map(item=>item.id===g.id?g:item))
+    setEditingGoal(null);setGoalTitle('');setGoalDescription('');setGoalDueDate('')
+  }
+  async function updateGoal(g,changes){
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    const {data:updated,error:x}=await supabase.from('goals').update({...changes,updated_at:new Date().toISOString()}).eq('id',g.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    if(x){setError(x.message);return}
+    setGoals(c=>c.map(item=>item.id===g.id?updated:item))
+  }
+  async function deleteGoal(g){
+    if(!window.confirm('Delete this goal? This cannot be undone.'))return
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    const {error:x}=await supabase.from('goals').delete().eq('id',g.id).eq('user_id',u.id)
+    if(x){setError(x.message);return}
+    setGoals(c=>c.filter(item=>item.id!==g.id))
+  }
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
   async function createAlarm(event){
     event.preventDefault()
@@ -1898,7 +1952,22 @@ function Dashboard({ data, onLogout, onArticle }) {
           </div>
         </section>
       })()}
-      {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={createGoal}><input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/><textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/><button className="button button-primary" disabled={saving} type="submit"><Plus size={15}/>{saving?'Saving…':'Add goal'}</button></form><div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}><div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}</div><strong>{g.progress||0}%</strong></div><div className="mini-progress"><i style={{width:(g.progress||0)+'%'}}/></div></article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
+      {active==='goals'&&<section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={editingGoal?saveGoalEdit:createGoal}>
+          <input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/>
+          <textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/>
+          <label className="goal-date-field"><span>Target date <small>optional</small></span><input type="date" value={goalDueDate} onChange={e=>setGoalDueDate(e.target.value)}/></label>
+          <div className="goal-form-actions"><button className="button button-primary" disabled={saving} type="submit">{editingGoal?<><Check size={15}/> {saving?'Saving…':'Save changes'}</>:<><Plus size={15}/> {saving?'Saving…':'Add goal'}</>}</button>{editingGoal&&<button type="button" className="goal-cancel-button" onClick={()=>{setEditingGoal(null);setGoalTitle('');setGoalDescription('');setGoalDueDate('')}}>Cancel</button>}</div>
+        </form>
+        <div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}>
+          <div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':g.status==='paused'?'Paused':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}{g.due_date&&<small className="goal-due-copy">Due {new Date(g.due_date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</small>}</div><strong>{g.progress||0}%</strong></div>
+          <div className="mini-progress"><i style={{width:Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}}/></div>
+          <div className="goal-item-actions">
+            <label><span>Progress</span><input type="range" min="0" max="100" value={Math.min(100,Math.max(0,Number(g.progress)||0))} onChange={e=>updateGoal(g,{progress:Number(e.target.value),status:Number(e.target.value)>=100?'completed':'active'})}/></label>
+            <select value={g.status||'active'} onChange={e=>updateGoal(g,{status:e.target.value})} aria-label="Goal status"><option value="active">In progress</option><option value="paused">Paused</option><option value="completed">Completed</option></select>
+            <button type="button" onClick={()=>beginGoalEdit(g)} aria-label={'Edit '+g.title}><Pencil size={15}/> Edit</button>
+            <button type="button" className="goal-delete-button" onClick={()=>deleteGoal(g)} aria-label={'Delete '+g.title}><Trash2 size={15}/> Delete</button>
+          </div>
+        </article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>}
       {active==='profile'&&<section className="panel-page dashboard-panel settings-page">
   <div className="settings-heading">
     <span className="section-label">YOUR SPACE</span>
