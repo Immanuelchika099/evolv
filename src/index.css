@@ -12014,3 +12014,31 @@ body{
     height:3.7rem !important;
   }
 }
+
+
+/* Progress: give every major card deliberate breathing room */
+.dashboard .progress-page{
+  gap:2.4rem !important;
+}
+
+.dashboard .progress-overview-grid{
+  gap:1.8rem !important;
+}
+
+.dashboard .progress-section-card{
+  margin:0 !important;
+}
+
+.dashboard .progress-overview-card{
+  margin:0 !important;
+}
+
+@media(max-width:700px){
+  .dashboard .progress-page{
+    gap:1.8rem !important;
+  }
+
+  .dashboard .progress-overview-grid{
+    gap:1.2rem !important;
+  }
+}
