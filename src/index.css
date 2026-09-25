@@ -13053,6 +13053,19 @@ body{
   }
 }
 
+/* EVOLV — Android reflection sheet: solid readable surface */
+html.evolv-android .reflection-sheet{
+  background:#111611 !important;
+  background-image:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018)) !important;
+  opacity:1 !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-color:rgba(255,255,255,.12) !important;
+}
+html.evolv-android .reflection-sheet *{
+  opacity:1;
+}
+
 /* EVOLV — notification history page */
 .dashboard .notifications-page{
   width:100% !important;
