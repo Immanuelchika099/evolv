@@ -13186,3 +13186,232 @@ html.evolv-android .reflection-sheet *{
     min-width:0 !important;
   }
 }
+
+
+/* EVOLV — AI cinematic header, history sheet and dock spacing */
+.dashboard .ai-page .ai-topbar{
+  position:relative !important;
+  z-index:5 !important;
+  overflow:visible !important;
+}
+.dashboard .ai-page .ai-topbar::before{
+  content:"" !important;
+  position:absolute !important;
+  left:50% !important;
+  top:-1.2rem !important;
+  width:100vw !important;
+  height:11.5rem !important;
+  transform:translateX(-50%) !important;
+  pointer-events:none !important;
+  background:linear-gradient(to bottom,rgba(0,0,0,.98) 0%,rgba(0,0,0,.88) 42%,rgba(0,0,0,.42) 72%,rgba(0,0,0,0) 100%) !important;
+}
+.dashboard .ai-page .ai-topbar>div,
+.dashboard .ai-page .ai-topbar-actions{
+  position:relative !important;
+  z-index:2 !important;
+}
+.dashboard .ai-page .ai-topbar-actions{
+  display:flex !important;
+  align-items:center !important;
+  gap:.6rem !important;
+}
+.dashboard .ai-page .ai-new-chat,
+.dashboard .ai-page .ai-history-button{
+  min-height:3.8rem !important;
+  padding:.7rem 1rem !important;
+  border:0 !important;
+  border-radius:1.2rem !important;
+  background:transparent !important;
+  color:rgba(244,241,234,.76) !important;
+  box-shadow:none !important;
+}
+.dashboard .ai-page .ai-new-chat:hover,
+.dashboard .ai-page .ai-history-button:hover{
+  background:rgba(255,255,255,.055) !important;
+  color:#fff !important;
+}
+.dashboard .ai-page .ai-history-button{
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  gap:.55rem !important;
+  font:500 1.3rem 'Manrope',sans-serif !important;
+}
+.dashboard .ai-history-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:100000 !important;
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  padding:8rem 1.4rem 2rem !important;
+  background:rgba(0,0,0,.62) !important;
+  backdrop-filter:blur(1.2rem) !important;
+  -webkit-backdrop-filter:blur(1.2rem) !important;
+}
+.dashboard .ai-history-sheet{
+  width:min(62rem,100%) !important;
+  max-height:min(72rem,calc(100dvh - 10rem)) !important;
+  overflow:auto !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  border-radius:2.2rem !important;
+  padding:2rem !important;
+  background:#0b0e0c !important;
+  box-shadow:0 2.8rem 8rem rgba(0,0,0,.58) !important;
+  scrollbar-width:none !important;
+}
+.dashboard .ai-history-sheet::-webkit-scrollbar{display:none !important;}
+.dashboard .ai-history-head{
+  display:flex !important;
+  align-items:flex-start !important;
+  justify-content:space-between !important;
+  gap:1rem !important;
+  margin-bottom:1.6rem !important;
+}
+.dashboard .ai-history-head h3{
+  margin:.7rem 0 0 !important;
+  font:500 3.2rem/1 'Space Grotesk',sans-serif !important;
+  letter-spacing:-.05em !important;
+}
+.dashboard .ai-history-close{
+  width:4rem !important;
+  height:4rem !important;
+  flex:0 0 4rem !important;
+  display:grid !important;
+  place-items:center !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:1.2rem !important;
+  background:rgba(255,255,255,.04) !important;
+  color:#f4f1ea !important;
+}
+.dashboard .ai-history-list{
+  display:grid !important;
+  gap:.8rem !important;
+}
+.dashboard .ai-history-row{
+  width:100% !important;
+  min-width:0 !important;
+  display:grid !important;
+  grid-template-columns:4.4rem minmax(0,1fr) 1.6rem !important;
+  gap:1rem !important;
+  align-items:center !important;
+  padding:1.2rem !important;
+  border:1px solid rgba(255,255,255,.07) !important;
+  border-radius:1.5rem !important;
+  background:rgba(255,255,255,.025) !important;
+  color:#f4f1ea !important;
+  text-align:left !important;
+}
+.dashboard .ai-history-row:hover,
+.dashboard .ai-history-row.active{
+  background:rgba(200,243,106,.055) !important;
+  border-color:rgba(200,243,106,.12) !important;
+}
+.dashboard .ai-history-row-icon{
+  width:4.4rem !important;
+  height:4.4rem !important;
+  display:grid !important;
+  place-items:center !important;
+  border-radius:1.3rem !important;
+  background:rgba(200,243,106,.07) !important;
+  color:#c8f36a !important;
+}
+.dashboard .ai-history-row-copy{
+  min-width:0 !important;
+}
+.dashboard .ai-history-row-copy strong{
+  display:block !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  font-size:1.5rem !important;
+}
+.dashboard .ai-history-row-copy small{
+  display:block !important;
+  margin-top:.35rem !important;
+  color:rgba(244,241,234,.34) !important;
+  font-size:1.2rem !important;
+}
+.dashboard .ai-history-empty{
+  min-height:20rem !important;
+  display:grid !important;
+  place-items:center !important;
+  align-content:center !important;
+  gap:.8rem !important;
+  border:1px dashed rgba(255,255,255,.1) !important;
+  border-radius:1.8rem !important;
+  text-align:center !important;
+  color:rgba(244,241,234,.4) !important;
+}
+.dashboard .ai-history-empty strong{color:#f4f1ea !important;font-size:1.7rem !important;}
+.dashboard .ai-history-empty p{margin:0 !important;font-size:1.35rem !important;}
+
+@media(max-width:800px){
+  .dashboard .ai-page .ai-topbar-actions{gap:.35rem !important;}
+  .dashboard .ai-page .ai-new-chat,
+  .dashboard .ai-page .ai-history-button{
+    min-height:3.6rem !important;
+    padding:.65rem .8rem !important;
+    font-size:1.25rem !important;
+  }
+  .dashboard .ai-history-overlay{
+    padding:7.2rem 1rem 1rem !important;
+  }
+  .dashboard .ai-history-sheet{
+    max-height:calc(100dvh - 8.5rem) !important;
+    padding:1.5rem !important;
+    border-radius:1.9rem !important;
+  }
+  .dashboard .ai-history-head h3{font-size:2.8rem !important;}
+}
+
+/* EVOLV — floating AI button: lift it clearly above the bottom dock */
+.dashboard .ai-floating-button,
+.ai-floating-button{
+  bottom:9.7rem !important;
+}
+@media(max-width:800px){
+  .dashboard .ai-floating-button,
+  .ai-floating-button{
+    bottom:9.4rem !important;
+  }
+}
+
+/* EVOLV — alarm date/time controls stay inside their card */
+.dashboard .evolv-alarm-create,
+.dashboard .evolv-alarm-create *{
+  box-sizing:border-box !important;
+}
+.dashboard .evolv-alarm-create{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  overflow:hidden !important;
+}
+.dashboard .evolv-alarm-create .alarm-date-time-grid{
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr) !important;
+  gap:1.2rem !important;
+  overflow:visible !important;
+}
+.dashboard .evolv-alarm-create .alarm-date-time-grid > .log-input-label{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+}
+.dashboard .evolv-alarm-create .alarm-date-time-grid input[type="date"],
+.dashboard .evolv-alarm-create .alarm-date-time-grid input[type="time"]{
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+@media(max-width:520px){
+  .dashboard .evolv-alarm-create .alarm-date-time-grid{
+    grid-template-columns:minmax(0,1fr) !important;
+    gap:1.5rem !important;
+  }
+}
