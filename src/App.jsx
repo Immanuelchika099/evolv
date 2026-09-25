@@ -2252,6 +2252,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
 
   function specialValue(){
     const slug=metric?.slug
+    if(slug==='exercise') return (values.exerciseRows||[]).reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
     if(['income','spending','savings','bills'].includes(slug)) return Number(values.amount)
     if(['learning','building','reading','personal','focus'].includes(slug)) return Number(values.minutes)
     if(slug==='skills') return Number(values.confidence)
@@ -2264,6 +2265,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
 
   function specialNote(){
     const slug=metric?.slug
+    if(slug==='exercise') return (values.exerciseRows||[]).filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0).map(row=>`${row.exercise}: ${row.sets}×${row.reps}${Number(row.weight)>0?' @ '+row.weight+'kg':''}`).join(' · ') || null
     const clean=v=>String(v||'').trim()
     if(slug==='income') return [clean(values.source)&&'Source: '+clean(values.source),clean(values.category)&&'Category: '+clean(values.category),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='spending') return [clean(values.merchant)&&'Merchant: '+clean(values.merchant),clean(values.category)&&'Category: '+clean(values.category),clean(values.payment)&&'Paid via: '+clean(values.payment),clean(values.note)].filter(Boolean).join(' · ')
@@ -2418,7 +2420,9 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     onMetric(nextMetric)
     setValues(nextMetric.slug==='sleep'
       ? {bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)}
-      : {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)})
+      : nextMetric.slug==='exercise'
+         ? {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16),exerciseRows:[{exercise:'Push-ups',sets:3,reps:10,weight:''}]}
+         : {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)})
     setError('')
   }
 
