@@ -6349,21 +6349,20 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .today-snapshot-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
 .dashboard .today-snapshot-head h2{margin:7px 0 0;font-size:25px;letter-spacing:-.035em}
 .dashboard .today-log-count{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(200,243,106,.7)}
-.dashboard .today-metrics{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid rgba(255,255,255,.07)}
-.dashboard .today-metric{min-width:0;display:grid;grid-template-columns:40px 1fr 15px;align-items:center;gap:12px;padding:15px 8px 15px 0;border:0;border-bottom:1px solid rgba(255,255,255,.065);background:transparent;color:#f4f1ea;text-align:left;cursor:pointer}
-.dashboard .today-metric:nth-child(odd){border-right:1px solid rgba(255,255,255,.065);padding-right:18px}
-.dashboard .today-metric:nth-child(even){padding-left:18px}
-.dashboard .today-metric:hover{background:rgba(255,255,255,.018)}
+.dashboard .today-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:0 10px}
+.dashboard .today-metric{min-width:0;display:grid;grid-template-columns:40px minmax(0,1fr) 15px;align-items:center;gap:12px;min-height:72px;padding:14px 15px;border:1px solid rgba(255,255,255,.07);border-radius:18px;background:rgba(255,255,255,.025);color:#f4f1ea;text-align:left;cursor:pointer;box-sizing:border-box}
+.dashboard .today-metric:hover{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.11)}
 .dashboard .today-metric>span:nth-child(2){display:flex;flex-direction:column;gap:4px;min-width:0}
 .dashboard .today-metric strong{font-size:13px;font-weight:600}
 .dashboard .today-metric small{font-size:11px;color:rgba(244,241,234,.38);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dashboard .today-empty{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:26px 4px;color:rgba(244,241,234,.38)}
+.dashboard .today-empty{grid-column:1/-1;display:flex;align-items:center;gap:12px;margin:0 2px;padding:26px 4px;color:rgba(244,241,234,.38)}
 .dashboard .today-empty svg{color:#c8f36a}
 .dashboard .today-empty p{margin:0;font-size:13px}
 @media(max-width:600px){
   .dashboard .today-snapshot{margin-bottom:44px}
-  .dashboard .today-metrics{display:block}
-  .dashboard .today-metric,.dashboard .today-metric:nth-child(even),.dashboard .today-metric:nth-child(odd){grid-template-columns:40px 1fr 15px;padding:15px 0;border-right:0}
+  .dashboard .today-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0 6px}
+  .dashboard .today-metric,.dashboard .today-metric:nth-child(even),.dashboard .today-metric:nth-child(odd){grid-template-columns:32px minmax(0,1fr) 14px;min-height:68px;padding:13px 12px;border:1px solid rgba(255,255,255,.07);border-radius:16px}
+
 }
 
 /* EVOLV — Progress evolution system */
