@@ -2895,6 +2895,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [speakingMessage, setSpeakingMessage] = useState('')
   const [pendingCalendarEvent, setPendingCalendarEvent] = useState(null)
   const bottomRef = useRef(null)
+  const inputRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('evolv-ai-chat-id', chatId)
@@ -2940,6 +2941,9 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setMessages([
       { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
     ])
+    window.setTimeout(() => {
+      inputRef.current?.focus()
+    }, 80)
   }
 
   async function copyMessage(content, key) {
@@ -3169,6 +3173,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       <form className="ai-input" onSubmit={sendMessage}>
         <div className="ai-composer">
           <textarea
+          ref={inputRef}
           value={input}
           onChange={e => setInput(e.target.value)}
           onKeyDown={e => {
