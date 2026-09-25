@@ -12594,3 +12594,314 @@ body{
   .dashboard .log-detail-actions{display:grid;grid-template-columns:1fr 1fr;}
   .dashboard .log-detail-actions button{width:100%;}
 }
+
+
+/* EVOLV AI — mobile ChatGPT-style conversation redesign */
+.dashboard .ai-page{
+  width:100% !important;
+  max-width:86rem !important;
+  min-height:calc(100dvh - 7rem) !important;
+  padding:0 !important;
+  margin:0 auto !important;
+  background:#050605 !important;
+  color:#f4f1ea;
+}
+
+.dashboard .ai-page .ai-topbar{
+  width:100% !important;
+  max-width:none !important;
+  min-height:5.8rem !important;
+  margin:0 !important;
+  padding:1.2rem 0 !important;
+  border:0 !important;
+  background:transparent !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+.dashboard .ai-page .ai-topbar>div{
+  gap:0 !important;
+}
+
+.dashboard .ai-page .ai-topbar-label{
+  color:#f4f1ea !important;
+  font:600 1.55rem/1 'Manrope',sans-serif !important;
+  letter-spacing:-.025em !important;
+  text-transform:none !important;
+}
+
+.dashboard .ai-page .ai-topbar-caption{
+  display:none !important;
+}
+
+.dashboard .ai-page .ai-new-chat{
+  min-height:3.8rem !important;
+  padding:.7rem 1rem !important;
+  border:0 !important;
+  border-radius:1.2rem !important;
+  background:rgba(255,255,255,.055) !important;
+  color:rgba(244,241,234,.72) !important;
+  font:500 1.3rem 'Manrope',sans-serif !important;
+  box-shadow:none !important;
+}
+
+.dashboard .ai-page .ai-new-chat:hover{
+  background:rgba(255,255,255,.09) !important;
+  color:#fff !important;
+}
+
+.dashboard .ai-page .ai-chat{
+  width:100% !important;
+  height:calc(100dvh - 13.5rem) !important;
+  min-height:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:#050605 !important;
+  overflow:hidden !important;
+}
+
+.dashboard .ai-page .ai-messages{
+  width:100% !important;
+  max-width:76rem !important;
+  height:100% !important;
+  min-height:0 !important;
+  margin:0 auto !important;
+  padding:2.4rem 0 18rem !important;
+  display:flex !important;
+  flex-direction:column !important;
+  gap:0 !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  scrollbar-width:none !important;
+}
+
+.dashboard .ai-page .ai-messages::-webkit-scrollbar{
+  display:none !important;
+}
+
+.dashboard .ai-page .ai-message{
+  width:100% !important;
+  max-width:none !important;
+  margin:0 0 2.8rem !important;
+  padding:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  gap:0 !important;
+}
+
+.dashboard .ai-page .ai-message-role{
+  display:none !important;
+}
+
+.dashboard .ai-page .ai-message p{
+  max-width:72rem !important;
+  margin:0 !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+  color:rgba(244,241,234,.9) !important;
+  font:400 1.6rem/1.72 'Manrope',sans-serif !important;
+  letter-spacing:-.012em !important;
+  white-space:pre-wrap !important;
+}
+
+.dashboard .ai-page .ai-message.user{
+  align-items:flex-end !important;
+}
+
+.dashboard .ai-page .ai-message.user p{
+  max-width:min(66rem,82%) !important;
+  padding:1.15rem 1.45rem !important;
+  border:1px solid rgba(255,255,255,.07) !important;
+  border-radius:1.9rem 1.9rem .55rem 1.9rem !important;
+  background:#171a18 !important;
+  color:#f5f3ee !important;
+  box-shadow:none !important;
+}
+
+.dashboard .ai-page .ai-message-actions{
+  margin-top:1rem !important;
+  padding:0 !important;
+  opacity:.55 !important;
+}
+
+.dashboard .ai-page .ai-message-actions button{
+  width:3rem !important;
+  height:3rem !important;
+  border-radius:.9rem !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+.dashboard .ai-page .ai-thinking{
+  margin-top:.4rem !important;
+  border:0 !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
+.dashboard .ai-page .ai-input{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:7.4rem !important;
+  z-index:79 !important;
+  width:100% !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:1rem 1.2rem !important;
+  display:flex !important;
+  justify-content:center !important;
+  box-sizing:border-box !important;
+  border:0 !important;
+  background:linear-gradient(to bottom,rgba(5,6,5,0),rgba(5,6,5,.96) 38%,#050605 100%) !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+  box-shadow:none !important;
+}
+
+.dashboard .ai-page .ai-composer{
+  width:100% !important;
+  max-width:76rem !important;
+  min-height:5.8rem !important;
+  margin:0 auto !important;
+  padding:.65rem .7rem .65rem 1.4rem !important;
+  display:flex !important;
+  align-items:flex-end !important;
+  gap:.8rem !important;
+  box-sizing:border-box !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  border-radius:2rem !important;
+  background:#111412 !important;
+  box-shadow:0 1.8rem 4.5rem rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+
+.dashboard .ai-page .ai-composer:focus-within{
+  max-width:80rem !important;
+  border-color:rgba(255,255,255,.16) !important;
+  box-shadow:0 2rem 5.5rem rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.045) !important;
+}
+
+.dashboard .ai-page .ai-composer textarea{
+  flex:1 !important;
+  min-width:0 !important;
+  width:100% !important;
+  min-height:4.4rem !important;
+  max-height:13rem !important;
+  margin:0 !important;
+  padding:1.05rem .5rem !important;
+  border:0 !important;
+  outline:0 !important;
+  resize:none !important;
+  overflow-y:auto !important;
+  background:transparent !important;
+  color:#f4f1ea !important;
+  font:400 1.6rem/1.5 'Manrope',sans-serif !important;
+}
+
+.dashboard .ai-page .ai-composer textarea:focus{
+  background:transparent !important;
+}
+
+.dashboard .ai-page .ai-send{
+  flex:0 0 4.4rem !important;
+  width:4.4rem !important;
+  height:4.4rem !important;
+  margin:0 0 .1rem !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:#f0f0ed !important;
+  color:#080a09 !important;
+  box-shadow:none !important;
+}
+
+.dashboard .ai-page .ai-send:not(:disabled):hover{
+  transform:scale(1.03) !important;
+  background:#fff !important;
+}
+
+.dashboard .ai-page .ai-send:disabled{
+  opacity:.25 !important;
+}
+
+.dashboard .ai-page .auth-error{
+  bottom:14rem !important;
+  box-shadow:none !important;
+}
+
+@media(max-width:800px){
+  .dashboard .ai-page{
+    min-height:calc(100dvh - 6.8rem) !important;
+    max-width:none !important;
+  }
+
+  .dashboard .ai-page .ai-topbar{
+    min-height:5.6rem !important;
+    padding:.9rem 0 !important;
+  }
+
+  .dashboard .ai-page .ai-topbar-label{
+    font-size:1.5rem !important;
+  }
+
+  .dashboard .ai-page .ai-new-chat{
+    min-height:3.7rem !important;
+    font-size:1.3rem !important;
+  }
+
+  .dashboard .ai-page .ai-chat{
+    height:calc(100dvh - 13.2rem) !important;
+  }
+
+  .dashboard .ai-page .ai-messages{
+    padding:2rem 0 16rem !important;
+  }
+
+  .dashboard .ai-page .ai-message{
+    margin-bottom:2.6rem !important;
+  }
+
+  .dashboard .ai-page .ai-message p{
+    font-size:1.6rem !important;
+    line-height:1.7 !important;
+  }
+
+  .dashboard .ai-page .ai-message.user p{
+    max-width:86% !important;
+    padding:1.1rem 1.35rem !important;
+    border-radius:1.8rem 1.8rem .5rem 1.8rem !important;
+  }
+
+  .dashboard .ai-page .ai-input{
+    bottom:7.1rem !important;
+    padding:.9rem 1.1rem !important;
+  }
+
+  .dashboard .ai-page .ai-composer{
+    min-height:5.6rem !important;
+    max-width:none !important;
+    border-radius:1.9rem !important;
+  }
+
+  .dashboard .ai-page .ai-composer textarea{
+    min-height:4.2rem !important;
+    font-size:1.6rem !important;
+  }
+
+  .dashboard .ai-page .ai-send{
+    flex-basis:4.2rem !important;
+    width:4.2rem !important;
+    height:4.2rem !important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .dashboard .ai-page .ai-message,
+  .dashboard .ai-page .ai-composer{
+    transition:none !important;
+  }
+}
