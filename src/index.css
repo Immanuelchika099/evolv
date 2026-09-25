@@ -12403,3 +12403,42 @@ body{
     appearance:none !important;
   }
 }
+
+
+/* EVOLV AI — Android: always surface the composer and focus it for new chats */
+@media(max-width:800px){
+  .dashboard-ai-active .ai-page .ai-input{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100vw !important;
+    max-width:none !important;
+    min-height:6.8rem !important;
+    z-index:99999 !important;
+    pointer-events:auto !important;
+    padding:1rem 1.2rem max(1rem,env(safe-area-inset-bottom)) !important;
+    box-sizing:border-box !important;
+  }
+
+  .dashboard-ai-active .ai-page .ai-composer{
+    display:flex !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    width:100% !important;
+    max-width:none !important;
+    min-height:5.6rem !important;
+    margin:0 !important;
+    pointer-events:auto !important;
+  }
+
+  .dashboard-ai-active .ai-page .ai-composer textarea{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    pointer-events:auto !important;
+  }
+}
