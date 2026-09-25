@@ -3,6 +3,7 @@ import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, 
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
+import { scheduleEvolvAlarm, cancelEvolvAlarm, isNativeAlarmAvailable } from './lib/alarmBridge'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -1216,6 +1217,14 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [goalDescription,setGoalDescription]=useState('')
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
+  const [alarms,setAlarms]=useState([])
+  const [alarmEnabled,setAlarmEnabled]=useState(()=>localStorage.getItem('evolv-alarms-enabled')==='true')
+  const [alarmTitle,setAlarmTitle]=useState('')
+  const [alarmDate,setAlarmDate]=useState(()=>new Date().toISOString().slice(0,10))
+  const [alarmTime,setAlarmTime]=useState('')
+  const [alarmRepeat,setAlarmRepeat]=useState('once')
+  const [alarmNote,setAlarmNote]=useState('')
+  const [alarmSaving,setAlarmSaving]=useState(false)
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
   const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
@@ -1284,7 +1293,8 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
-    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+      ,supabase.from('alarms').select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').eq('user_id',u.id).order('alarm_at',{ascending:true})
+    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(g.data||[]);setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
@@ -1308,6 +1318,95 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
+  async function createAlarm(event){
+    event.preventDefault()
+    if(!alarmTitle.trim()||!alarmDate||!alarmTime)return
+    const alarmAt=new Date(`${alarmDate}T${alarmTime}`)
+    if(Number.isNaN(alarmAt.getTime())||alarmAt.getTime()<=Date.now()){
+      setProfileMessage('Choose a future time for the alarm.')
+      return
+    }
+    setAlarmSaving(true)
+    setProfileMessage('')
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u){setAlarmSaving(false);return}
+
+    const {data:created,error:x}=await supabase.from('alarms').insert({
+      user_id:u.id,
+      title:alarmTitle.trim(),
+      note:alarmNote.trim()||null,
+      alarm_at:alarmAt.toISOString(),
+      repeat_type:alarmRepeat,
+      enabled:true,
+      platform:isNativeAlarmAvailable() ? 'native' : 'web'
+    }).select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').single()
+
+    if(x){setAlarmSaving(false);setProfileMessage(x.message);return}
+
+    try{
+      const scheduled=await scheduleEvolvAlarm(created)
+      let saved={...created,native_id:scheduled.nativeId}
+      if(scheduled.nativeId){
+        const {data:updated}=await supabase.from('alarms').update({native_id:scheduled.nativeId,platform:'native',updated_at:new Date().toISOString()}).eq('id',created.id).select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').single()
+        if(updated)saved=updated
+      }
+      setAlarms(current=>[...current,saved].sort((a,b)=>new Date(a.alarm_at)-new Date(b.alarm_at)))
+      setAlarmTitle('')
+      setAlarmNote('')
+      setAlarmRepeat('once')
+      setAlarmTime('')
+      setAlarmEnabled(true)
+      localStorage.setItem('evolv-alarms-enabled','true')
+      setProfileMessage(scheduled.native
+        ? 'Alarm set on this device.'
+        : 'Alarm saved. A true device alarm becomes active when Evolv is installed as the native app.')
+    }catch(error){
+      await supabase.from('alarms').delete().eq('id',created.id)
+      setProfileMessage(error?.message||'EVOLV could not set that device alarm.')
+    }finally{
+      setAlarmSaving(false)
+    }
+  }
+
+  async function toggleAlarmSystem(){
+    const next=!alarmEnabled
+    setAlarmEnabled(next)
+    localStorage.setItem('evolv-alarms-enabled',String(next))
+    if(!next){
+      await Promise.all(alarms.map(alarm=>cancelEvolvAlarm(alarm)))
+      await supabase.from('alarms').update({enabled:false,updated_at:new Date().toISOString()}).eq('user_id',(await supabase.auth.getUser()).data.user.id)
+      setAlarms(current=>current.map(alarm=>({...alarm,enabled:false})))
+      setProfileMessage('Evolv alarms turned off.')
+      return
+    }
+    setProfileMessage(isNativeAlarmAvailable()
+      ? 'Evolv alarms are on.'
+      : 'Alarm system is on. Install Evolv as the native app to let the phone schedule true device alarms.')
+  }
+
+  async function toggleAlarm(alarm){
+    if(!alarmEnabled)return
+    if(alarm.enabled){
+      await cancelEvolvAlarm(alarm)
+      const {data:updated}=await supabase.from('alarms').update({enabled:false,updated_at:new Date().toISOString()}).eq('id',alarm.id).select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').single()
+      if(updated)setAlarms(current=>current.map(item=>item.id===alarm.id?updated:item))
+      return
+    }
+    try{
+      const scheduled=await scheduleEvolvAlarm({...alarm,enabled:true})
+      const {data:updated}=await supabase.from('alarms').update({enabled:true,native_id:scheduled.nativeId,platform:scheduled.native?'native':'web',updated_at:new Date().toISOString()}).eq('id',alarm.id).select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').single()
+      if(updated)setAlarms(current=>current.map(item=>item.id===alarm.id?updated:item))
+      if(!scheduled.native)setProfileMessage('This saved alarm needs the native Evolv app to become a true phone alarm.')
+    }catch(error){setProfileMessage(error?.message||'Could not enable that alarm.')}
+  }
+
+  async function deleteAlarm(alarm){
+    await cancelEvolvAlarm(alarm)
+    const {error:x}=await supabase.from('alarms').delete().eq('id',alarm.id)
+    if(!x)setAlarms(current=>current.filter(item=>item.id!==alarm.id))
+  }
+
   async function syncPushSettings(payload){
     try{
       const {error:pushError}=await supabase.functions.invoke('save-push-subscription',{body:payload})
@@ -1965,6 +2064,41 @@ function Dashboard({ data, onLogout, onArticle }) {
         <button className="button button-primary" type="submit">Save changes</button>
         {profileMessage&&<p className="auth-message">{profileMessage}</p>}
       </form>
+    </div>
+  </div>
+
+  <div className="settings-section alarms-settings-section">
+    <div className="settings-section-head"><div><span className="section-label">TIME-BASED ALARMS</span><h3>Alarms</h3></div><Bell size={20}/></div>
+    <div className="notification-master-row">
+      <div><strong>Alarm system</strong><span>Separate from daily notifications. On native Evolv, these are scheduled by the phone.</span></div>
+      <button type="button" className={alarmEnabled?'settings-toggle active':'settings-toggle'} onClick={toggleAlarmSystem} aria-pressed={alarmEnabled}><span /></button>
+    </div>
+    <div className={alarmEnabled?'notification-preferences':'notification-preferences disabled'}>
+      <form className="evolv-alarm-create" onSubmit={createAlarm}>
+        <div className="special-log-intro"><strong>Set an alarm</strong><span>For example: “Exercise” at 6:30 PM. The native version uses the device alarm/notification system rather than an Evolv sound file.</span></div>
+        <label className="log-input-label"><span>What is the alarm for?</span><input value={alarmTitle} onChange={e=>setAlarmTitle(e.target.value)} placeholder="e.g. Exercise session" required disabled={!alarmEnabled}/></label>
+        <div className="alarm-date-time-grid">
+          <label className="log-input-label"><span>Date</span><input type="date" value={alarmDate} onChange={e=>setAlarmDate(e.target.value)} required disabled={!alarmEnabled}/></label>
+          <label className="log-input-label"><span>Time</span><input type="time" value={alarmTime} onChange={e=>setAlarmTime(e.target.value)} required disabled={!alarmEnabled}/></label>
+        </div>
+        <label className="log-input-label"><span>Repeat</span><select value={alarmRepeat} onChange={e=>setAlarmRepeat(e.target.value)} disabled={!alarmEnabled}><option value="once">Doesn't repeat</option><option value="daily">Every day</option><option value="weekdays">Weekdays</option><option value="weekly">Every week</option></select></label>
+        <label className="log-input-label"><span>Note <small>optional</small></span><textarea value={alarmNote} onChange={e=>setAlarmNote(e.target.value)} placeholder="e.g. Start with your warm-up." rows="3" disabled={!alarmEnabled}/></label>
+        <button className="button button-primary" type="submit" disabled={!alarmEnabled||alarmSaving}>{alarmSaving?'Setting alarm…':'Set alarm'} <ArrowRight size={16}/></button>
+      </form>
+
+      <div className="evolv-alarm-list">
+        <div className="evolv-alarm-list-head"><strong>Upcoming alarms</strong><span>{alarms.filter(a=>a.enabled).length} active</span></div>
+        {!alarms.length&&<div className="progress-empty-inline"><Bell size={20}/><div><strong>No alarms yet.</strong><p>Create one for your next exercise, study session or routine.</p></div></div>}
+        {alarms.map(alarm=>{
+          const when=new Date(alarm.alarm_at)
+          return <div className="evolv-alarm-row" key={alarm.id}>
+            <div className="evolv-alarm-time"><strong>{when.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</strong><span>{when.toLocaleDateString([], {month:'short',day:'numeric'})}</span></div>
+            <div className="evolv-alarm-copy"><strong>{alarm.title}</strong><span>{alarm.repeat_type==='daily'?'Every day':alarm.repeat_type==='weekly'?'Every week':alarm.repeat_type==='weekdays'?'Weekdays':'One time'}{alarm.note?' · '+alarm.note:''}</span></div>
+            <button type="button" className={alarm.enabled?'settings-toggle active':'settings-toggle'} onClick={()=>toggleAlarm(alarm)} aria-label={alarm.enabled?'Disable alarm':'Enable alarm'}><span/></button>
+            <button type="button" className="settings-outline-button" onClick={()=>deleteAlarm(alarm)} aria-label="Delete alarm"><X size={15}/></button>
+          </div>
+        })}
+      </div>
     </div>
   </div>
 
