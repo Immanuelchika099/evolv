@@ -1241,7 +1241,6 @@ function Dashboard({ data, onLogout, onArticle }) {
   useEffect(()=>{
     const nav=bottomNavRef.current
     if(!nav) return
-    // All tabs now use the same quiet glass active state as Profile.
   },[active,avatarUrl])
 
   const areas={
@@ -2941,3 +2940,158 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       momentum,
       totalGoals: goals.length,
       activeGoals: goals.filter(goal => goal.status === 'active').map(goal => ({
+        title: goal.title,
+        progress: Number(goal.progress || 0),
+        dueDate: goal.due_date || null,
+      })),
+      completedGoals: goals.filter(goal => goal.status === 'completed').map(goal => ({
+        title: goal.title,
+        progress: Number(goal.progress || 0),
+      })),
+      totalCheckins: checkins.length,
+      recentCheckins: checkins.slice(0, 7).map(item => item.checkin_date),
+      recentLogs,
+      recentMeals,
+    }
+
+    let response
+    let result = {}
+
+    try {
+      response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ messages: nextMessages, profile, progress: progressContext }),
+      })
+
+      result = await response.json().catch(() => ({}))
+    } catch (requestError) {
+      console.error('EVOLV AI request failed:', requestError)
+      setSending(false)
+      setError('EVOLV could not reach the AI service. Check your connection and try again.')
+      return
+    }
+
+    if (!response.ok) {
+      setSending(false)
+      setError(result.error || 'The AI assistant could not respond right now.')
+      return
+    }
+
+    if (result.calendarEvent) setPendingCalendarEvent(result.calendarEvent)
+
+    const reply = result.reply || `I’m here, ${firstName}. We can take it one step at a time.`
+    setTyping(true)
+    setMessages(current => [...current, { role: 'assistant', content: '' }])
+
+    for (let index = 0; index < reply.length; index += 2) {
+      await new Promise(resolve => window.setTimeout(resolve, index < 10 ? 28 : 14))
+      const visible = reply.slice(0, Math.min(index + 2, reply.length))
+      setMessages(current => {
+        const updated = [...current]
+        const last = updated.length - 1
+        if (updated[last]?.role === 'assistant') updated[last] = { ...updated[last], content: visible }
+        return updated
+      })
+    }
+
+    setTyping(false)
+    setSending(false)
+    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'assistant', content: reply })
+  }
+
+  return (
+    <section className="panel-page ai-page">
+      <div className="ai-topbar">
+        <div>
+          <span className="ai-topbar-label">EVOLV AI</span>
+          <span className="ai-topbar-caption">A space to think things through.</span>
+        </div>
+        <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
+          <Plus size={15} />
+          <span>New chat</span>
+        </button>
+      </div>
+      <div className={`ai-chat ${messages.length ? 'has-messages' : 'is-empty'}`}>
+        {!messages.length && (
+          <div className="ai-empty">
+            <div className="ai-empty-copy">
+              <h3>What’s on your mind?</h3>
+            </div>
+            <div className="ai-starters">
+              {['Help me understand my week', 'I feel stuck', 'Why have I been so tired?', 'Help me plan tomorrow'].map(starter => (
+                <button key={starter} type="button" onClick={() => setInput(starter)}>{starter}</button>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="ai-messages">
+          {messages.map((message, index) => {
+            const messageKey = String(message.id || index)
+            const isTypingMessage = message.role === 'assistant' && typing && index === messages.length - 1
+            return (
+              <div className={`ai-message ${message.role}`} key={messageKey}>
+                <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
+                <p>{message.content}{isTypingMessage ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</p>
+                {message.role === 'assistant' && !isTypingMessage && message.content && (
+                  <div className="ai-message-actions" aria-label="Message actions">
+                    <button type="button" onClick={() => copyMessage(message.content, messageKey)} aria-label={copiedMessage === messageKey ? 'Copied' : 'Copy message'} title={copiedMessage === messageKey ? 'Copied' : 'Copy'}>
+                      {copiedMessage === messageKey ? <Check size={13} /> : <Copy size={13} />}
+                    </button>
+                    <button type="button" onClick={() => speakMessage(message.content, messageKey)} aria-label={speakingMessage === messageKey ? 'Stop speaking' : 'Read aloud'} title={speakingMessage === messageKey ? 'Stop' : 'Listen'}>
+                      {speakingMessage === messageKey ? <VolumeX size={13} /> : <Volume2 size={13} />}
+                    </button>
+                    <button type="button" onClick={() => shareMessage(message.content, messageKey)} aria-label="Share message" title="Share">
+                      <Share2 size={13} />
+                    </button>
+                  </div>
+                )}
+              </div>
+            )
+          })}
+          {sending && !typing && (
+            <div className="ai-message assistant">
+              <span className="ai-message-role">EVOLV</span>
+              <span className="ai-thinking" aria-label="EVOLV AI is thinking" />
+            </div>
+          )}
+          <div ref={bottomRef} />
+        </div>
+      </div>
+      {pendingCalendarEvent && (
+        <EvolvCalendarBridge
+          event={pendingCalendarEvent}
+          onCancel={() => setPendingCalendarEvent(null)}
+          onAdded={() => setPendingCalendarEvent(null)}
+        />
+      )}
+      <form className="ai-input" onSubmit={sendMessage}>
+        <div className="ai-composer">
+          <textarea
+          value={input}
+          onChange={e => setInput(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === "Enter") {
+              e.stopPropagation()
+              // Enter is always a new line in the Evolv composer.
+              // Messages are sent only with the button.
+            }
+          }}
+          placeholder="What’s on your mind?"
+          maxLength={2000}
+          rows={1}
+          aria-label="Message"
+        />
+          <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><ArrowUp size={18}/></button>
+        </div>
+      </form>
+      {error && <p className="auth-error" role="alert">{error}</p>}
+    </section>
+  )
+}
+
+export default App
