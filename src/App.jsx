@@ -3159,12 +3159,19 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   async function loadChatHistory() {
     const userId = (await supabase.auth.getUser()).data.user?.id
     if (!userId) return
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('ai_messages')
       .select('id,chat_id,role,content,created_at')
       .eq('user_id', userId)
       .order('created_at', { ascending: false })
-      .limit(500)
+      .limit(1000)
+
+    if (error) {
+      console.error('EVOLV AI history load failed:', error)
+      setError('Could not load your chat history. Please try again.')
+      return
+    }
+
     const grouped = new Map()
     ;(data || []).forEach(message => {
       if (!message.chat_id) return
@@ -3182,8 +3189,9 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setChatHistory(Array.from(grouped.values()).sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt)))
   }
 
-  function openChatHistory() {
-    loadChatHistory()
+  async function openChatHistory() {
+    setError('')
+    await loadChatHistory()
     setHistoryOpen(true)
   }
 
@@ -3202,6 +3210,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   }, [])
 
   function startNewChat() {
+    setHistoryOpen(false)
     window.speechSynthesis?.cancel()
     setSpeakingMessage('')
     setCopiedMessage('')
