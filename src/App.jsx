@@ -2464,10 +2464,11 @@ function EntryDetailModal({item,onClose,onEdit,onDelete}){
   </div>
 }
 
-function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSaved,onClose}){
+function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onMetric,onSaved,onClose}){
   const [values,setValues]=useState({})
   const [error,setError]=useState('')
   const sheetRef=useRef(null)
+  const editing=Boolean(editEntry)
 
   const areaMeta={
     health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
@@ -2495,6 +2496,39 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
   }
 
   const rows=definitions.filter(d=>metricArea[d.slug]===area)
+
+  function toLocalDateTime(value){
+    const date=new Date(value||Date.now())
+    const offset=date.getTimezoneOffset()*60000
+    return new Date(date.getTime()-offset).toISOString().slice(0,16)
+  }
+  function toTimeInput(value){
+    const match=String(value||'').trim().match(/(\\d{1,2}):(\\d{2})\\s*(AM|PM)?/i)
+    if(!match)return ''
+    let hour=Number(match[1]);const period=match[3]?.toUpperCase()
+    if(period==='PM'&&hour<12)hour+=12
+    if(period==='AM'&&hour===12)hour=0
+    return String(hour).padStart(2,'0')+':'+match[2]
+  }
+  useEffect(()=>{
+    if(!editEntry)return
+    if(editEntry.type==='meal'){
+      const e=editEntry.entry
+      setValues({meal_type:e.meal_type||'',description:e.description||'',calories:e.calories??'',protein_g:e.protein_g??'',carbs_g:e.carbs_g??'',fat_g:e.fat_g??'',water_ml:e.water_ml??'',note:e.note||'',logged_at:toLocalDateTime(e.logged_at)})
+      return
+    }
+    const e=editEntry.entry
+    const meta=e.metadata&&typeof e.metadata==='object'?e.metadata:{}
+    const next={...meta,value:e.value??'',logged_at:toLocalDateTime(e.logged_at),note:e.note||''}
+    if(editEntry.definition?.slug==='sleep'){
+      const match=String(e.note||'').match(/Bedtime\\s+([^·]+)\\s+·\\s+Wake-up\\s+(.+)/i)
+      if(match){next.bedtime=toTimeInput(match[1]);next.wake_up=toTimeInput(match[2]);next.wake_up_date=new Date(e.logged_at).toISOString().slice(0,10)}
+    }
+    if(editEntry.definition?.slug==='exercise'&&!next.exerciseRows?.length){
+      next.exerciseRows=String(e.note||'').split(' · ').map(part=>{const m=part.match(/^(.+?):\\s*(\\d+)×(\\d+)(?:\\s*@\\s*([\\d.]+)kg)?$/);return m?{exercise:m[1],sets:m[2],reps:m[3],weight:m[4]||''}:null}).filter(Boolean)
+    }
+    setValues(next)
+  },[editEntry])
 
   useEffect(()=>{
     const previousOverflow=document.body.style.overflow
@@ -2603,20 +2637,9 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
       const n=k=>values[k]===''||values[k]==null?null:Number(values[k])
       const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()
 
-      const {data:meal,error:x}=await supabase.from('meal_logs').insert({
-        user_id:u.id,
-        meal_type:values.meal_type,
-        description:values.description.trim(),
-        calories:n('calories'),
-        protein_g:n('protein_g'),
-        carbs_g:n('carbs_g'),
-        fat_g:n('fat_g'),
-        water_ml:n('water_ml'),
-        note:values.note?.trim()||null,
-        logged_at:loggedAt,
-        eaten_at:loggedAt
-      }).select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').single()
-
+      const payload={user_id:u.id,meal_type:values.meal_type,description:values.description.trim(),calories:n('calories'),protein_g:n('protein_g'),carbs_g:n('carbs_g'),fat_g:n('fat_g'),water_ml:n('water_ml'),note:values.note?.trim()||null,logged_at:loggedAt,eaten_at:loggedAt}
+      const query=editing ? supabase.from('meal_logs').update(payload).eq('id',editEntry.entry.id).eq('user_id',u.id) : supabase.from('meal_logs').insert(payload)
+      const {data:meal,error:x}=await query.select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,metadata,logged_at,created_at').single()
       setSaving(false)
 
       if(x){
@@ -2643,7 +2666,9 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
       }
       const note=specialNote()||null
       const storedUnit=metric.slug==='water'?'L':metric.unit||null
-      const {data:entry,error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:storedUnit,note,logged_at:loggedAt.toISOString(),value_numeric:value}).select('id,metric_id,value,unit,note,logged_at,created_at').single()
+      const payload={user_id:u.id,metric_id:metric.id,value,unit:storedUnit,note,metadata:values,logged_at:loggedAt.toISOString(),value_numeric:value}
+      const query=editing ? supabase.from('metric_logs').update(payload).eq('id',editEntry.entry.id).eq('user_id',u.id) : supabase.from('metric_logs').insert(payload)
+      const {data:entry,error:x}=await query.select('id,metric_id,value,unit,note,metadata,logged_at,created_at').single()
       setSaving(false)
       if(x){setError(x.message);return}
       onSaved?.('metric',entry)
@@ -2671,16 +2696,9 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
       ? `Bedtime ${formatSleepTime(values.bedtime)} · Wake-up ${formatSleepTime(values.wake_up)}`
       : values.note?.trim()||null
 
-    const {data:entry,error:x}=await supabase.from('metric_logs').insert({
-      user_id:u.id,
-      metric_id:metric.id,
-      value,
-      unit:metric.slug==='sleep'?'hours':(metric.unit||null),
-      note:sleepNote,
-      logged_at:loggedAt.toISOString(),
-      value_numeric:value
-    }).select('id,metric_id,value,unit,note,logged_at,created_at').single()
-
+    const payload={user_id:u.id,metric_id:metric.id,value,unit:metric.slug==='sleep'?'hours':(metric.unit||null),note:sleepNote,metadata:values,logged_at:loggedAt.toISOString(),value_numeric:value}
+    const query=editing ? supabase.from('metric_logs').update(payload).eq('id',editEntry.entry.id).eq('user_id',u.id) : supabase.from('metric_logs').insert(payload)
+    const {data:entry,error:x}=await query.select('id,metric_id,value,unit,note,metadata,logged_at,created_at').single()
     setSaving(false)
 
     if(x){
@@ -2735,7 +2753,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
           <div className="log-sheet-heading">
             <span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'LOG'}</span>
             <h2 id="log-sheet-title">
-              {metric?'Log '+metric.name.toLowerCase():area?areaMeta[area].title:'What do you want to track?'}
+              {metric?(editing?'Edit '+metric.name.toLowerCase():'Log '+metric.name.toLowerCase()):area?areaMeta[area].title:'What do you want to track?'}
             </h2>
             <p>{metric ? (specialMetric ? 'Capture the real-world detail, not just a number.' : 'A small entry is enough. Keep it real.') : area ? areaMeta[area].description : 'Choose an area of your life, then pick the thing you want to record.'}</p>
           </div>
@@ -2944,11 +2962,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
         {metric&&(
           <footer className="log-sheet-footer">
             <div>
-              <span>PRIVATE ENTRY</span>
-              <small>Saved to your Evolv history.</small>
+              <span>{editing?'EDITING ENTRY':'PRIVATE ENTRY'}</span>
+              <small>{editing?'Changes update this existing entry.':'Saved to your Evolv history.'}</small>
             </div>
             <button className="button button-primary log-save" type="button" onClick={save} disabled={saving}>
-              {saving?'Saving…':metric.value_type==='meal'?'Save meal':'Save log'}
+              {saving?'Saving…':editing?'Save changes':metric.value_type==='meal'?'Save meal':'Save log'}
               <Check size={15}/>
             </button>
           </footer>
