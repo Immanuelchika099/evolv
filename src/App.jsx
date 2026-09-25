@@ -2076,12 +2076,12 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
   const sheetRef=useRef(null)
 
   const areaMeta={
-    health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
-    nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
-    money:{title:'Money',icon:WalletCards,color:'#62e6bd'},
-    career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},
-    mind:{title:'Mind',icon:Brain,color:'#9b7cff'},
-    life:{title:'Life',icon:Sprout,color:'#62e6bd'}
+    health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
+    nutrition:{title:'Nutrition',icon:Apple,color:'#ffb84d',description:'Meals, nourishment and the details you want to remember.'},
+    money:{title:'Money',icon:WalletCards,color:'#63d8b0',description:'Income, spending, savings and the bills you need to stay on top of.'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'#63c8ff',description:'Applications, learning, projects, skills and outreach.'},
+    mind:{title:'Mind',icon:Brain,color:'#9b7cff',description:'Mood, focus, reflection and the moments that shape your inner life.'},
+    life:{title:'Life',icon:Sprout,color:'#7bdc9f',description:'Habits, reading, people and time spent on yourself.'}
   }
 
   const metricArea={
@@ -2311,11 +2311,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
 
         <header className="log-sheet-head">
           <div className="log-sheet-heading">
-            <span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'QUICK LOG'}</span>
+            <span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'LOG'}</span>
             <h2 id="log-sheet-title">
-              {metric?'Log '+metric.name.toLowerCase():area?'What happened?':'What would you like to log?'}
+              {metric?'Log '+metric.name.toLowerCase():area?areaMeta[area].title:'What do you want to track?'}
             </h2>
-            <p>{metric ? (specialMetric ? 'Capture the real-world detail, not just a number.' : 'A small entry is enough. Keep it real.') : (area==='money' ? 'Track money the way it actually moves — income, spending, savings and bills.' : area==='career' ? 'Capture the work behind your career — applications, learning, projects and outreach.' : area==='life' ? 'Log the moments that shape your days — habits, reading, people and personal wins.' : area==='mind' ? 'Give your inner life a place to be recorded — focus, reflection and stress.' : area==='health' ? 'Simple health signals, without turning your life into a spreadsheet.' : area==='nutrition' ? 'Meals, nourishment and the details you actually want to remember.' : 'Pick an area of your life to start with.')}</p>
+            <p>{metric ? (specialMetric ? 'Capture the real-world detail, not just a number.' : 'A small entry is enough. Keep it real.') : area ? areaMeta[area].description : 'Choose an area of your life, then pick the thing you want to record.'}</p>
           </div>
 
           <button className="log-close" type="button" onClick={onClose} disabled={saving} aria-label="Close logging sheet">
@@ -2325,14 +2325,24 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
 
         <div className="log-sheet-scroll">
           {!area&&!metric&&(
-            <div className="log-area-grid">
+            <div className="log-card-list">
               {Object.entries(areaMeta).map(([id,m])=>{
                 const I2=m.icon
+                const metricCount=definitions.filter(d=>metricArea[d.slug]===id).length + (id==='nutrition' ? 1 : 0)
                 return (
-                  <button className="log-area-choice" type="button" key={id} onClick={()=>{onArea(id);onMetric(null)}}>
-                    <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={20}/></span>
-                    <span className="log-choice-copy"><strong>{m.title}</strong></span>
-                    <ChevronRight size={16}/>
+                  <button className="log-health-card" type="button" key={id} onClick={()=>{onArea(id);onMetric(null)}}>
+                    <span className="log-card-top">
+                      <span className="log-card-title">
+                        <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={22}/></span>
+                        <strong style={{'--card-color':m.color}}>{m.title}</strong>
+                      </span>
+                      <span className="log-card-date">TODAY</span>
+                      <ChevronRight className="log-card-chevron" size={22}/>
+                    </span>
+                    <span className="log-card-bottom">
+                      <span className="log-card-count"><strong>{metricCount}</strong><small>{metricCount===1?'entry':'things to track'}</small></span>
+                      <span className="log-card-description">{m.description}</span>
+                    </span>
                   </button>
                 )
               })}
@@ -2345,23 +2355,42 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                 <ChevronLeft size={15}/> All areas
               </button>
 
-              <div className="log-metric-list">
+              <div className="log-card-list">
                 {rows.map(d=>{
                   const M=icons[d.slug]||Sparkles
+                  const hint=d.slug==='sleep'?'Bedtime + wake-up':d.value_type==='duration'?'Duration':d.value_type==='scale'?'1–5 scale':d.unit||'Daily entry'
                   return (
-                    <button className="log-metric-choice" type="button" key={d.id} onClick={()=>selectMetric(d)}>
-                      <span className="log-choice-icon" style={{'--metric-color':d.color||areaMeta[area].color}}><M size={18}/></span>
-                      <span className="log-choice-copy"><strong>{d.name}</strong></span>
-                      <ChevronRight size={16}/>
+                    <button className="log-health-card log-metric-card" type="button" key={d.id} onClick={()=>selectMetric(d)}>
+                      <span className="log-card-top">
+                        <span className="log-card-title">
+                          <span className="log-choice-icon" style={{'--area-color':d.color||areaMeta[area].color}}><M size={22}/></span>
+                          <strong style={{'--card-color':d.color||areaMeta[area].color}}>{d.name}</strong>
+                        </span>
+                        <span className="log-card-date">LOG</span>
+                        <ChevronRight className="log-card-chevron" size={22}/>
+                      </span>
+                      <span className="log-card-bottom">
+                        <span className="log-card-count"><strong>{hint}</strong><small>ready to record</small></span>
+                        <span className="log-card-description">Add a simple entry and keep building your history.</span>
+                      </span>
                     </button>
                   )
                 })}
 
                 {area==='nutrition'&&(
-                  <button className="log-metric-choice" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
-                    <span className="log-choice-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={18}/></span>
-                    <span className="log-choice-copy"><strong>Meal</strong></span>
-                    <ChevronRight size={16}/>
+                  <button className="log-health-card log-metric-card" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
+                    <span className="log-card-top">
+                      <span className="log-card-title">
+                        <span className="log-choice-icon" style={{'--area-color':'#ffb84d'}}><Utensils size={22}/></span>
+                        <strong style={{'--card-color':'#ffb84d'}}>Meal</strong>
+                      </span>
+                      <span className="log-card-date">LOG</span>
+                      <ChevronRight className="log-card-chevron" size={22}/>
+                    </span>
+                    <span className="log-card-bottom">
+                      <span className="log-card-count"><strong>Meal entry</strong><small>ready to record</small></span>
+                      <span className="log-card-description">Record what you ate without turning food into a score.</span>
+                    </span>
                   </button>
                 )}
               </div>
