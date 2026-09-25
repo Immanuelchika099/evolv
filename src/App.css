@@ -736,3 +736,63 @@
   .log-history-row-copy small{font-size:1.5rem}
   .log-history-footer>span{max-width:22rem}
 }
+
+/* Refined Progress page previous-logs control */
+.manage-logs-button{
+  width:min(100%,34rem);
+  min-height:6.4rem;
+  justify-content:flex-start;
+  gap:1.1rem;
+  padding:1rem 1.15rem;
+  border-radius:1.7rem;
+  border-color:rgba(200,243,106,.15);
+  background:linear-gradient(135deg,rgba(200,243,106,.075),rgba(255,255,255,.025));
+  text-align:left;
+}
+.manage-logs-button-icon{
+  flex:0 0 4.1rem;
+  width:4.1rem;
+  height:4.1rem;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(200,243,106,.15);
+  border-radius:1.25rem;
+  color:#c8f36a;
+  background:rgba(200,243,106,.07);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
+}
+.manage-logs-button-copy{
+  min-width:0;
+  display:flex;
+  flex:1;
+  flex-direction:column;
+  gap:.25rem;
+}
+.manage-logs-button-copy strong{
+  font-size:1.65rem;
+  font-weight:650;
+  letter-spacing:-.02em;
+}
+.manage-logs-button-copy small{
+  font-size:1.5rem;
+  color:rgba(255,255,255,.45);
+}
+.manage-logs-button-arrow{
+  flex:0 0 3.4rem;
+  width:3.4rem;
+  height:3.4rem;
+  display:grid;
+  place-items:center;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50%;
+  color:rgba(255,255,255,.62);
+  background:rgba(255,255,255,.035);
+}
+@media (max-width:40rem){
+  .manage-logs-button{
+    width:100%;
+    min-height:6.2rem;
+    padding:1rem;
+    border-radius:1.6rem;
+  }
+}
