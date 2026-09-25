@@ -2345,6 +2345,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     if(specialMetric){
       const value=specialValue()
       const loggedAt=values.logged_at?new Date(values.logged_at):new Date()
+      if(metric.slug==='exercise' && !(values.exerciseRows||[]).some(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0)){
+        setError('Add at least one exercise with sets and reps.')
+        setSaving(false)
+        return
+      }
       if(!Number.isFinite(value)||(value<0)){
         setError('Complete the main detail before saving.')
         setSaving(false)
@@ -2530,7 +2535,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
               </div>
 
               {specialMetric?(
-                <SpecialMetricFields metric={metric} values={values} setValues={setValues}/>
+                <>{metric.slug==='exercise'?<ExerciseFields values={values} setValues={setValues}/>:<SpecialMetricFields metric={metric} values={values} setValues={setValues}/>}</>
               ):metric.value_type==='scale'?(
                 <div className="log-field-group">
                   <div className="log-field-title"><span>{metric.slug==='mood'?'How are you feeling?':'How would you rate it?'}</span><small>{metric.slug==='mood'?'Choose what feels closest':'1–5'}</small></div>
