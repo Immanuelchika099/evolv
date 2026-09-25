@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, BookOpen, History, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, MessageCircle, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { supabase } from './lib/supabase'
@@ -3385,23 +3385,36 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   return (
     <section className="panel-page ai-page">
       <div className="ai-topbar">
-        <div>
-          <span className="ai-topbar-label">EVOLV AI</span>
-          <span className="ai-topbar-caption">A space to think things through.</span>
-        </div>
+        <button
+          className="ai-history-button"
+          type="button"
+          onClick={() => setHistoryOpen(open => !open)}
+          aria-label={historyOpen ? "Close chat history" : "Open chat history"}
+          title="Chat history"
+        >
+          <History size={20} />
+        </button>
+
         <div className="ai-topbar-actions">
-          <button className="ai-history-button" type="button" onClick={() => setHistoryOpen(open => !open)} aria-label={historyOpen ? "Close chat history" : "Open chat history"} title="Chat history">
-            <History size={15} />
-            <span>History</span>
-          </button>
           <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
-            <Plus size={15} />
+            <Plus size={17} />
             <span>New chat</span>
+          </button>
+          <button className="ai-more-button" type="button" aria-label="More options" title="More options">
+            <MoreHorizontal size={20} />
           </button>
         </div>
       </div>
       {historyOpen && (
-        <div className="ai-history-overlay" role="dialog" aria-modal="true" aria-label="Previous AI chats">
+        <div
+          className="ai-history-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Previous AI chats"
+          onMouseDown={e => {
+            if (e.target === e.currentTarget) setHistoryOpen(false)
+          }}
+        >
           <section className="ai-history-sheet">
             <div className="ai-history-head">
               <div><span className="section-label">YOUR AI HISTORY</span><h3>Previous chats.</h3></div>
