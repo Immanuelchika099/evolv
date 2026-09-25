@@ -13158,3 +13158,31 @@ html.evolv-android .reflection-sheet *{
   filter:none !important;
   color:#f4f1ea !important;
 }
+
+
+/* EVOLV — alarm list header: balanced left/right alignment */
+.dashboard .evolv-alarm-list-head{
+  width:100% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  gap:1.6rem !important;
+  box-sizing:border-box !important;
+}
+.dashboard .evolv-alarm-list-head strong{
+  margin:0 !important;
+  text-align:left !important;
+}
+.dashboard .evolv-alarm-list-head span{
+  margin-left:auto !important;
+  text-align:right !important;
+  white-space:nowrap !important;
+}
+@media(max-width:520px){
+  .dashboard .evolv-alarm-list-head{
+    gap:1.2rem !important;
+  }
+  .dashboard .evolv-alarm-list-head strong{
+    min-width:0 !important;
+  }
+}
