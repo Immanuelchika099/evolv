@@ -1840,7 +1840,9 @@ function Dashboard({ data, onLogout, onArticle }) {
             <h2>Your progress.</h2>
             <p>See the few things that matter most.</p>
             <button type="button" className="manage-logs-button" onClick={()=>setManageLogsOpen(true)}>
-              <NotebookPen size={16}/> Manage previous logs <ChevronRight size={15}/>
+              <span className="manage-logs-button-icon"><NotebookPen size={17}/></span>
+              <span className="manage-logs-button-copy"><strong>Previous logs</strong><small>View, edit or delete</small></span>
+              <span className="manage-logs-button-arrow"><ChevronRight size={17}/></span>
             </button>
           </div>
 
