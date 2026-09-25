@@ -14331,3 +14331,49 @@ html.evolv-android .reflection-sheet *{
     transition:none !important;
   }
 }
+
+
+/* EVOLV — softer ChatGPT-style AI composer
+   Calm, border-light, rounded and gently expanding from both sides. */
+.dashboard .ai-page .ai-input{
+  padding:1.1rem 1.2rem 1.25rem !important;
+  background:linear-gradient(to bottom,rgba(5,6,5,0),rgba(5,6,5,.72) 45%,#050605 100%) !important;
+}
+.dashboard .ai-page .ai-composer{
+  width:min(100%,76rem) !important;
+  max-width:76rem !important;
+  min-height:5.8rem !important;
+  padding:.65rem .7rem .65rem 1.55rem !important;
+  border:1px solid rgba(255,255,255,.075) !important;
+  border-radius:2.8rem !important;
+  background:rgba(24,26,24,.92) !important;
+  box-shadow:0 1.6rem 4rem rgba(0,0,0,.28) !important;
+  transform:scaleX(1) !important;
+  transform-origin:center !important;
+  transition:transform .34s cubic-bezier(.22,1,.36,1),background .28s ease,border-color .28s ease,box-shadow .34s ease !important;
+  will-change:transform !important;
+}
+.dashboard .ai-page .ai-composer:focus-within{
+  width:min(100%,78rem) !important;
+  max-width:78rem !important;
+  border-color:rgba(255,255,255,.11) !important;
+  background:rgba(25,27,25,.98) !important;
+  box-shadow:0 1.9rem 4.8rem rgba(0,0,0,.34) !important;
+  transform:scaleX(1.012) !important;
+}
+.dashboard .ai-page .ai-composer textarea{
+  padding:1.05rem .5rem !important;
+}
+.dashboard .ai-page .ai-send{
+  background:#f1f1ed !important;
+  box-shadow:none !important;
+  transition:transform .22s cubic-bezier(.22,1,.36,1),background .22s ease,opacity .22s ease !important;
+}
+@media(max-width:800px){
+  .dashboard .ai-page .ai-input{padding:.85rem 1rem 1rem !important;}
+  .dashboard .ai-page .ai-composer{border-radius:2.55rem !important;}
+  .dashboard .ai-page .ai-composer:focus-within{transform:scaleX(1.006) !important;}
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard .ai-page .ai-composer{transform:none !important;transition:none !important;}
+}
