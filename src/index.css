@@ -11679,6 +11679,9 @@ body{
   gap:.45rem !important;
   color:#c8f36a !important;
   background:transparent !important;
+  border:0 !important;
+  outline:none !important;
+  box-shadow:none !important;
   font-size:1.5rem !important;
   white-space:nowrap !important;
 }
