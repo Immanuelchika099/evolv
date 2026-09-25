@@ -1230,6 +1230,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [goals,setGoals]=useState([])
   const [profile,setProfile]=useState(null)
   const [loading,setLoading]=useState(true)
+  const [notifications,setNotifications]=useState([])
   const [saving,setSaving]=useState(false)
   const [goalTitle,setGoalTitle]=useState('')
   const [goalDescription,setGoalDescription]=useState('')
@@ -1317,7 +1318,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
       ,supabase.from('alarms').select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').eq('user_id',u.id).order('alarm_at',{ascending:true})
-    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
@@ -1756,7 +1757,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
   return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
-    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={17}/></button></header>
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='overview'&&<div className="dashboard-home">
@@ -2131,8 +2132,30 @@ function Dashboard({ data, onLogout, onArticle }) {
     </div>
   </div>}
 </section>}
+      {active==='notifications'&&<section className="panel-page dashboard-panel notifications-page">
+        <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
+        <div className="notifications-page-hero">
+          <span className="section-label">YOUR NOTIFICATIONS</span>
+          <h2>Notifications.</h2>
+          <p>See what EVOLV has sent you. Your reminder settings stay in Profile.</p>
+        </div>
+        <div className="notifications-page-list">
+          {notifications.length ? notifications.map(item=>{
+            const copy={
+              morning:{title:'Start your day with intention.',body:'A small reminder from EVOLV to check in with yourself and choose what matters today.'},
+              hydration:{title:'Take a small reset.',body:'A gentle moment to drink some water, breathe and check in with how your day is going.'},
+              reflection:{title:'Time to wind down.',body:'Your evening reflection is ready. Take a quiet moment to notice how today felt.'}
+            }[item.kind]||{title:'A note from EVOLV.',body:'You have a new reminder from EVOLV.'}
+            return <article className="notification-page-row" key={item.id}>
+              <span className="notification-page-icon"><Bell size={17}/></span>
+              <div><span>{item.kind.toUpperCase()} · {new Date(item.delivery_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})}</span><strong>{copy.title}</strong><p>{copy.body}</p></div>
+            </article>
+          }) : <div className="notifications-empty"><Bell size={24}/><strong>No notifications yet.</strong><p>When EVOLV sends a reminder, it will appear here.</p></div>}
+        </div>
+      </section>}
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
+    {active!=='ai'&&<button type="button" className="ai-floating-button" onClick={()=>goTo('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={20}/></button>}
     {active!=='ai'&&<nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
@@ -3345,7 +3368,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             return (
               <div className={`ai-message ${message.role}`} key={messageKey}>
                 <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
-                <p>{message.content}{isTypingMessage ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</p>
+                <p>{message.content}{isTypingMessage ? <><span className="ai-cursor" aria-hidden="true">▍</span><span className="ai-typing-dot" aria-hidden="true" /></> : null}</p>
                 {message.role === 'assistant' && !isTypingMessage && message.content && (
                   <div className="ai-message-actions" aria-label="Message actions">
                     <button type="button" onClick={() => copyMessage(message.content, messageKey)} aria-label={copiedMessage === messageKey ? 'Copied' : 'Copy message'} title={copiedMessage === messageKey ? 'Copied' : 'Copy'}>
