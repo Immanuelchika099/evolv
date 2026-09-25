@@ -2437,7 +2437,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                     </span>
                     <span className="log-card-bottom">
                       <span className="log-card-count"><strong>{metricCount}</strong><small>{metricCount===1?'entry':'things to track'}</small></span>
-                      <span className="log-card-description">{m.description}</span>
                     </span>
                   </button>
                 )
@@ -2466,7 +2465,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                       </span>
                       <span className="log-card-bottom">
                         <span className="log-card-count"><strong>{hint}</strong><small>ready to record</small></span>
-                        <span className="log-card-description">Add a simple entry and keep building your history.</span>
                       </span>
                     </button>
                   )
@@ -2484,7 +2482,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                     </span>
                     <span className="log-card-bottom">
                       <span className="log-card-count"><strong>Meal entry</strong><small>ready to record</small></span>
-                      <span className="log-card-description">Record what you ate without turning food into a score.</span>
                     </span>
                   </button>
                 )}
