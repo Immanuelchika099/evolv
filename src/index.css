@@ -5870,8 +5870,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .dashboard-welcome-copy{
   gap:8px !important;
 }
-.dashboard .dashboard-welcome .dashboard-eyebrow{
-  font-size:24px !important;
+ .dashboard .dashboard-welcome .dashboard-eyebrow{
+  font-size:18px !important;
   letter-spacing:.02em !important;
   color:rgba(244,241,232,.58) !important;
 }
