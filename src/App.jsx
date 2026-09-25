@@ -1310,7 +1310,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     const [p,d,l,m,g]=await Promise.all([
       supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id',u.id).maybeSingle(),
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
-      supabase.from('metric_logs').select('id,metric_id,value,unit,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
+      supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
       ,supabase.from('alarms').select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').eq('user_id',u.id).order('alarm_at',{ascending:true})
@@ -1368,6 +1368,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     setLogOpen(false)
     setMetric(null)
     setArea(null)
+    setEditingEntry(null)
   }
   async function createGoal(e){e.preventDefault();if(!goalTitle.trim())return;setSaving(true);const {data:a}=await supabase.auth.getUser();const {data:g,error:x}=await supabase.from('goals').insert({user_id:a.user.id,title:goalTitle.trim(),description:goalDescription.trim()||null}).select('id,title,description,status,progress,due_date,created_at,updated_at').single();setSaving(false);if(x){setError(x.message);return}setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('')}
   async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
