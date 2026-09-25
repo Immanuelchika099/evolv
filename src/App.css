@@ -972,3 +972,9 @@
     font-size:1.45rem;
   }
 }
+
+
+/* Space between Goals and Goal Progress cards */
+.progress-goals-card{
+  margin-bottom:1.8rem !important;
+}
