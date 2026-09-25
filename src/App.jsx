@@ -2354,16 +2354,32 @@ function ExerciseFields({values,setValues}){
 function LogHistoryModal({logs=[],meals=[],definitions=[],onClose,onOpenEntry}){
   const metricById=Object.fromEntries(definitions.map(d=>[d.id,d]))
   const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
-  return <div className="entry-detail-overlay" role="dialog" aria-modal="true" onMouseDown={e=>{if(e.target===e.currentTarget)onClose()}}>
+  function formatValue(item){
+    if(item.type==='meal') return item.entry.description||'Meal logged'
+    const def=metricById[item.entry.metric_id]
+    const value=Number(item.entry.value)
+    if(!def) return 'Entry logged'
+    if(def.slug==='mood') return ({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[value]||String(item.entry.value))
+    if(def.slug==='sleep'){
+      const minutes=Math.max(0,Math.round(value*60))
+      const hours=Math.floor(minutes/60), mins=minutes%60
+      return hours ? (mins?hours+'h '+mins+'m':hours+'h') : mins+'m'
+    }
+    if(def.value_type==='scale') return value+'/5'
+    if(def.unit==='NGN') return '₦'+value.toLocaleString()
+    return value.toLocaleString()+(def.unit?' '+def.unit:'')
+  }
+  return <div className="entry-detail-overlay log-history-overlay" role="dialog" aria-modal="true" onMouseDown={e=>{if(e.target===e.currentTarget)onClose()}}>
     <section className="entry-detail-sheet log-history-sheet">
-      <div className="entry-detail-head"><div><span className="section-label">YOUR LOGS</span><h2>Previous logs.</h2></div><button type="button" className="log-close" onClick={onClose} aria-label="Close"><X size={18}/></button></div>
-      <p className="log-history-intro">Open any previous entry to edit it or delete it.</p>
-      <div className="log-history-list">{items.length?items.map((item,index)=>{
+      <div className="log-history-hero"><div className="log-history-orb"><NotebookPen size={20}/></div><button type="button" className="log-history-close" onClick={onClose} aria-label="Close previous logs"><X size={18}/></button></div>
+      <div className="log-history-heading"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2><p>Open any entry to view, edit or delete it.</p></div>
+      <div className="log-history-divider"><span>{items.length} {items.length===1?'entry':'entries'}</span><span>Newest first</span></div>
+      {items.length ? <div className="log-history-list">{items.map((item,index)=>{
         const def=item.type==='log'?metricById[item.entry.metric_id]:null
         const label=item.type==='meal'?(item.entry.meal_type||'Meal'):def?.name||'Entry'
-        const value=item.type==='meal'?item.entry.description:(def?.slug==='mood'?({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(item.entry.value)]||item.entry.value):def?displayMetric(Number(item.entry.value),def):'Entry')
-        return <button type="button" className="log-history-row" key={item.entry.id||index} onClick={()=>onOpenEntry(item)}><span><strong>{label}</strong><small>{value}</small></span><time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</time><ChevronRight size={16}/></button>
-      }):<div className="progress-empty-inline"><Activity size={22}/><div><strong>No previous logs yet.</strong><p>Your entries will appear here after you log something.</p></div></div>}</div>
+        return <button type="button" className="log-history-row" key={item.type+'-'+(item.entry.id||index)} onClick={()=>onOpenEntry(item)}><span className="log-history-row-icon">{item.type==='meal'?<Utensils size={16}/>:<Activity size={16}/>}</span><span className="log-history-row-copy"><strong>{label}</strong><small>{formatValue(item)}</small></span><time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}<br/>{item.date.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</time><ChevronRight size={17}/></button>
+      })}</div> : <div className="log-history-empty"><div className="log-history-empty-icon"><NotebookPen size={20}/></div><strong>No previous logs yet.</strong><p>Your saved health, life, money and meal entries will appear here.</p></div>}
+      <div className="log-history-footer"><span>Tap an entry to view, edit or delete it.</span><button type="button" className="log-history-done" onClick={onClose}>Done</button></div>
     </section>
   </div>
 }
