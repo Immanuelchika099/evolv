@@ -12165,14 +12165,3 @@ body{
   }
 }
 
-
-/* Progress: extra breathing room after Goal Progress on mobile */
-@media(max-width:650px){
-  .dashboard .progress-page > .progress-section-card + .progress-section-card{
-    margin-top:1.8rem !important;
-  }
-
-  .dashboard .progress-page > .progress-section-card.progress-goals-card + .progress-section-card{
-    margin-top:2.2rem !important;
-  }
-}
