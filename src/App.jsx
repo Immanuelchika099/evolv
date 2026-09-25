@@ -2434,7 +2434,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     }
   },[onClose,saving])
 
-  const specialMetric = ['exercise','income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress','energy','steps','water','weight'].includes(metric?.slug)
+  const specialMetric = ['exercise','income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','mood','focus','reflection','stress','energy','steps','water','weight'].includes(metric?.slug)
 
   function specialValue(){
     const slug=metric?.slug
@@ -2453,8 +2453,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     if(slug==='skills') return Number(values.confidence)
     if(slug==='habits') return Number(values.statusValue)
     if(slug==='social') return Number(values.quality)
-    if(['applications','outreach','reflection'].includes(slug)) return 1
-    if(slug==='stress') return Number(values.level)
+    if(['applications','outreach'].includes(slug)) return 1
+    if(['mood','stress'].includes(slug)) return Number(values.level)
     return Number(values.value)
   }
 
