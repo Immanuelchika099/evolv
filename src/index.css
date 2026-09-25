@@ -12363,3 +12363,43 @@ body{
 .dashboard .dashboard-welcome-copy h1 span{
   display:block;
 }
+
+
+/* EVOLV AI — Android keyboard / visual viewport fix */
+.dashboard-ai-active{
+  min-height:100dvh !important;
+}
+
+.dashboard-ai-active .ai-page{
+  min-height:100dvh !important;
+}
+
+@media(max-width:800px){
+  .dashboard-ai-active .ai-input{
+    position:fixed !important;
+    left:0 !important;
+    right:0 !important;
+    bottom:0 !important;
+    width:100% !important;
+    min-height:0 !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    transform:translateZ(0) !important;
+    z-index:999 !important;
+    padding-bottom:max(1rem,env(safe-area-inset-bottom)) !important;
+  }
+
+  .dashboard-ai-active .ai-composer{
+    visibility:visible !important;
+    opacity:1 !important;
+    transform:translateZ(0) !important;
+  }
+
+  .dashboard-ai-active .ai-composer textarea{
+    display:block !important;
+    visibility:visible !important;
+    opacity:1 !important;
+    -webkit-appearance:none !important;
+    appearance:none !important;
+  }
+}
