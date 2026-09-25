@@ -1235,7 +1235,47 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [progressRange,setProgressRange]=useState(7)
   const [progressMetric,setProgressMetric]=useState(null)
   const dashboardMainRef=useRef(null)
+  const bottomNavRef=useRef(null)
   const goTo=(page)=>{setActive(page);setArea(null);setMetric(null);window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))}
+
+  useEffect(()=>{
+    const nav=bottomNavRef.current
+    if(!nav) return
+
+    const updateActiveGlass=()=>{
+      const activeButton=nav.querySelector('.bottom-active:not(.bottom-profile-nav-button)')
+      if(!activeButton) return
+      const navRect=nav.getBoundingClientRect()
+      const buttonRect=activeButton.getBoundingClientRect()
+      nav.style.setProperty('--active-x', (buttonRect.left-navRect.left)+'px')
+      nav.style.setProperty('--active-y', (buttonRect.top-navRect.top)+'px')
+      nav.style.setProperty('--active-w', buttonRect.width+'px')
+      nav.style.setProperty('--active-h', buttonRect.height+'px')
+    }
+
+    let frame=0
+    const updatePointer=(event)=>{
+      const rect=nav.getBoundingClientRect()
+      nav.style.setProperty('--glass-light-x', (event.clientX-rect.left)+'px')
+      nav.style.setProperty('--glass-light-y', (event.clientY-rect.top)+'px')
+      nav.style.setProperty('--glass-light-opacity','1')
+      if(frame) cancelAnimationFrame(frame)
+      frame=requestAnimationFrame(updateActiveGlass)
+    }
+    const hidePointer=()=>nav.style.setProperty('--glass-light-opacity','0')
+
+    nav.addEventListener('pointermove',updatePointer)
+    nav.addEventListener('pointerleave',hidePointer)
+    window.addEventListener('resize',updateActiveGlass)
+    updateActiveGlass()
+
+    return()=>{
+      nav.removeEventListener('pointermove',updatePointer)
+      nav.removeEventListener('pointerleave',hidePointer)
+      window.removeEventListener('resize',updateActiveGlass)
+      if(frame) cancelAnimationFrame(frame)
+    }
+  },[active,avatarUrl])
 
   const areas={
     health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
@@ -1981,7 +2021,7 @@ function Dashboard({ data, onLogout, onArticle }) {
 </section>}
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
-    {active!=='ai'&&<nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>}
+    {active!=='ai'&&<nav ref={bottomNavRef} className="app-bottom-nav" aria-label="App navigation"><span className="bottom-glass-pill" aria-hidden="true"/><span className="bottom-glass-highlight" aria-hidden="true"/><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
