@@ -1261,6 +1261,8 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [error,setError]=useState('')
   const [progressRange,setProgressRange]=useState(7)
   const [progressMetric,setProgressMetric]=useState(null)
+  const [selectedEntry,setSelectedEntry]=useState(null)
+  const [editingEntry,setEditingEntry]=useState(null)
   const dashboardMainRef=useRef(null)
   const goTo=(page)=>{
     setActive(page)
@@ -1326,7 +1328,40 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[defs])
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
-  function openLog(a=null,m=null){setArea(a);setMetric(m);setLogOpen(true);setError('')}
+  function openLog(a=null,m=null){setArea(a);setMetric(m);setEditingEntry(null);setSelectedEntry(null);setLogOpen(true);setError('')}
+  function openEntry(item){
+    const entry=item.entry
+    const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
+    setSelectedEntry({type:item.type,entry,definition})
+  }
+  function startEditEntry(item){
+    const entry=item.entry
+    const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
+    if(item.type==='log' && !definition)return
+    setSelectedEntry(null)
+    setEditingEntry({type:item.type,entry,definition})
+    if(item.type==='meal'){
+      setArea('nutrition')
+      setMetric({slug:'meals',name:'Meal',value_type:'meal',color:'#ffb84d'})
+    }else{
+      setArea(metricArea[definition.slug]||definition.area)
+      setMetric(definition)
+    }
+    setLogOpen(true)
+    setError('')
+  }
+  async function deleteEntry(item){
+    if(!window.confirm('Delete this entry? This cannot be undone.'))return
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    const table=item.type==='meal'?'meal_logs':'metric_logs'
+    const {error:x}=await supabase.from(table).delete().eq('id',item.entry.id).eq('user_id',u.id)
+    if(x){setError(x.message);return}
+    if(item.type==='meal')setMeals(current=>current.filter(x=>x.id!==item.entry.id))
+    else setLogs(current=>current.filter(x=>x.id!==item.entry.id))
+    setSelectedEntry(null)
+  }
   function handleLogSaved(kind,entry){
     if(kind==='meal') setMeals(current=>[entry,...current.filter(x=>x.id!==entry.id)])
     else setLogs(current=>[entry,...current.filter(x=>x.id!==entry.id)])
@@ -2014,11 +2049,11 @@ function Dashboard({ data, onLogout, onArticle }) {
                     : def?.slug==='mood'
                       ? ({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||displayMetric(Number(entry.value),def))
                       : def?displayMetric(Number(entry.value),def):'Entry'
-                  return <div className="progress-recent-row" key={entry.id||index}>
+                  return <button type="button" className="progress-recent-row" key={entry.id||index} onClick={()=>openEntry(item)}>
                     <span className="progress-recent-icon">{item.type==='meal'?<Utensils size={17}/>:<LineChart size={17}/>}</span>
                     <div><strong>{def?.name||'Meal'}</strong><p>{shown}</p></div>
                     <time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}</time>
-                  </div>
+                  </button>
                 })}
               </div>
             ) : (
@@ -2158,7 +2193,8 @@ function Dashboard({ data, onLogout, onArticle }) {
       {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
     </main>
     {active!=='ai'&&<nav className="app-bottom-nav" aria-label="App navigation"><button className={active==='overview'?'bottom-active':''} onClick={()=>goTo('overview')}><span><Home size={19}/></span><small>Home</small></button><button className="log-nav-button" onClick={()=>openLog()}><span><Plus size={21}/></span><small>Log</small></button><button className={active==='progress'?'bottom-active':''} onClick={()=>goTo('progress')}><span><LineChart size={19}/></span><small>Progress</small></button><button className={`bottom-profile-nav-button ${active==='profile'?'bottom-active':''}`} onClick={()=>goTo('profile')}><span className="bottom-profile-icon">{avatarUrl?<img src={avatarUrl} alt="" className="bottom-profile-image"/>:<UserRound size={19}/>}</span><small>You</small></button></nav>}
-    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null)}}}/>}
+    {selectedEntry&&<EntryDetailModal item={selectedEntry} onClose={()=>setSelectedEntry(null)} onEdit={()=>startEditEntry(selectedEntry)} onDelete={()=>deleteEntry(selectedEntry)}/>}
+    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
 }
@@ -2411,6 +2447,20 @@ function ExerciseFields({values,setValues}){
     </div>
     <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add another exercise</button>
     <div className="exercise-total"><span>Total reps</span><strong>{totalReps}</strong></div>
+  </div>
+}
+
+function EntryDetailModal({item,onClose,onEdit,onDelete}){
+  const {type,entry,definition}=item
+  const date=entry.logged_at||entry.created_at
+  const formatDate=value=>value?new Date(value).toLocaleString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit'}):'—'
+  const value=type==='meal'?(`${entry.meal_type||'Meal'} · ${entry.description||''}`):definition?.slug==='mood'?({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||entry.value):definition?`${Number(entry.value).toLocaleString()}${entry.unit?' '+entry.unit:''}`:'Entry'
+  return <div className="entry-detail-overlay" role="dialog" aria-modal="true" onMouseDown={e=>{if(e.target===e.currentTarget)onClose()}}>
+    <section className="entry-detail-sheet">
+      <div className="entry-detail-head"><div><span className="section-label">PREVIOUS LOG</span><h2>{type==='meal'?'Meal':definition?.name||'Entry'}</h2></div><button type="button" className="log-close" onClick={onClose} aria-label="Close"><X size={18}/></button></div>
+      <div className="entry-detail-body"><div className="entry-detail-value">{value}</div><time>{formatDate(date)}</time>{type==='meal'&&<div className="entry-detail-grid">{entry.calories!=null&&<span><small>Calories</small><b>{entry.calories}</b></span>}{entry.protein_g!=null&&<span><small>Protein</small><b>{entry.protein_g} g</b></span>}{entry.carbs_g!=null&&<span><small>Carbs</small><b>{entry.carbs_g} g</b></span>}{entry.fat_g!=null&&<span><small>Fat</small><b>{entry.fat_g} g</b></span>}{entry.water_ml!=null&&<span><small>Water</small><b>{entry.water_ml} ml</b></span>}</div>}{entry.note&&<div className="entry-detail-note"><small>NOTE</small><p>{entry.note}</p></div>}</div>
+      <div className="entry-detail-actions"><button type="button" onClick={onDelete} className="entry-delete-button">Delete</button><button type="button" onClick={onEdit} className="button button-primary">Edit log <ArrowRight size={15}/></button></div>
+    </section>
   </div>
 }
 
