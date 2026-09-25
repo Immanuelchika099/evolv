@@ -12179,15 +12179,24 @@ body{
 .dashboard .settings-page .settings-danger{
   border-top:0 !important;
 }
-/* Profile account actions: restore the outer card border without restoring the removed inner separator */
+/* Profile account actions: one clean card, with no extra bottom shell */
 .dashboard .settings-page .settings-danger{
-  border:1px solid rgba(255,255,255,.08) !important;
-  border-radius:24px !important;
-  overflow:hidden !important;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),
-    rgba(7,12,9,.48) !important;
+  border:0 !important;
+  border-radius:0 !important;
+  overflow:visible !important;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+.dashboard .settings-page .settings-danger .settings-action-row{
+  border-left:1px solid rgba(255,255,255,.08) !important;
+  border-right:1px solid rgba(255,255,255,.08) !important;
+  background:rgba(7,12,9,.48) !important;
 }
 .dashboard .settings-page .settings-danger .settings-action-row:first-child{
-  border-top:0 !important;
+  border-top:1px solid rgba(255,255,255,.08) !important;
+  border-radius:24px 24px 0 0 !important;
+}
+.dashboard .settings-page .settings-danger .settings-action-row:last-child{
+  border-bottom:1px solid rgba(255,255,255,.08) !important;
+  border-radius:0 0 24px 24px !important;
 }
