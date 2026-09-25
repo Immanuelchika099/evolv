@@ -75,6 +75,11 @@ function App() {
   }
 
   useEffect(() => {
+    document.documentElement.classList.toggle('evolv-android', /Android/i.test(navigator.userAgent))
+    return () => document.documentElement.classList.remove('evolv-android')
+  }, [])
+
+  useEffect(() => {
     const timer = window.setTimeout(() => setIsBooting(false), 1350)
     return () => window.clearTimeout(timer)
   }, [])
