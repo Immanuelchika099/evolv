@@ -12042,3 +12042,58 @@ body{
     gap:1.2rem !important;
   }
 }
+
+/* Final mobile progress spacing + entry-frequency date fix */
+.dashboard .progress-page{
+  row-gap:2.8rem !important;
+}
+
+.dashboard .progress-page > .progress-overview-grid{
+  margin-bottom:.2rem !important;
+}
+
+.dashboard .progress-page > .progress-section-card{
+  margin-top:.2rem !important;
+}
+
+.dashboard .progress-page .progress-chart-labels{
+  align-items:flex-start;
+}
+
+.dashboard .progress-page .progress-chart-labels span{
+  display:block;
+  min-width:0;
+  text-align:center;
+  line-height:1.25;
+  overflow-wrap:anywhere;
+}
+
+@media(max-width:650px){
+  .dashboard .progress-page{
+    row-gap:2.4rem !important;
+  }
+
+  .dashboard .progress-page > .progress-overview-grid{
+    row-gap:1.8rem !important;
+    margin-bottom:.4rem !important;
+  }
+
+  .dashboard .progress-page > .progress-section-card{
+    margin-top:.4rem !important;
+  }
+
+  .dashboard .progress-page .progress-chart-labels{
+    gap:4px !important;
+    padding:0 2px;
+  }
+
+  .dashboard .progress-page .progress-chart-labels span{
+    flex:1 1 0;
+    width:0;
+    max-width:none;
+    white-space:normal !important;
+    font-size:1.15rem !important;
+    line-height:1.25 !important;
+    letter-spacing:-.01em;
+  }
+}
