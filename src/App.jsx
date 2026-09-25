@@ -1458,7 +1458,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       alarm_at:alarmAt.toISOString(),
       repeat_type:alarmRepeat,
       enabled:true,
-      platform:isNativeAlarmAvailable() ? 'native' : 'web'
+      platform:isNativeAlarmAvailable() ? 'native' : 'web', timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'Africa/Lagos'
     }).select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').single()
 
     if(x){setAlarmSaving(false);setProfileMessage(x.message);return}
