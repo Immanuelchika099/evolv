@@ -382,3 +382,39 @@
     font-size:1.6rem;
   }
 }
+
+
+/* Previous-log action affordance */
+.progress-recent-row{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto auto;
+  align-items:center;
+  gap:1rem;
+  width:100%;
+  box-sizing:border-box;
+}
+.progress-recent-copy{
+  min-width:0;
+}
+.progress-recent-copy small{
+  display:none;
+  margin-top:.35rem;
+  color:rgba(255,255,255,.42);
+  font-size:1.15rem;
+}
+.progress-recent-chevron{
+  flex:0 0 auto;
+  opacity:.45;
+}
+@media (max-width:40rem){
+  .progress-recent-row{
+    grid-template-columns:auto minmax(0,1fr) auto auto;
+  }
+  .progress-recent-copy small{
+    display:block;
+  }
+  .progress-recent-row time{
+    align-self:start;
+    padding-top:.15rem;
+  }
+}
