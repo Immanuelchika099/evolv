@@ -12445,3 +12445,21 @@ body{
     pointer-events:auto !important;
   }
 }
+
+
+/* EVOLV — dock bottom navigation directly to the page edge */
+.dashboard .app-bottom-nav{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  transform:none !important;
+  width:100% !important;
+  max-width:none !important;
+  margin:0 !important;
+  border-radius:0 !important;
+  border-left:0 !important;
+  border-right:0 !important;
+  border-bottom:0 !important;
+  padding-bottom:env(safe-area-inset-bottom) !important;
+}
