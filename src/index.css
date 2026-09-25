@@ -14154,3 +14154,145 @@ html.evolv-android .reflection-sheet *{
     ) !important;
   }
 }
+
+
+/* EVOLV — definitive AI topbar stacking fix
+   The previous fade used z-index:-1 inside an isolated stacking context,
+   which placed it behind the black AI page. Keep the fade inside the bar
+   and keep every control above it, including while the composer is focused. */
+.dashboard .ai-page .ai-topbar{
+  position:fixed !important;
+  isolation:isolate !important;
+  overflow:visible !important;
+  z-index:100005 !important;
+}
+
+.dashboard .ai-page .ai-topbar::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:0 auto auto 0 !important;
+  width:100vw !important;
+  height:15rem !important;
+  pointer-events:none !important;
+  z-index:0 !important;
+  background:linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0,0,0,.98) 24%,
+    rgba(0,0,0,.88) 50%,
+    rgba(0,0,0,.48) 76%,
+    rgba(0,0,0,0) 100%
+  ) !important;
+}
+
+.dashboard .ai-page .ai-topbar > div,
+.dashboard .ai-page .ai-topbar-actions{
+  position:relative !important;
+  z-index:5 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+.dashboard .ai-page .ai-topbar-actions{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:flex-end !important;
+  gap:.5rem !important;
+  flex:0 0 auto !important;
+  margin-left:auto !important;
+  overflow:visible !important;
+}
+
+.dashboard .ai-page .ai-new-chat,
+.dashboard .ai-page .ai-more-button{
+  position:relative !important;
+  z-index:6 !important;
+  display:inline-flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  flex:0 0 auto !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  overflow:visible !important;
+  color:#f4f1ea !important;
+  background:rgba(10,11,10,.42) !important;
+  border:0 !important;
+  box-shadow:none !important;
+  transform:none !important;
+}
+
+.dashboard .ai-page .ai-new-chat{
+  min-width:8.8rem !important;
+  min-height:4.2rem !important;
+  height:4.2rem !important;
+  padding:.75rem 1rem !important;
+  gap:.55rem !important;
+}
+
+.dashboard .ai-page .ai-more-button{
+  width:4.2rem !important;
+  min-width:4.2rem !important;
+  min-height:4.2rem !important;
+  height:4.2rem !important;
+  padding:0 !important;
+}
+
+.dashboard .ai-page .ai-new-chat svg,
+.dashboard .ai-page .ai-more-button svg{
+  display:block !important;
+  flex:0 0 auto !important;
+  width:1.7rem !important;
+  height:1.7rem !important;
+  color:#f4f1ea !important;
+  stroke:#f4f1ea !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+.dashboard .ai-page .ai-new-chat span{
+  display:inline !important;
+  flex:0 0 auto !important;
+  color:#f4f1ea !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  white-space:nowrap !important;
+}
+
+.dashboard .ai-page .ai-new-chat:hover,
+.dashboard .ai-page .ai-more-button:hover{
+  background:rgba(255,255,255,.06) !important;
+  color:#fff !important;
+}
+
+@media(max-width:800px){
+  .dashboard .ai-page .ai-topbar::before{
+    height:14rem !important;
+  }
+
+  .dashboard .ai-page .ai-topbar-actions{
+    gap:.3rem !important;
+  }
+
+  .dashboard .ai-page .ai-new-chat{
+    min-width:8.2rem !important;
+    min-height:4rem !important;
+    height:4rem !important;
+    padding:.65rem .75rem !important;
+  }
+
+  .dashboard .ai-page .ai-more-button{
+    width:4rem !important;
+    min-width:4rem !important;
+    min-height:4rem !important;
+    height:4rem !important;
+  }
+}
+
+/* Never hide the top controls when the AI composer/textarea receives focus. */
+.dashboard .ai-page:focus-within .ai-topbar,
+.dashboard .ai-page:focus-within .ai-topbar-actions,
+.dashboard .ai-page:focus-within .ai-new-chat,
+.dashboard .ai-page:focus-within .ai-more-button{
+  opacity:1 !important;
+  visibility:visible !important;
+}
