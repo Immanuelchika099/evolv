@@ -1311,7 +1311,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   const todayMeals=meals.filter(x=>x.logged_at?.slice(0,10)===today)
 
   useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
-    const [p,d,l,m,g,al]=await Promise.all([
+    const [p,d,l,m,g,al,n]=await Promise.all([
       supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id',u.id).maybeSingle(),
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
