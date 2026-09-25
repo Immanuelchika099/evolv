@@ -12355,9 +12355,12 @@ body{
   }
 }
 
-/* Dashboard welcome name size */
+/* Dashboard welcome name — single mobile rule */
 .dashboard .dashboard-welcome-copy h1{
-  font-size:5.8rem !important;
+  margin:0;
+  color:#f5f2eb;
+  font:600 5.8rem/.88 'Manrope';
+  letter-spacing:-.075em;
 }
 
 .dashboard .dashboard-welcome-copy h1 span{
