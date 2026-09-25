@@ -12165,3 +12165,11 @@ body{
   }
 }
 
+
+
+/* Profile hero: keep the dark lemon card background, remove the top-right glow */
+.dashboard .profile-hero-card{
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
+    rgba(7,12,9,.68) !important;
+}
