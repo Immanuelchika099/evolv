@@ -6,7 +6,7 @@ It gives users one place to set goals, track everyday habits and wellbeing, refl
 
 ## What EVOLV does
 
-- **Authentication** — secure account access with email/password, Google, and GitHub sign-in.
+- **Authentication** — secure  account access with email/password, Google, and GitHub sign-in.
 - **Personal onboarding** — guides new users through setting up their EVOLV experience.
 - **Personal dashboard** — a personalized home for goals, progress, momentum, and daily activity.
 - **Goal tracking** — create and manage meaningful goals and track progress over time.
