@@ -796,3 +796,14 @@
     border-radius:1.6rem;
   }
 }
+
+
+/* Progress card spacing */
+.progress-goals-card{
+  margin-bottom:1.2rem;
+}
+@media (max-width:40rem){
+  .progress-goals-card{
+    margin-bottom:1.2rem;
+  }
+}
