@@ -2236,9 +2236,11 @@ function SpecialMetricFields({metric,values,setValues}){
   </div>
 
   if(slug==='savings') return <div className="special-metric-fields">
-    <div className="special-log-intro"><strong>Put money aside.</strong><span>Keep a record of what you saved and what it is for.</span></div>
-    {input('Amount saved','amount','number','0')}
-    {input('Saving for','goal','text','e.g. New MacBook')}
+    <div className="special-log-intro"><strong>Track money you actually saved.</strong><span>Every entry becomes part of your savings history, so you can see what you put aside and what you are building toward.</span></div>
+    {input('Amount saved','amount','number','e.g. 10,000')}
+    {input('Saving for','goal','text','e.g. Laptop, emergency fund, trip')}
+    {choices('Where did you save it?','account',[{value:'bank',label:'Bank account'},{value:'cash',label:'Cash'},{value:'wallet',label:'Savings wallet'},{value:'other',label:'Other'}])}
+    {input('Note','note','text','e.g. First deposit this month')}
   </div>
 
   if(slug==='bills') return <div className="special-metric-fields">
