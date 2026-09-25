@@ -2277,7 +2277,9 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                       <span className="sleep-time-icon"><Moon size={17}/></span>
                       <span className="sleep-time-copy"><b>Bedtime</b><small>When you went to sleep</small></span>
                       <div className="sleep-time-control">
-                        <button type="button" className="sleep-time-display" aria-label="Choose bedtime">{formatSleepTime(values.bedtime)}</button>
+                        <button type="button" className="sleep-time-display" aria-label="Choose bedtime">
+                          {formatSleepTime(values.bedtime)}
+                        </button>
                         <input className="sleep-native-time" aria-label="Bedtime" type="time" step="300" value={values.bedtime||''} onChange={e=>setValues(v=>({...v,bedtime:e.target.value}))}/>
                       </div>
                     </div>
@@ -2285,26 +2287,36 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                       <span className="sleep-time-icon"><Sunrise size={17}/></span>
                       <span className="sleep-time-copy"><b>Wake-up</b><small>When you woke up</small></span>
                       <div className="sleep-time-control">
-                        <button type="button" className="sleep-time-display" aria-label="Choose wake-up">{formatSleepTime(values.wake_up)}</button>
-                        <input className="sleep-native-time" aria-label="Wake-up" type="time" step="300" value={values.wake_up||''} onChange={e=>setValues(v=>({...v,wake_up:e.target.value}))}/>
+                        <button type="button" className="sleep-time-display" aria-label="Choose wake-up time">
+                          {formatSleepTime(values.wake_up)}
+                        </button>
+                        <input className="sleep-native-time" aria-label="Wake-up time" type="time" step="300" value={values.wake_up||''} onChange={e=>setValues(v=>({...v,wake_up:e.target.value}))}/>
                       </div>
                     </div>
                   </div>
-                  <input type="date" className="sleep-date-input" value={values.wake_up_date||''} onChange={e=>setValues(v=>({...v,wake_up_date:e.target.value}))}/>
+                  {calculateSleepDuration(values.bedtime,values.wake_up)!=null&&(
+                    <div className="sleep-duration-result">
+                      <span>Sleep duration</span>
+                      <strong>{Math.floor(calculateSleepDuration(values.bedtime,values.wake_up)/60)}h {calculateSleepDuration(values.bedtime,values.wake_up)%60}m</strong>
+                    </div>
+                  )}
                 </div>
               ):(
                 <label className="log-input-label">
-                  <span>Value</span>
-                  <input type="number" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))} placeholder="0"/>
+                  <span>{metric.value_type==='duration'?'Minutes':metric.unit==='NGN'?'Amount':'Value'}</span>
+                  <input autoFocus type="number" min="0" step="any" value={values.value||''} onChange={e=>setValues(v=>({...v,value:e.target.value}))} placeholder={metric.unit==='NGN'?'0':'0'}/>
                 </label>
               )}
 
-              {!specialMetric&&metric.slug!=='sleep'&&metric.value_type!=='scale'&&(
-                <label className="log-input-label">
-                  <span>Note <small>optional</small></span>
-                  <textarea rows="3" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))} placeholder="Anything worth remembering?"/>
-                </label>
-              )}
+              {metric.slug!=='sleep'&&<label className="log-input-label">
+                <span>When</span>
+                <input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/>
+              </label>}
+
+              <label className="log-input-label">
+                <span>Note <small>optional</small></span>
+                <textarea rows="3" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))} placeholder="Anything worth remembering?"/>
+              </label>
 
               {error&&<p className="log-error" role="alert">{error}</p>}
             </div>
@@ -2312,31 +2324,35 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
 
           {metric&&metric.value_type==='meal'&&(
             <div className="log-form">
-              <div className="log-selected-metric">
-                <span className="log-choice-icon" style={{'--metric-color':'#ffb84d'}}><Utensils size={19}/></span>
-                <div><strong>Meal</strong><small>What you ate</small></div>
+              <div className="log-field-group">
+                <div className="log-field-title"><span>What kind of meal?</span></div>
+                <div className="meal-type-row">
+                  {['breakfast','lunch','dinner','snack'].map(t=>(
+                    <button type="button" key={t} className={values.meal_type===t?'active':''} onClick={()=>setValues(v=>({...v,meal_type:t}))}>{t}</button>
+                  ))}
+                </div>
               </div>
-              <div className="meal-type-row">
-                {['breakfast','lunch','dinner','snack'].map(type=>(
-                  <button type="button" key={type} className={values.meal_type===type?'active':''} onClick={()=>setValues(v=>({...v,meal_type:type}))}>{type[0].toUpperCase()+type.slice(1)}</button>
-                ))}
-              </div>
+
               <label className="log-input-label">
                 <span>What did you eat?</span>
-                <textarea rows="3" value={values.description||''} onChange={e=>setValues(v=>({...v,description:e.target.value}))} placeholder="e.g. Rice, chicken and vegetables"/>
+                <textarea autoFocus rows="3" value={values.description||''} onChange={e=>setValues(v=>({...v,description:e.target.value}))} placeholder="e.g. Rice, chicken and vegetables"/>
               </label>
+
               <div className="optional-nutrition">
                 <label className="log-input-label"><span>Calories <small>optional</small></span><input type="number" min="0" value={values.calories||''} onChange={e=>setValues(v=>({...v,calories:e.target.value}))}/></label>
                 <label className="log-input-label"><span>Protein (g) <small>optional</small></span><input type="number" min="0" value={values.protein_g||''} onChange={e=>setValues(v=>({...v,protein_g:e.target.value}))}/></label>
               </div>
+
               <label className="log-input-label">
                 <span>When</span>
                 <input type="datetime-local" value={values.logged_at||''} onChange={e=>setValues(v=>({...v,logged_at:e.target.value}))}/>
               </label>
+
               <label className="log-input-label">
                 <span>Note <small>optional</small></span>
                 <textarea rows="2" value={values.note||''} onChange={e=>setValues(v=>({...v,note:e.target.value}))} placeholder="Anything worth remembering?"/>
               </label>
+
               {error&&<p className="log-error" role="alert">{error}</p>}
             </div>
           )}
@@ -2357,6 +2373,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
       </section>
     </div>
   )
+}
 function WeeklyProgressChart({ checkins = [], goals = [] }) {
   const today = new Date()
   const days = Array.from({ length: 7 }, (_, index) => {
