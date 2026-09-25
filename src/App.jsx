@@ -2167,6 +2167,35 @@ function SpecialMetricFields({metric,values,setValues}){
   </div>
 }
 
+function ExerciseFields({values,setValues}){
+  const exercises=['Push-ups','Pull-ups','Bench press','Bicep curls','Squats','Deadlift','Shoulder press','Lunges','Lat pulldown','Barbell row']
+  const rows=values.exerciseRows||[]
+  function updateRow(index,key,value){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>i===index?{...row,[key]:value}:row)}))}
+  function changeNumber(index,key,delta){
+    const row=rows[index]
+    const next=Math.max(0,(Number(row?.[key])||0)+delta)
+    updateRow(index,key,next)
+  }
+  function addRow(){setValues(v=>({...v,exerciseRows:[...(v.exerciseRows||[]),{exercise:'Bench press',sets:3,reps:8,weight:''}]}))}
+  function removeRow(index){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).filter((_,i)=>i!==index)}))}
+  const totalReps=rows.reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
+  return <div className="exercise-log-fields">
+    <div className="special-log-intro"><strong>Real workout tracking.</strong><span>Log each exercise with sets, reps and weight so your gym sessions build a history you can actually use.</span></div>
+    <div className="exercise-row-list">
+      {rows.map((row,index)=><div className="exercise-entry" key={index}>
+        <div className="exercise-entry-head"><span>EXERCISE {index+1}</span>{rows.length>1&&<button type="button" onClick={()=>removeRow(index)} aria-label="Remove exercise"><X size={15}/></button>}</div>
+        <label className="log-input-label"><span>Exercise</span><select value={row.exercise} onChange={e=>updateRow(index,'exercise',e.target.value)}>{exercises.map(name=><option key={name}>{name}</option>)}</select></label>
+        <div className="exercise-number-grid">
+          {[['sets','Sets'],['reps','Reps']].map(([key,label])=><div className="exercise-picker" key={key}><span>{label}</span><div><button type="button" onClick={()=>changeNumber(index,key,-1)} aria-label={'Decrease '+label}>−</button><strong>{row[key]||0}</strong><button type="button" onClick={()=>changeNumber(index,key,1)} aria-label={'Increase '+label}>+</button></div></div>)}
+        </div>
+        <label className="log-input-label"><span>Weight <small>optional · kg</small></span><input type="number" min="0" step="0.5" value={row.weight??''} onChange={e=>updateRow(index,'weight',e.target.value)} placeholder="Bodyweight / 0"/></label>
+      </div>)}
+    </div>
+    <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add another exercise</button>
+    <div className="exercise-total"><span>Total reps</span><strong>{totalReps}</strong></div>
+  </div>
+}
+
 function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSaved,onClose}){
   const [values,setValues]=useState({})
   const [error,setError]=useState('')
@@ -2219,7 +2248,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     }
   },[onClose,saving])
 
-  const specialMetric = ['income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress'].includes(metric?.slug)
+  const specialMetric = ['exercise','income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress'].includes(metric?.slug)
 
   function specialValue(){
     const slug=metric?.slug
