@@ -3159,12 +3159,22 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   async function loadChatHistory() {
     const userId = (await supabase.auth.getUser()).data.user?.id
     if (!userId) return
-    const { data, error } = await supabase
-      .from('ai_messages')
-      .select('id,chat_id,role,content,created_at')
-      .eq('user_id', userId)
-      .order('created_at', { ascending: false })
-      .limit(1000)
+
+    const [{ data, error }, { data: titles, error: titleError }] = await Promise.all([
+      supabase
+        .from('ai_messages')
+        .select('id,chat_id,role,content,created_at')
+        .eq('user_id', userId)
+        .not('chat_id', 'is', null)
+        .order('created_at', { ascending: false })
+        .limit(1000),
+      supabase
+        .from('ai_chat_titles')
+        .select('chat_id,title,updated_at')
+        .eq('user_id', userId)
+        .order('updated_at', { ascending: false })
+        .limit(500),
+    ])
 
     if (error) {
       console.error('EVOLV AI history load failed:', error)
@@ -3172,7 +3182,11 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       return
     }
 
+    if (titleError) console.error('EVOLV AI chat titles load failed:', titleError)
+
+    const titleMap = new Map((titles || []).map(item => [item.chat_id, item.title]))
     const grouped = new Map()
+
     ;(data || []).forEach(message => {
       if (!message.chat_id) return
       const current = grouped.get(message.chat_id)
@@ -3181,12 +3195,84 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           chatId: message.chat_id,
           updatedAt: message.created_at,
           preview: message.role === 'user' ? message.content : '',
+          title: titleMap.get(message.chat_id) || '',
         })
       } else if (!current.preview && message.role === 'user') {
         current.preview = message.content
       }
     })
-    setChatHistory(Array.from(grouped.values()).sort((a,b) => new Date(b.updatedAt) - new Date(a.updatedAt)))
+
+    setChatHistory(
+      Array.from(grouped.values()).sort(
+        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
+      ),
+    )
+  }
+
+  async function ensureChatTitle(conversation) {
+    if (!chatId || !Array.isArray(conversation) || !conversation.length) return
+
+    const { data: existing, error: existingError } = await supabase
+      .from('ai_chat_titles')
+      .select('chat_id,title')
+      .eq('user_id', (await supabase.auth.getUser()).data.user?.id || '')
+      .eq('chat_id', chatId)
+      .maybeSingle()
+
+    if (existingError) {
+      console.error('EVOLV AI chat title lookup failed:', existingError)
+      return
+    }
+
+    if (existing?.title) return
+
+    const { data: sessionData } = await supabase.auth.getSession()
+    const token = sessionData?.session?.access_token
+    if (!token) return
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/evolv-ai`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          action: 'generate_chat_title',
+          messages: conversation,
+        }),
+      })
+
+      const result = await response.json().catch(() => ({}))
+      if (!response.ok || !result.title) {
+        console.error('EVOLV AI chat title generation failed:', result.error || response.status)
+        return
+      }
+
+      const userId = sessionData?.session?.user?.id
+      if (!userId) return
+
+      const { error } = await supabase.from('ai_chat_titles').upsert({
+        chat_id: chatId,
+        user_id: userId,
+        title: String(result.title).trim().slice(0, 80),
+        updated_at: new Date().toISOString(),
+      }, { onConflict: 'chat_id' })
+
+      if (error) {
+        console.error('EVOLV AI chat title save failed:', error)
+        return
+      }
+
+      setChatHistory(current => {
+        const found = current.some(item => item.chatId === chatId)
+        if (!found) return current
+        return current.map(item => item.chatId === chatId ? { ...item, title: String(result.title).trim().slice(0, 80) } : item)
+      })
+    } catch (titleError) {
+      console.error('EVOLV AI chat title request failed:', titleError)
+    }
   }
 
   async function openChatHistory() {
@@ -3389,6 +3475,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setTyping(false)
     setSending(false)
     await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'assistant', content: reply })
+    void ensureChatTitle([...nextMessages, { role: 'assistant', content: reply }])
   }
 
   return (
@@ -3433,7 +3520,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
               {chatHistory.length ? chatHistory.map(chat => (
                 <button type="button" className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'} key={chat.chatId} onClick={() => selectChatFromHistory(chat.chatId)}>
                   <span className="ai-history-row-icon"><MessageCircle size={16}/></span>
-                  <span className="ai-history-row-copy"><strong>{chat.preview || 'Untitled chat'}</strong><small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small></span>
+                  <span className="ai-history-row-copy"><strong>{chat.title || chat.preview || 'Untitled chat'}</strong><small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small></span>
                   <ChevronRight size={16}/>
                 </button>
               )) : (
