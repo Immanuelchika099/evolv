@@ -12905,3 +12905,183 @@ body{
     transition:none !important;
   }
 }
+
+
+/* EVOLV — final AI polish: no separators, calm typing signal */
+.dashboard .ai-page .ai-topbar,
+.dashboard .ai-page .ai-chat,
+.dashboard .ai-page .ai-messages,
+.dashboard .ai-page .ai-message,
+.dashboard .ai-page .ai-message p,
+.dashboard .ai-page .ai-message-actions,
+.dashboard .ai-page .ai-message-actions button{
+  border-top:0 !important;
+  border-bottom:0 !important;
+  border-left:0 !important;
+  border-right:0 !important;
+}
+.dashboard .ai-page .ai-message::before,
+.dashboard .ai-page .ai-message::after,
+.dashboard .ai-page .ai-messages::before,
+.dashboard .ai-page .ai-messages::after,
+.dashboard .ai-page .ai-chat::before,
+.dashboard .ai-page .ai-chat::after{
+  display:none !important;
+  content:none !important;
+}
+.dashboard .ai-page .ai-message + .ai-message{
+  border-top:0 !important;
+  box-shadow:none !important;
+}
+.dashboard .ai-page .ai-thinking{
+  width:1rem !important;
+  height:1rem !important;
+  min-width:1rem !important;
+  min-height:1rem !important;
+  margin:.7rem 0 0 .3rem !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:50% !important;
+  background:#c8f36a !important;
+  box-shadow:0 0 1.4rem rgba(200,243,106,.22) !important;
+  animation:evolvTypingPulse 1.15s ease-in-out infinite !important;
+}
+.dashboard .ai-page .ai-typing-dot{
+  display:inline-block !important;
+  width:.75rem !important;
+  height:.75rem !important;
+  margin-left:.55rem !important;
+  vertical-align:middle !important;
+  border-radius:50% !important;
+  background:#c8f36a !important;
+  box-shadow:0 0 1.1rem rgba(200,243,106,.2) !important;
+  animation:evolvTypingPulse .95s ease-in-out infinite !important;
+}
+@keyframes evolvTypingPulse{
+  0%,100%{transform:scale(.72);opacity:.48}
+  50%{transform:scale(1.2);opacity:1}
+}
+
+/* EVOLV — AI entry point floats just above the dock */
+.dashboard .ai-floating-button{
+  position:fixed !important;
+  right:1.8rem !important;
+  bottom:8.2rem !important;
+  z-index:1000 !important;
+  width:4.8rem !important;
+  height:4.8rem !important;
+  display:grid !important;
+  place-items:center !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  border-radius:50% !important;
+  background:rgba(16,20,17,.94) !important;
+  color:#c8f36a !important;
+  box-shadow:0 1rem 2.8rem rgba(0,0,0,.38) !important;
+  backdrop-filter:blur(1.2rem) !important;
+  -webkit-backdrop-filter:blur(1.2rem) !important;
+}
+.dashboard .ai-floating-button:hover{
+  transform:translateY(-.15rem) !important;
+  border-color:rgba(200,243,106,.22) !important;
+}
+@media(max-width:800px){
+  .dashboard .ai-floating-button{
+    right:1.4rem !important;
+    bottom:7.8rem !important;
+    width:4.6rem !important;
+    height:4.6rem !important;
+  }
+}
+
+/* EVOLV — notification history page */
+.dashboard .notifications-page{
+  width:100% !important;
+  max-width:86rem !important;
+  margin:0 auto !important;
+}
+.dashboard .notifications-page-hero{
+  max-width:70rem;
+  margin:2.4rem 0 3.2rem;
+}
+.dashboard .notifications-page-hero h2{
+  margin:1.4rem 0 .9rem;
+  font:500 clamp(4.8rem,7vw,7.6rem)/.92 'Space Grotesk';
+  letter-spacing:-.065em;
+}
+.dashboard .notifications-page-hero p{
+  max-width:58rem;
+  margin:0;
+  color:rgba(244,241,234,.45);
+  font-size:1.55rem;
+  line-height:1.7;
+}
+.dashboard .notifications-page-list{
+  display:grid;
+  gap:1rem;
+}
+.dashboard .notification-page-row{
+  display:grid;
+  grid-template-columns:4.8rem minmax(0,1fr);
+  gap:1.4rem;
+  align-items:start;
+  padding:1.5rem;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:1.8rem;
+  background:rgba(255,255,255,.025);
+}
+.dashboard .notification-page-icon{
+  width:4.8rem;
+  height:4.8rem;
+  display:grid;
+  place-items:center;
+  border-radius:1.5rem;
+  color:#c8f36a;
+  background:rgba(200,243,106,.07);
+}
+.dashboard .notification-page-row div{
+  min-width:0;
+}
+.dashboard .notification-page-row span{
+  display:block;
+  margin-bottom:.5rem;
+  color:rgba(244,241,234,.32);
+  font:1.05rem 'DM Mono';
+  letter-spacing:.1em;
+}
+.dashboard .notification-page-row strong{
+  display:block;
+  margin-bottom:.45rem;
+  color:#f4f1ea;
+  font-size:1.65rem;
+}
+.dashboard .notification-page-row p{
+  margin:0;
+  color:rgba(244,241,234,.48);
+  font-size:1.4rem;
+  line-height:1.65;
+}
+.dashboard .notifications-empty{
+  min-height:24rem;
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:1rem;
+  border:1px dashed rgba(255,255,255,.1);
+  border-radius:2.2rem;
+  text-align:center;
+  color:rgba(244,241,234,.35);
+}
+.dashboard .notifications-empty strong{font-size:1.8rem;color:#f4f1ea}
+.dashboard .notifications-empty p{margin:0;font-size:1.4rem}
+@media(max-width:700px){
+  .dashboard .notifications-page-hero h2{font-size:5rem}
+  .dashboard .notification-page-row{grid-template-columns:4.2rem minmax(0,1fr);gap:1rem;padding:1.25rem}
+  .dashboard .notification-page-icon{width:4.2rem;height:4.2rem;border-radius:1.3rem}
+}
+
+/* Keep the top-right notification button clean */
+.dashboard .notification-button{
+  box-shadow:none !important;
+  filter:none !important;
+  color:#f4f1ea !important;
+}
