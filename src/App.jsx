@@ -1548,7 +1548,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='overview'&&<div className="dashboard-home">
-        <section className="dashboard-welcome"><div className="dashboard-welcome-copy"><span className="dashboard-eyebrow">Welcome back,</span><h1>{name}.</h1></div></section>
+        <section className="dashboard-welcome"><div className="dashboard-welcome-copy"><span className="dashboard-eyebrow">Welcome back,</span><h1>{name.trim().split(/\s+/).map((part, index, parts) => <span key={`${part}-${index}`}>{part}{index === parts.length - 1 ? '.' : ''}</span>)}</h1></div></section>
         <section className="today-snapshot">
           <div className="today-snapshot-head"><div><span className="section-label">TODAY</span><h2>Your day, at a glance.</h2></div><span className="today-log-count">{todayLogs.length+todayMeals.length} logged</span></div>
           <div className="today-metrics">
