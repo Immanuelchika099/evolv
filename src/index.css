@@ -5871,9 +5871,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   gap:8px !important;
 }
 .dashboard .dashboard-eyebrow{
-  font-size:16px !important;
+  font-size:18px !important;
   letter-spacing:.02em !important;
-  color:rgba(244,241,232,.5) !important;
+  color:rgba(244,241,232,.58) !important;
 }
 .dashboard .dashboard-welcome-copy h1{
   margin-top:2px !important;
@@ -5887,7 +5887,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
     margin-bottom:18px !important;
   }
   .dashboard .dashboard-eyebrow{
-    font-size:13px !important;
+    font-size:17px !important;
   }
   .dashboard .frequency-heading{
     margin-bottom:14px !important;
