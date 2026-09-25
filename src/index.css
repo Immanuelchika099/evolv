@@ -12217,3 +12217,23 @@ body{
     padding:6px;
   }
 }
+
+
+/* EVOLV — real gym session logging */
+.dashboard .exercise-log-fields{display:grid;gap:16px}
+.dashboard .exercise-row-list{display:grid;gap:12px}
+.dashboard .exercise-entry{display:grid;gap:12px;padding:15px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);border-radius:16px}
+.dashboard .exercise-entry-head{display:flex;align-items:center;justify-content:space-between;color:rgba(244,241,234,.4);font-size:10px;letter-spacing:.12em}
+.dashboard .exercise-entry-head button{width:30px;height:30px;border:0;background:rgba(255,255,255,.05);color:rgba(244,241,234,.5);border-radius:9px;display:grid;place-items:center;cursor:pointer}
+.dashboard .exercise-entry select{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.035);color:#f4f1ea;border-radius:13px;padding:14px;font:inherit;outline:none}
+.dashboard .exercise-entry select:focus{border-color:rgba(200,243,106,.35)}
+.dashboard .exercise-number-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dashboard .exercise-picker{display:grid;gap:7px}
+.dashboard .exercise-picker>span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,241,234,.42)}
+.dashboard .exercise-picker>div{display:grid;grid-template-columns:42px 1fr 42px;align-items:center;overflow:hidden;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.035)}
+.dashboard .exercise-picker button{height:48px;border:0;background:transparent;color:#c8f36a;font-size:22px;cursor:pointer}
+.dashboard .exercise-picker strong{text-align:center;color:#f4f1ea;font-size:16px;font-weight:600}
+.dashboard .exercise-add-button{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px;border:1px solid rgba(200,243,106,.2);background:rgba(200,243,106,.045);color:#c8f36a;border-radius:13px;font:inherit;cursor:pointer}
+.dashboard .exercise-total{display:flex;align-items:center;justify-content:space-between;padding:14px 15px;border-top:1px solid rgba(255,255,255,.08);color:rgba(244,241,234,.48)}
+.dashboard .exercise-total strong{color:#c8f36a;font-size:18px}
+@media(max-width:600px){.dashboard .exercise-number-grid{grid-template-columns:1fr 1fr}.dashboard .exercise-entry{padding:13px}}
