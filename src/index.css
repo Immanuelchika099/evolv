@@ -12993,6 +12993,66 @@ body{
   }
 }
 
+/* EVOLV — AI floating button: always visible above the bottom dock */
+.ai-floating-button{
+  position:fixed !important;
+  right:1.4rem !important;
+  bottom:calc(env(safe-area-inset-bottom, 0px) + 8.8rem) !important;
+  z-index:99999 !important;
+  width:4.8rem !important;
+  height:4.8rem !important;
+  min-width:4.8rem !important;
+  min-height:4.8rem !important;
+  display:grid !important;
+  place-items:center !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:50% !important;
+  background:#111611 !important;
+  color:#c8f36a !important;
+  box-shadow:0 1.2rem 3rem rgba(0,0,0,.45) !important;
+  transform:none !important;
+  backdrop-filter:blur(1.2rem) !important;
+  -webkit-backdrop-filter:blur(1.2rem) !important;
+}
+.ai-floating-button svg{display:block !important;opacity:1 !important;visibility:visible !important;}
+.ai-floating-button:hover{transform:translateY(-.15rem) !important;}
+@media(max-width:800px){
+  .ai-floating-button{
+    right:1.4rem !important;
+    bottom:calc(env(safe-area-inset-bottom, 0px) + 8.5rem) !important;
+    width:4.6rem !important;
+    height:4.6rem !important;
+    min-width:4.6rem !important;
+    min-height:4.6rem !important;
+  }
+}
+
+/* EVOLV — iPhone alarm date/time controls: give each control its own row */
+@media(max-width:520px){
+  .alarm-date-time-grid{
+    grid-template-columns:1fr !important;
+    gap:1.6rem !important;
+    overflow:visible !important;
+  }
+  .alarm-date-time-grid > .log-input-label{
+    width:100% !important;
+    min-width:0 !important;
+  }
+  .alarm-date-time-grid input[type="date"],
+  .alarm-date-time-grid input[type="time"]{
+    width:100% !important;
+    max-width:100% !important;
+    min-width:0 !important;
+    box-sizing:border-box !important;
+    padding-left:1.3rem !important;
+    padding-right:1.1rem !important;
+    font-size:1.5rem !important;
+  }
+}
+
 /* EVOLV — notification history page */
 .dashboard .notifications-page{
   width:100% !important;
