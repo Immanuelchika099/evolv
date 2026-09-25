@@ -12097,3 +12097,19 @@ body{
     letter-spacing:-.01em;
   }
 }
+
+/* Extra breathing room between Progress sections on mobile */
+@media(max-width:650px){
+  .dashboard .progress-page{
+    row-gap:3.2rem !important;
+  }
+
+  .dashboard .progress-page > .progress-overview-grid{
+    row-gap:2.2rem !important;
+    margin-bottom:.8rem !important;
+  }
+
+  .dashboard .progress-page > .progress-section-card{
+    margin-top:.8rem !important;
+  }
+}
