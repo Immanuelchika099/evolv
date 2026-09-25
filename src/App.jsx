@@ -2050,10 +2050,11 @@ function Dashboard({ data, onLogout, onArticle }) {
                     : def?.slug==='mood'
                       ? ({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||displayMetric(Number(entry.value),def))
                       : def?displayMetric(Number(entry.value),def):'Entry'
-                  return <button type="button" className="progress-recent-row" key={entry.id||index} onClick={()=>openEntry(item)}>
+                  return <button type="button" className="progress-recent-row" key={entry.id||index} onClick={()=>openEntry(item)} aria-label={`Open ${def?.name||'meal'} log to view, edit or delete`}>
                     <span className="progress-recent-icon">{item.type==='meal'?<Utensils size={17}/>:<LineChart size={17}/>}</span>
-                    <div><strong>{def?.name||'Meal'}</strong><p>{shown}</p></div>
+                    <div className="progress-recent-copy"><strong>{def?.name||'Meal'}</strong><p>{shown}</p><small>Tap to view, edit or delete</small></div>
                     <time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}</time>
+                    <ChevronRight className="progress-recent-chevron" size={16} aria-hidden="true"/>
                   </button>
                 })}
               </div>
