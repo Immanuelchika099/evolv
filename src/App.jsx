@@ -1235,7 +1235,31 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [progressRange,setProgressRange]=useState(7)
   const [progressMetric,setProgressMetric]=useState(null)
   const dashboardMainRef=useRef(null)
-  const goTo=(page)=>{setActive(page);setArea(null);setMetric(null);window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))}
+  const goTo=(page)=>{
+    setActive(page)
+    setArea(null)
+    setMetric(null)
+    window.history.pushState({evolvDashboard:true,page},'',window.location.href)
+    window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))
+  }
+
+  useEffect(()=>{
+    const currentPage=window.history.state?.evolvDashboard ? window.history.state.page : null
+    if(currentPage) setActive(currentPage)
+    else window.history.replaceState({evolvDashboard:true,page:'overview'},'',window.location.href)
+
+    function handleDashboardBack(){
+      const page=window.history.state?.evolvDashboard ? window.history.state.page : 'overview'
+      setActive(page)
+      setArea(null)
+      setMetric(null)
+      setLogOpen(false)
+      window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))
+    }
+
+    window.addEventListener('popstate',handleDashboardBack)
+    return()=>window.removeEventListener('popstate',handleDashboardBack)
+  },[])
 
   const areas={
     health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
