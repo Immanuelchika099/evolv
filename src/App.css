@@ -807,3 +807,27 @@
     margin-bottom:1.2rem;
   }
 }
+
+/* Real goal management */
+.goal-date-field{display:grid;gap:.55rem;margin-top:.9rem}
+.goal-date-field span{font-size:1.35rem;color:rgba(255,255,255,.52)}
+.goal-date-field small{color:rgba(255,255,255,.35)}
+.goal-date-field input{width:100%;box-sizing:border-box}
+.goal-form-actions{display:flex;align-items:center;gap:.8rem;margin-top:1rem}
+.goal-cancel-button,.goal-item-actions button,.goal-item-actions select{
+  min-height:3.8rem;padding:0 1rem;border:1px solid rgba(255,255,255,.09);border-radius:1rem;
+  background:rgba(255,255,255,.035);color:rgba(255,255,255,.82);font:inherit;cursor:pointer;
+}
+.goal-item-actions{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:end;gap:.65rem;margin-top:1rem}
+.goal-item-actions label{display:grid;gap:.35rem;min-width:0}
+.goal-item-actions label span{font-size:1.25rem;color:rgba(255,255,255,.4)}
+.goal-item-actions input[type="range"]{width:100%;accent-color:#c8f36a}
+.goal-item-actions select{min-width:11rem}
+.goal-item-actions button{display:inline-flex;align-items:center;justify-content:center;gap:.45rem}
+.goal-item-actions .goal-delete-button{border-color:rgba(255,100,100,.18);color:#ffb0b0;background:rgba(255,90,90,.05)}
+.goal-due-copy{display:block;margin-top:.45rem;color:rgba(255,255,255,.4);font-size:1.35rem}
+@media (max-width:40rem){
+  .goal-item-actions{grid-template-columns:1fr 1fr;align-items:stretch}
+  .goal-item-actions label{grid-column:1 / -1}
+  .goal-item-actions select,.goal-item-actions button{width:100%;box-sizing:border-box}
+}
