@@ -935,3 +935,21 @@
   .goal-item-top h3{font-size:1.8rem}
   .goal-item-top>strong{font-size:2rem}
 }
+
+
+/* Previous logs — progress page control */
+.progress-page .manage-logs-button{
+  display:flex;
+  width:min(100%,34rem);
+  box-sizing:border-box;
+  margin-top:1.4rem;
+  min-height:6.4rem;
+}
+.progress-page .manage-logs-button-copy strong{font-size:1.65rem}
+.progress-page .manage-logs-button-copy small{font-size:1.5rem}
+@media (max-width:40rem){
+  .progress-page .manage-logs-button{
+    width:100%;
+    margin-top:1.25rem;
+  }
+}
