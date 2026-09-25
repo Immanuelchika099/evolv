@@ -2115,7 +2115,190 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
     window.addEventListener('keydown',handleKey)
     window.setTimeout(()=>sheetRef.current?.querySelector('button,input,textarea')?.focus(),80)
 
-    return (
+    return ()=>{
+      document.body.style.overflow=previousOverflow
+      document.body.style.touchAction=previousTouchAction
+      window.removeEventListener('keydown',handleKey)
+    }
+  },[onClose,saving])
+
+  const specialMetric = ['income','spending','savings','bills','applications','learning','building','outreach','skills','habits','reading','social','personal','focus','reflection','stress'].includes(metric?.slug)
+
+  function specialValue(){
+    const slug=metric?.slug
+    if(['income','spending','savings','bills'].includes(slug)) return Number(values.amount)
+    if(['learning','building','reading','personal','focus'].includes(slug)) return Number(values.minutes)
+    if(slug==='skills') return Number(values.confidence)
+    if(slug==='habits') return Number(values.statusValue)
+    if(slug==='social') return Number(values.quality)
+    if(['applications','outreach','reflection'].includes(slug)) return 1
+    if(slug==='stress') return Number(values.level)
+    return Number(values.value)
+  }
+
+  function specialNote(){
+    const slug=metric?.slug
+    const clean=v=>String(v||'').trim()
+    if(slug==='income') return [clean(values.source)&&'Source: '+clean(values.source),clean(values.category)&&'Category: '+clean(values.category),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='spending') return [clean(values.merchant)&&'Merchant: '+clean(values.merchant),clean(values.category)&&'Category: '+clean(values.category),clean(values.payment)&&'Paid via: '+clean(values.payment),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='savings') return [clean(values.goal)&&'For: '+clean(values.goal),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='bills') return [clean(values.bill)&&'Bill: '+clean(values.bill),clean(values.provider)&&'Provider: '+clean(values.provider),clean(values.status)&&'Status: '+clean(values.status),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='applications') return [clean(values.company)&&'Company: '+clean(values.company),clean(values.role)&&'Role: '+clean(values.role),clean(values.status)&&'Status: '+clean(values.status),clean(values.nextStep)&&'Next: '+clean(values.nextStep),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='learning') return [clean(values.topic)&&'Topic: '+clean(values.topic),clean(values.learned)&&'Learned: '+clean(values.learned),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='building') return [clean(values.project)&&'Project: '+clean(values.project),clean(values.milestone)&&'Milestone: '+clean(values.milestone),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='outreach') return [clean(values.person)&&'Who: '+clean(values.person),clean(values.platform)&&'Platform: '+clean(values.platform),clean(values.outcome)&&'Outcome: '+clean(values.outcome),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='skills') return [clean(values.skill)&&'Skill: '+clean(values.skill),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='habits') return [clean(values.habit)&&'Habit: '+clean(values.habit),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='reading') return [clean(values.book)&&'Reading: '+clean(values.book),clean(values.takeaway)&&'Takeaway: '+clean(values.takeaway),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='social') return [clean(values.person)&&'With: '+clean(values.person),clean(values.context)&&'Context: '+clean(values.context),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='personal') return [clean(values.activity)&&'Activity: '+clean(values.activity),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='focus') return [clean(values.task)&&'Focus: '+clean(values.task),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='reflection') return [clean(values.prompt)&&'Reflection: '+clean(values.prompt),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='stress') return [clean(values.trigger)&&'Trigger: '+clean(values.trigger),clean(values.note)].filter(Boolean).join(' · ')
+    return clean(values.note)
+  }
+
+  async function save(){
+    setError('')
+    if(!metric)return
+
+    setSaving(true)
+
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+
+    if(!u){
+      setError('Your session has expired.')
+      setSaving(false)
+      return
+    }
+
+    if(metric.value_type==='meal'){
+      if(!values.meal_type){
+        setError('Choose breakfast, lunch, dinner or snack.')
+        setSaving(false)
+        return
+      }
+
+      if(!values.description?.trim()){
+        setError('Add what you ate first.')
+        setSaving(false)
+        return
+      }
+
+      const n=k=>values[k]===''||values[k]==null?null:Number(values[k])
+      const loggedAt=values.logged_at?new Date(values.logged_at).toISOString():new Date().toISOString()
+
+      const {data:meal,error:x}=await supabase.from('meal_logs').insert({
+        user_id:u.id,
+        meal_type:values.meal_type,
+        description:values.description.trim(),
+        calories:n('calories'),
+        protein_g:n('protein_g'),
+        carbs_g:n('carbs_g'),
+        fat_g:n('fat_g'),
+        water_ml:n('water_ml'),
+        note:values.note?.trim()||null,
+        logged_at:loggedAt,
+        eaten_at:loggedAt
+      }).select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').single()
+
+      setSaving(false)
+
+      if(x){
+        setError(x.message)
+        return
+      }
+
+      onSaved?.('meal',meal)
+      return
+    }
+
+    if(specialMetric){
+      const value=specialValue()
+      const loggedAt=values.logged_at?new Date(values.logged_at):new Date()
+      if(!Number.isFinite(value)||(value<0)){
+        setError('Complete the main detail before saving.')
+        setSaving(false)
+        return
+      }
+      const note=specialNote()||null
+      const {data:entry,error:x}=await supabase.from('metric_logs').insert({user_id:u.id,metric_id:metric.id,value,unit:metric.unit||null,note,logged_at:loggedAt.toISOString(),value_numeric:value}).select('id,metric_id,value,unit,note,logged_at,created_at').single()
+      setSaving(false)
+      if(x){setError(x.message);return}
+      onSaved?.('metric',entry)
+      return
+    }
+
+    const sleepMinutes=metric.slug==='sleep'
+      ? calculateSleepDuration(values.bedtime,values.wake_up)
+      : null
+    const value=metric.slug==='sleep'
+      ? sleepMinutes/60
+      : Number(values.value)
+
+    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(sleepMinutes)||sleepMinutes<=0))||(metric.value_type==='scale'&&(value<1||value>5))){
+      setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
+      setSaving(false)
+      return
+    }
+
+    const loggedAt=metric.slug==='sleep'
+      ? (values.wake_up_date ? new Date(`${values.wake_up_date}T${values.wake_up}`) : new Date())
+      : (values.logged_at?new Date(values.logged_at):new Date())
+
+    const sleepNote=metric.slug==='sleep'
+      ? `Bedtime ${formatSleepTime(values.bedtime)} · Wake-up ${formatSleepTime(values.wake_up)}`
+      : values.note?.trim()||null
+
+    const {data:entry,error:x}=await supabase.from('metric_logs').insert({
+      user_id:u.id,
+      metric_id:metric.id,
+      value,
+      unit:metric.slug==='sleep'?'hours':(metric.unit||null),
+      note:sleepNote,
+      logged_at:loggedAt.toISOString(),
+      value_numeric:value
+    }).select('id,metric_id,value,unit,note,logged_at,created_at').single()
+
+    setSaving(false)
+
+    if(x){
+      setError(x.message)
+      return
+    }
+
+    onSaved?.('metric',entry)
+  }
+
+  function formatSleepTime(value){
+    if(!value)return '—'
+    const [hour,minute]=value.split(':').map(Number)
+    const date=new Date()
+    date.setHours(hour,minute,0,0)
+    return date.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})
+  }
+
+  function calculateSleepDuration(bedtime,wakeUp){
+    if(!bedtime||!wakeUp)return null
+    const [bh,bm]=bedtime.split(':').map(Number)
+    const [wh,wm]=wakeUp.split(':').map(Number)
+    let minutes=(wh*60+wm)-(bh*60+bm)
+    if(minutes<=0)minutes+=24*60
+    return minutes
+  }
+
+  function selectMetric(nextMetric){
+    onMetric(nextMetric)
+    setValues(nextMetric.slug==='sleep'
+      ? {bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)}
+      : {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)})
+    setError('')
+  }
+
+  const I=metric?(icons[metric.slug]||Sparkles):(area?areaMeta[area].icon:ClipboardPlus)
+
+  return (
     <div
       className="log-overlay"
       role="dialog"
@@ -2130,13 +2313,13 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
           <div className="log-sheet-heading">
             <span className="section-label">{metric?metric.name.toUpperCase():area?areaMeta[area].title.toUpperCase():'LOG'}</span>
             <h2 id="log-sheet-title">
-              {metric?'Log '+metric.name.toLowerCase():area?areaMeta[area].title:'What are you tracking today?'}
+              {metric?'Log '+metric.name.toLowerCase():area?areaMeta[area].title:'What do you want to track?'}
             </h2>
-            <p>{metric ? (specialMetric ? 'Capture the details that matter.' : 'Add a simple entry and keep moving.') : area ? areaMeta[area].description : 'Choose an area, then pick what you want to record.'}</p>
+            <p>{metric ? (specialMetric ? 'Capture the real-world detail, not just a number.' : 'A small entry is enough. Keep it real.') : area ? areaMeta[area].description : 'Choose an area of your life, then pick the thing you want to record.'}</p>
           </div>
 
           <button className="log-close" type="button" onClick={onClose} disabled={saving} aria-label="Close logging sheet">
-            <X size={19}/>
+            <X size={18}/>
           </button>
         </header>
 
@@ -2153,18 +2336,12 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                         <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={22}/></span>
                         <strong style={{'--card-color':m.color}}>{m.title}</strong>
                       </span>
-                      <span className="log-card-date">Today</span>
+                      <span className="log-card-date">TODAY</span>
                       <ChevronRight className="log-card-chevron" size={22}/>
                     </span>
-
-                    <span className="log-card-body">
-                      <span className="log-card-value">
-                        <strong>{metricCount}</strong>
-                        <small>{metricCount===1?'entry':'things to track'}</small>
-                      </span>
-                      <span className="log-card-visual" style={{'--card-color':m.color}} aria-hidden="true">
-                        {[32,58,78,46,24,38,64].map((height,index)=><i key={index} style={{height:`${height}%`}} className={index===6?'active':''}/>)}
-                      </span>
+                    <span className="log-card-bottom">
+                      <span className="log-card-count"><strong>{metricCount}</strong><small>{metricCount===1?'entry':'things to track'}</small></span>
+                      <span className="log-card-description">{m.description}</span>
                     </span>
                   </button>
                 )
@@ -2175,33 +2352,26 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
           {area&&!metric&&(
             <div className="log-picker-view">
               <button className="log-back" type="button" onClick={()=>onArea(null)}>
-                <ChevronLeft size={16}/> All areas
+                <ChevronLeft size={15}/> All areas
               </button>
 
               <div className="log-card-list">
                 {rows.map(d=>{
                   const M=icons[d.slug]||Sparkles
                   const hint=d.slug==='sleep'?'Bedtime + wake-up':d.value_type==='duration'?'Duration':d.value_type==='scale'?'1–5 scale':d.unit||'Daily entry'
-                  const cardColor=d.color||areaMeta[area].color
                   return (
                     <button className="log-health-card log-metric-card" type="button" key={d.id} onClick={()=>selectMetric(d)}>
                       <span className="log-card-top">
                         <span className="log-card-title">
-                          <span className="log-choice-icon" style={{'--area-color':cardColor}}><M size={22}/></span>
-                          <strong style={{'--card-color':cardColor}}>{d.name}</strong>
+                          <span className="log-choice-icon" style={{'--area-color':d.color||areaMeta[area].color}}><M size={22}/></span>
+                          <strong style={{'--card-color':d.color||areaMeta[area].color}}>{d.name}</strong>
                         </span>
-                        <span className="log-card-date">Log</span>
+                        <span className="log-card-date">LOG</span>
                         <ChevronRight className="log-card-chevron" size={22}/>
                       </span>
-
-                      <span className="log-card-body">
-                        <span className="log-card-value log-card-value-compact">
-                          <strong>{hint}</strong>
-                          <small>ready to record</small>
-                        </span>
-                        <span className="log-card-visual" style={{'--card-color':cardColor}} aria-hidden="true">
-                          {[28,42,64,36,52,30,72].map((height,index)=><i key={index} style={{height:`${height}%`}} className={index===6?'active':''}/>)}
-                        </span>
+                      <span className="log-card-bottom">
+                        <span className="log-card-count"><strong>{hint}</strong><small>ready to record</small></span>
+                        <span className="log-card-description">Add a simple entry and keep building your history.</span>
                       </span>
                     </button>
                   )
@@ -2214,17 +2384,12 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                         <span className="log-choice-icon" style={{'--area-color':'#ffb84d'}}><Utensils size={22}/></span>
                         <strong style={{'--card-color':'#ffb84d'}}>Meal</strong>
                       </span>
-                      <span className="log-card-date">Log</span>
+                      <span className="log-card-date">LOG</span>
                       <ChevronRight className="log-card-chevron" size={22}/>
                     </span>
-                    <span className="log-card-body">
-                      <span className="log-card-value log-card-value-compact">
-                        <strong>Meal</strong>
-                        <small>ready to record</small>
-                      </span>
-                      <span className="log-card-visual" style={{'--card-color':'#ffb84d'}} aria-hidden="true">
-                        {[44,66,34,52,76,42,60].map((height,index)=><i key={index} style={{height:`${height}%`}} className={index===6?'active':''}/>)}
-                      </span>
+                    <span className="log-card-bottom">
+                      <span className="log-card-count"><strong>Meal entry</strong><small>ready to record</small></span>
+                      <span className="log-card-description">Record what you ate without turning food into a score.</span>
                     </span>
                   </button>
                 )}
@@ -2258,7 +2423,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                         </button>
                       ))}
                     </div>
-                  ):(
+                  ): (
                     <div className="scale-picker">
                       {[1,2,3,4,5].map(n=>(
                         <button type="button" key={n} className={Number(values.value)===n?'active':''} onClick={()=>setValues(v=>({...v,value:n}))}>{n}</button>
@@ -2266,6 +2431,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,onArea,onMetric,onSa
                     </div>
                   )}
                 </div>
+
               ):metric.slug==='sleep'?(
                 <div className="sleep-schedule-picker">
                   <div className="log-field-title">
