@@ -13987,3 +13987,109 @@ html.evolv-android .reflection-sheet *{
     grid-template-columns:1fr !important; gap:1.2rem !important;
   }
 }
+
+
+/* EVOLV — FINAL AI controls visibility + alarm native input containment */
+.dashboard .ai-page .ai-topbar-actions{
+  opacity:1 !important;
+  visibility:visible !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:.5rem !important;
+}
+.dashboard .ai-page .ai-new-chat,
+.dashboard .ai-page .ai-more-button,
+.dashboard .ai-page .ai-history-button{
+  opacity:1 !important;
+  visibility:visible !important;
+  color:#f4f1ea !important;
+  background:rgba(18,21,18,.92) !important;
+  border:0.1rem solid rgba(255,255,255,.12) !important;
+  box-shadow:0 .7rem 2rem rgba(0,0,0,.28) !important;
+}
+.dashboard .ai-page .ai-new-chat{
+  min-width:8.8rem !important;
+}
+.dashboard .ai-page .ai-more-button{
+  flex:0 0 4.2rem !important;
+}
+.dashboard .ai-page .ai-new-chat svg,
+.dashboard .ai-page .ai-more-button svg,
+.dashboard .ai-page .ai-history-button svg{
+  color:#f4f1ea !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+.dashboard .ai-page .ai-new-chat span{
+  color:#f4f1ea !important;
+  opacity:1 !important;
+  visibility:visible !important;
+}
+
+/* Keep the page black, but never let the controls disappear into it. */
+.dashboard .ai-page{
+  background:#000 !important;
+}
+
+/* iOS/WebKit date + time inputs have intrinsic internal controls that can
+   ignore a parent's width. Force the actual editable control to stay inside
+   the grid cell. */
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid{
+  display:grid !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:1rem !important;
+  overflow:hidden !important;
+}
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid > .log-input-label{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+}
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="date"],
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="time"]{
+  display:block !important;
+  width:100% !important;
+  inline-size:100% !important;
+  min-width:0 !important;
+  min-inline-size:0 !important;
+  max-width:100% !important;
+  max-inline-size:100% !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+  padding:.9rem .8rem !important;
+  font-size:1.5rem !important;
+  line-height:1.2 !important;
+  overflow:hidden !important;
+  text-overflow:clip !important;
+  white-space:nowrap !important;
+  -webkit-appearance:none !important;
+  appearance:none !important;
+}
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="date"]::-webkit-date-and-time-value,
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="time"]::-webkit-date-and-time-value{
+  text-align:left !important;
+  min-width:0 !important;
+  max-width:100% !important;
+}
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="date"]::-webkit-datetime-edit,
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="time"]::-webkit-datetime-edit{
+  min-width:0 !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+}
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="date"]::-webkit-calendar-picker-indicator,
+.dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid input[type="time"]::-webkit-calendar-picker-indicator{
+  margin:0 !important;
+  padding:0 !important;
+  max-width:1.8rem !important;
+}
+@media(max-width:650px){
+  .dashboard .settings-page .evolv-alarm-create .alarm-date-time-grid{
+    grid-template-columns:1fr !important;
+    gap:1rem !important;
+  }
+}
