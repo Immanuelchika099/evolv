@@ -25,6 +25,21 @@ const initialData = {
   goal: '',
 }
 
+function getFirstName(value = '') {
+  return String(value || '').trim().split(/\s+/)[0] || ''
+}
+
+function getProviderFirstName(user) {
+  const metadata = user?.user_metadata || {}
+  return getFirstName(
+    metadata.given_name ||
+    metadata.first_name ||
+    metadata.full_name ||
+    metadata.name ||
+    ''
+  )
+}
+
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
@@ -47,9 +62,12 @@ function App() {
     let saved = initialData
     try { saved = { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } } catch {}
 
+    const providerFirstName = getProviderFirstName(user)
+    const profileFirstName = providerFirstName || getFirstName(saved.name)
+
     await supabase.from('profiles').upsert({
       id: user.id,
-      first_name: saved.name?.trim() || '',
+      first_name: profileFirstName,
       growth_areas: saved.areas || [],
       focus: saved.focus || '',
       first_goal: saved.goal?.trim() || '',
@@ -223,7 +241,7 @@ function App() {
     if (authMode === 'signup') {
       await supabase.from('profiles').upsert({
         id: user.id,
-        first_name: data.name.trim(),
+        first_name: getFirstName(data.name),
         growth_areas: data.areas,
         focus: data.focus,
         first_goal: data.goal.trim(),
