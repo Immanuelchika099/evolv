@@ -12179,3 +12179,15 @@ body{
 .dashboard .settings-page .settings-danger{
   border-top:0 !important;
 }
+/* Profile account actions: restore the outer card border without restoring the removed inner separator */
+.dashboard .settings-page .settings-danger{
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:24px !important;
+  overflow:hidden !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.01)),
+    rgba(7,12,9,.48) !important;
+}
+.dashboard .settings-page .settings-danger .settings-action-row:first-child{
+  border-top:0 !important;
+}
