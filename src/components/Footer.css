@@ -13,3 +13,11 @@
   color:#f2f1eb;
   flex:none;
 }
+
+
+/* NEW EVOLV LOGO SYSTEM */
+
+.footer-brand-logo{gap:0;}
+.footer-brand-svg{width:8rem;height:auto;aspect-ratio:218/199;object-fit:contain;}
+@media(max-width:800px){.footer-brand-svg{width:7.2rem;height:auto;}}
+
