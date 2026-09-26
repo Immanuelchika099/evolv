@@ -1886,73 +1886,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   line-height:1.5;
 }
 
-.app-bottom-nav{
-  --glass-shift-x:0px;
-  --glass-shift-y:0px;
-  --glass-light-x:50%;
-  --glass-light-y:50%;
-  position:fixed;
-  z-index:20;
-  left:50%;
-  bottom:max(14px,env(safe-area-inset-bottom));
-  transform:translateX(-50%);
-  width:min(calc(100% - 28px),440px);
-  padding:7px;
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:4px;
-  border:1px solid rgba(255,255,255,.10);
-  border-radius:38px;
-  background:transparent;
-  box-shadow:0 18px 55px rgba(0,0,0,.34),inset 0 1px 0 rgba(255,255,255,.12),inset 0 -1px 0 rgba(255,255,255,.025);
-  backdrop-filter:blur(30px) saturate(175%) brightness(.72);
-  -webkit-backdrop-filter:blur(30px) saturate(175%) brightness(.72);
-}
-
-.app-bottom-nav button{
-  position:relative;
-  overflow:hidden;
-  isolation:isolate;
-  min-width:0;
-  min-height:54px;
-  display:grid;
-  place-items:center;
-  align-content:center;
-  gap:4px;
-  border:0;
-  border-radius:28px;
-  background:transparent;
-  color:rgba(238,235,228,.43);
-  cursor:pointer;
-}
-
-.app-bottom-nav button span{
-  position:relative;
-  z-index:1;
-  width:34px;
-  height:26px;
-  display:grid;
-  place-items:center;
-}
-
-.app-bottom-nav button small{
-  position:relative;
-  z-index:1;
-  font:8px 'DM Mono';
-  letter-spacing:.05em;
-}
-
-.app-bottom-nav::before{
-  content:none;
-}
-
-
-.app-bottom-nav button.bottom-active{
-  color:#f4f0e9;
-  background:rgba(255,255,255,.045);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.10),inset 0 -1px 0 rgba(0,0,0,.12);
-}
-
 .dashboard-panel{
   width:min(100%,900px);
   margin:0 auto;
@@ -1979,14 +1912,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .daily-insight{padding-top:24px}
   .daily-insight h2{font-size:34px}
   .daily-insight p{font-size:11px}
-  .app-bottom-nav{width:calc(100% - 24px);bottom:max(10px,env(safe-area-inset-bottom))}
-  .app-bottom-nav button{min-height:52px}
   .dashboard-panel{padding-bottom:25px}
 }
 
 @media(min-width:801px){
   .dashboard .dash-main{padding-top:72px}
-  .app-bottom-nav{width:min(440px,calc(100% - 40px))}
 }
 
 
@@ -2069,22 +1999,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 .dashboard .daily-insight::before{
   background:linear-gradient(90deg,rgba(109,189,161,.9),transparent);
-}
-
-.dashboard .app-bottom-nav{
-  border-color:rgba(109,189,161,.14);
-  background:transparent;
-  box-shadow:0 18px 55px rgba(0,0,0,.34),0 0 35px rgba(25,89,55,.10),inset 0 1px 0 rgba(139,221,177,.06);
-}
-
-.dashboard .app-bottom-nav button.bottom-active{
-  background:rgba(109,189,161,.105);
-  color:#e8f4ed;
-  box-shadow:inset 0 1px 0 rgba(139,221,177,.09),0 0 22px rgba(62,139,91,.10);
-}
-
-.dashboard .app-bottom-nav button.bottom-active span{
-  color:#6dbda1;
 }
 
 .dashboard .dashboard-welcome-copy h1,
@@ -2608,10 +2522,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .profile-box label{
     font-size:14px;
   }
-
-  .dashboard .app-bottom-nav button small{
-    font-size:9px;
-  }
 }
 
 
@@ -2901,36 +2811,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
 }
 
-/* Floating Liquid Glass tab bar */
-.dashboard .app-bottom-nav{
-  width:min(360px,calc(100% - 28px));padding:5px;gap:3px;border:1px solid rgba(255,255,255,.14);border-radius:42px;
-  background:linear-gradient(145deg,rgba(255,255,255,.09),rgba(255,255,255,.025)),rgba(8,12,10,.55);
-  box-shadow:0 20px 65px rgba(0,0,0,.46),0 5px 24px rgba(27,85,54,.12),inset 0 1px 0 rgba(255,255,255,.14),inset 0 -1px 0 rgba(0,0,0,.22);
-  backdrop-filter:blur(32px) saturate(180%);-webkit-backdrop-filter:blur(32px) saturate(180%);
-}
-.dashboard .app-bottom-nav::before{
-  content:"";position:absolute;inset:1px;border-radius:inherit;pointer-events:none;
-  background:linear-gradient(105deg,rgba(255,255,255,.055),transparent 30%,transparent 72%,rgba(255,255,255,.025));opacity:.9;
-}
-.dashboard .app-bottom-nav button{
-  min-height:58px;border-radius:34px;color:rgba(237,241,238,.32);
-  transition:background .28s cubic-bezier(.22,1,.36,1),color .22s ease,box-shadow .28s ease,transform .28s ease;
-}
-.dashboard .app-bottom-nav button span{width:32px;height:24px}
-.dashboard .app-bottom-nav button small{font:500 9px 'Manrope';letter-spacing:-.01em}
-.dashboard .app-bottom-nav button.bottom-active{
-  position:relative;color:#f0f5f1;
-  background:linear-gradient(145deg,rgba(255,255,255,.15),rgba(255,255,255,.055)),rgba(126,154,140,.08);
-  border:1px solid rgba(255,255,255,.15);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.20),inset 0 -1px 0 rgba(0,0,0,.14),0 7px 20px rgba(0,0,0,.16);
-}
-.dashboard .app-bottom-nav button.bottom-active::after{
-  content:"";position:absolute;inset:2px;border-radius:31px;pointer-events:none;
-  background:linear-gradient(115deg,rgba(255,255,255,.055),transparent 38%);
-}
-.dashboard .app-bottom-nav button.bottom-active span{color:#c7d4cc}
-.dashboard .app-bottom-nav button:active{transform:scale(.96)}
-
 @media(max-width:800px){
   .dashboard .dash-main{padding:34px 16px 126px}
   .dashboard .dashboard-home{width:100%}
@@ -2951,12 +2831,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .daily-insight{padding-top:28px}
   .dashboard .daily-insight h2{font-size:clamp(38px,10vw,48px)}
   .dashboard .daily-insight p{font-size:14px}
-  .dashboard .app-bottom-nav{width:calc(100% - 34px);max-width:360px;bottom:max(12px,env(safe-area-inset-bottom));padding:5px;border-radius:40px}
-  .dashboard .app-bottom-nav button{min-height:58px;border-radius:34px}
 }
 @media(min-width:801px){
   .dashboard .state-ring{width:176px;height:176px}
-  .dashboard .app-bottom-nav{width:min(370px,calc(100% - 40px))}
 }
 
 /* Dashboard ambient lighting — only two intentional green glows */
@@ -3451,15 +3328,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .mini-progress i{
   background:linear-gradient(90deg,#8fae3d,#c4df59);
   box-shadow:0 0 18px rgba(183,217,76,.12);
-}
-.dashboard .app-bottom-nav{
-  background:rgba(4,6,4,.72);
-  border-color:rgba(183,217,76,.09);
-  backdrop-filter:blur(24px) saturate(130%);
-}
-.dashboard .app-bottom-nav button.bottom-active{
-  background:rgba(183,217,76,.09);
-  color:#c4df59;
 }
 @media(max-width:800px){
   .dashboard .dashboard-welcome{
@@ -4138,16 +4006,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task:active{
   transform:translateY(1px) scale(.995);
 }
-.dashboard .app-bottom-nav button{
-  transition:transform .24s cubic-bezier(.22,.8,.2,1),background .24s ease,color .24s ease;
-}
-.dashboard .app-bottom-nav button:active{
-  transform:scale(.92);
-}
-.dashboard .app-bottom-nav button.bottom-active{
-  color:#c4df59;
-  box-shadow:inset 0 0 0 1px rgba(183,217,76,.055);
-}
 .dashboard .ai-page .ai-input button:hover{
   transform:translateY(-1px) scale(1.02);
   box-shadow:0 10px 30px rgba(183,217,76,.16);
@@ -4466,27 +4324,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:rgba(183,217,76,.28);
   box-shadow:0 0 0 3px rgba(183,217,76,.055);
 }
-.dashboard .app-bottom-nav{
-  border:1px solid rgba(255,255,255,.075);
-  background:rgba(3,5,3,.76);
-  box-shadow:0 24px 70px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.035);
-  backdrop-filter:blur(26px) saturate(125%);
-}
-.dashboard .app-bottom-nav button{
-  color:rgba(243,241,233,.42);
-  transition:transform .25s ease,color .25s ease,background .25s ease;
-}
-.dashboard .app-bottom-nav button:hover{
-  color:rgba(243,241,233,.78);
-}
-.dashboard .app-bottom-nav button.bottom-active{
-  color:#d7e39e;
-  background:rgba(183,217,76,.075);
-}
-.dashboard .app-bottom-nav button.bottom-active::after{
-  background:var(--evolv-green);
-  box-shadow:0 0 10px rgba(183,217,76,.28);
-}
 .dashboard .dash-main > *{
   animation:evolvReveal .7s cubic-bezier(.2,.75,.2,1) both;
 }
@@ -4529,9 +4366,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   }
   .dashboard .ai-page .ai-message p{
     max-width:92%;
-  }
-  .dashboard .app-bottom-nav{
-    width:min(370px,calc(100% - 40px));
   }
 }
 
@@ -4695,10 +4529,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .daily-insight-points p{
   color:rgba(244,241,232,.5) !important;
-}
-.dashboard .app-bottom-nav{
-  border-color:rgba(255,255,255,.06);
-  background:rgba(2,3,2,.82);
 }
 @media(max-width:800px){
   .dashboard .dash-main{
@@ -5895,129 +5725,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 
-/* EVOLV — bottom nav active state must not obscure labels/content */
-.app-bottom-nav{
-  overflow:visible !important;
-  isolation:isolate;
-}
-.app-bottom-nav button{
-  overflow:visible !important;
-  isolation:auto !important;
-}
-.app-bottom-nav button.bottom-active{
-  background:transparent !important;
-  box-shadow:none !important;
-}
-.app-bottom-nav button.bottom-active::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  left:8px;
-  right:8px;
-  top:5px;
-  bottom:5px;
-  border-radius:24px;
-  background:rgba(255,255,255,.045);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08);
-  pointer-events:none;
-}
-.app-bottom-nav button.bottom-active span,
-.app-bottom-nav button.bottom-active small{
-  position:relative;
-  z-index:2;
-}
-
-
-/* EVOLV — bottom nav active highlight, final layering fix */
-.dashboard .app-bottom-nav{
-  overflow:hidden !important;
-}
-.dashboard .app-bottom-nav button{
-  overflow:hidden !important;
-  isolation:isolate !important;
-  z-index:0;
-}
-.dashboard .app-bottom-nav button.bottom-active{
-  background:transparent !important;
-  box-shadow:none !important;
-}
-.dashboard .app-bottom-nav button.bottom-active::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:3px;
-  border-radius:25px;
-  background:rgba(255,255,255,.055);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.09);
-  pointer-events:none;
-}
-.dashboard .app-bottom-nav button.bottom-active span,
-.dashboard .app-bottom-nav button.bottom-active small{
-  position:relative !important;
-  z-index:3 !important;
-  opacity:1 !important;
-}
-.dashboard .app-bottom-nav button span,
-.dashboard .app-bottom-nav button small{
-  opacity:1 !important;
-}
-
-
-/* EVOLV — bottom nav clean active indicator */
-.dashboard .app-bottom-nav{
-  overflow:hidden !important;
-}
-.dashboard .app-bottom-nav button{
-  position:relative !important;
-  overflow:hidden !important;
-  isolation:isolate !important;
-  background:transparent !important;
-  box-shadow:none !important;
-}
-.dashboard .app-bottom-nav button.bottom-active{
-  color:#c4df59 !important;
-  background:transparent !important;
-  box-shadow:none !important;
-}
-.dashboard .app-bottom-nav button.bottom-active::before{
-  content:"";
-  position:absolute;
-  z-index:0;
-  left:50%;
-  top:4px;
-  width:42px;
-  height:28px;
-  transform:translateX(-50%);
-  border-radius:16px;
-  background:rgba(183,217,76,.075);
-  box-shadow:inset 0 1px 0 rgba(183,217,76,.10);
-  pointer-events:none;
-}
-.dashboard .app-bottom-nav button.bottom-active::after{
-  content:"";
-  position:absolute;
-  z-index:0;
-  left:50%;
-  bottom:4px;
-  width:3px;
-  height:3px;
-  transform:translateX(-50%);
-  border-radius:50%;
-  background:#b7d94c;
-  box-shadow:0 0 8px rgba(183,217,76,.45);
-  pointer-events:none;
-}
-.dashboard .app-bottom-nav button.bottom-active > span,
-.dashboard .app-bottom-nav button.bottom-active > small{
-  position:relative !important;
-  z-index:2 !important;
-  display:grid;
-}
-.dashboard .app-bottom-nav button.bottom-active > small{
-  display:block;
-}
-
-
 /* EVOLV — remove extra weekly progress surface */
 .dashboard .weekly-progress-card,
 .dashboard .weekly-progress-card::before,
@@ -6209,17 +5916,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   color:var(--evolv-lime) !important;
   border-color:rgba(200,243,106,.25) !important;
 }
-.dashboard .app-bottom-nav{
-  border-color:rgba(255,255,255,.15) !important;
-  background:rgba(5,8,9,.62) !important;
-  box-shadow:0 20px 65px rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.10) !important;
-}
-.dashboard .app-bottom-nav button.bottom-active{
-  color:var(--evolv-lime) !important;
-}
-.dashboard .app-bottom-nav button.bottom-active:before{
-  background:linear-gradient(135deg,rgba(200,243,106,.11),rgba(98,230,189,.07)) !important;
-}
 
 
 /* EVOLV — cinematic structure pass: dark canvas, color only as accents */
@@ -6266,8 +5962,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .goal-item .mini-progress i{background:linear-gradient(90deg,#c8f36a,#62e6bd) !important}
 .dashboard .goal-actions button{border-color:rgba(255,255,255,.08) !important;background:transparent !important}
 .dashboard .settings-card{background:transparent !important;border-color:rgba(255,255,255,.08) !important}
-.dashboard .app-bottom-nav{background:rgba(4,6,6,.76) !important;border-color:rgba(255,255,255,.13) !important}
-.dashboard .app-bottom-nav button.bottom-active{color:#c8f36a !important}
 
 
 /* EVOLV — real-life navigation + logging system */
@@ -8866,46 +8560,6 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 
-/* EVOLV — profile photo nav item: image stays a true circle, no active-state surface */
-.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active{
-  color:inherit !important;
-  background:transparent !important;
-  box-shadow:none !important;
-}
-.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active::before,
-.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active::after{
-  display:none !important;
-}
-.dashboard .app-bottom-nav button.bottom-profile-nav-button .bottom-profile-icon{
-  width:30px !important;
-  height:30px !important;
-  min-width:30px !important;
-  min-height:30px !important;
-  padding:0 !important;
-  margin:0 !important;
-  display:block !important;
-  overflow:hidden !important;
-  border:0 !important;
-  outline:0 !important;
-  border-radius:50% !important;
-  background:transparent !important;
-  box-shadow:none !important;
-}
-.dashboard .app-bottom-nav button.bottom-profile-nav-button .bottom-profile-image{
-  width:30px !important;
-  height:30px !important;
-  min-width:30px !important;
-  min-height:30px !important;
-  display:block !important;
-  object-fit:cover !important;
-  border:0 !important;
-  outline:0 !important;
-  border-radius:50% !important;
-  box-shadow:none !important;
-  clip-path:circle(50% at 50% 50%);
-}
-
-
 /* EVOLV — mood logging uses expressive emoji choices */
 .dashboard .mood-scale-picker{
   display:grid;
@@ -10640,46 +10294,6 @@ body{
   background:linear-gradient(145deg,#fff,#e9ebe8) !important;
 }
 
-/* Bottom navigation — floating liquid-glass pill */
-.dashboard .app-bottom-nav{
-  overflow:hidden;
-  isolation:isolate;
-  border:1px solid rgba(255,255,255,.16) !important;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.105),rgba(255,255,255,.035) 48%,rgba(255,255,255,.075)) !important;
-  box-shadow:
-    0 22px 70px rgba(0,0,0,.48),
-    0 5px 20px rgba(0,0,0,.24),
-    inset 0 1px 0 rgba(255,255,255,.20),
-    inset 0 -1px 0 rgba(255,255,255,.035) !important;
-  backdrop-filter:blur(34px) saturate(165%) brightness(1.02) !important;
-  -webkit-backdrop-filter:blur(34px) saturate(165%) brightness(1.02) !important;
-}
-
-.dashboard .app-bottom-nav::before,
-.dashboard .app-bottom-nav::after{
-  content:none !important;
-}
-
-.dashboard .app-bottom-nav button{
-  z-index:1;
-}
-
-.dashboard .app-bottom-nav button.bottom-active{
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.13),rgba(255,255,255,.045)) !important;
-  border:1px solid rgba(255,255,255,.11);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.17),
-    inset 0 -1px 0 rgba(0,0,0,.12),
-    0 4px 15px rgba(0,0,0,.14) !important;
-}
-
-.dashboard .app-bottom-nav button:active{
-  transform:scale(.965);
-  transition:transform .12s ease;
-}
-
 @media(max-width:800px){
   .dashboard-ai-active .ai-page .ai-composer{
     border-radius:29px !important;
@@ -10690,18 +10304,9 @@ body{
     backdrop-filter:blur(28px) saturate(145%) brightness(1.06) !important;
     -webkit-backdrop-filter:blur(28px) saturate(145%) brightness(1.06) !important;
   }
-
-  .dashboard .app-bottom-nav{
-    border-radius:34px !important;
-    backdrop-filter:blur(32px) saturate(160%) brightness(1.02) !important;
-    -webkit-backdrop-filter:blur(32px) saturate(160%) brightness(1.02) !important;
-  }
 }
 
 @media(prefers-reduced-motion:reduce){
-  .dashboard .app-bottom-nav::after{
-    animation:none;
-  }
 }
 
 
@@ -12162,59 +11767,7 @@ body{
   -webkit-backdrop-filter:none !important;
 }
 
-
-/* EVOLV — bottom navigation */
-.dashboard .app-bottom-nav{
-  isolation:isolate;
-  overflow:hidden;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.018)),
-    rgba(7,10,9,.42);
-  border:1px solid rgba(255,255,255,.13);
-  backdrop-filter:blur(32px) saturate(175%) brightness(.78);
-  -webkit-backdrop-filter:blur(32px) saturate(175%) brightness(.78);
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.38),
-    inset 0 1px 0 rgba(255,255,255,.15),
-    inset 0 -1px 0 rgba(255,255,255,.035);
-}
-
-/* Every navigation item uses the same quiet active state as Profile. */
-.dashboard .app-bottom-nav button{
-  z-index:2;
-  color:rgba(238,235,228,.47);
-  background:transparent !important;
-  box-shadow:none !important;
-  transition:color .2s ease;
-}
-
-.dashboard .app-bottom-nav button.bottom-active,
-.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active{
-  background:transparent !important;
-  box-shadow:none !important;
-  color:#f3f1ec !important;
-}
-
-.dashboard .app-bottom-nav button.bottom-active::before,
-.dashboard .app-bottom-nav button.bottom-active::after,
-.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active::before,
-.dashboard .app-bottom-nav button.bottom-profile-nav-button.bottom-active::after{
-  display:none !important;
-}
-
-.dashboard .app-bottom-nav button.bottom-active span,
-.dashboard .app-bottom-nav button.bottom-active small{
-  color:#f3f1ec !important;
-}
-
-.dashboard .app-bottom-nav .log-nav-button{
-  color:#c8f36a !important;
-}
-
 @media(max-width:800px){
-  .dashboard .app-bottom-nav{
-    padding:6px;
-  }
 }
 
 
@@ -12444,24 +11997,6 @@ body{
     opacity:1 !important;
     pointer-events:auto !important;
   }
-}
-
-
-/* EVOLV — dock bottom navigation directly to the page edge */
-.dashboard .app-bottom-nav{
-  position:fixed !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  transform:none !important;
-  width:100% !important;
-  max-width:none !important;
-  margin:0 !important;
-  border-radius:0 !important;
-  border-left:0 !important;
-  border-right:0 !important;
-  border-bottom:0 !important;
-  padding-bottom:env(safe-area-inset-bottom) !important;
 }
 
 
@@ -15062,137 +14597,10 @@ html.evolv-android .reflection-sheet *{
   }
 }
 
-
-
-
-/* EVOLV — final mobile/website navigation docking
-   The bottom navigation is part of the viewport edge, not a floating pill. */
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav{
-  position:fixed !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  top:auto !important;
-  transform:none !important;
-  width:100% !important;
-  max-width:none !important;
-  min-width:100% !important;
-  margin:0 !important;
-  padding:0.6rem 1.2rem env(safe-area-inset-bottom, 0px) !important;
-  border-radius:0 !important;
-  border-left:0 !important;
-  border-right:0 !important;
-  border-bottom:0 !important;
-  border-top:1px solid rgba(255,255,255,.10) !important;
-  background:rgba(8,10,9,.94) !important;
-  box-shadow:0 -10px 30px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.035) !important;
-  backdrop-filter:blur(26px) saturate(135%) !important;
-  -webkit-backdrop-filter:blur(26px) saturate(135%) !important;
-  z-index:100000 !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav::before,
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav::after{
-  display:none !important;
-  content:none !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav button{
-  min-height:5.8rem !important;
-  border-radius:1.4rem !important;
-  background:transparent !important;
-  box-shadow:none !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav button.bottom-active{
-  background:rgba(255,255,255,.055) !important;
-  border:1px solid rgba(255,255,255,.08) !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08) !important;
-}
-
 @media(min-width:801px){
-  .dashboard:not(.dashboard-ai-active) .app-bottom-nav{
-    padding-left:2rem !important;
-    padding-right:2rem !important;
-  }
-}
-
-
-
-/* EVOLV — final docked nav sizing
-   Content-driven height so the bar adapts cleanly to different phone sizes,
-   safe areas and browser chrome without floating or stretching. */
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked{
-  position:fixed !important;
-  left:0 !important;
-  right:0 !important;
-  bottom:0 !important;
-  top:auto !important;
-  transform:none !important;
-  width:100% !important;
-  min-width:0 !important;
-  max-width:none !important;
-  height:fit-content !important;
-  min-height:0 !important;
-  box-sizing:border-box !important;
-  margin:0 !important;
-  padding:.6rem 1rem calc(.6rem + env(safe-area-inset-bottom, 0px)) !important;
-  display:grid !important;
-  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
-  gap:.35rem !important;
-  border-radius:0 !important;
-  border-left:0 !important;
-  border-right:0 !important;
-  border-bottom:0 !important;
-  border-top:1px solid rgba(255,255,255,.10) !important;
-  overflow:visible !important;
-  background:rgba(8,10,9,.94) !important;
-  box-shadow:0 -8px 28px rgba(0,0,0,.28) !important;
-  z-index:100000 !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked::before,
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked::after{
-  display:none !important;
-  content:none !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button{
-  width:100% !important;
-  height:fit-content !important;
-  min-height:5.4rem !important;
-  max-height:none !important;
-  padding:.65rem .35rem !important;
-  margin:0 !important;
-  box-sizing:border-box !important;
-  border-radius:1.35rem !important;
-  display:grid !important;
-  place-items:center !important;
-  align-content:center !important;
-  gap:.3rem !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button span{
-  width:3.2rem !important;
-  height:2.4rem !important;
-}
-
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button small{
-  line-height:1.15 !important;
-  white-space:nowrap !important;
 }
 
 @media(max-width:380px){
-  .dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked{
-    padding-left:.55rem !important;
-    padding-right:.55rem !important;
-    gap:.2rem !important;
-  }
-
-  .dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button{
-    min-height:5.1rem !important;
-    padding:.5rem .2rem !important;
-  }
 }
 
 
@@ -15325,23 +14733,4 @@ html.evolv-android .reflection-sheet *{
     padding-top:calc(7.6rem + env(safe-area-inset-top,0px)) !important;
     padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
   }
-}
-
-/* EVOLV — hard-stop bottom nav height */
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav,
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked{
-  height:fit-content !important;
-  min-height:0 !important;
-  max-height:none !important;
-  flex:none !important;
-  align-self:auto !important;
-  box-sizing:border-box !important;
-}
-.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button{
-  height:fit-content !important;
-  min-height:5.4rem !important;
-  max-height:5.8rem !important;
-  flex:none !important;
-  align-self:auto !important;
-  box-sizing:border-box !important;
 }
