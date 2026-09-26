@@ -89,3 +89,14 @@
     padding-inline: 1.2rem;
   }
 }
+
+/* Android webviews can render backdrop-filter as transparent/unstable.
+   Keep the bottom navigation fully opaque there while preserving the
+   glass treatment on browsers that composite it correctly. */
+html.evolv-android .evolv-bottom-nav {
+  background: #0a0d0c;
+  background-image: none;
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: 0 -1px 0 rgba(255,255,255,.08), 0 -14px 34px rgba(0,0,0,.28);
+}
