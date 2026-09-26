@@ -6283,7 +6283,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .ai-send:disabled{opacity:.25;cursor:not-allowed}
 @media(max-width:650px){
   .dashboard .ai-heading{align-items:flex-start;flex-direction:column;gap:10px}
-  .dashboard .ai-chat{height:calc(100dvh - 145px);min-height:460px}
+  .dashboard .ai-chat{height:calc(100vh - 14.5rem);min-height:460px}
   .dashboard .ai-input{bottom:calc(6.6rem + env(safe-area-inset-bottom));padding-left:12px;padding-right:12px}
   .dashboard .ai-composer{min-height:54px}
   .dashboard .ai-composer input{font-size:1rem}
@@ -12893,7 +12893,7 @@ html.evolv-android .reflection-sheet *{
     padding:7.2rem 1rem 1rem !important;
   }
   .dashboard .ai-history-sheet{
-    max-height:calc(100dvh - 8.5rem) !important;
+    max-height:calc(100vh - 8.5rem) !important;
     padding:1.5rem !important;
     border-radius:1.9rem !important;
   }
@@ -12967,7 +12967,7 @@ html.evolv-android .reflection-sheet *{
 }
 .dashboard .ai-page .ai-topbar{
   position:fixed !important;
-  top:0 !important;
+  top:env(safe-area-inset-top, 0px) !important;
   left:0 !important;
   right:0 !important;
   width:100vw !important;
@@ -13192,10 +13192,13 @@ html.evolv-android .reflection-sheet *{
   .dashboard .ai-page{
     padding-left:1.2rem !important;
     padding-right:1.2rem !important;
+    padding-top:env(safe-area-inset-top, 0px) !important;
   }
   .dashboard .ai-page .ai-topbar{
-    min-height:6.4rem !important;
-    padding:.9rem 1.2rem !important;
+    min-height:calc(6.4rem + env(safe-area-inset-top, 0px)) !important;
+    height:calc(6.4rem + env(safe-area-inset-top, 0px)) !important;
+    padding:env(safe-area-inset-top, 0px) 1.2rem .9rem !important;
+    box-sizing:border-box !important;
   }
   .dashboard .ai-page .ai-topbar::before{
     height:13rem !important;
