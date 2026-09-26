@@ -14737,3 +14737,96 @@ html.evolv-android .reflection-sheet *{
     padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
   }
 }
+
+
+/* EVOLV AI — true percentage-height app shell + separated top controls */
+html,body,#root{
+  height:100%;
+}
+
+.dashboard.dashboard-ai-active{
+  height:100% !important;
+  min-height:100% !important;
+  max-height:100% !important;
+}
+
+.dashboard.dashboard-ai-active .dash-main{
+  height:100% !important;
+  min-height:100% !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page{
+  height:100% !important;
+  min-height:100% !important;
+  max-height:100% !important;
+  background:#000 !important;
+  background-color:#000 !important;
+}
+
+/* A soft black fade gives the controls breathing room without creating a hard border. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  top:calc(env(safe-area-inset-top,0px) + 2.1rem) !important;
+  height:5.8rem !important;
+  min-height:5.8rem !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar::before{
+  display:block !important;
+  content:"" !important;
+  position:absolute !important;
+  z-index:-1 !important;
+  top:-2.1rem !important;
+  left:-1rem !important;
+  right:-1rem !important;
+  height:13rem !important;
+  pointer-events:none !important;
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,.98) 0%,
+    rgba(0,0,0,.9) 28%,
+    rgba(0,0,0,.62) 55%,
+    rgba(0,0,0,0) 100%
+  ) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar > *,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions,
+.dashboard.dashboard-ai-active .ai-page .ai-history-button,
+.dashboard.dashboard-ai-active .ai-page .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-more-button{
+  position:relative !important;
+  z-index:1 !important;
+}
+
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active{
+    height:100% !important;
+    min-height:100% !important;
+    max-height:100% !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page{
+    height:100% !important;
+    min-height:100% !important;
+    max-height:100% !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar{
+    top:calc(env(safe-area-inset-top,0px) + 2.1rem) !important;
+    left:1rem !important;
+    right:1rem !important;
+    height:5.8rem !important;
+    min-height:5.8rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar::before{
+    top:-2.1rem !important;
+    left:-1rem !important;
+    right:-1rem !important;
+    height:13rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages{
+    padding-top:calc(9rem + env(safe-area-inset-top,0px)) !important;
+  }
+}
