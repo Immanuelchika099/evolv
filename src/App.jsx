@@ -168,7 +168,7 @@ function App() {
   useLayoutEffect(() => {
     let cleanupMarquee = null
     const ctx = gsap.context(() => {
-      if (view !== 'article') {
+      if (view !== 'article' && view !== 'landing') {
         gsap.from('.page-enter > *', { y: 24, opacity: 1, duration: .75, stagger: .06, ease: 'power3.out' })
       }
     }, root)
