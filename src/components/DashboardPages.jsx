@@ -24,7 +24,7 @@ export function DashboardPages({ active, pageProps }) {
 }
 
 function HomePage({ pageProps }) {
-  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, areas, notificationTimes, onArticle } = pageProps
+  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, notificationTimes, onArticle } = pageProps
   return <div className="dashboard-home">
         <section className="dashboard-welcome"><div className="dashboard-welcome-copy"><span className="dashboard-eyebrow">Welcome back,</span><h1>{name.trim().split(/\s+/).map((part, index, parts) => <span key={`${part}-${index}`}>{part}{index === parts.length - 1 ? '.' : ''}</span>)}</h1></div></section>
         <section className="today-snapshot">
@@ -174,7 +174,7 @@ function LogsPage({ pageProps }) {
 }
 
 function LogDetailPage({ pageProps }) {
-  const { selectedEntry, goTo, startEditEntry, deleteEntry } = pageProps
+  const { selectedEntry, goTo, startEditEntry, deleteEntry, icons } = pageProps
   return selectedEntry&&(()=>{
         const {type,entry,definition}=selectedEntry,date=entry.logged_at||entry.created_at,title=type==='meal'?'Meal':definition?.name||'Entry',M=type==='meal'?Utensils:(icons[definition?.slug]||Activity)
         const value=type==='meal'?(entry.description||'Meal logged'):definition?.slug==='mood'?({1:'Very low',2:'Low',3:'Okay',4:'Good',5:'Great'}[Number(entry.value)]||String(entry.value)):definition?(Number(entry.value).toLocaleString()+(entry.unit?' '+entry.unit:'')):'Entry logged'
@@ -192,7 +192,7 @@ function LogDetailPage({ pageProps }) {
 }
 
 function ProgressPage({ pageProps }) {
-  const { progressRange, setProgressRange, progressMetric, setProgressMetric, logs, defs, goals, checkins = [], momentum = 0, goTo, valueText, WeeklyProgressChart: Chart } = pageProps
+  const { progressRange, setProgressRange, progressMetric, setProgressMetric, logs, meals, defs, goals, checkins = [], momentum = 0, goTo, valueText, WeeklyProgressChart: Chart } = pageProps
   return (()=>{
         const now=new Date()
         const periodStart=new Date(now)
