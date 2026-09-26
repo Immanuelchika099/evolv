@@ -166,13 +166,27 @@ function App() {
   }, [])
 
   useLayoutEffect(() => {
-    let cleanupMarquee = null
-    const ctx = gsap.context(() => {
-      if (view !== 'article' && view !== 'landing') {
-        gsap.from('.page-enter > *', { y: 24, opacity: 1, duration: .75, stagger: .06, ease: 'power3.out' })
-      }
-    }, root)
-    return () => ctx.revert()
+    const rootEl = root.current
+    if (!rootEl) return
+
+    let ctx
+    try {
+      ctx = gsap.context(() => {
+        if (view !== 'article' && view !== 'landing') {
+          gsap.from('.page-enter > *', {
+            y: 24,
+            opacity: 1,
+            duration: .75,
+            stagger: .06,
+            ease: 'power3.out',
+          })
+        }
+      }, rootEl)
+    } catch (error) {
+      console.error('EVOLV page animation skipped:', error)
+    }
+
+    return () => ctx?.revert()
   }, [view, step])
 
   function openContact() {
@@ -584,102 +598,100 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
 
     let refreshTimer = null
     let loadHandler = null
+    let ctx
 
-    const ctx = gsap.context(() => {
-      // Hero entrance.
-      gsap.timeline({ defaults: { ease: 'power4.out' } })
-        .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 })
-        .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
-        .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
-        .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
-        .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
+    try {
+      ctx = gsap.context(() => {
+        gsap.timeline({ defaults: { ease: 'power4.out' } })
+          .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 })
+          .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
+          .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
+          .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
+          .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
 
-      gsap.to('.hero-outer-ring', {
-        rotation: 360,
-        duration: 22,
-        repeat: -1,
-        ease: 'none'
-      })
-
-      // Continuous marquees. These remain independent of ScrollTrigger.
-      gsap.to('.evolv-hero-marquee-track', {
-        xPercent: -50,
-        duration: 18,
-        repeat: -1,
-        ease: 'none'
-      })
-
-      gsap.to('.evolv-scroll-marquee-track', {
-        xPercent: -50,
-        duration: 22,
-        repeat: -1,
-        ease: 'none'
-      })
-
-      // ScrollTrigger is deliberately wired to the actual homepage nodes
-      // instead of relying on broad selectors. No section is hidden by CSS;
-      // scrolling controls only the subtle movement/color changes.
-      const reveal = (selector, fromVars, toVars, triggerOptions = {}) => {
-        pageEl.querySelectorAll(selector).forEach((element, index) => {
-          gsap.fromTo(
-            element,
-            { ...fromVars },
-            {
-              ...toVars,
-              delay: triggerOptions.stagger ? index * triggerOptions.stagger : 0,
-              scrollTrigger: {
-                trigger: element,
-                scroller: window,
-                start: triggerOptions.start || 'top 88%',
-                end: triggerOptions.end || 'top 68%',
-                toggleActions: 'play none none reverse',
-                invalidateOnRefresh: true
-              }
-            }
-          )
+        gsap.to('.hero-outer-ring', {
+          rotation: 360,
+          duration: 22,
+          repeat: -1,
+          ease: 'none',
         })
-      }
 
-      reveal('.story-reveal', { y: 45 }, {
-        y: 0,
-        duration: .8,
-        ease: 'power3.out'
-      })
+        gsap.to('.evolv-hero-marquee-track', {
+          xPercent: -50,
+          duration: 18,
+          repeat: -1,
+          ease: 'none',
+        })
 
-      reveal('.feature-card', { y: 30, scale: .985 }, {
-        y: 0,
-        scale: 1,
-        duration: .7,
-        ease: 'power3.out'
-      }, { start: 'top 90%', end: 'top 72%', stagger: .05 })
+        gsap.to('.evolv-scroll-marquee-track', {
+          xPercent: -50,
+          duration: 22,
+          repeat: -1,
+          ease: 'none',
+        })
 
-      reveal('.area', { x: -24 }, {
-        x: 0,
-        duration: .65,
-        ease: 'power3.out'
-      }, { start: 'top 92%', end: 'top 74%' })
+        const reveal = (selector, fromVars, toVars, options = {}) => {
+          pageEl.querySelectorAll(selector).forEach((element, index) => {
+            gsap.fromTo(
+              element,
+              fromVars,
+              {
+                ...toVars,
+                delay: options.stagger ? index * options.stagger : 0,
+                scrollTrigger: {
+                  trigger: element,
+                  start: options.start || 'top 88%',
+                  end: options.end || 'top 68%',
+                  toggleActions: 'play none none reverse',
+                  invalidateOnRefresh: true,
+                },
+              },
+            )
+          })
+        }
 
-      // Headings get a restrained color transition as they enter.
-      reveal('.story-reveal h2, .story-reveal h3', { color: '#6f756f' }, {
-        color: '#f4f1ea',
-        duration: .8,
-        ease: 'power2.out'
-      }, { start: 'top 86%', end: 'top 70%' })
+        // Keep the sections in normal document flow. ScrollTrigger only adds
+        // subtle movement; it never controls visibility.
+        reveal('.story-reveal', { y: 24 }, {
+          y: 0,
+          duration: .75,
+          ease: 'power3.out',
+        })
 
-      // Let the browser finish layout, then calculate all trigger positions.
-      const refresh = () => {
-        ScrollTrigger.refresh(true)
-      }
+        reveal('.feature-card', { y: 20, scale: .99 }, {
+          y: 0,
+          scale: 1,
+          duration: .65,
+          ease: 'power3.out',
+        }, { start: 'top 90%', end: 'top 74%', stagger: .05 })
 
-      refreshTimer = window.setTimeout(refresh, 120)
-      loadHandler = refresh
-      window.addEventListener('load', loadHandler)
-    }, pageEl)
+        // Section 5 stays horizontally stable. This avoids clipping its
+        // contents against the viewport edge while still giving it motion.
+        reveal('.area', { y: 18 }, {
+          y: 0,
+          duration: .65,
+          ease: 'power3.out',
+        }, { start: 'top 92%', end: 'top 76%' })
+
+        reveal('.story-reveal h2, .story-reveal h3', { color: '#6f756f' }, {
+          color: '#f4f1ea',
+          duration: .8,
+          ease: 'power2.out',
+        }, { start: 'top 86%', end: 'top 70%' })
+
+        const refresh = () => ScrollTrigger.refresh()
+        refreshTimer = window.setTimeout(refresh, 120)
+        loadHandler = refresh
+        window.addEventListener('load', loadHandler)
+      }, pageEl)
+    } catch (error) {
+      console.error('EVOLV homepage animation skipped:', error)
+    }
 
     return () => {
       if (refreshTimer) window.clearTimeout(refreshTimer)
       if (loadHandler) window.removeEventListener('load', loadHandler)
-      ctx.revert()
+      ctx?.revert()
     }
   }, [])
 
