@@ -15240,3 +15240,89 @@ html.evolv-android .reflection-sheet *{
     width:100% !important;
   }
 }
+
+
+
+/* EVOLV AI — final full-screen mobile shell */
+.dashboard.dashboard-ai-active{
+  position:fixed !important; inset:0 !important; width:100vw !important;
+  height:100svh !important; min-height:100svh !important; max-height:100svh !important;
+  margin:0 !important; padding:0 !important; overflow:hidden !important;
+  background:#000 !important; background-image:none !important; isolation:isolate !important;
+}
+.dashboard.dashboard-ai-active .dash-main{
+  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+  min-height:0 !important; margin:0 !important; padding:0 !important; overflow:hidden !important;
+  background:#000 !important; background-image:none !important;
+}
+.dashboard.dashboard-ai-active .dash-main::before,
+.dashboard.dashboard-ai-active .dash-main::after,
+.dashboard.dashboard-ai-active .ai-page::before,
+.dashboard.dashboard-ai-active .ai-page::after{
+  display:none !important; content:none !important;
+}
+.dashboard.dashboard-ai-active .ai-page{
+  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+  min-height:0 !important; max-height:none !important; max-width:none !important;
+  margin:0 !important; padding:0 !important; overflow:hidden !important;
+  background:#000 !important; background-color:#000 !important; background-image:none !important;
+  border:0 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat{
+  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+  min-height:0 !important; max-height:none !important; margin:0 !important;
+  border:0 !important; border-radius:0 !important; background:#000 !important;
+  background-color:#000 !important; background-image:none !important;
+  box-shadow:none !important; overflow:hidden !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
+  min-height:0 !important; max-height:none !important; box-sizing:border-box !important;
+  overflow-y:auto !important; overflow-x:hidden !important;
+  padding-top:calc(7.6rem + env(safe-area-inset-top,0px)) !important;
+  padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
+  background:#000 !important; scrollbar-width:none !important;
+  -webkit-overflow-scrolling:touch !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages::-webkit-scrollbar{display:none !important}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  position:absolute !important;
+  top:calc(env(safe-area-inset-top,0px) + .8rem) !important;
+  left:1rem !important; right:1rem !important; width:auto !important;
+  height:5.6rem !important; min-height:5.6rem !important; margin:0 !important; padding:0 !important;
+  box-sizing:border-box !important; display:flex !important; align-items:center !important;
+  justify-content:space-between !important; z-index:100500 !important;
+  opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar::before{display:none !important;content:none !important}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar > *,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions,
+.dashboard.dashboard-ai-active .ai-page .ai-history-button,
+.dashboard.dashboard-ai-active .ai-page .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-more-button{
+  position:relative !important; z-index:100501 !important;
+  opacity:1 !important; visibility:visible !important; pointer-events:auto !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-input{
+  position:absolute !important; left:0 !important; right:0 !important; bottom:0 !important;
+  width:100% !important; height:fit-content !important; min-height:0 !important; max-height:none !important;
+  box-sizing:border-box !important; margin:0 !important;
+  padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom,0px)) !important;
+  border:0 !important; background:#000 !important; background-color:#000 !important;
+  background-image:none !important; box-shadow:none !important;
+  backdrop-filter:none !important; -webkit-backdrop-filter:none !important; z-index:100400 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-composer{
+  position:relative !important; z-index:100401 !important; width:100% !important;
+  max-width:98rem !important; min-height:5.6rem !important; margin:0 auto !important;
+}
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar{
+    top:calc(env(safe-area-inset-top,0px) + .8rem) !important;
+    left:1rem !important; right:1rem !important; height:5.6rem !important; min-height:5.6rem !important;
+  }
+  .dashboard.dashboard-ai-active .ai-page .ai-messages{
+    padding-top:calc(7.6rem + env(safe-area-inset-top,0px)) !important;
+    padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
+  }
+}
