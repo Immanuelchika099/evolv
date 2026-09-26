@@ -254,7 +254,7 @@ function App() {
     } else {
       const { data: profile } = await supabase
         .from('profiles')
-        .select('first_name,growth_areas,focus,first_goal')
+        .select('first_name,growth_areas,focus,first_goal,avatar_url')
         .eq('id', user.id)
         .maybeSingle()
 
@@ -1323,7 +1323,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
       ,supabase.from('alarms').select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').eq('user_id',u.id).order('alarm_at',{ascending:true})
-    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);setAvatarUrl(u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
@@ -1721,43 +1721,101 @@ function Dashboard({ data, onLogout, onArticle }) {
     if(!file)return
     if(!file.type.startsWith('image/')){setProfileMessage('Please choose an image file.');return}
     if(file.size>8*1024*1024){setProfileMessage('Choose an image smaller than 8 MB.');return}
+
     const {data:a}=await supabase.auth.getUser()
     const u=a?.user
     if(!u)return
-    setAvatarUploading(true);setProfileMessage('')
+
+    setAvatarUploading(true)
+    setProfileMessage('')
+
     try{
-      const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg'
-      const path=u.id+'/avatar.'+ext
-      const upload=await supabase.storage.from('avatars').upload(path,file,{upsert:true,contentType:file.type,cacheControl:'3600'})
-      if(!upload.error){
-        const {data:publicData}=supabase.storage.from('avatars').getPublicUrl(path)
-        const url=publicData.publicUrl+'?v='+Date.now()
-        await supabase.auth.updateUser({data:{avatar_url:url}})
-        setAvatarUrl(url)
-        localStorage.setItem('evolv-avatar-'+u.id,url)
-        setProfileMessage('Profile photo updated.')
-      }else{
-        const reader=new FileReader()
-        reader.onload=async()=>{const url=String(reader.result||'');setAvatarUrl(url);localStorage.setItem('evolv-avatar-'+u.id,url);setProfileMessage('Profile photo updated on this device.')}
-        reader.readAsDataURL(file)
+      // Every user gets one stable Storage object. Replacing the object keeps
+      // the same permanent path instead of relying on browser-only state.
+      const path=u.id+'/avatar'
+      const storage= supabase.storage.from('avatars')
+      const upload=await storage.upload(path,file,{
+        upsert:true,
+        contentType:file.type,
+        cacheControl:'3600'
+      })
+
+      if(upload.error){
+        console.error('EVOLV avatar upload failed:',upload.error)
+        setProfileMessage('Could not upload your profile photo. Please try again.')
+        return
       }
-    }catch{
+
+      const {data:publicData}=storage.getPublicUrl(path)
+      const url=publicData?.publicUrl
+      if(!url){
+        setProfileMessage('Could not create a permanent profile photo URL.')
+        return
+      }
+
+      // Cache-bust the image without changing the permanent Storage path.
+      const displayUrl=url+'?v='+Date.now()
+
+      const [{error:profileError},{error:authError}]=await Promise.all([
+        supabase.from('profiles').update({avatar_url:url,updated_at:new Date().toISOString()}).eq('id',u.id),
+        supabase.auth.updateUser({data:{avatar_url:url}})
+      ])
+
+      if(profileError||authError){
+        console.error('EVOLV avatar profile save failed:',profileError||authError)
+        setProfileMessage('The photo uploaded, but EVOLV could not save your profile link. Please try again.')
+        return
+      }
+
+      setAvatarUrl(displayUrl)
+      localStorage.setItem('evolv-avatar-'+u.id,displayUrl)
+      setProfile(current=>current?{...current,avatar_url:url}:current)
+      setProfileMessage('Profile photo updated.')
+    }catch(error){
+      console.error('EVOLV avatar update failed:',error)
       setProfileMessage('Could not update your profile photo.')
     }finally{
       setAvatarUploading(false)
       if(avatarInputRef.current)avatarInputRef.current.value=''
     }
   }
+
   async function removeAvatar(){
     const {data:a}=await supabase.auth.getUser()
     const u=a?.user
     if(!u)return
+
     setAvatarUploading(true)
-    try{await supabase.auth.updateUser({data:{avatar_url:null}})}catch{}
-    localStorage.removeItem('evolv-avatar-'+u.id)
-    setAvatarUrl('')
-    setProfileMessage('Profile photo removed.')
-    setAvatarUploading(false)
+    setProfileMessage('')
+
+    try{
+      const storage=supabase.storage.from('avatars')
+      const {error:storageError}=await storage.remove([u.id+'/avatar'])
+      const {error:profileError}=await supabase.from('profiles').update({
+        avatar_url:null,
+        updated_at:new Date().toISOString()
+      }).eq('id',u.id)
+      const {error:authError}=await supabase.auth.updateUser({data:{avatar_url:null}})
+
+      if(storageError && storageError.statusCode!=='404'){
+        console.error('EVOLV avatar removal failed:',storageError)
+      }
+      if(profileError||authError){
+        console.error('EVOLV avatar profile removal failed:',profileError||authError)
+        setProfileMessage('Could not fully remove your profile photo. Please try again.')
+        return
+      }
+
+      localStorage.removeItem('evolv-avatar-'+u.id)
+      setAvatarUrl('')
+      setProfile(current=>current?{...current,avatar_url:null}:current)
+      setProfileMessage('Profile photo removed.')
+    }catch(error){
+      console.error('EVOLV avatar removal failed:',error)
+      setProfileMessage('Could not remove your profile photo.')
+    }finally{
+      setAvatarUploading(false)
+    }
   }
   async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
 
