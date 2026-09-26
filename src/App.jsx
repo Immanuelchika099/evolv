@@ -614,62 +614,60 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         ease: 'none'
       })
 
-      // Every major homepage section gets a clear scroll reveal.
+      // Keep sections visible by default. ScrollTrigger only moves them,
+      // so a trigger failure can never hide the homepage content.
       pageEl.querySelectorAll('.story-reveal').forEach((el) => {
         gsap.fromTo(el,
-          { y: 70, opacity: 0 },
+          { y: 55 },
           {
             y: 0,
-            opacity: 1,
-            duration: .9,
+            duration: .8,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: el,
               start: 'top 88%',
+              end: 'top 68%',
               toggleActions: 'play none none reverse',
-              once: false,
               invalidateOnRefresh: true
             }
           }
         )
       })
 
-      // Feature cards get a slightly stronger staggered movement.
+      // Feature cards: subtle lift + scale as they enter.
       pageEl.querySelectorAll('.feature-card').forEach((el, i) => {
         gsap.fromTo(el,
-          { y: 55, opacity: 0, scale: .97 },
+          { y: 45, scale: .97 },
           {
             y: 0,
-            opacity: 1,
             scale: 1,
-            duration: .85,
+            duration: .75,
             delay: i * .06,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: el,
               start: 'top 90%',
+              end: 'top 70%',
               toggleActions: 'play none none reverse',
-              once: false,
               invalidateOnRefresh: true
             }
           }
         )
       })
 
-      // Section 5 / areas gets a subtle alternating slide.
+      // Section 5 / areas: alternating horizontal movement.
       pageEl.querySelectorAll('.area').forEach((el, i) => {
         gsap.fromTo(el,
-          { x: i % 2 ? 45 : -45, opacity: 0 },
+          { x: i % 2 ? 35 : -35 },
           {
             x: 0,
-            opacity: 1,
-            duration: .8,
+            duration: .7,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: el,
               start: 'top 92%',
+              end: 'top 72%',
               toggleActions: 'play none none reverse',
-              once: false,
               invalidateOnRefresh: true
             }
           }
