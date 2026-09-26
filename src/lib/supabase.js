@@ -13,11 +13,13 @@ if (!supabaseUrl || !supabasePublishableKey) {
  * Supabase session in a cookie lets an already signed-in Safari user open
  * the installed EVOLV web app without signing in again.
  *
- * localStorage remains as a secondary copy for normal browser behavior.
+ * We deliberately keep Supabase's existing storage key so users already
+ * signed in before this change keep the same session. localStorage remains
+ * as a secondary copy for normal browser behavior.
  * Existing sessions are migrated into the cookie the first time they are
  * read, so this also works for users who were already signed in.
  */
-const AUTH_STORAGE_KEY = 'evolv-supabase-auth-token'
+const AUTH_STORAGE_KEY = 'sb-teufwhvkfjluawtcvjwh-auth-token'
 const COOKIE_MAX_AGE = 60 * 60 * 24 * 365
 
 function readCookie(name) {
