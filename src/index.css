@@ -3676,7 +3676,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 /* EVOLV — private, cinematic chat space */
 .dashboard .ai-page{
   position:relative;
+  height:100%;
+  min-height:calc(100vh - 10rem);
+  margin:2rem auto 3.5rem;
   padding-top:34px;
+  box-sizing:border-box;
 }
 .dashboard .ai-page::before{
   content:"";
@@ -3804,6 +3808,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 @media(max-width:800px){
   .dashboard .ai-page{
+    height:100%;
+    min-height:calc(100vh - 9rem);
+    margin:1.5rem auto 3rem;
     padding-top:18px;
   }
   .dashboard .ai-page .ai-heading{
