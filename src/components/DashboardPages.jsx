@@ -6,7 +6,6 @@ import {
   PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, Users, CheckCircle2,
   Utensils, Sparkles, Send, Sunrise, X
 } from 'lucide-react'
-import WeeklyProgressChart from './WeeklyProgressChart'
 import './DashboardPages.css'
 
 const Page = ({ pageProps }) => pageProps
@@ -193,7 +192,7 @@ function LogDetailPage({ pageProps }) {
 }
 
 function ProgressPage({ pageProps }) {
-  const { progressRange, setProgressRange, progressMetric, setProgressMetric, logs, defs, goals, checkins = [], momentum = 0, goTo, valueText, WeeklyProgressChart: Chart = WeeklyProgressChart } = pageProps
+  const { progressRange, setProgressRange, progressMetric, setProgressMetric, logs, defs, goals, checkins = [], momentum = 0, goTo, valueText, WeeklyProgressChart: Chart } = pageProps
   return (()=>{
         const now=new Date()
         const periodStart=new Date(now)
