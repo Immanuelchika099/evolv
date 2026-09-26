@@ -579,34 +579,44 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
   const page = useRef(null)
   let cleanupMarquee = null
   useLayoutEffect(() => {
+    if (!page.current) return
+
     const ctx = gsap.context(() => {
+      // Keep every landing-page animation inside this scope so other views
+      // cannot interfere with the homepage ScrollTriggers.
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
-      intro.from('.hero-kicker', { y: 18, opacity: 0, duration: .5 }, '-=.35')
+
+      intro
+        .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 }, '-=.35')
         .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
         .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
         .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
         .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
-      gsap.to('.hero-outer-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
-      // Keep the marquee independent from the page-scroll animations.
-      // IMPORTANT: do not return from this GSAP context callback here — that
-      // would skip every ScrollTrigger created below.
-      const marqueeTrack = page.current?.querySelector('.evolv-scroll-marquee-track')
-      if (marqueeTrack) {
-        let marqueeX = 0
-        let lastTime = performance.now()
 
+      gsap.to('.hero-outer-ring', {
+        rotation: 360,
+        duration: 22,
+        repeat: -1,
+        ease: 'none'
+      })
+
+      // Marquee: use the actual homepage track class.
+      const marqueeTrack = page.current.querySelector('.evolv-hero-marquee-track')
+      let marqueeX = 0
+      let lastTime = performance.now()
+
+      if (marqueeTrack) {
         const getLoopDistance = () => marqueeTrack.scrollWidth / 2
-        const wrapMarquee = (value) => {
-          const distance = getLoopDistance()
-          if (!distance) return 0
-          return gsap.utils.wrap(-distance, 0, value)
-        }
 
         const animateMarquee = () => {
           const now = performance.now()
           const elapsed = Math.min(40, now - lastTime)
           lastTime = now
-          marqueeX = wrapMarquee(marqueeX - (0.022 * elapsed))
+
+          const distance = getLoopDistance()
+          if (!distance) return
+
+          marqueeX = gsap.utils.wrap(-distance, 0, marqueeX - (0.022 * elapsed))
           gsap.set(marqueeTrack, { x: marqueeX })
         }
 
@@ -614,11 +624,22 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         cleanupMarquee = () => gsap.ticker.remove(animateMarquee)
       }
 
+      // Rebuild the scroll animations from the real DOM after the landing
+      // page has mounted. Using explicit ScrollTrigger instances here makes
+      // the scroll wiring independent from the global .page-enter animation.
+      gsap.utils.toArray('.story-reveal').forEach((el) => {
+        gsap.from(el, {
+          y: 55,
+          duration: .9,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 84%',
+            toggleActions: 'play none none reverse'
+          }
+        })
+      })
 
-      // Keep homepage sections visible even if a browser/viewport delays ScrollTrigger.
-      // The entrance animation moves content only; opacity must never hide a section.
-      gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%', once: true } }))
-      // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
       const revealTextGroups = [
         { selector: '.story-reveal h2, .story-reveal h3', from: '#6f756f', to: '#f4f1ea' },
         { selector: '.story-reveal p, .section-heading p, .area p', from: '#656b65', to: '#b9bdb6' },
@@ -636,33 +657,82 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
               trigger: text,
               start: 'top 82%',
               end: 'top 48%',
-              scrub: 0.7
+              scrub: 0.7,
+              invalidateOnRefresh: true
             }
           })
         })
       })
-      gsap.utils.toArray('.area').forEach((el, i) => gsap.fromTo(el, { x: i % 2 ? 25 : -25 }, { x: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }))
-      gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92 }, { y: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
 
-      // The landing page mounts after the app shell and loader have finished
-      // changing layout. Refresh ScrollTrigger after that layout settles so
-      // every start/end position is calculated from the real document.
+      gsap.utils.toArray('.area').forEach((el, i) => {
+        gsap.fromTo(
+          el,
+          { x: i % 2 ? 25 : -25 },
+          {
+            x: 0,
+            duration: .7,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+              invalidateOnRefresh: true
+            }
+          }
+        )
+      })
+
+      gsap.utils.toArray('.feature-card').forEach((card) => {
+        gsap.fromTo(
+          card,
+          { y: 90, scale: .92 },
+          {
+            y: 0,
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              end: 'top 55%',
+              scrub: 1.1,
+              invalidateOnRefresh: true
+            }
+          }
+        )
+      })
+
       const refreshScroll = () => {
-        ScrollTrigger.sort()
-        ScrollTrigger.refresh(true)
+        ScrollTrigger.refresh()
       }
+
+      // The loader, web fonts and responsive layout can all change the
+      // document height after the first render. Refresh after each settles.
       requestAnimationFrame(() => {
         requestAnimationFrame(refreshScroll)
       })
-      window.addEventListener('load', refreshScroll)
-      document.fonts?.ready?.then(refreshScroll)
 
-      return () => window.removeEventListener('load', refreshScroll)
+      const loadHandler = () => refreshScroll()
+      window.addEventListener('load', loadHandler)
+
+      if (document.fonts?.ready) {
+        document.fonts.ready.then(refreshScroll).catch(() => {})
+      }
+
+      // Images can change section positions after ScrollTrigger measures them.
+      const images = page.current.querySelectorAll('img')
+      images.forEach((img) => {
+        if (!img.complete) img.addEventListener('load', refreshScroll, { once: true })
+      })
+
+      return () => {
+        window.removeEventListener('load', loadHandler)
+        images.forEach((img) => img.removeEventListener('load', refreshScroll))
+      }
     }, page)
+
     return () => {
       if (typeof cleanupMarquee === 'function') cleanupMarquee()
       ctx.revert()
-      ScrollTrigger.refresh()
     }
   }, [])
 
