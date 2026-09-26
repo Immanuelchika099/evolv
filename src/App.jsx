@@ -582,6 +582,9 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
     const pageEl = page.current
     if (!pageEl) return
 
+    let refreshTimer = null
+    let loadHandler = null
+
     const ctx = gsap.context(() => {
       // Hero entrance.
       gsap.timeline({ defaults: { ease: 'power4.out' } })
@@ -598,8 +601,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         ease: 'none'
       })
 
-      // Both marquee rows are duplicated in the DOM, so moving the track by
-      // exactly 50% creates a seamless, continuously looping marquee.
+      // Continuous marquees. These remain independent of ScrollTrigger.
       gsap.to('.evolv-hero-marquee-track', {
         xPercent: -50,
         duration: 18,
@@ -614,93 +616,71 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         ease: 'none'
       })
 
-      // Keep sections visible by default. ScrollTrigger only moves them,
-      // so a trigger failure can never hide the homepage content.
-      pageEl.querySelectorAll('.story-reveal').forEach((el) => {
-        gsap.fromTo(el,
-          { y: 55 },
-          {
-            y: 0,
-            duration: .8,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 88%',
-              end: 'top 68%',
-              toggleActions: 'play none none reverse',
-              invalidateOnRefresh: true
+      // ScrollTrigger is deliberately wired to the actual homepage nodes
+      // instead of relying on broad selectors. No section is hidden by CSS;
+      // scrolling controls only the subtle movement/color changes.
+      const reveal = (selector, fromVars, toVars, triggerOptions = {}) => {
+        pageEl.querySelectorAll(selector).forEach((element, index) => {
+          gsap.fromTo(
+            element,
+            { ...fromVars },
+            {
+              ...toVars,
+              delay: triggerOptions.stagger ? index * triggerOptions.stagger : 0,
+              scrollTrigger: {
+                trigger: element,
+                scroller: window,
+                start: triggerOptions.start || 'top 88%',
+                end: triggerOptions.end || 'top 68%',
+                toggleActions: 'play none none reverse',
+                invalidateOnRefresh: true
+              }
             }
-          }
-        )
+          )
+        })
+      }
+
+      reveal('.story-reveal', { y: 45 }, {
+        y: 0,
+        duration: .8,
+        ease: 'power3.out'
       })
 
-      // Feature cards: subtle lift + scale as they enter.
-      pageEl.querySelectorAll('.feature-card').forEach((el, i) => {
-        gsap.fromTo(el,
-          { y: 45, scale: .97 },
-          {
-            y: 0,
-            scale: 1,
-            duration: .75,
-            delay: i * .06,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 90%',
-              end: 'top 70%',
-              toggleActions: 'play none none reverse',
-              invalidateOnRefresh: true
-            }
-          }
-        )
-      })
+      reveal('.feature-card', { y: 30, scale: .985 }, {
+        y: 0,
+        scale: 1,
+        duration: .7,
+        ease: 'power3.out'
+      }, { start: 'top 90%', end: 'top 72%', stagger: .05 })
 
-      // Section 5 / areas: alternating horizontal movement.
-      pageEl.querySelectorAll('.area').forEach((el, i) => {
-        gsap.fromTo(el,
-          { x: i % 2 ? 35 : -35 },
-          {
-            x: 0,
-            duration: .7,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 92%',
-              end: 'top 72%',
-              toggleActions: 'play none none reverse',
-              invalidateOnRefresh: true
-            }
-          }
-        )
-      })
+      reveal('.area', { x: -24 }, {
+        x: 0,
+        duration: .65,
+        ease: 'power3.out'
+      }, { start: 'top 92%', end: 'top 74%' })
 
-      // Headings brighten as they enter the viewport.
-      pageEl.querySelectorAll('.story-reveal h2, .story-reveal h3').forEach((el) => {
-        gsap.fromTo(el,
-          { color: '#6f756f' },
-          {
-            color: '#f4f1ea',
-            duration: .8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 86%',
-              toggleActions: 'play none none reverse',
-              once: false,
-              invalidateOnRefresh: true
-            }
-          }
-        )
-      })
+      // Headings get a restrained color transition as they enter.
+      reveal('.story-reveal h2, .story-reveal h3', { color: '#6f756f' }, {
+        color: '#f4f1ea',
+        duration: .8,
+        ease: 'power2.out'
+      }, { start: 'top 86%', end: 'top 70%' })
 
-      const refresh = () => ScrollTrigger.refresh()
-      requestAnimationFrame(() => requestAnimationFrame(refresh))
-      window.addEventListener('load', refresh)
+      // Let the browser finish layout, then calculate all trigger positions.
+      const refresh = () => {
+        ScrollTrigger.refresh(true)
+      }
 
-      return () => window.removeEventListener('load', refresh)
+      refreshTimer = window.setTimeout(refresh, 120)
+      loadHandler = refresh
+      window.addEventListener('load', loadHandler)
     }, pageEl)
 
-    return () => ctx.revert()
+    return () => {
+      if (refreshTimer) window.clearTimeout(refreshTimer)
+      if (loadHandler) window.removeEventListener('load', loadHandler)
+      ctx.revert()
+    }
   }, [])
 
   function openContact() {
