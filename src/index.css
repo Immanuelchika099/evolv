@@ -14612,3 +14612,57 @@ html.evolv-android .reflection-sheet *{
     transition:none !important;
   }
 }
+
+
+/* EVOLV AI — hard viewport lock.
+   The AI screen owns the entire viewport; the dashboard's green ambience
+   must never become visible underneath it. */
+.dashboard.dashboard-ai-active{
+  height:100dvh !important;
+  min-height:100dvh !important;
+  max-height:100dvh !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  background-image:none !important;
+}
+.dashboard.dashboard-ai-active::before,
+.dashboard.dashboard-ai-active::after{
+  background:none !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  opacity:0 !important;
+}
+.dashboard.dashboard-ai-active .dash-main{
+  width:100% !important;
+  max-width:none !important;
+  height:100dvh !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+}
+.dashboard.dashboard-ai-active .ai-page{
+  width:100% !important;
+  height:100dvh !important;
+  min-height:0 !important;
+  max-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  background-image:none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat{
+  min-height:0 !important;
+  max-height:none !important;
+}
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active,
+  .dashboard.dashboard-ai-active .dash-main,
+  .dashboard.dashboard-ai-active .ai-page{
+    height:100dvh !important;
+    min-height:100dvh !important;
+    max-height:100dvh !important;
+  }
+}
