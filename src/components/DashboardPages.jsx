@@ -145,7 +145,10 @@ function AreaPage({ pageProps }) {
 }
 
 function LogsPage({ pageProps }) {
-  const { defs, logs, meals, icons, openEntry, startEditEntry, deleteEntry, goTo, setManageLogsOpen, manageLogsOpen } = pageProps
+  const {
+    defs = [], logs = [], meals = [], icons = {}, openEntry = () => {},
+    startEditEntry, deleteEntry, goTo = () => {}, openLog = () => {}
+  } = pageProps
   return (()=>{
         const metricById=Object.fromEntries(defs.map(d=>[d.id,d]))
         const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
@@ -162,7 +165,10 @@ function LogsPage({ pageProps }) {
         return <section className="panel-page dashboard-panel logs-page">
           <button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button>
           <div className="logs-page-hero"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2><p>A quiet record of the things you chose to notice. Open an entry for the full story.</p></div>
-          <div className="logs-page-toolbar"><div><strong>{items.length}</strong><span>{items.length===1?'saved entry':'saved entries'}</span></div><span>Newest first</span></div>
+          <div className="logs-page-toolbar">
+            <div><strong>{items.length}</strong><span>{items.length===1?'saved entry':'saved entries'}</span></div>
+            <div className="logs-page-toolbar-actions"><span>Newest first</span><button type="button" className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button></div>
+          </div>
           {items.length ? <div className="logs-page-list">{items.map((item,index)=>{
             const def=item.type==='log'?metricById[item.entry.metric_id]:null,label=item.type==='meal'?(item.entry.meal_type||'Meal'):def?.name||'Entry',M=item.type==='meal'?Utensils:(icons[def?.slug]||Activity)
             return <button type="button" className="logs-page-row" key={item.type+'-'+(item.entry.id||index)} onClick={()=>openEntry(item)}><span className="logs-page-icon"><M size={18}/></span><span className="logs-page-copy"><small>{item.type==='meal'?'NUTRITION':(def?.area||'LOG').toUpperCase()}</small><strong>{label}</strong><span>{formatValue(item)}</span></span><time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}<br/>{item.date.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</time><ChevronRight size={18}/></button>
