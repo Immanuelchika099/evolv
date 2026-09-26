@@ -1,12 +1,15 @@
 {
+  "id":"/",
   "name":"EVOLV — Personal Growth Tracker",
   "short_name":"EVOLV",
   "start_url":"/",
   "scope":"/",
   "display":"standalone",
+  "display_override":["window-controls-overlay","standalone"],
   "background_color":"#070707",
   "theme_color":"#070707",
+  "description":"EVOLV — Track your growth. Become your next self.",
   "icons":[
-    {"src":"/evolv-logo.svg?v=3","sizes":"any","type":"image/svg+xml","purpose":"any"}
+    {"src":"/evolv-logo.svg?v=3","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
   ]
 }
