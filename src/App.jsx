@@ -3560,26 +3560,37 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             </div>
             <div className="ai-history-list">
               {chatHistory.length ? chatHistory.map(chat => (
-                <button type="button" className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'} key={chat.chatId} onClick={() => selectChatFromHistory(chat.chatId)}>
-                  <span className="ai-history-row-copy">
-                    <strong>{chat.title || chat.preview || 'Untitled chat'}</strong>
-                    <small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small>
-                  </span>
-                  <span className="ai-history-row-actions">
-                    <button
-                      type="button"
-                      className="ai-history-delete"
-                      aria-label={pressedChatId === chat.chatId ? 'Delete chat' : 'More options'}
-                      title="Delete chat"
-                      onClick={e => {
-                        e.stopPropagation()
-                        deleteChatFromHistory(chat.chatId)
-                      }}
-                    >
-                      <MoreHorizontal size={17}/>
-                    </button>
-                  </span>
-                </button>
+                <div
+                  className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'}
+                  key={chat.chatId}
+                  onPointerDown={() => beginHistoryPress(chat.chatId)}
+                  onPointerUp={endHistoryPress}
+                  onPointerCancel={endHistoryPress}
+                  onPointerLeave={endHistoryPress}
+                  onContextMenu={e => {
+                    e.preventDefault()
+                    setPressedChatId(chat.chatId)
+                  }}
+                >
+                  <button type="button" className="ai-history-row-select" onClick={() => selectChatFromHistory(chat.chatId)}>
+                    <span className="ai-history-row-copy">
+                      <strong>{chat.title || chat.preview || 'Untitled chat'}</strong>
+                      <small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className={pressedChatId === chat.chatId ? 'ai-history-delete visible' : 'ai-history-delete'}
+                    aria-label="Delete chat"
+                    title="Delete chat"
+                    onClick={e => {
+                      e.stopPropagation()
+                      deleteChatFromHistory(chat.chatId)
+                    }}
+                  >
+                    <MoreHorizontal size={17}/>
+                  </button>
+                </div>
               )) : (
                 <div className="ai-history-empty"><History size={22}/><strong>No previous chats yet.</strong><p>Your AI conversations will appear here after you send a message.</p></div>
               )}
