@@ -1,7 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
-  <rect width="180" height="180" rx="38" fill="#070707"/>
-  <circle cx="90" cy="90" r="66" stroke="#F2F1EB" stroke-width="4"/>
-  <path d="M108 57C99 50 87 48 75 51C58 55 46 70 46 88C46 110 64 128 86 128C104 128 119 116 124 99" stroke="#F2F1EB" stroke-width="6" stroke-linecap="round"/>
-  <path d="M104 78H132L118 64" stroke="#F2F1EB" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
-  <circle cx="88" cy="91" r="8" fill="#F2F1EB"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="218" height="199" viewBox="0 0 218 199"><image href="/evolv-logo.svg" width="218" height="199" preserveAspectRatio="xMidYMid meet"/></svg>
