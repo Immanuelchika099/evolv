@@ -1253,8 +1253,14 @@ function Dashboard({ data, onLogout, onArticle }) {
     setArea(null)
     setMetric(null)
     window.history.pushState({evolvDashboard:true,page},'',window.location.href)
-    window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))
   }
+
+  // Reset the viewport after the new dashboard page has rendered.
+  // Scrolling inside goTo() happened before React replaced the page,
+  // which could leave the newly opened section halfway down.
+  useLayoutEffect(()=>{
+    window.scrollTo({top:0,left:0,behavior:'instant'})
+  },[active])
 
   useEffect(()=>{
     const currentPage=window.history.state?.evolvDashboard ? window.history.state.page : null
@@ -1267,7 +1273,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       setArea(null)
       setMetric(null)
       setLogOpen(false)
-      window.requestAnimationFrame(()=>window.scrollTo({top:0,behavior:'smooth'}))
+      window.requestAnimationFrame(()=>window.scrollTo({top:0,left:0,behavior:'instant'}))
     }
 
     window.addEventListener('popstate',handleDashboardBack)
