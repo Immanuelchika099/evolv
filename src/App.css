@@ -1190,8 +1190,9 @@
 /* AI page — keep the outer shell locked to the viewport.
    Only the conversation itself is allowed to scroll. */
 .ai-page{
-  min-height:0 !important;
-  height:100% !important;
+  width:100% !important;
+  min-height:calc(100dvh - 7rem) !important;
+  height:calc(100dvh - 7rem) !important;
   overflow:hidden !important;
   overscroll-behavior:none;
   display:flex !important;
@@ -1227,8 +1228,10 @@
 
 @media (max-width:40rem){
   .ai-page{
-    height:100dvh !important;
-    max-height:100dvh;
+    width:100% !important;
+    height:calc(100dvh - 7rem) !important;
+    min-height:calc(100dvh - 7rem) !important;
+    max-height:calc(100dvh - 7rem);
     overflow:hidden !important;
   }
 
@@ -1241,4 +1244,24 @@
   .ai-page .ai-input{
     padding-bottom:calc(env(safe-area-inset-bottom, 0px) + .4rem);
   }
+}
+
+
+/* Dashboard logging must always render above the dashboard shell. */
+.dashboard .log-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:99999 !important;
+  display:flex !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  pointer-events:auto !important;
+}
+.dashboard .log-sheet{
+  position:relative !important;
+  z-index:100000 !important;
+  visibility:visible !important;
+  opacity:1 !important;
+  display:flex !important;
+  flex-direction:column !important;
 }
