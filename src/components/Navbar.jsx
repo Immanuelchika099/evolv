@@ -14,8 +14,7 @@ function Brand({ onHome }) {
         onHome()
       }}
     >
-      <img className="evolv-brand-svg" src="/evolv-mark.svg" alt="" aria-hidden="true" />
-      <span>EVOLV</span>
+      <img className="evolv-brand-svg" src="/evolv-logo.svg" alt="EVOLV" />
     </a>
   )
 }
