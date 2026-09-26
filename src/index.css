@@ -14465,3 +14465,150 @@ html.evolv-android .reflection-sheet *{
     transition:none !important;
   }
 }
+
+
+/* EVOLV — ChatGPT-style AI history + soft composer
+   History rows are text-first: no cards, no chat icons, no lemon tint.
+   Desktop reveals the options control on hover; mobile long-press reveals it. */
+.dashboard .ai-history-list{
+  display:flex !important;
+  flex-direction:column !important;
+  gap:.15rem !important;
+}
+.dashboard .ai-history-row{
+  position:relative !important;
+  width:100% !important;
+  min-width:0 !important;
+  min-height:4.8rem !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:.6rem !important;
+  padding:.55rem .7rem !important;
+  border:0 !important;
+  border-radius:1rem !important;
+  background:transparent !important;
+  color:#f4f1ea !important;
+  text-align:left !important;
+  box-shadow:none !important;
+}
+.dashboard .ai-history-row:hover,
+.dashboard .ai-history-row.active{
+  background:rgba(255,255,255,.055) !important;
+  border:0 !important;
+}
+.dashboard .ai-history-row-select{
+  min-width:0 !important;
+  flex:1 1 auto !important;
+  display:block !important;
+  padding:.2rem .35rem !important;
+  margin:0 !important;
+  border:0 !important;
+  background:transparent !important;
+  color:inherit !important;
+  text-align:left !important;
+  box-shadow:none !important;
+}
+.dashboard .ai-history-row-copy{
+  min-width:0 !important;
+  display:block !important;
+}
+.dashboard .ai-history-row-copy strong{
+  display:block !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+  font:500 1.5rem/1.35 'Manrope',sans-serif !important;
+  color:rgba(244,241,234,.82) !important;
+}
+.dashboard .ai-history-row-copy small{
+  display:none !important;
+}
+.dashboard .ai-history-row-actions,
+.dashboard .ai-history-row-icon{
+  display:none !important;
+}
+.dashboard .ai-history-delete{
+  width:3.3rem !important;
+  height:3.3rem !important;
+  flex:0 0 3.3rem !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:0 !important;
+  border:0 !important;
+  border-radius:.8rem !important;
+  background:transparent !important;
+  color:rgba(244,241,234,.38) !important;
+  opacity:0 !important;
+  visibility:hidden !important;
+  transition:opacity .18s ease,background .18s ease,color .18s ease !important;
+}
+.dashboard .ai-history-row:hover .ai-history-delete,
+.dashboard .ai-history-delete.visible{
+  opacity:1 !important;
+  visibility:visible !important;
+}
+.dashboard .ai-history-delete:hover{
+  background:rgba(255,255,255,.08) !important;
+  color:#f4f1ea !important;
+}
+.dashboard .ai-history-empty{
+  min-height:16rem !important;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+}
+
+/* The page-wide composer fade sits underneath the input, not around it. */
+.dashboard .ai-page .ai-input{
+  background:linear-gradient(
+    to bottom,
+    rgba(5,6,5,0) 0%,
+    rgba(5,6,5,.18) 32%,
+    rgba(5,6,5,.64) 72%,
+    #050605 100%
+  ) !important;
+  border:0 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+.dashboard .ai-page .ai-composer{
+  width:min(100%,74rem) !important;
+  max-width:74rem !important;
+  min-height:5.8rem !important;
+  padding:.65rem .7rem .65rem 1.5rem !important;
+  border:1px solid rgba(255,255,255,.065) !important;
+  border-radius:2.9rem !important;
+  background:rgba(18,19,18,.9) !important;
+  box-shadow:0 .9rem 3.2rem rgba(0,0,0,.2) !important;
+  transform:none !important;
+  transition:
+    width .38s cubic-bezier(.22,1,.36,1),
+    background .28s ease,
+    border-color .28s ease,
+    box-shadow .38s ease !important;
+  will-change:width !important;
+}
+.dashboard .ai-page .ai-composer:focus-within{
+  width:min(100%,78rem) !important;
+  max-width:78rem !important;
+  background:rgba(19,20,19,.96) !important;
+  border-color:rgba(255,255,255,.095) !important;
+  box-shadow:0 1.2rem 4rem rgba(0,0,0,.25) !important;
+}
+@media(max-width:800px){
+  .dashboard .ai-page .ai-composer,
+  .dashboard .ai-page .ai-composer:focus-within{
+    width:100% !important;
+    max-width:none !important;
+  }
+  .dashboard .ai-history-row{
+    min-height:4.9rem !important;
+    padding:.5rem .35rem !important;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard .ai-page .ai-composer{
+    transition:none !important;
+  }
+}
