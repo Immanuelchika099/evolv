@@ -14959,3 +14959,45 @@ html,body,#root{
     background:#000 !important;
   }
 }
+
+
+/* EVOLV AI — 105% height experiment + solid tinted top controls */
+.dashboard.dashboard-ai-active .ai-page{
+  height:105% !important;
+  min-height:105% !important;
+  max-height:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions{
+  gap:1rem !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-more-button{
+  background:rgba(22,30,52,.96) !important;
+  border:1px solid rgba(104,132,196,.22) !important;
+  box-shadow:0 .4rem 1.4rem rgba(0,0,0,.28), inset 0 1px 0 rgba(150,170,220,.06) !important;
+  color:rgba(241,244,252,.9) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-new-chat{
+  min-height:4.2rem !important;
+  height:4.2rem !important;
+  padding:.75rem 1.2rem !important;
+  border-radius:1.3rem !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-more-button{
+  width:4.2rem !important;
+  min-width:4.2rem !important;
+  height:4.2rem !important;
+  min-height:4.2rem !important;
+  border-radius:1.3rem !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-new-chat:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-more-button:hover{
+  background:rgba(30,41,70,.98) !important;
+  border-color:rgba(120,148,214,.34) !important;
+  color:#fff !important;
+}
