@@ -14666,3 +14666,34 @@ html.evolv-android .reflection-sheet *{
     max-height:100dvh !important;
   }
 }
+
+
+/* EVOLV AI — cleaner assistant response typography
+   Slightly weighted, near-white text for a calmer ChatGPT-like reading feel. */
+.dashboard .ai-page .ai-message.assistant p{
+  color:#f5f5f2 !important;
+  font-family:Manrope,sans-serif !important;
+  font-size:1.6rem !important;
+  font-weight:500 !important;
+  line-height:1.72 !important;
+  letter-spacing:-.008em !important;
+  -webkit-font-smoothing:antialiased !important;
+  text-rendering:optimizeLegibility !important;
+}
+
+.dashboard .ai-page .ai-message.assistant .ai-message-role{
+  color:rgba(245,245,242,.5) !important;
+  font-weight:600 !important;
+}
+
+.dashboard .ai-page .ai-message.user p{
+  color:rgba(245,245,242,.82) !important;
+  font-weight:450 !important;
+}
+
+@media(max-width:800px){
+  .dashboard .ai-page .ai-message.assistant p{
+    font-size:1.6rem !important;
+    line-height:1.72 !important;
+  }
+}
