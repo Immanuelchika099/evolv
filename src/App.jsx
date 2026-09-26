@@ -641,17 +641,21 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           })
         })
       })
-      gsap.utils.toArray('.area').forEach((el, i) => gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } }))
+      gsap.utils.toArray('.area').forEach((el, i) => gsap.fromTo(el, { x: i % 2 ? 25 : -25 }, { x: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%', once: true } }))
       gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92 }, { y: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
 
       // The landing page mounts after the app shell and loader have finished
       // changing layout. Refresh ScrollTrigger after that layout settles so
       // every start/end position is calculated from the real document.
-      const refreshScroll = () => ScrollTrigger.refresh()
+      const refreshScroll = () => {
+        ScrollTrigger.sort()
+        ScrollTrigger.refresh(true)
+      }
       requestAnimationFrame(() => {
         requestAnimationFrame(refreshScroll)
       })
       window.addEventListener('load', refreshScroll)
+      document.fonts?.ready?.then(refreshScroll)
 
       return () => window.removeEventListener('load', refreshScroll)
     }, page)
