@@ -1783,16 +1783,10 @@ function Dashboard({ data, onLogout, onArticle }) {
     <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
-      <DashboardPages active={active} pageProps={pageProps}/>
-      
-      
-      
-      
-      
-      
-      
-      
-      {active==='ai'&&<EvolvAI profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>} 
+      {active==='ai'
+        ? <EvolvAI key="evolv-ai-page" profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>
+        : <DashboardPages active={active} pageProps={pageProps}/>
+      }
     </main>
     {active!=='ai'&&<button type="button" className="ai-floating-button" onClick={()=>goTo('ai')} aria-label="Open Evolv AI" title="Talk to Evolv"><MessageCircle size={21}/></button>}
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} onLog={openLog} avatarUrl={avatarUrl}/>}
