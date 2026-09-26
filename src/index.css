@@ -14657,7 +14657,7 @@ html.evolv-android .reflection-sheet *{
 /* EVOLV AI — final full-screen mobile shell */
 .dashboard.dashboard-ai-active{
   position:fixed !important; inset:0 !important; width:100vw !important;
-  height:100svh !important; min-height:100svh !important; max-height:100svh !important;
+  height:100vh !important; min-height:100vh !important; max-height:100vh !important;
   margin:0 !important; padding:0 !important; overflow:hidden !important;
   background:#000 !important; background-image:none !important; isolation:isolate !important;
 }
@@ -14690,7 +14690,7 @@ html.evolv-android .reflection-sheet *{
   position:absolute !important; inset:0 !important; width:100% !important; height:100% !important;
   min-height:0 !important; max-height:none !important; box-sizing:border-box !important;
   overflow-y:auto !important; overflow-x:hidden !important;
-  padding-top:calc(7.6rem + env(safe-area-inset-top,0px)) !important;
+  padding-top:calc(8.4rem + env(safe-area-inset-top,0px)) !important;
   padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
   background:#000 !important; scrollbar-width:none !important;
   -webkit-overflow-scrolling:touch !important;
@@ -14698,7 +14698,7 @@ html.evolv-android .reflection-sheet *{
 .dashboard.dashboard-ai-active .ai-page .ai-messages::-webkit-scrollbar{display:none !important}
 .dashboard.dashboard-ai-active .ai-page .ai-topbar{
   position:absolute !important;
-  top:calc(env(safe-area-inset-top,0px) + .8rem) !important;
+  top:calc(env(safe-area-inset-top,0px) + 1.6rem) !important;
   left:1rem !important; right:1rem !important; width:auto !important;
   height:5.6rem !important; min-height:5.6rem !important; margin:0 !important; padding:0 !important;
   box-sizing:border-box !important; display:flex !important; align-items:center !important;
@@ -14729,11 +14729,11 @@ html.evolv-android .reflection-sheet *{
 }
 @media(max-width:800px){
   .dashboard.dashboard-ai-active .ai-page .ai-topbar{
-    top:calc(env(safe-area-inset-top,0px) + .8rem) !important;
+    top:calc(env(safe-area-inset-top,0px) + 1.6rem) !important;
     left:1rem !important; right:1rem !important; height:5.6rem !important; min-height:5.6rem !important;
   }
   .dashboard.dashboard-ai-active .ai-page .ai-messages{
-    padding-top:calc(7.6rem + env(safe-area-inset-top,0px)) !important;
+    padding-top:calc(8.4rem + env(safe-area-inset-top,0px)) !important;
     padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
   }
 }
