@@ -3132,6 +3132,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [pendingCalendarEvent, setPendingCalendarEvent] = useState(null)
   const [chatHistory, setChatHistory] = useState([])
   const [historyOpen, setHistoryOpen] = useState(false)
+  const [pressedChatId, setPressedChatId] = useState('')
+  const historyPressTimerRef = useRef(null)
   const bottomRef = useRef(null)
   const inputRef = useRef(null)
 
@@ -3283,8 +3285,48 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   function selectChatFromHistory(id) {
     setHistoryOpen(false)
+    setPressedChatId('')
     setError('')
     setChatId(id)
+  }
+
+  function beginHistoryPress(id) {
+    window.clearTimeout(historyPressTimerRef.current)
+    historyPressTimerRef.current = window.setTimeout(() => {
+      setPressedChatId(id)
+    }, 520)
+  }
+
+  function endHistoryPress() {
+    window.clearTimeout(historyPressTimerRef.current)
+  }
+
+  async function deleteChatFromHistory(id) {
+    if (!id) return
+    const confirmed = window.confirm('Delete this chat?')
+    if (!confirmed) {
+      setPressedChatId('')
+      return
+    }
+
+    setError('')
+    const userId = (await supabase.auth.getUser()).data.user?.id
+    if (!userId) return
+
+    const [{ error: messagesError }, { error: titleError }] = await Promise.all([
+      supabase.from('ai_messages').delete().eq('user_id', userId).eq('chat_id', id),
+      supabase.from('ai_chat_titles').delete().eq('user_id', userId).eq('chat_id', id),
+    ])
+
+    if (messagesError || titleError) {
+      console.error('EVOLV AI chat deletion failed:', messagesError || titleError)
+      setError('Could not delete that chat. Please try again.')
+      return
+    }
+
+    setChatHistory(current => current.filter(chat => chat.chatId !== id))
+    setPressedChatId('')
+    if (chatId === id) startNewChat()
   }
 
   useEffect(() => {
@@ -3519,9 +3561,24 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             <div className="ai-history-list">
               {chatHistory.length ? chatHistory.map(chat => (
                 <button type="button" className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'} key={chat.chatId} onClick={() => selectChatFromHistory(chat.chatId)}>
-                  <span className="ai-history-row-icon"><MessageCircle size={16}/></span>
-                  <span className="ai-history-row-copy"><strong>{chat.title || chat.preview || 'Untitled chat'}</strong><small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small></span>
-                  <ChevronRight size={16}/>
+                  <span className="ai-history-row-copy">
+                    <strong>{chat.title || chat.preview || 'Untitled chat'}</strong>
+                    <small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small>
+                  </span>
+                  <span className="ai-history-row-actions">
+                    <button
+                      type="button"
+                      className="ai-history-delete"
+                      aria-label={pressedChatId === chat.chatId ? 'Delete chat' : 'More options'}
+                      title="Delete chat"
+                      onClick={e => {
+                        e.stopPropagation()
+                        deleteChatFromHistory(chat.chatId)
+                      }}
+                    >
+                      <MoreHorizontal size={17}/>
+                    </button>
+                  </span>
                 </button>
               )) : (
                 <div className="ai-history-empty"><History size={22}/><strong>No previous chats yet.</strong><p>Your AI conversations will appear here after you send a message.</p></div>
