@@ -577,12 +577,13 @@ function Brand() {
 
 function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
   const page = useRef(null)
-  let cleanupMarquee = null
+
   useLayoutEffect(() => {
     const pageEl = page.current
     if (!pageEl) return
 
     const ctx = gsap.context(() => {
+      // Hero entrance.
       gsap.timeline({ defaults: { ease: 'power4.out' } })
         .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 })
         .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
@@ -590,64 +591,108 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
         .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
 
-      gsap.to('.hero-outer-ring', { rotation: 360, duration: 22, repeat: -1, ease: 'none' })
+      gsap.to('.hero-outer-ring', {
+        rotation: 360,
+        duration: 22,
+        repeat: -1,
+        ease: 'none'
+      })
 
+      // Both marquee rows are duplicated in the DOM, so moving the track by
+      // exactly 50% creates a seamless, continuously looping marquee.
+      gsap.to('.evolv-hero-marquee-track', {
+        xPercent: -50,
+        duration: 18,
+        repeat: -1,
+        ease: 'none'
+      })
+
+      gsap.to('.evolv-scroll-marquee-track', {
+        xPercent: -50,
+        duration: 22,
+        repeat: -1,
+        ease: 'none'
+      })
+
+      // Every major homepage section gets a clear scroll reveal.
       pageEl.querySelectorAll('.story-reveal').forEach((el) => {
-        gsap.fromTo(el, { y: 45 }, {
-          y: 0,
-          duration: .8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 82%',
-            end: 'top 55%',
-            scrub: 0.6,
-            invalidateOnRefresh: true
+        gsap.fromTo(el,
+          { y: 70, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: .9,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 88%',
+              toggleActions: 'play none none reverse',
+              once: false,
+              invalidateOnRefresh: true
+            }
           }
-        })
+        )
       })
 
-      pageEl.querySelectorAll('.feature-card').forEach((el) => {
-        gsap.fromTo(el, { y: 70, scale: .94 }, {
-          y: 0,
-          scale: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 88%',
-            end: 'top 58%',
-            scrub: 0.8,
-            invalidateOnRefresh: true
+      // Feature cards get a slightly stronger staggered movement.
+      pageEl.querySelectorAll('.feature-card').forEach((el, i) => {
+        gsap.fromTo(el,
+          { y: 55, opacity: 0, scale: .97 },
+          {
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            duration: .85,
+            delay: i * .06,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+              once: false,
+              invalidateOnRefresh: true
+            }
           }
-        })
+        )
       })
 
+      // Section 5 / areas gets a subtle alternating slide.
       pageEl.querySelectorAll('.area').forEach((el, i) => {
-        gsap.fromTo(el, { x: i % 2 ? 30 : -30 }, {
-          x: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 90%',
-            end: 'top 65%',
-            scrub: 0.6,
-            invalidateOnRefresh: true
+        gsap.fromTo(el,
+          { x: i % 2 ? 45 : -45, opacity: 0 },
+          {
+            x: 0,
+            opacity: 1,
+            duration: .8,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 92%',
+              toggleActions: 'play none none reverse',
+              once: false,
+              invalidateOnRefresh: true
+            }
           }
-        })
+        )
       })
 
+      // Headings brighten as they enter the viewport.
       pageEl.querySelectorAll('.story-reveal h2, .story-reveal h3').forEach((el) => {
-        gsap.fromTo(el, { color: '#6f756f' }, {
-          color: '#f4f1ea',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 82%',
-            end: 'top 50%',
-            scrub: 0.7,
-            invalidateOnRefresh: true
+        gsap.fromTo(el,
+          { color: '#6f756f' },
+          {
+            color: '#f4f1ea',
+            duration: .8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: el,
+              start: 'top 86%',
+              toggleActions: 'play none none reverse',
+              once: false,
+              invalidateOnRefresh: true
+            }
           }
-        })
+        )
       })
 
       const refresh = () => ScrollTrigger.refresh()
@@ -657,10 +702,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       return () => window.removeEventListener('load', refresh)
     }, pageEl)
 
-    return () => {
-      if (cleanupMarquee) cleanupMarquee()
-      ctx.revert()
-    }
+    return () => ctx.revert()
   }, [])
 
   function openContact() {
