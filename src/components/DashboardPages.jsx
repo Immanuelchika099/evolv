@@ -50,7 +50,7 @@ function HomePage({ pageProps }) {
 }
 
 function AreaPage({ pageProps }) {
-  const { area, areas, defs, logs, meals, metricArea, latest, icons, openLog, goTo, onArticle } = pageProps
+  const { area, areas, defs, logs, meals, metricArea, latest, icons, valueText, openLog, goTo, onArticle } = pageProps
   return (()=>{
         const currentArea=areas[area]?area:'health'
         const m=areas[currentArea],I=m.icon
@@ -145,7 +145,7 @@ function AreaPage({ pageProps }) {
 }
 
 function LogsPage({ pageProps }) {
-  const { defs, logs, meals, openEntry, startEditEntry, deleteEntry, goTo, setManageLogsOpen, manageLogsOpen } = pageProps
+  const { defs, logs, meals, icons, openEntry, startEditEntry, deleteEntry, goTo, setManageLogsOpen, manageLogsOpen } = pageProps
   return (()=>{
         const metricById=Object.fromEntries(defs.map(d=>[d.id,d]))
         const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
