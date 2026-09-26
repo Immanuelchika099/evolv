@@ -3284,6 +3284,10 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   }
 
   function selectChatFromHistory(id) {
+    if (pressedChatId === id) {
+      setPressedChatId('')
+      return
+    }
     setHistoryOpen(false)
     setPressedChatId('')
     setError('')
