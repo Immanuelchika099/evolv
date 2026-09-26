@@ -100,3 +100,34 @@ html.evolv-android .evolv-bottom-nav {
   backdrop-filter: none;
   box-shadow: 0 -1px 0 rgba(255,255,255,.08), 0 -14px 34px rgba(0,0,0,.28);
 }
+
+
+/* Profile avatar: always a true circle with equal width and height. */
+.evolv-bottom-nav .bottom-profile-icon{
+  width:3.2rem !important;
+  height:3.2rem !important;
+  min-width:3.2rem !important;
+  min-height:3.2rem !important;
+  max-width:3.2rem !important;
+  max-height:3.2rem !important;
+  aspect-ratio:1 / 1 !important;
+  flex:0 0 3.2rem !important;
+  display:grid !important;
+  place-items:center !important;
+  overflow:hidden !important;
+  border-radius:50% !important;
+  box-sizing:border-box !important;
+  border:1px solid rgba(255,255,255,.12) !important;
+}
+
+.evolv-bottom-nav .bottom-profile-icon .bottom-profile-image{
+  width:100% !important;
+  height:100% !important;
+  min-width:100% !important;
+  min-height:100% !important;
+  max-width:none !important;
+  max-height:none !important;
+  aspect-ratio:1 / 1 !important;
+  object-fit:cover !important;
+  border-radius:50% !important;
+}
