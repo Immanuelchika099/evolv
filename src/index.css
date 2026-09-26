@@ -15116,3 +15116,81 @@ html.evolv-android .reflection-sheet *{
     padding-right:2rem !important;
   }
 }
+
+
+
+/* EVOLV — final docked nav sizing
+   Content-driven height so the bar adapts cleanly to different phone sizes,
+   safe areas and browser chrome without floating or stretching. */
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked{
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  top:auto !important;
+  transform:none !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:none !important;
+  height:fit-content !important;
+  min-height:0 !important;
+  box-sizing:border-box !important;
+  margin:0 !important;
+  padding:.6rem 1rem calc(.6rem + env(safe-area-inset-bottom, 0px)) !important;
+  display:grid !important;
+  grid-template-columns:repeat(4,minmax(0,1fr)) !important;
+  gap:.35rem !important;
+  border-radius:0 !important;
+  border-left:0 !important;
+  border-right:0 !important;
+  border-bottom:0 !important;
+  border-top:1px solid rgba(255,255,255,.10) !important;
+  overflow:visible !important;
+  background:rgba(8,10,9,.94) !important;
+  box-shadow:0 -8px 28px rgba(0,0,0,.28) !important;
+  z-index:100000 !important;
+}
+
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked::before,
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked::after{
+  display:none !important;
+  content:none !important;
+}
+
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button{
+  width:100% !important;
+  height:fit-content !important;
+  min-height:5.4rem !important;
+  max-height:none !important;
+  padding:.65rem .35rem !important;
+  margin:0 !important;
+  box-sizing:border-box !important;
+  border-radius:1.35rem !important;
+  display:grid !important;
+  place-items:center !important;
+  align-content:center !important;
+  gap:.3rem !important;
+}
+
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button span{
+  width:3.2rem !important;
+  height:2.4rem !important;
+}
+
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button small{
+  line-height:1.15 !important;
+  white-space:nowrap !important;
+}
+
+@media(max-width:380px){
+  .dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked{
+    padding-left:.55rem !important;
+    padding-right:.55rem !important;
+    gap:.2rem !important;
+  }
+
+  .dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button{
+    min-height:5.1rem !important;
+    padding:.5rem .2rem !important;
+  }
+}
