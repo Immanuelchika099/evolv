@@ -622,22 +622,21 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           ease: 'none',
         })
 
-        // Scroll-driven reveals: deliberately visible motion, but still restrained.
-        // opacity is included so the effect cannot read as a static CSS layout.
+        // Keep every homepage section rendered and visible.
+        // GSAP only adds a subtle vertical entrance; it must never hide
+        // sections while ScrollTrigger is waiting for layout.
         q('.story-reveal').forEach((element) => {
           gsap.fromTo(element,
-            { y: 52, opacity: 0 },
+            { y: 28 },
             {
               y: 0,
-              opacity: 1,
-              duration: .9,
+              duration: .7,
               ease: 'power3.out',
               overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
-                start: 'top 86%',
-                end: 'top 58%',
-                toggleActions: 'play none none reverse',
+                start: 'top 90%',
+                toggleActions: 'play none none none',
                 invalidateOnRefresh: true,
               },
             }
@@ -646,20 +645,18 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
 
         q('.feature-card').forEach((element, index) => {
           gsap.fromTo(element,
-            { y: 42, opacity: 0, scale: .975 },
+            { y: 22, scale: .99 },
             {
               y: 0,
-              opacity: 1,
               scale: 1,
-              duration: .72,
-              delay: index * .06,
+              duration: .6,
+              delay: index * .04,
               ease: 'power3.out',
               overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
-                start: 'top 91%',
-                end: 'top 65%',
-                toggleActions: 'play none none reverse',
+                start: 'top 92%',
+                toggleActions: 'play none none none',
                 invalidateOnRefresh: true,
               },
             }
@@ -669,19 +666,17 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         // Section 05 stays vertical only — no horizontal transform.
         q('.area').forEach((element, index) => {
           gsap.fromTo(element,
-            { y: 38, opacity: 0 },
+            { y: 20 },
             {
               y: 0,
-              opacity: 1,
-              duration: .72,
-              delay: index * .04,
+              duration: .6,
+              delay: index * .03,
               ease: 'power3.out',
               overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
-                start: 'top 92%',
-                end: 'top 66%',
-                toggleActions: 'play none none reverse',
+                start: 'top 94%',
+                toggleActions: 'play none none none',
                 invalidateOnRefresh: true,
               },
             }
@@ -690,19 +685,17 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
 
         q('.story-reveal h2, .story-reveal h3').forEach((element) => {
           gsap.fromTo(element,
-            { color: '#6f756f', y: 18, opacity: .45 },
+            { color: '#6f756f', y: 12 },
             {
               color: '#f4f1ea',
               y: 0,
-              opacity: 1,
-              duration: .8,
+              duration: .7,
               ease: 'power2.out',
               overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
-                start: 'top 84%',
-                end: 'top 62%',
-                toggleActions: 'play none none reverse',
+                start: 'top 88%',
+                toggleActions: 'play none none none',
                 invalidateOnRefresh: true,
               },
             }
