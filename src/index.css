@@ -14697,3 +14697,160 @@ html.evolv-android .reflection-sheet *{
     line-height:1.72 !important;
   }
 }
+
+
+
+/* EVOLV AI — true edge-to-edge viewport shell.
+   The AI page itself owns the viewport, so the dashboard/green background
+   can never peek through underneath the composer. The composer is a real
+   bottom row, never a floating element. On mobile, 100dvh follows the
+   visible viewport when the keyboard opens. */
+.dashboard.dashboard-ai-active{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100dvh !important;
+  min-height:100dvh !important;
+  max-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  background-image:none !important;
+  isolation:isolate !important;
+}
+
+.dashboard.dashboard-ai-active .dash-main{
+  position:relative !important;
+  width:100% !important;
+  height:100dvh !important;
+  min-height:0 !important;
+  max-height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  background-image:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page{
+  position:relative !important;
+  inset:auto !important;
+  width:100% !important;
+  height:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  display:grid !important;
+  grid-template-rows:minmax(0,1fr) auto !important;
+  background:#000 !important;
+  background-image:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page::before,
+.dashboard.dashboard-ai-active .ai-page::after{
+  display:none !important;
+  content:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  width:100% !important;
+  height:auto !important;
+  box-sizing:border-box !important;
+  z-index:20 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat{
+  grid-row:1 !important;
+  min-height:0 !important;
+  height:auto !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:7rem 0 1rem !important;
+  overflow-x:hidden !important;
+  overflow-y:auto !important;
+  overscroll-behavior:contain !important;
+  background:#000 !important;
+  background-image:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-input{
+  grid-row:2 !important;
+  position:relative !important;
+  bottom:auto !important;
+  left:auto !important;
+  right:auto !important;
+  width:100% !important;
+  min-height:0 !important;
+  max-height:none !important;
+  margin:0 !important;
+  padding:1rem max(1.2rem,calc((100vw - 86rem)/2)) calc(1rem + env(safe-area-inset-bottom,0px)) !important;
+  box-sizing:border-box !important;
+  overflow:visible !important;
+  z-index:30 !important;
+  background:#050605 !important;
+  background-image:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-composer{
+  position:relative !important;
+  width:min(100%,74rem) !important;
+  max-width:74rem !important;
+  margin:0 auto !important;
+  transform:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{
+  width:min(100%,78rem) !important;
+  max-width:78rem !important;
+  transform:none !important;
+}
+
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active{
+    width:100% !important;
+    height:100dvh !important;
+    min-height:100dvh !important;
+    max-height:100dvh !important;
+  }
+
+  .dashboard.dashboard-ai-active .dash-main{
+    height:100dvh !important;
+    min-height:0 !important;
+    max-height:100dvh !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page{
+    height:100% !important;
+    min-height:0 !important;
+    max-height:none !important;
+    grid-template-rows:minmax(0,1fr) auto !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-chat{
+    padding:6.8rem 0 .8rem !important;
+    min-height:0 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-input{
+    padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom,0px)) !important;
+    background:#050605 !important;
+    background-image:none !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-composer,
+  .dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{
+    width:100% !important;
+    max-width:none !important;
+  }
+}
