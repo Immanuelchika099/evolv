@@ -171,6 +171,16 @@ function App() {
     if (view !== 'landing') return
   }, [view, step])
 
+  // Every destination page must start at its own top. The scroll is done
+  // after React has rendered the new page, so it cannot race the view change.
+  useEffect(() => {
+    if (view === 'landing' || view === 'dashboard') return
+
+    window.requestAnimationFrame(() => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+    })
+  }, [view, article])
+
   function openContact() {
     setContactSent(false)
     setContactOpen(true)
