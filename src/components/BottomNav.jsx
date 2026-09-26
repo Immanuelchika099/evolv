@@ -16,7 +16,7 @@ function BottomNav({ active, onNavigate, onLog, avatarUrl = '' }) {
       <button
         type="button"
         className="log-nav-button"
-        onClick={onLog}
+        onClick={() => onNavigate('logs')}
       >
         <span><Plus size={21} /></span>
         <small>Log</small>
