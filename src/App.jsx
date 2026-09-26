@@ -313,9 +313,7 @@ function EvolvLoader() {
   return (
     <div className="evolv-loader" aria-label="Loading EVOLV">
       <div className="evolv-loader-core">
-        <div className="evolv-loader-mark"><span /></div>
-        <div className="evolv-loader-word">EVOLV</div>
-        <div className="evolv-loader-line"><i /></div>
+        <img className="evolv-loader-logo" src="/evolv-logo.svg" alt="EVOLV" />
       </div>
     </div>
   )
@@ -625,8 +623,7 @@ function ContactModal({ contactSent, setContactSent, onClose }) {
 function Brand() {
   return (
     <a className="brand" href="/" aria-label="EVOLV home">
-      <img src="/evolv-mark.svg" alt="" aria-hidden="true" />
-      <span>EVOLV</span>
+      <img src="/evolv-logo.svg" alt="EVOLV" />
     </a>
   )
 }
