@@ -166,6 +166,7 @@ function App() {
   }, [])
 
   useLayoutEffect(() => {
+    let cleanupMarquee = null
     const ctx = gsap.context(() => {
       if (view !== 'article') {
         gsap.from('.page-enter > *', { y: 24, opacity: 1, duration: .75, stagger: .06, ease: 'power3.out' })
@@ -588,7 +589,6 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       // Keep the marquee independent from the page-scroll animations.
       // IMPORTANT: do not return from this GSAP context callback here — that
       // would skip every ScrollTrigger created below.
-      let cleanupMarquee = null
       const marqueeTrack = page.current?.querySelector('.evolv-scroll-marquee-track')
       if (marqueeTrack) {
         let marqueeX = 0
@@ -614,7 +614,9 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       }
 
 
-      gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, opacity: 0, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%' } }))
+      // Keep homepage sections visible even if a browser/viewport delays ScrollTrigger.
+      // The entrance animation moves content only; opacity must never hide a section.
+      gsap.utils.toArray('.story-reveal').forEach((el) => gsap.from(el, { y: 55, duration: .9, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 84%', once: true } }))
       // Scroll-driven text reveal: the homepage copy starts subdued and brightens as it enters focus.
       const revealTextGroups = [
         { selector: '.story-reveal h2, .story-reveal h3', from: '#6f756f', to: '#f4f1ea' },
@@ -639,7 +641,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         })
       })
       gsap.utils.toArray('.area').forEach((el, i) => gsap.from(el, { x: i % 2 ? 25 : -25, opacity: 0, duration: .7, ease: 'power3.out', scrollTrigger: { trigger: el, start: 'top 90%' } }))
-      gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92, opacity: 0 }, { y: 0, scale: 1, opacity: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
+      gsap.utils.toArray('.feature-card').forEach((card) => gsap.fromTo(card, { y: 90, scale: .92 }, { y: 0, scale: 1, ease: 'none', scrollTrigger: { trigger: card, start: 'top 88%', end: 'top 55%', scrub: 1.1 } }))
     }, page)
     return () => {
       if (typeof cleanupMarquee === 'function') cleanupMarquee()
