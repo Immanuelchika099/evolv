@@ -14854,3 +14854,65 @@ html.evolv-android .reflection-sheet *{
     max-width:none !important;
   }
 }
+
+
+/* EVOLV AI — final alignment guard.
+   The dashboard sidebar must not reserve horizontal space while AI owns
+   the entire viewport. Keep the AI surface centered and fully black. */
+.dashboard.dashboard-ai-active{
+  display:block !important;
+  width:100vw !important;
+  left:0 !important;
+  right:0 !important;
+}
+
+.dashboard.dashboard-ai-active .sidebar{
+  display:none !important;
+  width:0 !important;
+  min-width:0 !important;
+  flex:0 0 0 !important;
+}
+
+.dashboard.dashboard-ai-active .dash-main{
+  display:block !important;
+  position:absolute !important;
+  inset:0 !important;
+  width:100vw !important;
+  max-width:none !important;
+  min-width:0 !important;
+  height:100dvh !important;
+  margin:0 !important;
+  padding:0 !important;
+  transform:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page{
+  position:absolute !important;
+  inset:0 !important;
+  width:100% !important;
+  height:100% !important;
+  margin:0 !important;
+  transform:none !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  background-color:#000 !important;
+  background-image:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat{
+  width:100% !important;
+  margin:0 !important;
+  background:#000 !important;
+  background-color:#000 !important;
+  background-image:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-input{
+  width:100% !important;
+  margin:0 !important;
+  background:#050605 !important;
+  background-color:#050605 !important;
+  background-image:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
