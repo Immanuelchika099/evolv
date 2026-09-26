@@ -577,6 +577,7 @@ function Brand() {
 
 function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
   const page = useRef(null)
+  let cleanupMarquee = null
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const intro = gsap.timeline({ defaults: { ease: 'power4.out' } })
