@@ -214,14 +214,23 @@ function App() {
     }, 40)
   }
 
+  function scrollLandingTo(id) {
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => {
+        const section = document.getElementById(id)
+        if (!section) return
+        const top = section.getBoundingClientRect().top + window.scrollY
+        window.scrollTo({ top: Math.max(0, top), left: 0, behavior: 'smooth' })
+      })
+    })
+  }
+
   function openArticle(type, areaId = null) {
     if (type === 'features') {
       setArticle(null)
       localStorage.setItem('evolv-view', 'landing')
       setView('landing')
-      window.setTimeout(() => {
-        document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      }, 0)
+      scrollLandingTo('features')
       return
     }
 
