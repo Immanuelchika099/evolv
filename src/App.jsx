@@ -166,27 +166,9 @@ function App() {
   }, [])
 
   useLayoutEffect(() => {
-    const rootEl = root.current
-    if (!rootEl) return
-
-    let ctx
-    try {
-      ctx = gsap.context(() => {
-        if (view !== 'article' && view !== 'landing') {
-          gsap.from('.page-enter > *', {
-            y: 24,
-            opacity: 1,
-            duration: .75,
-            stagger: .06,
-            ease: 'power3.out',
-          })
-        }
-      }, rootEl)
-    } catch (error) {
-      console.error('EVOLV page animation skipped:', error)
-    }
-
-    return () => ctx?.revert()
+    // Homepage animation is owned by Landing. Never let GSAP touch auth,
+    // onboarding, dashboard, or other routed pages.
+    if (view !== 'landing') return
   }, [view, step])
 
   function openContact() {
@@ -306,7 +288,7 @@ function App() {
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
-        <Navbar onStart={enterApp} onSignIn={() => { setAuthMode('login'); setView('auth'); localStorage.setItem('evolv-view', 'auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+        <Navbar onStart={enterApp} onSignIn={() => { setMenuOpen(false); setAuthMode('login'); localStorage.setItem('evolv-view', 'auth'); setView('auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
@@ -596,101 +578,104 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
     const pageEl = page.current
     if (!pageEl) return
 
-    let refreshTimer = null
-    let loadHandler = null
     let ctx
+    let refreshTimer
 
     try {
       ctx = gsap.context(() => {
-        gsap.timeline({ defaults: { ease: 'power4.out' } })
-          .from('.hero-kicker', { y: 18, opacity: 0, duration: .5 })
-          .from('.hero-title .line', { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
-          .from('.hero-description', { y: 20, opacity: 0, duration: .6 }, '-=.5')
-          .from('.hero-actions', { y: 16, opacity: 0, duration: .55 }, '-=.4')
-          .from('.hero-visual', { scale: .92, opacity: 0, duration: 1 }, '-=.7')
+        const q = (selector) => pageEl.querySelectorAll(selector)
 
-        gsap.to('.hero-outer-ring', {
+        gsap.timeline({ defaults: { ease: 'power4.out' } })
+          .from(q('.hero-kicker'), { y: 18, opacity: 0, duration: .5 })
+          .from(q('.hero-title .line'), { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
+          .from(q('.hero-description'), { y: 20, opacity: 0, duration: .6 }, '-=.5')
+          .from(q('.hero-actions'), { y: 16, opacity: 0, duration: .55 }, '-=.4')
+          .from(q('.hero-visual'), { scale: .92, opacity: 0, duration: 1 }, '-=.7')
+
+        gsap.to(q('.hero-outer-ring'), {
           rotation: 360,
           duration: 22,
           repeat: -1,
           ease: 'none',
         })
 
-        gsap.to('.evolv-hero-marquee-track', {
+        gsap.to(q('.evolv-hero-marquee-track'), {
           xPercent: -50,
           duration: 18,
           repeat: -1,
           ease: 'none',
         })
 
-        gsap.to('.evolv-scroll-marquee-track', {
+        gsap.to(q('.evolv-scroll-marquee-track'), {
           xPercent: -50,
           duration: 22,
           repeat: -1,
           ease: 'none',
         })
 
-        const reveal = (selector, fromVars, toVars, options = {}) => {
-          pageEl.querySelectorAll(selector).forEach((element, index) => {
-            gsap.fromTo(
-              element,
-              fromVars,
-              {
-                ...toVars,
-                delay: options.stagger ? index * options.stagger : 0,
-                scrollTrigger: {
-                  trigger: element,
-                  start: options.start || 'top 88%',
-                  end: options.end || 'top 68%',
-                  toggleActions: 'play none none reverse',
-                  invalidateOnRefresh: true,
-                },
-              },
-            )
+        q('.story-reveal').forEach((element) => {
+          gsap.fromTo(element, { y: 24 }, {
+            y: 0,
+            duration: .75,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 88%',
+              toggleActions: 'play none none reverse',
+            },
           })
-        }
-
-        // Keep the sections in normal document flow. ScrollTrigger only adds
-        // subtle movement; it never controls visibility.
-        reveal('.story-reveal', { y: 24 }, {
-          y: 0,
-          duration: .75,
-          ease: 'power3.out',
         })
 
-        reveal('.feature-card', { y: 20, scale: .99 }, {
-          y: 0,
-          scale: 1,
-          duration: .65,
-          ease: 'power3.out',
-        }, { start: 'top 90%', end: 'top 74%', stagger: .05 })
+        q('.feature-card').forEach((element, index) => {
+          gsap.fromTo(element, { y: 20, scale: .99 }, {
+            y: 0,
+            scale: 1,
+            duration: .65,
+            delay: index * .05,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 90%',
+              toggleActions: 'play none none reverse',
+            },
+          })
+        })
 
-        // Section 5 stays horizontally stable. This avoids clipping its
-        // contents against the viewport edge while still giving it motion.
-        reveal('.area', { y: 18 }, {
-          y: 0,
-          duration: .65,
-          ease: 'power3.out',
-        }, { start: 'top 92%', end: 'top 76%' })
+        // Section 05: vertical reveal only. No horizontal transform.
+        q('.area').forEach((element) => {
+          gsap.fromTo(element, { y: 18 }, {
+            y: 0,
+            duration: .65,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 92%',
+              toggleActions: 'play none none reverse',
+            },
+          })
+        })
 
-        reveal('.story-reveal h2, .story-reveal h3', { color: '#6f756f' }, {
-          color: '#f4f1ea',
-          duration: .8,
-          ease: 'power2.out',
-        }, { start: 'top 86%', end: 'top 70%' })
+        q('.story-reveal h2, .story-reveal h3').forEach((element) => {
+          gsap.fromTo(element, { color: '#6f756f' }, {
+            color: '#f4f1ea',
+            duration: .8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 86%',
+              toggleActions: 'play none none reverse',
+            },
+          })
+        })
 
-        const refresh = () => ScrollTrigger.refresh()
-        refreshTimer = window.setTimeout(refresh, 120)
-        loadHandler = refresh
-        window.addEventListener('load', loadHandler)
+        refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 100)
       }, pageEl)
     } catch (error) {
-      console.error('EVOLV homepage animation skipped:', error)
+      console.error('EVOLV landing animation error:', error)
     }
 
     return () => {
       if (refreshTimer) window.clearTimeout(refreshTimer)
-      if (loadHandler) window.removeEventListener('load', loadHandler)
       ctx?.revert()
     }
   }, [])
