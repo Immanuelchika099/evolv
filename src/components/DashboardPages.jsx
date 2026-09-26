@@ -8,8 +8,6 @@ import {
 } from 'lucide-react'
 import './DashboardPages.css'
 
-const Page = ({ pageProps }) => pageProps
-
 export function DashboardPages({ active, pageProps }) {
   if (active === 'overview') return <HomePage pageProps={pageProps} />
   if (active === 'area') return <AreaPage pageProps={pageProps} />
