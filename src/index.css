@@ -15326,3 +15326,22 @@ html.evolv-android .reflection-sheet *{
     padding-bottom:calc(9.5rem + env(safe-area-inset-bottom,0px)) !important;
   }
 }
+
+/* EVOLV — hard-stop bottom nav height */
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav,
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked{
+  height:fit-content !important;
+  min-height:0 !important;
+  max-height:none !important;
+  flex:none !important;
+  align-self:auto !important;
+  box-sizing:border-box !important;
+}
+.dashboard:not(.dashboard-ai-active) .app-bottom-nav.app-bottom-nav-docked > button{
+  height:fit-content !important;
+  min-height:5.4rem !important;
+  max-height:5.8rem !important;
+  flex:none !important;
+  align-self:auto !important;
+  box-sizing:border-box !important;
+}
