@@ -1,21 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
 <title id="title">EVOLV</title>
-<desc id="desc">EVOLV gradient e mark and wordmark</desc>
 <defs>
-  <linearGradient id="evolvGradient" x1="90" y1="55" x2="410" y2="430" gradientUnits="userSpaceOnUse">
-    <stop offset="0" stop-color="#b7ff63"/>
-    <stop offset=".38" stop-color="#69e88c"/>
-    <stop offset=".72" stop-color="#19c8a2"/>
-    <stop offset="1" stop-color="#0a9fb3"/>
-  </linearGradient>
-  <linearGradient id="wordGradient" x1="120" y1="300" x2="390" y2="390" gradientUnits="userSpaceOnUse">
-    <stop offset="0" stop-color="#ffffff"/>
-    <stop offset="1" stop-color="#f4f4f4"/>
-  </linearGradient>
+<linearGradient id="g" x1="120" y1="70" x2="385" y2="330" gradientUnits="userSpaceOnUse">
+<stop offset="0" stop-color="#b8ff68"/><stop offset=".42" stop-color="#65e68c"/><stop offset=".76" stop-color="#18c6a3"/><stop offset="1" stop-color="#0a9fb4"/>
+</linearGradient>
 </defs>
-<g transform="translate(0 4)">
-  <path fill="url(#evolvGradient)" d="M254 55c-72 0-127 50-127 116 0 47 28 78 70 94 20 8 43 12 68 12h103c8 0 14-5 16-12 3-10-4-20-15-20h-92c-22 0-42-4-57-12 20-30 50-47 86-59 21-7 44-10 67-12 11-1 17-11 13-21-14-52-64-86-132-86zm-88 158c-3-12-4-25-4-37 0-45 36-77 89-77 34 0 60 12 76 34-25 4-51 11-74 21-39 17-68 37-87 59zm-1 17c19 22 47 39 83 44 24 4 52 5 82 5-23 25-51 39-84 39-39 0-70-17-81-45z"/>
-  <path fill="url(#wordGradient)" d="M83 310h24c8 0 14 6 14 14v58c0 8-6 14-14 14H83c-8 0-14-6-14-14v-58c0-8 6-14 14-14zm52 0h17l44 53v-53h25v86h-19l-42-50v50h-25v-86zm101 0h26l20 58 20-58h27l-33 86h-28l-32-86zm101 0h25v65h45v21h-70v-86z"/>
-  <text x="67" y="463" fill="url(#wordGradient)" font-family="Manrope,Arial,sans-serif" font-size="67" font-weight="500" letter-spacing="-4">evolv</text>
-</g>
+<path fill="url(#g)" d="M257 48c-73 0-130 51-130 119 0 54 34 91 86 103 17 4 36 6 55 6h91c9 0 16-6 17-15 1-10-6-18-16-18h-91c-22 0-42-3-58-10 19-29 48-47 84-58 24-8 48-12 73-15 9-1 15-10 12-19-13-56-65-93-123-93zm-92 146c0-44 38-78 91-78 32 0 59 12 75 34-22 4-45 10-66 18-45 17-77 39-100 68v-42zm17 82c18 24 46 38 86 43 19 2 40 3 61 3-20 21-46 33-76 33-36 0-61-13-71-36-3-7-3-15 0-23z"/>
+<text x="256" y="423" text-anchor="middle" fill="#fff" font-family="Manrope,Arial,sans-serif" font-size="92" font-weight="500" letter-spacing="-6">evolv</text>
 </svg>
