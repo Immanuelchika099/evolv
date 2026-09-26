@@ -14916,3 +14916,9 @@ html.evolv-android .reflection-sheet *{
   border:0 !important;
   box-shadow:none !important;
 }
+
+
+.dashboard.dashboard-ai-active .ai-page .ai-composer{transition:width .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1);}
+.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{transform:translateY(-.25rem) scaleX(1.015) !important;}
+@media(max-width:800px){.dashboard.dashboard-ai-active .ai-page .ai-composer{width:calc(100% - .6rem) !important;max-width:none !important;}.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{width:100% !important;transform:translateY(-.2rem) scaleX(1.01) !important;}}
+@media(prefers-reduced-motion:reduce){.dashboard.dashboard-ai-active .ai-page .ai-composer{transition:none !important;}}
