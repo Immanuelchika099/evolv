@@ -1840,8 +1840,8 @@ function Dashboard({ data, onLogout, onArticle }) {
   return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
     <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></header>
     <main className="dash-main">
-      {error&&<p className="auth-error" role="alert">{error}</p>
-      <DashboardPages active={active} pageProps={pageProps}/>}
+      {error&&<p className="auth-error" role="alert">{error}</p>}
+      <DashboardPages active={active} pageProps={pageProps}/>
       
       
       
