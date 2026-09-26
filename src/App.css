@@ -978,3 +978,210 @@
 .progress-goals-card{
   margin-bottom:1.8rem !important;
 }
+
+
+/* Goals — polished controls and progress slider */
+.goal-item-actions{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto auto;
+  align-items:end;
+  gap:.8rem;
+  margin-top:1.35rem;
+  padding-top:1.25rem;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.goal-item-actions label{
+  display:grid;
+  gap:.65rem;
+  min-width:0;
+  padding:.9rem 1rem 1rem;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:1.25rem;
+  background:rgba(255,255,255,.025);
+}
+
+.goal-item-actions label span{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  font-size:1.3rem;
+  color:rgba(255,255,255,.48);
+  letter-spacing:.03em;
+}
+
+.goal-item-actions label::after{
+  content:attr(data-progress);
+  display:none;
+}
+
+.goal-item-actions input[type="range"]{
+  --goal-progress:50%;
+  width:100%;
+  height:2.2rem;
+  margin:0;
+  padding:0;
+  appearance:none;
+  -webkit-appearance:none;
+  cursor:pointer;
+  background:transparent;
+  outline:none;
+}
+
+.goal-item-actions input[type="range"]::-webkit-slider-runnable-track{
+  height:.7rem;
+  border-radius:999rem;
+  background:linear-gradient(
+    to right,
+    #c8f36a 0 var(--goal-progress),
+    rgba(255,255,255,.09) var(--goal-progress) 100%
+  );
+}
+
+.goal-item-actions input[type="range"]::-moz-range-track{
+  height:.7rem;
+  border-radius:999rem;
+  background:rgba(255,255,255,.09);
+}
+
+.goal-item-actions input[type="range"]::-moz-range-progress{
+  height:.7rem;
+  border-radius:999rem;
+  background:#c8f36a;
+}
+
+.goal-item-actions input[type="range"]::-webkit-slider-thumb{
+  width:2rem;
+  height:2rem;
+  margin-top:-.65rem;
+  appearance:none;
+  -webkit-appearance:none;
+  border:.35rem solid #10150f;
+  border-radius:50%;
+  background:#c8f36a;
+  box-shadow:0 0 0 .1rem rgba(200,243,106,.35),0 .45rem 1.2rem rgba(0,0,0,.35);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+
+.goal-item-actions input[type="range"]::-moz-range-thumb{
+  width:1.3rem;
+  height:1.3rem;
+  border:.35rem solid #10150f;
+  border-radius:50%;
+  background:#c8f36a;
+  box-shadow:0 0 0 .1rem rgba(200,243,106,.35),0 .45rem 1.2rem rgba(0,0,0,.35);
+}
+
+.goal-item-actions input[type="range"]:hover::-webkit-slider-thumb,
+.goal-item-actions input[type="range"]:focus-visible::-webkit-slider-thumb{
+  transform:scale(1.14);
+  box-shadow:0 0 0 .25rem rgba(200,243,106,.1),0 .5rem 1.4rem rgba(0,0,0,.4);
+}
+
+.goal-item-actions select{
+  min-width:12rem;
+  min-height:4.8rem;
+  padding:0 3.1rem 0 1.1rem;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:1.2rem;
+  background:rgba(255,255,255,.035);
+  color:rgba(255,255,255,.88);
+  font:inherit;
+  font-size:1.45rem;
+  outline:none;
+  cursor:pointer;
+}
+
+.goal-item-actions select:focus{
+  border-color:rgba(200,243,106,.3);
+  box-shadow:0 0 0 .2rem rgba(200,243,106,.06);
+}
+
+.goal-item-actions button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.55rem;
+  min-height:4.8rem;
+  padding:0 1.15rem;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:1.2rem;
+  background:rgba(255,255,255,.035);
+  color:rgba(255,255,255,.82);
+  font:inherit;
+  font-size:1.45rem;
+  cursor:pointer;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+
+.goal-item-actions button:hover{
+  transform:translateY(-.1rem);
+  background:rgba(255,255,255,.065);
+  border-color:rgba(255,255,255,.15);
+}
+
+.goal-item-actions .goal-delete-button{
+  border-color:rgba(255,100,100,.18);
+  color:#ffb5b5;
+  background:rgba(255,80,80,.055);
+}
+
+.goal-item-actions .goal-delete-button:hover{
+  border-color:rgba(255,100,100,.32);
+  background:rgba(255,80,80,.1);
+}
+
+@media (max-width:40rem){
+  .goal-item-actions{
+    grid-template-columns:1fr 1fr;
+    gap:.7rem;
+  }
+
+  .goal-item-actions label{
+    grid-column:1 / -1;
+  }
+
+  .goal-item-actions select,
+  .goal-item-actions button{
+    width:100%;
+    min-width:0;
+  }
+
+  .goal-item-actions input[type="range"]{
+    height:2.5rem;
+  }
+
+  .goal-item-actions input[type="range"]::-webkit-slider-runnable-track,
+  .goal-item-actions input[type="range"]::-moz-range-track,
+  .goal-item-actions input[type="range"]::-moz-range-progress{
+    height:.75rem;
+  }
+
+  .goal-item-actions input[type="range"]::-webkit-slider-thumb{
+    width:2.2rem;
+    height:2.2rem;
+    margin-top:-.725rem;
+  }
+}
+
+/* Goal cards — clearer progress hierarchy */
+.goal-item{
+  position:relative;
+  overflow:hidden;
+}
+
+.goal-item-top>strong{
+  min-width:5.4rem;
+  text-align:right;
+}
+
+.goal-item .mini-progress{
+  height:.8rem;
+  margin-top:1.5rem;
+  background:rgba(255,255,255,.07);
+}
+
+.goal-item .mini-progress i{
+  background:linear-gradient(90deg,#a9dc50,#c8f36a);
+  box-shadow:0 0 .9rem rgba(200,243,106,.16);
+}
