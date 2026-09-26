@@ -1185,3 +1185,60 @@
   background:linear-gradient(90deg,#a9dc50,#c8f36a);
   box-shadow:0 0 .9rem rgba(200,243,106,.16);
 }
+
+
+/* AI page — keep the outer shell locked to the viewport.
+   Only the conversation itself is allowed to scroll. */
+.ai-page{
+  min-height:0 !important;
+  height:100% !important;
+  overflow:hidden !important;
+  overscroll-behavior:none;
+  display:flex !important;
+  flex-direction:column !important;
+  box-sizing:border-box;
+}
+
+.ai-page .ai-topbar{
+  flex:0 0 auto;
+}
+
+.ai-page .ai-chat{
+  flex:1 1 auto;
+  min-height:0 !important;
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  scrollbar-gutter:stable;
+  padding-bottom:1rem;
+}
+
+.ai-page .ai-input{
+  flex:0 0 auto;
+  margin-top:0 !important;
+  padding-bottom:env(safe-area-inset-bottom, 0px);
+  background:#050806;
+  z-index:3;
+}
+
+.ai-page .ai-composer{
+  flex:0 0 auto;
+}
+
+@media (max-width:40rem){
+  .ai-page{
+    height:100dvh !important;
+    max-height:100dvh;
+    overflow:hidden !important;
+  }
+
+  .ai-page .ai-chat{
+    min-height:0 !important;
+    padding-bottom:1.2rem;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .ai-page .ai-input{
+    padding-bottom:calc(env(safe-area-inset-bottom, 0px) + .4rem);
+  }
+}
