@@ -15194,3 +15194,49 @@ html.evolv-android .reflection-sheet *{
     padding:.5rem .2rem !important;
   }
 }
+
+
+
+/* EVOLV AI — content-sized mobile composer section
+   The bottom input section should grow only as much as its contents require.
+   The viewport shell remains full-height; only the composer row is fit-content. */
+.dashboard.dashboard-ai-active .ai-page .ai-input{
+  height:fit-content !important;
+  min-height:0 !important;
+  max-height:none !important;
+  box-sizing:border-box !important;
+  flex:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-composer{
+  height:fit-content !important;
+  min-height:5.6rem !important;
+  max-height:none !important;
+  box-sizing:border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-composer textarea{
+  height:auto !important;
+  min-height:3rem !important;
+  max-height:16rem !important;
+  box-sizing:border-box !important;
+  overflow-y:auto !important;
+}
+
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page{
+    grid-template-rows:minmax(0,1fr) fit-content(100%) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-input{
+    height:fit-content !important;
+    min-height:0 !important;
+    padding:.8rem 1rem calc(.8rem + env(safe-area-inset-bottom,0px)) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-composer{
+    height:fit-content !important;
+    min-height:5.6rem !important;
+    width:100% !important;
+  }
+}
