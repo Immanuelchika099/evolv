@@ -14940,3 +14940,125 @@ html.evolv-android .reflection-sheet *{
 }
 @media(prefers-reduced-motion:reduce){.evolv-loader-logo{animation:none}.evolv-loader-core{animation:none;transform:none}}
 
+
+
+
+/* EVOLV — definitive mobile AI viewport cleanup
+   Keep the entire AI surface pure black, including the area below the composer,
+   and keep the top controls anchored and visible above every AI layer. */
+.dashboard.dashboard-ai-active .ai-page{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100dvh !important;
+  min-height:100dvh !important;
+  max-height:100dvh !important;
+  padding:0 !important;
+  margin:0 !important;
+  transform:none !important;
+  overflow:hidden !important;
+  background:#000 !important;
+  background-color:#000 !important;
+  background-image:none !important;
+  isolation:isolate !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page::after{
+  content:"" !important;
+  position:fixed !important;
+  inset:0 !important;
+  z-index:-1 !important;
+  pointer-events:none !important;
+  background:#000 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat{
+  background:#000 !important;
+  background-color:#000 !important;
+  background-image:none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-input{
+  background:#000 !important;
+  background-color:#000 !important;
+  background-image:none !important;
+  border:0 !important;
+  box-shadow:none !important;
+  padding-bottom:calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-composer{
+  position:relative !important;
+  z-index:2 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  position:fixed !important;
+  top:env(safe-area-inset-top, 0px) !important;
+  left:0 !important;
+  right:0 !important;
+  width:100vw !important;
+  height:6.4rem !important;
+  min-height:6.4rem !important;
+  padding:.8rem 1rem !important;
+  box-sizing:border-box !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+  z-index:100005 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar::before{
+  content:"" !important;
+  position:absolute !important;
+  inset:calc(-1 * env(safe-area-inset-top, 0px)) 0 auto 0 !important;
+  width:100% !important;
+  height:13rem !important;
+  z-index:0 !important;
+  pointer-events:none !important;
+  background:linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0,0,0,.98) 34%,
+    rgba(0,0,0,.72) 66%,
+    rgba(0,0,0,0) 100%
+  ) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar > *,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions{
+  position:relative !important;
+  z-index:2 !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-history-button,
+.dashboard.dashboard-ai-active .ai-page .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-more-button{
+  opacity:1 !important;
+  visibility:visible !important;
+  pointer-events:auto !important;
+  color:#f4f1ea !important;
+}
+
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page .ai-chat{
+    padding-bottom:1rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-input{
+    padding-left:1rem !important;
+    padding-right:1rem !important;
+    padding-bottom:calc(.8rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar{
+    top:env(safe-area-inset-top, 0px) !important;
+  }
+}
+
