@@ -1191,13 +1191,15 @@
    Only the conversation itself is allowed to scroll. */
 .ai-page{
   width:100% !important;
-  min-height:calc(100dvh - 7rem) !important;
-  height:calc(100dvh - 7rem) !important;
+  min-height:100vh !important;
+  height:100vh !important;
+  max-height:100vh !important;
   overflow:hidden !important;
   overscroll-behavior:none;
   display:flex !important;
   flex-direction:column !important;
   box-sizing:border-box;
+  padding-top:env(safe-area-inset-top, 0px);
 }
 
 .ai-page .ai-topbar{
@@ -1229,10 +1231,11 @@
 @media (max-width:40rem){
   .ai-page{
     width:100% !important;
-    height:calc(100dvh - 7rem) !important;
-    min-height:calc(100dvh - 7rem) !important;
-    max-height:calc(100dvh - 7rem);
+    height:100vh !important;
+    min-height:100vh !important;
+    max-height:100vh !important;
     overflow:hidden !important;
+    padding-top:env(safe-area-inset-top, 0px);
   }
 
   .ai-page .ai-chat{
