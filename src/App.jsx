@@ -622,62 +622,97 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           ease: 'none',
         })
 
+        // Scroll-driven reveals: deliberately visible motion, but still restrained.
+        // opacity is included so the effect cannot read as a static CSS layout.
         q('.story-reveal').forEach((element) => {
-          gsap.fromTo(element, { y: 24 }, {
-            y: 0,
-            duration: .75,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 88%',
-              toggleActions: 'play none none reverse',
-            },
-          })
+          gsap.fromTo(element,
+            { y: 52, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: .9,
+              ease: 'power3.out',
+              overwrite: 'auto',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 86%',
+                end: 'top 58%',
+                toggleActions: 'play none none reverse',
+                invalidateOnRefresh: true,
+              },
+            }
+          )
         })
 
         q('.feature-card').forEach((element, index) => {
-          gsap.fromTo(element, { y: 20, scale: .99 }, {
-            y: 0,
-            scale: 1,
-            duration: .65,
-            delay: index * .05,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 90%',
-              toggleActions: 'play none none reverse',
-            },
-          })
+          gsap.fromTo(element,
+            { y: 42, opacity: 0, scale: .975 },
+            {
+              y: 0,
+              opacity: 1,
+              scale: 1,
+              duration: .72,
+              delay: index * .06,
+              ease: 'power3.out',
+              overwrite: 'auto',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 91%',
+                end: 'top 65%',
+                toggleActions: 'play none none reverse',
+                invalidateOnRefresh: true,
+              },
+            }
+          )
         })
 
-        // Section 05: vertical reveal only. No horizontal transform.
-        q('.area').forEach((element) => {
-          gsap.fromTo(element, { y: 18 }, {
-            y: 0,
-            duration: .65,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 92%',
-              toggleActions: 'play none none reverse',
-            },
-          })
+        // Section 05 stays vertical only — no horizontal transform.
+        q('.area').forEach((element, index) => {
+          gsap.fromTo(element,
+            { y: 38, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: .72,
+              delay: index * .04,
+              ease: 'power3.out',
+              overwrite: 'auto',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 92%',
+                end: 'top 66%',
+                toggleActions: 'play none none reverse',
+                invalidateOnRefresh: true,
+              },
+            }
+          )
         })
 
         q('.story-reveal h2, .story-reveal h3').forEach((element) => {
-          gsap.fromTo(element, { color: '#6f756f' }, {
-            color: '#f4f1ea',
-            duration: .8,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top 86%',
-              toggleActions: 'play none none reverse',
-            },
-          })
+          gsap.fromTo(element,
+            { color: '#6f756f', y: 18, opacity: .45 },
+            {
+              color: '#f4f1ea',
+              y: 0,
+              opacity: 1,
+              duration: .8,
+              ease: 'power2.out',
+              overwrite: 'auto',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 84%',
+                end: 'top 62%',
+                toggleActions: 'play none none reverse',
+                invalidateOnRefresh: true,
+              },
+            }
+          )
         })
 
-        refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 100)
+        // The homepage is dynamic, so refresh once immediately and again after
+        // fonts/layout/images have had time to settle.
+        ScrollTrigger.refresh()
+        refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 450)
       }, pageEl)
     } catch (error) {
       console.error('EVOLV landing animation error:', error)
