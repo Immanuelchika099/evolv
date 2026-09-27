@@ -15332,3 +15332,134 @@ body{min-width:320px;overflow-x:hidden}
 body:has(.dashboard.dashboard-ai-active) {
   overflow:hidden;
 }
+
+
+/* EVOLV AI — history is a left navigation drawer, not a floating card */
+.dashboard .ai-history-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:100000 !important;
+  display:block !important;
+  padding:0 !important;
+  background:rgba(0,0,0,.58) !important;
+  backdrop-filter:blur(.8rem) !important;
+  -webkit-backdrop-filter:blur(.8rem) !important;
+}
+
+.dashboard .ai-history-sheet{
+  position:absolute !important;
+  top:0 !important;
+  left:0 !important;
+  bottom:0 !important;
+  width:min(34rem,88vw) !important;
+  height:100% !important;
+  max-height:none !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+  padding:calc(14.8rem + env(safe-area-inset-top,0px)) 1.8rem calc(4rem + env(safe-area-inset-bottom,0px)) !important;
+  border:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-radius:0 !important;
+  background:#0b0b0c !important;
+  box-shadow:2.4rem 0 7rem rgba(0,0,0,.45) !important;
+  scrollbar-width:none !important;
+  transform:translateX(0) !important;
+  animation:evolvHistorySlideIn .28s cubic-bezier(.22,.8,.24,1) both !important;
+}
+
+.dashboard .ai-history-sheet::-webkit-scrollbar{
+  display:none !important;
+  width:0 !important;
+  height:0 !important;
+}
+
+.dashboard .ai-history-head{
+  margin-bottom:2rem !important;
+  padding:0 !important;
+}
+
+.dashboard .ai-history-head h3{
+  margin:.9rem 0 0 !important;
+  font-size:2.9rem !important;
+}
+
+.dashboard .ai-history-close{
+  width:3.8rem !important;
+  height:3.8rem !important;
+  flex:0 0 3.8rem !important;
+  border:1px solid rgba(255,255,255,.08) !important;
+  border-radius:1.1rem !important;
+  background:#171719 !important;
+}
+
+.dashboard .ai-history-row{
+  grid-template-columns:minmax(0,1fr) 1.6rem !important;
+  gap:.8rem !important;
+  padding:1.15rem .2rem !important;
+  border:0 !important;
+  border-radius:.9rem !important;
+  background:transparent !important;
+}
+
+.dashboard .ai-history-row:hover,
+.dashboard .ai-history-row.active{
+  background:#171719 !important;
+  border:0 !important;
+}
+
+.dashboard .ai-history-row-icon{
+  display:none !important;
+  background:transparent !important;
+}
+
+.dashboard .ai-history-row-select{
+  width:100% !important;
+  min-width:0 !important;
+  padding:0 !important;
+  background:transparent !important;
+  border:0 !important;
+  text-align:left !important;
+}
+
+.dashboard .ai-history-row-copy strong{
+  font-size:1.45rem !important;
+}
+
+.dashboard .ai-history-row-delete,
+.dashboard .ai-history-delete{
+  background:transparent !important;
+  border:0 !important;
+}
+
+.dashboard .ai-history-list{
+  gap:.15rem !important;
+}
+
+.dashboard .ai-page .ai-messages{
+  touch-action:pan-y !important;
+  pointer-events:auto !important;
+  overflow-y:scroll !important;
+  overscroll-behavior-y:auto !important;
+  -webkit-overflow-scrolling:touch !important;
+}
+
+@keyframes evolvHistorySlideIn{
+  from{transform:translateX(-100%);opacity:.7}
+  to{transform:translateX(0);opacity:1}
+}
+
+@media(max-width:800px){
+  .dashboard .ai-history-sheet{
+    width:min(31rem,88vw) !important;
+    padding:calc(15rem + env(safe-area-inset-top,0px)) 1.5rem calc(3rem + env(safe-area-inset-bottom,0px)) !important;
+  }
+
+  .dashboard .ai-history-head h3{
+    font-size:2.7rem !important;
+  }
+
+  .dashboard .ai-history-row{
+    padding:1.1rem .15rem !important;
+  }
+}
