@@ -105,6 +105,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [pressedChatId, setPressedChatId] = useState('')
   const historyPressTimerRef = useRef(null)
   const bottomRef = useRef(null)
+  const messagesRef = useRef(null)
+  const shouldAutoScrollRef = useRef(true)
   const inputRef = useRef(null)
 
   useEffect(() => {
@@ -248,6 +250,11 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   }
 
   async function openChatHistory() {
+    if (historyOpen) {
+      setHistoryOpen(false)
+      window.setTimeout(() => messagesRef.current?.focus?.(), 0)
+      return
+    }
     setError('')
     await loadChatHistory()
     setHistoryOpen(true)
@@ -304,7 +311,27 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   }
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    const node = messagesRef.current
+    if (!node) return
+
+    function handleScroll() {
+      const distanceFromBottom = node.scrollHeight - node.scrollTop - node.clientHeight
+      shouldAutoScrollRef.current = distanceFromBottom < 120
+    }
+
+    handleScroll()
+    node.addEventListener('scroll', handleScroll, { passive: true })
+    return () => node.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    if (!shouldAutoScrollRef.current) return
+    const node = messagesRef.current
+    if (!node) return
+    window.requestAnimationFrame(() => {
+      if (!shouldAutoScrollRef.current) return
+      node.scrollTo({ top: node.scrollHeight, behavior: 'smooth' })
+    })
   }, [messages, sending, typing])
 
   useEffect(() => () => {
@@ -585,7 +612,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             </div>
           </div>
         )}
-        <div className="ai-messages">
+        <div className="ai-messages" ref={messagesRef} tabIndex="-1">
           {messages.map((message, index) => {
             const messageKey = String(message.id || index)
             const isTypingMessage = message.role === 'assistant' && typing && index === messages.length - 1
