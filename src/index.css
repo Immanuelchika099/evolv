@@ -15254,3 +15254,27 @@ body{min-width:320px;overflow-x:hidden}
     padding-top:calc(14.2rem + env(safe-area-inset-top,0px)) !important;
   }
 }
+
+
+/* EVOLV AI — give top controls more breathing room + stronger top fade */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  top:calc(env(safe-area-inset-top,0px) + 8.2rem) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar::before{
+  opacity:1 !important;
+  background:linear-gradient(
+    to bottom,
+    #000 0%,
+    rgba(0,0,0,.985) 25%,
+    rgba(0,0,0,.82) 55%,
+    rgba(0,0,0,.25) 82%,
+    rgba(0,0,0,0) 100%
+  ) !important;
+}
+
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar{
+    top:calc(env(safe-area-inset-top,0px) + 8.2rem) !important;
+  }
+}
