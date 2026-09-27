@@ -15278,3 +15278,24 @@ body{min-width:320px;overflow-x:hidden}
     top:calc(env(safe-area-inset-top,0px) + 8.2rem) !important;
   }
 }
+
+
+/* EVOLV AI — allow manual scrolling while the assistant is streaming */
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  touch-action:pan-y !important;
+  overscroll-behavior-y:contain !important;
+  -webkit-overflow-scrolling:touch !important;
+  pointer-events:auto !important;
+  user-select:text !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-messages *{
+  touch-action:auto !important;
+}
+
+/* Streaming must never turn the message viewport into a locked surface. */
+.dashboard.dashboard-ai-active .ai-page .ai-messages[aria-busy="true"]{
+  overflow-y:auto !important;
+  touch-action:pan-y !important;
+  pointer-events:auto !important;
+}
