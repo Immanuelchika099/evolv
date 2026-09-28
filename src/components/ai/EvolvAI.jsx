@@ -4,6 +4,8 @@ import {
   Check, ArrowUp
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
+import PromptBar from './PromptBar'
+import { Attachment01Icon, Globe02Icon } from '@hugeicons/core-free-icons'
 
 function EvolvCalendarBridge({ event, onCancel, onAdded }) {
   if (!event) return null
@@ -108,6 +110,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const messagesRef = useRef(null)
   const shouldAutoScrollRef = useRef(true)
   const inputRef = useRef(null)
+  const controller = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('evolv-ai-chat-id', chatId)
@@ -407,17 +410,16 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
   }
 
-  async function sendMessage(event) {
-    event.preventDefault()
-    const text = input.trim()
-    if (!text || sending) return
+  async function sendMessage(text, { attachments = [], model, effort } = {}) {
+    const cleanText = String(text || '').trim()
+    if (!cleanText || sending) return
 
-    const nextMessages = [...messages, { role: 'user', content: text }]
+    const nextMessages = [...messages, { role: 'user', content: cleanText }]
     setMessages(nextMessages)
-    setInput('')
     setSending(true)
     setTyping(false)
     setError('')
+    controller.current = new AbortController()
 
     const { data: authData } = await supabase.auth.getSession()
     const token = authData?.session?.access_token
@@ -425,11 +427,12 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
     if (!token || !userId) {
       setSending(false)
+      controller.current = null
       setError('Your session has expired. Please sign in again.')
       return
     }
 
-    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'user', content: text })
+    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'user', content: cleanText })
 
     const metricById = Object.fromEntries(definitions.map(definition => [definition.id, definition]))
     const recentLogs = logs.slice(0, 40).map(log => {
@@ -481,19 +484,36 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           apikey: import.meta.env.VITE_SUPABASE_ANON_KEY,
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ messages: nextMessages, profile, progress: progressContext }),
+        signal: controller.current.signal,
+        body: JSON.stringify({
+          messages: nextMessages,
+          profile,
+          progress: progressContext,
+          model: model?.key || null,
+          effort: effort || null,
+          attachments: attachments || [],
+        }),
       })
 
       result = await response.json().catch(() => ({}))
     } catch (requestError) {
+      if (requestError?.name === 'AbortError') {
+        setSending(false)
+        setTyping(false)
+        controller.current = null
+        return
+      }
+
       console.error('EVOLV AI request failed:', requestError)
       setSending(false)
+      controller.current = null
       setError('EVOLV could not reach the AI service. Check your connection and try again.')
       return
     }
 
     if (!response.ok) {
       setSending(false)
+      controller.current = null
       setError(result.error || 'The AI assistant could not respond right now.')
       return
     }
@@ -505,7 +525,21 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setMessages(current => [...current, { role: 'assistant', content: '' }])
 
     for (let index = 0; index < reply.length; index += 2) {
+      if (controller.current?.signal.aborted) {
+        setTyping(false)
+        setSending(false)
+        controller.current = null
+        return
+      }
+
       await new Promise(resolve => window.setTimeout(resolve, index < 10 ? 28 : 14))
+      if (controller.current?.signal.aborted) {
+        setTyping(false)
+        setSending(false)
+        controller.current = null
+        return
+      }
+
       const visible = reply.slice(0, Math.min(index + 2, reply.length))
       setMessages(current => {
         const updated = [...current]
@@ -517,8 +551,49 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
     setTyping(false)
     setSending(false)
+    controller.current = null
     await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'assistant', content: reply })
     void ensureChatTitle([...nextMessages, { role: 'assistant', content: reply }])
+  }
+
+  async function pickFiles() {
+    if (typeof document === 'undefined') return []
+    return new Promise(resolve => {
+      const input = document.createElement('input')
+      input.type = 'file'
+      input.multiple = true
+      input.accept = 'image/*,.pdf,.txt,.md,.doc,.docx'
+      input.onchange = () => {
+        const files = Array.from(input.files || []).map(file => file.name)
+        resolve(files)
+      }
+      input.click()
+    })
+  }
+
+  async function transcribe() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
+    if (!SpeechRecognition) {
+      setError('Voice dictation is not supported on this device/browser.')
+      return ''
+    }
+
+    return new Promise(resolve => {
+      const recognition = new SpeechRecognition()
+      recognition.lang = navigator.language || 'en-US'
+      recognition.interimResults = false
+      recognition.maxAlternatives = 1
+      recognition.onresult = event => resolve(event.results?.[0]?.[0]?.transcript || '')
+      recognition.onerror = () => resolve('')
+      recognition.onend = () => resolve('')
+      recognition.start()
+    })
+  }
+
+  function stopSending() {
+    controller.current?.abort()
+    setSending(false)
+    setTyping(false)
   }
 
   return (
@@ -652,27 +727,38 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           onAdded={() => setPendingCalendarEvent(null)}
         />
       )}
-      <form className="ai-input" onSubmit={sendMessage}>
-        <div className="ai-composer">
-          <textarea
-          ref={inputRef}
-          value={input}
-          onChange={e => setInput(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === "Enter") {
-              e.stopPropagation()
-              // Enter is always a new line in the Evolv composer.
-              // Messages are sent only with the button.
-            }
-          }}
-          placeholder="What’s on your mind?"
-          maxLength={2000}
-          rows={1}
-          aria-label="Message"
+      <div className="ai-promptbar-shell">
+        <PromptBar
+          placeholder="Ask anything"
+          sources={[
+            { key: 'files', name: 'Photos & files', description: 'Upload from this device', icon: Attachment01Icon, attach: true },
+            { key: 'web', name: 'Web search', description: 'Live results', icon: Globe02Icon }
+          ]}
+          commands={[{ key: 'summarize', name: '/summarize', description: 'Digest the thread so far' }]}
+          models={[
+            { key: 'nova-3', name: 'Nova 3', tag: 'Flagship' },
+            { key: 'nova-mini', name: 'Nova Mini', tag: 'Fast' }
+          ]}
+          efforts={['Low', 'Medium', 'High', 'Extra', 'Max']}
+          busy={sending}
+          onSend={sendMessage}
+          onStop={stopSending}
+          onAttach={pickFiles}
+          onDictate={transcribe}
+          background="#101310"
+          color="#f3f1e9"
+          menuBackground="#1a1d1a"
+          sparkColor="#b7d94c"
+          sparkBoost={1}
+          width={400}
+          radius={16}
+          maxRows={5}
+          morphDuration={240}
+          squash={0.12}
+          tilt={8}
+          pressScale={0.96}
         />
-          <button type="submit" className="ai-send" disabled={sending || !input.trim()} aria-label="Send message"><ArrowUp size={18}/></button>
-        </div>
-      </form>
+      </div>
       {error && <p className="auth-error" role="alert">{error}</p>}
     </section>
   )
