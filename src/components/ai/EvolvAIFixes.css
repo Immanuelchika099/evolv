@@ -167,3 +167,29 @@ body:has(.dashboard.dashboard-ai-active){
 .dashboard.dashboard-ai-active .ai-page .ai-starters{
   background:transparent !important;
 }
+
+
+/* History drawer: neutral dark/ash, with no Evolv-green tint. */
+.dashboard.dashboard-ai-active .ai-history-sheet,
+.dashboard.dashboard-ai-active .ai-history-overlay{
+  background:#0a0a0a !important;
+  background-color:#0a0a0a !important;
+  color:#f3f3f3 !important;
+}
+.dashboard.dashboard-ai-active .ai-history-sheet{
+  border-right:1px solid rgba(255,255,255,.08) !important;
+  box-shadow:1.2rem 0 3rem rgba(0,0,0,.38) !important;
+}
+.dashboard.dashboard-ai-active .ai-history-head,
+.dashboard.dashboard-ai-active .ai-history-list,
+.dashboard.dashboard-ai-active .ai-history-row{
+  background:transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-history-button svg{
+  width:2.3rem !important;
+  height:2.3rem !important;
+}
+.dashboard.dashboard-ai-active .ai-history-button{
+  width:4.6rem !important;
+  height:4.6rem !important;
+}
