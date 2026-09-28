@@ -2054,9 +2054,13 @@ function SpecialMetricFields({metric,values,setValues}){
   </div>
 
   if(slug==='social') return <div className="special-metric-fields">
-    <div className="special-log-intro"><strong>People matter.</strong><span>Record meaningful time with someone and how it felt.</span></div>
-    {input('Who were you with?','person','text','e.g. Friend')}
-    {input('Context','context','text','e.g. Dinner together')}
+    <div className="special-log-intro"><strong>Make space for connection.</strong><span>Capture the kind of social time you had, who it was with and how it left you feeling.</span></div>
+    {input('Who were you with?','person','text','e.g. Friends, family, colleagues')}
+    {choices('What kind of connection was this?','connectionType',[
+      {value:'catch-up',label:'Catch-up'},{value:'event',label:'Event'},{value:'conversation',label:'Conversation'},
+      {value:'call',label:'Call'},{value:'new-connection',label:'New connection'},{value:'family-time',label:'Family time'}
+    ])}
+    {input('What did you do?','activity','text','e.g. Dinner, played football, talked for hours')}
     {choices('How did it feel?','quality',[
       {value:1,label:'Draining'},{value:2,label:'Low'},{value:3,label:'Okay'},{value:4,label:'Good'},{value:5,label:'Great'}
     ])}
@@ -2314,7 +2318,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     if(slug==='skills') return [clean(values.skill)&&'Skill: '+clean(values.skill),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='habits') return [clean(values.habit)&&'Habit: '+clean(values.habit),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='reading') return [clean(values.book)&&'Reading: '+clean(values.book),clean(values.takeaway)&&'Takeaway: '+clean(values.takeaway),clean(values.note)].filter(Boolean).join(' · ')
-    if(slug==='social') return [clean(values.person)&&'With: '+clean(values.person),clean(values.context)&&'Context: '+clean(values.context),clean(values.note)].filter(Boolean).join(' · ')
+    if(slug==='social') return [clean(values.person)&&'With: '+clean(values.person),clean(values.connectionType)&&'Connection: '+clean(values.connectionType),clean(values.activity)&&'Activity: '+clean(values.activity),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='personal') return [clean(values.activity)&&'Activity: '+clean(values.activity),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='mood') return [clean(values.moodLabel)&&'Mood: '+clean(values.moodLabel),clean(values.context)&&'Influenced by: '+clean(values.context),clean(values.energyLabel)&&'Energy: '+clean(values.energyLabel),clean(values.note)].filter(Boolean).join(' · ')
     if(slug==='focus') return [clean(values.task)&&'Focus: '+clean(values.task),clean(values.durationLabel)&&'Duration: '+clean(values.durationLabel),clean(values.accomplishment)&&'Accomplished: '+clean(values.accomplishment),clean(values.note)].filter(Boolean).join(' · ')
