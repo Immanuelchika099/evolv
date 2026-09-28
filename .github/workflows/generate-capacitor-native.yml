@@ -1,0 +1,60 @@
+name: Generate Capacitor Native Projects
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  generate-native:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check whether native projects already exist
+        id: native-check
+        run: |
+          if [ -d android ] && [ -d ios ]; then
+            echo "already_exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "already_exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Setup Node
+        if: steps.native-check.outputs.already_exists != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        if: steps.native-check.outputs.already_exists != 'true'
+        run: npm install
+
+      - name: Generate Android project
+        if: steps.native-check.outputs.already_exists != 'true'
+        run: npx cap add android
+
+      - name: Generate iOS project
+        if: steps.native-check.outputs.already_exists != 'true'
+        run: npx cap add ios
+
+      - name: Sync Capacitor
+        if: steps.native-check.outputs.already_exists != 'true'
+        run: npx cap sync
+
+      - name: Commit native projects
+        if: steps.native-check.outputs.already_exists != 'true'
+        run: |
+          git config user.name "evolv-native-bootstrap"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add android ios package.json package-lock.json
+          git diff --cached --quiet && exit 0
+          git commit -m "Add Capacitor Android and iOS projects [skip ci]"
+          git push
