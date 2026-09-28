@@ -1268,3 +1268,126 @@
   display:flex !important;
   flex-direction:column !important;
 }
+
+
+/* =========================================================
+   Evolv Liquid Glass Layer
+   Material only — the existing dark background stays intact.
+   ========================================================= */
+
+:root {
+  --evolv-glass-bg: rgba(255,255,255,.035);
+  --evolv-glass-bg-strong: rgba(255,255,255,.055);
+  --evolv-glass-border: rgba(255,255,255,.085);
+  --evolv-glass-highlight: rgba(255,255,255,.065);
+  --evolv-glass-green: rgba(200,243,106,.075);
+  --evolv-glass-shadow: 0 1.5rem 4rem rgba(0,0,0,.20);
+}
+
+.dashboard-home .today-snapshot,
+.dashboard-home .daily-brief-card,
+.dashboard-home .evolv-life-overview,
+.dashboard-home .today-action-strip,
+.dashboard-home .daily-insight,
+.area-detail-page .health-command-row,
+.area-detail-page .health-subsection,
+.area-detail-page .health-reading-strip,
+.area-detail-page .wellbeing-guide,
+.area-detail-page .nutrition-overview,
+.area-detail-page .nutrition-note,
+.area-detail-page .meal-history,
+.logs-page .logs-page-toolbar,
+.logs-page .logs-page-row,
+.log-detail-page .log-detail-card,
+.progress-page .progress-section-card,
+.progress-page .progress-overview-card,
+.goals-page .goal-create-form,
+.goals-page .goal-item,
+.panel-page .area-note {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--evolv-glass-border);
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+  box-shadow:
+    inset 0 1px 0 var(--evolv-glass-highlight),
+    var(--evolv-glass-shadow);
+  backdrop-filter: blur(1.8rem) saturate(125%);
+  -webkit-backdrop-filter: blur(1.8rem) saturate(125%);
+}
+
+.dashboard-home .today-snapshot::before,
+.dashboard-home .daily-brief-card::before,
+.dashboard-home .evolv-life-overview::before,
+.area-detail-page .health-subsection::before,
+.area-detail-page .wellbeing-guide::before,
+.progress-page .progress-section-card::before,
+.progress-page .progress-overview-card::before,
+.goals-page .goal-item::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 0% 0%, var(--evolv-glass-green), transparent 32%),
+    linear-gradient(115deg, transparent 38%, rgba(255,255,255,.018) 50%, transparent 64%);
+  opacity: .9;
+}
+
+.dashboard-home .today-metric,
+.dashboard-home .life-area-row,
+.area-detail-page .metric-detail-row,
+.area-detail-page .meal-history-row,
+.progress-page .progress-goal-row,
+.logs-page .logs-page-row {
+  border-color: rgba(255,255,255,.065);
+  background: rgba(255,255,255,.018);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.dashboard-home .today-metric:hover,
+.dashboard-home .life-area-row:hover,
+.area-detail-page .metric-detail-row:hover,
+.area-detail-page .meal-history-row:hover,
+.progress-page .progress-goal-row:hover,
+.logs-page .logs-page-row:hover {
+  background: rgba(255,255,255,.035);
+}
+
+.dashboard-home .today-action-strip,
+.area-detail-page .health-command-row,
+.logs-page .logs-page-toolbar {
+  background:
+    linear-gradient(135deg, var(--evolv-glass-green), rgba(255,255,255,.025));
+}
+
+.dashboard-home .button.button-primary,
+.area-detail-page .button.button-primary,
+.logs-page .button.button-primary,
+.progress-page .button.button-primary {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 .8rem 2.5rem rgba(0,0,0,.2);
+}
+
+html.evolv-android .dashboard-home .today-snapshot,
+html.evolv-android .dashboard-home .daily-brief-card,
+html.evolv-android .dashboard-home .evolv-life-overview,
+html.evolv-android .dashboard-home .today-action-strip,
+html.evolv-android .dashboard-home .daily-insight,
+html.evolv-android .area-detail-page .health-subsection,
+html.evolv-android .area-detail-page .wellbeing-guide,
+html.evolv-android .area-detail-page .nutrition-overview,
+html.evolv-android .area-detail-page .nutrition-note,
+html.evolv-android .area-detail-page .meal-history,
+html.evolv-android .logs-page .logs-page-toolbar,
+html.evolv-android .logs-page .logs-page-row,
+html.evolv-android .log-detail-page .log-detail-card,
+html.evolv-android .progress-page .progress-section-card,
+html.evolv-android .progress-page .progress-overview-card,
+html.evolv-android .goals-page .goal-create-form,
+html.evolv-android .goals-page .goal-item {
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  background: #101510;
+}
