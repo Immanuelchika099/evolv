@@ -15839,3 +15839,59 @@ body:has(.dashboard.dashboard-ai-active) {
     max-width:40rem !important;
   }
 }
+
+
+/* Cinematic EVOLV hero gradient — deep forest, lime and teal */
+.landing .hero{
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 52% 62% at 76% 38%, rgba(200,243,106,.18) 0%, rgba(125,196,86,.08) 32%, transparent 70%),
+    radial-gradient(ellipse 48% 55% at 52% 82%, rgba(35,119,83,.16) 0%, rgba(17,61,43,.08) 38%, transparent 72%),
+    linear-gradient(135deg, #050806 0%, #07150e 46%, #030504 100%);
+}
+
+.landing .hero::before{
+  content:"";
+  position:absolute;
+  inset:-14%;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 78% 28%, rgba(216,255,114,.16), transparent 24%),
+    radial-gradient(circle at 61% 62%, rgba(61,171,112,.13), transparent 30%),
+    radial-gradient(circle at 24% 70%, rgba(10,58,39,.16), transparent 34%);
+  filter:blur(4rem);
+  transform:scale(1.08);
+}
+
+.landing .hero::after{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:18rem;
+  z-index:0;
+  pointer-events:none;
+  background:linear-gradient(to bottom, transparent, rgba(5,8,6,.55) 58%, #050806 100%);
+}
+
+.landing .hero-copy,
+.landing .hero-visual{
+  position:relative;
+  z-index:2;
+}
+
+@media(max-width:800px){
+  .landing .hero{
+    background:
+      radial-gradient(ellipse 90% 48% at 70% 28%, rgba(200,243,106,.16) 0%, rgba(125,196,86,.07) 34%, transparent 72%),
+      radial-gradient(ellipse 80% 48% at 50% 76%, rgba(35,119,83,.14) 0%, transparent 70%),
+      linear-gradient(145deg, #050806 0%, #07150e 48%, #030504 100%);
+  }
+
+  .landing .hero::after{
+    height:13rem;
+  }
+}
