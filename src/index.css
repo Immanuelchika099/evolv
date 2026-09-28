@@ -15785,3 +15785,47 @@ body:has(.dashboard.dashboard-ai-active) {
   .exercise-session-label span{font-size:1.7rem}
   .exercise-session-label small{font-size:1.5rem}
 }
+
+/* EVOLV AI — React Bits Prompt Bar */
+.dashboard .ai-promptbar-shell{
+  position:relative;
+  z-index:12;
+  display:flex;
+  justify-content:center;
+  width:100%;
+  padding:1.2rem 0 calc(1.6rem + var(--evolv-bottom-nav-clearance));
+}
+.dashboard .ai-promptbar-shell .prompt-bar{
+  width:min(40rem,100%);
+  font-family:inherit;
+}
+.dashboard .ai-promptbar-shell .prompt-bar__field{
+  border:1px solid rgba(255,255,255,.075);
+  background:rgba(8,10,8,.88);
+  box-shadow:0 20px 60px rgba(0,0,0,.25),inset 0 1px 0 rgba(255,255,255,.025);
+  backdrop-filter:blur(20px);
+  -webkit-backdrop-filter:blur(20px);
+}
+.dashboard .ai-promptbar-shell .prompt-bar__input{
+  color:var(--evolv-cream);
+  font-family:'Manrope',inherit;
+}
+.dashboard .ai-promptbar-shell .prompt-bar__input::placeholder{
+  color:rgba(243,241,233,.38);
+}
+.dashboard .ai-promptbar-shell .prompt-bar__send[data-armed]{
+  background:var(--evolv-green);
+  color:#11150a;
+}
+.dashboard .ai-promptbar-shell .prompt-bar__menu{
+  border:1px solid rgba(255,255,255,.07);
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+@media(max-width:800px){
+  .dashboard .ai-promptbar-shell{
+    padding:1rem 0 calc(1.4rem + var(--evolv-bottom-nav-clearance));
+  }
+  .dashboard .ai-promptbar-shell .prompt-bar{
+    width:100%;
+  }
+}
