@@ -397,9 +397,14 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   async function sendMessage(text, { attachments = [], model, effort } = {}) {
     const cleanText = String(text || '').trim()
-    if (!cleanText || sending) return
+    const safeAttachments = Array.isArray(attachments) ? attachments : []
+    if (!cleanText && safeAttachments.length === 0 || sending) return
 
-    const nextMessages = [...messages, { role: 'user', content: cleanText }]
+    const attachmentSummary = safeAttachments.length
+      ? safeAttachments.map(file => `[Attached: ${file.name || 'file'}]`).join(' ')
+      : ''
+    const storedUserContent = [cleanText, attachmentSummary].filter(Boolean).join(' ')
+    const nextMessages = [...messages, { role: 'user', content: storedUserContent }]
     setMessages(nextMessages)
     setSending(true)
     setTyping(false)
@@ -417,7 +422,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       return
     }
 
-    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'user', content: cleanText })
+    await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'user', content: storedUserContent })
 
     const metricById = Object.fromEntries(definitions.map(definition => [definition.id, definition]))
     const recentLogs = logs.slice(0, 40).map(log => {
@@ -543,14 +548,49 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   async function pickFiles() {
     if (typeof document === 'undefined') return []
+
     return new Promise(resolve => {
       const input = document.createElement('input')
       input.type = 'file'
       input.multiple = true
-      input.accept = 'image/*,.pdf,.txt,.md,.doc,.docx'
-      input.onchange = () => {
-        const files = Array.from(input.files || []).map(file => file.name)
-        resolve(files)
+      input.accept = 'image/*'
+      input.onchange = async () => {
+        const selected = Array.from(input.files || [])
+        const images = selected.filter(file => file.type.startsWith('image/'))
+
+        if (images.length !== selected.length) {
+          setError('For now, Evolv can analyze images. Please choose an image file.')
+        }
+
+        const maxBytes = 6 * 1024 * 1024
+        const attachments = []
+
+        for (const file of images) {
+          if (file.size > maxBytes) {
+            setError(`“${file.name}” is too large. Please choose an image under 6 MB.`)
+            continue
+          }
+
+          try {
+            const data = await new Promise((resolveFile, rejectFile) => {
+              const reader = new FileReader()
+              reader.onload = () => resolveFile(reader.result)
+              reader.onerror = () => rejectFile(reader.error)
+              reader.readAsDataURL(file)
+            })
+
+            attachments.push({
+              name: file.name,
+              mimeType: file.type,
+              data,
+            })
+          } catch (fileError) {
+            console.error('EVOLV image read failed:', fileError)
+            setError(`Could not read “${file.name}”. Please try another image.`)
+          }
+        }
+
+        resolve(attachments)
       }
       input.click()
     })
