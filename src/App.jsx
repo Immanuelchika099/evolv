@@ -1845,7 +1845,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, profile,
     loading, notifications, saving, goalTitle, setGoalTitle, goalDescription, setGoalDescription,
     goalDueDate, setGoalDueDate, editingGoal, setEditingGoal, profileName, setProfileName,
-    profileMessage
+    profileMessage,
     notificationsEnabled, notificationTimes, reflectionTime, reflectionOpen, reflectionStep,
     reflectionMood, reflectionFeeling, reflectionNote, reflectionSaving, avatarUrl, avatarUploading,
     avatarInputRef, deleteOpen, deleting, error, progressRange, setProgressRange, progressMetric,
