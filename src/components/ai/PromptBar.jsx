@@ -635,26 +635,6 @@ export default function PromptBar({
           >
             <HugeiconsIcon icon={PlusSignIcon} size={17} strokeWidth={2} />
           </button>
-          {models.length > 0 ? (
-            <button
-              type="button"
-              className="prompt-bar__pick"
-              aria-label="Choose model"
-              aria-expanded={modelOpen}
-              data-on={modelOpen ? '' : undefined}
-              onMouseDown={e => e.preventDefault()}
-              onClick={() => {
-                setPlusOpen(false);
-                setEffortOpen(false);
-                setActive(Math.max(0, models.indexOf(model)));
-                setModelOpen(v => !v);
-                focusInput();
-              }}
-            >
-              <span>{model.name}</span>
-              <HugeiconsIcon icon={ArrowDown01Icon} size={12} strokeWidth={2.4} />
-            </button>
-          ) : null}
           {efforts.length > 0 ? (
             <button
               type="button"
