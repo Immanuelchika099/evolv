@@ -2110,34 +2110,38 @@ function SpecialMetricFields({metric,values,setValues}){
 }
 
 function ExerciseFields({values,setValues}){
-  const exercises=['Push-ups','Pull-ups','Bench press','Bicep curls','Squats','Deadlift','Shoulder press','Lunges','Lat pulldown','Barbell row']
-  const rows=values.exerciseRows||[]
-  function updateRow(index,key,value){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>i===index?{...row,[key]:value}:row)}))}
-  function changeNumber(index,key,delta){
-    const row=rows[index]
-    const next=Math.max(0,(Number(row?.[key])||0)+delta)
-    updateRow(index,key,next)
+  const workoutSections={
+    chest:{label:'Chest day',exercises:['Barbell bench press','Incline dumbbell press','Dumbbell bench press','Chest fly','Cable crossover','Push-ups','Dips']},
+    back:{label:'Back day',exercises:['Pull-ups','Lat pulldown','Barbell row','Seated cable row','Single-arm dumbbell row','Face pulls','Deadlift']},
+    legs:{label:'Leg day',exercises:['Back squat','Front squat','Romanian deadlift','Leg press','Walking lunges','Bulgarian split squat','Leg extension','Leg curl','Calf raises']},
+    shoulders:{label:'Shoulders',exercises:['Overhead press','Dumbbell shoulder press','Arnold press','Lateral raises','Front raises','Rear delt fly','Upright row']},
+    arms:{label:'Arms',exercises:['Barbell curl','Dumbbell curls','Hammer curls','Tricep pushdown','Skull crushers','Overhead tricep extension','Dips']},
+    core:{label:'Core',exercises:['Plank','Hanging knee raises','Leg raises','Cable crunches','Russian twists','Bicycle crunches','Ab wheel rollout']},
+    full:{label:'Full body',exercises:['Squats','Deadlift','Bench press','Pull-ups','Overhead press','Dumbbell row','Walking lunges']}
   }
-  function addRow(){setValues(v=>({...v,exerciseRows:[...(v.exerciseRows||[]),{exercise:'Bench press',sets:3,reps:8,weight:''}]}))}
+  const rows=values.exerciseRows||[]
+  const workoutType=values.workoutType||'chest'
+  const availableExercises=workoutSections[workoutType]?.exercises||workoutSections.chest.exercises
+  function updateRow(index,key,value){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>i===index?{...row,[key]:value}:row)}))}
+  function changeNumber(index,key,delta){const row=rows[index];const next=Math.max(0,(Number(row?.[key])||0)+delta);updateRow(index,key,next)}
+  function changeWorkoutType(type){const firstExercise=workoutSections[type]?.exercises?.[0]||'Barbell bench press';setValues(v=>({...v,workoutType:type,exerciseRows:(v.exerciseRows||[]).map((row,index)=>index===0?{...row,exercise:workoutSections[type].exercises.includes(row.exercise)?row.exercise:firstExercise}:row)}))}
+  function addRow(){setValues(v=>({...v,exerciseRows:[...(v.exerciseRows||[]),{exercise:availableExercises[0],sets:3,reps:8,weight:''}]}))}
   function removeRow(index){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).filter((_,i)=>i!==index)}))}
   const totalReps=rows.reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
   return <div className="exercise-log-fields">
-    <div className="special-log-intro"><strong>Real workout tracking.</strong><span>Log each exercise with sets, reps and weight so your gym sessions build a history you can actually use.</span></div>
-    <div className="exercise-row-list">
-      {rows.map((row,index)=><div className="exercise-entry" key={index}>
-        <div className="exercise-entry-head"><span>EXERCISE {index+1}</span>{rows.length>1&&<button type="button" onClick={()=>removeRow(index)} aria-label="Remove exercise"><X size={15}/></button>}</div>
-        <label className="log-input-label"><span>Exercise</span><select value={row.exercise} onChange={e=>updateRow(index,'exercise',e.target.value)}>{exercises.map(name=><option key={name}>{name}</option>)}</select></label>
-        <div className="exercise-number-grid">
-          {[['sets','Sets'],['reps','Reps']].map(([key,label])=><div className="exercise-picker" key={key}><span>{label}</span><div><button type="button" onClick={()=>changeNumber(index,key,-1)} aria-label={'Decrease '+label}>−</button><strong>{row[key]||0}</strong><button type="button" onClick={()=>changeNumber(index,key,1)} aria-label={'Increase '+label}>+</button></div></div>)}
-        </div>
-        <label className="log-input-label"><span>Weight <small>optional · kg</small></span><input type="number" min="0" step="0.5" value={row.weight??''} onChange={e=>updateRow(index,'weight',e.target.value)} placeholder="Bodyweight / 0"/></label>
-      </div>)}
-    </div>
+    <div className="special-log-intro"><strong>Build your workout.</strong><span>Choose the part of your body you're training, then log the exercises that belong to that session.</span></div>
+    <div className="log-field-group workout-section-picker"><div className="log-field-title"><span>What are you training today?</span><small>Pick a workout section</small></div><div className="workout-section-grid">{Object.entries(workoutSections).map(([key,section])=><button type="button" key={key} className={workoutType===key?'active':''} onClick={()=>changeWorkoutType(key)}>{section.label}</button>)}</div></div>
+    <div className="exercise-session-label"><span>{workoutSections[workoutType].label}</span><small>{availableExercises.length} exercises available</small></div>
+    <div className="exercise-row-list">{rows.map((row,index)=><div className="exercise-entry" key={index}>
+      <div className="exercise-entry-head"><span>EXERCISE {index+1}</span>{rows.length>1&&<button type="button" onClick={()=>removeRow(index)} aria-label="Remove exercise"><X size={15}/></button>}</div>
+      <label className="log-input-label"><span>Exercise</span><select value={row.exercise} onChange={e=>updateRow(index,'exercise',e.target.value)}>{availableExercises.map(name=><option key={name}>{name}</option>)}</select></label>
+      <div className="exercise-number-grid">{[['sets','Sets'],['reps','Reps']].map(([key,label])=><div className="exercise-picker" key={key}><span>{label}</span><div><button type="button" onClick={()=>changeNumber(index,key,-1)} aria-label={'Decrease '+label}>−</button><strong>{row[key]||0}</strong><button type="button" onClick={()=>changeNumber(index,key,1)} aria-label={'Increase '+label}>+</button></div></div>)}</div>
+      <label className="log-input-label"><span>Weight <small>optional · kg</small></span><input type="number" min="0" step="0.5" value={row.weight??''} onChange={e=>updateRow(index,'weight',e.target.value)} placeholder="Bodyweight / 0"/></label>
+    </div>)}</div>
     <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add another exercise</button>
     <div className="exercise-total"><span>Total reps</span><strong>{totalReps}</strong></div>
   </div>
 }
-
 function LogHistoryModal({logs=[],meals=[],definitions=[],onClose,onOpenEntry}){
   const metricById=Object.fromEntries(definitions.map(d=>[d.id,d]))
   const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
@@ -2297,7 +2301,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   function specialNote(){
     const slug=metric?.slug
-    if(slug==='exercise') return (values.exerciseRows||[]).filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0).map(row=>`${row.exercise}: ${row.sets}×${row.reps}${Number(row.weight)>0?' @ '+row.weight+'kg':''}`).join(' · ') || null
+    if(slug==='exercise') return [values.workoutType&&'Workout: '+({chest:'Chest day',back:'Back day',legs:'Leg day',shoulders:'Shoulders',arms:'Arms',core:'Core',full:'Full body'}[values.workoutType]||values.workoutType),...(values.exerciseRows||[]).filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0).map(row=>`\${row.exercise}: \${row.sets}×\${row.reps}\${Number(row.weight)>0?' @ '+row.weight+'kg':''}`).filter(Boolean).join(' · ') || null
     if(slug==='energy') return values.energy ? `Energy: ${values.energy}/5` : null
     if(slug==='steps') return values.steps ? `Steps: ${Number(values.steps).toLocaleString()}` : null
     if(slug==='water'){
@@ -2451,8 +2455,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     onMetric(nextMetric)
     setValues(nextMetric.slug==='sleep'
       ? {bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)}
-      : nextMetric.slug==='exercise'
-         ? {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16),exerciseRows:[{exercise:'Push-ups',sets:3,reps:10,weight:''}]}
+      : nextMetric.slug==='exercise' ? {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16),workoutType:'chest',exerciseRows:[{exercise:'Barbell bench press',sets:3,reps:8,weight:''}]}
          : {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)})
     setError('')
   }
