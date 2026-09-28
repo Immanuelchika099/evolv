@@ -45,6 +45,19 @@ jobs:
         if: steps.native-check.outputs.already_exists != 'true'
         run: npx cap add ios
 
+      - name: Add Android exact alarm permission
+        if: steps.native-check.outputs.already_exists != 'true'
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          path = Path('android/app/src/main/AndroidManifest.xml')
+          text = path.read_text()
+          permission = '    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />\n'
+          if 'android.permission.SCHEDULE_EXACT_ALARM' not in text:
+              text = text.replace('<application', permission + '    <application', 1)
+              path.write_text(text)
+          PY
+
       - name: Sync Capacitor
         if: steps.native-check.outputs.already_exists != 'true'
         run: npx cap sync
