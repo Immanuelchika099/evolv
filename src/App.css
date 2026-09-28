@@ -1427,3 +1427,30 @@ html.evolv-android .goals-page .goal-item {
     line-height:1.65;
   }
 }
+
+
+/* Final mobile tuning for the mood reading action */
+@media (max-width:40rem){
+  .health-metric-wrap.mood-metric-wrap{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .mood-reading-button{
+    width:auto;
+    max-width:calc(100% - 2rem);
+    min-height:3.2rem;
+    margin:.8rem auto 0;
+    padding:.5rem .85rem;
+    gap:.5rem;
+    border-radius:999rem;
+    font-size:1.5rem;
+    line-height:1.2;
+    white-space:nowrap;
+  }
+
+  .mood-reading-button svg{
+    flex:0 0 auto;
+  }
+}
