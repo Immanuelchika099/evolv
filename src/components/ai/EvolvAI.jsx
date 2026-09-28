@@ -330,6 +330,34 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     return () => window.speechSynthesis?.cancel()
   }, [])
 
+  useEffect(() => {
+    const isAndroid = /Android/i.test(navigator.userAgent || '')
+    if (!isAndroid) return
+
+    const state = { ...(window.history.state || {}), evolvAiPage: true }
+    window.history.pushState(state, '', window.location.href)
+
+    function handleAndroidBack() {
+      window.location.assign('/')
+    }
+
+    window.addEventListener('popstate', handleAndroidBack)
+
+    const app = window.Capacitor?.Plugins?.App
+    let nativeListener
+    if (app?.addListener) {
+      app.addListener('backButton', handleAndroidBack).then(listener => {
+        nativeListener = listener
+      }).catch(() => {})
+    }
+
+    return () => {
+      window.removeEventListener('popstate', handleAndroidBack)
+      nativeListener?.remove?.()
+    }
+  }, [])
+
+
   function startNewChat() {
     setHistoryOpen(false)
     window.speechSynthesis?.cancel()
@@ -623,27 +651,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   return (
     <section className="panel-page ai-page">
-      <div className="ai-topbar">
-        <button
-          className="ai-history-button"
-          type="button"
-          onClick={openChatHistory}
-          aria-label={historyOpen ? "Close chat history" : "Open chat history"}
-          title="Chat history"
-        >
-          <History size={20} />
-        </button>
-
-        <div className="ai-topbar-actions">
-          <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
-            <Plus size={17} />
-            <span>New chat</span>
-          </button>
-          <button className="ai-more-button" type="button" aria-label="More options" title="More options">
-            <MoreHorizontal size={20} />
-          </button>
-        </div>
-      </div>
       {historyOpen && (
         <div
           className="ai-history-overlay"
