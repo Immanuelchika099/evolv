@@ -633,7 +633,7 @@ export default function PromptBar({
               setPlusOpen(v => !v);
             }}
           >
-            <HugeiconsIcon icon={PlusSignIcon} size={16} strokeWidth={2} />
+            <HugeiconsIcon icon={PlusSignIcon} size={14} strokeWidth={2} />
           </button>
           {models.length > 0 ? (
             <button
@@ -693,7 +693,7 @@ export default function PromptBar({
                   <i />
                 </span>
               ) : (
-                <HugeiconsIcon icon={Mic01Icon} size={15} strokeWidth={2} />
+                <HugeiconsIcon icon={Mic01Icon} size={14} strokeWidth={2} />
               )}
             </button>
           ) : null}
