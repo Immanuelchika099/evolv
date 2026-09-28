@@ -15788,12 +15788,21 @@ body:has(.dashboard.dashboard-ai-active) {
 
 /* EVOLV AI — React Bits Prompt Bar */
 .dashboard .ai-promptbar-shell{
-  position:relative;
-  z-index:12;
-  display:flex;
-  justify-content:center;
-  width:100%;
-  padding:1.2rem 0 calc(1.6rem + var(--evolv-bottom-nav-clearance));
+  position:fixed !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  z-index:9999 !important;
+  display:flex !important;
+  justify-content:center !important;
+  width:100% !important;
+  box-sizing:border-box !important;
+  padding:1.2rem 2rem calc(1.6rem + var(--evolv-bottom-nav-clearance)) !important;
+  pointer-events:none !important;
+  background:linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.72) 45%, transparent 100%) !important;
+}
+.dashboard .ai-promptbar-shell .prompt-bar{
+  pointer-events:auto !important;
 }
 .dashboard .ai-promptbar-shell .prompt-bar{
   width:min(40rem,100%);
@@ -15823,9 +15832,10 @@ body:has(.dashboard.dashboard-ai-active) {
 }
 @media(max-width:800px){
   .dashboard .ai-promptbar-shell{
-    padding:1rem 0 calc(1.4rem + var(--evolv-bottom-nav-clearance));
+    padding:1rem 1.2rem calc(1.4rem + var(--evolv-bottom-nav-clearance)) !important;
   }
   .dashboard .ai-promptbar-shell .prompt-bar{
-    width:100%;
+    width:100% !important;
+    max-width:40rem !important;
   }
 }
