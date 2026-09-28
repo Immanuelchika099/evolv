@@ -576,20 +576,23 @@ export default function PromptBar({
         <canvas ref={sparkRef} className="prompt-bar__sparks" aria-hidden="true" />
         {attachments.length > 0 ? (
           <div className="prompt-bar__chips">
-            {attachments.map((file, i) => (
-              <span key={`${file}-${i}`} className="prompt-bar__chip">
-                <HugeiconsIcon icon={File02Icon} size={12} strokeWidth={2} />
-                <span className="prompt-bar__chip-name">{file}</span>
-                <button
-                  type="button"
-                  className="prompt-bar__chip-x"
-                  aria-label={`Remove ${file}`}
-                  onClick={() => setAttachments(a => a.filter((_, j) => j !== i))}
-                >
-                  <HugeiconsIcon icon={Cancel01Icon} size={10} strokeWidth={2.5} />
-                </button>
-              </span>
-            ))}
+            {attachments.map((file, i) => {
+              const fileName = typeof file === 'string' ? file : file?.name || 'Image';
+              return (
+                <span key={`${fileName}-${i}`} className="prompt-bar__chip">
+                  <HugeiconsIcon icon={File02Icon} size={12} strokeWidth={2} />
+                  <span className="prompt-bar__chip-name">{fileName}</span>
+                  <button
+                    type="button"
+                    className="prompt-bar__chip-x"
+                    aria-label={`Remove ${fileName}`}
+                    onClick={() => setAttachments(a => a.filter((_, j) => j !== i))}
+                  >
+                    <HugeiconsIcon icon={Cancel01Icon} size={10} strokeWidth={2.5} />
+                  </button>
+                </span>
+              );
+            })}
           </div>
         ) : null}
 
