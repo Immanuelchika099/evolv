@@ -722,8 +722,3 @@ export default function PromptBar({
   );
 }
 
-.prompt-bar__chips{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem}
-.prompt-bar__chip{height:3.8rem;padding:.3rem .45rem .3rem .35rem;border-radius:1rem}
-.prompt-bar__chip-preview{width:3.1rem;height:3.1rem;flex:0 0 3.1rem;overflow:hidden;border-radius:.7rem;background:rgba(0,0,0,.25);display:grid;place-items:center}
-.prompt-bar__chip-preview img{display:block;width:100%;height:100%;object-fit:cover}
-.prompt-bar__chip-name{max-width:11rem}
