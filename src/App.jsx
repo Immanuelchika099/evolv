@@ -2301,7 +2301,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   function specialNote(){
     const slug=metric?.slug
-    if(slug==='exercise') return [values.workoutType&&'Workout: '+({chest:'Chest day',back:'Back day',legs:'Leg day',shoulders:'Shoulders',arms:'Arms',core:'Core',full:'Full body'}[values.workoutType]||values.workoutType),...(values.exerciseRows||[]).filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0).map(row=>`\${row.exercise}: \${row.sets}×\${row.reps}\${Number(row.weight)>0?' @ '+row.weight+'kg':''}`).filter(Boolean).join(' · ') || null
+    if(slug==='exercise') return [values.workoutType&&'Workout: '+({chest:'Chest day',back:'Back day',legs:'Leg day',shoulders:'Shoulders',arms:'Arms',core:'Core',full:'Full body'}[values.workoutType]||values.workoutType),...(values.exerciseRows||[]).filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0).map(row=>row.exercise+': '+row.sets+'×'+row.reps+(Number(row.weight)>0?' @ '+row.weight+'kg':'')).filter(Boolean).join(' · ') || null
     if(slug==='energy') return values.energy ? `Energy: ${values.energy}/5` : null
     if(slug==='steps') return values.steps ? `Steps: ${Number(values.steps).toLocaleString()}` : null
     if(slug==='water'){
