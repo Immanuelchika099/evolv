@@ -678,7 +678,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             </div>
             <div className="ai-starters">
               {['Help me understand my week', 'I feel stuck', 'Why have I been so tired?', 'Help me plan tomorrow'].map(starter => (
-                <button key={starter} type="button" onClick={() => setInput(starter)}>{starter}</button>
+                <button key={starter} type="button" onClick={() => sendMessage(starter)}>{starter}</button>
               ))}
             </div>
           </div>
