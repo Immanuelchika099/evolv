@@ -34,6 +34,8 @@ function buildNotification(alarm, schedule) {
     title: alarm.title,
     body: alarm.note || 'Your Evolv alarm is ready.',
     sound: IOS_DEFAULT_SOUND,
+    isExactNotification: true,
+    isExactMandatory: false,
     schedule,
     extra: { evolvAlarmId: alarm.id, kind: 'alarm' }
   }
@@ -54,7 +56,7 @@ export async function scheduleEvolvAlarm(alarm) {
         return buildNotification(alarm, { on: { hour: date.getHours(), minute: date.getMinutes() }, repeats: true, allowWhileIdle: true })
       }
       if (repeatType === 'weekdays') {
-        return [1, 2, 3, 4, 5].map(day => ({
+        return [2, 3, 4, 5, 6].map(day => ({
           ...buildNotification(alarm, { on: { weekday: day, hour: date.getHours(), minute: date.getMinutes() }, repeats: true, allowWhileIdle: true }),
           id: weekdayNotificationId(alarm, day)
         }))
@@ -79,7 +81,7 @@ export async function cancelEvolvAlarm(alarm) {
   if (!LocalNotifications) return
   try {
     const ids = alarm?.repeat_type === 'weekdays'
-      ? [1, 2, 3, 4, 5].map(day => weekdayNotificationId(alarm, day))
+      ? [2, 3, 4, 5, 6].map(day => weekdayNotificationId(alarm, day))
       : [getNativeId(alarm)]
     await LocalNotifications.cancel({ notifications: ids.map(id => ({ id })) })
   } catch (error) {
