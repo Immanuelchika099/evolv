@@ -8,7 +8,6 @@ import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import { supabase } from './lib/supabase'
-import { scheduleEvolvAlarm, cancelEvolvAlarm, rescheduleEvolvAlarms, isNativeAlarmAvailable } from './lib/alarmBridge'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -1265,14 +1264,6 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [editingGoal,setEditingGoal]=useState(null)
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
-  const [alarms,setAlarms]=useState([])
-  const [alarmEnabled,setAlarmEnabled]=useState(()=>localStorage.getItem('evolv-alarms-enabled')==='true')
-  const [alarmTitle,setAlarmTitle]=useState('')
-  const [alarmDate,setAlarmDate]=useState(()=>new Date().toISOString().slice(0,10))
-  const [alarmTime,setAlarmTime]=useState('')
-  const [alarmRepeat,setAlarmRepeat]=useState('once')
-  const [alarmNote,setAlarmNote]=useState('')
-  const [alarmSaving,setAlarmSaving]=useState(false)
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
   const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
@@ -1367,7 +1358,7 @@ function Dashboard({ data, onLogout, onArticle }) {
           }
         }
       }).catch(error=>console.error('EVOLV native alarm restore failed:',error))
-    }setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    }setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
