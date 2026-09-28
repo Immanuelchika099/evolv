@@ -1454,3 +1454,29 @@ html.evolv-android .goals-page .goal-item {
     flex:0 0 auto;
   }
 }
+
+
+/* Larger wellbeing guide card typography */
+.wellbeing-guide-grid > div strong{
+  font-size:1.8rem;
+  line-height:1.25;
+}
+
+.wellbeing-guide-grid > div span{
+  font-size:1.6rem;
+  line-height:1.5;
+}
+
+@media (max-width:40rem){
+  .wellbeing-guide-grid > div{
+    padding:1.5rem;
+  }
+
+  .wellbeing-guide-grid > div strong{
+    font-size:1.9rem;
+  }
+
+  .wellbeing-guide-grid > div span{
+    font-size:1.6rem;
+  }
+}
