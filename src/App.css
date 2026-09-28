@@ -1498,3 +1498,20 @@ html.evolv-android .goals-page .goal-item {
 .dashboard-panel .area-back:hover{
   color:#efffb0;
 }
+
+
+/* Back links: clean white */
+.dashboard .area-back,
+.dashboard-panel .area-back{
+  color:#fff;
+}
+
+.dashboard .area-back svg,
+.dashboard-panel .area-back svg{
+  color:#fff;
+}
+
+.dashboard .area-back:hover,
+.dashboard-panel .area-back:hover{
+  color:#fff;
+}
