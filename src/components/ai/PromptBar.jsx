@@ -396,9 +396,10 @@ export default function PromptBar({
     focusInput();
   };
 
-  const send = () => {
-    if (!canSend || busy) return;
-    latest.current.onSend?.(draft.trim(), { attachments, model, effort: level });
+  const send = (textOverride = null) => {
+    const content = textOverride === null ? draft.trim() : textOverride.trim();
+    if ((!content && !attachments.length) || busy) return;
+    latest.current.onSend?.(content, { attachments, model, effort: level });
     setDraft('');
     setAttachments([]);
     setDismissed(false);
@@ -408,17 +409,32 @@ export default function PromptBar({
 
   const toggleListen = () => {
     if (listening) {
-      dictation.current += 1;
-      setListening(false);
+      const seq = ++dictation.current;
+      Promise.resolve(latest.current.onDictate?.({ stop: true })).then(
+        text => {
+          if (seq !== dictation.current) return;
+          setListening(false);
+          if (text) {
+            const content = draft.trim() ? draft.trimEnd() + ' ' + text : text;
+            send(content);
+          } else {
+            focusInput();
+          }
+        },
+        () => {
+          if (seq === dictation.current) setListening(false);
+        }
+      );
       return;
     }
+
     const seq = ++dictation.current;
     setListening(true);
-    Promise.resolve(latest.current.onDictate?.()).then(
+    Promise.resolve(latest.current.onDictate?.({ stop: false })).then(
       text => {
         if (seq !== dictation.current) return;
         setListening(false);
-        if (text) setDraft(d => (d.trim() ? `${d.trimEnd()} ${text}` : text));
+        if (text) setDraft(d => (d.trim() ? d.trimEnd() + ' ' + text : text));
         focusInput();
       },
       () => {
@@ -673,7 +689,7 @@ export default function PromptBar({
                   <i />
                 </span>
               ) : (
-                <HugeiconsIcon icon={Mic01Icon} size={14} strokeWidth={2} />
+                <HugeiconsIcon icon={Mic01Icon} size={17} strokeWidth={2} />
               )}
             </button>
           ) : null}
