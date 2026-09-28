@@ -741,10 +741,10 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           onStop={stopSending}
           onAttach={pickFiles}
           onDictate={transcribe}
-          background="#101310"
-          color="#f3f1e9"
-          menuBackground="#1a1d1a"
-          sparkColor="#b7d94c"
+          background="#27272a"
+          color="#f5f5f5"
+          menuBackground="#323236"
+          sparkColor="#b39dff"
           sparkBoost={1}
           width={400}
           radius={16}
