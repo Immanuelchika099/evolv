@@ -623,12 +623,12 @@ export default function PromptBar({
             aria-expanded={plusOpen}
             data-on={plusOpen ? '' : undefined}
             onMouseDown={e => e.preventDefault()}
-            onClick={() => {
+            onClick={e => {
+              e.stopPropagation();
               setModelOpen(false);
               setEffortOpen(false);
               setActive(0);
               setPlusOpen(v => !v);
-              focusInput();
             }}
           >
             <HugeiconsIcon icon={PlusSignIcon} size={16} strokeWidth={2} />
