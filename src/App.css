@@ -1480,3 +1480,21 @@ html.evolv-android .goals-page .goal-item {
     font-size:1.6rem;
   }
 }
+
+
+/* Bright back-link treatment */
+.dashboard .area-back,
+.dashboard-panel .area-back{
+  color:#d8ff68;
+  font-weight:600;
+}
+
+.dashboard .area-back svg,
+.dashboard-panel .area-back svg{
+  color:#d8ff68;
+}
+
+.dashboard .area-back:hover,
+.dashboard-panel .area-back:hover{
+  color:#efffb0;
+}
