@@ -15687,3 +15687,34 @@ body:has(.dashboard.dashboard-ai-active) {
     font-size:1.6rem !important;
   }
 }
+
+
+/* Go Deeper heading block */
+.article-page .article-resource-head .section-label{
+  font-size:1.5rem !important;
+  line-height:1.3 !important;
+}
+
+.article-page .article-resource-head h2{
+  font-size:2.6rem !important;
+  line-height:1.2 !important;
+}
+
+.article-page .article-resource-head p{
+  font-size:1.6rem !important;
+  line-height:1.7 !important;
+}
+
+@media(max-width:800px){
+  .article-page .article-resource-head .section-label{
+    font-size:1.5rem !important;
+  }
+
+  .article-page .article-resource-head h2{
+    font-size:2.4rem !important;
+  }
+
+  .article-page .article-resource-head p{
+    font-size:1.6rem !important;
+  }
+}
