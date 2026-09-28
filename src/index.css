@@ -15718,3 +15718,70 @@ body:has(.dashboard.dashboard-ai-active) {
     font-size:1.6rem !important;
   }
 }
+
+
+/* Workout logging — split sessions and exercise-specific choices */
+.workout-section-picker{margin-top:1rem}
+.workout-section-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:.7rem;
+}
+.workout-section-grid button{
+  min-height:4rem;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:1rem;
+  background:rgba(255,255,255,.035);
+  color:rgba(255,255,255,.72);
+  font:inherit;
+  font-size:1.5rem;
+  font-weight:600;
+  padding:.8rem 1rem;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.workout-section-grid button:hover{border-color:rgba(200,243,106,.35);color:#fff}
+.workout-section-grid button.active{
+  border-color:rgba(200,243,106,.55);
+  background:rgba(200,243,106,.1);
+  color:#c8f36a;
+}
+.exercise-session-label{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:1rem;
+  margin:1.4rem 0 .8rem;
+  padding-bottom:.8rem;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.exercise-session-label span{
+  font-size:1.7rem;
+  font-weight:700;
+  color:#fff;
+}
+.exercise-session-label small{
+  font-size:1.5rem;
+  color:rgba(255,255,255,.48);
+}
+.exercise-entry .log-input-label select{
+  width:100%;
+  min-height:4.2rem;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:1rem;
+  background:rgba(255,255,255,.045);
+  color:#fff;
+  font:inherit;
+  font-size:1.5rem;
+  padding:.8rem 1rem;
+}
+.exercise-entry .log-input-label select option{
+  background:#101510;
+  color:#fff;
+}
+@media(max-width:800px){
+  .workout-section-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .workout-section-grid button{font-size:1.5rem;min-height:4.2rem}
+  .exercise-session-label span{font-size:1.7rem}
+  .exercise-session-label small{font-size:1.5rem}
+}
