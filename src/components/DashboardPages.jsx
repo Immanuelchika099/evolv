@@ -304,9 +304,7 @@ function GoalsPage({ pageProps }) {
 function ProfilePage({ pageProps }) {
   const {
     profileName, setProfileName, profile, data, avatarUrl, avatarInputRef, avatarUploading,
-    handleAvatarChange, removeAvatar, saveProfile, profileMessage, alarmEnabled, toggleAlarmSystem,
-    alarmTitle, setAlarmTitle, alarmDate, setAlarmDate, alarmTime, setAlarmTime, alarmRepeat, setAlarmRepeat,
-    alarmNote, setAlarmNote, alarmSaving, createAlarm, alarms, toggleAlarm, deleteAlarm,
+    handleAvatarChange, removeAvatar, saveProfile, profileMessage
     notificationsEnabled, toggleNotifications, notificationTimes, saveNotificationTime, toggleNotificationTime,
     saveQuietHour, toggleQuietHours, openReflection, deleteOpen, setDeleteOpen, deleteAccount, deleting, onLogout
   } = pageProps
@@ -362,40 +360,7 @@ function ProfilePage({ pageProps }) {
     </div>
   </div>
 
-  <div className="settings-section alarms-settings-section">
-    <div className="settings-section-head"><div><span className="section-label">TIME-BASED ALARMS</span><h3>Alarms</h3></div><Bell size={20}/></div>
-    <div className="notification-master-row">
-      <div><strong>Alarm system</strong><span>Separate from daily notifications. On native Evolv, these are scheduled by the phone.</span></div>
-      <button type="button" className={alarmEnabled?'settings-toggle active':'settings-toggle'} onClick={toggleAlarmSystem} aria-pressed={alarmEnabled}><span /></button>
-    </div>
-    <div className={alarmEnabled?'notification-preferences':'notification-preferences disabled'}>
-      <form className="evolv-alarm-create" onSubmit={createAlarm}>
-        <div className="special-log-intro"><strong>Set an alarm</strong><span>For example: “Exercise” at 6:30 PM. The native version uses the device alarm/notification system rather than an Evolv sound file.</span></div>
-        <label className="log-input-label"><span>What is the alarm for?</span><input value={alarmTitle} onChange={e=>setAlarmTitle(e.target.value)} placeholder="e.g. Exercise session" required disabled={!alarmEnabled}/></label>
-        <div className="alarm-date-time-grid">
-          <label className="log-input-label"><span>Date</span><input type="date" value={alarmDate} onChange={e=>setAlarmDate(e.target.value)} required disabled={!alarmEnabled}/></label>
-          <label className="log-input-label"><span>Time</span><input type="time" value={alarmTime} onChange={e=>setAlarmTime(e.target.value)} required disabled={!alarmEnabled}/></label>
-        </div>
-        <label className="log-input-label"><span>Repeat</span><select value={alarmRepeat} onChange={e=>setAlarmRepeat(e.target.value)} disabled={!alarmEnabled}><option value="once">Doesn't repeat</option><option value="daily">Every day</option><option value="weekdays">Weekdays</option><option value="weekly">Every week</option></select></label>
-        <label className="log-input-label"><span>Note <small>optional</small></span><textarea value={alarmNote} onChange={e=>setAlarmNote(e.target.value)} placeholder="e.g. Start with your warm-up." rows="3" disabled={!alarmEnabled}/></label>
-        <button className="button button-primary" type="submit" disabled={!alarmEnabled||alarmSaving}>{alarmSaving?'Setting alarm…':'Set alarm'} <ArrowRight size={16}/></button>
-      </form>
 
-      <div className="evolv-alarm-list">
-        <div className="evolv-alarm-list-head"><strong>Upcoming alarms</strong><span>{alarms.filter(a=>a.enabled).length} active</span></div>
-        {!alarms.length&&<div className="progress-empty-inline"><Bell size={20}/><div><strong>No alarms yet.</strong><p>Create one for your next exercise, study session or routine.</p></div></div>}
-        {alarms.map(alarm=>{
-          const when=new Date(alarm.alarm_at)
-          return <div className="evolv-alarm-row" key={alarm.id}>
-            <div className="evolv-alarm-time"><strong>{when.toLocaleTimeString([], {hour:'numeric',minute:'2-digit'})}</strong><span>{when.toLocaleDateString([], {month:'short',day:'numeric'})}</span></div>
-            <div className="evolv-alarm-copy"><strong>{alarm.title}</strong><span>{alarm.repeat_type==='daily'?'Every day':alarm.repeat_type==='weekly'?'Every week':alarm.repeat_type==='weekdays'?'Weekdays':'One time'}{alarm.note?' · '+alarm.note:''}</span></div>
-            <button type="button" className={alarm.enabled?'settings-toggle active':'settings-toggle'} onClick={()=>toggleAlarm(alarm)} aria-label={alarm.enabled?'Disable alarm':'Enable alarm'}><span/></button>
-            <button type="button" className="settings-outline-button" onClick={()=>deleteAlarm(alarm)} aria-label="Delete alarm"><X size={15}/></button>
-          </div>
-        })}
-      </div>
-    </div>
-  </div>
 
   <div className="settings-section notifications-settings-section">
     <div className="settings-section-head"><div><span className="section-label">REMINDERS</span><h3>Notifications</h3></div><Bell size={20}/></div>
