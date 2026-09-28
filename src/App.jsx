@@ -1335,30 +1335,17 @@ function Dashboard({ data, onLogout, onArticle }) {
   const todayMeals=meals.filter(x=>x.logged_at?.slice(0,10)===today)
 
   useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
-    const [p,d,l,m,g,al,n]=await Promise.all([
+    const [p,d,l,m,g,n]=await Promise.all([
       supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id',u.id).maybeSingle(),
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
-      ,supabase.from('alarms').select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').eq('user_id',u.id).order('alarm_at',{ascending:true})
-    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);
+      
+     ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}
     setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');
     setDefs(d.data||[]);
-    if(!al.error && isNativeAlarmAvailable()){
-      const activeAlarms=(al.data||[]).filter(alarm=>alarm.enabled && (alarm.repeat_type!=='once' || new Date(alarm.alarm_at).getTime()>Date.now()))
-      rescheduleEvolvAlarms(activeAlarms).then(async restored=>{
-        for(const restoredAlarm of restored){
-          if(restoredAlarm.native_id && String(restoredAlarm.native_id)!==String(al.data?.find(item=>item.id===restoredAlarm.id)?.native_id||'')){
-            await supabase.from('alarms').update({
-              native_id:restoredAlarm.native_id,
-              platform:'native',
-              updated_at:new Date().toISOString()
-            }).eq('id',restoredAlarm.id).eq('user_id',u.id)
-          }
-        }
-      }).catch(error=>console.error('EVOLV native alarm restore failed:',error))
-    }setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
@@ -1858,18 +1845,17 @@ function Dashboard({ data, onLogout, onArticle }) {
     active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, profile,
     loading, notifications, saving, goalTitle, setGoalTitle, goalDescription, setGoalDescription,
     goalDueDate, setGoalDueDate, editingGoal, setEditingGoal, profileName, setProfileName,
-    profileMessage, alarms, alarmEnabled, alarmTitle, setAlarmTitle, alarmDate, setAlarmDate,
-    alarmTime, setAlarmTime, alarmRepeat, setAlarmRepeat, alarmNote, setAlarmNote, alarmSaving,
+    profileMessage
     notificationsEnabled, notificationTimes, reflectionTime, reflectionOpen, reflectionStep,
     reflectionMood, reflectionFeeling, reflectionNote, reflectionSaving, avatarUrl, avatarUploading,
     avatarInputRef, deleteOpen, deleting, error, progressRange, setProgressRange, progressMetric,
     setProgressMetric, selectedEntry, editingEntry, manageLogsOpen, setManageLogsOpen, dashboardMainRef,
     goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, valueText, openLog,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
-    updateGoal, deleteGoal, saveProfile, createAlarm, toggleAlarmSystem, toggleAlarm, deleteAlarm,
+    updateGoal, deleteGoal, saveProfile,
     toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour,
     openReflection, setReflectionOpen, deleteAccount, onLogout, onArticle, data,
-    handleAvatarChange, removeAvatar, setDeleteOpen, setAlarmEnabled, setProfileMessage,
+    handleAvatarChange, removeAvatar, setDeleteOpen, setProfileMessage,
     WeeklyProgressChart,
   }
 
