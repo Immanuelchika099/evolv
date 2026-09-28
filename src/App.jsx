@@ -8,7 +8,7 @@ import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import { supabase } from './lib/supabase'
-import { scheduleEvolvAlarm, cancelEvolvAlarm, isNativeAlarmAvailable } from './lib/alarmBridge'
+import { scheduleEvolvAlarm, cancelEvolvAlarm, rescheduleEvolvAlarms, isNativeAlarmAvailable } from './lib/alarmBridge'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -1351,7 +1351,23 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
       ,supabase.from('alarms').select('id,title,note,alarm_at,repeat_type,enabled,platform,native_id,created_at,updated_at').eq('user_id',u.id).order('alarm_at',{ascending:true})
-    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');setDefs(d.data||[]);setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}setAlarms(al.data||[]);
+    setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');
+    setDefs(d.data||[]);
+    if(!al.error && isNativeAlarmAvailable()){
+      const activeAlarms=(al.data||[]).filter(alarm=>alarm.enabled && (alarm.repeat_type!=='once' || new Date(alarm.alarm_at).getTime()>Date.now()))
+      rescheduleEvolvAlarms(activeAlarms).then(async restored=>{
+        for(const restoredAlarm of restored){
+          if(restoredAlarm.native_id && String(restoredAlarm.native_id)!==String(al.data?.find(item=>item.id===restoredAlarm.id)?.native_id||'')){
+            await supabase.from('alarms').update({
+              native_id:restoredAlarm.native_id,
+              platform:'native',
+              updated_at:new Date().toISOString()
+            }).eq('id',restoredAlarm.id).eq('user_id',u.id)
+          }
+        }
+      }).catch(error=>console.error('EVOLV native alarm restore failed:',error))
+    }setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||al.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
