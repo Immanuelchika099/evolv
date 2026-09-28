@@ -715,4 +715,243 @@ export default function PromptBar({
       </div>
     </div>
   );
+}            attachments.map((file, i) => {
+              const fileName = typeof file === 'string' ? file : file?.name || 'Image'
+              return (
+              <span key={`${fileName}-${i}`} className="prompt-bar__chip">
+                <HugeiconsIcon icon={File02Icon} size={12} strokeWidth={2} />
+                <span className="prompt-bar__chip-name">{fileName}</span>
+                <button
+                  type="button"
+                  className="prompt-bar__chip-x"
+                  aria-label={`Remove ${fileName}`}
+                  onClick={() => setAttachments(a => a.filter((_, j) => j !== i))}
+                >
+                  <HugeiconsIcon icon={Cancel01Icon} size={10} strokeWidth={2.5} />
+                </button>
+              </span>
+              )
+            })}
+          </div>
+              <div className="prompt-bar__effort-ends">
+                <span>Faster</span>
+                <span>Smarter</span>
+              </div>
+              <div
+                className="prompt-bar__effort-track"
+                role="slider"
+                tabIndex={0}
+                aria-label="Effort"
+                aria-valuemin={0}
+                aria-valuemax={efforts.length - 1}
+                aria-valuenow={effortIndex}
+                aria-valuetext={level}
+                style={{ '--pb-effort-x': stepAt(effortIndex), '--pb-effort-fill': fillAt(effortIndex) }}
+                onPointerDown={e => {
+                  if (e.button !== 0) return;
+                  try {
+                    e.currentTarget.setPointerCapture(e.pointerId);
+                  } catch {}
+                  e.currentTarget.focus({ preventScroll: true });
+                  effortFromPointer(e);
+                }}
+                onPointerMove={e => {
+                  if (e.buttons & 1) effortFromPointer(e);
+                }}
+                onKeyDown={onEffortKey}
+              >
+                <span className="prompt-bar__effort-fill" />
+                {efforts.map((label, i) => (
+                  <i key={label} className="prompt-bar__effort-dot" style={{ left: stepAt(i) }} />
+                ))}
+                <span className="prompt-bar__effort-thumb" />
+              </div>
+            </>
+          ) : (
+            <>
+              <span ref={glowRef} className="prompt-bar__glow" aria-hidden="true" />
+              {list.map((row, i) => (
+                <button
+                  key={row.key}
+                  ref={el => {
+                    rowRefs.current[i] = el;
+                  }}
+                  type="button"
+                  role="option"
+                  aria-selected={i === cursor}
+                  className="prompt-bar__row"
+                  onMouseDown={e => e.preventDefault()}
+                  onPointerEnter={() => setActive(i)}
+                  onClick={() => pick(row)}
+                >
+                  {open === 'at' ? <span className="prompt-bar__row-icon">{renderIcon(row.icon, 15)}</span> : null}
+                  <span className="prompt-bar__row-name">{row.name}</span>
+                  {row.description ? <span className="prompt-bar__row-desc">{row.description}</span> : null}
+                  {open === 'model' ? (
+                    <>
+                      <span className="prompt-bar__row-tag">{row.tag}</span>
+                      <span className="prompt-bar__row-check" data-on={row.key === model?.key ? '' : undefined}>
+                        <HugeiconsIcon icon={Tick02Icon} size={13} strokeWidth={2.5} />
+                      </span>
+                    </>
+                  ) : null}
+                </button>
+              ))}
+              {list.length === 0 ? <div className="prompt-bar__empty">No matches for “{query}”</div> : null}
+            </>
+          )}
+        </div>
+      ) : null}
+
+      <div
+        className="prompt-bar__field"
+        role="presentation"
+        data-max={maxed ? '' : undefined}
+        onPointerDown={e => {
+          if (e.target === e.currentTarget || e.target === inputRef.current) closeMenus();
+        }}
+        onClick={focusInput}
+      >
+        <canvas ref={sparkRef} className="prompt-bar__sparks" aria-hidden="true" />
+        {attachments.length > 0 ? (
+          <div className="prompt-bar__chips">
+            {attachments.map((file, i) => (
+              <span key={`${file}-${i}`} className="prompt-bar__chip">
+                <HugeiconsIcon icon={File02Icon} size={12} strokeWidth={2} />
+                <span className="prompt-bar__chip-name">{file}</span>
+                <button
+                  type="button"
+                  className="prompt-bar__chip-x"
+                  aria-label={`Remove ${file}`}
+                  onClick={() => setAttachments(a => a.filter((_, j) => j !== i))}
+                >
+                  <HugeiconsIcon icon={Cancel01Icon} size={10} strokeWidth={2.5} />
+                </button>
+              </span>
+            ))}
+          </div>
+        ) : null}
+
+        <textarea
+          ref={inputRef}
+          className="prompt-bar__input"
+          rows={1}
+          value={draft}
+          placeholder={listening ? 'Listening…' : placeholder}
+          aria-label="Prompt"
+          onChange={e => {
+            setDraft(e.target.value);
+            typing.current.energy = Math.min(1.6, typing.current.energy + 0.22);
+            typing.current.strokes = Math.min(4, typing.current.strokes + 1);
+            setDismissed(false);
+            closeMenus();
+            setActive(0);
+          }}
+          onFocus={closeMenus}
+          onKeyDown={onKeyDown}
+        />
+
+        <div className="prompt-bar__bar">
+          <button
+            type="button"
+            className="prompt-bar__tool"
+            aria-label="Add files and sources"
+            aria-expanded={plusOpen}
+            data-on={plusOpen ? '' : undefined}
+            onMouseDown={e => e.preventDefault()}
+            onClick={() => {
+              setModelOpen(false);
+              setEffortOpen(false);
+              setActive(0);
+              setPlusOpen(v => !v);
+              focusInput();
+            }}
+          >
+            <HugeiconsIcon icon={PlusSignIcon} size={16} strokeWidth={2} />
+          </button>
+          {models.length > 0 ? (
+            <button
+              type="button"
+              className="prompt-bar__pick"
+              aria-label="Choose model"
+              aria-expanded={modelOpen}
+              data-on={modelOpen ? '' : undefined}
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => {
+                setPlusOpen(false);
+                setEffortOpen(false);
+                setActive(Math.max(0, models.indexOf(model)));
+                setModelOpen(v => !v);
+                focusInput();
+              }}
+            >
+              <span>{model.name}</span>
+              <HugeiconsIcon icon={ArrowDown01Icon} size={12} strokeWidth={2.4} />
+            </button>
+          ) : null}
+          {efforts.length > 0 ? (
+            <button
+              type="button"
+              className="prompt-bar__pick"
+              aria-label="Choose effort"
+              aria-expanded={effortOpen}
+              data-on={effortOpen ? '' : undefined}
+              data-max={maxed ? '' : undefined}
+              onMouseDown={e => e.preventDefault()}
+              onClick={() => {
+                setPlusOpen(false);
+                setModelOpen(false);
+                setEffortOpen(v => !v);
+                focusInput();
+              }}
+            >
+              <HugeiconsIcon icon={SparklesIcon} size={13} strokeWidth={2} />
+              <span>{level}</span>
+            </button>
+          ) : null}
+          <span className="prompt-bar__spacer" />
+          {onDictate ? (
+            <button
+              type="button"
+              className="prompt-bar__tool"
+              aria-label={listening ? 'Stop dictation' : 'Dictate'}
+              aria-pressed={listening}
+              data-on={listening ? '' : undefined}
+              onMouseDown={e => e.preventDefault()}
+              onClick={toggleListen}
+            >
+              {listening ? (
+                <span className="prompt-bar__eq" aria-hidden="true">
+                  <i />
+                  <i />
+                  <i />
+                </span>
+              ) : (
+                <HugeiconsIcon icon={Mic01Icon} size={15} strokeWidth={2} />
+              )}
+            </button>
+          ) : null}
+          <button
+            type="button"
+            className="prompt-bar__send"
+            disabled={!armed}
+            aria-label={busy ? 'Stop' : 'Send'}
+            data-armed={armed ? '' : undefined}
+            data-pressed={pressed ? '' : undefined}
+            onMouseDown={e => e.preventDefault()}
+            onPointerDown={down}
+            onPointerUp={up}
+            onPointerCancel={up}
+            onPointerLeave={up}
+            onClick={() => {
+              if (busy) latest.current.onStop?.();
+              else send();
+            }}
+          >
+            <SendGlyph busy={busy} morphDuration={morphDuration} squash={squash} tilt={tilt} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }
