@@ -624,7 +624,18 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     })
   }
 
-  async function transcribe() {
+  const recognitionRef = useRef(null)
+
+  async function transcribe({ stop = false } = {}) {
+    if (stop) {
+      const recognition = recognitionRef.current
+      if (!recognition) return ''
+      return new Promise(resolve => {
+        recognition.__resolveStop = resolve
+        recognition.stop?.()
+      })
+    }
+
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) {
       setError('Voice dictation is not supported on this device/browser.')
@@ -633,12 +644,24 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
     return new Promise(resolve => {
       const recognition = new SpeechRecognition()
+      recognitionRef.current = recognition
       recognition.lang = navigator.language || 'en-US'
       recognition.interimResults = false
       recognition.maxAlternatives = 1
-      recognition.onresult = event => resolve(event.results?.[0]?.[0]?.transcript || '')
-      recognition.onerror = () => resolve('')
-      recognition.onend = () => resolve('')
+      recognition.__transcript = ''
+      recognition.onresult = event => {
+        recognition.__transcript = event.results?.[0]?.[0]?.transcript || ''
+      }
+      recognition.onerror = () => {
+        recognitionRef.current = null
+        resolve('')
+      }
+      recognition.onend = () => {
+        recognitionRef.current = null
+        const transcript = recognition.__transcript || ''
+        resolve(transcript)
+        recognition.__resolveStop?.(transcript)
+      }
       recognition.start()
     })
   }
