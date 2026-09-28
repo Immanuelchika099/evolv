@@ -651,6 +651,27 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   return (
     <section className="panel-page ai-page">
+      <div className="ai-topbar">
+        <button
+          className="ai-history-button"
+          type="button"
+          onClick={openChatHistory}
+          aria-label={historyOpen ? "Close chat history" : "Open chat history"}
+          title="Chat history"
+        >
+          <History size={20} />
+        </button>
+
+        <div className="ai-topbar-actions">
+          <button className="ai-new-chat" type="button" onClick={startNewChat} aria-label="Start a new chat">
+            <Plus size={17} />
+            <span>New chat</span>
+          </button>
+          <button className="ai-more-button" type="button" aria-label="More options" title="More options">
+            <MoreHorizontal size={20} />
+          </button>
+        </div>
+      </div>
       {historyOpen && (
         <div
           className="ai-history-overlay"
