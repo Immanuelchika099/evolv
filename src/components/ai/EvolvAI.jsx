@@ -404,7 +404,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       ? safeAttachments.map(file => `[Attached: ${file.name || 'file'}]`).join(' ')
       : ''
     const storedUserContent = [cleanText, attachmentSummary].filter(Boolean).join(' ')
-    const nextMessages = [...messages, { role: 'user', content: storedUserContent }]
+    const nextMessages = [...messages, { role: 'user', content: storedUserContent, attachments: safeAttachments }]
     setMessages(nextMessages)
     setSending(true)
     setTyping(false)
@@ -719,7 +719,16 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             return (
               <div className={`ai-message ${message.role}`} key={messageKey}>
                 <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
-                <p>{message.content}{isTypingMessage ? <><span className="ai-cursor" aria-hidden="true">▍</span><span className="ai-typing-dot" aria-hidden="true" /></> : null}</p>
+                {message.role === 'user' && message.attachments?.length ? (
+                  <div className="ai-message-attachments">
+                    {message.attachments.map((attachment, attachmentIndex) => (
+                      <div className="ai-message-image" key={`${attachment.name || 'image'}-${attachmentIndex}`}>
+                        <img src={attachment.data} alt={attachment.name || 'Attached image'} />
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+                {message.content ? <p>{message.content}{isTypingMessage ? <><span className="ai-cursor" aria-hidden="true">▍</span><span className="ai-typing-dot" aria-hidden="true" /></> : null}</p> : null}
                 {message.role === 'assistant' && !isTypingMessage && message.content && (
                   <div className="ai-message-actions" aria-label="Message actions">
                     <button type="button" onClick={() => copyMessage(message.content, messageKey)} aria-label={copiedMessage === messageKey ? 'Copied' : 'Copy message'} title={copiedMessage === messageKey ? 'Copied' : 'Copy'}>
