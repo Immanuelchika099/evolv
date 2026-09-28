@@ -35,7 +35,7 @@ function buildNotification(alarm, schedule) {
     body: alarm.note || 'Your Evolv alarm is ready.',
     sound: IOS_DEFAULT_SOUND,
     isExactNotification: true,
-    isExactMandatory: false,
+    isExactMandatory: true,
     schedule,
     extra: { evolvAlarmId: alarm.id, kind: 'alarm' }
   }
