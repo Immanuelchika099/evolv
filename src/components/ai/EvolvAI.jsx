@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2,
-  Check, ArrowUp
+  Check
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
@@ -95,7 +95,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [messages, setMessages] = useState([
     { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
   ])
-  const [input, setInput] = useState('')
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [typing, setTyping] = useState(false)
@@ -109,7 +108,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const bottomRef = useRef(null)
   const messagesRef = useRef(null)
   const shouldAutoScrollRef = useRef(true)
-  const inputRef = useRef(null)
   const controller = useRef(null)
 
   useEffect(() => {
@@ -350,7 +348,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setSending(false)
     setError('')
     setPendingCalendarEvent(null)
-    setInput('')
     try {
       setChatId(crypto.randomUUID())
     } catch {
@@ -360,7 +357,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
     ])
     window.setTimeout(() => {
-      inputRef.current?.focus()
     }, 80)
   }
 
