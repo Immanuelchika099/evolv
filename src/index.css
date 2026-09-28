@@ -15614,3 +15614,76 @@ body:has(.dashboard.dashboard-ai-active) {
     font-size:1.5rem !important;
   }
 }
+
+
+/* Definitive health UI corrections — keep these after all earlier rules */
+.dashboard .area-back,
+.dashboard .area-back:visited,
+.dashboard .area-back:hover,
+.dashboard .area-back:focus{
+  color:#fff !important;
+}
+
+.dashboard .area-back svg{
+  color:#fff !important;
+  stroke:#fff !important;
+}
+
+.dashboard .mood-reading-button{
+  display:flex !important;
+  width:max-content !important;
+  max-width:calc(100% - 2rem) !important;
+  margin:1rem auto 1.4rem !important;
+  padding:.55rem .9rem !important;
+  min-height:3.2rem !important;
+  align-items:center !important;
+  justify-content:center !important;
+  font-size:1.5rem !important;
+  line-height:1.2 !important;
+  white-space:nowrap !important;
+  box-sizing:border-box !important;
+}
+
+.article-page .article-back,
+.article-page .article-back:hover,
+.article-page .article-back:focus{
+  color:#fff !important;
+}
+
+.article-page .article-back svg{
+  color:#fff !important;
+  stroke:#fff !important;
+}
+
+.article-page .article-resource-card span{
+  font-size:1.7rem !important;
+  line-height:1.35 !important;
+}
+
+.article-page .article-resource-card h3{
+  font-size:2rem !important;
+  line-height:1.3 !important;
+}
+
+.article-page .article-resource-card p{
+  font-size:1.6rem !important;
+  line-height:1.7 !important;
+}
+
+@media(max-width:800px){
+  .dashboard .mood-reading-button{
+    margin:1rem auto 1.4rem !important;
+  }
+
+  .article-page .article-resource-card span{
+    font-size:1.7rem !important;
+  }
+
+  .article-page .article-resource-card h3{
+    font-size:2rem !important;
+  }
+
+  .article-page .article-resource-card p{
+    font-size:1.6rem !important;
+  }
+}
