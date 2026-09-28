@@ -580,7 +580,9 @@ export default function PromptBar({
               const fileName = typeof file === 'string' ? file : file?.name || 'Image';
               return (
                 <span key={`${fileName}-${i}`} className="prompt-bar__chip">
-                  <HugeiconsIcon icon={File02Icon} size={12} strokeWidth={2} />
+                  <span className="prompt-bar__chip-preview">
+                    {typeof file === 'object' && file?.data ? <img src={file.data} alt="" /> : <HugeiconsIcon icon={File02Icon} size={12} strokeWidth={2} />}
+                  </span>
                   <span className="prompt-bar__chip-name">{fileName}</span>
                   <button
                     type="button"
@@ -719,3 +721,9 @@ export default function PromptBar({
     </div>
   );
 }
+
+.prompt-bar__chips{display:flex;align-items:center;flex-wrap:wrap;gap:.6rem}
+.prompt-bar__chip{height:3.8rem;padding:.3rem .45rem .3rem .35rem;border-radius:1rem}
+.prompt-bar__chip-preview{width:3.1rem;height:3.1rem;flex:0 0 3.1rem;overflow:hidden;border-radius:.7rem;background:rgba(0,0,0,.25);display:grid;place-items:center}
+.prompt-bar__chip-preview img{display:block;width:100%;height:100%;object-fit:cover}
+.prompt-bar__chip-name{max-width:11rem}
