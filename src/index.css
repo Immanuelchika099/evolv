@@ -15491,3 +15491,60 @@ body:has(.dashboard.dashboard-ai-active) {
     padding-bottom: 12rem !important;
   }
 }
+
+
+/* Bottom navigation clearance
+   Fixed navigation must never cover the last actionable content on a page. */
+:root{
+  --evolv-bottom-nav-clearance: 9.5rem;
+}
+
+.dashboard .dash-main{
+  padding-bottom: calc(4.2rem + var(--evolv-bottom-nav-clearance));
+}
+
+.dashboard-home,
+.panel-page.dashboard-panel{
+  padding-bottom: var(--evolv-bottom-nav-clearance);
+}
+
+.goals-page{
+  padding-bottom: calc(4rem + var(--evolv-bottom-nav-clearance)) !important;
+}
+
+/* Sheets sit above the navigation, but their final actions still need
+   comfortable breathing room when the sheet itself scrolls. */
+.dashboard .log-sheet{
+  padding-bottom: calc(2.4rem + var(--evolv-bottom-nav-clearance)) !important;
+}
+
+.reflection-sheet{
+  padding-bottom: calc(2.4rem + var(--evolv-bottom-nav-clearance)) !important;
+}
+
+@media(max-width:800px){
+  :root{
+    --evolv-bottom-nav-clearance: 10.5rem;
+  }
+
+  .dashboard .dash-main{
+    padding-bottom: calc(3rem + var(--evolv-bottom-nav-clearance));
+  }
+
+  .dashboard-home,
+  .panel-page.dashboard-panel{
+    padding-bottom: var(--evolv-bottom-nav-clearance);
+  }
+
+  .goals-page{
+    padding-bottom: calc(3rem + var(--evolv-bottom-nav-clearance)) !important;
+  }
+
+  .dashboard .log-sheet{
+    padding-bottom: calc(2.2rem + var(--evolv-bottom-nav-clearance)) !important;
+  }
+
+  .reflection-sheet{
+    padding-bottom: calc(2.2rem + var(--evolv-bottom-nav-clearance)) !important;
+  }
+}
