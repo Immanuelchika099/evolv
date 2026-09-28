@@ -304,7 +304,7 @@ function GoalsPage({ pageProps }) {
 function ProfilePage({ pageProps }) {
   const {
     profileName, setProfileName, profile, data, avatarUrl, avatarInputRef, avatarUploading,
-    handleAvatarChange, removeAvatar, saveProfile, profileMessage
+    handleAvatarChange, removeAvatar, saveProfile, profileMessage,
     notificationsEnabled, toggleNotifications, notificationTimes, saveNotificationTime, toggleNotificationTime,
     saveQuietHour, toggleQuietHours, openReflection, deleteOpen, setDeleteOpen, deleteAccount, deleting, onLogout
   } = pageProps
