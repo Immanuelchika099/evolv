@@ -5,6 +5,7 @@ import {
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
+import './EvolvAIFixes.css'
 import { Attachment01Icon, Globe02Icon } from '@hugeicons/core-free-icons'
 
 function EvolvCalendarBridge({ event, onCancel, onAdded }) {
@@ -107,7 +108,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const historyPressTimerRef = useRef(null)
   const bottomRef = useRef(null)
   const messagesRef = useRef(null)
-  const shouldAutoScrollRef = useRef(true)
+  const shouldAutoScrollRef = useRef(false)
   const controller = useRef(null)
 
   useEffect(() => {
@@ -326,17 +327,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   }, [])
 
   useEffect(() => {
-    if (!shouldAutoScrollRef.current) return
-    const node = messagesRef.current
-    if (!node) return
-    window.requestAnimationFrame(() => {
-      if (!shouldAutoScrollRef.current) return
-      node.scrollTo({ top: node.scrollHeight, behavior: 'smooth' })
-    })
-  }, [messages, sending, typing])
-
-  useEffect(() => () => {
-    window.speechSynthesis?.cancel()
+    return () => window.speechSynthesis?.cancel()
   }, [])
 
   function startNewChat() {
@@ -356,8 +347,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     setMessages([
       { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
     ])
-    window.setTimeout(() => {
-    }, 80)
   }
 
   async function copyMessage(content, key) {
