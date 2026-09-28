@@ -518,8 +518,8 @@
 
 .prompt-bar__glyph {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   transform-origin: 50% 50%;
 }
 
