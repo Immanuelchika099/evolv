@@ -7,6 +7,7 @@ import {
   Utensils, Sparkles, Send, Sunrise, X
 } from 'lucide-react'
 import './DashboardPages.css'
+import HoldButton from './HoldButton'
 
 export function DashboardPages({ active, pageProps }) {
   if (active === 'overview') return <HomePage pageProps={pageProps} />
@@ -375,27 +376,54 @@ function ProfilePage({ pageProps }) {
   </div>
 
   <div className="settings-section settings-danger">
-    <div className="settings-action-row">
-      <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
-      <button className="settings-outline-button" type="button" onClick={onLogout}><LogOut size={15}/> Sign out</button>
+    <div className="settings-action-row settings-hold-row">
+      <div><strong>Sign out</strong><span>Hold to sign out of EVOLV on this device.</span></div>
+      <HoldButton
+        doneLabel="Signed out"
+        backgroundColor="#27272a"
+        fillColor="#ffffff"
+        textColor="#f5f5f5"
+        fillTextColor="#050505"
+        size="md"
+        radius={14}
+        fillDirection="right"
+        holdTime={2000}
+        releaseTime={200}
+        pressScale={0.97}
+        wave
+        waveAmplitude={6}
+        glow
+        resetAfter={1200}
+        onHold={onLogout}
+      >
+        Hold to sign out
+      </HoldButton>
     </div>
-    <div className="settings-action-row danger">
-      <div><strong>Delete account</strong><span>Permanently remove your account and saved information.</span></div>
-      <button className="settings-delete-button" type="button" onClick={()=>setDeleteOpen(true)}>Delete</button>
+    <div className="settings-action-row settings-hold-row danger">
+      <div><strong>Delete account</strong><span>Hold to permanently remove your account and saved information.</span></div>
+      <HoldButton
+        doneLabel="Deleted"
+        backgroundColor="#27272a"
+        fillColor="#EF4444"
+        textColor="#f5f5f5"
+        fillTextColor="#ffffff"
+        size="md"
+        radius={14}
+        fillDirection="right"
+        holdTime={2000}
+        releaseTime={200}
+        pressScale={0.97}
+        wave
+        waveAmplitude={6}
+        glow
+        resetAfter={1200}
+        onHold={deleteAccount}
+        disabled={deleting}
+      >
+        {deleting ? 'Deleting…' : 'Hold to delete'}
+      </HoldButton>
     </div>
   </div>
-
-  {deleteOpen&&<div className="settings-delete-overlay" role="dialog" aria-modal="true">
-    <div className="settings-delete-modal">
-      <span className="section-label">DELETE ACCOUNT</span>
-      <h3>Delete your account?</h3>
-      <p>This permanently removes your account and saved information.</p>
-      <div className="settings-delete-actions">
-        <button onClick={()=>setDeleteOpen(false)}>Cancel</button>
-        <button className="settings-delete-confirm" onClick={deleteAccount} disabled={deleting}>{deleting?'Deleting…':'Delete account'}</button>
-      </div>
-    </div>
-  </div>}
 </section>
 }
 
