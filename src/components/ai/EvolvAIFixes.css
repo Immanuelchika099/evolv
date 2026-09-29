@@ -222,16 +222,21 @@ body:has(.dashboard.dashboard-ai-active){
 
 /* Empty AI state — simple centered welcome, no logo/mark. */
 .dashboard.dashboard-ai-active .ai-welcome{
-  min-height:calc(100vh - 13rem) !important;
+  position:fixed !important;
+  inset:0 !important;
+  z-index:1 !important;
   width:100% !important;
+  height:100dvh !important;
+  min-height:0 !important;
   display:flex !important;
   align-items:center !important;
   justify-content:center !important;
-  padding:8rem 2rem 16rem !important;
+  padding:0 2rem 10rem !important;
   margin:0 !important;
   background:transparent !important;
   text-align:center !important;
   pointer-events:none !important;
+  overflow:hidden !important;
 }
 .dashboard.dashboard-ai-active .ai-welcome h3{
   display:flex !important;
@@ -254,8 +259,9 @@ body:has(.dashboard.dashboard-ai-active){
 }
 @media(max-width:800px){
   .dashboard.dashboard-ai-active .ai-welcome{
-    min-height:calc(100vh - 11rem) !important;
-    padding:6rem 1.6rem 15rem !important;
+    height:100dvh !important;
+    min-height:0 !important;
+    padding:0 1.6rem 10rem !important;
   }
   .dashboard.dashboard-ai-active .ai-welcome h3{
     font-size:clamp(3rem,10vw,4.4rem) !important;
