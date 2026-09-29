@@ -33,7 +33,7 @@
 .hold-button.is-pressing.has-glow{box-shadow:0 10px 32px rgba(0,0,0,.3),0 0 24px color-mix(in srgb,var(--hold-fill) 22%,transparent)}
 .hold-button-fill{
   position:absolute;
-  z-index:-1;
+  z-index:0;
   inset:0;
   width:var(--hold-progress);
   background:var(--hold-fill);
