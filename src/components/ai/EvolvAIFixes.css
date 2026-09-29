@@ -61,21 +61,21 @@
 
 .dashboard .ai-promptbar-shell .prompt-bar{
   width:min(60rem,100%) !important;
-  min-height:6.8rem !important;
+  min-height:0 !important;
   pointer-events:auto !important;
 }
 
 .dashboard .ai-promptbar-shell .prompt-bar__field{
-  min-height:6.8rem !important;
+  min-height:5.6rem !important;
   height:auto !important;
-  align-items:center !important;
+  align-items:stretch !important;
 }
 
 .dashboard .ai-promptbar-shell .prompt-bar__input{
-  min-height:4.8rem !important;
-  max-height:18rem !important;
-  padding-top:1.2rem !important;
-  padding-bottom:1.2rem !important;
+  min-height:2.2rem !important;
+  max-height:11rem !important;
+  padding-top:.2rem !important;
+  padding-bottom:.2rem !important;
   line-height:1.55 !important;
 }
 
@@ -93,15 +93,16 @@
   .dashboard .ai-promptbar-shell .prompt-bar{
     width:100% !important;
     max-width:none !important;
-    min-height:6.8rem !important;
+    min-height:0 !important;
   }
 
   .dashboard .ai-promptbar-shell .prompt-bar__field{
-    min-height:6.8rem !important;
+    min-height:5.6rem !important;
   }
 
   .dashboard .ai-promptbar-shell .prompt-bar__input{
-    min-height:4.8rem !important;
+    min-height:2.2rem !important;
+    max-height:11rem !important;
     font-size:1.6rem !important;
   }
 }
@@ -192,4 +193,28 @@ body:has(.dashboard.dashboard-ai-active){
 .dashboard.dashboard-ai-active .ai-history-button{
   width:4.6rem !important;
   height:4.6rem !important;
+}
+
+
+/* Keep attached images as compact previews inside the composer. */
+.dashboard.dashboard-ai-active .prompt-bar__chips{
+  width:100% !important;
+  max-width:100% !important;
+  overflow:hidden !important;
+}
+.dashboard.dashboard-ai-active .prompt-bar__chip{
+  max-width:100% !important;
+}
+.dashboard.dashboard-ai-active .prompt-bar__chip-preview{
+  width:3.2rem !important;
+  height:3.2rem !important;
+  flex:0 0 3.2rem !important;
+  overflow:hidden !important;
+  border-radius:.7rem !important;
+}
+.dashboard.dashboard-ai-active .prompt-bar__chip-preview img{
+  width:100% !important;
+  height:100% !important;
+  object-fit:cover !important;
+  display:block !important;
 }
