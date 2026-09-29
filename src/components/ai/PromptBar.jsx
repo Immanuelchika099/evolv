@@ -52,7 +52,7 @@ const DEFAULT_MODELS = [
   { key: 'nova-mini', name: 'Nova Mini', tag: 'Fast' },
   { key: 'nova-2', name: 'Nova 2', tag: 'Legacy' }
 ];
-const DEFAULT_EFFORTS = ['Low', 'Medium', 'High', 'Extra', 'Max'];
+const DEFAULT_EFFORTS = ['Low', 'Medium', 'High'];
 
 const mix = (a, b, t) => a + (b - a) * t;
 const pathAt = (a, b, t) => {
@@ -191,6 +191,14 @@ export default function PromptBar({
   const maxed = efforts.length > 1 && effortIndex === efforts.length - 1;
 
   const focusInput = () => inputRef.current?.focus({ preventScroll: true });
+
+  // Put the cursor in the composer as soon as the AI page opens.
+  // Mobile browsers may require a user gesture before showing the keyboard,
+  // but the input itself is focused and ready immediately.
+  useEffect(() => {
+    const frame = window.requestAnimationFrame(() => focusInput());
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
   const closeMenus = useCallback(() => {
     setPlusOpen(false);
     setModelOpen(false);
