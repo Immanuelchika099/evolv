@@ -661,7 +661,7 @@ export default function PromptBar({
               setPlusOpen(v => !v);
             }}
           >
-            <HugeiconsIcon icon={PlusSignIcon} size={17} strokeWidth={2} />
+            <HugeiconsIcon icon={PlusSignIcon} size={20} strokeWidth={2} />
           </button>
           {efforts.length > 0 ? (
             <button
