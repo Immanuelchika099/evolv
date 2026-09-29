@@ -1,0 +1,76 @@
+.hold-button{
+  --hold-bg:#27272a;
+  --hold-fill:#EF4444;
+  --hold-text:#f5f5f5;
+  --hold-fill-text:#fff;
+  --hold-radius:14px;
+  --hold-progress:0%;
+  --hold-scale:1;
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:132px;
+  min-height:48px;
+  padding:0 18px;
+  border:1px solid rgba(255,255,255,.09);
+  border-radius:var(--hold-radius);
+  background:var(--hold-bg);
+  color:var(--hold-text);
+  font:inherit;
+  font-weight:600;
+  cursor:pointer;
+  transform:scale(var(--hold-scale));
+  transition:transform .18s ease,box-shadow .2s ease,border-color .2s ease;
+  -webkit-tap-highlight-color:transparent;
+  touch-action:none;
+}
+.hold-button-md{min-height:50px}
+.hold-button:disabled{opacity:.55;cursor:not-allowed}
+.hold-button.has-glow{box-shadow:0 10px 28px rgba(0,0,0,.22)}
+.hold-button.is-pressing.has-glow{box-shadow:0 10px 32px rgba(0,0,0,.3),0 0 24px color-mix(in srgb,var(--hold-fill) 22%,transparent)}
+.hold-button-fill{
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  width:var(--hold-progress);
+  background:var(--hold-fill);
+  transform-origin:left center;
+  transition:width .08s linear;
+}
+.hold-button-label{
+  position:relative;
+  display:grid;
+  place-items:center;
+  width:100%;
+  min-width:0;
+  z-index:2;
+}
+.hold-button-normal,
+.hold-button-progress{
+  grid-area:1/1;
+  white-space:nowrap;
+  transition:opacity .08s linear;
+}
+.hold-button-progress{
+  color:var(--hold-fill-text);
+  clip-path:inset(0 calc(100% - var(--hold-progress)) 0 0);
+}
+.hold-button.has-wave .hold-button-fill::after{
+  content:'';
+  position:absolute;
+  right:calc(var(--hold-wave) * -1);
+  top:0;
+  width:calc(var(--hold-wave) * 2);
+  height:100%;
+  border-radius:50%;
+  background:var(--hold-fill);
+  filter:blur(.2px);
+}
+.hold-button.is-done .hold-button-fill{width:100%;transition:width .12s ease}
+.hold-button.is-done .hold-button-normal{color:var(--hold-fill-text)}
+@media(max-width:650px){
+  .hold-button{min-width:126px;min-height:50px;padding:0 15px}
+}
