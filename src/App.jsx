@@ -1838,7 +1838,56 @@ function Dashboard({ data, onLogout, onArticle }) {
       setAvatarUploading(false)
     }
   }
-  async function deleteAccount(){setDeleting(true);const {data:s}=await supabase.auth.getSession();const r=await fetch(import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',{method:'POST',headers:{Authorization:'Bearer '+s.session.access_token,apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,'Content-Type':'application/json'}});if(!r.ok){setDeleting(false);return}await supabase.auth.signOut();window.location.href='/'}
+  async function deleteAccount(){
+    if(deleting)return
+    setDeleting(true)
+
+    try{
+      const {data:s,error:sessionError}=await supabase.auth.getSession()
+      const session=s?.session
+
+      if(sessionError||!session?.access_token){
+        setDeleting(false)
+        return
+      }
+
+      const response=await fetch(
+        import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',
+        {
+          method:'POST',
+          headers:{
+            Authorization:'Bearer '+session.access_token,
+            apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,
+            'Content-Type':'application/json'
+          }
+        }
+      )
+
+      if(!response.ok){
+        setDeleting(false)
+        return
+      }
+
+      // The account is gone. Explicitly clear the local EVOLV state too so
+      // this device cannot reopen the dashboard after deletion.
+      await supabase.auth.signOut()
+      localStorage.removeItem('evolv-view')
+      localStorage.removeItem('evolv-onboarding')
+      localStorage.removeItem('evolv-notifications-enabled')
+      localStorage.removeItem('evolv-notification-times')
+      localStorage.removeItem('evolv-reflection-time')
+      sessionStorage.removeItem('evolv-oauth-intent')
+      sessionStorage.removeItem('evolv-auth-error')
+
+      // Root URL, but with the account-creation view restored. This gives
+      // the deleted user a clean path to create a new EVOLV account.
+      localStorage.setItem('evolv-view','auth')
+      window.location.href='/'
+    }catch(error){
+      console.error('EVOLV account deletion failed:',error)
+      setDeleting(false)
+    }
+  }
 
   const pageProps = {
     active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, profile,
