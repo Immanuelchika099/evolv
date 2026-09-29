@@ -464,9 +464,10 @@ export default function PromptBar({
       }
       return;
     }
-    if (e.key === 'Enter' && !e.shiftKey && !e.nativeEvent.isComposing) {
-      e.preventDefault();
-      send();
+    // Enter behaves like a normal chat textarea: insert a new line.
+    // Sending is handled by the send button instead of Enter.
+    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+      setDismissed(false);
     }
   };
 
