@@ -93,9 +93,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       return `${Date.now()}-${Math.random().toString(36).slice(2)}`
     }
   })
-  const [messages, setMessages] = useState([
-    { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
-  ])
+  const [messages, setMessages] = useState([])
+  const [hasStartedTyping, setHasStartedTyping] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
   const [typing, setTyping] = useState(false)
@@ -125,7 +124,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         .order('created_at', { ascending: true })
         .limit(100)
       if (mounted) {
-        setMessages(data?.length ? data : [{ role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` }])
+        setMessages(data?.length ? data : [])
+        setHasStartedTyping(false)
       }
     }
     loadMessages()
@@ -372,9 +372,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     } catch {
       setChatId(`${Date.now()}-${Math.random().toString(36).slice(2)}`)
     }
-    setMessages([
-      { role: 'assistant', content: `Hey ${firstName}. What’s on your mind? We can take it one thing at a time.` },
-    ])
+    setMessages([])
+    setHasStartedTyping(false)
   }
 
   async function copyMessage(content, key) {
@@ -751,16 +750,11 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         </div>
       )}
       <div className={`ai-chat ${messages.length ? 'has-messages' : 'is-empty'}`}>
-        {!messages.length && (
-          <div className="ai-empty">
-            <div className="ai-empty-copy">
-              <h3>What’s on your mind?</h3>
-            </div>
-            <div className="ai-starters">
-              {['Help me understand my week', 'I feel stuck', 'Why have I been so tired?', 'Help me plan tomorrow'].map(starter => (
-                <button key={starter} type="button" onClick={() => sendMessage(starter)}>{starter}</button>
-              ))}
-            </div>
+        {!messages.length && !hasStartedTyping && (
+          <div className="ai-empty ai-welcome" aria-label={`Welcome, ${firstName}`}>
+            <h3>
+              <span>Welcome</span><strong>{firstName}</strong>
+            </h3>
           </div>
         )}
         <div className="ai-messages" ref={messagesRef} tabIndex="-1">
@@ -829,6 +823,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           onSend={sendMessage}
           onStop={stopSending}
           onAttach={pickFiles}
+          onInputChange={value => setHasStartedTyping(Boolean(String(value || '').length))}
           onDictate={transcribe}
           background="#27272a"
           color="#f5f5f5"
