@@ -1,5 +1,5 @@
 import {
-  ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, ChevronRight, LogOut,
+  ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, ChevronRight,
   Plus, Settings, Target, Pencil, Trash2, MessageCircle, HeartPulse, Apple,
   WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell,
   Footprints, Zap, Scale, Smile, Focus, NotebookPen, BookOpen, Receipt,
@@ -307,7 +307,7 @@ function ProfilePage({ pageProps }) {
     profileName, setProfileName, profile, data, avatarUrl, avatarInputRef, avatarUploading,
     handleAvatarChange, removeAvatar, saveProfile, profileMessage,
     notificationsEnabled, toggleNotifications, notificationTimes, saveNotificationTime, toggleNotificationTime,
-    saveQuietHour, toggleQuietHours, openReflection, deleteOpen, setDeleteOpen, deleteAccount, deleting, onLogout
+    saveQuietHour, toggleQuietHours, openReflection, deleteAccount, deleting, onLogout
   } = pageProps
   return <section className="panel-page dashboard-panel settings-page">
   <div className="settings-heading">
