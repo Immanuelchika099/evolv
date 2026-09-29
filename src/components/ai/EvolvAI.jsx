@@ -818,7 +818,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             { key: 'nova-3', name: 'Nova 3', tag: 'Flagship' },
             { key: 'nova-mini', name: 'Nova Mini', tag: 'Fast' }
           ]}
-          efforts={['Low', 'Medium', 'High', 'Extra', 'Max']}
+          efforts={['Low', 'Medium', 'High']}
           busy={sending}
           onSend={sendMessage}
           onStop={stopSending}
