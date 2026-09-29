@@ -51,9 +51,10 @@
 }
 
 .hold-button--md {
-  height: 44px;
-  padding: 0 22px;
-  font-size: 15px;
+  height: 40px;
+  min-height: 40px;
+  padding: 0 20px;
+  font-size: 14px;
 }
 
 .hold-button--lg {
@@ -271,4 +272,13 @@
     transition: opacity 200ms ease;
     filter: none !important;
   }
+}
+
+
+/* Evolv: keep the hold fill flush with the button edges. */
+.dashboard .settings-hold-row .hold-button {
+  height: 40px;
+  min-height: 40px;
+  padding-top: 0;
+  padding-bottom: 0;
 }
