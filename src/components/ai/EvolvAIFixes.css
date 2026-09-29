@@ -218,3 +218,46 @@ body:has(.dashboard.dashboard-ai-active){
   object-fit:cover !important;
   display:block !important;
 }
+
+
+/* Empty AI state — simple centered welcome, no logo/mark. */
+.dashboard.dashboard-ai-active .ai-welcome{
+  min-height:calc(100vh - 13rem) !important;
+  width:100% !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  padding:8rem 2rem 16rem !important;
+  margin:0 !important;
+  background:transparent !important;
+  text-align:center !important;
+  pointer-events:none !important;
+}
+.dashboard.dashboard-ai-active .ai-welcome h3{
+  display:flex !important;
+  align-items:baseline !important;
+  justify-content:center !important;
+  gap:.65rem !important;
+  margin:0 !important;
+  font-size:clamp(3.2rem,6vw,5.4rem) !important;
+  line-height:1.05 !important;
+  font-weight:400 !important;
+  letter-spacing:-.045em !important;
+  color:#f5f5f5 !important;
+}
+.dashboard.dashboard-ai-active .ai-welcome h3 span{
+  font-weight:400 !important;
+}
+.dashboard.dashboard-ai-active .ai-welcome h3 strong{
+  font-weight:700 !important;
+  color:#fff !important;
+}
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-welcome{
+    min-height:calc(100vh - 11rem) !important;
+    padding:6rem 1.6rem 15rem !important;
+  }
+  .dashboard.dashboard-ai-active .ai-welcome h3{
+    font-size:clamp(3rem,10vw,4.4rem) !important;
+  }
+}
