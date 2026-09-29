@@ -371,7 +371,7 @@
 }
 
 .prompt-bar__pick[data-max] {
-  color: var(--pb-spark);
+  color: #fff !important;
 }
 
 .prompt-bar__menu[data-kind='effort'] {
