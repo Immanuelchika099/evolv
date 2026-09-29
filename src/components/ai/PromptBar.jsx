@@ -672,11 +672,11 @@ export default function PromptBar({
               data-on={effortOpen ? '' : undefined}
               data-max={maxed ? '' : undefined}
               onMouseDown={e => e.preventDefault()}
-              onClick={() => {
+              onClick={e => {
+                e.stopPropagation();
                 setPlusOpen(false);
                 setModelOpen(false);
                 setEffortOpen(v => !v);
-                focusInput();
               }}
             >
               <HugeiconsIcon icon={SparklesIcon} size={13} strokeWidth={2} />
