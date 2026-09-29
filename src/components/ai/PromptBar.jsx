@@ -125,6 +125,7 @@ export default function PromptBar({
   efforts = DEFAULT_EFFORTS,
   defaultEffort = '',
   onEffortChange,
+  onInputChange,
   busy = false,
   onSend,
   onStop,
@@ -156,7 +157,7 @@ export default function PromptBar({
   const lastOpen = useRef(null);
   const dictation = useRef(0);
   const latest = useRef({});
-  latest.current = { onSend, onStop, onAttach, onDictate, onEffortChange };
+  latest.current = { onSend, onStop, onAttach, onDictate, onEffortChange, onInputChange };
 
   const [draft, setDraft] = useState('');
   const [attachments, setAttachments] = useState([]);
@@ -385,6 +386,7 @@ export default function PromptBar({
       Promise.resolve(latest.current.onAttach?.()).then(files => {
         if (!files) return;
         setAttachments(a => [...a, ...(Array.isArray(files) ? files : [files])]);
+        latest.current.onInputChange?.(draft);
       });
     } else if (open === 'at') {
       setDraft(`${head}@${row.name} `);
@@ -624,6 +626,7 @@ export default function PromptBar({
           aria-label="Prompt"
           onChange={e => {
             setDraft(e.target.value);
+            latest.current.onInputChange?.(e.target.value);
             typing.current.energy = Math.min(1.6, typing.current.energy + 0.22);
             typing.current.strokes = Math.min(4, typing.current.strokes + 1);
             setDismissed(false);
