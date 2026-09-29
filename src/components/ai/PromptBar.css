@@ -163,10 +163,12 @@
 }
 
 .prompt-bar__field[data-max]::before {
-  opacity: 1;
+  opacity: 0 !important;
+  background: none !important;
 }
 
 .prompt-bar__sparks {
+  display: none !important;
   position: absolute;
   inset: 0;
   z-index: -1;
@@ -463,11 +465,11 @@
 }
 
 .prompt-bar[data-max] .prompt-bar__effort-fill {
-  background: color-mix(in srgb, var(--pb-spark) 35%, transparent);
+  background: color-mix(in srgb, var(--pb-ink) 18%, transparent);
 }
 
 .prompt-bar[data-max] .prompt-bar__effort-thumb {
-  background: var(--pb-spark);
+  background: var(--pb-ink);
 }
 
 .prompt-bar__eq {
