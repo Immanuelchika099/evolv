@@ -1277,7 +1277,6 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [avatarUrl,setAvatarUrl]=useState('')
   const [avatarUploading,setAvatarUploading]=useState(false)
   const avatarInputRef=useRef(null)
-  const [deleteOpen,setDeleteOpen]=useState(false)
   const [deleting,setDeleting]=useState(false)
   const [error,setError]=useState('')
   const [progressRange,setProgressRange]=useState(7)
@@ -1848,14 +1847,14 @@ function Dashboard({ data, onLogout, onArticle }) {
     profileMessage,
     notificationsEnabled, notificationTimes, reflectionTime, reflectionOpen, reflectionStep,
     reflectionMood, reflectionFeeling, reflectionNote, reflectionSaving, avatarUrl, avatarUploading,
-    avatarInputRef, deleteOpen, deleting, error, progressRange, setProgressRange, progressMetric,
+    avatarInputRef, deleting, error, progressRange, setProgressRange, progressMetric,
     setProgressMetric, selectedEntry, editingEntry, manageLogsOpen, setManageLogsOpen, dashboardMainRef,
     goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, valueText, openLog,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
     updateGoal, deleteGoal, saveProfile,
     toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour,
     openReflection, setReflectionOpen, deleteAccount, onLogout, onArticle, data,
-    handleAvatarChange, removeAvatar, setDeleteOpen, setProfileMessage,
+    handleAvatarChange, removeAvatar, setProfileMessage,
     WeeklyProgressChart,
   }
 
