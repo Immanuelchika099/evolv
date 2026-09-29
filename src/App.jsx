@@ -1289,7 +1289,12 @@ function Dashboard({ data, onLogout, onArticle }) {
     setActive(page)
     setArea(null)
     setMetric(null)
-    window.history.pushState({evolvDashboard:true,page},'',window.location.href)
+
+    // Use a real URL fragment for dashboard navigation. Android's PWA
+    // back button needs distinct history entries; pushing the exact same
+    // URL with only history.state is unreliable in standalone PWAs.
+    const nextUrl = window.location.pathname + window.location.search + '#dashboard=' + encodeURIComponent(page)
+    window.history.pushState({evolvDashboard:true,page},'',nextUrl)
   }
 
   // Reset the viewport after the new dashboard page has rendered.
@@ -1300,12 +1305,30 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[active])
 
   useEffect(()=>{
-    const currentPage=window.history.state?.evolvDashboard ? window.history.state.page : null
-    if(currentPage) setActive(currentPage)
-    else window.history.replaceState({evolvDashboard:true,page:'overview'},'',window.location.href)
+    const hashPage=()=>{
+      const match=window.location.hash.match(/^#dashboard=(.+)$/)
+      return match ? decodeURIComponent(match[1]) : null
+    }
+
+    const currentPage=window.history.state?.evolvDashboard
+      ? window.history.state.page
+      : hashPage()
+
+    if(currentPage){
+      setActive(currentPage)
+    }else{
+      window.history.replaceState(
+        {evolvDashboard:true,page:'overview'},
+        '',
+        window.location.pathname + window.location.search + '#dashboard=overview'
+      )
+    }
 
     function handleDashboardBack(){
-      const page=window.history.state?.evolvDashboard ? window.history.state.page : 'overview'
+      const page=window.history.state?.evolvDashboard
+        ? window.history.state.page
+        : (hashPage() || 'overview')
+
       setActive(page)
       setArea(null)
       setMetric(null)
