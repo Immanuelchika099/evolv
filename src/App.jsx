@@ -333,7 +333,7 @@ function EvolvLoader() {
   return (
     <div className="evolv-loader" aria-label="Loading EVOLV">
       <div className="evolv-loader-core">
-        <img className="evolv-loader-logo" src="/evolv-logo.svg" alt="EVOLV" />
+        <img className="evolv-loader-logo" src="/evolv-mark.svg" alt="EVOLV" />
       </div>
     </div>
   )
@@ -583,7 +583,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
 function Brand() {
   return (
     <a className="brand" href="/" aria-label="EVOLV home">
-      <img src="/evolv-logo.svg" alt="EVOLV" />
+      <img src="/evolv-mark.svg" alt="EVOLV" />
     </a>
   )
 }
