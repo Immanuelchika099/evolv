@@ -632,88 +632,52 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           ease: 'none',
         })
 
-        // Cinematic homepage scroll: the hero moves as one composed scene,
-        // while the next section rises through a soft depth transition.
+        // Cinematic homepage scroll: pin the hero into a short visual scene.
+        // The page keeps normal scrolling, but the hero gets its own moment of motion.
         const hero = pageEl.querySelector('.hero')
         const heroCopy = pageEl.querySelector('.hero-copy')
         const heroVisual = pageEl.querySelector('.hero-visual')
         const heroBackground = pageEl.querySelector('.hero-background')
-        const heroMarquee = pageEl.querySelector('.evolv-hero-marquee')
-        const firstStory = pageEl.querySelector('.story-intro')
 
-        if (hero && heroCopy && heroVisual && heroBackground && firstStory) {
-          gsap.to(heroCopy, {
-            yPercent: -18,
-            opacity: 0,
-            ease: 'none',
+        if (hero && heroCopy && heroVisual && heroBackground) {
+          const heroScene = gsap.timeline({
+            defaults: { ease: 'none' },
             scrollTrigger: {
               trigger: hero,
               start: 'top top',
-              end: 'bottom top',
-              scrub: 1.15,
+              end: '+=900',
+              scrub: 1.1,
+              pin: true,
+              anticipatePin: 1,
               invalidateOnRefresh: true,
             },
           })
 
-          gsap.to(heroVisual, {
-            yPercent: -9,
-            scale: .92,
-            opacity: .18,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: hero,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: 1.35,
-              invalidateOnRefresh: true,
-            },
-          })
+          heroScene
+            .to(heroCopy, { yPercent: -28, opacity: 0, filter: 'blur(7px)', duration: 1 }, 0)
+            .to(heroVisual, { yPercent: 14, scale: .82, opacity: 0, filter: 'blur(3px)', duration: 1 }, 0)
+            .to(heroBackground, { scale: 1.22, yPercent: 14, opacity: .48, duration: 1 }, 0)
+            .to(hero, { backgroundColor: '#020403', duration: .55 }, .45)
 
-          gsap.to(heroBackground, {
-            yPercent: 16,
-            scale: 1.08,
-            opacity: .72,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: hero,
-              start: 'top top',
-              end: 'bottom top',
-              scrub: 1.6,
-              invalidateOnRefresh: true,
-            },
-          })
-
+          const heroMarquee = pageEl.querySelector('.evolv-hero-marquee')
           if (heroMarquee) {
-            gsap.to(heroMarquee, {
-              yPercent: -22,
-              opacity: .72,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: heroMarquee,
-                start: 'top bottom',
-                end: 'top 35%',
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            })
+            gsap.fromTo(heroMarquee,
+              { y: 80, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: .8,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: heroMarquee,
+                  start: 'top 92%',
+                  end: 'top 55%',
+                  scrub: 1,
+                  invalidateOnRefresh: true,
+                },
+              }
+            )
           }
-
-          gsap.fromTo(firstStory,
-            { yPercent: 12, opacity: .55, scale: .97 },
-            {
-              yPercent: 0,
-              opacity: 1,
-              scale: 1,
-              ease: 'none',
-              scrollTrigger: {
-                trigger: firstStory,
-                start: 'top bottom',
-                end: 'top 38%',
-                scrub: 1.1,
-                invalidateOnRefresh: true,
-              },
-            }
-          )
         }
 
         // Keep every homepage section rendered and visible.
