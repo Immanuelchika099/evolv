@@ -8,6 +8,7 @@ import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import PatternWaves from './components/PatternWaves/PatternWaves'
+import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -908,7 +909,60 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       </section>
       <section className="experience story-reveal">
         <div className="preview-copy"><span className="section-label">04 — YOUR SPACE</span><h2>A dashboard built around <em>your becoming.</em></h2><p>Once you enter EVOLV, everything becomes personal — your goals, your growth areas, your momentum and the story you're building day by day.</p><button className="button button-primary" onClick={onStart}>Create your space <ArrowRight size={16} /></button></div>
-        <div className="mock-dashboard"><div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR PROGRESS</span></div><div className="mock-main"><div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div><div className="mock-tasks"><div><small>CURRENT FOCUS</small><b>Build with intention.</b></div><div className="task"><i /> Learn something new <span>IN PROGRESS</span></div><div className="task"><i /> Show up today <span>ACTIVE</span></div><div className="task"><i /> Review the week <span>FRI</span></div></div></div></div>
+        <FlipCard
+          className="section4-flip-card"
+          axis="y"
+          flipOnClick
+          draggable
+          dragDistance={0}
+          tilt
+          tiltMax={12}
+          glare
+          glareOpacity={0.22}
+          hoverScale={1.03}
+          perspective={1100}
+          stiffness={170}
+          damping={20}
+          width={700}
+          height={430}
+          radius={24}
+          background="#090d08"
+          color="#f5f5f5"
+          shadow
+          shadowColor="#000000"
+          shadowOpacity={0.45}
+          ariaLabel="Flip your EVOLV progress card"
+          front={
+            <div className="mock-dashboard">
+              <div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR PROGRESS</span></div>
+              <div className="mock-main">
+                <div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div>
+                <div className="mock-tasks">
+                  <div><small>CURRENT FOCUS</small><b>Build with intention.</b></div>
+                  <div className="task"><i /> Learn something new <span>IN PROGRESS</span></div>
+                  <div className="task"><i /> Show up today <span>ACTIVE</span></div>
+                  <div className="task"><i /> Review the week <span>FRI</span></div>
+                </div>
+              </div>
+            </div>
+          }
+          back={
+            <div className="section4-flip-back">
+              <span className="section4-flip-back-label">YOUR MOMENTUM</span>
+              <div className="section4-flip-back-score">
+                <strong>72</strong><span>%</span>
+              </div>
+              <p className="section4-flip-back-caption">THIS WEEK</p>
+              <div className="section4-flip-back-stats">
+                <div><strong>4 / 6</strong><span>GOALS ACTIVE</span></div>
+                <div><strong>5</strong><span>DAYS SHOWN UP</span></div>
+                <div><strong>+18%</strong><span>FROM LAST WEEK</span></div>
+              </div>
+              <div className="section4-flip-back-line" />
+              <p className="section4-flip-back-note">Keep the rhythm.<br /><span>Small progress is still progress.</span></p>
+            </div>
+          }
+        />
       </section>
       <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id} onClick={() => onArticle('area', a.id)} role="button" tabIndex="0"><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
       <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
