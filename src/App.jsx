@@ -680,80 +680,163 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           }
         }
 
-        // Keep every homepage section rendered and visible.
-        // GSAP only adds a subtle vertical entrance; it must never hide
-        // sections while ScrollTrigger is waiting for layout.
+        // Cinematic section choreography.
+        // Each section gets its own motion language so the homepage feels
+        // like one continuous scene instead of a stack of static blocks.
         q('.story-reveal').forEach((element) => {
           gsap.fromTo(element,
-            { y: 28 },
+            { y: 70, opacity: .2, filter: 'blur(3px)' },
             {
               y: 0,
-              duration: .7,
+              opacity: 1,
+              filter: 'blur(0px)',
               ease: 'power3.out',
-              overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
-                start: 'top 90%',
-                toggleActions: 'play none none none',
+                start: 'top 88%',
+                end: 'top 48%',
+                scrub: 1.05,
                 invalidateOnRefresh: true,
               },
             }
+          )
+        })
+
+        q('.story-intro').forEach((element) => {
+          gsap.fromTo(element.querySelector('h2'),
+            { y: 90, opacity: 0, letterSpacing: '-.045em' },
+            {
+              y: 0, opacity: 1, letterSpacing: '-.065em',
+              ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 82%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true },
+            }
+          )
+          gsap.fromTo(element.querySelector('p'),
+            { y: 55, opacity: 0 },
+            {
+              y: 0, opacity: 1,
+              ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 72%', end: 'top 38%', scrub: 1, invalidateOnRefresh: true },
+            }
+          )
+        })
+
+        q('.story-statement').forEach((element) => {
+          gsap.fromTo(element.querySelector('h2'),
+            { x: -70, opacity: 0 },
+            { x: 0, opacity: 1, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 82%', end: 'top 40%', scrub: 1, invalidateOnRefresh: true } }
+          )
+          gsap.fromTo(element.querySelector('p'),
+            { x: 50, opacity: 0 },
+            { x: 0, opacity: 1, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 72%', end: 'top 38%', scrub: 1, invalidateOnRefresh: true } }
           )
         })
 
         q('.feature-card').forEach((element, index) => {
           gsap.fromTo(element,
-            { y: 22, scale: .99 },
+            { y: 85, scale: .94, opacity: 0 },
             {
-              y: 0,
-              scale: 1,
-              duration: .6,
-              delay: index * .04,
+              y: 0, scale: 1, opacity: 1,
               ease: 'power3.out',
-              overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
                 start: 'top 92%',
-                toggleActions: 'play none none none',
+                end: 'top 62%',
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            }
+          )
+          gsap.to(element, {
+            y: index % 2 ? -10 : 10,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top bottom',
+              end: 'bottom top',
+              scrub: 1.5,
+              invalidateOnRefresh: true,
+            },
+          })
+        })
+
+        q('.experience').forEach((element) => {
+          const copy = element.querySelector('.preview-copy')
+          const dashboard = element.querySelector('.mock-dashboard')
+          if (copy) gsap.fromTo(copy,
+            { x: -70, opacity: 0 },
+            { x: 0, opacity: 1, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 82%', end: 'top 40%', scrub: 1, invalidateOnRefresh: true } }
+          )
+          if (dashboard) gsap.fromTo(dashboard,
+            { x: 90, y: 70, scale: .9, opacity: 0, rotate: 2 },
+            { x: 0, y: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 88%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true } }
+          )
+        })
+
+        q('.area').forEach((element, index) => {
+          gsap.fromTo(element,
+            { x: index % 2 ? 70 : -70, y: 35, opacity: 0, scale: .97 },
+            {
+              x: 0, y: 0, opacity: 1, scale: 1, ease: 'power3.out',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 92%',
+                end: 'top 64%',
+                scrub: 1,
                 invalidateOnRefresh: true,
               },
             }
           )
         })
 
-        // Section 05 stays vertical only — no horizontal transform.
-        q('.area').forEach((element, index) => {
+        q('.manifesto').forEach((element) => {
           gsap.fromTo(element,
-            { y: 20 },
-            {
-              y: 0,
-              duration: .6,
-              delay: index * .03,
-              ease: 'power3.out',
-              overwrite: 'auto',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 94%',
-                toggleActions: 'play none none none',
-                invalidateOnRefresh: true,
-              },
-            }
+            { scale: .88, y: 80, opacity: .15 },
+            { scale: 1, y: 0, opacity: 1, ease: 'power2.out',
+              scrollTrigger: { trigger: element, start: 'top 90%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true } }
+          )
+        })
+
+        q('.faq-item').forEach((element, index) => {
+          gsap.fromTo(element,
+            { y: 35, opacity: 0, x: index % 2 ? 24 : -24 },
+            { y: 0, opacity: 1, x: 0, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 94%', end: 'top 68%', scrub: 1, invalidateOnRefresh: true } }
+          )
+        })
+
+        q('.evolv-scroll-marquee').forEach((element) => {
+          gsap.fromTo(element,
+            { xPercent: -10, opacity: .35, scale: .96 },
+            { xPercent: 10, opacity: 1, scale: 1.015, ease: 'none',
+              scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } }
+          )
+        })
+
+        q('.final-cta').forEach((element) => {
+          gsap.fromTo(element,
+            { y: 100, opacity: 0, scale: .94 },
+            { y: 0, opacity: 1, scale: 1, ease: 'power3.out',
+              scrollTrigger: { trigger: element, start: 'top 88%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true } }
           )
         })
 
         q('.story-reveal h2, .story-reveal h3').forEach((element) => {
           gsap.fromTo(element,
-            { color: '#6f756f', y: 12 },
+            { color: '#6f756f', y: 18 },
             {
               color: '#f4f1ea',
               y: 0,
-              duration: .7,
               ease: 'power2.out',
-              overwrite: 'auto',
               scrollTrigger: {
                 trigger: element,
                 start: 'top 88%',
-                toggleActions: 'play none none none',
+                end: 'top 52%',
+                scrub: 1,
                 invalidateOnRefresh: true,
               },
             }
