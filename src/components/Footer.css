@@ -4,7 +4,6 @@
 .site-footer a{color:inherit;text-decoration:none}
 .site-footer button{font:inherit}
 
-
 /* EVOLV vector brand mark */
 .footer-brand-svg{
   width:24px;
@@ -14,45 +13,50 @@
   flex:none;
 }
 
-
 /* NEW EVOLV LOGO SYSTEM */
-
 .footer-brand-logo{gap:0;}
 .footer-brand-svg{width:8rem;height:auto;aspect-ratio:218/199;object-fit:contain;}
 @media(max-width:800px){.footer-brand-svg{width:7.2rem;height:auto;}}
 
-
-
-/* Cinematic lime + black footer */
+/* GradientWaves cinematic footer */
 .site-footer{
   position:relative;
   isolation:isolate;
   overflow:hidden;
-  background:
-    radial-gradient(circle at 18% 12%, rgba(159,207,88,.13) 0%, rgba(159,207,88,.035) 24%, transparent 52%),
-    radial-gradient(circle at 84% 20%, rgba(200,243,106,.08) 0%, transparent 46%),
-    linear-gradient(180deg,#070907 0%,#020302 100%);
+  background:linear-gradient(180deg,#050705 0%,#020302 100%);
   border-top:1px solid rgba(200,243,106,.09);
 }
 
-.site-footer::before{
-  content:"";
+.footer-waves{
   position:absolute;
-  width:min(72vw,900px);
-  height:min(72vw,900px);
-  left:-18%;
-  top:-52%;
-  border-radius:50%;
-  background:
-    radial-gradient(circle,
-      rgba(159,207,88,.13) 0%,
-      rgba(159,207,88,.045) 28%,
-      transparent 66%);
-  filter:blur(28px);
-  opacity:.9;
+  inset:0;
+  z-index:0;
+  opacity:.52;
   pointer-events:none;
-  z-index:-1;
-  animation:footerGlow 14s ease-in-out infinite alternate;
+  overflow:hidden;
+}
+
+.footer-waves-overlay{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(2,3,2,.88) 0%,
+      rgba(2,3,2,.68) 24%,
+      rgba(2,3,2,.58) 48%,
+      rgba(2,3,2,.78) 73%,
+      rgba(2,3,2,.94) 100%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(2,3,2,.72) 0%,
+      rgba(2,3,2,.18) 26%,
+      rgba(2,3,2,.18) 74%,
+      rgba(2,3,2,.72) 100%
+    );
 }
 
 .site-footer::after{
@@ -60,8 +64,8 @@
   position:absolute;
   right:-2.5vw;
   bottom:-10vw;
-  z-index:-1;
-  color:rgba(200,243,106,.028);
+  z-index:0;
+  color:rgba(200,243,106,.022);
   font-family:'Space Grotesk',sans-serif;
   font-size:clamp(12rem,27vw,34rem);
   font-weight:700;
@@ -75,20 +79,30 @@
 
 .site-footer > *{
   position:relative;
-  z-index:1;
-}
-
-@keyframes footerGlow{
-  0%{transform:translate3d(0,0,0) scale(1);}
-  100%{transform:translate3d(5%,7%,0) scale(1.08);}
+  z-index:2;
 }
 
 @media(max-width:800px){
-  .site-footer{
+  .footer-waves{
+    opacity:.42;
+  }
+
+  .footer-waves-overlay{
     background:
-      radial-gradient(circle at 18% 14%, rgba(159,207,88,.14) 0%, transparent 46%),
-      radial-gradient(circle at 86% 31%, rgba(200,243,106,.075) 0%, transparent 46%),
-      linear-gradient(180deg,#070907 0%,#020302 100%);
+      linear-gradient(
+        180deg,
+        rgba(2,3,2,.9) 0%,
+        rgba(2,3,2,.72) 28%,
+        rgba(2,3,2,.66) 52%,
+        rgba(2,3,2,.84) 76%,
+        rgba(2,3,2,.96) 100%
+      ),
+      linear-gradient(
+        90deg,
+        rgba(2,3,2,.76) 0%,
+        rgba(2,3,2,.18) 34%,
+        rgba(2,3,2,.76) 100%
+      );
   }
 
   .site-footer::after{
