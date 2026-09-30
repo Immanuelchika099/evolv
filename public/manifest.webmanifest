@@ -10,6 +10,6 @@
   "theme_color":"#070707",
   "description":"EVOLV — Track your growth. Become your next self.",
   "icons":[
-    {"src":"/evolv-logo.svg?v=3","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+    {"src":"/evolv-mark.svg?v=1","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
   ]
 }
