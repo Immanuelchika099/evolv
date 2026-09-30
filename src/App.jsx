@@ -632,6 +632,90 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           ease: 'none',
         })
 
+        // Cinematic homepage scroll: the hero moves as one composed scene,
+        // while the next section rises through a soft depth transition.
+        const hero = pageEl.querySelector('.hero')
+        const heroCopy = pageEl.querySelector('.hero-copy')
+        const heroVisual = pageEl.querySelector('.hero-visual')
+        const heroBackground = pageEl.querySelector('.hero-background')
+        const heroMarquee = pageEl.querySelector('.evolv-hero-marquee')
+        const firstStory = pageEl.querySelector('.story-intro')
+
+        if (hero && heroCopy && heroVisual && heroBackground && firstStory) {
+          gsap.to(heroCopy, {
+            yPercent: -18,
+            opacity: 0,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1.15,
+              invalidateOnRefresh: true,
+            },
+          })
+
+          gsap.to(heroVisual, {
+            yPercent: -9,
+            scale: .92,
+            opacity: .18,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1.35,
+              invalidateOnRefresh: true,
+            },
+          })
+
+          gsap.to(heroBackground, {
+            yPercent: 16,
+            scale: 1.08,
+            opacity: .72,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1.6,
+              invalidateOnRefresh: true,
+            },
+          })
+
+          if (heroMarquee) {
+            gsap.to(heroMarquee, {
+              yPercent: -22,
+              opacity: .72,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: heroMarquee,
+                start: 'top bottom',
+                end: 'top 35%',
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            })
+          }
+
+          gsap.fromTo(firstStory,
+            { yPercent: 12, opacity: .55, scale: .97 },
+            {
+              yPercent: 0,
+              opacity: 1,
+              scale: 1,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: firstStory,
+                start: 'top bottom',
+                end: 'top 38%',
+                scrub: 1.1,
+                invalidateOnRefresh: true,
+              },
+            }
+          )
+        }
+
         // Keep every homepage section rendered and visible.
         // GSAP only adds a subtle vertical entrance; it must never hide
         // sections while ScrollTrigger is waiting for layout.
