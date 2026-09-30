@@ -16073,3 +16073,31 @@ body:has(.dashboard.dashboard-ai-active) {
     height:100%!important;
   }
 }
+
+
+/* Final hero geometry — full-bleed section, contained inner content */
+.landing .hero{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  padding-left:max(2.4rem, calc((100vw - 1180px) / 2))!important;
+  padding-right:max(2.4rem, calc((100vw - 1180px) / 2))!important;
+}
+
+/* Let the hero touch the marquee directly — no artificial gap */
+.landing .evolv-hero-marquee{
+  margin-top:0!important;
+}
+
+@media(max-width:800px){
+  .landing .hero{
+    width:100%!important;
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+
+  .landing .evolv-hero-marquee{
+    margin-top:0!important;
+  }
+}
