@@ -16028,3 +16028,48 @@ body:has(.dashboard.dashboard-ai-active) {
     font-size:1.2rem!important;
   }
 }
+
+
+/* Hard clip the hero wave to the hero frame while allowing the inner wave to animate. */
+.landing .hero-background{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  clip-path:inset(0)!important;
+  contain:paint!important;
+  pointer-events:none!important;
+}
+.landing .hero-background-inner{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+  clip-path:inset(0)!important;
+  transform-origin:center center;
+  will-change:transform,opacity;
+}
+.landing .hero-background-inner .pattern-waves{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  overflow:hidden!important;
+}
+.landing .hero-background-inner .hero-background-fade{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  pointer-events:none!important;
+}
+@media(max-width:800px){
+  .landing .hero-background,
+  .landing .hero-background-inner{
+    inset:0!important;
+    width:100%!important;
+    height:100%!important;
+  }
+}
