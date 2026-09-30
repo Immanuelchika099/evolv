@@ -637,7 +637,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         const hero = pageEl.querySelector('.hero')
         const heroCopy = pageEl.querySelector('.hero-copy')
         const heroVisual = pageEl.querySelector('.hero-visual')
-        const heroBackground = pageEl.querySelector('.hero-background')
+        const heroBackground = pageEl.querySelector('.hero-background-inner')
 
         if (hero && heroCopy && heroVisual && heroBackground) {
           const heroScene = gsap.timeline({
@@ -878,8 +878,10 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
     <div ref={page} className="page-enter landing">
       <section className="hero" style={{ paddingTop: '150px' }}>
         <div className="hero-background" aria-hidden="true">
-          <PatternWaves preset="lines" color="#73a22a" backgroundColor="#000000" fade="edges" interactive cursorSize={50} cursorStrength={0.35} pattern="line" spacing={12} markSize={0.42} depth={0.9} shine={0.6} speed={0.3} />
-          <div className="hero-background-fade" />
+          <div className="hero-background-inner">
+            <PatternWaves preset="lines" color="#73a22a" backgroundColor="#000000" fade="edges" interactive cursorSize={50} cursorStrength={0.35} pattern="line" spacing={12} markSize={0.42} depth={0.9} shine={0.6} speed={0.3} />
+            <div className="hero-background-fade" />
+          </div>
         </div>
         <div className="hero-copy">
           <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
