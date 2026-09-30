@@ -16101,3 +16101,21 @@ body:has(.dashboard.dashboard-ai-active) {
     margin-top:0!important;
   }
 }
+
+
+/* Desktop paragraph refinement — brighter and easier to read */
+@media(min-width:801px){
+  .landing .story-intro p{
+    color:rgba(245,243,237,.72)!important;
+    font-size:1.7rem!important;
+    line-height:1.8!important;
+    max-width:62rem;
+  }
+
+  .landing .hero-description{
+    color:rgba(245,243,237,.72)!important;
+    font-size:1.7rem!important;
+    line-height:1.8!important;
+    max-width:54rem;
+  }
+}
