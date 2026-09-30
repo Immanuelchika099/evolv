@@ -15935,3 +15935,62 @@ body:has(.dashboard.dashboard-ai-active) {
   .hero-background{will-change:transform,opacity}
   .hero-copy{transform-origin:center top}
 }
+
+
+/* Cinematic landing scroll containment + depth */
+.landing .hero{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate;
+  clip-path:inset(0);
+  background:#000;
+}
+.landing .hero-background{
+  overflow:hidden!important;
+  clip-path:inset(0);
+  contain:paint;
+}
+.landing .hero-background .pattern-waves,
+.landing .hero-background .pattern-waves canvas{
+  max-width:none!important;
+  max-height:none!important;
+}
+.landing .evolv-hero-marquee{
+  position:relative;
+  z-index:2;
+  clear:both;
+}
+
+/* Give the story sections enough breathing room for the scroll choreography. */
+.landing .story-intro,
+.landing .story-statement,
+.landing .features-story,
+.landing .experience,
+.landing .areas,
+.landing .manifesto,
+.landing .faq,
+.landing .final-cta{
+  will-change:transform,opacity;
+}
+
+/* Avoid transformed children visually leaking through section edges. */
+.landing .story-intro,
+.landing .story-statement,
+.landing .features-story,
+.landing .experience,
+.landing .areas,
+.landing .manifesto,
+.landing .faq,
+.landing .final-cta{
+  overflow:clip;
+}
+
+@media(max-width:800px){
+  .landing .hero{
+    clip-path:inset(0);
+    overflow:hidden!important;
+  }
+  .landing .hero-background{
+    clip-path:inset(0);
+  }
+}
