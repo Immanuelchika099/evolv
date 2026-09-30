@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { createPortal } from 'react-dom'
-import { ArrowRight, X } from 'lucide-react'
+import CardNav from './CardNav/CardNav'
 import './Navbar.css'
 
 function Brand({ onHome }) {
@@ -19,7 +18,17 @@ function Brand({ onHome }) {
   )
 }
 
-export default function Navbar({ onStart, onSignIn, onFeatures, onAreas, onPricing, onContact, onHome, menuOpen, setMenuOpen }) {
+export default function Navbar({
+  onStart,
+  onSignIn,
+  onFeatures,
+  onAreas,
+  onPricing,
+  onContact,
+  onHome,
+  menuOpen,
+  setMenuOpen
+}) {
   const open = menuOpen
   const [visible, setVisible] = useState(true)
   const lastScroll = useRef(0)
@@ -28,17 +37,24 @@ export default function Navbar({ onStart, onSignIn, onFeatures, onAreas, onPrici
     function handleScroll() {
       const current = window.scrollY
       if (open) return
-      if (current < 40) setVisible(true)
-      else if (current > lastScroll.current + 3) {
+
+      if (current < 40) {
+        setVisible(true)
+      } else if (current > lastScroll.current + 3) {
         setVisible(false)
       } else if (current < lastScroll.current - 3) {
         setVisible(true)
       }
+
       lastScroll.current = current
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [open])
+
+  useEffect(() => {
+    if (open) setVisible(true)
   }, [open])
 
   function close() {
@@ -47,16 +63,68 @@ export default function Navbar({ onStart, onSignIn, onFeatures, onAreas, onPrici
 
   function run(action) {
     close()
-    action()
+    if (typeof action === 'function') action()
   }
 
-  useEffect(() => {
-    if (open) setVisible(true)
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
+  const navItems = [
+    {
+      label: 'EXPLORE',
+      bgColor: '#0a0d0a',
+      textColor: '#f3f1ea',
+      links: [
+        {
+          label: 'Why EVOLV',
+          ariaLabel: 'Why EVOLV',
+          href: '#story',
+          onClick: close
+        },
+        {
+          label: 'Features',
+          ariaLabel: 'Explore EVOLV features',
+          onClick: () => run(onFeatures)
+        }
+      ]
+    },
+    {
+      label: 'GROWTH',
+      bgColor: '#10150d',
+      textColor: '#f3f1ea',
+      links: [
+        {
+          label: 'Growth areas',
+          ariaLabel: 'Explore growth areas',
+          onClick: () => run(onAreas)
+        },
+        {
+          label: 'Pricing',
+          ariaLabel: 'View EVOLV pricing',
+          onClick: () => run(onPricing)
+        }
+      ]
+    },
+    {
+      label: 'CONNECT',
+      bgColor: '#0c120c',
+      textColor: '#f3f1ea',
+      links: [
+        {
+          label: 'Contact',
+          ariaLabel: 'Contact EVOLV',
+          onClick: () => run(onContact)
+        },
+        {
+          label: 'Sign in',
+          ariaLabel: 'Sign in to EVOLV',
+          onClick: () => run(onSignIn)
+        },
+        {
+          label: 'Get started',
+          ariaLabel: 'Get started with EVOLV',
+          onClick: () => run(onStart)
+        }
+      ]
     }
-  }, [open])
+  ]
 
   return (
     <>
@@ -76,31 +144,7 @@ export default function Navbar({ onStart, onSignIn, onFeatures, onAreas, onPrici
         </div>
       </nav>
 
-      {open && createPortal(
-        <div className="evolv-menu-layer" role="dialog" aria-modal="true" aria-label="EVOLV navigation menu">
-          <div className="evolv-mobile-menu is-open">
-            <div className="evolv-menu-head">
-              <span className="evolv-menu-eyebrow">NAVIGATION</span>
-              <button type="button" className="evolv-menu-close" onClick={close} aria-label="Close menu">
-                <X size={22} strokeWidth={1.7} />
-              </button>
-            </div>
-
-            <div className="evolv-menu-links">
-              <a href="#story" onClick={close}>Why EVOLV</a>
-              <button type="button" onClick={() => run(onFeatures)}>Features</button>
-              <button type="button" onClick={() => run(onAreas)}>Growth areas</button>
-              <button type="button" onClick={() => run(onPricing)}>Pricing</button>
-              <button type="button" onClick={() => run(onContact)}>Contact</button>
-              <button type="button" className="evolv-mobile-sign-in" onClick={() => run(onSignIn)}>Sign in</button>
-              <button type="button" className="evolv-mobile-start" onClick={() => run(onStart)}>
-                Get started <ArrowRight size={15} />
-              </button>
-            </div>
-          </div>
-        </div>,
-        document.body
-      )}
+      <CardNav items={navItems} open={open} />
     </>
   )
 }
