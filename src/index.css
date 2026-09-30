@@ -16129,3 +16129,13 @@ body:has(.dashboard.dashboard-ai-active) {
     max-width:62rem;
   }
 }
+
+
+@media(min-width:801px){
+  .landing .feature-step p{
+    color:rgba(245,243,237,.66)!important;
+    font-size:1.6rem!important;
+    line-height:1.75!important;
+    max-width:38rem;
+  }
+}
