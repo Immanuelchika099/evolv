@@ -345,8 +345,8 @@
   }
 
   .evolv-menu-toggle:hover{
-    background:rgba(159,207,88,.10)!important;
-    border-color:rgba(159,207,88,.28);
+    background:rgba(174,189,120,.055)!important;
+    border-color:rgba(174,189,120,.16);
     transform:translateY(-1px);
   }
 
