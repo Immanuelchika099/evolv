@@ -41,15 +41,6 @@
   position:relative;
 }
 
-.evolv-nav-card::after{
-  content:'';
-  position:absolute;
-  inset:auto -10% -35% 15%;
-  height:65%;
-  background:radial-gradient(circle,rgba(200,243,106,.10),transparent 70%);
-  pointer-events:none;
-}
-
 .evolv-nav-card-label{
   position:relative;
   z-index:1;
