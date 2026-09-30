@@ -16395,3 +16395,28 @@ body:has(.dashboard.dashboard-ai-active) {
 .features-story .feature-step.feature-card:hover>svg{
   color:rgba(245,243,237,.72);
 }
+
+
+/* Section 03 — restore card geometry, keep backgrounds minimal */
+.features-story .feature-step.feature-card,
+.features-story .feature-step.feature-card:nth-child(odd){
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:22px!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.features-story .feature-step.feature-card:hover{
+  border-color:rgba(255,255,255,.16)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+@media(max-width:800px){
+  .features-story .feature-step.feature-card,
+  .features-story .feature-step.feature-card:nth-child(odd){
+    border:1px solid rgba(255,255,255,.09)!important;
+    border-radius:20px!important;
+    background:transparent!important;
+  }
+}
