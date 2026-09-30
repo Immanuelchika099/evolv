@@ -16139,3 +16139,21 @@ body:has(.dashboard.dashboard-ai-active) {
     max-width:38rem;
   }
 }
+
+
+@media(min-width:801px){
+  .landing .preview-copy p{
+    color:rgba(245,243,237,.72)!important;
+    font-size:1.7rem!important;
+    line-height:1.8!important;
+    max-width:62rem;
+  }
+
+  .landing .manifesto p{
+    color:rgba(245,243,237,.72)!important;
+    font-size:1.7rem!important;
+    line-height:1.8!important;
+    width:min(68rem,100%);
+    max-width:68rem;
+  }
+}
