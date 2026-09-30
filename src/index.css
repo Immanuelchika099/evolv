@@ -16157,3 +16157,13 @@ body:has(.dashboard.dashboard-ai-active) {
     max-width:68rem;
   }
 }
+
+
+@media(min-width:801px){
+  .landing .area p{
+    color:rgba(245,243,237,.66)!important;
+    font-size:1.6rem!important;
+    line-height:1.75!important;
+    max-width:34rem;
+  }
+}
