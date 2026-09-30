@@ -15944,8 +15944,13 @@ body:has(.dashboard.dashboard-ai-active) {
   isolation:isolate;
   clip-path:inset(0);
   background:#000;
+  contain:layout paint;
 }
 .landing .hero-background{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
   overflow:hidden!important;
   clip-path:inset(0);
   contain:paint;
@@ -15954,6 +15959,8 @@ body:has(.dashboard.dashboard-ai-active) {
 .landing .hero-background .pattern-waves canvas{
   max-width:none!important;
   max-height:none!important;
+  min-width:0!important;
+  min-height:0!important;
 }
 .landing .evolv-hero-marquee{
   position:relative;
@@ -15971,18 +15978,6 @@ body:has(.dashboard.dashboard-ai-active) {
 .landing .faq,
 .landing .final-cta{
   will-change:transform,opacity;
-}
-
-/* Avoid transformed children visually leaking through section edges. */
-.landing .story-intro,
-.landing .story-statement,
-.landing .features-story,
-.landing .experience,
-.landing .areas,
-.landing .manifesto,
-.landing .faq,
-.landing .final-cta{
-  overflow:clip;
 }
 
 @media(max-width:800px){
