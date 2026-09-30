@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import { GoArrowUpRight } from 'react-icons/go'
+import { ArrowUpRight } from 'lucide-react'
 import './CardNav.css'
 
 function CardNav({ items = [], open }) {
@@ -124,7 +124,7 @@ function CardNav({ items = [], open }) {
               {(item.links || []).map((link, linkIndex) => {
                 const content = (
                   <>
-                    <GoArrowUpRight
+                    <ArrowUpRight
                       className="evolv-nav-card-link-icon"
                       aria-hidden="true"
                     />
