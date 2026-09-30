@@ -16474,3 +16474,59 @@ body:has(.dashboard.dashboard-ai-active) {
     border-radius:20px!important;
   }
 }
+
+
+/* Section 03 — animated PNG heading icons */
+.features-story .feature-step-heading{
+  display:flex;
+  align-items:center;
+  gap:1.1rem;
+  min-width:0;
+}
+
+.features-story .feature-step-icon{
+  width:3.8rem;
+  height:3.8rem;
+  flex:none;
+  object-fit:contain;
+  opacity:.9;
+  transform:translate3d(0,0,0) rotate(0deg);
+  filter:drop-shadow(0 6px 18px rgba(174,189,120,.08));
+  animation:feature-icon-float 4.8s ease-in-out infinite;
+  will-change:transform;
+}
+
+.features-story .feature-step:nth-child(2) .feature-step-icon{
+  animation-delay:-1.2s;
+}
+.features-story .feature-step:nth-child(3) .feature-step-icon{
+  animation-delay:-2.4s;
+}
+.features-story .feature-step:nth-child(4) .feature-step-icon{
+  animation-delay:-3.6s;
+}
+
+.features-story .feature-step:hover .feature-step-icon{
+  opacity:1;
+  filter:drop-shadow(0 8px 22px rgba(174,189,120,.13));
+}
+
+@keyframes feature-icon-float{
+  0%,100%{
+    transform:translate3d(0,0,0) rotate(-2deg);
+  }
+  50%{
+    transform:translate3d(0,-6px,0) rotate(2deg);
+  }
+}
+
+@media(max-width:800px){
+  .features-story .feature-step-heading{
+    gap:.9rem;
+  }
+
+  .features-story .feature-step-icon{
+    width:3.2rem;
+    height:3.2rem;
+  }
+}
