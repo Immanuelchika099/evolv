@@ -16420,3 +16420,57 @@ body:has(.dashboard.dashboard-ai-active) {
     background:transparent!important;
   }
 }
+
+
+/* Section 03 — neutral cinematic glass */
+.features-story .feature-step.feature-card,
+.features-story .feature-step.feature-card:nth-child(odd){
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:22px!important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018) 52%,rgba(255,255,255,.008)),
+    rgba(8,9,8,.72)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.045),
+    0 22px 65px rgba(0,0,0,.18)!important;
+  backdrop-filter:blur(18px) saturate(105%);
+  -webkit-backdrop-filter:blur(18px) saturate(105%);
+}
+
+.features-story .feature-step.feature-card:hover{
+  border-color:rgba(255,255,255,.15)!important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.07),rgba(255,255,255,.022) 52%,rgba(255,255,255,.01)),
+    rgba(8,9,8,.78)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.055),
+    0 28px 75px rgba(0,0,0,.24)!important;
+}
+
+.features-story .feature-step.feature-card::before{
+  content:"";
+  position:absolute;
+  inset:1px;
+  border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(
+    120deg,
+    rgba(255,255,255,.035),
+    transparent 32%,
+    transparent 72%,
+    rgba(255,255,255,.012)
+  );
+  z-index:0;
+}
+
+.features-story .feature-step.feature-card>*{
+  position:relative;
+  z-index:1;
+}
+
+@media(max-width:800px){
+  .features-story .feature-step.feature-card,
+  .features-story .feature-step.feature-card:nth-child(odd){
+    border-radius:20px!important;
+  }
+}
