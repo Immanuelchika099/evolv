@@ -23,16 +23,16 @@
 
 
 
-/* Cinematic footer background */
+/* Cinematic lime + black footer */
 .site-footer{
   position:relative;
   isolation:isolate;
   overflow:hidden;
   background:
-    radial-gradient(circle at 18% 16%, rgba(48,74,132,.22) 0%, rgba(48,74,132,.08) 22%, transparent 48%),
-    radial-gradient(circle at 82% 24%, rgba(91,58,137,.20) 0%, rgba(91,58,137,.07) 24%, transparent 50%),
-    linear-gradient(180deg,#050607 0%,#020304 100%);
-  border-top:1px solid rgba(255,255,255,.07);
+    radial-gradient(circle at 18% 12%, rgba(159,207,88,.13) 0%, rgba(159,207,88,.035) 24%, transparent 52%),
+    radial-gradient(circle at 84% 20%, rgba(200,243,106,.08) 0%, transparent 46%),
+    linear-gradient(180deg,#070907 0%,#020302 100%);
+  border-top:1px solid rgba(200,243,106,.09);
 }
 
 .site-footer::before{
@@ -45,8 +45,8 @@
   border-radius:50%;
   background:
     radial-gradient(circle,
-      rgba(73,105,183,.16) 0%,
-      rgba(73,105,183,.06) 28%,
+      rgba(159,207,88,.13) 0%,
+      rgba(159,207,88,.045) 28%,
       transparent 66%);
   filter:blur(28px);
   opacity:.9;
@@ -61,7 +61,7 @@
   right:-2.5vw;
   bottom:-10vw;
   z-index:-1;
-  color:rgba(255,255,255,.026);
+  color:rgba(200,243,106,.028);
   font-family:'Space Grotesk',sans-serif;
   font-size:clamp(12rem,27vw,34rem);
   font-weight:700;
@@ -86,9 +86,9 @@
 @media(max-width:800px){
   .site-footer{
     background:
-      radial-gradient(circle at 18% 14%, rgba(48,74,132,.24) 0%, transparent 46%),
-      radial-gradient(circle at 86% 31%, rgba(91,58,137,.20) 0%, transparent 46%),
-      linear-gradient(180deg,#050607 0%,#020304 100%);
+      radial-gradient(circle at 18% 14%, rgba(159,207,88,.14) 0%, transparent 46%),
+      radial-gradient(circle at 86% 31%, rgba(200,243,106,.075) 0%, transparent 46%),
+      linear-gradient(180deg,#070907 0%,#020302 100%);
   }
 
   .site-footer::after{
