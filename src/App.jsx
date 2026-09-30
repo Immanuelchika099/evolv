@@ -632,8 +632,9 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           ease: 'none',
         })
 
-        // Cinematic homepage scroll: pin the hero into a short visual scene.
-        // The page keeps normal scrolling, but the hero gets its own moment of motion.
+        // Cinematic homepage scroll: keep the hero in normal document flow.
+        // The hero animates out as you scroll, so its wave background can never
+        // remain pinned over the next section.
         const hero = pageEl.querySelector('.hero')
         const heroCopy = pageEl.querySelector('.hero-copy')
         const heroVisual = pageEl.querySelector('.hero-visual')
@@ -645,10 +646,8 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
             scrollTrigger: {
               trigger: hero,
               start: 'top top',
-              end: '+=900',
-              scrub: 1.1,
-              pin: true,
-              anticipatePin: 1,
+              end: '+=700',
+              scrub: 1.05,
               invalidateOnRefresh: true,
             },
           })
@@ -656,7 +655,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           heroScene
             .to(heroCopy, { yPercent: -28, opacity: 0, filter: 'blur(7px)', duration: 1 }, 0)
             .to(heroVisual, { yPercent: 14, scale: .82, opacity: 0, filter: 'blur(3px)', duration: 1 }, 0)
-            .to(heroBackground, { scale: 1.22, yPercent: 14, opacity: .48, duration: 1 }, 0)
+            .to(heroBackground, { scale: 1.08, yPercent: 8, opacity: 0, filter: 'blur(1px)', duration: 1 }, 0)
             .to(hero, { backgroundColor: '#020403', duration: .55 }, .45)
 
           const heroMarquee = pageEl.querySelector('.evolv-hero-marquee')
