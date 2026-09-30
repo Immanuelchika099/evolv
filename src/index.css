@@ -16119,3 +16119,13 @@ body:has(.dashboard.dashboard-ai-active) {
     max-width:54rem;
   }
 }
+
+
+@media(min-width:801px){
+  .landing .story-statement p{
+    color:rgba(245,243,237,.72)!important;
+    font-size:1.7rem!important;
+    line-height:1.8!important;
+    max-width:62rem;
+  }
+}
