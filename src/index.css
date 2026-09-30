@@ -15839,3 +15839,13 @@ body:has(.dashboard.dashboard-ai-active) {
     max-width:40rem !important;
   }
 }
+/* React Bits PatternWaves — hero layer */
+.hero-pattern-waves{position:absolute;inset:0;z-index:0;border-radius:28px;overflow:hidden;opacity:.34;pointer-events:auto}
+.hero-pattern-waves .pattern-waves{position:absolute;inset:0;width:100%;height:100%}
+.hero-pattern-waves canvas{mix-blend-mode:screen}
+.hero-panel{z-index:2}
+.hero-outer-ring,.hero-aura{z-index:1;pointer-events:none}
+@media (max-width:760px){
+  .hero-pattern-waves{opacity:.24;border-radius:22px}
+}
+
