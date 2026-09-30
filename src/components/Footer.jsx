@@ -1,5 +1,6 @@
 import { ArrowRight } from 'lucide-react'
 import './Footer.css'
+import GradientWaves from './GradientWaves/GradientWaves'
 
 function Brand() {
   return (
@@ -12,6 +13,32 @@ function Brand() {
 export default function Footer({ onContact }) {
   return (
     <footer className="site-footer">
+      <div className="footer-waves" aria-hidden="true">
+        <GradientWaves
+          horizonColor="#84CC16"
+          waveColor="#000000"
+          crestColor="#FFFFFF"
+          speed={0.4}
+          amplitude={2.5}
+          waveScale={0.6}
+          waveRatio={0.9}
+          swell={35}
+          turbulence={20}
+          tilt={1.11}
+          zoom={1.0}
+          height={5.5}
+          fogDepth={15}
+          detail="medium"
+          brightness={1.0}
+          opacity={1.0}
+          mouseInteraction={true}
+          parallaxStrength={0.5}
+          grain={true}
+          grainIntensity={0.1}
+        />
+      </div>
+      <div className="footer-waves-overlay" aria-hidden="true" />
+
       <div className="footer-brand">
         <Brand />
         <p>Track your growth.<br />Become your next self.</p>
