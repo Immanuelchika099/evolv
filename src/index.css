@@ -14480,11 +14480,11 @@ html.evolv-android .reflection-sheet *{
 /* NEW EVOLV LOGO SYSTEM */
 
 .brand{display:inline-flex;align-items:center;gap:0;}
-.brand img{width:7rem;height:auto;aspect-ratio:218/199;display:block;object-fit:contain;}
+.brand img{width:7rem;height:auto;aspect-ratio:117/118;display:block;object-fit:contain;}
 .auth-brand .brand img,.onboard-brand .brand img{width:7rem;height:auto;}
 .dashboard .app-logo-button .brand img{width:7rem;height:auto;}
 .evolv-loader-core{gap:0;transform:translateY(8px);animation:evolv-loader-rise .9s cubic-bezier(.22,1,.36,1) forwards;}
-.evolv-loader-logo{display:block;width:min(22rem,46vw);height:auto;aspect-ratio:218/199;object-fit:contain;filter:drop-shadow(0 1.2rem 2.8rem rgba(70,220,160,.08));animation:evolv-loader-logo-in 1s cubic-bezier(.22,1,.36,1) both;}
+.evolv-loader-logo{display:block;width:min(22rem,46vw);height:auto;aspect-ratio:117/118;object-fit:contain;filter:drop-shadow(0 1.2rem 2.8rem rgba(70,220,160,.08));animation:evolv-loader-logo-in 1s cubic-bezier(.22,1,.36,1) both;}
 @keyframes evolv-loader-logo-in{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 @media(max-width:800px){
   .brand img,.auth-brand .brand img,.onboard-brand .brand img{width:6.3rem;}
