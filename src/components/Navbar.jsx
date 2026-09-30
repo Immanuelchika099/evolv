@@ -69,7 +69,7 @@ export default function Navbar({
   const navItems = [
     {
       label: 'EXPLORE',
-      bgColor: '#0a0d0a',
+      bgColor: '#0b0b0a',
       textColor: '#f3f1ea',
       links: [
         {
@@ -87,7 +87,7 @@ export default function Navbar({
     },
     {
       label: 'GROWTH',
-      bgColor: '#10150d',
+      bgColor: '#11110f',
       textColor: '#f3f1ea',
       links: [
         {
@@ -104,7 +104,7 @@ export default function Navbar({
     },
     {
       label: 'CONNECT',
-      bgColor: '#0c120c',
+      bgColor: '#0d0d0c',
       textColor: '#f3f1ea',
       links: [
         {
