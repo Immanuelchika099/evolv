@@ -917,8 +917,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           dragDistance={0}
           tilt
           tiltMax={12}
-          glare
-          glareOpacity={0.22}
+          glare={false}
           hoverScale={1.03}
           perspective={1100}
           stiffness={170}
