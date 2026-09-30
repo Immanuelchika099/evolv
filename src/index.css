@@ -16349,3 +16349,49 @@ body:has(.dashboard.dashboard-ai-active) {
     font-size:1.7rem;
   }
 }
+
+
+/* Section 03 — editorial system grid
+   Keep the existing motion; remove the generic "AI feature card" surface. */
+.features-story .feature-step.feature-card,
+.features-story .feature-step.feature-card:nth-child(odd){
+  border-right:1px solid rgba(255,255,255,.09)!important;
+  border-bottom:1px solid rgba(255,255,255,.09)!important;
+  border-top:0!important;
+  border-left:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  transition:border-color .35s ease,color .35s ease;
+}
+
+.features-story .feature-step.feature-card:hover{
+  border-color:rgba(255,255,255,.13)!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.features-story .feature-step.feature-card::before,
+.features-story .feature-step.feature-card::after{
+  display:none!important;
+}
+
+.features-story .feature-step.feature-card h3{
+  color:#f3f1ea;
+}
+
+.features-story .feature-step.feature-card p{
+  color:rgba(245,243,237,.58);
+}
+
+.features-story .feature-step.feature-card>span{
+  color:rgba(245,243,237,.32);
+}
+
+.features-story .feature-step.feature-card>svg{
+  color:rgba(245,243,237,.42);
+}
+
+.features-story .feature-step.feature-card:hover>svg{
+  color:rgba(245,243,237,.72);
+}
