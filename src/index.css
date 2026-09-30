@@ -15921,3 +15921,17 @@ body:has(.dashboard.dashboard-ai-active) {
       );
   }
 }
+
+
+/* EVOLV — cinematic scroll pass */
+.landing{perspective:1200px}
+.hero{will-change:transform;transform-origin:center top}
+.hero-copy,.hero-visual,.hero-background{will-change:transform,opacity}
+.hero-background{transform-origin:center center}
+.evolv-hero-marquee{position:relative;z-index:2;will-change:transform,opacity}
+.story-intro{will-change:transform,opacity}
+@media(max-width:800px){
+  .hero-copy,.hero-visual{will-change:transform,opacity}
+  .hero-background{will-change:transform,opacity}
+  .hero-copy{transform-origin:center top}
+}
