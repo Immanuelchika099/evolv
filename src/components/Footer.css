@@ -21,3 +21,79 @@
 .footer-brand-svg{width:8rem;height:auto;aspect-ratio:218/199;object-fit:contain;}
 @media(max-width:800px){.footer-brand-svg{width:7.2rem;height:auto;}}
 
+
+
+/* Cinematic footer background */
+.site-footer{
+  position:relative;
+  isolation:isolate;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 18% 16%, rgba(48,74,132,.22) 0%, rgba(48,74,132,.08) 22%, transparent 48%),
+    radial-gradient(circle at 82% 24%, rgba(91,58,137,.20) 0%, rgba(91,58,137,.07) 24%, transparent 50%),
+    linear-gradient(180deg,#050607 0%,#020304 100%);
+  border-top:1px solid rgba(255,255,255,.07);
+}
+
+.site-footer::before{
+  content:"";
+  position:absolute;
+  width:min(72vw,900px);
+  height:min(72vw,900px);
+  left:-18%;
+  top:-52%;
+  border-radius:50%;
+  background:
+    radial-gradient(circle,
+      rgba(73,105,183,.16) 0%,
+      rgba(73,105,183,.06) 28%,
+      transparent 66%);
+  filter:blur(28px);
+  opacity:.9;
+  pointer-events:none;
+  z-index:-1;
+  animation:footerGlow 14s ease-in-out infinite alternate;
+}
+
+.site-footer::after{
+  content:"EVOLV";
+  position:absolute;
+  right:-2.5vw;
+  bottom:-10vw;
+  z-index:-1;
+  color:rgba(255,255,255,.026);
+  font-family:'Space Grotesk',sans-serif;
+  font-size:clamp(12rem,27vw,34rem);
+  font-weight:700;
+  line-height:.72;
+  letter-spacing:-.085em;
+  white-space:nowrap;
+  pointer-events:none;
+  user-select:none;
+  transform:rotate(-4deg);
+}
+
+.site-footer > *{
+  position:relative;
+  z-index:1;
+}
+
+@keyframes footerGlow{
+  0%{transform:translate3d(0,0,0) scale(1);}
+  100%{transform:translate3d(5%,7%,0) scale(1.08);}
+}
+
+@media(max-width:800px){
+  .site-footer{
+    background:
+      radial-gradient(circle at 18% 14%, rgba(48,74,132,.24) 0%, transparent 46%),
+      radial-gradient(circle at 86% 31%, rgba(91,58,137,.20) 0%, transparent 46%),
+      linear-gradient(180deg,#050607 0%,#020304 100%);
+  }
+
+  .site-footer::after{
+    right:-7vw;
+    bottom:-4vw;
+    font-size:clamp(9rem,29vw,17rem);
+  }
+}
