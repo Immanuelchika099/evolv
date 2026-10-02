@@ -9831,9 +9831,9 @@ body{
   overflow:hidden;
   margin:76px 0 136px;
   padding:24px 0;
-  border-top:1px solid rgba(200,243,106,.055);
-  border-bottom:1px solid rgba(200,243,106,.055);
-  background:rgba(200,243,106,.008);
+  border-top:1px solid rgba(255,255,255,.09);
+  border-bottom:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.018);
 }
 .evolv-hero-marquee::before,.evolv-hero-marquee::after{
   content:"";position:absolute;z-index:2;top:0;bottom:0;width:16%;pointer-events:none;
