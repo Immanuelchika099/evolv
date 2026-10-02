@@ -16530,3 +16530,7 @@ body:has(.dashboard.dashboard-ai-active) {
     height:3.2rem;
   }
 }
+/* Final page background — pure black */
+.dashboard{
+  background:#000 !important;
+}
