@@ -879,7 +879,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       <section className="hero" style={{ paddingTop: '150px' }}>
         <div className="hero-background" aria-hidden="true">
           <div className="hero-background-inner">
-            <PatternWaves preset="lines" color="#73a22a" backgroundColor="#000000" fade="edges" interactive cursorSize={50} cursorStrength={0.35} pattern="line" spacing={12} markSize={0.42} depth={0.9} shine={0.6} speed={0.3} />
+            <PatternWaves preset="lines" color="#ffffff" backgroundColor="#000000" fade="edges" interactive cursorSize={50} cursorStrength={0.35} pattern="line" spacing={12} markSize={0.42} depth={0.9} shine={0.6} speed={0.3} />
             <div className="hero-background-fade" />
           </div>
         </div>
