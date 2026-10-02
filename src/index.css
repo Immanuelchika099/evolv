@@ -16562,3 +16562,36 @@ body,
 .landing::before{
   background:transparent !important;
 }
+
+
+/* Final bottom marquee — neutral ash, full-bleed and no boxed surface */
+.landing .evolv-scroll-marquee{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.landing .evolv-scroll-marquee-content span{
+  color:rgba(205,205,205,.78)!important;
+  text-shadow:0 0 18px rgba(205,205,205,.08)!important;
+}
+.landing .evolv-scroll-marquee-content i{
+  color:rgba(165,165,165,.42)!important;
+  text-shadow:0 0 14px rgba(165,165,165,.08)!important;
+}
+.landing .evolv-scroll-marquee::before{
+  background:linear-gradient(90deg,#000,transparent)!important;
+}
+.landing .evolv-scroll-marquee::after{
+  background:linear-gradient(270deg,#000,transparent)!important;
+}
+@media(max-width:800px){
+  .landing .evolv-scroll-marquee{
+    width:100vw!important;
+    margin-left:calc(50% - 50vw)!important;
+    margin-right:calc(50% - 50vw)!important;
+  }
+}
