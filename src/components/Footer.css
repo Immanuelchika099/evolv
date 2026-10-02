@@ -140,3 +140,20 @@
     font-size:clamp(9rem,29vw,17rem);
   }
 }
+
+
+/* Final footer treatment — full-bleed, neutral ash waves */
+.site-footer{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  background:linear-gradient(180deg,#050505 0%,#000 100%)!important;
+  border-top:1px solid rgba(210,210,210,.10)!important;
+}
+.footer-waves{opacity:.42!important}
+.site-footer::after{color:rgba(205,205,205,.022)!important}
+@media(max-width:800px){
+  .site-footer{width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}
+  .footer-waves{opacity:.34!important}
+}
