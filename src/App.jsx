@@ -654,9 +654,9 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           })
 
           heroScene
-            .to(heroCopy, { yPercent: -28, opacity: 0, filter: 'blur(7px)', duration: 1 }, 0)
-            .to(heroVisual, { yPercent: 14, scale: .82, opacity: 0, filter: 'blur(3px)', duration: 1 }, 0)
-            .to(heroBackground, { scale: 1.08, yPercent: 8, opacity: 0, filter: 'blur(1px)', duration: 1 }, 0)
+            .to(heroCopy, { yPercent: -28, opacity: 0, duration: 1 }, 0)
+            .to(heroVisual, { yPercent: 14, scale: .82, opacity: 0, duration: 1 }, 0)
+            .to(heroBackground, { scale: 1.08, yPercent: 8, opacity: 0, duration: 1 }, 0)
             .to(hero, { backgroundColor: '#020403', duration: .55 }, .45)
 
           const heroMarquee = pageEl.querySelector('.evolv-hero-marquee')
