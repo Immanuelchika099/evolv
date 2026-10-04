@@ -84,16 +84,16 @@ function HomePage({ pageProps }) {
         </div>
       </section>
 
-      <section className="dashboard-quick-actions">
+      <section className="dashboard-quick-actions" aria-label="Quick actions">
         <button className="dashboard-quick-card" onClick={() => openLog()}>
-          <span className="dashboard-quick-icon"><Plus size={18} /></span>
-          <span><strong>Log</strong><small>Add something</small></span>
-          <ChevronRight size={16} />
+          <span className="dashboard-quick-icon"><Plus size={19} /></span>
+          <span><strong>Log something</strong></span>
+          <ChevronRight size={17} />
         </button>
         <button className="dashboard-quick-card" onClick={() => goTo('progress')}>
-          <span className="dashboard-quick-icon"><LineChart size={18} /></span>
-          <span><strong>Progress</strong><small>See your trends</small></span>
-          <ChevronRight size={16} />
+          <span className="dashboard-quick-icon"><LineChart size={19} /></span>
+          <span><strong>View progress</strong></span>
+          <ChevronRight size={17} />
         </button>
       </section>
 
