@@ -283,8 +283,8 @@
 /* NEW EVOLV LOGO SYSTEM */
 
 .evolv-brand{gap:0;}
-.evolv-brand-svg{width:6rem;height:auto;aspect-ratio:218/199;object-fit:contain;}
-@media(max-width:800px){.evolv-brand-svg{width:5.7rem;height:auto;}}
+ .evolv-brand-svg{width:5.2rem;height:auto;aspect-ratio:218/199;object-fit:contain;}
+@media(max-width:800px){.evolv-brand-svg{width:4.9rem;height:auto;}}
 
 
 
@@ -311,7 +311,7 @@
   }
 
   .evolv-brand-svg{
-    width:6.4rem;
+    width:5.2rem;
   }
 
   .evolv-nav-actions{
