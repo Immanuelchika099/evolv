@@ -448,7 +448,7 @@ function ProfilePage({ pageProps }) {
 
   <div className="settings-section settings-danger">
     <div className="settings-action-row settings-hold-row">
-      <div><strong>Sign out</strong><span>Hold to sign out of EVOLV on this device.</span></div>
+      <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
       <HoldButton
         doneLabel="Signed out"
         backgroundColor="#27272a"
@@ -467,7 +467,7 @@ function ProfilePage({ pageProps }) {
         resetAfter={1200}
         onHold={onLogout}
       >
-        Hold to sign out
+        Sign out
       </HoldButton>
     </div>
     <div className="settings-action-row settings-hold-row danger">
@@ -491,7 +491,7 @@ function ProfilePage({ pageProps }) {
         onHold={deleteAccount}
         disabled={deleting}
       >
-        {deleting ? 'Deleting…' : 'Hold to delete'}
+        {deleting ? 'Deleting…' : 'Delete account'}
       </HoldButton>
     </div>
   </div>
