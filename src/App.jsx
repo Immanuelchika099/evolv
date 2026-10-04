@@ -1561,6 +1561,25 @@ function Dashboard({ data, onLogout, onArticle }) {
   const todayLogs=logs.filter(x=>x.logged_at?.slice(0,10)===today)
   const todayMeals=meals.filter(x=>x.logged_at?.slice(0,10)===today)
 
+  useEffect(()=>{
+    async function refreshAiTracking(){
+      const {data:a}=await supabase.auth.getUser()
+      const u=a?.user
+      if(!u)return
+      const [{data:l},{data:m},{data:g}]=await Promise.all([
+        supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
+        supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
+        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').eq('user_id',u.id).order('created_at',{ascending:false})
+      ])
+      if(l)setLogs(l)
+      if(m)setMeals(m)
+      if(g)setGoals(g)
+    }
+
+    window.addEventListener('evolv-tracking-updated',refreshAiTracking)
+    return()=>window.removeEventListener('evolv-tracking-updated',refreshAiTracking)
+  },[])
+
   useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
     const [p,d,l,m,g,n]=await Promise.all([
       supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id',u.id).maybeSingle(),
