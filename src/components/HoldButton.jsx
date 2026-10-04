@@ -5,7 +5,7 @@ import { useId } from 'react';
 import './HoldButton.css';
 
 export default function HoldButton({
-  children = 'Delete',
+  children = 'Delete account',
   icon = null,
   backgroundColor = '#27272a',
   textColor = '#f5f5f5',
