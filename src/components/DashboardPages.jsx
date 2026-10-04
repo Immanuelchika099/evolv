@@ -23,7 +23,7 @@ export function DashboardPages({ active, pageProps }) {
 }
 
 function HomePage({ pageProps }) {
-  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas } = pageProps
+  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, loading } = pageProps
 
   const visibleMetrics = defs
     .filter(d => todayLogs.some(l => l.metric_id === d.id))
@@ -84,16 +84,16 @@ function HomePage({ pageProps }) {
         </div>
       </section>
 
-      <section className="dashboard-quick-actions" aria-label="Quick actions">
-        <button className="dashboard-quick-card" onClick={() => openLog()}>
-          <span className="dashboard-quick-icon"><Plus size={19} /></span>
-          <span><strong>Log something</strong></span>
-          <ChevronRight size={17} />
+      <section className="dashboard-action-grid" aria-label="Quick actions">
+        <button className="dashboard-action-card" onClick={() => openLog()}>
+          <span className="dashboard-action-symbol"><Plus size={18} /></span>
+          <span className="dashboard-action-label">Log something</span>
+          <ChevronRight className="dashboard-action-arrow" size={17} />
         </button>
-        <button className="dashboard-quick-card" onClick={() => goTo('progress')}>
-          <span className="dashboard-quick-icon"><LineChart size={19} /></span>
-          <span><strong>View progress</strong></span>
-          <ChevronRight size={17} />
+        <button className="dashboard-action-card" onClick={() => goTo('progress')}>
+          <span className="dashboard-action-symbol"><LineChart size={18} /></span>
+          <span className="dashboard-action-label">View progress</span>
+          <ChevronRight className="dashboard-action-arrow" size={17} />
         </button>
       </section>
 
