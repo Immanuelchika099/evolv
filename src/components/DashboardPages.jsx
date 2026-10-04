@@ -65,7 +65,7 @@ function HomePage({ pageProps }) {
         </div>
 
         <div className="today-metrics">
-          {!loading && loggedItems.length > 0 && loggedItems.map(item => {
+          {loggedItems.length > 0 && loggedItems.map(item => {
             if (item.type === 'meal') {
               return (
                 <button key={item.key} className="today-metric" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
