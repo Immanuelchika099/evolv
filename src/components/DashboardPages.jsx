@@ -48,12 +48,7 @@ function HomePage({ pageProps }) {
         </div>
 
         <div className="today-metrics">
-          {loading ? (
-            <div className="today-loading" aria-label="Loading today">
-              <span className="today-loading-line short"/>
-              <span className="today-loading-line long"/>
-            </div>
-          ) : (<>
+          {!loading && (<>
           {visibleMetrics.map(d => {
             const l = todayLogs.find(x => x.metric_id === d.id)
             const M = icons[d.slug] || Sparkles
@@ -91,16 +86,16 @@ function HomePage({ pageProps }) {
         </div>
       </section>
 
-      <section className="dashboard-action-grid" aria-label="Quick actions">
-        <button className="dashboard-action-card" onClick={() => openLog()}>
-          <span className="dashboard-action-symbol"><Plus size={18} /></span>
-          <span className="dashboard-action-label">Log something</span>
-          <ChevronRight className="dashboard-action-arrow" size={17} />
+      <section className="dashboard-action-list" aria-label="Quick actions">
+        <button className="dashboard-action-row" onClick={() => openLog()}>
+          <span className="dashboard-action-row-icon"><Plus size={18} /></span>
+          <span className="dashboard-action-row-copy"><strong>Log something</strong><small>Add a check-in</small></span>
+          <ChevronRight className="dashboard-action-row-arrow" size={17} />
         </button>
-        <button className="dashboard-action-card" onClick={() => goTo('progress')}>
-          <span className="dashboard-action-symbol"><LineChart size={18} /></span>
-          <span className="dashboard-action-label">View progress</span>
-          <ChevronRight className="dashboard-action-arrow" size={17} />
+        <button className="dashboard-action-row" onClick={() => goTo('progress')}>
+          <span className="dashboard-action-row-icon"><LineChart size={18} /></span>
+          <span className="dashboard-action-row-copy"><strong>View progress</strong><small>See your progress</small></span>
+          <ChevronRight className="dashboard-action-row-arrow" size={17} />
         </button>
       </section>
 
