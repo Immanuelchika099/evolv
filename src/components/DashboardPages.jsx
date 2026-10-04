@@ -48,6 +48,12 @@ function HomePage({ pageProps }) {
         </div>
 
         <div className="today-metrics">
+          {loading ? (
+            <div className="today-loading" aria-label="Loading today">
+              <span className="today-loading-line short"/>
+              <span className="today-loading-line long"/>
+            </div>
+          ) : (<>
           {visibleMetrics.map(d => {
             const l = todayLogs.find(x => x.metric_id === d.id)
             const M = icons[d.slug] || Sparkles
@@ -81,6 +87,7 @@ function HomePage({ pageProps }) {
               <ChevronRight size={15} />
             </button>
           )}
+          </>)}
         </div>
       </section>
 
