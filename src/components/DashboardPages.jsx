@@ -86,19 +86,6 @@ function HomePage({ pageProps }) {
         </div>
       </section>
 
-      <section className="dashboard-action-list" aria-label="Quick actions">
-        <button className="dashboard-action-row" onClick={() => openLog()}>
-          <span className="dashboard-action-row-icon"><Plus size={18} /></span>
-          <span className="dashboard-action-row-copy"><strong>Log something</strong><small>Add a check-in</small></span>
-          <ChevronRight className="dashboard-action-row-arrow" size={17} />
-        </button>
-        <button className="dashboard-action-row" onClick={() => goTo('progress')}>
-          <span className="dashboard-action-row-icon"><LineChart size={18} /></span>
-          <span className="dashboard-action-row-copy"><strong>View progress</strong><small>See your progress</small></span>
-          <ChevronRight className="dashboard-action-row-arrow" size={17} />
-        </button>
-      </section>
-
       <section className="evolv-life-overview dashboard-areas-card">
         <div className="dashboard-section-head-clean dashboard-areas-head">
           <span className="section-label">YOUR AREAS</span>
