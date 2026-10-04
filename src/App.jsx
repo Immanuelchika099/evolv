@@ -520,6 +520,19 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
           ? 'Create your account so the progress you build in EVOLV can stay connected to you.'
           : 'Sign in and continue from where you left off.'}</p>
 
+        <div className="google-auth-primary">
+          <button className="google-auth-button google-auth-button-primary" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
+            <img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" aria-hidden="true" />
+            <span className="google-auth-copy">
+              <strong>Continue with Google</strong>
+              <small>{mode === 'signup' ? 'Start your EVOLV journey in seconds.' : 'Get back to your EVOLV journey instantly.'}</small>
+            </span>
+            <span className="google-auth-badge">RECOMMENDED</span>
+          </button>
+        </div>
+
+        <div className="auth-divider"><span>OR USE EMAIL</span></div>
+
         <form className="auth-form" onSubmit={submit}>
           <label>
             <span>Email</span>
@@ -562,11 +575,6 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
           </button>
         </form>
 
-        <div className="auth-divider"><span>OR</span></div>
-        <button className="google-auth-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
-          <img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" aria-hidden="true" />
-          Continue with Google
-        </button>
         <button className="google-auth-button" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
           <img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" aria-hidden="true" />
           Continue with GitHub
