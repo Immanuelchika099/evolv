@@ -23,31 +23,107 @@ export function DashboardPages({ active, pageProps }) {
 }
 
 function HomePage({ pageProps }) {
-  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, notificationTimes, onArticle } = pageProps
-  return <div className="dashboard-home">
-        <section className="dashboard-welcome"><div className="dashboard-welcome-copy"><span className="dashboard-eyebrow">Welcome back,</span><h1>{name.trim().split(/\s+/).map((part, index, parts) => <span key={`${part}-${index}`}>{part}{index === parts.length - 1 ? '.' : ''}</span>)}</h1></div></section>
-        <section className="today-snapshot">
-          <div className="today-snapshot-head"><div><span className="section-label">TODAY</span><h2>Your day, at a glance.</h2></div><span className="today-log-count">{todayLogs.length+todayMeals.length} logged</span></div>
-          <div className="today-metrics">
-            {defs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).slice(0,6).map(d=>{const l=todayLogs.find(x=>x.metric_id===d.id),M=icons[d.slug]||Sparkles;return <button key={d.id} className="today-metric" onClick={()=>openLog(metricArea[d.slug],d)}><span className="metric-row-icon" style={{'--metric-color':d.color||'#c8f36a'}}><M size={16}/></span><span><strong>{d.name}</strong><small>{valueText(l,d)}</small></span><ChevronRight size={14}/></button>})}
-            {todayMeals.length>0&&<button className="today-metric" onClick={()=>openLog('nutrition',{slug:'meals',name:'Meal',value_type:'meal'})}><span className="metric-row-icon" style={{'--metric-color':'#ffd66b'}}><Utensils size={16}/></span><span><strong>Meals</strong><small>{todayMeals.length} logged</small></span><ChevronRight size={14}/></button>}
-            {!todayLogs.length&&!todayMeals.length&&<div className="today-empty"><Sparkles size={18}/><p>Nothing logged yet. Start with one small thing.</p></div>}
+  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas } = pageProps
+
+  const visibleMetrics = defs
+    .filter(d => todayLogs.some(l => l.metric_id === d.id))
+    .slice(0, 4)
+
+  return (
+    <div className="dashboard-home">
+      <section className="dashboard-welcome dashboard-welcome-minimal">
+        <div className="dashboard-welcome-copy">
+          <span className="dashboard-eyebrow">GOOD MORNING</span>
+          <h1>{name.trim().split(/\s+/)[0] || 'There'}.</h1>
+        </div>
+      </section>
+
+      <section className="today-snapshot">
+        <div className="today-snapshot-head dashboard-section-head-clean">
+          <div>
+            <span className="section-label">TODAY</span>
+            <h2>Your day</h2>
           </div>
-        </section>
-        <section className="daily-brief-card">
-          <div className="daily-brief-head"><div><span className="section-label">DAILY BRIEF</span><h2>Your day, so far.</h2></div><span className="daily-brief-status">{todayLogs.length+todayMeals.length} logged</span></div>
-          <div className="daily-brief-grid">
-            <div><span>SLEEP</span><strong>{(()=>{const d=defs.find(x=>x.slug==='sleep');const l=d&&todayLogs.find(x=>x.metric_id===d.id);return l?valueText(l,d):'Not logged'})()}</strong></div>
-            <div><span>HYDRATION</span><strong>{(()=>{const d=defs.find(x=>x.slug==='water');const l=d&&todayLogs.find(x=>x.metric_id===d.id);return l?valueText(l,d):'Not logged'})()}</strong></div>
-            <div><span>MOVEMENT</span><strong>{(()=>{const d=defs.find(x=>x.slug==='exercise');const l=d&&todayLogs.find(x=>x.metric_id===d.id);return l?valueText(l,d):'Not logged'})()}</strong></div>
-            <div><span>EVENING</span><strong>{notificationTimes.reflectionTime}</strong></div>
-          </div>
-          <p>{todayLogs.length+todayMeals.length<3?'Small steps count. Log what feels useful and let EVOLV build the picture with you.':'You are building a clearer picture of your day. Keep going at your own pace.'}</p>
-        </section>
-        <section className="evolv-life-overview">{Object.entries(areas).map(([id,m])=>{const I=m.icon,rs=defs.filter(d=>metricArea[d.slug]===id);const tracked=rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).length;const preview=id==='nutrition'?(todayMeals.length?todayMeals.length+' meals logged today':'Nothing logged yet'):rs.filter(d=>todayLogs.some(l=>l.metric_id===d.id)).slice(0,2).map(d=>d.name+' '+valueText(todayLogs.find(l=>l.metric_id===d.id),d)).join(' · ')||'Nothing logged today';return <button className="life-area-row" key={id} onClick={()=>{goTo('area');setArea(id)}}><span className="life-area-icon" style={{'--area-color':m.color}}><I size={17}/></span><span className="life-area-main"><strong>{m.title}</strong><small>{preview}</small></span><span className="life-area-values"><b>{id==='nutrition'?todayMeals.length:tracked}</b><small>{id==='nutrition'?'meals':'today'}</small></span><ChevronRight size={17}/></button>})}</section>
-        <section className="today-action-strip"><div><span className="section-label">KEEP GOING</span><h2>What happened today?</h2><p>Record one thing. You can always add more later.</p></div><button className="button button-primary" onClick={()=>openLog()}><Plus size={16}/> Log something</button></section>
-        <section className="daily-insight evolv-empty-insight"><span className="daily-insight-label">YOUR CLARITY BUILDS HERE</span><h2>{todayLogs.length+todayMeals.length<3?'Start with what’s real.':'You’re building a picture of your day.'}</h2><p>{todayLogs.length+todayMeals.length<3?'The more useful things you log, the more clearly Evolv can show patterns and changes over time.':'Keep logging naturally. Evolv will turn your history into observations when there is enough data to say something useful.'}</p></section>
-      </div>
+          <span className="today-log-count">{todayLogs.length + todayMeals.length}</span>
+        </div>
+
+        <div className="today-metrics">
+          {visibleMetrics.map(d => {
+            const l = todayLogs.find(x => x.metric_id === d.id)
+            const M = icons[d.slug] || Sparkles
+            return (
+              <button key={d.id} className="today-metric" onClick={() => openLog(metricArea[d.slug], d)}>
+                <span className="metric-row-icon" aria-hidden="true"><M size={17} /></span>
+                <span>
+                  <strong>{d.name}</strong>
+                  <small>{valueText(l, d)}</small>
+                </span>
+                <ChevronRight size={15} />
+              </button>
+            )
+          })}
+
+          {todayMeals.length > 0 && (
+            <button className="today-metric" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
+              <span className="metric-row-icon" aria-hidden="true"><Utensils size={17} /></span>
+              <span>
+                <strong>Meals</strong>
+                <small>{todayMeals.length}</small>
+              </span>
+              <ChevronRight size={15} />
+            </button>
+          )}
+
+          {!todayLogs.length && !todayMeals.length && (
+            <button className="today-empty dashboard-empty-action" onClick={() => openLog()}>
+              <Plus size={17} />
+              <span><strong>Log something</strong><small>Start your day</small></span>
+              <ChevronRight size={15} />
+            </button>
+          )}
+        </div>
+      </section>
+
+      <section className="dashboard-quick-actions">
+        <button className="dashboard-quick-card" onClick={() => openLog()}>
+          <span className="dashboard-quick-icon"><Plus size={18} /></span>
+          <span><strong>Log</strong><small>Add something</small></span>
+          <ChevronRight size={16} />
+        </button>
+        <button className="dashboard-quick-card" onClick={() => goTo('progress')}>
+          <span className="dashboard-quick-icon"><LineChart size={18} /></span>
+          <span><strong>Progress</strong><small>See your trends</small></span>
+          <ChevronRight size={16} />
+        </button>
+      </section>
+
+      <section className="evolv-life-overview dashboard-areas-card">
+        <div className="dashboard-section-head-clean dashboard-areas-head">
+          <span className="section-label">YOUR AREAS</span>
+        </div>
+        {Object.entries(areas).map(([id, m]) => {
+          const I = m.icon
+          const rs = defs.filter(d => metricArea[d.slug] === id)
+          const tracked = rs.filter(d => todayLogs.some(l => l.metric_id === d.id)).length
+          const value = id === 'nutrition'
+            ? (todayMeals.length ? String(todayMeals.length) : '—')
+            : (tracked ? String(tracked) : '—')
+
+          return (
+            <button
+              className="life-area-row"
+              key={id}
+              onClick={() => { goTo('area'); setArea(id) }}
+            >
+              <span className="life-area-icon"><I size={17} /></span>
+              <span className="life-area-main"><strong>{m.title}</strong><small>{value === '—' ? 'No activity' : value + ' today'}</small></span>
+              <ChevronRight size={17} />
+            </button>
+          )
+        })}
+      </section>
+    </div>
+  )
 }
 
 function AreaPage({ pageProps }) {
