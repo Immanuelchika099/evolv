@@ -26,7 +26,7 @@ export function DashboardPages({ active, pageProps }) {
 function HomePage({ pageProps }) {
   const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, loading } = pageProps
 
-  const visibleMetrics = defs.filter(d => todayLogs.some(l => l.metric_id === d.id))
+  const visibleMetrics = todayLogs.map(l => ({ log: l, def: defs.find(d => String(d.id) === String(l.metric_id)) })).filter(x => x.def)
 
   const [now, setNow] = useState(() => new Date())
   useEffect(() => {
@@ -56,8 +56,7 @@ function HomePage({ pageProps }) {
 
         <div className="today-metrics">
           {!loading && (<>
-          {visibleMetrics.map(d => {
-            const l = todayLogs.find(x => x.metric_id === d.id)
+          {visibleMetrics.map(({ log: l, def: d }) => {
             const M = icons[d.slug] || Sparkles
             return (
               <button key={d.id} className="today-metric" onClick={() => openLog(metricArea[d.slug], d)}>
