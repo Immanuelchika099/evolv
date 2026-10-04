@@ -1881,81 +1881,172 @@ html.evolv-android .goals-page .goal-item {
 
 
 
-/* Final quick actions — simple list rows, not cards. */
+/* Final dashboard actions — isolated, deterministic layout. */
 .dashboard-home .dashboard-action-list{
-  width:100%;
-  margin:1.2rem 0 1.8rem;
-  border-top:1px solid rgba(255,255,255,.09);
-  border-bottom:1px solid rgba(255,255,255,.09);
+  position:relative !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:stretch !important;
+  justify-content:flex-start !important;
+  gap:0 !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  margin:1.2rem 0 1.8rem !important;
+  padding:0 !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  border:1px solid rgba(255,255,255,.09) !important;
+  border-radius:1.6rem !important;
+  background:#090909 !important;
 }
+
 .dashboard-home .dashboard-action-row{
-  appearance:none;
-  -webkit-appearance:none;
-  width:100%;
-  min-height:6.8rem;
-  padding:1rem .2rem;
-  display:flex;
-  align-items:center;
-  gap:1.1rem;
-  border:0;
-  border-bottom:1px solid rgba(255,255,255,.07);
-  border-radius:0;
-  background:transparent;
-  color:#fff;
-  font:inherit;
-  text-align:left;
-  cursor:pointer;
-  transition:background .2s ease,padding .2s ease;
+  position:relative !important;
+  display:flex !important;
+  flex-direction:row !important;
+  align-items:center !important;
+  justify-content:flex-start !important;
+  flex:0 0 auto !important;
+  width:100% !important;
+  max-width:100% !important;
+  min-width:0 !important;
+  min-height:7rem !important;
+  height:auto !important;
+  margin:0 !important;
+  padding:1.15rem 1.2rem !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+  border:0 !important;
+  border-bottom:1px solid rgba(255,255,255,.07) !important;
+  border-radius:0 !important;
+  background:#090909 !important;
+  color:#fff !important;
+  font:inherit !important;
+  line-height:1.2 !important;
+  text-align:left !important;
+  white-space:normal !important;
+  vertical-align:middle !important;
+  cursor:pointer !important;
 }
-.dashboard-home .dashboard-action-row:last-child{border-bottom:0}
+.dashboard-home .dashboard-action-row:last-child{
+  border-bottom:0 !important;
+}
 .dashboard-home .dashboard-action-row:hover{
-  background:rgba(255,255,255,.035);
-  padding-left:.8rem;
-  padding-right:.8rem;
+  background:#111 !important;
 }
-.dashboard-home .dashboard-action-row:active{background:rgba(255,255,255,.06)}
+.dashboard-home .dashboard-action-row:active{
+  background:#151515 !important;
+}
+
 .dashboard-home .dashboard-action-row-icon{
-  flex:0 0 3.8rem;
-  width:3.8rem;
-  height:3.8rem;
-  display:grid;
-  place-items:center;
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:50%;
-  background:#111;
-  color:rgba(255,255,255,.85);
+  position:relative !important;
+  flex:0 0 3.8rem !important;
+  width:3.8rem !important;
+  min-width:3.8rem !important;
+  max-width:3.8rem !important;
+  height:3.8rem !important;
+  min-height:3.8rem !important;
+  margin:0 1rem 0 0 !important;
+  padding:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  box-sizing:border-box !important;
+  border:1px solid rgba(255,255,255,.1) !important;
+  border-radius:50% !important;
+  background:#151515 !important;
+  color:rgba(255,255,255,.85) !important;
 }
 .dashboard-home .dashboard-action-row-copy{
-  flex:1;
-  min-width:0;
-  display:flex;
-  flex-direction:column;
-  gap:.2rem;
+  position:relative !important;
+  flex:1 1 auto !important;
+  width:auto !important;
+  min-width:0 !important;
+  max-width:none !important;
+  margin:0 !important;
+  padding:0 !important;
+  display:flex !important;
+  flex-direction:column !important;
+  align-items:flex-start !important;
+  justify-content:center !important;
+  gap:.25rem !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
 }
 .dashboard-home .dashboard-action-row-copy strong{
-  color:#fff;
-  font-size:1.55rem;
-  font-weight:600;
-  letter-spacing:-.02em;
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:#fff !important;
+  font-size:1.55rem !important;
+  font-weight:600 !important;
+  line-height:1.2 !important;
+  letter-spacing:-.02em !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
 }
 .dashboard-home .dashboard-action-row-copy small{
-  color:rgba(255,255,255,.38);
-  font-size:1.25rem;
+  display:block !important;
+  width:100% !important;
+  margin:0 !important;
+  padding:0 !important;
+  color:rgba(255,255,255,.42) !important;
+  font-size:1.25rem !important;
+  font-weight:400 !important;
+  line-height:1.25 !important;
+  white-space:nowrap !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
 }
 .dashboard-home .dashboard-action-row-arrow{
-  flex:0 0 auto;
-  color:rgba(255,255,255,.35);
+  position:relative !important;
+  flex:0 0 1.8rem !important;
+  width:1.8rem !important;
+  min-width:1.8rem !important;
+  height:1.8rem !important;
+  min-height:1.8rem !important;
+  margin:0 0 0 1rem !important;
+  padding:0 !important;
+  display:block !important;
+  color:rgba(255,255,255,.38) !important;
 }
-.dashboard-home .today-loading{
-  min-height:0;
-  height:0;
-  padding:0;
-  margin:0;
-  overflow:hidden;
-  background:#090909;
-}
+
+.dashboard-home .today-loading,
 .dashboard-home .today-metrics:has(.today-loading){
-  background:#090909;
-  min-height:0;
+  display:none !important;
+  visibility:hidden !important;
+  height:0 !important;
+  min-height:0 !important;
+  margin:0 !important;
+  padding:0 !important;
+  overflow:hidden !important;
+  background:transparent !important;
 }
-html,body,#root{background:#000;}
+
+@media(max-width:40rem){
+  .dashboard-home .dashboard-action-list{
+    margin:1rem 0 1.6rem !important;
+    border-radius:1.4rem !important;
+  }
+  .dashboard-home .dashboard-action-row{
+    min-height:6.6rem !important;
+    padding:1rem !important;
+  }
+  .dashboard-home .dashboard-action-row-icon{
+    flex-basis:3.5rem !important;
+    width:3.5rem !important;
+    min-width:3.5rem !important;
+    max-width:3.5rem !important;
+    height:3.5rem !important;
+    min-height:3.5rem !important;
+    margin-right:.9rem !important;
+  }
+  .dashboard-home .dashboard-action-row-copy strong{font-size:1.5rem !important}
+  .dashboard-home .dashboard-action-row-copy small{font-size:1.2rem !important}
+  .dashboard-home .dashboard-action-row-arrow{
+    margin-left:.7rem !important;
+  }
+}
+html,body,#root{background:#000 !important;}
