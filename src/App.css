@@ -1523,3 +1523,245 @@ html.evolv-android .goals-page .goal-item {
 .feature-step:hover .feature-step-icon{transform:translateY(-.2rem) rotate(-4deg);border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.055)}
 .feature-step-icon svg{display:block}
 @media (max-width:40rem){.feature-step-icon{flex-basis:3.8rem;width:3.8rem;height:3.8rem;border-radius:1.1rem}}
+
+
+/* =========================================================
+   Logged-in UI refresh — quiet, neutral, easy to scan.
+   No colored/glowing dashboard treatment.
+   ========================================================= */
+
+.dashboard,
+.dashboard-home,
+.dashboard-panel,
+.panel-page {
+  --logged-accent: rgba(255,255,255,.92);
+  --logged-muted: rgba(255,255,255,.48);
+  --logged-border: rgba(255,255,255,.075);
+  --logged-surface: #090909;
+  --logged-surface-raised: #101010;
+}
+
+.dashboard-home {
+  color: #fff;
+}
+
+.dashboard-home .dashboard-welcome-minimal {
+  padding-top: 1.4rem;
+  padding-bottom: 1.6rem;
+}
+
+.dashboard-home .dashboard-welcome-minimal .dashboard-eyebrow {
+  color: rgba(255,255,255,.42);
+  letter-spacing: .16em;
+}
+
+.dashboard-home .dashboard-welcome-minimal h1 {
+  margin-top: .45rem;
+  font-size: clamp(3.4rem, 8vw, 5.6rem);
+  line-height: .98;
+  letter-spacing: -.055em;
+}
+
+.dashboard-home .today-snapshot,
+.dashboard-home .dashboard-areas-card {
+  background: linear-gradient(145deg, #101010, #080808);
+  border-color: var(--logged-border);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 2rem 5rem rgba(0,0,0,.28);
+}
+
+.dashboard-home .today-snapshot::before,
+.dashboard-home .dashboard-areas-card::before,
+.dashboard-home .daily-brief-card::before,
+.dashboard-home .evolv-life-overview::before,
+.dashboard-home .today-action-strip::before,
+.dashboard-home .daily-insight::before {
+  display: none;
+}
+
+.dashboard-section-head-clean {
+  align-items: center;
+}
+
+.dashboard-home .today-snapshot-head h2 {
+  margin-top: .3rem;
+  font-size: 2.4rem;
+  letter-spacing: -.035em;
+}
+
+.dashboard-home .today-log-count {
+  min-width: 3.2rem;
+  height: 3.2rem;
+  padding: 0 .7rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 999px;
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.62);
+  font-size: 1.3rem;
+}
+
+.dashboard-home .today-metrics {
+  gap: .7rem;
+}
+
+.dashboard-home .today-metric,
+.dashboard-home .dashboard-empty-action {
+  border-color: rgba(255,255,255,.065);
+  background: #0b0b0b;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+
+.dashboard-home .today-metric:hover,
+.dashboard-home .dashboard-empty-action:hover {
+  background: #141414;
+  border-color: rgba(255,255,255,.12);
+}
+
+.dashboard-home .metric-row-icon,
+.dashboard-home .life-area-icon,
+.dashboard-home .dashboard-quick-icon {
+  color: rgba(255,255,255,.82) !important;
+  border-color: rgba(255,255,255,.08) !important;
+  background: rgba(255,255,255,.035) !important;
+  --metric-color: rgba(255,255,255,.82) !important;
+  --area-color: rgba(255,255,255,.82) !important;
+}
+
+.dashboard-home .today-metric strong,
+.dashboard-home .life-area-main strong,
+.dashboard-home .dashboard-quick-card strong {
+  color: #fff;
+}
+
+.dashboard-home .today-metric small,
+.dashboard-home .life-area-main small,
+.dashboard-home .dashboard-quick-card small {
+  color: rgba(255,255,255,.43);
+}
+
+.dashboard-home .dashboard-quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .8rem;
+  margin: 1.1rem 0;
+}
+
+.dashboard-home .dashboard-quick-card {
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0,1fr) auto;
+  align-items: center;
+  gap: .8rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.6rem;
+  background: #0a0a0a;
+  color: #fff;
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+
+.dashboard-home .dashboard-quick-card:hover {
+  background: #121212;
+  border-color: rgba(255,255,255,.13);
+  transform: translateY(-1px);
+}
+
+.dashboard-home .dashboard-quick-card small {
+  display: block;
+  margin-top: .25rem;
+  color: rgba(255,255,255,.42);
+  font-size: 1.25rem;
+}
+
+.dashboard-home .dashboard-quick-icon {
+  width: 3.7rem;
+  height: 3.7rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.15rem;
+}
+
+.dashboard-home .dashboard-areas-head {
+  padding: 0 0 1rem;
+}
+
+.dashboard-home .dashboard-areas-card {
+  padding: 1.35rem;
+}
+
+.dashboard-home .dashboard-areas-card .life-area-row {
+  border-color: rgba(255,255,255,.06);
+  background: rgba(255,255,255,.018);
+}
+
+.dashboard-home .dashboard-areas-card .life-area-row:hover {
+  background: rgba(255,255,255,.045);
+}
+
+.dashboard-home .dashboard-areas-card .life-area-values {
+  display: none;
+}
+
+/* Remove old colored dashboard treatments. */
+.dashboard .goal-item-top>strong,
+.dashboard .goal-status-copy,
+.dashboard .goal-item-actions input[type="range"],
+.dashboard .mini-progress i {
+  color: rgba(255,255,255,.88) !important;
+  accent-color: rgba(255,255,255,.88) !important;
+}
+
+.dashboard .mini-progress i {
+  background: rgba(255,255,255,.8) !important;
+  box-shadow: none !important;
+}
+
+.dashboard .goal-item-actions input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, rgba(255,255,255,.72) 0 var(--goal-progress), rgba(255,255,255,.09) var(--goal-progress) 100%) !important;
+}
+
+.dashboard .goal-item-actions input[type="range"]::-moz-range-progress {
+  background: rgba(255,255,255,.72) !important;
+}
+
+.dashboard .goal-item-actions input[type="range"]::-webkit-slider-thumb,
+.dashboard .goal-item-actions input[type="range"]::-moz-range-thumb {
+  background: #fff !important;
+  border-color: #111 !important;
+  box-shadow: 0 0 0 .1rem rgba(255,255,255,.2), 0 .45rem 1.2rem rgba(0,0,0,.35) !important;
+}
+
+.dashboard .area-back,
+.dashboard .area-back svg,
+.dashboard-panel .area-back,
+.dashboard-panel .area-back svg {
+  color: rgba(255,255,255,.8) !important;
+}
+
+.dashboard .evolv-glass-green {
+  display: none;
+}
+
+@media (max-width:40rem) {
+  .dashboard-home .dashboard-welcome-minimal {
+    padding-top: 1rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .dashboard-home .dashboard-welcome-minimal h1 {
+    font-size: 4.2rem;
+  }
+
+  .dashboard-home .dashboard-quick-actions {
+    gap: .7rem;
+  }
+
+  .dashboard-home .dashboard-quick-card {
+    padding: 1.1rem;
+    border-radius: 1.45rem;
+  }
+}
