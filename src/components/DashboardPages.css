@@ -1,1 +1,50 @@
 .dashboard-pages { width: 100%; min-width: 0; }
+
+/* Keep today's actual logged entries visible on the dashboard.
+   The count belongs in the header; the entries themselves must remain
+   rendered underneath it. These rules intentionally override any older
+   dashboard animation/visibility rules that could hide the rows. */
+.dashboard-home .today-metrics {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  height: auto !important;
+  max-height: none !important;
+  overflow: visible !important;
+  gap: 10px;
+}
+
+.dashboard-home .today-metric,
+.dashboard-home .today-empty {
+  display: grid !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.dashboard-home .today-metric {
+  grid-template-columns: 36px minmax(0, 1fr) 18px;
+  align-items: center;
+  width: 100%;
+  min-height: 64px;
+}
+
+.dashboard-home .today-metric > span {
+  min-width: 0;
+}
+
+.dashboard-home .today-metric strong,
+.dashboard-home .today-metric small {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.dashboard-home .today-metric strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-home .today-metric small {
+  margin-top: 3px;
+}
