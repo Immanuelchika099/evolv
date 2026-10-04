@@ -1616,10 +1616,19 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
   function startEditEntry(item){
     const entry=item.entry
-    const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
+    const definition=item.type==='log'
+      ? defs.find(d=>String(d.id)===String(entry.metric_id))
+      : null
+
     if(item.type==='log' && !definition)return
+
+    // Leave the detail route before clearing the selected entry.
+    // Otherwise the detail page renders nothing for one frame while the
+    // edit sheet is opening, which can appear as a blank page in the PWA.
+    setActive('logs')
     setSelectedEntry(null)
     setEditingEntry({type:item.type,entry,definition})
+
     if(item.type==='meal'){
       setArea('nutrition')
       setMetric({slug:'meals',name:'Meal',value_type:'meal',color:'#ffb84d'})
@@ -1627,6 +1636,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       setArea(metricArea[definition.slug]||definition.area)
       setMetric(definition)
     }
+
     setLogOpen(true)
     setError('')
   }
