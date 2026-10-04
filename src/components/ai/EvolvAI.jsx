@@ -536,6 +536,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
 
     if (result.calendarEvent) setPendingCalendarEvent(result.calendarEvent)
+    if (result.logged) window.dispatchEvent(new Event('evolv-tracking-updated'))
 
     const reply = result.reply || `I’m here, ${firstName}. We can take it one step at a time.`
     setTyping(true)
