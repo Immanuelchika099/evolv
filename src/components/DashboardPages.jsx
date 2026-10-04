@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
   ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, ChevronRight,
   Plus, Settings, Target, Pencil, Trash2, MessageCircle, HeartPulse, Apple,
@@ -27,8 +28,8 @@ function HomePage({ pageProps }) {
 
   const visibleMetrics = defs.filter(d => todayLogs.some(l => l.metric_id === d.id))
 
-  const [now, setNow] = React.useState(() => new Date())
-  React.useEffect(() => {
+  const [now, setNow] = useState(() => new Date())
+  useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 60000)
     return () => window.clearInterval(timer)
   }, [])
