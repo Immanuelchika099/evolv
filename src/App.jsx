@@ -1557,9 +1557,11 @@ function Dashboard({ data, onLogout, onArticle }) {
   const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout,meals:Utensils}
   const name=profile?.first_name||data.name||'there'
   const latest=defs.reduce((acc,d)=>{const x=logs.find(l=>l.metric_id===d.id);if(x)acc[d.slug]=x;return acc},{})
-  const today=new Date().toISOString().slice(0,10)
-  const todayLogs=logs.filter(x=>x.logged_at?.slice(0,10)===today)
-  const todayMeals=meals.filter(x=>x.logged_at?.slice(0,10)===today)
+  // Use the user's actual device timezone for the dashboard day. ISO slicing is UTC-based and can put late-night Lagos logs on the wrong date.
+  const today=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())
+  const localDateKey=(value)=>value?new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date(value)):''
+  const todayLogs=logs.filter(x=>localDateKey(x.logged_at)===today)
+  const todayMeals=meals.filter(x=>localDateKey(x.logged_at)===today)
 
   useEffect(()=>{
     async function refreshAiTracking(){
