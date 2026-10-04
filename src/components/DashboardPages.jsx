@@ -25,15 +25,21 @@ export function DashboardPages({ active, pageProps }) {
 function HomePage({ pageProps }) {
   const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, loading } = pageProps
 
-  const visibleMetrics = defs
-    .filter(d => todayLogs.some(l => l.metric_id === d.id))
-    .slice(0, 4)
+  const visibleMetrics = defs.filter(d => todayLogs.some(l => l.metric_id === d.id))
+
+  const [now, setNow] = React.useState(() => new Date())
+  React.useEffect(() => {
+    const timer = window.setInterval(() => setNow(new Date()), 60000)
+    return () => window.clearInterval(timer)
+  }, [])
+  const hour = now.getHours()
+  const greeting = hour >= 5 && hour < 12 ? 'GOOD MORNING' : hour >= 12 && hour < 17 ? 'GOOD AFTERNOON' : 'GOOD EVENING'
 
   return (
     <div className="dashboard-home">
       <section className="dashboard-welcome dashboard-welcome-minimal">
         <div className="dashboard-welcome-copy">
-          <span className="dashboard-eyebrow">GOOD MORNING</span>
+          <span className="dashboard-eyebrow">{greeting}</span>
           <h1>{name.trim().split(/\s+/)[0] || 'There'}.</h1>
         </div>
       </section>
