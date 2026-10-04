@@ -4,7 +4,7 @@ import {
   WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell,
   Footprints, Zap, Scale, Smile, Focus, NotebookPen, BookOpen, Receipt,
   PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, Users, CheckCircle2,
-  Utensils, Sparkles, Send, Sunrise, X
+  Utensils, Sparkles, Send, Sunrise, X, LineChart
 } from 'lucide-react'
 import './DashboardPages.css'
 import HoldButton from './HoldButton'
