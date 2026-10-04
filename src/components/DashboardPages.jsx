@@ -24,9 +24,7 @@ export function DashboardPages({ active, pageProps }) {
 }
 
 function HomePage({ pageProps }) {
-  const { name, todayLogs, todayMeals, defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, loading } = pageProps
-
-  const visibleMetrics = todayLogs.map(l => ({ log: l, def: defs.find(d => String(d.id) === String(l.metric_id)) })).filter(x => x.def)
+  const { name, todayLogs = [], todayMeals = [], defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, loading } = pageProps
 
   const [now, setNow] = useState(() => new Date())
   useEffect(() => {
@@ -35,6 +33,18 @@ function HomePage({ pageProps }) {
   }, [])
   const hour = now.getHours()
   const greeting = hour >= 5 && hour < 12 ? 'GOOD MORNING' : hour >= 12 && hour < 17 ? 'GOOD AFTERNOON' : 'GOOD EVENING'
+
+  const loggedItems = [
+    ...todayLogs.map((log, index) => {
+      const def = defs.find(d => String(d.id) === String(log.metric_id))
+      return def ? { key: `log-${log.id || index}`, log, def, type: 'log' } : null
+    }).filter(Boolean),
+    ...todayMeals.map((meal, index) => ({
+      key: `meal-${meal.id || index}`,
+      meal,
+      type: 'meal'
+    }))
+  ]
 
   return (
     <div className="dashboard-home">
@@ -51,44 +61,44 @@ function HomePage({ pageProps }) {
             <span className="section-label">TODAY</span>
             <h2>Your day</h2>
           </div>
-          <span className="today-log-count">{todayLogs.length + todayMeals.length}</span>
+          <span className="today-log-count">{loggedItems.length}</span>
         </div>
 
         <div className="today-metrics">
-          {!loading && (<>
-          {visibleMetrics.map(({ log: l, def: d }) => {
-            const M = icons[d.slug] || Sparkles
+          {!loading && loggedItems.length > 0 && loggedItems.map(item => {
+            if (item.type === 'meal') {
+              return (
+                <button key={item.key} className="today-metric" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
+                  <span className="metric-row-icon" aria-hidden="true"><Utensils size={17} /></span>
+                  <span>
+                    <strong>{item.meal.description || 'Meal'}</strong>
+                    <small>{item.meal.meal_type || 'Meal'}{item.meal.calories ? ` · ${item.meal.calories} kcal` : ''}</small>
+                  </span>
+                  <ChevronRight size={15} />
+                </button>
+              )
+            }
+
+            const M = icons[item.def.slug] || Sparkles
             return (
-              <button key={d.id} className="today-metric" onClick={() => openLog(metricArea[d.slug], d)}>
+              <button key={item.key} className="today-metric" onClick={() => openLog(metricArea[item.def.slug], item.def)}>
                 <span className="metric-row-icon" aria-hidden="true"><M size={17} /></span>
                 <span>
-                  <strong>{d.name}</strong>
-                  <small>{valueText(l, d)}</small>
+                  <strong>{item.def.name}</strong>
+                  <small>{valueText(item.log, item.def)}</small>
                 </span>
                 <ChevronRight size={15} />
               </button>
             )
           })}
 
-          {todayMeals.length > 0 && (
-            <button className="today-metric" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
-              <span className="metric-row-icon" aria-hidden="true"><Utensils size={17} /></span>
-              <span>
-                <strong>Meals</strong>
-                <small>{todayMeals.length}</small>
-              </span>
-              <ChevronRight size={15} />
-            </button>
-          )}
-
-          {!todayLogs.length && !todayMeals.length && (
+          {!loading && !loggedItems.length && (
             <button className="today-empty dashboard-empty-action" onClick={() => openLog()}>
               <Plus size={17} />
               <span><strong>Log something</strong><small>Start your day</small></span>
               <ChevronRight size={15} />
             </button>
           )}
-          </>)}
         </div>
       </section>
 
@@ -99,7 +109,7 @@ function HomePage({ pageProps }) {
         {Object.entries(areas).map(([id, m]) => {
           const I = m.icon
           const rs = defs.filter(d => metricArea[d.slug] === id)
-          const tracked = rs.filter(d => todayLogs.some(l => l.metric_id === d.id)).length
+          const tracked = rs.filter(d => todayLogs.some(l => String(l.metric_id) === String(d.id))).length
           const value = id === 'nutrition'
             ? (todayMeals.length ? String(todayMeals.length) : '—')
             : (tracked ? String(tracked) : '—')
@@ -120,7 +130,6 @@ function HomePage({ pageProps }) {
     </div>
   )
 }
-
 function AreaPage({ pageProps }) {
   const { area, areas, defs, logs, meals, metricArea, latest, icons, valueText, openLog, goTo, onArticle } = pageProps
   return (()=>{
