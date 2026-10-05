@@ -186,7 +186,7 @@ export default function PromptBar({
   }, [open, query, sources, commands, models]);
   const cursor = Math.min(active, Math.max(0, list.length - 1));
   const canSend = draft.trim().length > 0 || attachments.length > 0;
-  const armed = busy || canSend;
+  const armed = busy || canSend || listening;
   const level = efforts[effortIndex] ?? '';
   const maxed = efforts.length > 1 && effortIndex === efforts.length - 1;
 
@@ -719,6 +719,7 @@ export default function PromptBar({
             onPointerLeave={up}
             onClick={() => {
               if (busy) latest.current.onStop?.();
+              else if (listening) toggleListen();
               else send();
             }}
           >
