@@ -508,7 +508,7 @@ function ProfilePage({ pageProps }) {
 }
 
 function NotificationsPage({ pageProps }) {
-  const { notifications, goTo } = pageProps
+  const { notifications = [], goTo, deleteNotification } = pageProps
   return <section className="panel-page dashboard-panel notifications-page">
         <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
         <div className="notifications-page-hero">
@@ -525,7 +525,8 @@ function NotificationsPage({ pageProps }) {
             }[item.kind]||{title:'A note from EVOLV.',body:'You have a new reminder from EVOLV.'}
             return <article className="notification-page-row" key={item.id}>
               <span className="notification-page-icon"><Bell size={17}/></span>
-              <div><span>{item.kind.toUpperCase()} · {new Date(item.delivery_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})}</span><strong>{copy.title}</strong><p>{copy.body}</p></div>
+              <div className="notification-page-copy"><span>{item.kind.toUpperCase()} · {new Date(item.delivery_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})}</span><strong>{copy.title}</strong><p>{copy.body}</p></div>
+              <button type="button" className="notification-page-delete" onClick={()=>deleteNotification?.(item)} aria-label="Delete notification" title="Delete notification"><Trash2 size={16}/></button>
             </article>
           }) : <div className="notifications-empty"><Bell size={24}/><strong>No notifications yet.</strong><p>When EVOLV sends a reminder, it will appear here.</p></div>}
         </div>
