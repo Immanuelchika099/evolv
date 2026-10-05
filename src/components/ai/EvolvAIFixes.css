@@ -398,3 +398,16 @@ html:has(.dashboard.dashboard-ai-active) {
     max-width: calc(100% - 3.2rem) !important;
   }
 }
+
+/* Improve AI reply readability. */
+.dashboard.dashboard-ai-active .ai-page .ai-message p {
+  font-size: 1.8rem !important;
+  line-height: 1.65 !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message p {
+    font-size: 1.8rem !important;
+    line-height: 1.65 !important;
+  }
+}
