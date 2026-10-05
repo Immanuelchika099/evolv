@@ -765,7 +765,11 @@ export default function PromptBar({
               aria-pressed={listening}
               data-on={listening ? '' : undefined}
               onMouseDown={e => e.preventDefault()}
-              onClick={toggleListen}
+              onPointerDown={e => e.preventDefault()}
+              onClick={e => {
+                e.preventDefault();
+                toggleListen();
+              }}
             >
               {listening ? (
                 <span className="prompt-bar__eq" aria-hidden="true">
