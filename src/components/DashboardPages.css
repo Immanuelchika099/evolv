@@ -335,3 +335,166 @@
     width: 100%;
   }
 }
+
+
+/* Logged items — compact two-column cards, inspired by the reference grid. */
+.dashboard-home .today-metrics {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.1rem !important;
+  align-items: stretch;
+}
+
+.dashboard-home .today-metric,
+.dashboard-home .today-empty {
+  position: relative;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto !important;
+  grid-template-rows: auto 1fr !important;
+  grid-template-areas:
+    "icon arrow"
+    "copy copy" !important;
+  align-items: start;
+  align-content: stretch;
+  width: 100% !important;
+  min-width: 0;
+  min-height: 15.5rem !important;
+  padding: 1.35rem !important;
+  border: 1px solid rgba(255,255,255,.075) !important;
+  border-radius: 2rem !important;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018)) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    0 1.2rem 3rem rgba(0,0,0,.18) !important;
+  overflow: hidden;
+  text-align: left;
+  transition: transform .22s ease, background .22s ease, border-color .22s ease;
+}
+
+.dashboard-home .today-metric::after,
+.dashboard-home .today-empty::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255,255,255,.025), transparent 45%);
+}
+
+.dashboard-home .today-metric:hover,
+.dashboard-home .today-empty:hover {
+  background:
+    linear-gradient(145deg, rgba(255,255,255,.075), rgba(255,255,255,.025)) !important;
+  border-color: rgba(255,255,255,.13) !important;
+  transform: translateY(-2px);
+}
+
+.dashboard-home .today-metric:active,
+.dashboard-home .today-empty:active {
+  transform: scale(.985);
+}
+
+.dashboard-home .today-metric .metric-row-icon {
+  grid-area: icon;
+  width: 3.7rem;
+  height: 3.7rem;
+  min-width: 3.7rem;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,.045) !important;
+  border: 1px solid rgba(255,255,255,.075) !important;
+  color: rgba(255,255,255,.88) !important;
+  z-index: 1;
+}
+
+.dashboard-home .today-metric > span:nth-child(2),
+.dashboard-home .today-empty > span {
+  grid-area: copy;
+  align-self: end;
+  min-width: 0;
+  padding-top: 2rem;
+  z-index: 1;
+}
+
+.dashboard-home .today-metric > span:nth-child(2) strong,
+.dashboard-home .today-empty strong {
+  display: block !important;
+  margin: 0;
+  color: #f7f7f4 !important;
+  font-size: 1.55rem;
+  line-height: 1.15;
+  letter-spacing: -.025em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-home .today-metric > span:nth-child(2) small,
+.dashboard-home .today-empty small {
+  display: block !important;
+  margin-top: .55rem;
+  color: rgba(255,255,255,.43) !important;
+  font-size: 1.08rem;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dashboard-home .today-metric > svg:last-child,
+.dashboard-home .today-empty > svg:last-child {
+  grid-area: arrow;
+  justify-self: end;
+  align-self: center;
+  color: rgba(255,255,255,.58);
+  z-index: 1;
+}
+
+.dashboard-home .today-empty {
+  grid-template-areas:
+    "icon arrow"
+    "copy copy" !important;
+}
+
+.dashboard-home .today-empty > svg:first-child {
+  grid-area: icon;
+  width: 3.7rem;
+  height: 3.7rem;
+  padding: .9rem;
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.075);
+}
+
+@media (max-width: 430px) {
+  .dashboard-home .today-metrics {
+    gap: .8rem !important;
+  }
+
+  .dashboard-home .today-metric,
+  .dashboard-home .today-empty {
+    min-height: 14.2rem !important;
+    padding: 1.15rem !important;
+    border-radius: 1.7rem !important;
+  }
+
+  .dashboard-home .today-metric .metric-row-icon,
+  .dashboard-home .today-empty > svg:first-child {
+    width: 3.35rem;
+    height: 3.35rem;
+    min-width: 3.35rem;
+    border-radius: 1.1rem;
+  }
+
+  .dashboard-home .today-metric > span:nth-child(2) strong,
+  .dashboard-home .today-empty strong {
+    font-size: 1.4rem;
+  }
+
+  .dashboard-home .today-metric > span:nth-child(2) small,
+  .dashboard-home .today-empty small {
+    font-size: 1rem;
+  }
+}
