@@ -118,6 +118,11 @@ Deno.serve(async (req) => {
 
       try {
         await webpush.sendNotification(row.subscription, JSON.stringify(payload))
+        await admin.from("notification_delivery_log").insert({
+          user_id: row.user_id,
+          delivery_date: clock.date,
+          kind,
+        })
         lastSent[kind] = clock.date
         sent += 1
       } catch (pushError) {
