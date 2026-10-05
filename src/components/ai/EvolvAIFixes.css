@@ -382,3 +382,19 @@ html:has(.dashboard.dashboard-ai-active) {
     padding-bottom: 11rem !important;
   }
 }
+
+
+/* Give AI replies comfortable breathing room from the screen edges. */
+.dashboard.dashboard-ai-active .ai-page .ai-message {
+  margin-left: 2rem !important;
+  margin-right: 2rem !important;
+  max-width: min(72rem, calc(100% - 4rem)) !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message {
+    margin-left: 1.6rem !important;
+    margin-right: 1.6rem !important;
+    max-width: calc(100% - 3.2rem) !important;
+  }
+}
