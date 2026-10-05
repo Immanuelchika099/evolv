@@ -272,3 +272,41 @@
     width: 100%;
   }
 }
+
+/* Give the goal creation inputs more breathing room */
+.goals-page .goal-create-form {
+  gap: 1.35rem;
+}
+
+.goals-page .goal-create-form input,
+.goals-page .goal-create-form textarea,
+.goals-page .goal-create-form .goal-date-field {
+  margin-bottom: .25rem;
+}
+
+.goals-page .goal-create-form textarea {
+  min-height: 10rem;
+}
+
+.goals-page .goal-create-form .goal-date-field {
+  padding-top: .35rem;
+}
+
+.goals-page .goal-form-actions {
+  margin-top: .6rem;
+  gap: 1rem;
+}
+
+@media (max-width: 700px) {
+  .goals-page .goal-create-form {
+    gap: 1.1rem;
+  }
+
+  .goals-page .goal-create-form textarea {
+    min-height: 11rem;
+  }
+
+  .goals-page .goal-form-actions {
+    margin-top: .45rem;
+  }
+}
