@@ -35,7 +35,7 @@
 /* Attachment/source menu: anchor it directly above the + button instead of centering it over the composer. */
 .prompt-bar__menu[data-kind='at'] {
   right: auto;
-  left: -12px;
+  left: 0;
   width: min(270px, calc(100vw - 32px));
   transform-origin: bottom left;
 }
