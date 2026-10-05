@@ -32,6 +32,14 @@
   animation: prompt-bar-pop 180ms var(--pb-ease-out) both;
 }
 
+/* Attachment/source menu: anchor it directly above the + button instead of centering it over the composer. */
+.prompt-bar__menu[data-kind='at'] {
+  right: auto;
+  left: -12px;
+  width: min(270px, calc(100vw - 32px));
+  transform-origin: bottom left;
+}
+
 .prompt-bar__menu[data-kind='model'] { right:auto; left:-12px; width:200px; transform-origin:bottom left; }
 
 @keyframes prompt-bar-pop {
