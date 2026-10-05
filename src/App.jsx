@@ -1588,12 +1588,12 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
-      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false})
-      
+      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false}),
+      supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50)
      ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}
     setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');
     setDefs(d.data||[]);
-    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
