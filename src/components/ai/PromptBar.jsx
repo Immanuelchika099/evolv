@@ -156,6 +156,8 @@ export default function PromptBar({
   const rowRefs = useRef([]);
   const lastOpen = useRef(null);
   const dictation = useRef(0);
+  const audioRef = useRef({ stream: null, context: null, analyser: null, raf: 0 });
+  const eqRefs = useRef([]);
   const latest = useRef({});
   latest.current = { onSend, onStop, onAttach, onDictate, onEffortChange, onInputChange };
 
@@ -189,6 +191,68 @@ export default function PromptBar({
   const armed = busy || canSend || listening;
   const level = efforts[effortIndex] ?? '';
   const maxed = efforts.length > 1 && effortIndex === efforts.length - 1;
+
+  const stopVoiceVisualizer = useCallback(() => {
+    const audio = audioRef.current;
+    if (audio.raf) cancelAnimationFrame(audio.raf);
+    audio.raf = 0;
+    audio.analyser = null;
+    audio.context?.close?.().catch(() => {});
+    audio.context = null;
+    audio.stream?.getTracks?.().forEach(track => track.stop());
+    audio.stream = null;
+    eqRefs.current.forEach(bar => {
+      if (bar) bar.style.transform = 'scaleY(.35)';
+    });
+  }, []);
+
+  const startVoiceVisualizer = useCallback(async () => {
+    if (!navigator.mediaDevices?.getUserMedia) return;
+    try {
+      stopVoiceVisualizer();
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) {
+        stream.getTracks().forEach(track => track.stop());
+        return;
+      }
+      const context = new AudioContextClass();
+      const analyser = context.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.72;
+      const source = context.createMediaStreamSource(stream);
+      source.connect(analyser);
+      audioRef.current = { stream, context, analyser, raf: 0 };
+      const data = new Uint8Array(analyser.fftSize);
+
+      const tick = () => {
+        const current = audioRef.current;
+        if (current.analyser !== analyser) return;
+        analyser.getByteTimeDomainData(data);
+        let sum = 0;
+        for (let i = 0; i < data.length; i += 1) {
+          const sample = (data[i] - 128) / 128;
+          sum += sample * sample;
+        }
+        const rms = Math.sqrt(sum / data.length);
+        const energy = Math.min(1, rms * 5.5);
+        const now = performance.now();
+        eqRefs.current.forEach((bar, index) => {
+          if (!bar) return;
+          const wave = 0.72 + 0.28 * Math.sin(now / (135 + index * 35) + index * 1.7);
+          const floor = 0.28 + index * 0.04;
+          const scale = Math.min(1.45, floor + energy * (1.05 + index * 0.12) * wave);
+          bar.style.transform = `scaleY(${Math.max(.22, scale)})`;
+        });
+        current.raf = requestAnimationFrame(tick);
+      };
+      current.raf = requestAnimationFrame(tick);
+    } catch {
+      stopVoiceVisualizer();
+    }
+  }, [stopVoiceVisualizer]);
+
+  useEffect(() => () => stopVoiceVisualizer(), [stopVoiceVisualizer]);
 
   const focusInput = () => inputRef.current?.focus({ preventScroll: true });
 
@@ -424,6 +488,7 @@ export default function PromptBar({
         text => {
           if (seq !== dictation.current) return;
           setListening(false);
+          stopVoiceVisualizer();
           if (text) {
             const content = draft.trim() ? draft.trimEnd() + ' ' + text : text;
             send(content);
@@ -432,7 +497,10 @@ export default function PromptBar({
           }
         },
         () => {
-          if (seq === dictation.current) setListening(false);
+          if (seq === dictation.current) {
+            setListening(false);
+            stopVoiceVisualizer();
+          }
         }
       );
       return;
@@ -440,6 +508,7 @@ export default function PromptBar({
 
     const seq = ++dictation.current;
     setListening(true);
+    startVoiceVisualizer();
     Promise.resolve(latest.current.onDictate?.({ stop: false })).then(
       text => {
         if (seq !== dictation.current) return;
@@ -696,9 +765,9 @@ export default function PromptBar({
             >
               {listening ? (
                 <span className="prompt-bar__eq" aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
+                  <i ref={el => { eqRefs.current[0] = el; }} />
+                  <i ref={el => { eqRefs.current[1] = el; }} />
+                  <i ref={el => { eqRefs.current[2] = el; }} />
                 </span>
               ) : (
                 <HugeiconsIcon icon={Mic01Icon} size={17} strokeWidth={2} />
