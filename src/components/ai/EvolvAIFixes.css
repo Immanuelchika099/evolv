@@ -267,3 +267,118 @@ body:has(.dashboard.dashboard-ai-active){
     font-size:clamp(3rem,10vw,4.4rem) !important;
   }
 }
+
+
+/* =========================================================
+   AI APP-SCREEN VIEWPORT FIX
+   The AI page is an app screen, not a document page.
+   Keep the dashboard locked to the viewport and let only
+   the conversation area scroll when messages overflow.
+   ========================================================= */
+
+.dashboard.dashboard-ai-active {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .dash-main {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page {
+  position: relative !important;
+  inset: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding-top: 6.8rem !important;
+  padding-bottom: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat {
+  position: relative !important;
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  position: absolute !important;
+  top: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  overscroll-behavior-y: contain !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  box-sizing: border-box !important;
+}
+
+/* The fixed composer no longer needs a giant artificial page spacer.
+   Keep enough room for it inside the scrollable conversation. */
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  padding-bottom: 11rem !important;
+}
+
+/* Prevent Android's document viewport from becoming taller than the app. */
+body:has(.dashboard.dashboard-ai-active),
+html:has(.dashboard.dashboard-ai-active) {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    padding-top: 6.8rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-chat {
+    min-height: 0 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    min-height: 0 !important;
+    padding-bottom: 11rem !important;
+  }
+}
