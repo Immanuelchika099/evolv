@@ -56,7 +56,21 @@ function getProviderFirstName(user) {
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
-  const [isBooting, setIsBooting] = useState(true)
+  // Android's installed PWA already shows the app icon during its native
+  // launch splash. Do not stack our React preload over that splash.
+  // In a normal browser there is no native PWA splash, so keep the EVOLV
+  // preload there for the intended first-load experience.
+  const [isBooting, setIsBooting] = useState(() => {
+    try {
+      const standalone = window.matchMedia?.('(display-mode: standalone)').matches
+      const fullscreen = window.matchMedia?.('(display-mode: fullscreen)').matches
+      const minimalUi = window.matchMedia?.('(display-mode: minimal-ui)').matches
+      const iosStandalone = window.navigator?.standalone === true
+      return !(standalone || fullscreen || minimalUi || iosStandalone)
+    } catch {
+      return true
+    }
+  })
   const [article, setArticle] = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
@@ -93,9 +107,12 @@ function App() {
   }, [])
 
   useEffect(() => {
+    // Installed PWAs use the platform splash screen; the custom loader is
+    // only for regular browser launches.
+    if (!isBooting) return
     const timer = window.setTimeout(() => setIsBooting(false), 1350)
     return () => window.clearTimeout(timer)
-  }, [])
+  }, [isBooting])
 
   useEffect(() => {
     let mounted = true
