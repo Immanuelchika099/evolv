@@ -206,11 +206,15 @@ export default function PromptBar({
     });
   }, []);
 
-  const startVoiceVisualizer = useCallback(async () => {
+  const startVoiceVisualizer = useCallback(async sequence => {
     if (!navigator.mediaDevices?.getUserMedia) return;
     try {
       stopVoiceVisualizer();
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      if (sequence !== dictation.current) {
+        stream.getTracks().forEach(track => track.stop());
+        return;
+      }
       const AudioContextClass = window.AudioContext || window.webkitAudioContext;
       if (!AudioContextClass) {
         stream.getTracks().forEach(track => track.stop());
@@ -508,7 +512,7 @@ export default function PromptBar({
 
     const seq = ++dictation.current;
     setListening(true);
-    startVoiceVisualizer();
+    startVoiceVisualizer(seq);
     Promise.resolve(latest.current.onDictate?.({ stop: false })).then(
       text => {
         if (seq !== dictation.current) return;
