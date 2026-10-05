@@ -1596,6 +1596,21 @@ function Dashboard({ data, onLogout, onArticle }) {
     setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
+    if(active!=='notifications') return
+    let mounted=true
+    async function refreshNotifications(){
+      const {data:a}=await supabase.auth.getUser()
+      const u=a?.user
+      if(!u)return
+      const {data:n}=await supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50)
+      if(mounted && n) setNotifications(n)
+    }
+    refreshNotifications()
+    const timer=window.setInterval(refreshNotifications,30000)
+    return()=>{mounted=false;window.clearInterval(timer)}
+  },[active])
+
+  useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
     const requested=params.get('log')
     if(!requested||!defs.length) return
