@@ -48,3 +48,16 @@
 .dashboard-home .today-metric small {
   margin-top: 3px;
 }
+
+
+/* Notification history actions */
+.notifications-page-list { display: grid; gap: 12px; }
+.notification-page-row { position: relative; display: grid; grid-template-columns: 42px minmax(0, 1fr) 40px; gap: 14px; align-items: start; }
+.notification-page-copy { min-width: 0; }
+.notification-page-delete { width: 38px; height: 38px; display: inline-flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,.09); border-radius: 12px; background: rgba(255,255,255,.035); color: rgba(255,255,255,.58); cursor: pointer; transition: .2s ease; }
+.notification-page-delete:hover { color: #fff; background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.16); }
+.notification-page-delete:active { transform: scale(.94); }
+@media (max-width: 600px) {
+  .notification-page-row { grid-template-columns: 38px minmax(0,1fr) 36px; gap: 10px; }
+  .notification-page-delete { width: 34px; height: 34px; border-radius: 10px; }
+}
