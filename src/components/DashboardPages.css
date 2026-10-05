@@ -310,3 +310,28 @@
     margin-top: .45rem;
   }
 }
+
+/* Keep the target-date field fully inside the goals form */
+.goals-page .goal-create-form,
+.goals-page .goal-create-form * {
+  box-sizing: border-box;
+}
+
+.goals-page .goal-date-field {
+  width: 100%;
+  min-width: 0;
+}
+
+.goals-page .goal-date-field input[type="date"] {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+  .goals-page .goal-date-field input[type="date"] {
+    display: block;
+    width: 100%;
+  }
+}
