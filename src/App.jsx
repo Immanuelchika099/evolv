@@ -1610,6 +1610,25 @@ function Dashboard({ data, onLogout, onArticle }) {
     return()=>{mounted=false;window.clearInterval(timer)}
   },[active])
 
+  async function deleteNotification(notification){
+    if(!notification?.id) return
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u) return
+
+    setNotifications(current=>current.filter(item=>item.id!==notification.id))
+    const {error:x}=await supabase
+      .from('notification_delivery_log')
+      .delete()
+      .eq('id',notification.id)
+      .eq('user_id',u.id)
+
+    if(x){
+      setError('Could not delete that notification. Please try again.')
+      setNotifications(current=>current.some(item=>item.id===notification.id)?current:[notification,...current])
+    }
+  }
+
   useEffect(()=>{
     const params=new URLSearchParams(window.location.search)
     const requested=params.get('log')
@@ -2175,7 +2194,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, valueText, openLog,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
     updateGoal, deleteGoal, saveProfile,
-    toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour,
+    toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour, deleteNotification,
     openReflection, setReflectionOpen, deleteAccount, onLogout, onArticle, data,
     handleAvatarChange, removeAvatar, setProfileMessage,
     WeeklyProgressChart,
