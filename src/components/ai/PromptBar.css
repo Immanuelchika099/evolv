@@ -145,3 +145,19 @@
   .prompt-bar__effort-fill,.prompt-bar__effort-thumb { transition:background-color 300ms ease; }
   .prompt-bar__tool:active,.prompt-bar__send[data-pressed] { transform:none; }
 }
+
+/* Composer sizing polish */
+.prompt-bar__input { font-size: 18px; line-height: 24px; }
+.prompt-bar__tool { width: 34px; height: 34px; }
+.prompt-bar__tool > svg { width: 20px; height: 20px; }
+.prompt-bar__send { width: 34px; height: 34px; }
+.prompt-bar__glyph { width: 22px; height: 22px; }
+.prompt-bar__eq { height: 17px; gap: 3px; }
+.prompt-bar__eq i { width: 3px; }
+@media (pointer:coarse) {
+  .prompt-bar__input { font-size: 18px; line-height: 24px; }
+  .prompt-bar__tool { width: 36px; height: 36px; }
+  .prompt-bar__tool > svg { width: 21px; height: 21px; }
+  .prompt-bar__send { width: 36px; height: 36px; }
+  .prompt-bar__glyph { width: 23px; height: 23px; }
+}
