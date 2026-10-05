@@ -5,3 +5,9 @@ on public.notification_delivery_log
 for select
 to authenticated
 using ((select auth.uid()) = user_id);
+
+create policy "Users can delete their own notification history"
+on public.notification_delivery_log
+for delete
+to authenticated
+using ((select auth.uid()) = user_id);
