@@ -8,6 +8,7 @@ import {
   Utensils, Sparkles, Send, Sunrise, X, LineChart
 } from 'lucide-react'
 import './DashboardPages.css'
+import './PremiumDashboard.css'
 import HoldButton from './HoldButton'
 
 export function DashboardPages({ active, pageProps }) {
