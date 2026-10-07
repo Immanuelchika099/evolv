@@ -1,41 +1,52 @@
-/* =========================================================
-   EVOLV — GLOBAL TYPOGRAPHY + SPACING TOKENS
-   ========================================================= */
+/* EVOLV — restrained global design tokens */
 :root{
-  --font-ui:Manrope,sans-serif;
-  --font-display:"Instrument Serif",Georgia,"Times New Roman",serif;
+  --font-ui:Inter,Manrope,system-ui,sans-serif;
+  --font-display:"Instrument Serif","Playfair Display",Georgia,serif;
 
-  --text-primary:rgba(255,255,255,.92);
-  --text-muted:rgba(255,255,255,.55);
-  --text-subtle:rgba(255,255,255,.38);
+  --color-bg:#0A0A0A;
+  --color-surface-start:#353633;
+  --color-surface-end:#1A1B19;
+  --color-border:rgba(255,255,255,.06);
+  --color-text:rgba(255,255,255,.92);
+  --color-muted:rgba(255,255,255,.55);
+  --color-disabled:rgba(255,255,255,.35);
+  --color-accent-start:#B6F04F;
+  --color-accent-end:#8BC34A;
+  --color-accent-dim:#4A6A1F;
+  --color-chart-orange:#F2763A;
+  --color-chart-amber:#F5C04A;
+  --color-danger:#E5484D;
 
-  --type-display:clamp(4rem,5vw,5.6rem);
-  --type-h1:clamp(3.2rem,4vw,4rem);
-  --type-h2:clamp(2.4rem,3vw,2.8rem);
+  --type-display:clamp(4rem,3.2vw + 2rem,5.6rem);
+  --type-h1:clamp(3.2rem,2.1vw + 2rem,4rem);
+  --type-h2:clamp(2.4rem,1.2vw + 2rem,2.8rem);
   --type-h3:2rem;
   --type-body:1.6rem;
   --type-small:1.4rem;
   --type-caption:1.2rem;
-
-  --lh-heading:1.12;
+  --lh-heading:1.15;
   --lh-body:1.55;
 
   --space-1:.4rem;
   --space-2:.8rem;
   --space-3:1.2rem;
   --space-4:1.6rem;
-  --space-5:2.4rem;
-  --space-6:3.2rem;
-  --space-7:4.8rem;
-  --space-8:6.4rem;
-  --space-9:9.6rem;
+  --space-6:2.4rem;
+  --space-8:3.2rem;
+  --space-12:4.8rem;
+  --space-16:6.4rem;
+  --space-24:9.6rem;
 
   --page-gutter:2rem;
   --content-max:120rem;
   --card-padding:2.4rem;
-  --control-height:4.4rem;
+  --control-height:4.8rem;
+  --row-min-height:5.6rem;
   --radius-control:1.2rem;
-  --radius-card:2rem;
+  --radius-card:3.2rem;
+  --surface-gradient:linear-gradient(145deg,var(--color-surface-start),var(--color-surface-end));
+  --accent-gradient:linear-gradient(135deg,var(--color-accent-start),var(--color-accent-end));
+  --card-shadow:0 2rem 5rem rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035);
 }
 @media(min-width:768px){:root{--page-gutter:3.2rem}}
 @media(min-width:1280px){:root{--page-gutter:4.8rem}}
