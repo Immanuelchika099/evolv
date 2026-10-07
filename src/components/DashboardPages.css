@@ -2759,3 +2759,441 @@
     padding-right:0!important;
   }
 }
+
+
+/* FINAL PROFILE + LOG STABILITY PASS
+   Keep profile content truly full-width and make the avatar an explicit
+   square media viewport. The Log tab is rendered as a real page first,
+   with the logging sheet opened from that page. */
+
+.dashboard .profile-layout{
+  width:100%!important;
+  max-width:none!important;
+  grid-template-columns:1fr!important;
+  gap:4.8rem!important;
+}
+
+.dashboard .profile-summary-card,
+.dashboard .profile-settings-column,
+.dashboard .profile-settings-column>section,
+.dashboard .profile-stat-grid,
+.dashboard .profile-settings-list{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+
+.dashboard .profile-summary-card{
+  position:relative!important;
+  top:auto!important;
+}
+
+.dashboard .profile-summary-top{
+  width:100%!important;
+}
+
+.dashboard .profile-avatar-button{
+  position:relative!important;
+  display:grid!important;
+  place-items:center!important;
+  width:12rem!important;
+  height:12rem!important;
+  min-width:12rem!important;
+  min-height:12rem!important;
+  max-width:12rem!important;
+  max-height:12rem!important;
+  aspect-ratio:1 / 1!important;
+  flex:0 0 12rem!important;
+  overflow:hidden!important;
+  padding:.45rem!important;
+  box-sizing:border-box!important;
+  line-height:0!important;
+  border-radius:50%!important;
+}
+
+.dashboard .profile-avatar-image{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  max-width:none!important;
+  max-height:none!important;
+  aspect-ratio:1 / 1!important;
+  object-fit:cover!important;
+  object-position:50% 50%!important;
+  border-radius:50%!important;
+  overflow:hidden!important;
+}
+
+.dashboard .profile-avatar{
+  width:100%!important;
+  height:100%!important;
+  aspect-ratio:1 / 1!important;
+  border-radius:50%!important;
+}
+
+.dashboard .profile-avatar-camera{
+  z-index:2!important;
+}
+
+/* The settings are the primary profile workspace — every section spans
+   the full available canvas instead of living in a narrow right column. */
+.dashboard .profile-settings-column{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:4.8rem!important;
+}
+
+.dashboard .profile-settings-column>section{
+  margin:0!important;
+}
+
+/* Real page surface for the bottom-nav Log destination. */
+.dashboard .logs-page{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  padding-bottom:12rem!important;
+}
+
+.dashboard .logs-page .logs-page-hero,
+.dashboard .logs-page .logs-page-toolbar,
+.dashboard .logs-page .logs-page-list,
+.dashboard .logs-page .logs-page-empty{
+  width:100%!important;
+  max-width:none!important;
+}
+
+/* Logging sheet: never collapse to an unstyled/empty viewport. */
+.dashboard .log-overlay{
+  position:fixed!important;
+  inset:0!important;
+  z-index:100000!important;
+  display:flex!important;
+  align-items:flex-end!important;
+  justify-content:center!important;
+  padding:0!important;
+  background:rgba(0,0,0,.72)!important;
+  backdrop-filter:blur(18px)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+}
+
+.dashboard .log-sheet{
+  position:relative!important;
+  width:min(76rem,100%)!important;
+  max-width:100%!important;
+  max-height:min(92vh,96rem)!important;
+  min-height:0!important;
+  display:flex!important;
+  flex-direction:column!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-bottom:0!important;
+  border-radius:2.8rem 2.8rem 0 0!important;
+  background:linear-gradient(145deg,#181918,#090a09)!important;
+  color:#f4f2ec!important;
+  box-shadow:0 -2rem 8rem rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+
+.dashboard .log-sheet-handle{
+  width:100%!important;
+  height:2.8rem!important;
+  flex:0 0 2.8rem!important;
+  display:grid!important;
+  place-items:center!important;
+}
+
+.dashboard .log-sheet-handle span{
+  width:4.2rem!important;
+  height:.4rem!important;
+  border-radius:99rem!important;
+  background:rgba(255,255,255,.2)!important;
+}
+
+.dashboard .log-sheet-head{
+  display:flex!important;
+  align-items:flex-start!important;
+  justify-content:space-between!important;
+  gap:2rem!important;
+  padding:0 2.4rem 2rem!important;
+}
+
+.dashboard .log-sheet-heading{
+  min-width:0!important;
+}
+
+.dashboard .log-sheet-heading h2{
+  margin:.8rem 0 1rem!important;
+  color:#f4f2ec!important;
+  font:italic 400 clamp(3.2rem,6vw,5.2rem)/.92 Georgia,'Times New Roman',serif!important;
+  letter-spacing:-.055em!important;
+}
+
+.dashboard .log-sheet-heading p{
+  max-width:54rem!important;
+  margin:0!important;
+  color:rgba(255,255,255,.48)!important;
+  font:400 1.4rem/1.6 var(--font-ui)!important;
+}
+
+.dashboard .log-close{
+  width:4.4rem!important;
+  height:4.4rem!important;
+  min-width:4.4rem!important;
+  min-height:4.4rem!important;
+  flex:0 0 4.4rem!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:50%!important;
+  background:rgba(255,255,255,.04)!important;
+  color:rgba(255,255,255,.75)!important;
+}
+
+.dashboard .log-sheet-scroll{
+  min-height:0!important;
+  flex:1 1 auto!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  padding:0 2.4rem 2.4rem!important;
+  -webkit-overflow-scrolling:touch!important;
+}
+
+.dashboard .log-card-list{
+  display:grid!important;
+  gap:0!important;
+  width:100%!important;
+  border-top:1px solid rgba(255,255,255,.08)!important;
+}
+
+.dashboard .log-health-card{
+  width:100%!important;
+  min-height:8.4rem!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:1.4rem!important;
+  padding:1.4rem 0!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  color:#f4f2ec!important;
+  text-align:left!important;
+}
+
+.dashboard .log-card-top{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:1.2rem!important;
+}
+
+.dashboard .log-card-title{
+  min-width:0!important;
+  display:flex!important;
+  align-items:center!important;
+  gap:1.2rem!important;
+}
+
+.dashboard .log-choice-icon{
+  width:4.2rem!important;
+  height:4.2rem!important;
+  min-width:4.2rem!important;
+  min-height:4.2rem!important;
+  display:grid!important;
+  place-items:center!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:1.25rem!important;
+  background:rgba(255,255,255,.035)!important;
+  color:var(--area-color,var(--color-text))!important;
+}
+
+.dashboard .log-card-title strong{
+  min-width:0!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+  white-space:nowrap!important;
+  color:#f4f2ec!important;
+  font:500 1.6rem/1.2 var(--font-ui)!important;
+}
+
+.dashboard .log-card-bottom{
+  flex:0 0 auto!important;
+  display:block!important;
+  margin-left:5.4rem!important;
+  margin-top:-1rem!important;
+}
+
+.dashboard .log-card-count{
+  display:block!important;
+}
+
+.dashboard .log-card-count strong{
+  display:block!important;
+  color:rgba(255,255,255,.55)!important;
+  font:500 1.2rem/1.3 var(--font-ui)!important;
+}
+
+.dashboard .log-card-count small{
+  display:block!important;
+  margin-top:.25rem!important;
+  color:rgba(255,255,255,.3)!important;
+  font:400 1.05rem/1.3 var(--font-ui)!important;
+}
+
+.dashboard .log-card-chevron{
+  flex:0 0 auto!important;
+  color:rgba(255,255,255,.3)!important;
+}
+
+.dashboard .log-back{
+  min-height:4.4rem!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  gap:.6rem!important;
+  padding:0!important;
+  margin:0 0 1.4rem!important;
+  border:0!important;
+  background:transparent!important;
+  color:rgba(255,255,255,.45)!important;
+}
+
+.dashboard .log-form{
+  display:grid!important;
+  gap:1.8rem!important;
+  padding-top:1rem!important;
+}
+
+.dashboard .log-selected-metric{
+  display:flex!important;
+  align-items:center!important;
+  gap:1.1rem!important;
+  padding:1.4rem 0!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+
+.dashboard .log-field-group,
+.dashboard .special-metric-fields{
+  display:grid!important;
+  gap:1.2rem!important;
+}
+
+.dashboard .log-field-title{
+  display:flex!important;
+  justify-content:space-between!important;
+  gap:1rem!important;
+  color:#f4f2ec!important;
+  font:500 1.4rem/1.3 var(--font-ui)!important;
+}
+
+.dashboard .log-field-title small{
+  color:rgba(255,255,255,.35)!important;
+  font-size:1.15rem!important;
+}
+
+.dashboard .log-input-label{
+  display:grid!important;
+  gap:.7rem!important;
+}
+
+.dashboard .log-input-label>span{
+  color:rgba(255,255,255,.48)!important;
+  font:500 1.2rem/1.3 var(--font-ui)!important;
+}
+
+.dashboard .log-input-label input,
+.dashboard .log-input-label textarea{
+  width:100%!important;
+  min-width:0!important;
+  padding:1.3rem 1.4rem!important;
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:1.3rem!important;
+  background:rgba(255,255,255,.035)!important;
+  color:#fff!important;
+  outline:0!important;
+  font:400 1.5rem/1.5 var(--font-ui)!important;
+}
+
+.dashboard .log-input-label textarea{
+  resize:vertical!important;
+}
+
+.dashboard .log-sheet-footer{
+  flex:0 0 auto!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:space-between!important;
+  gap:1.5rem!important;
+  padding:1.5rem 2.4rem calc(1.5rem + env(safe-area-inset-bottom,0px))!important;
+  border-top:1px solid rgba(255,255,255,.08)!important;
+  background:rgba(8,8,8,.94)!important;
+}
+
+.dashboard .log-sheet-footer>div{
+  min-width:0!important;
+}
+
+.dashboard .log-sheet-footer span{
+  display:block!important;
+  color:rgba(255,255,255,.5)!important;
+  font:500 1rem/1.2 var(--font-ui)!important;
+  letter-spacing:.08em!important;
+}
+
+.dashboard .log-sheet-footer small{
+  display:block!important;
+  margin-top:.35rem!important;
+  color:rgba(255,255,255,.28)!important;
+  font-size:1.05rem!important;
+}
+
+@media(max-width:900px){
+  .dashboard .profile-layout{
+    grid-template-columns:1fr!important;
+  }
+  .dashboard .profile-summary-top{
+    grid-template-columns:auto minmax(0,1fr)!important;
+  }
+}
+
+@media(max-width:620px){
+  .dashboard .profile-summary-top{
+    grid-template-columns:1fr!important;
+  }
+  .dashboard .profile-summary-copy{
+    text-align:center!important;
+  }
+  .dashboard .profile-summary-copy p{
+    margin-left:auto!important;
+  }
+  .dashboard .profile-avatar-button{
+    width:9.6rem!important;
+    height:9.6rem!important;
+    min-width:9.6rem!important;
+    min-height:9.6rem!important;
+    max-width:9.6rem!important;
+    max-height:9.6rem!important;
+    flex-basis:9.6rem!important;
+    margin:0 auto!important;
+  }
+  .dashboard .log-sheet{
+    width:100%!important;
+    max-height:94vh!important;
+    border-radius:2.4rem 2.4rem 0 0!important;
+  }
+  .dashboard .log-sheet-head,
+  .dashboard .log-sheet-scroll{
+    padding-left:1.8rem!important;
+    padding-right:1.8rem!important;
+  }
+  .dashboard .log-sheet-footer{
+    padding-left:1.8rem!important;
+    padding-right:1.8rem!important;
+  }
+  .dashboard .log-card-bottom{
+    margin-left:5.4rem!important;
+  }
+}
