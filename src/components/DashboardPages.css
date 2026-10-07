@@ -2707,3 +2707,55 @@
     padding-right:0!important;
   }
 }
+
+
+/* ACTUAL DOM WIDTH FIX — DashboardPages renders directly inside .dash-main.
+   There is no .dashboard-pages wrapper in the DOM. */
+.dashboard .dash-main > .dashboard-home,
+.dashboard .dash-main > .panel-page.settings-page,
+.dashboard .dash-main > .panel-page.dashboard-panel{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.dashboard .dash-main > .dashboard-home{
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page{
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+.dashboard .dash-main > .dashboard-home .dashboard-welcome-minimal,
+.dashboard .dash-main > .dashboard-home .today-snapshot,
+.dashboard .dash-main > .dashboard-home .evolv-life-overview,
+.dashboard .dash-main > .dashboard-home .dashboard-areas-card,
+.dashboard .dash-main > .panel-page.settings-page .settings-heading,
+.dashboard .dash-main > .panel-page.settings-page .profile-layout{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column,
+.dashboard .dash-main > .panel-page.settings-page .profile-summary-card,
+.dashboard .dash-main > .panel-page.settings-page .profile-stat-grid{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+
+@media(max-width:640px){
+  .dashboard .dash-main > .dashboard-home,
+  .dashboard .dash-main > .panel-page.settings-page{
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+}
