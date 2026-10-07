@@ -2572,3 +2572,83 @@
     padding-right:2rem!important;
   }
 }
+
+
+/* FINAL OPEN LAYOUT — Home/Profile should be the page, not a framed container. */
+.dashboard .dashboard-home,
+.dashboard .settings-page,
+.dashboard .dashboard-pages{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+}
+.dashboard .dashboard-home,
+.dashboard .settings-page{
+  padding-left:clamp(2rem,5vw,8rem)!important;
+  padding-right:clamp(2rem,5vw,8rem)!important;
+}
+.dashboard .today-snapshot,
+.dashboard .dashboard-areas-card,
+.dashboard .dashboard-welcome-minimal,
+.dashboard .settings-heading,
+.dashboard .profile-layout{
+  width:100%!important;
+  max-width:none!important;
+}
+
+/* Profile: remove the outer card shells completely. */
+.dashboard .profile-layout{
+  grid-template-columns:minmax(32rem,.72fr) minmax(0,1.28fr)!important;
+  gap:clamp(4rem,7vw,10rem)!important;
+}
+.dashboard .profile-summary-card,
+.dashboard .profile-settings-column>section,
+.dashboard .profile-stat-grid{
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+}
+.dashboard .profile-summary-card{
+  padding:0!important;
+  position:sticky!important;
+  top:2.4rem!important;
+}
+.dashboard .profile-settings-column{gap:5.6rem!important}
+.dashboard .profile-settings-section{
+  border-top:1px solid var(--color-border)!important;
+  padding-top:2.4rem!important;
+}
+.dashboard .profile-stat-grid{
+  overflow:visible!important;
+  border-top:1px solid var(--color-border)!important;
+  border-bottom:1px solid var(--color-border)!important;
+}
+.dashboard .profile-stat-grid article{
+  min-height:11rem!important;
+  padding:2rem 2.4rem!important;
+}
+.dashboard .profile-stat-grid article:first-child{padding-left:0!important}
+.dashboard .profile-stat-grid article:last-child{padding-right:0!important}
+
+@media(max-width:900px){
+  .dashboard .profile-layout{
+    grid-template-columns:1fr!important;
+    gap:4rem!important;
+  }
+  .dashboard .profile-summary-card{
+    position:relative!important;
+    top:auto!important;
+  }
+}
+@media(max-width:640px){
+  .dashboard .dashboard-home,
+  .dashboard .settings-page{
+    padding-left:2rem!important;
+    padding-right:2rem!important;
+  }
+  .dashboard .profile-stat-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+  .dashboard .profile-stat-grid article{padding:1.6rem!important}
+}
