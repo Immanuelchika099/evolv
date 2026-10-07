@@ -1601,13 +1601,13 @@ function Dashboard({ data, onLogout, onArticle }) {
 
   useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
     const [p,d,l,m,g,n]=await Promise.all([
-      supabase.from('profiles').select('first_name,growth_areas,focus,first_goal').eq('id',u.id).maybeSingle(),
+      supabase.from('profiles').select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').eq('id',u.id).maybeSingle(),
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false}),
       supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50)
-     ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||''});setProfileName(p.data.first_name||'')}
+     ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||'',user_metadata:u.user_metadata||{}});setProfileName(p.data.first_name||'')}
     setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');
     setDefs(d.data||[]);
     setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
@@ -1767,7 +1767,50 @@ function Dashboard({ data, onLogout, onArticle }) {
     if(x){setError(x.message);return}
     setGoals(c=>c.filter(item=>item.id!==g.id))
   }
-  async function saveProfile(e){e.preventDefault();if(!profileName.trim())return;const {data:a}=await supabase.auth.getUser();const {data:p,error:x}=await supabase.from('profiles').update({first_name:profileName.trim(),updated_at:new Date().toISOString()}).eq('id',a.user.id).select('first_name,growth_areas,focus,first_goal').single();if(x){setProfileMessage('Could not save your profile.');return}setProfile({...p,email:a.user.email||''});setProfileMessage('Profile saved.')}
+  async function saveProfile(e,overrides={}){
+    e?.preventDefault?.()
+    const nextName=String(overrides.name??profileName).trim()
+    const nextEmail=String(overrides.email??'').trim().toLowerCase()
+    const nextBio=String(overrides.bio??'').trim()
+
+    if(!nextName){
+      setProfileMessage('Name is required.')
+      throw new Error('Name is required.')
+    }
+
+    const {data:a,error:userError}=await supabase.auth.getUser()
+    const u=a?.user
+    if(userError||!u){
+      setProfileMessage('Your session has expired. Please sign in again.')
+      throw userError||new Error('Your session has expired.')
+    }
+
+    const {data:p,error:x}=await supabase
+      .from('profiles')
+      .update({first_name:nextName,updated_at:new Date().toISOString()})
+      .eq('id',u.id)
+      .select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url')
+      .single()
+
+    if(x){
+      setProfileMessage('Could not save your profile.')
+      throw x
+    }
+
+    const currentEmail=u.email||''
+    const authPayload={data:{...(u.user_metadata||{}),bio:nextBio}}
+    if(nextEmail && nextEmail!==currentEmail) authPayload.email=nextEmail
+
+    const {data:updatedAuth,error:authError}=await supabase.auth.updateUser(authPayload)
+    if(authError){
+      setProfileMessage(authError.message||'Could not update your account details.')
+      throw authError
+    }
+
+    setProfile({...p,email:updatedAuth?.user?.email||nextEmail||currentEmail,user_metadata:updatedAuth?.user?.user_metadata||authPayload.data})
+    setProfileName(nextName)
+    setProfileMessage(nextEmail&&nextEmail!==currentEmail?'Profile saved. Check your email to confirm the new address.':'Profile saved.')
+  }
   async function createAlarm(event){
     event.preventDefault()
     if(!alarmTitle.trim()||!alarmDate||!alarmTime)return
