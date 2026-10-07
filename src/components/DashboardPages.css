@@ -1024,3 +1024,318 @@
   .metric-detail-row,.logs-page-row,.meal-history-row{grid-template-columns:3.8rem minmax(0,1fr) 1.5rem;gap:.9rem;}
   .logs-page-row time,.logs-page-row>.logs-page-icon+*+time{display:none;}
 }
+
+
+/* =========================================================
+   EVOLV HOME — cinematic visual pass
+   Home only. No data, state, handlers or navigation changes.
+   ========================================================= */
+
+.dashboard-home{
+  position:relative;
+  isolation:isolate;
+  width:min(106rem,100%);
+  padding:0 0 12rem;
+}
+
+.dashboard-home::before{
+  content:"";
+  position:absolute;
+  z-index:-2;
+  inset:-8rem -8vw 8rem;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 78% 7%,rgba(192,116,48,.075),transparent 28%),
+    radial-gradient(circle at 15% 28%,rgba(255,255,255,.035),transparent 25%),
+    linear-gradient(180deg,#090908 0%,#0b0b0a 42%,#080808 100%);
+}
+
+.dashboard-home::after{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:-8rem -8vw 8rem;
+  pointer-events:none;
+  background:radial-gradient(circle at 50% 0,transparent 0,rgba(0,0,0,.22) 62%,rgba(0,0,0,.72) 100%);
+}
+
+/* Quiet, editorial welcome */
+.dashboard-home .dashboard-welcome-minimal{
+  min-height:38rem;
+  display:flex;
+  align-items:flex-end;
+  padding:7rem 0 5.8rem;
+  border-bottom:1px solid rgba(255,255,255,.075);
+}
+
+.dashboard-home .dashboard-welcome-copy{
+  max-width:80rem;
+}
+
+.dashboard-home .dashboard-eyebrow{
+  display:block;
+  color:rgba(255,255,255,.34);
+  font:500 1rem/1 'DM Mono',monospace;
+  letter-spacing:.18em;
+  animation:evolvHomeFade .7s ease both;
+}
+
+.dashboard-home .dashboard-welcome-minimal h1{
+  margin:1.5rem 0 0;
+  color:#f3eee6;
+  font:italic 400 clamp(5.8rem,11vw,10.8rem)/.82 Georgia,'Times New Roman',serif;
+  letter-spacing:-.075em;
+  text-wrap:balance;
+  animation:evolvHomeTitle .9s cubic-bezier(.2,.8,.2,1) both;
+}
+
+/* TODAY becomes an open composition, not a container */
+.dashboard-home .today-snapshot{
+  position:relative;
+  margin-top:7rem;
+}
+
+.dashboard-home .today-snapshot-head{
+  align-items:flex-end;
+  margin-bottom:2.8rem;
+}
+
+.dashboard-home .today-snapshot-head h2{
+  margin:.8rem 0 0;
+  color:#f1eee7;
+  font:400 clamp(2.9rem,4.5vw,4.7rem)/.95 'Space Grotesk',sans-serif;
+  letter-spacing:-.065em;
+}
+
+.dashboard-home .today-log-count{
+  width:3.9rem;
+  height:3.9rem;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.025);
+  color:rgba(255,255,255,.56);
+  font:500 1.15rem/1 'DM Mono',monospace;
+}
+
+/* Keep the existing two-column data layout, but make it feel like a journal/grid */
+.dashboard-home .today-metrics{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+  border-top:1px solid rgba(255,255,255,.1)!important;
+}
+
+.dashboard-home .today-metric,
+.dashboard-home .today-empty{
+  min-height:17.5rem!important;
+  padding:2rem 1.8rem 2.2rem!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.075)!important;
+  border-radius:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+  grid-template-areas:"icon arrow" "copy copy"!important;
+  transition:background .25s ease,transform .25s ease;
+}
+
+.dashboard-home .today-metric:nth-child(odd),
+.dashboard-home .today-empty:nth-child(odd){
+  border-right:1px solid rgba(255,255,255,.075)!important;
+}
+
+.dashboard-home .today-metric:hover,
+.dashboard-home .today-empty:hover{
+  background:rgba(255,255,255,.026)!important;
+  border-color:rgba(255,255,255,.075)!important;
+  transform:none!important;
+}
+
+.dashboard-home .today-metric:active,
+.dashboard-home .today-empty:active{
+  transform:scale(.992)!important;
+}
+
+.dashboard-home .today-metric::after,
+.dashboard-home .today-empty::after{
+  display:none!important;
+}
+
+.dashboard-home .metric-row-icon,
+.dashboard-home .today-empty>svg:first-child{
+  width:4rem!important;
+  height:4rem!important;
+  min-width:4rem!important;
+  border:1px solid rgba(255,255,255,.105)!important;
+  border-radius:1.3rem!important;
+  background:rgba(255,255,255,.035)!important;
+  color:rgba(255,255,255,.78)!important;
+}
+
+.dashboard-home .today-metric>span:nth-child(2),
+.dashboard-home .today-empty>span{
+  align-self:end;
+  padding-top:4.2rem!important;
+}
+
+.dashboard-home .today-metric>span:nth-child(2) strong,
+.dashboard-home .today-empty strong{
+  color:#f2eee7!important;
+  font:500 1.65rem/1.15 'Manrope',sans-serif!important;
+  letter-spacing:-.025em;
+}
+
+.dashboard-home .today-metric>span:nth-child(2) small,
+.dashboard-home .today-empty small{
+  margin-top:.65rem!important;
+  color:rgba(255,255,255,.38)!important;
+  font-size:1.08rem!important;
+}
+
+.dashboard-home .today-metric>svg:last-child,
+.dashboard-home .today-empty>svg:last-child{
+  color:rgba(255,255,255,.28);
+}
+
+/* Warm accent only where it helps */
+.dashboard-home .today-metric:nth-child(4n+1) .metric-row-icon{
+  color:#d9a36b!important;
+  border-color:rgba(217,163,107,.18)!important;
+  background:rgba(217,163,107,.055)!important;
+}
+.dashboard-home .today-metric:nth-child(4n+2) .metric-row-icon{
+  color:#d4c08a!important;
+  border-color:rgba(212,192,138,.16)!important;
+  background:rgba(212,192,138,.045)!important;
+}
+
+/* Your areas: quiet navigation, not another card */
+.dashboard-home .evolv-life-overview{
+  margin-top:7rem;
+  padding:0 0 3rem;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+.dashboard-home .dashboard-areas-head{
+  margin:0;
+  padding:2.1rem 0 1.2rem;
+}
+
+.dashboard-home .life-area-row{
+  min-height:7.7rem;
+  padding:1.3rem .35rem;
+  border-top:1px solid rgba(255,255,255,.065);
+  background:transparent;
+}
+
+.dashboard-home .life-area-row:hover{
+  background:rgba(255,255,255,.018);
+  padding-left:.8rem;
+}
+
+.dashboard-home .life-area-icon{
+  width:3.8rem;
+  height:3.8rem;
+  border:1px solid rgba(255,255,255,.095);
+  border-radius:1.2rem;
+  background:rgba(255,255,255,.025);
+}
+
+.dashboard-home .life-area-main strong{
+  color:#eeeae3;
+  font-size:1.5rem;
+  font-weight:500;
+}
+.dashboard-home .life-area-main small{
+  color:rgba(255,255,255,.34);
+  font-size:1.05rem;
+}
+.dashboard-home .life-area-row>svg{
+  color:rgba(255,255,255,.26);
+}
+
+@keyframes evolvHomeFade{
+  from{opacity:0;transform:translateY(1rem)}
+  to{opacity:1;transform:none}
+}
+@keyframes evolvHomeTitle{
+  from{opacity:0;transform:translateY(2rem);filter:blur(7px)}
+  to{opacity:1;transform:none;filter:none}
+}
+
+@media(max-width:700px){
+  .dashboard-home{
+    padding-bottom:10rem;
+  }
+  .dashboard-home .dashboard-welcome-minimal{
+    min-height:27rem;
+    padding:5rem 0 4.5rem;
+  }
+  .dashboard-home .dashboard-welcome-minimal h1{
+    font-size:5.8rem;
+  }
+  .dashboard-home .today-snapshot,
+  .dashboard-home .evolv-life-overview{
+    margin-top:4.8rem;
+  }
+  .dashboard-home .today-metric,
+  .dashboard-home .today-empty{
+    min-height:15rem!important;
+    padding:1.35rem 1.2rem 1.5rem!important;
+  }
+  .dashboard-home .metric-row-icon,
+  .dashboard-home .today-empty>svg:first-child{
+    width:3.45rem!important;
+    height:3.45rem!important;
+    min-width:3.45rem!important;
+    border-radius:1.05rem!important;
+  }
+  .dashboard-home .today-metric>span:nth-child(2),
+  .dashboard-home .today-empty>span{
+    padding-top:2.6rem!important;
+  }
+  .dashboard-home .today-metric>span:nth-child(2) strong,
+  .dashboard-home .today-empty strong{
+    font-size:1.42rem!important;
+  }
+}
+
+@media(max-width:430px){
+  .dashboard-home .dashboard-welcome-minimal{
+    min-height:24rem;
+    padding-top:4.2rem;
+  }
+  .dashboard-home .dashboard-welcome-minimal h1{
+    font-size:5.1rem;
+  }
+  .dashboard-home .today-metrics{
+    grid-template-columns:1fr 1fr!important;
+  }
+  .dashboard-home .today-metric,
+  .dashboard-home .today-empty{
+    min-height:13.8rem!important;
+    padding:1.15rem 1rem 1.25rem!important;
+  }
+  .dashboard-home .today-metric:nth-child(odd),
+  .dashboard-home .today-empty:nth-child(odd){
+    border-right:1px solid rgba(255,255,255,.075)!important;
+  }
+  .dashboard-home .today-metric>span:nth-child(2) strong,
+  .dashboard-home .today-empty strong{
+    font-size:1.28rem!important;
+  }
+  .dashboard-home .today-metric>span:nth-child(2) small,
+  .dashboard-home .today-empty small{
+    font-size:.96rem!important;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .dashboard-home .dashboard-eyebrow,
+  .dashboard-home .dashboard-welcome-minimal h1{
+    animation:none!important;
+  }
+  .dashboard-home .today-metric,
+  .dashboard-home .today-empty,
+  .dashboard-home .life-area-row{
+    transition:none!important;
+  }
+}
