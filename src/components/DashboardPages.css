@@ -2522,3 +2522,53 @@
 @media(min-width:1600px){
   .dashboard-home,.settings-page{padding-inline:4.8rem}
 }
+
+/* Final open-layout correction: Home + Profile should feel like the page itself, not a card */
+.dashboard-home,.settings-page{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding-left:clamp(2rem,5vw,8rem)!important;
+  padding-right:clamp(2rem,5vw,8rem)!important;
+}
+.dashboard-home{padding-top:clamp(2.4rem,5vw,6.4rem)!important}
+.settings-page{padding-top:clamp(2.4rem,5vw,6.4rem)!important}
+
+.dashboard-welcome-minimal{
+  width:100%!important;
+  max-width:none!important;
+  border:0!important;
+  border-radius:0!important;
+  background:transparent!important;
+}
+.dashboard-welcome-copy{max-width:78rem!important}
+.today-snapshot,.dashboard-areas-card{
+  width:100%!important;
+  max-width:none!important;
+}
+.today-metrics{width:100%!important}
+.life-area-row{width:100%!important}
+
+.settings-heading{
+  width:100%!important;
+  max-width:none!important;
+}
+.profile-layout{
+  width:100%!important;
+  max-width:none!important;
+  grid-template-columns:minmax(30rem,.55fr) minmax(0,1.45fr)!important;
+  gap:clamp(2.4rem,4vw,6.4rem)!important;
+}
+.profile-summary-card,.profile-settings-column,.profile-settings-column>section,.profile-stat-grid{
+  width:100%!important;
+  max-width:none!important;
+}
+@media(max-width:900px){
+  .profile-layout{grid-template-columns:1fr!important}
+}
+@media(max-width:640px){
+  .dashboard-home,.settings-page{
+    padding-left:2rem!important;
+    padding-right:2rem!important;
+  }
+}
