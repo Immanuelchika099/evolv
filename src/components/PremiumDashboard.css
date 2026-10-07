@@ -1,0 +1,78 @@
+/* EVOLV premium logged-in surfaces — progress, profile, goals, history */
+.progress-heading{padding-bottom:4rem!important;border-bottom:1px solid var(--line)!important}
+.progress-heading .manage-logs-button{width:100%!important;margin-top:3rem!important;padding:1.5rem 0!important;display:grid!important;grid-template-columns:4rem minmax(0,1fr) auto!important;gap:1.2rem!important;align-items:center!important;border:0!important;border-top:1px solid var(--line-soft)!important;border-bottom:1px solid var(--line-soft)!important;border-radius:0!important;background:transparent!important}
+.progress-heading .manage-logs-button-icon{width:3.5rem!important;height:3.5rem!important;display:grid!important;place-items:center!important;border:1px solid var(--line)!important;border-radius:50%!important;background:transparent!important}
+.progress-heading .manage-logs-button-copy{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:.25rem!important}
+.progress-heading .manage-logs-button-copy strong{color:var(--text)!important;font-size:1.45rem!important;font-weight:500!important}
+.progress-heading .manage-logs-button-copy small{color:var(--muted)!important;font-size:1.15rem!important}
+.progress-goals-card,.progress-section-card,.progress-overview-card{border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.progress-goals-card{margin-top:4.8rem!important;padding:0!important}
+.progress-section-head{padding-bottom:1.6rem!important;border-bottom:1px solid var(--line)!important}
+.progress-section-head h3{margin:.55rem 0 0!important;color:var(--text)!important;font-size:2.4rem!important;font-weight:500!important;letter-spacing:-.04em!important}
+.progress-section-head button{color:var(--muted)!important;font-size:1.15rem!important}
+.progress-goal-list{border-bottom:1px solid var(--line)!important}
+.progress-goal-row{padding:1.9rem 0!important;border-bottom:1px solid var(--line-soft)!important}
+.progress-goal-row-top strong{color:var(--text)!important;font-size:1.5rem!important;font-weight:500!important}
+.progress-goal-row-top span{display:block!important;margin-top:.35rem!important;color:var(--muted)!important;font-size:1.1rem!important}
+.progress-goal-row-top b{color:var(--text)!important;font-size:1.45rem!important;font-weight:500!important}
+.progress-goal-track{height:.35rem!important;margin-top:1.35rem!important;border-radius:0!important;background:rgba(255,255,255,.08)!important}
+.progress-goal-track i{border-radius:0!important;background:#f4f4f1!important}
+.progress-overview-grid{margin-top:4rem!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:0!important;border-top:1px solid var(--line)!important;border-bottom:1px solid var(--line)!important}
+.progress-overview-card{padding:2rem 1.5rem 2rem 0!important;border-right:1px solid var(--line-soft)!important}
+.progress-overview-card:last-child{border-right:0!important;padding-left:1.5rem!important}.progress-overview-card:nth-child(2){padding-left:1.5rem!important}
+.progress-overview-card strong{display:block!important;margin-top:1rem!important;color:var(--text)!important;font-size:3.4rem!important;line-height:1!important;font-weight:500!important;letter-spacing:-.06em!important}
+.progress-overview-card p{margin:.6rem 0 0!important;color:var(--muted)!important;font-size:1.15rem!important}
+.progress-simple-note{margin-top:4rem!important;padding:2rem 0!important;border-top:1px solid var(--line-soft)!important;border-bottom:1px solid var(--line-soft)!important}
+.progress-simple-note p{max-width:42rem!important;margin:1rem 0 0!important;color:var(--muted)!important;font-size:1.35rem!important}
+
+.settings-heading{padding-bottom:4rem!important;border-bottom:1px solid var(--line)!important}
+.profile-hero-card{margin-top:4.5rem!important;padding:0 0 3rem!important;display:grid!important;grid-template-columns:auto minmax(0,1fr) auto!important;gap:2rem!important;align-items:center!important;border:0!important;border-bottom:1px solid var(--line)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.profile-avatar-button{width:8rem!important;height:8rem!important;border-radius:50%!important;border:1px solid rgba(255,255,255,.12)!important;background:#111!important;box-shadow:none!important}
+.profile-avatar{font-size:2.8rem!important;font-weight:500!important}
+.profile-avatar-camera{width:2.7rem!important;height:2.7rem!important;right:-.3rem!important;bottom:-.2rem!important;border-radius:50%!important;background:#f3f3ef!important;color:#080808!important;border:2px solid #000!important}
+.profile-hero-copy h3{margin:.5rem 0 0!important;color:var(--text)!important;font-size:2.6rem!important;font-weight:500!important;letter-spacing:-.045em!important}
+.profile-hero-copy p{margin:.35rem 0 0!important;color:var(--muted)!important;font-size:1.25rem!important}
+.profile-hero-copy small{display:block!important;max-width:46rem!important;margin:1rem 0 0!important;color:var(--quiet)!important;font-size:1.1rem!important}
+.profile-hero-status{color:var(--muted)!important;font-size:1.1rem!important}.profile-hero-status span{background:#f5f5f5!important;box-shadow:none!important}
+.profile-facts-grid{margin:0!important;display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;border-bottom:1px solid var(--line)!important}
+.profile-facts-grid > div{min-width:0!important;padding:2rem 1.5rem 2.2rem 0!important;border:0!important;border-right:1px solid var(--line-soft)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.profile-facts-grid > div + div{padding-left:1.5rem!important}.profile-facts-grid > div:last-child{border-right:0!important}
+.profile-facts-grid span{color:var(--quiet)!important;font-size:1rem!important;letter-spacing:.12em!important}.profile-facts-grid strong{display:block!important;margin-top:.7rem!important;color:var(--text)!important;font-size:1.35rem!important;line-height:1.35!important;font-weight:500!important}
+.settings-section{margin-top:4.5rem!important;padding:0 0 3.5rem!important;border-bottom:1px solid var(--line)!important}
+.settings-section-head{margin-bottom:1.7rem!important}.settings-section-head h3{margin:.5rem 0 0!important;color:var(--text)!important;font-size:2.2rem!important;font-weight:500!important;letter-spacing:-.04em!important}.settings-section-head > svg{color:var(--quiet)!important}
+.settings-card{padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.settings-card form > label,.profile-account-email,.notification-master-row,.notification-preference,.notification-quiet-row,.settings-action-row{min-height:6.2rem!important;padding:1.25rem 0!important;border-bottom:1px solid var(--line-soft)!important;background:transparent!important;border-radius:0!important}
+.settings-card form > label{display:flex!important;flex-direction:column!important;align-items:stretch!important;justify-content:center!important}
+.settings-card form > label span,.profile-account-email span{color:var(--quiet)!important;font-size:1rem!important;letter-spacing:.11em!important;text-transform:uppercase!important}
+.settings-card form > label input{margin-top:.55rem!important;padding:.1rem 0!important;border:0!important;border-radius:0!important;background:transparent!important;color:var(--text)!important;font-size:1.5rem!important}
+.settings-card form > label input:focus{outline:none!important;box-shadow:none!important}
+.profile-account-email{display:flex!important;flex-direction:column!important;justify-content:center!important}.profile-account-email strong{margin-top:.5rem!important;color:var(--text)!important;font-size:1.35rem!important;font-weight:500!important}
+.settings-card form > .button{margin-top:1.6rem!important}.notifications-settings-section .notification-master-row{border-top:1px solid var(--line-soft)!important}
+.notification-master-row > div,.notification-preference > div:first-child,.notification-quiet-row > div:first-child{display:flex!important;flex-direction:column!important;gap:.3rem!important}
+.notification-master-row strong,.notification-preference strong,.notification-quiet-row strong{color:var(--text)!important;font-size:1.35rem!important;font-weight:500!important}
+.notification-master-row span,.notification-preference span,.notification-quiet-row span{color:var(--muted)!important;font-size:1.12rem!important}
+.settings-danger{border-bottom:0!important}.settings-danger .settings-action-row{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:1.5rem!important}.settings-danger .settings-action-row span{display:block!important;margin-top:.35rem!important;color:var(--muted)!important;font-size:1.12rem!important}
+.profile-photo-actions{margin-top:.9rem!important}
+
+.goals-page .goal-create-form{max-width:64rem!important;margin-top:3rem!important;padding:0!important}
+.goals-page .goal-create-form input,.goals-page .goal-create-form textarea,.goals-page .goal-date-field{border-radius:0!important;border:0!important;border-bottom:1px solid var(--line-soft)!important;background:transparent!important}
+.goals-page .goal-create-form input,.goals-page .goal-create-form textarea{padding:1.5rem 0!important;color:var(--text)!important}
+.goals-page .goal-create-form input::placeholder,.goals-page .goal-create-form textarea::placeholder{color:rgba(255,255,255,.28)!important}
+.goals-page .goal-list{gap:0!important;margin-top:4rem!important;border-top:1px solid var(--line)!important}
+.goals-page .goal-item{padding:2rem 0!important;border:0!important;border-bottom:1px solid var(--line-soft)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+.goals-page .goal-item::before{display:none!important}.goals-page .goal-item h3{font-size:2.2rem!important}.goals-page .goal-item-actions{border-top:1px solid var(--line-soft)!important}
+.goals-page .goal-item-actions select,.goals-page .goal-item-actions > button{border-radius:.8rem!important}
+
+.logs-page-hero{padding-bottom:3rem!important;border-bottom:1px solid var(--line)!important}.logs-page-list{margin-top:3rem!important;border-top:1px solid var(--line)!important}
+.logs-page-row{min-height:7.6rem!important;padding:1.25rem 0!important;border:0!important;border-bottom:1px solid var(--line-soft)!important;border-radius:0!important;background:transparent!important}
+.logs-page-row:hover{background:rgba(255,255,255,.025)!important;padding-inline:1rem!important}.logs-page-icon{width:3.8rem!important;height:3.8rem!important;border-radius:50%!important;border:1px solid var(--line)!important;background:transparent!important}
+.logs-page-copy strong{font-size:1.45rem!important;font-weight:500!important}.logs-page-copy span{color:var(--muted)!important}.logs-page-row time{color:var(--quiet)!important}
+
+@media(max-width:700px){
+  .progress-overview-grid,.profile-facts-grid{grid-template-columns:1fr!important}
+  .progress-overview-card,.progress-overview-card:nth-child(2),.progress-overview-card:last-child,.profile-facts-grid > div,.profile-facts-grid > div + div{padding:1.7rem 0!important;border-right:0!important;border-bottom:1px solid var(--line-soft)!important}
+  .progress-overview-card:last-child,.profile-facts-grid > div:last-child{border-bottom:0!important}
+  .profile-hero-card{grid-template-columns:auto minmax(0,1fr)!important;gap:1.35rem!important;align-items:start!important}
+  .profile-hero-status{grid-column:2!important}.profile-avatar-button{width:6.8rem!important;height:6.8rem!important}.profile-hero-copy h3{font-size:2.2rem!important}
+  .settings-section{margin-top:3.5rem!important}.settings-danger .settings-action-row{grid-template-columns:1fr!important}
+}
