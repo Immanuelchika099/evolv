@@ -16915,3 +16915,45 @@ img,svg,video{max-width:100%}
     padding-right:1.6rem!important;
   }
 }
+
+
+/* FINAL CANVAS FIX — dash-main is a flex sibling of the sidebar.
+   Give it the remaining viewport width instead of treating 100% as its own
+   centered canvas. This removes the hidden desktop width trap on Home/Profile. */
+.dashboard{
+  width:100%;
+  min-width:0;
+}
+.dashboard .dash-main{
+  flex:1 1 auto!important;
+  width:auto!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding-left:clamp(2rem,3.8vw,6.4rem)!important;
+  padding-right:clamp(2rem,3.8vw,6.4rem)!important;
+}
+.dashboard .dash-main > *{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+.dashboard .dashboard-home,
+.dashboard .settings-page,
+.dashboard .dashboard-pages,
+.dashboard .profile-layout{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+@media(max-width:800px){
+  .dashboard .dash-main{
+    width:100%!important;
+    flex:0 0 auto!important;
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+}
