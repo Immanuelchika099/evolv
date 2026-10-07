@@ -17025,3 +17025,34 @@ img,svg,video{max-width:100%}
   margin-right:0!important;
   box-sizing:border-box!important;
 }
+
+
+/* PROFILE SECTION WIDTH — the settings column must use the full page, not a narrow right rail. */
+.dashboard .dash-main > .panel-page.settings-page .profile-layout{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  max-width:none!important;
+  gap:5.6rem!important;
+}
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  gap:5.6rem!important;
+}
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > .profile-settings-section,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > .profile-stat-grid{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  grid-column:1 / -1!important;
+}
+@media(max-width:900px){
+  .dashboard .dash-main > .panel-page.settings-page .profile-layout{
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:4rem!important;
+  }
+}
