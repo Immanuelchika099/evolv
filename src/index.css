@@ -16860,3 +16860,11 @@ textarea:focus-visible{
   outline-offset:3px;
 }
 img,svg,video{max-width:100%}
+
+
+/* Remove the desktop width ceiling from the logged-in page wrapper. */
+.dashboard .dash-main{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+}
