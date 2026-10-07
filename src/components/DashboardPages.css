@@ -3258,3 +3258,32 @@
     margin-bottom:3.6rem!important;
   }
 }
+
+
+/* PROFILE SECTION WIDTH — final override.
+   Accounts, Goals & Habits, Notifications, Preferences, Data & Privacy,
+   and Account Actions must span the complete Profile content canvas.
+   Do not let any shared card/container rule shrink these sections. */
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > section,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > .profile-settings-section,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > .profile-settings-section > .profile-settings-list{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  inline-size:100%!important;
+  max-inline-size:none!important;
+  align-self:stretch!important;
+  justify-self:stretch!important;
+  box-sizing:border-box!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > section{
+  display:block!important;
+  flex:none!important;
+  grid-column:1 / -1!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > section > *{
+  max-width:none;
+}
