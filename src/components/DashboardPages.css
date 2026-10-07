@@ -3197,3 +3197,64 @@
     margin-left:5.4rem!important;
   }
 }
+
+
+/* PROFILE CANVAS — make the settings workspace use the full dashboard width.
+   The old profile page had a 120rem page ceiling and a narrow two-column
+   workspace. The settings cards should follow the same full-width canvas
+   as the rest of the logged-in product. */
+.dashboard .dash-main > .panel-page.settings-page{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-layout{
+  display:block!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-summary-card,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column,
+.dashboard .dash-main > .panel-page.settings-page .profile-stat-grid,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-section,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-list{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-summary-card{
+  margin:0 0 4.8rem!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column{
+  display:block!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column > section{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-list{
+  display:block!important;
+  overflow:hidden!important;
+}
+
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-row{
+  width:100%!important;
+  max-width:none!important;
+}
+
+@media(max-width:800px){
+  .dashboard .dash-main > .panel-page.settings-page .profile-summary-card{
+    margin-bottom:3.6rem!important;
+  }
+}
