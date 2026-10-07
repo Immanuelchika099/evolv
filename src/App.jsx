@@ -2242,6 +2242,17 @@ function Dashboard({ data, onLogout, onArticle }) {
     }
   }
 
+  useEffect(()=>{
+    function handleProfileUpdated(event){
+      const detail=event.detail||{}
+      if(detail.first_name)setProfileName(detail.first_name)
+      if(Object.prototype.hasOwnProperty.call(detail,'avatar_url'))setAvatarUrl(detail.avatar_url||'')
+      setProfile(current=>current?{...current,...detail}:current)
+    }
+    window.addEventListener('evolv-profile-updated',handleProfileUpdated)
+    return()=>window.removeEventListener('evolv-profile-updated',handleProfileUpdated)
+  },[])
+
   const pageProps = {
     active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, profile,
     loading, notifications, saving, goalTitle, setGoalTitle, goalDescription, setGoalDescription,
