@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import './DashboardPages.css'
 import HoldButton from './HoldButton'
+import ProfileSettingsPage from './ProfileSettingsPage'
 
 export function DashboardPages({ active, pageProps }) {
   if (active === 'overview') return <HomePage pageProps={pageProps} />
@@ -17,7 +18,7 @@ export function DashboardPages({ active, pageProps }) {
   if (active === 'log-detail') return <LogDetailPage pageProps={pageProps} />
   if (active === 'progress') return <ProgressPage pageProps={pageProps} />
   if (active === 'goals') return <GoalsPage pageProps={pageProps} />
-  if (active === 'profile') return <ProfilePage pageProps={pageProps} />
+  if (active === 'profile') return <ProfileSettingsPage pageProps={pageProps} />
   if (active === 'notifications') return <NotificationsPage pageProps={pageProps} />
   if (active === 'ai') return null
   return null
