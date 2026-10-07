@@ -2836,7 +2836,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
             <h2 id="log-sheet-title">
               {metric?(editing?'Edit '+metric.name.toLowerCase():'Log '+metric.name.toLowerCase()):area?areaMeta[area].title:'What do you want to track?'}
             </h2>
-            <p>{metric ? (specialMetric ? 'Add the details that matter.' : 'Keep it simple.') : area ? 'Choose what you want to record.' : 'Pick an area to get started.'}</p>
+            <p>{metric ? (specialMetric ? 'Capture the real-world detail, not just a number.' : 'A small entry is enough. Keep it real.') : area ? areaMeta[area].description : 'Choose an area of your life, then pick the thing you want to record.'}</p>
           </div>
 
           <button className="log-close" type="button" onClick={onClose} disabled={saving} aria-label="Close logging sheet">
@@ -2846,14 +2846,22 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
         <div className="log-sheet-scroll">
           {!area&&!metric&&(
-            <div className="log-choice-list">
+            <div className="log-card-list">
               {Object.entries(areaMeta).map(([id,m])=>{
                 const I2=m.icon
+                const metricCount=definitions.filter(d=>metricArea[d.slug]===id).length + (id==='nutrition' ? 1 : 0)
                 return (
-                  <button className="log-choice-row" type="button" key={id} onClick={()=>{onArea(id);onMetric(null)}}>
-                    <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={20}/></span>
-                    <span className="log-choice-copy"><strong>{m.title}</strong><small>{m.description}</small></span>
-                    <ChevronRight className="log-choice-arrow" size={18}/>
+                  <button className="log-health-card" type="button" key={id} onClick={()=>{onArea(id);onMetric(null)}}>
+                    <span className="log-card-top">
+                      <span className="log-card-title">
+                        <span className="log-choice-icon" style={{'--area-color':m.color}}><I2 size={22}/></span>
+                        <strong style={{'--card-color':m.color}}>{m.title}</strong>
+                      </span>
+                      <ChevronRight className="log-card-chevron" size={22}/>
+                    </span>
+                    <span className="log-card-bottom">
+                      <span className="log-card-count"><strong>{metricCount}</strong><small>{metricCount===1?'entry':'things to track'}</small></span>
+                    </span>
                   </button>
                 )
               })}
@@ -2866,24 +2874,39 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                 <ChevronLeft size={15}/> All areas
               </button>
 
-              <div className="log-choice-list log-metric-list">
+              <div className="log-card-list">
                 {rows.map(d=>{
                   const M=icons[d.slug]||Sparkles
                   const hint=d.slug==='sleep'?'Bedtime + wake-up':d.value_type==='duration'?'Duration':d.value_type==='scale'?'1–5 scale':d.unit||'Daily entry'
                   return (
-                    <button className="log-choice-row log-metric-row" type="button" key={d.id} onClick={()=>selectMetric(d)}>
-                      <span className="log-choice-icon" style={{'--area-color':d.color||areaMeta[area].color}}><M size={19}/></span>
-                      <span className="log-choice-copy"><strong>{d.name}</strong><small>{hint}</small></span>
-                      <ChevronRight className="log-choice-arrow" size={18}/>
+                    <button className="log-health-card log-metric-card" type="button" key={d.id} onClick={()=>selectMetric(d)}>
+                      <span className="log-card-top">
+                        <span className="log-card-title">
+                          <span className="log-choice-icon" style={{'--area-color':d.color||areaMeta[area].color}}><M size={22}/></span>
+                          <strong style={{'--card-color':d.color||areaMeta[area].color}}>{d.name}</strong>
+                        </span>
+                        <ChevronRight className="log-card-chevron" size={22}/>
+                      </span>
+                      <span className="log-card-bottom">
+                        <span className="log-card-count"><strong>{hint}</strong><small>ready to record</small></span>
+                      </span>
                     </button>
                   )
                 })}
 
                 {area==='nutrition'&&(
-                  <button className="log-choice-row log-metric-row" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
-                    <span className="log-choice-icon" style={{'--area-color':'#ffb84d'}}><Utensils size={19}/></span>
-                    <span className="log-choice-copy"><strong>Meal</strong><small>Record what you ate</small></span>
-                    <ChevronRight className="log-choice-arrow" size={18}/>
+                  <button className="log-health-card log-metric-card" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
+                    <span className="log-card-top">
+                      <span className="log-card-title">
+                        <span className="log-choice-icon" style={{'--area-color':'#ffb84d'}}><Utensils size={22}/></span>
+                        <strong style={{'--card-color':'#ffb84d'}}>Meal</strong>
+                      </span>
+                      <span className="log-card-date">LOG</span>
+                      <ChevronRight className="log-card-chevron" size={22}/>
+                    </span>
+                    <span className="log-card-bottom">
+                      <span className="log-card-count"><strong>Meal entry</strong><small>ready to record</small></span>
+                    </span>
                   </button>
                 )}
               </div>
