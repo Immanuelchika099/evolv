@@ -159,3 +159,50 @@ html.evolv-android .evolv-bottom-nav {
   background: #090909;
   border-radius: 1.8rem 1.8rem 0 0;
 }
+
+
+/* EVOLV signature navigation */
+.evolv-bottom-nav{
+  left:50%!important;
+  right:auto!important;
+  bottom:calc(1.2rem + env(safe-area-inset-bottom,0px))!important;
+  transform:translateX(-50%)!important;
+  width:min(42rem,calc(100vw - 2.4rem))!important;
+  min-height:6.8rem!important;
+  height:6.8rem!important;
+  padding:.55rem!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:.2rem!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:2.2rem!important;
+  background:rgba(13,13,13,.9)!important;
+  box-shadow:0 1.8rem 5rem rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.06)!important;
+  backdrop-filter:blur(2.4rem) saturate(115%)!important;
+  -webkit-backdrop-filter:blur(2.4rem) saturate(115%)!important;
+}
+.evolv-bottom-nav button{
+  height:5.65rem!important;
+  border-radius:1.7rem!important;
+  color:rgba(255,255,255,.38)!important;
+  background:transparent!important;
+}
+.evolv-bottom-nav button.bottom-active{
+  color:#f4f2ec!important;
+  background:rgba(255,255,255,.065)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.055)!important;
+}
+.evolv-bottom-nav .log-nav-button{color:#090909!important;}
+.evolv-bottom-nav .log-nav-button>span{
+  width:3.25rem!important;height:3.25rem!important;border-radius:1.15rem!important;
+  background:#f1efe8!important;color:#090909!important;
+  box-shadow:0 .7rem 1.8rem rgba(0,0,0,.28)!important;
+}
+.evolv-bottom-nav .log-nav-button small{color:rgba(255,255,255,.42)!important;}
+.evolv-bottom-nav button:active{transform:scale(.95)!important;}
+@media(max-width:700px){
+  .evolv-bottom-nav{
+    width:calc(100vw - 1.6rem)!important;
+    bottom:calc(.75rem + env(safe-area-inset-bottom,0px))!important;
+  }
+}
+@media(prefers-reduced-motion:reduce){.evolv-bottom-nav button{transition:none!important;}}
