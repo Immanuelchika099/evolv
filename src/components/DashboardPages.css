@@ -2652,3 +2652,13 @@
   }
   .dashboard .profile-stat-grid article{padding:1.6rem!important}
 }
+
+
+/* Remove the two visible ambient glow blobs from Home. */
+.dashboard .dashboard-home::before{
+  background:linear-gradient(180deg,#090909 0%,#0b0b0b 48%,#080808 100%)!important;
+}
+.dashboard .dashboard-home::after{
+  background:none!important;
+  box-shadow:none!important;
+}
