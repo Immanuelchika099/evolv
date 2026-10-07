@@ -411,3 +411,43 @@ html:has(.dashboard.dashboard-ai-active) {
     line-height: 1.65 !important;
   }
 }
+
+
+/* EVOLV AI — same material language, but intentionally more conversational */
+.dashboard.dashboard-ai-active .ai-page{
+  background:#070707!important;
+  color:#f3f1ea!important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  background:rgba(7,7,7,.78)!important;
+  border-bottom:1px solid rgba(255,255,255,.055)!important;
+  box-shadow:none!important;
+  backdrop-filter:blur(2rem) saturate(110%)!important;
+  -webkit-backdrop-filter:blur(2rem) saturate(110%)!important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  background:transparent!important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-welcome h3{
+  font-family:'Space Grotesk',sans-serif!important;
+  font-weight:400!important;
+  letter-spacing:-.06em!important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message{
+  margin-top:1.2rem!important;
+  margin-bottom:1.2rem!important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell{
+  background:linear-gradient(to top,rgba(7,7,7,.97),rgba(7,7,7,.8) 55%,transparent)!important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field{
+  border:1px solid rgba(255,255,255,.09)!important;
+  border-radius:1.8rem!important;
+  background:rgba(18,18,18,.92)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 1rem 3rem rgba(0,0,0,.25)!important;
+  backdrop-filter:blur(1.8rem)!important;
+  -webkit-backdrop-filter:blur(1.8rem)!important;
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard.dashboard-ai-active *{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;}
+}
