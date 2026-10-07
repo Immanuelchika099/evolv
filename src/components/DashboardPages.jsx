@@ -8,6 +8,7 @@ import {
   Utensils, Sparkles, Send, Sunrise, X, LineChart
 } from 'lucide-react'
 import './DashboardPages.css'
+import '../styles/tokens.css'
 import HoldButton from './HoldButton'
 import ProfileSettingsPage from './ProfileSettingsPage'
 
