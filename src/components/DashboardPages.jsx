@@ -386,7 +386,7 @@ function ProfilePage({ pageProps }) {
   const {
     profileName, setProfileName, profile, data, avatarUrl, avatarInputRef, avatarUploading,
     handleAvatarChange, removeAvatar, saveProfile, profileMessage,
-    notificationsEnabled, toggleNotifications, notificationTimes, saveNotificationTime, toggleNotificationTime,
+    notificationsEnabled, toggleNotifications, notificationTimes, reflectionTime, saveNotificationTime, toggleNotificationTime,
     saveQuietHour, toggleQuietHours, openReflection, deleteAccount, deleting, onLogout
   } = pageProps
   return <section className="panel-page dashboard-panel settings-page">
