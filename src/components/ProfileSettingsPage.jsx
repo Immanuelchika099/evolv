@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Camera, Upload, Pencil, ChevronRight, Check, X, Trash2, Download } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import '../styles/tokens.css'
 
 const DEFAULT_SETTINGS = {weeklyGoalTarget:3,weekStart:'monday',streakAlerts:true,weeklySummary:true,units:'metric',animations:true,language:'English'}
 
