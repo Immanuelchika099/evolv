@@ -2280,7 +2280,7 @@ function Dashboard({ data, onLogout, onArticle }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} onLog={openLog} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} onLog={()=>goTo('logs')} avatarUrl={avatarUrl}/>}
     <PWAInstallPrompt />
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
