@@ -1,4 +1,4 @@
-import { Home, Plus, LineChart, UserRound, Sparkles } from 'lucide-react'
+import { Home, Plus, LineChart, UserRound } from 'lucide-react'
 import './BottomNav.css'
 
 function BottomNav({ active, onNavigate, onLog, avatarUrl = '' }) {
@@ -16,20 +16,10 @@ function BottomNav({ active, onNavigate, onLog, avatarUrl = '' }) {
       <button
         type="button"
         className="log-nav-button"
-        onClick={onLog}
-        aria-label="Open logging"
+        onClick={() => onNavigate('logs')}
       >
         <span><Plus size={21} /></span>
         <small>Log</small>
-      </button>
-
-      <button
-        type="button"
-        className={active === 'ai' ? 'bottom-active' : ''}
-        onClick={() => onNavigate('ai')}
-      >
-        <span><Sparkles size={18} /></span>
-        <small>AI</small>
       </button>
 
       <button
