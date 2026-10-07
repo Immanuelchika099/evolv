@@ -16621,3 +16621,57 @@ body,
  .landing .feature-step,.landing .feature-step:hover{transform:none!important}
 }
 @media(prefers-reduced-motion:reduce){.landing .button,.landing .feature-step,.landing .area{transition:none!important}}
+
+
+/* EVOLV visual system — shared logged-in canvas */
+:root{
+  --evolv-bg:#070707;
+  --evolv-surface:#10110f;
+  --evolv-surface-2:#151612;
+  --evolv-line:rgba(255,255,255,.085);
+  --evolv-line-soft:rgba(255,255,255,.055);
+  --evolv-text:#f3f1ea;
+  --evolv-muted:#85837f;
+  --evolv-accent:#aebd78;
+  --evolv-accent-dim:#626b42;
+  --evolv-radius:2rem;
+}
+.dashboard{
+  background:var(--evolv-bg);
+  color:var(--evolv-text);
+}
+.dashboard .dash-main{
+  background:var(--evolv-bg);
+}
+.dashboard .app-topbar{
+  background:rgba(7,7,7,.72);
+  border-bottom:1px solid var(--evolv-line-soft);
+  backdrop-filter:blur(2rem) saturate(115%);
+  -webkit-backdrop-filter:blur(2rem) saturate(115%);
+}
+.dashboard .app-logo-button{
+  opacity:.9;
+}
+.dashboard .notification-button{
+  border-color:var(--evolv-line);
+  background:rgba(255,255,255,.025);
+  color:rgba(255,255,255,.72);
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.dashboard .notification-button:hover{
+  background:rgba(255,255,255,.06);
+  border-color:rgba(255,255,255,.14);
+}
+.dashboard .notification-button:active{transform:scale(.95)}
+@media(max-width:800px){
+  .dashboard .app-topbar{
+    background:rgba(7,7,7,.86);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .dashboard *,.dashboard *::before,.dashboard *::after{
+    scroll-behavior:auto!important;
+    transition-duration:.01ms!important;
+    animation-duration:.01ms!important;
+  }
+}
