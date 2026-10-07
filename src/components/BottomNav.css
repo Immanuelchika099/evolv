@@ -159,3 +159,89 @@ html.evolv-android .evolv-bottom-nav {
   background: #090909;
   border-radius: 1.8rem 1.8rem 0 0;
 }
+
+
+/* EVOLV — premium product navigation pass */
+.evolv-bottom-nav{
+  left:50%!important;
+  right:auto!important;
+  bottom:calc(1.25rem + env(safe-area-inset-bottom,0px))!important;
+  transform:translateX(-50%)!important;
+  width:min(42rem,calc(100vw - 2.4rem))!important;
+  height:6.8rem!important;
+  min-height:6.8rem!important;
+  padding:.55rem!important;
+  grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  gap:.25rem!important;
+  border:1px solid rgba(255,255,255,.10)!important;
+  border-radius:2.15rem!important;
+  background:rgba(16,16,16,.82)!important;
+  box-shadow:
+    0 1.8rem 5rem rgba(0,0,0,.42),
+    inset 0 1px 0 rgba(255,255,255,.07)!important;
+  backdrop-filter:blur(2.8rem) saturate(130%)!important;
+  -webkit-backdrop-filter:blur(2.8rem) saturate(130%)!important;
+}
+.evolv-bottom-nav button{
+  height:5.55rem!important;
+  border-radius:1.7rem!important;
+  gap:.38rem!important;
+  color:rgba(255,255,255,.36)!important;
+}
+.evolv-bottom-nav button > span{
+  width:2.6rem!important;
+  height:2.3rem!important;
+}
+.evolv-bottom-nav button small{
+  font-size:1.05rem!important;
+  font-weight:600!important;
+  letter-spacing:.01em!important;
+}
+.evolv-bottom-nav button.bottom-active{
+  color:#f5f5f7!important;
+  background:rgba(255,255,255,.075)!important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+.evolv-bottom-nav .log-nav-button{
+  color:rgba(255,255,255,.76)!important;
+}
+.evolv-bottom-nav .log-nav-button > span{
+  width:3.15rem!important;
+  height:3.15rem!important;
+  border-radius:1.15rem!important;
+  background:#f3f3ef!important;
+  color:#070707!important;
+  box-shadow:0 .7rem 1.8rem rgba(0,0,0,.25)!important;
+}
+.evolv-bottom-nav .log-nav-button small{
+  color:rgba(255,255,255,.44)!important;
+}
+.evolv-bottom-nav .bottom-profile-icon{
+  width:2.6rem!important;
+  height:2.6rem!important;
+  min-width:2.6rem!important;
+  min-height:2.6rem!important;
+  max-width:2.6rem!important;
+  max-height:2.6rem!important;
+  flex-basis:2.6rem!important;
+}
+html.evolv-android .evolv-bottom-nav{
+  background:#111!important;
+  border-color:rgba(255,255,255,.11)!important;
+  box-shadow:0 1.8rem 5rem rgba(0,0,0,.46),inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
+@media(max-width:520px){
+  .evolv-bottom-nav{
+    width:calc(100vw - 1.6rem)!important;
+    bottom:calc(.8rem + env(safe-area-inset-bottom,0px))!important;
+    height:6.45rem!important;
+    min-height:6.45rem!important;
+    border-radius:2rem!important;
+  }
+  .evolv-bottom-nav button{
+    height:5.2rem!important;
+    border-radius:1.55rem!important;
+  }
+  .evolv-bottom-nav button small{font-size:.98rem!important}
+  .evolv-bottom-nav .log-nav-button > span{width:2.95rem!important;height:2.95rem!important}
+}
