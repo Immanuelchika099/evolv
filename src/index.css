@@ -16824,3 +16824,39 @@ body,
   .log-form{padding:0 1.7rem 1.5rem!important;}
   .log-sheet-footer{padding-left:1.7rem!important;padding-right:1.7rem!important;}
 }
+
+
+/* EVOLV global polish foundation */
+:root{
+  --accent:var(--color-accent-start);
+  --line:var(--color-border);
+  --muted:var(--color-muted);
+  --mint:var(--color-accent-dim);
+  color:var(--color-text);
+  background:var(--color-bg);
+}
+html{font-size:62.5%}
+*,
+*::before,
+*::after{box-sizing:border-box}
+html,body,#root{min-width:320px}
+body{
+  margin:0;
+  background:
+    radial-gradient(circle at 50% 0%,rgba(53,54,51,.16),transparent 55%),
+    var(--color-bg);
+  color:var(--color-text);
+  font-family:var(--font-ui);
+}
+button,input,select,textarea{box-sizing:border-box;max-width:100%;min-width:0}
+input,select,textarea{width:100%}
+button,a{min-height:44px}
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible{
+  outline:2px solid var(--color-accent-start);
+  outline-offset:3px;
+}
+img,svg,video{max-width:100%}
