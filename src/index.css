@@ -16957,3 +16957,43 @@ img,svg,video{max-width:100%}
     padding-right:1.6rem!important;
   }
 }
+
+
+/* FINAL FINAL — remove the actual Profile/Home inner canvas ceilings.
+   These selectors intentionally outrank the older panel-page rules above. */
+.dashboard .dashboard-pages > .panel-page.settings-page,
+.dashboard .dashboard-pages > .settings-page,
+.dashboard .dashboard-pages > .dashboard-home,
+.dashboard .dashboard-pages .dashboard-home{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.dashboard .dashboard-pages > .panel-page.settings-page{
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+.dashboard .dashboard-pages > .dashboard-home{
+  padding-left:0!important;
+  padding-right:0!important;
+}
+
+.dashboard .dashboard-pages > .panel-page.settings-page .settings-heading,
+.dashboard .dashboard-pages > .panel-page.settings-page .profile-layout,
+.dashboard .dashboard-pages > .dashboard-home .dashboard-welcome-minimal,
+.dashboard .dashboard-pages > .dashboard-home .today-snapshot,
+.dashboard .dashboard-pages > .dashboard-home .dashboard-areas-card{
+  width:100%!important;
+  max-width:none!important;
+}
+
+@media(max-width:800px){
+  .dashboard .dashboard-pages > .panel-page.settings-page,
+  .dashboard .dashboard-pages > .dashboard-home{
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+}
