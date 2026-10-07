@@ -16868,3 +16868,50 @@ img,svg,video{max-width:100%}
   max-width:none!important;
   margin:0!important;
 }
+
+
+/* FINAL WIDTH RESET — Home and Profile use the full dashboard canvas. */
+.dashboard .dash-main{
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding-left:clamp(1.6rem,3.5vw,5.6rem)!important;
+  padding-right:clamp(1.6rem,3.5vw,5.6rem)!important;
+}
+
+.dashboard .dash-main > .dashboard-pages,
+.dashboard .dashboard-pages,
+.dashboard .dashboard-pages > .dashboard-home,
+.dashboard .dashboard-pages > .settings-page{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.dashboard .dashboard-home,
+.dashboard .settings-page,
+.dashboard .profile-layout,
+.dashboard .profile-settings-column,
+.dashboard .profile-summary-card{
+  width:100%!important;
+  max-width:none!important;
+}
+
+.dashboard .profile-layout{
+  grid-template-columns:minmax(28rem,.65fr) minmax(0,1.35fr)!important;
+}
+
+@media(max-width:900px){
+  .dashboard .profile-layout{
+    grid-template-columns:1fr!important;
+  }
+}
+
+@media(max-width:650px){
+  .dashboard .dash-main{
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+}
