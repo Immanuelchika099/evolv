@@ -2836,7 +2836,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
             <h2 id="log-sheet-title">
               {metric?(editing?'Edit '+metric.name.toLowerCase():'Log '+metric.name.toLowerCase()):area?areaMeta[area].title:'What do you want to track?'}
             </h2>
-            <p>{metric ? (specialMetric ? 'Capture the real-world detail, not just a number.' : 'A small entry is enough. Keep it real.') : area ? areaMeta[area].description : 'Choose an area of your life, then pick the thing you want to record.'}</p>
+            <p>{metric ? (specialMetric ? 'Add the details that matter.' : 'Keep it simple.') : area ? areaMeta[area].description : 'Pick an area to get started.'}</p>
           </div>
 
           <button className="log-close" type="button" onClick={onClose} disabled={saving} aria-label="Close logging sheet">
@@ -2888,7 +2888,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                         <ChevronRight className="log-card-chevron" size={22}/>
                       </span>
                       <span className="log-card-bottom">
-                        <span className="log-card-count"><strong>{hint}</strong><small>ready to record</small></span>
+                        <span className="log-card-count"><strong>{hint}</strong><small></small></span>
                       </span>
                     </button>
                   )
@@ -2905,7 +2905,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                       <ChevronRight className="log-card-chevron" size={22}/>
                     </span>
                     <span className="log-card-bottom">
-                      <span className="log-card-count"><strong>Meal entry</strong><small>ready to record</small></span>
+                      <span className="log-card-count"><strong>Meal entry</strong><small></small></span>
                     </span>
                   </button>
                 )}
