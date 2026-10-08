@@ -3287,3 +3287,109 @@
 .dashboard .dash-main > .panel-page.settings-page .profile-settings-column > section > *{
   max-width:none;
 }
+
+/* FINAL PROFILE + LOG VISUAL RESET
+   One black surface, one UI font, wider breathing room. */
+.dashboard .settings-page .profile-summary-card,
+.dashboard .settings-page .profile-stat-grid,
+.dashboard .settings-page .profile-settings-list,
+.dashboard .settings-page .profile-settings-section,
+.dashboard .settings-page .profile-settings-column > section{
+  background:#000!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.dashboard .settings-page .profile-summary-card{
+  border-color:rgba(255,255,255,.07)!important;
+}
+.dashboard .settings-page .profile-stat-grid,
+.dashboard .settings-page .profile-settings-list{
+  width:100%!important;
+  max-width:none!important;
+}
+.dashboard .settings-page .profile-settings-column{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+.dashboard .settings-page .profile-settings-section{
+  width:100%!important;
+  max-width:none!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+.dashboard .settings-page .profile-settings-list{
+  border-radius:2rem!important;
+  overflow:hidden!important;
+}
+.dashboard .settings-page .profile-setting-row{
+  min-height:7.6rem!important;
+  padding:1.6rem 2.2rem!important;
+  gap:2.4rem!important;
+  background:#000!important;
+}
+.dashboard .settings-page .profile-setting-row strong{
+  font-family:Manrope,sans-serif!important;
+  font-size:1.5rem!important;
+  line-height:1.35!important;
+  font-weight:600!important;
+}
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small{
+  font-family:Manrope,sans-serif!important;
+  font-size:1.25rem!important;
+  line-height:1.55!important;
+}
+.dashboard .settings-page .profile-settings-section-head h3{
+  font-family:Manrope,sans-serif!important;
+  font-size:2.4rem!important;
+  line-height:1.2!important;
+  font-weight:600!important;
+  letter-spacing:-.035em!important;
+}
+.dashboard .settings-page .settings-heading p,
+.dashboard .settings-page .profile-summary-copy p,
+.dashboard .settings-page .profile-summary-copy small,
+.dashboard .settings-page .profile-summary-focus strong{
+  font-family:Manrope,sans-serif!important;
+}
+.dashboard .settings-page .settings-inline-action,
+.dashboard .settings-page .settings-danger-button,
+.dashboard .settings-page .settings-cancel-button{
+  font-family:Manrope,sans-serif!important;
+  font-size:1.25rem!important;
+}
+
+/* Log history + logging workspace: no stacked dark surfaces. */
+.dashboard .logs-page .logs-page-toolbar,
+.dashboard .logs-page .logs-page-list,
+.dashboard .logs-page .logs-page-empty,
+.dashboard .log-sheet,
+.dashboard .log-sheet-scroll,
+.dashboard .log-card-list,
+.dashboard .log-health-card,
+.dashboard .log-form,
+.dashboard .log-field-group,
+.dashboard .special-metric-fields,
+.dashboard .log-selected-metric{
+  background:#000!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.dashboard .logs-page .logs-page-row,
+.dashboard .logs-page .logs-page-row:hover{
+  background:#000!important;
+}
+.dashboard .logs-page .logs-page-icon,
+.dashboard .log-choice-icon{
+  background:#000!important;
+  box-shadow:none!important;
+}
+.dashboard .log-sheet{
+  border-color:rgba(255,255,255,.08)!important;
+}
+.dashboard .log-input-label input,
+.dashboard .log-input-label textarea{
+  background:#000!important;
+  box-shadow:none!important;
+}
