@@ -2848,12 +2848,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   .dashboard .state-ring{width:176px;height:176px}
 }
 
-/* Dashboard ambient lighting — only two intentional green glows */
+/* Dashboard canvas — true black, no ambient green lighting. */
 .dashboard{
-  background:
-    radial-gradient(ellipse 42% 34% at 0% 0%, rgba(42,115,73,.16) 0%, rgba(20,61,39,.075) 34%, transparent 72%),
-    radial-gradient(ellipse 40% 38% at 100% 43%, rgba(43,125,78,.15) 0%, rgba(19,61,39,.065) 35%, transparent 73%),
-    #020303;
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
 }
 .dashboard::before{
   background:none !important;
@@ -2866,10 +2865,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 @media(max-width:800px){
   .dashboard{
-    background:
-      radial-gradient(ellipse 58% 27% at 0% 0%, rgba(42,115,73,.16) 0%, rgba(20,61,39,.07) 34%, transparent 74%),
-      radial-gradient(ellipse 56% 31% at 100% 37%, rgba(43,125,78,.15) 0%, rgba(19,61,39,.06) 35%, transparent 75%),
-      #020303;
+    background:#000!important;
+    background-color:#000!important;
+    background-image:none!important;
   }
 }
 
@@ -16625,9 +16623,9 @@ body,
 
 /* EVOLV visual system — shared logged-in canvas */
 :root{
-  --evolv-bg:#070707;
-  --evolv-surface:#10110f;
-  --evolv-surface-2:#151612;
+  --evolv-bg:#000;
+  --evolv-surface:#000;
+  --evolv-surface-2:#000;
   --evolv-line:rgba(255,255,255,.085);
   --evolv-line-soft:rgba(255,255,255,.055);
   --evolv-text:#f3f1ea;
@@ -16842,9 +16840,9 @@ html{font-size:62.5%}
 html,body,#root{min-width:320px}
 body{
   margin:0;
-  background:
-    radial-gradient(circle at 50% 0%,rgba(53,54,51,.16),transparent 55%),
-    var(--color-bg);
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
   color:var(--color-text);
   font-family:var(--font-ui);
 }
@@ -17210,3 +17208,60 @@ body,
 
 /* FINAL CANVAS BACKGROUND RESET */
 html,body,#root{background:#000!important;background-color:#000!important;}
+
+
+/* =========================================================
+   FINAL GLOBAL CANVAS RULE
+   No route inherits a green/olive body or dashboard glow.
+   ========================================================= */
+html,body,#root,
+.auth-page,
+.dashboard{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+}
+
+/* Profile copy: give the text real breathing room and a readable scale. */
+.dashboard .settings-page .profile-setting-row{
+  min-height:9.6rem!important;
+  padding:2.8rem 3.4rem!important;
+  gap:3rem!important;
+}
+.dashboard .settings-page .profile-setting-row > div:first-child,
+.dashboard .settings-page .profile-setting-copy{
+  padding-right:1.8rem!important;
+}
+.dashboard .settings-page .profile-setting-row strong{
+  font-size:1.8rem!important;
+  line-height:1.4!important;
+  margin-bottom:.7rem!important;
+}
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small{
+  font-size:1.5rem!important;
+  line-height:1.65!important;
+  max-width:76rem!important;
+}
+.dashboard .settings-page .profile-settings-section-head h3{
+  font-size:2.7rem!important;
+}
+@media(max-width:650px){
+  .dashboard .settings-page .profile-setting-row{
+    min-height:9.4rem!important;
+    padding:2.5rem 2.3rem!important;
+    gap:1.7rem!important;
+  }
+  .dashboard .settings-page .profile-setting-row > div:first-child,
+  .dashboard .settings-page .profile-setting-copy{
+    padding-right:1rem!important;
+  }
+  .dashboard .settings-page .profile-setting-row strong{
+    font-size:1.7rem!important;
+  }
+  .dashboard .settings-page .profile-setting-row span,
+  .dashboard .settings-page .profile-setting-row small{
+    font-size:1.45rem!important;
+    line-height:1.65!important;
+  }
+}
