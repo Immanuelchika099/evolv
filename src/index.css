@@ -17083,3 +17083,126 @@ img,svg,video{max-width:100%}
   font-weight:500!important;
   letter-spacing:-.055em!important;
 }
+
+
+/* PROFILE — final spacing + pure-black canvas. */
+html,
+body,
+#root,
+.dashboard,
+.dashboard .dash-main,
+.dashboard .settings-page{
+  background:#000!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+
+.dashboard .settings-page{
+  color:#f5f5f5!important;
+}
+
+.dashboard .settings-page .profile-summary-card{
+  padding:2.8rem!important;
+}
+
+.dashboard .settings-page .profile-settings-section-head{
+  padding:0 .8rem!important;
+  margin-bottom:1.6rem!important;
+}
+
+.dashboard .settings-page .profile-settings-section-head .section-label{
+  display:block!important;
+  margin-bottom:.7rem!important;
+}
+
+.dashboard .settings-page .profile-settings-section-head h3{
+  margin:0!important;
+  padding:0!important;
+  font-size:2.3rem!important;
+  line-height:1.2!important;
+}
+
+.dashboard .settings-page .profile-settings-list{
+  padding:0!important;
+  border-radius:2.6rem!important;
+}
+
+.dashboard .settings-page .profile-setting-row{
+  width:100%!important;
+  min-height:8.4rem!important;
+  padding:2rem 2.6rem!important;
+  gap:2.2rem!important;
+  align-items:center!important;
+}
+
+.dashboard .settings-page .profile-setting-row > div:first-child{
+  min-width:0!important;
+  flex:1 1 auto!important;
+  padding-right:1.2rem!important;
+}
+
+.dashboard .settings-page .profile-setting-row strong{
+  display:block!important;
+  margin:0 0 .55rem!important;
+  font-size:1.55rem!important;
+  line-height:1.4!important;
+}
+
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small{
+  display:block!important;
+  max-width:68rem!important;
+  font-size:1.3rem!important;
+  line-height:1.6!important;
+}
+
+.dashboard .settings-page .profile-setting-control-row{
+  gap:2rem!important;
+}
+
+.dashboard .settings-page .profile-stat-grid{
+  border-radius:2.6rem!important;
+}
+
+.dashboard .settings-page .profile-stat-grid article{
+  padding:2.5rem!important;
+}
+
+@media(max-width:650px){
+  .dashboard .settings-page .profile-summary-card{
+    padding:2.2rem!important;
+  }
+
+  .dashboard .settings-page .profile-settings-section-head{
+    padding:0 .4rem!important;
+    margin-bottom:1.4rem!important;
+  }
+
+  .dashboard .settings-page .profile-settings-list{
+    border-radius:2.3rem!important;
+  }
+
+  .dashboard .settings-page .profile-setting-row{
+    min-height:8.2rem!important;
+    padding:1.9rem 2rem!important;
+    gap:1.5rem!important;
+  }
+
+  .dashboard .settings-page .profile-setting-row > div:first-child{
+    padding-right:.8rem!important;
+  }
+
+  .dashboard .settings-page .profile-setting-row strong{
+    font-size:1.5rem!important;
+  }
+
+  .dashboard .settings-page .profile-setting-row span,
+  .dashboard .settings-page .profile-setting-row small{
+    font-size:1.25rem!important;
+    line-height:1.58!important;
+  }
+
+  .dashboard .settings-page .profile-stat-grid article{
+    padding:2rem!important;
+  }
+}
