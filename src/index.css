@@ -17265,3 +17265,121 @@ html,body,#root,
     line-height:1.65!important;
   }
 }
+
+
+/* ACTUAL FINAL VISUAL SOURCE — neutral Evolv canvas.
+   These rules intentionally come last because older design experiments above
+   define multiple green atmospheric layers. */
+.dashboard{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+}
+.dashboard::before,
+.dashboard::after{
+  background:none!important;
+  background-image:none!important;
+  filter:none!important;
+  opacity:0!important;
+  box-shadow:none!important;
+}
+.dashboard .dashboard-welcome::before,
+.dashboard .dashboard-welcome::after{
+  display:none!important;
+  content:none!important;
+  background:none!important;
+  box-shadow:none!important;
+}
+.dashboard .dash-main{
+  background:transparent!important;
+  background-image:none!important;
+}
+.dashboard .dashboard-home{
+  background:transparent!important;
+  background-image:none!important;
+}
+
+/* Profile cards: black surfaces, generous copy inset. */
+.dashboard .settings-page .profile-hero-card,
+.dashboard .settings-page .profile-facts-grid>div,
+.dashboard .settings-page .settings-card,
+.dashboard .settings-page .settings-section,
+.dashboard .settings-page .notifications-settings-section,
+.dashboard .settings-page .profile-settings-list,
+.dashboard .settings-page .profile-setting-row,
+.dashboard .settings-page .notification-preference,
+.dashboard .settings-page .notification-master-row,
+.dashboard .settings-page .notification-quiet-row{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+}
+.dashboard .settings-page .profile-setting-row,
+.dashboard .settings-page .notification-master-row,
+.dashboard .settings-page .notification-preference,
+.dashboard .settings-page .notification-quiet-row{
+  min-height:0!important;
+  height:auto!important;
+}
+.dashboard .settings-page .profile-setting-row{
+  padding:2.4rem 3rem!important;
+  gap:2.4rem!important;
+}
+.dashboard .settings-page .profile-setting-row>div:first-child,
+.dashboard .settings-page .profile-setting-copy{
+  min-width:0!important;
+  padding-right:2rem!important;
+}
+.dashboard .settings-page .profile-setting-row strong{
+  display:block!important;
+  font-size:1.75rem!important;
+  line-height:1.4!important;
+  margin:0 0 .7rem!important;
+}
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small{
+  font-size:1.45rem!important;
+  line-height:1.6!important;
+}
+
+/* Notification switches: fixed compact dimensions; row padding must not inflate them. */
+.dashboard .settings-page .settings-toggle{
+  flex:0 0 4.6rem!important;
+  width:4.6rem!important;
+  height:2.6rem!important;
+  min-width:4.6rem!important;
+  min-height:2.6rem!important;
+  max-width:4.6rem!important;
+  max-height:2.6rem!important;
+  padding:.2rem!important;
+  margin:0!important;
+  border-radius:999px!important;
+  box-sizing:border-box!important;
+}
+.dashboard .settings-page .settings-toggle span{
+  display:block!important;
+  flex:0 0 2.2rem!important;
+  width:2.2rem!important;
+  height:2.2rem!important;
+  min-width:2.2rem!important;
+  min-height:2.2rem!important;
+  max-width:2.2rem!important;
+  max-height:2.2rem!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:50%!important;
+}
+.dashboard .settings-page .settings-toggle.active span{
+  transform:translateX(2rem)!important;
+}
+
+@media(max-width:650px){
+  .dashboard .settings-page .profile-setting-row{
+    padding:2rem 1.8rem!important;
+    gap:1.5rem!important;
+  }
+  .dashboard .settings-page .profile-setting-row>div:first-child,
+  .dashboard .settings-page .profile-setting-copy{
+    padding-right:1rem!important;
+  }
+}
