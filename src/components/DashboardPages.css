@@ -3393,3 +3393,116 @@
   background:#000!important;
   box-shadow:none!important;
 }
+
+
+/* PROFILE — final cinematic mobile composition */
+.dashboard .settings-page{
+  background:#000!important;
+  color:#f5f5f5!important;
+}
+.dashboard .settings-page .settings-heading{
+  padding-top:2.8rem!important;
+  padding-bottom:2.6rem!important;
+}
+.dashboard .settings-page .settings-heading h2{
+  margin:0 0 .9rem!important;
+  font-family:Manrope,sans-serif!important;
+  font-style:normal!important;
+  font-size:clamp(3rem,8vw,5rem)!important;
+  line-height:1.05!important;
+  font-weight:600!important;
+  letter-spacing:-.055em!important;
+}
+.dashboard .settings-page .settings-heading p{
+  max-width:62rem!important;
+  font-family:Manrope,sans-serif!important;
+  font-size:1.35rem!important;
+  line-height:1.6!important;
+  color:rgba(255,255,255,.46)!important;
+}
+.dashboard .settings-page .profile-layout{
+  gap:3.2rem!important;
+}
+.dashboard .settings-page .profile-summary-card{
+  padding:2.4rem!important;
+  border-radius:2.8rem!important;
+  background:#000!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  box-shadow:none!important;
+}
+.dashboard .settings-page .profile-summary-copy h3{
+  margin:1.4rem 0 .8rem!important;
+  font-family:Manrope,sans-serif!important;
+  font-style:normal!important;
+  font-size:clamp(2.6rem,7vw,4rem)!important;
+  line-height:1.05!important;
+  font-weight:650!important;
+  letter-spacing:-.055em!important;
+}
+.dashboard .settings-page .profile-summary-copy p{
+  max-width:34rem!important;
+  font-size:1.4rem!important;
+  line-height:1.6!important;
+  color:rgba(255,255,255,.52)!important;
+}
+.dashboard .settings-page .profile-summary-copy small{font-size:1.2rem!important;line-height:1.5!important;color:rgba(255,255,255,.32)!important}
+.dashboard .settings-page .profile-stat-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0!important;
+  overflow:hidden!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:2.4rem!important;
+  background:#000!important;
+  box-shadow:none!important;
+}
+.dashboard .settings-page .profile-stat-grid article{
+  min-height:11.5rem!important;
+  padding:2rem!important;
+  background:#000!important;
+  border-right:1px solid rgba(255,255,255,.07)!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+}
+.dashboard .settings-page .profile-stat-grid article:nth-child(2n){border-right:0!important}
+.dashboard .settings-page .profile-stat-grid article:nth-last-child(-n+2){border-bottom:0!important}
+.dashboard .settings-page .profile-stat-grid span{font-size:1rem!important;letter-spacing:.09em!important;color:rgba(255,255,255,.34)!important}
+.dashboard .settings-page .profile-stat-grid strong{margin-top:2.2rem!important;font-size:3rem!important;font-weight:450!important}
+.dashboard .settings-page .profile-stat-grid small{font-size:1.15rem!important;line-height:1.4!important;color:rgba(255,255,255,.4)!important}
+.dashboard .settings-page .profile-settings-section{margin-top:3.8rem!important}
+.dashboard .settings-page .profile-settings-section-head{padding:0 .4rem!important;margin-bottom:1.2rem!important}
+.dashboard .settings-page .profile-settings-section-head h3{
+  margin:.65rem 0 0!important;
+  font-family:Manrope,sans-serif!important;
+  font-size:2.15rem!important;
+  line-height:1.2!important;
+  font-weight:600!important;
+  letter-spacing:-.04em!important;
+}
+.dashboard .settings-page .profile-settings-list{
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:2.4rem!important;
+  background:#000!important;
+  box-shadow:none!important;
+  overflow:hidden!important;
+}
+.dashboard .settings-page .profile-setting-row{
+  min-height:8rem!important;
+  padding:1.65rem 2rem!important;
+  gap:1.5rem!important;
+  background:#000!important;
+}
+.dashboard .settings-page .profile-setting-row > div:first-child{min-width:0;flex:1 1 auto;padding-right:.5rem!important}
+.dashboard .settings-page .profile-setting-row strong{font-size:1.5rem!important;line-height:1.35!important;font-weight:600!important;letter-spacing:-.01em!important}
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small{font-size:1.25rem!important;line-height:1.55!important;color:rgba(255,255,255,.46)!important}
+.dashboard .settings-page .profile-setting-control-row select,
+.dashboard .settings-page .profile-setting-control-row input[type="time"]{font-size:1.25rem!important}
+.dashboard .settings-page .profile-photo-actions button,
+.dashboard .settings-page .profile-edit-button{font-size:1.25rem!important}
+@media(max-width:650px){
+  .dashboard .settings-page .settings-heading{padding-top:2rem!important;padding-bottom:2.2rem!important}
+  .dashboard .settings-page .profile-layout{gap:2.4rem!important}
+  .dashboard .settings-page .profile-summary-card{padding:2rem!important;border-radius:2.4rem!important}
+  .dashboard .settings-page .profile-settings-section{margin-top:3.2rem!important}
+  .dashboard .settings-page .profile-settings-section-head{padding:0 .2rem!important}
+  .dashboard .settings-page .profile-setting-row{min-height:7.8rem!important;padding:1.5rem 1.7rem!important}
+}
