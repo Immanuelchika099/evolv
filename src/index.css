@@ -17056,3 +17056,11 @@ img,svg,video{max-width:100%}
     gap:4rem!important;
   }
 }
+
+
+/* PROFILE — full-width settings panels and comfortable row spacing */
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-section{width:100%!important;max-width:none!important;min-width:0!important;margin-left:0!important;margin-right:0!important;padding-left:0!important;padding-right:0!important}
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-section-head,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-list{width:100%!important;max-width:none!important;min-width:0!important}
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-list{box-sizing:border-box!important}
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-row{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding-left:0!important;padding-right:0!important}
