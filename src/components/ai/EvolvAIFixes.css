@@ -504,3 +504,15 @@ html:has(.dashboard.dashboard-ai-active) {
 @media(min-height:800px) and (max-width:800px){
   .dashboard.dashboard-ai-active .ai-page .ai-messages{padding-bottom:calc(10rem + env(safe-area-inset-bottom, 0px))!important}
 }
+
+
+/* FINAL AI CANVAS RESET — pure black. */
+.dashboard.dashboard-ai-active,
+.dashboard.dashboard-ai-active .dash-main,
+.dashboard.dashboard-ai-active .ai-page,
+.dashboard.dashboard-ai-active .ai-page .ai-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+}
