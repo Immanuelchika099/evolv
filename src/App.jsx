@@ -631,239 +631,31 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
     if (!pageEl) return
 
     let ctx
-    let refreshTimer
-
     try {
       ctx = gsap.context(() => {
-        const q = (selector) => pageEl.querySelectorAll(selector)
+        const q = selector => pageEl.querySelectorAll(selector)
 
         gsap.timeline({ defaults: { ease: 'power4.out' } })
-          .from(q('.hero-kicker'), { y: 18, opacity: 0, duration: .5 })
-          .from(q('.hero-title .line'), { yPercent: 110, opacity: 0, duration: .9, stagger: .1 }, '-=.25')
-          .from(q('.hero-description'), { y: 20, opacity: 0, duration: .6 }, '-=.5')
-          .from(q('.hero-actions'), { y: 16, opacity: 0, duration: .55 }, '-=.4')
-          .from(q('.hero-visual'), { scale: .92, opacity: 0, duration: 1 }, '-=.7')
+          .from(q('.ev-hero-eyebrow'), { y: 18, opacity: 0, duration: .55 })
+          .from(q('.ev-hero-title-line'), { yPercent: 115, opacity: 0, duration: 1, stagger: .09 }, '-=.2')
+          .from(q('.ev-hero-copy'), { y: 28, opacity: 0, duration: .65 }, '-=.55')
+          .from(q('.ev-hero-actions'), { y: 18, opacity: 0, duration: .55 }, '-=.42')
+          .from(q('.ev-hero-stage'), { y: 45, scale: .96, opacity: 0, duration: 1 }, '-=.7')
 
-        gsap.to(q('.hero-outer-ring'), {
+        gsap.to(q('.ev-orbit'), {
           rotation: 360,
-          duration: 22,
+          duration: 28,
           repeat: -1,
           ease: 'none',
         })
 
-        gsap.to(q('.evolv-hero-marquee-track'), {
-          xPercent: -50,
-          duration: 18,
-          repeat: -1,
-          ease: 'none',
-        })
-
-        gsap.to(q('.evolv-scroll-marquee-track'), {
-          xPercent: -50,
-          duration: 22,
-          repeat: -1,
-          ease: 'none',
-        })
-
-        // Cinematic homepage scroll: keep the hero in normal document flow.
-        // The hero animates out as you scroll, so its wave background can never
-        // remain pinned over the next section.
-        const hero = pageEl.querySelector('.hero')
-        const heroCopy = pageEl.querySelector('.hero-copy')
-        const heroVisual = pageEl.querySelector('.hero-visual')
-        const heroBackground = pageEl.querySelector('.hero-background-inner')
-
-        if (hero && heroCopy && heroVisual && heroBackground) {
-          const heroScene = gsap.timeline({
-            defaults: { ease: 'none' },
-            scrollTrigger: {
-              trigger: hero,
-              start: 'top top',
-              end: '+=700',
-              scrub: 1.05,
-              invalidateOnRefresh: true,
-            },
-          })
-
-          heroScene
-            .to(heroCopy, { yPercent: -28, opacity: 0, duration: 1 }, 0)
-            .to(heroVisual, { yPercent: 14, scale: .82, opacity: 0, duration: 1 }, 0)
-            .to(heroBackground, { scale: 1.08, yPercent: 8, opacity: 0, duration: 1 }, 0)
-            .to(hero, { backgroundColor: '#020403', duration: .55 }, .45)
-
-          const heroMarquee = pageEl.querySelector('.evolv-hero-marquee')
-          if (heroMarquee) {
-            gsap.fromTo(heroMarquee,
-              { y: 80, opacity: 0 },
-              {
-                y: 0,
-                opacity: 1,
-                duration: .8,
-                ease: 'power3.out',
-                scrollTrigger: {
-                  trigger: heroMarquee,
-                  start: 'top 92%',
-                  end: 'top 55%',
-                  scrub: 1,
-                  invalidateOnRefresh: true,
-                },
-              }
-            )
-          }
-        }
-
-        // Cinematic section choreography.
-        // Each section gets its own motion language so the homepage feels
-        // like one continuous scene instead of a stack of static blocks.
-        q('.story-reveal').forEach((element) => {
+        q('.ev-reveal').forEach((element) => {
           gsap.fromTo(element,
-            { y: 70, opacity: .2, filter: 'blur(3px)' },
+            { y: 70, opacity: 0 },
             {
               y: 0,
               opacity: 1,
-              filter: 'blur(0px)',
               ease: 'power3.out',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 88%',
-                end: 'top 48%',
-                scrub: 1.05,
-                invalidateOnRefresh: true,
-              },
-            }
-          )
-        })
-
-        q('.story-intro').forEach((element) => {
-          gsap.fromTo(element.querySelector('h2'),
-            { y: 90, opacity: 0, letterSpacing: '-.045em' },
-            {
-              y: 0, opacity: 1, letterSpacing: '-.065em',
-              ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 82%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true },
-            }
-          )
-          gsap.fromTo(element.querySelector('p'),
-            { y: 55, opacity: 0 },
-            {
-              y: 0, opacity: 1,
-              ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 72%', end: 'top 38%', scrub: 1, invalidateOnRefresh: true },
-            }
-          )
-        })
-
-        q('.story-statement').forEach((element) => {
-          gsap.fromTo(element.querySelector('h2'),
-            { x: -70, opacity: 0 },
-            { x: 0, opacity: 1, ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 82%', end: 'top 40%', scrub: 1, invalidateOnRefresh: true } }
-          )
-          gsap.fromTo(element.querySelector('p'),
-            { x: 50, opacity: 0 },
-            { x: 0, opacity: 1, ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 72%', end: 'top 38%', scrub: 1, invalidateOnRefresh: true } }
-          )
-        })
-
-        q('.feature-card').forEach((element, index) => {
-          gsap.fromTo(element,
-            { y: 85, scale: .94, opacity: 0 },
-            {
-              y: 0, scale: 1, opacity: 1,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 92%',
-                end: 'top 62%',
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            }
-          )
-          gsap.to(element, {
-            y: index % 2 ? -10 : 10,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: element,
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: 1.5,
-              invalidateOnRefresh: true,
-            },
-          })
-        })
-
-        q('.experience').forEach((element) => {
-          const copy = element.querySelector('.preview-copy')
-          const dashboard = element.querySelector('.mock-dashboard')
-          if (copy) gsap.fromTo(copy,
-            { x: -70, opacity: 0 },
-            { x: 0, opacity: 1, ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 82%', end: 'top 40%', scrub: 1, invalidateOnRefresh: true } }
-          )
-          if (dashboard) gsap.fromTo(dashboard,
-            { x: 90, y: 70, scale: .9, opacity: 0, rotate: 2 },
-            { x: 0, y: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 88%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true } }
-          )
-        })
-
-        q('.area').forEach((element, index) => {
-          gsap.fromTo(element,
-            { x: index % 2 ? 70 : -70, y: 35, opacity: 0, scale: .97 },
-            {
-              x: 0, y: 0, opacity: 1, scale: 1, ease: 'power3.out',
-              scrollTrigger: {
-                trigger: element,
-                start: 'top 92%',
-                end: 'top 64%',
-                scrub: 1,
-                invalidateOnRefresh: true,
-              },
-            }
-          )
-        })
-
-        q('.manifesto').forEach((element) => {
-          gsap.fromTo(element,
-            { scale: .88, y: 80, opacity: .15 },
-            { scale: 1, y: 0, opacity: 1, ease: 'power2.out',
-              scrollTrigger: { trigger: element, start: 'top 90%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true } }
-          )
-        })
-
-        q('.faq-item').forEach((element, index) => {
-          gsap.fromTo(element,
-            { y: 35, opacity: 0, x: index % 2 ? 24 : -24 },
-            { y: 0, opacity: 1, x: 0, ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 94%', end: 'top 68%', scrub: 1, invalidateOnRefresh: true } }
-          )
-        })
-
-        q('.evolv-scroll-marquee').forEach((element) => {
-          gsap.fromTo(element,
-            { xPercent: -10, opacity: .35, scale: .96 },
-            { xPercent: 10, opacity: 1, scale: 1.015, ease: 'none',
-              scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: 1, invalidateOnRefresh: true } }
-          )
-        })
-
-        q('.final-cta').forEach((element) => {
-          gsap.fromTo(element,
-            { y: 100, opacity: 0, scale: .94 },
-            { y: 0, opacity: 1, scale: 1, ease: 'power3.out',
-              scrollTrigger: { trigger: element, start: 'top 88%', end: 'top 42%', scrub: 1, invalidateOnRefresh: true } }
-          )
-        })
-
-        q('.story-reveal h2, .story-reveal h3').forEach((element) => {
-          gsap.fromTo(element,
-            { color: '#6f756f', y: 18 },
-            {
-              color: '#f4f1ea',
-              y: 0,
-              ease: 'power2.out',
               scrollTrigger: {
                 trigger: element,
                 start: 'top 88%',
@@ -875,19 +667,65 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           )
         })
 
-        // The homepage is dynamic, so refresh once immediately and again after
-        // fonts/layout/images have had time to settle.
+        q('.ev-service-row').forEach((element, index) => {
+          gsap.fromTo(element,
+            { x: index % 2 ? 45 : -45, opacity: 0 },
+            {
+              x: 0,
+              opacity: 1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: element,
+                start: 'top 92%',
+                end: 'top 62%',
+                scrub: 1,
+                invalidateOnRefresh: true,
+              },
+            }
+          )
+        })
+
+        q('.ev-stat-number').forEach((element) => {
+          const target = Number(element.dataset.value || 0)
+          const counter = { value: 0 }
+          gsap.to(counter, {
+            value: target,
+            duration: 1.4,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: element,
+              start: 'top 82%',
+              once: true,
+            },
+            onUpdate: () => {
+              element.textContent = Math.round(counter.value).toLocaleString()
+            },
+          })
+        })
+
+        const hero = pageEl.querySelector('.ev-hero')
+        const heroCopy = pageEl.querySelector('.ev-hero-content')
+        const heroStage = pageEl.querySelector('.ev-hero-stage')
+        if (hero && heroCopy && heroStage) {
+          gsap.timeline({
+            scrollTrigger: {
+              trigger: hero,
+              start: 'top top',
+              end: '+=650',
+              scrub: 1,
+            },
+          })
+            .to(heroCopy, { yPercent: -25, opacity: 0 }, 0)
+            .to(heroStage, { yPercent: 12, scale: .86, opacity: 0 }, 0)
+        }
+
         ScrollTrigger.refresh()
-        refreshTimer = window.setTimeout(() => ScrollTrigger.refresh(), 450)
       }, pageEl)
     } catch (error) {
       console.error('EVOLV landing animation error:', error)
     }
 
-    return () => {
-      if (refreshTimer) window.clearTimeout(refreshTimer)
-      ctx?.revert()
-    }
+    return () => ctx?.revert()
   }, [])
 
   function openContact() {
@@ -901,116 +739,142 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
     return () => window.removeEventListener('evolv:open-contact', handler)
   }, [])
 
-  function submitContact(event) {
-    event.preventDefault()
-    setContactSent(true)
-  }
-
   return (
-    <div ref={page} className="page-enter landing">
-      <section className="hero" style={{ paddingTop: '150px' }}>
-        <div className="hero-background" aria-hidden="true">
-          <div className="hero-background-inner">
-            <PatternWaves preset="lines" color="#ffffff" backgroundColor="#000000" fade="edges" interactive cursorSize={50} cursorStrength={0.35} pattern="line" spacing={12} markSize={0.42} depth={0.9} shine={0.6} speed={0.3} />
-            <div className="hero-background-fade" />
+    <div ref={page} className="page-enter landing landing-v2">
+      <section className="ev-hero">
+        <div className="ev-hero-grid" aria-hidden="true" />
+        <div className="ev-hero-glow" aria-hidden="true" />
+        <div className="ev-hero-watermark" aria-hidden="true">EVOLV</div>
+
+        <div className="ev-hero-content">
+          <div className="ev-hero-eyebrow"><span>PERSONAL GROWTH SYSTEM</span><i /> BUILT FOR YOUR NEXT SELF</div>
+          <h1 className="ev-hero-title">
+            <span className="ev-hero-title-line">Become more.</span>
+            <span className="ev-hero-title-line"><em>On purpose.</em></span>
+          </h1>
+          <p className="ev-hero-copy">A quieter way to turn goals into progress. Define what matters, build your rhythm, and see yourself moving.</p>
+          <div className="ev-hero-actions">
+            <button className="ev-btn ev-btn-solid" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button>
+            <button className="ev-btn ev-btn-line" type="button" onClick={onExplore}>Explore the system <ArrowDownRight size={17} /></button>
           </div>
         </div>
-        <div className="hero-copy">
-          <div className="hero-kicker"><Sparkles size={14} /> PERSONAL GROWTH, TRACKED</div>
-          <h1 className="hero-title"><span className="line">Become the person</span><span className="line"><em>you keep imagining.</em></span></h1>
-          <p className="hero-description">Your goals are easier to become when you can see them. EVOLV gives your growth a place to live, a rhythm to follow, and progress you can actually feel.</p>
-          <div className="hero-actions"><button className="button button-primary hero-action-button" type="button" onClick={(event) => { event.stopPropagation(); onStart() }} aria-label="Start evolving with EVOLV">Start evolving <ArrowRight size={17} /></button><button className="button button-ghost hero-action-button" type="button" onClick={(event) => { event.stopPropagation(); onExplore() }} aria-label="Explore EVOLV">Explore EVOLV ↓</button></div>
-        </div>
-        <div className="hero-visual"><div className="hero-aura" /><div className="hero-outer-ring" aria-hidden="true" /><div className="hero-panel"><div className="panel-top"><span>YOUR PROGRESS</span><span>THIS WEEK</span></div><div className="panel-score">72<span>%</span></div><div className="progress-line"><i /></div><div className="panel-bottom"><span>+18% from last week</span><b>On track</b></div></div></div>
-      </section>
-      <section className="evolv-hero-marquee" aria-label="EVOLV values">
-        <div className="evolv-hero-marquee-track">
-          <div className="evolv-hero-marquee-content">
-            <span>YOUR GOALS</span><i>•</i><span>YOUR PACE</span><i>•</i><span>YOUR LIFE</span><i>•</i><span>SMALL STEPS</span><i>•</i><span>REAL PROGRESS</span><i>•</i>
+
+        <div className="ev-hero-stage" aria-label="EVOLV progress preview">
+          <div className="ev-orbit" aria-hidden="true" />
+          <div className="ev-stage-meta"><span>EVOLV / 01</span><span>YOUR PROGRESS</span></div>
+          <div className="ev-stage-main">
+            <div className="ev-stage-score"><strong>72</strong><span>%</span></div>
+            <div className="ev-stage-copy"><span>THIS WEEK</span><b>Momentum is building.</b><i><u /></i><small>+18% from last week</small></div>
           </div>
-          <div className="evolv-hero-marquee-content" aria-hidden="true">
-            <span>YOUR GOALS</span><i>•</i><span>YOUR PACE</span><i>•</i><span>YOUR LIFE</span><i>•</i><span>SMALL STEPS</span><i>•</i><span>REAL PROGRESS</span><i>•</i>
-          </div>
+          <div className="ev-stage-footer"><span>CAREER</span><span>SKILLS</span><span>LIFE</span><span>HEALTH</span></div>
         </div>
+
+        <div className="ev-scroll-cue"><span>SCROLL TO EXPLORE</span><i /></div>
       </section>
-      <section className="story-intro story-reveal" id="story"><span className="section-label">01 — THE SHIFT</span><h2>You've always had<br /><em>somewhere to go.</em></h2><p>But ambition gets noisy. Goals sit in notes. Plans disappear into busy weeks. You start again. EVOLV is built to make the invisible part of growth visible.</p></section>
-      <section className="story-statement story-reveal"><div className="statement-number">02</div><div><span className="section-label">MAKE IT VISIBLE</span><h2>Growth shouldn't live<br />inside your head.</h2><p>Give your goals a place to exist. See the days you showed up. Understand your momentum. Then keep going.</p></div></section>
-      <section className="features-story story-reveal" id="features">
-        <div className="section-heading"><span className="section-label">03 — THE SYSTEM</span></div>
-        <div className="feature-steps">{[['01','DEFINE','Decide what matters in this season of your life.'],['02','BUILD','Turn intention into goals you can actually act on.'],['03','TRACK','See your momentum, progress and patterns over time.'],['04','EVOLVE','Reflect, adjust and keep becoming your next self.']].map(([num,title,text]) => <article className="feature-step feature-card" key={num}><span>{num}</span><div><div className="feature-step-heading"><SystemStepIcon title={title} /><h3>{title}</h3></div><p>{text}</p></div><ArrowRight size={17} /></article>)}</div>
-      </section>
-      <section className="experience story-reveal">
-        <div className="preview-copy"><span className="section-label">04 — YOUR SPACE</span><h2>A dashboard built around <em>your becoming.</em></h2><p>Once you enter EVOLV, everything becomes personal — your goals, your growth areas, your momentum and the story you're building day by day.</p><button className="button button-primary" onClick={onStart}>Create your space <ArrowRight size={16} /></button></div>
-        <FlipCard
-          className="section4-flip-card"
-          axis="y"
-          flipOnClick
-          draggable
-          dragDistance={0}
-          tilt
-          tiltMax={12}
-          glare={false}
-          hoverScale={1.03}
-          perspective={1100}
-          stiffness={170}
-          damping={20}
-          width={700}
-          height={430}
-          radius={24}
-          background="#090d08"
-          color="#f5f5f5"
-          shadow
-          shadowColor="#000000"
-          shadowOpacity={0.45}
-          ariaLabel="Flip your EVOLV progress card"
-          front={
-            <div className="mock-dashboard">
-              <div className="mock-header"><span>EVOLV / OVERVIEW</span><span>YOUR PROGRESS</span></div>
-              <div className="mock-main">
-                <div className="mock-ring"><strong>72</strong><small>%</small><span>this week</span></div>
-                <div className="mock-tasks">
-                  <div><small>CURRENT FOCUS</small><b>Build with intention.</b></div>
-                  <div className="task"><i /> Learn something new <span>IN PROGRESS</span></div>
-                  <div className="task"><i /> Show up today <span>ACTIVE</span></div>
-                  <div className="task"><i /> Review the week <span>FRI</span></div>
-                </div>
-              </div>
-            </div>
-          }
-          back={
-            <div className="section4-flip-back">
-              <span className="section4-flip-back-label">YOUR MOMENTUM</span>
-              <div className="section4-flip-back-score">
-                <strong>72</strong><span>%</span>
-              </div>
-              <p className="section4-flip-back-caption">THIS WEEK</p>
-              <div className="section4-flip-back-stats">
-                <div><strong>4 / 6</strong><span>GOALS ACTIVE</span></div>
-                <div><strong>5</strong><span>DAYS SHOWN UP</span></div>
-                <div><strong>+18%</strong><span>FROM LAST WEEK</span></div>
-              </div>
-              <div className="section4-flip-back-line" />
-              <p className="section4-flip-back-note">Keep the rhythm.<br /><span>Small progress is still progress.</span></p>
-            </div>
-          }
-        />
-      </section>
-      <section className="areas story-reveal" id="areas"><div className="section-heading"><span className="section-label">05 — YOUR WORLD</span></div><div className="area-grid">{growthAreas.map((a,i)=><article className="area" key={a.id} onClick={() => onArticle('area', a.id)} role="button" tabIndex="0"><span>0{i+1}</span><div><h3>{a.title}</h3><p>{a.text}</p></div><ArrowRight size={18}/></article>)}</div></section>
-      <section className="manifesto story-reveal"><span className="section-label">06 — KEEP GOING</span><h2>You don't need to become<br /><em>someone else.</em></h2><p>You need a place to become more of who you're capable of being.</p></section>
-      <section className="faq story-reveal" id="faq"><div className="faq-head"><span className="section-label">07 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div><div className="faq-list">{[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account is designed to keep your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.'],['Is EVOLV a habit tracker?','It can support habits, but the bigger idea is your overall growth — goals, momentum, reflection and progress.']].map(([q,a]) => <details className="faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>)}</div></section>
-      <section className="evolv-scroll-marquee" aria-label="EVOLV principles">
-        <div className="evolv-scroll-marquee-viewport">
-          <div className="evolv-scroll-marquee-track">
-            <div className="evolv-scroll-marquee-content">
+
+      <section className="ev-marquee" aria-label="EVOLV principles">
+        <div className="ev-marquee-track">
+          {[0,1].map(copy => (
+            <div className="ev-marquee-content" key={copy} aria-hidden={copy === 1}>
               <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
             </div>
-            <div className="evolv-scroll-marquee-content" aria-hidden="true">
-              <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
-      <section className="final-cta story-reveal"><span className="section-label">08 — YOUR NEXT SELF</span><h2>Your next version<br /><em>starts here.</em></h2><button className="button button-primary" onClick={onStart}>Start evolving <ArrowRight size={17} /></button></section>
+
+      <section className="ev-statement ev-reveal" id="story">
+        <div className="ev-section-index">01</div>
+        <div className="ev-statement-copy">
+          <span className="ev-label">THE SHIFT</span>
+          <h2>Your growth deserves<br /><em>a place to live.</em></h2>
+          <p>Ambition gets noisy when everything lives in your head. EVOLV gives your goals, routines and momentum one calm place to become visible.</p>
+        </div>
+      </section>
+
+      <section className="ev-band ev-reveal">
+        <span>WE</span><strong>DEFINE</strong><i>→</i><strong>BUILD</strong><i>→</i><strong>TRACK</strong><i>→</i><strong>EVOLVE</strong>
+      </section>
+
+      <section className="ev-system ev-reveal" id="features">
+        <div className="ev-section-head"><div><span className="ev-label">02 — THE SYSTEM</span><h2>Four moves.<br /><em>One direction.</em></h2></div><p>EVOLV turns personal growth into something you can actually see, understand and keep moving.</p></div>
+        <div className="ev-system-grid">
+          {[
+            ['01','DEFINE','Decide what matters in this season of your life.',Target],
+            ['02','BUILD','Turn intention into goals you can actually act on.',Sprout],
+            ['03','TRACK','See momentum, patterns and progress over time.',TrendingUp],
+            ['04','EVOLVE','Reflect, adjust and keep becoming your next self.',Sparkles],
+          ].map(([num,title,text,Icon]) => (
+            <article className="ev-system-card" key={num}>
+              <span className="ev-card-num">{num}</span>
+              <Icon size={25} strokeWidth={1.5} />
+              <h3>{title}</h3>
+              <p>{text}</p>
+              <span className="ev-card-arrow"><ArrowUpRight size={17} /></span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="ev-experience ev-reveal">
+        <div className="ev-experience-copy">
+          <span className="ev-label">03 — INSIDE EVOLV</span>
+          <h2>Everything you need.<br /><em>Nothing you don't.</em></h2>
+          <p>Your dashboard keeps the important things close: active goals, logged progress, growth areas and the momentum you've built.</p>
+          <button className="ev-text-link" type="button" onClick={onStart}>Enter your space <ArrowRight size={16} /></button>
+        </div>
+        <div className="ev-device">
+          <div className="ev-device-top"><span>EVOLV / OVERVIEW</span><span>THIS WEEK</span></div>
+          <div className="ev-device-body">
+            <div className="ev-device-ring"><strong>72</strong><span>%</span><small>progress</small></div>
+            <div className="ev-device-list">
+              <div><span>01</span><b>Build with intention</b><i>ACTIVE</i></div>
+              <div><span>02</span><b>Learn something new</b><i>IN PROGRESS</i></div>
+              <div><span>03</span><b>Show up today</b><i>ACTIVE</i></div>
+              <div><span>04</span><b>Review the week</b><i>FRI</i></div>
+            </div>
+          </div>
+          <div className="ev-device-bottom"><span>+18%</span><span>FROM LAST WEEK</span><span>ON TRACK</span></div>
+        </div>
+      </section>
+
+      <section className="ev-areas ev-reveal" id="areas">
+        <div className="ev-section-head"><div><span className="ev-label">04 — YOUR WORLD</span><h2>Grow across<br /><em>what matters.</em></h2></div><p>One system for the different parts of your life — without forcing everything into the same routine.</p></div>
+        <div className="ev-service-list">
+          {growthAreas.map((area, index) => (
+            <button className="ev-service-row" key={area.id} type="button" onClick={() => onArticle('area', area.id)}>
+              <span>0{index + 1}</span><strong>{area.title}</strong><small>{area.text}</small><ArrowUpRight size={20} />
+            </button>
+          ))}
+        </div>
+      </section>
+
+      <section className="ev-stats ev-reveal">
+        <div className="ev-stats-watermark">KEEP GOING</div>
+        <span className="ev-label">05 — THE IDEA</span>
+        <h2>Progress becomes different<br /><em>when you can see it.</em></h2>
+        <div className="ev-stat-grid">
+          <div><strong className="ev-stat-number" data-value="4">0</strong><span>STEPS TO EVOLVE</span></div>
+          <div><strong className="ev-stat-number" data-value="6">0</strong><span>GROWTH AREAS</span></div>
+          <div><strong className="ev-stat-number" data-value="1">0</strong><span>PLACE FOR YOUR PROGRESS</span></div>
+        </div>
+      </section>
+
+      <section className="ev-faq ev-reveal" id="faq">
+        <div><span className="ev-label">06 — QUESTIONS</span><h2>Before you<br /><em>begin.</em></h2></div>
+        <div className="ev-faq-list">
+          {[['What exactly is EVOLV?','A personal growth tracker for turning goals and intentions into visible progress.'],['What can I track?','Career, skills, money, health, lifestyle, creative work and other areas that matter to you.'],['Does my progress stay saved?','Yes. Your account keeps your goals and progress connected to you across sessions.'],['Can I change my goals later?','Absolutely. Growth changes with you, so your goals should be able to change too.']].map(([q,a]) => (
+            <details className="ev-faq-item" key={q}><summary>{q}<span>+</span></summary><p>{a}</p></details>
+          ))}
+        </div>
+      </section>
+
+      <section className="ev-final ev-reveal">
+        <div className="ev-final-watermark">EVOLV</div>
+        <span className="ev-label">07 — YOUR NEXT SELF</span>
+        <h2>You don't need<br />a new life.<br /><em>Just a new rhythm.</em></h2>
+        <button className="ev-btn ev-btn-solid" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button>
+      </section>
+
       <Footer onContact={onContact} />
     </div>
   )
