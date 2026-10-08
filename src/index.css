@@ -17064,3 +17064,22 @@ img,svg,video{max-width:100%}
 .dashboard .dash-main > .panel-page.settings-page .profile-settings-list{width:100%!important;max-width:none!important;min-width:0!important}
 .dashboard .dash-main > .panel-page.settings-page .profile-settings-list{box-sizing:border-box!important}
 .dashboard .dash-main > .panel-page.settings-page .profile-setting-row{width:100%!important;min-width:0!important;box-sizing:border-box!important;padding-left:0!important;padding-right:0!important}
+
+/* FINAL TYPE + SURFACE RESET — keep the logged-in product on its established Manrope UI font. */
+.dashboard,
+.dashboard button,
+.dashboard input,
+.dashboard textarea,
+.dashboard select{
+  font-family:Manrope,sans-serif!important;
+}
+.dashboard .dashboard-welcome-copy h1,
+.dashboard .settings-heading h2,
+.dashboard .settings-page .profile-summary-copy h3,
+.dashboard .logs-page .logs-page-hero h2,
+.dashboard .log-sheet-heading h2{
+  font-family:Manrope,sans-serif!important;
+  font-style:normal!important;
+  font-weight:500!important;
+  letter-spacing:-.055em!important;
+}
