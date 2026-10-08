@@ -532,3 +532,48 @@
 }
 
 
+
+/* EVOLV ONBOARDING — final typography and spacing pass */
+.onboarding{min-height:100svh;background:#030303;color:#f3f3ef}
+.onboarding .onboard-head{width:min(118rem,calc(100% - 8rem));padding-top:3.2rem}
+.onboarding .onboard-progress{width:min(118rem,calc(100% - 8rem));margin-top:2rem;background:rgba(255,255,255,.1)}
+.onboarding .onboard-progress i{background:#e9e9e4;box-shadow:none}
+.onboarding .onboard-content{width:min(90rem,calc(100% - 8rem));padding:7rem 0 10rem}
+.onboarding .onboard-stage{width:100%;padding-top:0}
+.onboarding .onboard-back-row{margin-bottom:4.5rem}
+.onboarding .onboard-step h1{margin:0 0 2.2rem;max-width:82rem;color:#f4f4f0;font-size:clamp(5.2rem,8vw,9.5rem);line-height:.88;letter-spacing:-.075em;font-weight:620}
+.onboarding .onboard-step>p{max-width:54rem;margin:0 0 4rem;color:#8f8f8f;font-size:1.65rem;line-height:1.65}
+.onboarding .onboard-field-wrap{gap:1rem;margin-top:3rem}
+.onboarding .onboard-field-wrap>span{color:#686868;font:500 1rem/1 'DM Mono',monospace;letter-spacing:.12em}
+.onboarding .choice{min-height:14rem;padding:2.4rem;border-radius:1.8rem;border:1px solid rgba(255,255,255,.1);background:#090909}
+.onboarding .choice:hover{border-color:rgba(255,255,255,.25);background:#0d0d0d}
+.onboarding .choice .choice-number{margin-bottom:3rem;color:#555;font-size:1rem}
+.onboarding .choice span:not(.choice-number){margin-bottom:.8rem;color:#f1f1ed;font-size:1.65rem}
+.onboarding .choice small{color:#747474;font-size:1.2rem;line-height:1.5}
+.onboarding .journey-intro{margin-top:5rem;gap:4rem}
+.onboarding .journey-note strong{font-size:2.6rem}
+.onboarding .journey-note small{font-size:1.25rem;line-height:1.5}
+.onboarding .journey-ready{margin-top:4.5rem;max-width:66rem}
+.onboarding .ready-card{padding:3rem;border-radius:2rem;background:#0a0a0a;border-color:rgba(255,255,255,.11);box-shadow:none}
+.onboarding .ready-card strong{margin:1.4rem 0 .8rem;font-size:3rem}
+.onboarding .ready-card>p{font-size:1.35rem;line-height:1.6}
+.onboarding .ready-meta{gap:.8rem;margin-top:2.5rem}
+.onboarding .ready-meta span{padding:.8rem 1rem;font-size:.95rem}
+@media(max-width:800px){
+ .onboarding .onboard-head,.onboarding .onboard-progress,.onboarding .onboard-content{width:calc(100% - 4rem)}
+ .onboarding .onboard-content{padding:5rem 0 7rem}
+ .onboarding .onboard-back-row{margin-bottom:3.2rem}
+ .onboarding .onboard-step h1{font-size:clamp(4.6rem,15vw,7rem);line-height:.9}
+ .onboarding .onboard-step>p{font-size:1.5rem;line-height:1.6}
+ .onboarding .choice{min-height:11.5rem;padding:2rem}
+ .onboarding .choice span:not(.choice-number){font-size:1.45rem}
+ .onboarding .journey-intro{margin-top:3.5rem;gap:2rem}
+ .onboarding .journey-note strong{font-size:2rem}
+}
+@media(max-width:430px){
+ .onboarding .onboard-head,.onboarding .onboard-progress,.onboarding .onboard-content{width:calc(100% - 3.2rem)}
+ .onboarding .onboard-content{padding-top:4rem}
+ .onboarding .onboard-step h1{font-size:clamp(4.2rem,16vw,6.2rem)}
+ .onboarding .onboard-step>p{font-size:1.4rem}
+ .onboarding .choice{padding:1.8rem}
+}
