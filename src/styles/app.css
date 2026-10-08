@@ -1,11 +1,11 @@
 /* Feature style manifest. Component/page styles live in src/components/styles/. */
-@import './components/styles/Dashboard.css';
-@import './components/styles/Landing.css';
-@import './components/styles/ArticlePage.css';
-@import './components/styles/Contact.css';
-@import './components/styles/Pricing.css';
-@import './components/styles/Onboarding.css';
-@import './components/styles/Auth.css';
-@import './components/styles/AI.css';
-@import './components/styles/Logging.css';
-@import './components/styles/Notifications.css';
+@import '../components/styles/Dashboard.css';
+@import '../components/styles/Landing.css';
+@import '../components/styles/ArticlePage.css';
+@import '../components/styles/Contact.css';
+@import '../components/styles/Pricing.css';
+@import '../components/styles/Onboarding.css';
+@import '../components/styles/Auth.css';
+@import '../components/styles/AI.css';
+@import '../components/styles/Logging.css';
+@import '../components/styles/Notifications.css';
