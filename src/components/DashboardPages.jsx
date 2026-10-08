@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import './DashboardPages.css'
 import '../styles/tokens.css'
+import './styles/Profile.css'
 import HoldButton from './HoldButton'
 import ProfileSettingsPage from './ProfileSettingsPage'
 
