@@ -577,3 +577,190 @@
  .onboarding .onboard-step>p{font-size:1.4rem}
  .onboarding .choice{padding:1.8rem}
 }
+ 
+/* EVOLV ONBOARDING — clean cinematic surface pass
+   The journey should read as one continuous black canvas.
+   No ambient layer, gradient shelf, or shadow should sit outside controls. */
+.app:has(.onboarding) .noise{
+  display:none!important;
+}
+
+.onboarding{
+  position:relative;
+  isolation:isolate;
+  overflow-x:hidden;
+  background:#030303!important;
+}
+
+.onboarding::before,
+.onboarding::after{
+  content:none!important;
+  display:none!important;
+}
+
+.onboarding .onboard-content,
+.onboarding .onboard-stage,
+.onboarding .onboard-step{
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.onboarding .onboard-footer{
+  position:relative;
+  background:transparent!important;
+  background-image:none!important;
+  box-shadow:none!important;
+  border-top:0!important;
+  padding:2.4rem 0 3.2rem!important;
+}
+
+.onboarding .onboard-footer::before,
+.onboarding .onboard-footer::after{
+  content:none!important;
+  display:none!important;
+}
+
+.onboarding .onboard-footer .button{
+  position:relative;
+  isolation:isolate;
+  box-shadow:none;
+}
+
+.onboarding .journey-intro{
+  background:transparent!important;
+  box-shadow:none!important;
+}
+
+.onboarding .journey-orbit{
+  box-shadow:none!important;
+}
+
+.onboarding .journey-orbit span{
+  box-shadow:0 0 18px rgba(223,231,216,.18)!important;
+}
+
+.onboarding .ready-card{
+  background:#0a0a0a!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+
+.onboarding .choice,
+.onboarding .focus{
+  box-shadow:none!important;
+}
+
+.onboarding .choice::before,
+.onboarding .choice::after,
+.onboarding .focus::before,
+.onboarding .focus::after{
+  content:none!important;
+  display:none!important;
+}
+
+/* Make the journey feel editorial rather than like a form. */
+.onboarding .onboard-step h1{
+  max-width:88rem;
+  font-size:clamp(6.2rem,9.2vw,11rem);
+  line-height:.84;
+  letter-spacing:-.082em;
+}
+
+.onboarding .onboard-step>p{
+  max-width:58rem;
+  margin-top:3rem;
+  font-size:1.75rem;
+  line-height:1.65;
+  color:#999;
+}
+
+.onboarding .section-label{
+  font-size:1.05rem!important;
+  letter-spacing:.17em;
+  color:#707070!important;
+}
+
+.onboarding .onboard-field-wrap{
+  max-width:66rem;
+}
+
+.onboarding .onboard-field-wrap input,
+.onboarding .onboard-field-wrap textarea{
+  font-size:1.8rem!important;
+  min-height:6.4rem;
+  padding:1.8rem 2rem;
+  border-radius:1.5rem;
+}
+
+.onboarding .choice-grid{
+  gap:1.2rem;
+  margin-top:4.5rem;
+}
+
+.onboarding .choice{
+  min-height:15rem;
+  padding:2.8rem;
+}
+
+.onboarding .choice span:not(.choice-number){
+  font-size:1.85rem!important;
+}
+
+.onboarding .choice small{
+  font-size:1.3rem!important;
+}
+
+.onboarding .focus-list{
+  gap:1rem;
+  margin-top:4.5rem;
+}
+
+.onboarding .focus{
+  min-height:7rem;
+  padding:0 2.2rem;
+  font-size:1.65rem;
+  border-radius:1.5rem;
+}
+
+@media(max-width:800px){
+  .onboarding .onboard-step h1{
+    font-size:clamp(5rem,16vw,7.6rem);
+  }
+
+  .onboarding .onboard-step>p{
+    font-size:1.55rem;
+    margin-top:2.3rem;
+  }
+
+  .onboarding .choice{
+    min-height:12.5rem;
+    padding:2.2rem;
+  }
+
+  .onboarding .choice span:not(.choice-number){
+    font-size:1.55rem!important;
+  }
+
+  .onboarding .focus{
+    min-height:6.2rem;
+    font-size:1.45rem;
+  }
+
+  .onboarding .onboard-footer{
+    padding:1.8rem 0 2.4rem!important;
+  }
+}
+
+@media(max-width:430px){
+  .onboarding .onboard-step h1{
+    font-size:clamp(4.7rem,16.8vw,6.6rem);
+  }
+
+  .onboarding .onboard-step>p{
+    font-size:1.45rem;
+  }
+
+  .onboarding .choice{
+    padding:1.9rem;
+  }
+}
