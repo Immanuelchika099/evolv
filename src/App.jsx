@@ -728,16 +728,10 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
     return () => ctx?.revert()
   }, [])
 
-  function openContact() {
-    setContactSent(false)
-    setContactOpen(true)
-  }
-
   useLayoutEffect(() => {
-    const handler = () => openContact()
-    window.addEventListener('evolv:open-contact', handler)
-    return () => window.removeEventListener('evolv:open-contact', handler)
-  }, [])
+    window.addEventListener('evolv:open-contact', onContact)
+    return () => window.removeEventListener('evolv:open-contact', onContact)
+  }, [onContact])
 
   return (
     <div ref={page} className="page-enter landing landing-v2">
