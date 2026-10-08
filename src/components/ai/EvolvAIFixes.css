@@ -451,3 +451,56 @@ html:has(.dashboard.dashboard-ai-active) {
 @media(prefers-reduced-motion:reduce){
   .dashboard.dashboard-ai-active *{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;}
 }
+
+
+/* AI — true app viewport: composer is always visible; only conversation scrolls. */
+.dashboard.dashboard-ai-active,
+.dashboard.dashboard-ai-active .dash-main,
+.dashboard.dashboard-ai-active .ai-page{
+  height:100dvh!important;
+  min-height:100dvh!important;
+  max-height:100dvh!important;
+  overflow:hidden!important;
+}
+.dashboard.dashboard-ai-active .ai-page{
+  padding-bottom:0!important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  height:auto!important;
+  overflow:hidden!important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  top:0!important;
+  bottom:0!important;
+  height:auto!important;
+  min-height:0!important;
+  overflow-y:auto!important;
+  padding-top:1rem!important;
+  padding-bottom:calc(10rem + env(safe-area-inset-bottom, 0px))!important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell{
+  position:fixed!important;
+  left:0!important;
+  right:0!important;
+  bottom:0!important;
+  width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  padding:1rem 1.2rem calc(1rem + env(safe-area-inset-bottom, 0px))!important;
+  z-index:100001!important;
+  align-items:flex-end!important;
+  background:linear-gradient(to top,rgba(0,0,0,.99) 0%,rgba(0,0,0,.96) 70%,transparent 100%)!important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar{
+  width:min(60rem,100%)!important;
+  margin:0 auto!important;
+}
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page .ai-messages{padding-bottom:calc(9rem + env(safe-area-inset-bottom, 0px))!important}
+  .dashboard.dashboard-ai-active .ai-promptbar-shell{padding-left:1rem!important;padding-right:1rem!important}
+}
+@media(min-height:800px) and (max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page .ai-messages{padding-bottom:calc(10rem + env(safe-area-inset-bottom, 0px))!important}
+}
