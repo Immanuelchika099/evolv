@@ -3678,3 +3678,31 @@ html.evolv-android .goals-page .goal-item{
   background:#000!important;
   background-color:#000!important;
 }
+
+
+/* FINAL PAGE-SURFACE CLEANUP — no olive/green canvas on logged-in pages. */
+.dashboard-home .today-snapshot,
+.dashboard-home .daily-brief-card,
+.dashboard-home .evolv-life-overview,
+.dashboard-home .today-action-strip,
+.dashboard-home .daily-insight,
+.area-detail-page .health-command-row,
+.area-detail-page .health-subsection,
+.area-detail-page .health-reading-strip,
+.area-detail-page .wellbeing-guide,
+.area-detail-page .nutrition-overview,
+.area-detail-page .nutrition-note,
+.area-detail-page .meal-history,
+.logs-page .logs-page-toolbar,
+.logs-page .logs-page-row,
+.log-detail-page .log-detail-card,
+.progress-page .progress-section-card,
+.progress-page .progress-overview-card,
+.goals-page .goal-create-form,
+.goals-page .goal-item,
+.panel-page .area-note{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
