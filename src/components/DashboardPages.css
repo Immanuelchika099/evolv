@@ -3506,3 +3506,175 @@
   .dashboard .settings-page .profile-settings-section-head{padding:0 .2rem!important}
   .dashboard .settings-page .profile-setting-row{min-height:7.8rem!important;padding:1.5rem 1.7rem!important}
 }
+
+
+/* =========================================================
+   FINAL BLACK CANVAS + PROFILE TYPOGRAPHY RESET
+   ========================================================= */
+.dashboard,
+.dashboard .dash-main,
+.dashboard .dashboard-pages,
+.dashboard .panel-page,
+.dashboard .settings-page,
+.dashboard .dashboard-home,
+.dashboard .profile-layout,
+.dashboard .profile-settings-column{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+}
+.dashboard .settings-page{
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding-bottom:12rem!important;
+}
+.dashboard .settings-page .profile-layout{
+  width:100%!important;
+  max-width:none!important;
+  grid-template-columns:minmax(30rem,.72fr) minmax(0,1.5fr)!important;
+  gap:3rem!important;
+  align-items:start!important;
+}
+.dashboard .settings-page .profile-summary-card,
+.dashboard .settings-page .profile-stat-grid,
+.dashboard .settings-page .profile-settings-section,
+.dashboard .settings-page .profile-settings-list,
+.dashboard .settings-page .profile-settings-column>section{
+  background:#000!important;
+  background-color:#000!important;
+  background-image:none!important;
+  box-shadow:none!important;
+}
+.dashboard .settings-page .profile-summary-card{
+  padding:3rem!important;
+  border:1px solid rgba(255,255,255,.08)!important;
+  border-radius:2.6rem!important;
+}
+.dashboard .settings-page .profile-stat-grid article{
+  padding:2.6rem!important;
+  min-height:13rem!important;
+  background:#000!important;
+}
+.dashboard .settings-page .profile-setting-row{
+  min-height:9.2rem!important;
+  padding:2.25rem 2.8rem!important;
+  gap:3rem!important;
+  background:#000!important;
+}
+.dashboard .settings-page .profile-setting-row>div:first-child,
+.dashboard .settings-page .profile-setting-copy{
+  min-width:0!important;
+  padding-right:1rem!important;
+}
+.dashboard .settings-page .profile-setting-row strong{
+  display:block!important;
+  font-family:Manrope,sans-serif!important;
+  font-size:1.75rem!important;
+  line-height:1.35!important;
+  font-weight:650!important;
+  letter-spacing:-.02em!important;
+}
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small{
+  display:block!important;
+  margin-top:.45rem!important;
+  font-family:Manrope,sans-serif!important;
+  font-size:1.45rem!important;
+  line-height:1.6!important;
+  color:rgba(255,255,255,.5)!important;
+}
+.dashboard .settings-page .settings-inline-action,
+.dashboard .settings-page .settings-danger-button,
+.dashboard .settings-page .settings-cancel-button{
+  flex:0 0 auto!important;
+  min-height:4.6rem!important;
+  padding:0 1.5rem!important;
+  font-size:1.4rem!important;
+  white-space:nowrap!important;
+}
+.dashboard .settings-page .profile-settings-section-head{
+  padding:0 .6rem!important;
+  margin-bottom:1.5rem!important;
+}
+.dashboard .settings-page .profile-settings-section-head h3{
+  font-size:2.65rem!important;
+  line-height:1.15!important;
+}
+.dashboard .settings-page .settings-heading h2{
+  font-size:clamp(3.6rem,7vw,6.4rem)!important;
+}
+.dashboard .settings-page .settings-heading p{
+  font-size:1.5rem!important;
+  line-height:1.65!important;
+}
+.dashboard .settings-page .profile-summary-copy h3{
+  font-size:clamp(3rem,6vw,4.5rem)!important;
+}
+.dashboard .settings-page .profile-summary-copy p{
+  font-size:1.55rem!important;
+  line-height:1.65!important;
+}
+.dashboard .settings-page .profile-summary-copy small{font-size:1.3rem!important;}
+@media(max-width:900px){
+  .dashboard .settings-page .profile-layout{
+    grid-template-columns:1fr!important;
+    gap:2.8rem!important;
+  }
+}
+@media(max-width:650px){
+  .dashboard .dash-main{
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+  .dashboard .settings-page{
+    padding-top:0!important;
+    padding-bottom:10rem!important;
+  }
+  .dashboard .settings-page .profile-summary-card{
+    padding:2.4rem!important;
+    border-radius:2.4rem!important;
+  }
+  .dashboard .settings-page .profile-setting-row{
+    min-height:9rem!important;
+    padding:2rem 2.1rem!important;
+    gap:1.5rem!important;
+  }
+  .dashboard .settings-page .profile-setting-row strong{font-size:1.7rem!important;}
+  .dashboard .settings-page .profile-setting-row span,
+  .dashboard .settings-page .profile-setting-row small{
+    font-size:1.4rem!important;
+    line-height:1.6!important;
+  }
+  .dashboard .settings-page .settings-inline-action,
+  .dashboard .settings-page .settings-danger-button,
+  .dashboard .settings-page .settings-cancel-button{
+    min-height:4.4rem!important;
+    padding:0 1.2rem!important;
+    font-size:1.35rem!important;
+  }
+  .dashboard .settings-page .profile-settings-section-head h3{font-size:2.35rem!important;}
+}
+
+/* Remove the Android-only green/olive surface fallback. */
+html.evolv-android .dashboard-home .today-snapshot,
+html.evolv-android .dashboard-home .daily-brief-card,
+html.evolv-android .dashboard-home .evolv-life-overview,
+html.evolv-android .dashboard-home .today-action-strip,
+html.evolv-android .dashboard-home .daily-insight,
+html.evolv-android .area-detail-page .health-subsection,
+html.evolv-android .area-detail-page .wellbeing-guide,
+html.evolv-android .area-detail-page .nutrition-overview,
+html.evolv-android .area-detail-page .nutrition-note,
+html.evolv-android .area-detail-page .meal-history,
+html.evolv-android .logs-page .logs-page-toolbar,
+html.evolv-android .logs-page .logs-page-row,
+html.evolv-android .log-detail-page .log-detail-card,
+html.evolv-android .progress-page .progress-section-card,
+html.evolv-android .progress-page .progress-overview-card,
+html.evolv-android .goals-page .goal-create-form,
+html.evolv-android .goals-page .goal-item{
+  background:#000!important;
+  background-color:#000!important;
+}
