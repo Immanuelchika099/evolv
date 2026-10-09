@@ -4511,3 +4511,72 @@ html.evolv-android .goals-page .goal-item{
   .profile-modal-backdrop > .profile-modal form {gap:8px!important}
   .profile-modal-backdrop > .profile-modal textarea {height:54px!important;min-height:54px!important}
 }
+
+
+/* Logged-in canvas: remove page-sized background panels without touching cards. */
+html,
+body,
+#root,
+.page-enter,
+.dashboard {
+  background-color:#000000!important;
+  background-image:none!important;
+}
+.dashboard {
+  display:flex;
+  width:100%;
+  min-width:0;
+  min-height:100dvh;
+  margin:0!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  overflow:visible!important;
+}
+.dashboard::before,
+.dashboard::after {
+  content:none!important;
+  display:none!important;
+  background:none!important;
+  box-shadow:none!important;
+  filter:none!important;
+}
+.dashboard .dash-main {
+  min-width:0!important;
+  background:transparent!important;
+  background-image:none!important;
+}
+.dashboard .dashboard-pages,
+.dashboard .settings-page {
+  background:transparent!important;
+  background-image:none!important;
+  border-color:transparent;
+  box-shadow:none!important;
+}
+.dashboard .settings-page {
+  width:100%!important;
+  max-width:none!important;
+  margin-inline:0!important;
+  padding-bottom:calc(6.8rem + env(safe-area-inset-bottom,0px) + 2rem)!important;
+}
+@media(max-width:800px) {
+  .dashboard {
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+  }
+  .dashboard .dash-main {
+    width:100%!important;
+    max-width:100%!important;
+    margin:0!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+  .dashboard .settings-page {
+    width:100%!important;
+    max-width:none!important;
+    margin:0!important;
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+}
