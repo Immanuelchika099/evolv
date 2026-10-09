@@ -9,3 +9,96 @@
 @import '../components/styles/AI.css';
 @import '../components/styles/Logging.css';
 @import '../components/styles/Notifications.css';
+
+
+/* FINAL logged-in canvas override — keep backgrounds on the root, not page wrappers. */
+:root {
+  --app-bg: #000000;
+  color-scheme: dark;
+  background: #000000 !important;
+  background-color: #000000 !important;
+}
+html,
+body,
+#root {
+  width: 100% !important;
+  max-width: none !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+body {
+  margin: 0 !important;
+  min-height: 0 !important;
+}
+#root {
+  min-height: 100dvh !important;
+}
+.dashboard,
+.dashboard .dash-main,
+.dashboard .dashboard-pages,
+.dashboard .panel-page.settings-page,
+.dashboard .settings-page > .settings-heading,
+.dashboard .settings-page > .profile-layout,
+.dashboard .profile-layout,
+.dashboard .profile-settings-column {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.dashboard {
+  min-height: 0 !important;
+  height: auto !important;
+  /* Keep the existing safe-area/status-bar clearance unchanged. */
+  padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
+}
+.dashboard .dash-main {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-top: 0 !important;
+  padding-bottom: calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1.6rem) !important;
+}
+.dashboard .panel-page.settings-page {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+.dashboard .profile-layout,
+.dashboard .profile-settings-column,
+.dashboard .profile-stat-grid {
+  min-width: 0 !important;
+  overflow: visible !important;
+}
+.dashboard .profile-stat-grid > article {
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
+.dashboard::before,
+.dashboard::after,
+.dashboard .dash-main::before,
+.dashboard .dash-main::after,
+.dashboard .panel-page.settings-page::before,
+.dashboard .panel-page.settings-page::after,
+.dashboard .settings-heading::before,
+.dashboard .settings-heading::after,
+.dashboard .profile-layout::before,
+.dashboard .profile-layout::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  background-image: none !important;
+  filter: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
