@@ -1465,3 +1465,63 @@ body,
     border-radius:3rem!important;
   }
 }
+
+
+/* Logged-in canvas wrappers only: let the root black reach every viewport edge. */
+.dashboard {
+  width:100%!important;
+  max-width:none!important;
+  min-height:0!important;
+  height:auto!important;
+  margin:0!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  /* Preserve the existing status-bar clearance. */
+  padding-top:calc(env(safe-area-inset-top, 0px) + 24px)!important;
+}
+.dashboard .dash-main,
+.dashboard .dashboard-pages,
+.dashboard .dashboard-pages > .panel-page,
+.dashboard .dashboard-pages > .dashboard-home,
+.dashboard .settings-page,
+.dashboard .settings-page > .settings-heading,
+.dashboard .settings-page > .profile-layout,
+.dashboard .settings-page .profile-settings-section {
+  background:transparent!important;
+  background-color:transparent!important;
+  background-image:none!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.dashboard .dash-main {
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding-bottom:calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1.6rem)!important;
+}
+.dashboard .settings-page {
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  /* The shared dash-main owns the horizontal gutter; avoid double padding. */
+  padding-left:0!important;
+  padding-right:0!important;
+  padding-bottom:calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1.6rem)!important;
+}
+.dashboard .profile-layout,
+.dashboard .profile-settings-column,
+.dashboard .profile-stat-grid {
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:visible!important;
+}
+.dashboard .profile-stat-grid > article {
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
