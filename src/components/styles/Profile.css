@@ -1532,7 +1532,7 @@ body,
 }
 
 
-/* Final profile canvas override: transparent page shell, unchanged card surfaces. */
+/* Final profile canvas override: no black content panel; keep a safe inner gutter. */
 .dashboard .panel-page.settings-page,
 .dashboard .settings-page > .settings-heading,
 .dashboard .settings-page > .profile-layout,
@@ -1554,9 +1554,8 @@ body,
 .dashboard .panel-page.settings-page {
   min-height: 0 !important;
   height: auto !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-bottom: 0 !important;
+  /* The page shell is transparent; its padding keeps content off screen edges. */
+  padding: 0 clamp(1.6rem, 3vw, 3.2rem) !important;
 }
 .dashboard .profile-layout,
 .dashboard .profile-settings-column,
@@ -1567,4 +1566,10 @@ body,
 .dashboard .profile-stat-grid > article {
   min-width: 0 !important;
   box-sizing: border-box !important;
+}
+@media (max-width: 800px) {
+  .dashboard .panel-page.settings-page {
+    padding-left: 1.6rem !important;
+    padding-right: 1.6rem !important;
+  }
 }
