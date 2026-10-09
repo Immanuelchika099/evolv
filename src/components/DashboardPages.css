@@ -4178,3 +4178,147 @@ html.evolv-android .goals-page .goal-item{
     border-radius: 2.1rem !important;
   }
 }
+
+
+/* FINAL PROFILE LAYOUT OVERRIDES — target the actual ProfileSettingsPage DOM */
+.dashboard .dash-main > .panel-page.settings-page {
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin:0!important;
+  padding-left:0!important;
+  padding-right:0!important;
+  box-sizing:border-box!important;
+  overflow:visible!important;
+}
+.dashboard .dash-main > .panel-page.settings-page > .settings-heading,
+.dashboard .dash-main > .panel-page.settings-page > .profile-layout {
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  box-sizing:border-box!important;
+}
+.dashboard .dash-main > .panel-page.settings-page > .profile-layout {
+  grid-template-columns:minmax(0, .72fr) minmax(0, 1.28fr)!important;
+}
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-column,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-section,
+.dashboard .dash-main > .panel-page.settings-page .profile-settings-list {
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+
+/* The time input lives inside a profile-setting-control-row, not settings-card. */
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,42%)!important;
+  gap:1.6rem!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+  overflow:hidden!important;
+}
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row > *,
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row .profile-setting-copy {
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row input[type="time"],
+.dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row select {
+  display:block!important;
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  margin:0!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:650px) {
+  .dashboard .dash-main > .panel-page.settings-page > .profile-layout {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:2rem!important;
+  }
+  .dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row {
+    grid-template-columns:minmax(0,1fr)!important;
+    gap:1.2rem!important;
+  }
+  .dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row input[type="time"],
+  .dashboard .dash-main > .panel-page.settings-page .profile-setting-control-row select {
+    width:100%!important;
+    max-width:100%!important;
+  }
+}
+
+/* Actual edit form classes from ProfileSettingsPage.jsx. This is a true fixed overlay,
+   sized to the viewport; the page behind it must not become the modal's scroll area. */
+.dashboard .profile-modal-backdrop {
+  position:fixed!important;
+  inset:0!important;
+  z-index:10000!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100vw!important;
+  height:100vh!important;
+  height:100dvh!important;
+  min-height:0!important;
+  max-height:100vh!important;
+  max-height:100dvh!important;
+  padding:1.6rem!important;
+  margin:0!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+  box-sizing:border-box!important;
+}
+.dashboard .profile-modal-backdrop .profile-modal {
+  position:relative!important;
+  width:min(62rem,100%)!important;
+  max-width:calc(100vw - 3.2rem)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:calc(100vh - 3.2rem)!important;
+  max-height:calc(100dvh - 3.2rem)!important;
+  margin:0!important;
+  overflow:hidden!important;
+  overscroll-behavior:none!important;
+  box-sizing:border-box!important;
+}
+.dashboard .profile-modal-backdrop .profile-modal form {
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:1.6rem!important;
+  width:100%!important;
+  max-width:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+}
+.dashboard .profile-modal-backdrop .profile-modal form > label,
+.dashboard .profile-modal-backdrop .profile-modal input,
+.dashboard .profile-modal-backdrop .profile-modal textarea {
+  width:100%!important;
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+.dashboard .profile-modal-backdrop .profile-modal textarea {
+  resize:none!important;
+}
+@media(max-height:720px) {
+  .dashboard .profile-modal-backdrop .profile-modal {
+    padding:2rem!important;
+  }
+  .dashboard .profile-modal-backdrop .profile-modal-head {
+    margin-bottom:1.4rem!important;
+  }
+  .dashboard .profile-modal-backdrop .profile-modal form {
+    gap:1.1rem!important;
+  }
+}
