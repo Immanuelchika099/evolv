@@ -1608,3 +1608,14 @@ body,
   background-image: none !important;
   box-shadow: none !important;
 }
+
+/* Profile heading clearance: keep the first heading below the top app chrome.
+   This is scoped to the profile page so it cannot shift the AI canvas or home. */
+.dashboard:not(.dashboard-ai-active) .panel-page.settings-page {
+  padding-top: 7.2rem !important;
+}
+@media (max-width: 800px) {
+  .dashboard:not(.dashboard-ai-active) .panel-page.settings-page {
+    padding-top: 7.2rem !important;
+  }
+}
