@@ -1198,3 +1198,144 @@ body,
   line-height:1.6!important;
 }
 
+
+
+/* PROFILE SPACING ONLY — shared card rhythm and safe page gutters */
+.dashboard .settings-page,
+.dashboard .settings-page *{
+  box-sizing:border-box;
+}
+
+.dashboard .settings-page{
+  padding-left:clamp(2.4rem,3vw,3.2rem)!important;
+  padding-right:clamp(2.4rem,3vw,3.2rem)!important;
+}
+
+.dashboard .settings-page .profile-hero-card,
+.dashboard .settings-page .profile-facts-grid>div,
+.dashboard .settings-page .settings-card,
+.dashboard .settings-page .settings-section,
+.dashboard .settings-page .notifications-settings-section,
+.dashboard .settings-page .profile-settings-list,
+.dashboard .settings-page .profile-setting-row,
+.dashboard .settings-page .notification-preference,
+.dashboard .settings-page .notification-master-row,
+.dashboard .settings-page .notification-quiet-row,
+.dashboard .settings-page .settings-action-row,
+.dashboard .settings-page .settings-facts>div,
+.dashboard .settings-page .settings-delete-modal{
+  padding:2.2rem 2.4rem!important;
+  min-width:0;
+}
+
+.dashboard .settings-page .settings-section,
+.dashboard .settings-page .notifications-settings-section,
+.dashboard .settings-page .settings-card,
+.dashboard .settings-page .profile-settings-list{
+  margin-bottom:2rem;
+}
+
+.dashboard .settings-page .profile-settings-section-head,
+.dashboard .settings-page .settings-section-head{
+  gap:1.2rem;
+  margin-bottom:1.2rem;
+}
+
+.dashboard .settings-page .profile-setting-row,
+.dashboard .settings-page .notification-master-row,
+.dashboard .settings-page .notification-preference,
+.dashboard .settings-page .notification-quiet-row,
+.dashboard .settings-page .settings-action-row{
+  gap:1.6rem!important;
+}
+
+.dashboard .settings-page .profile-setting-row>div,
+.dashboard .settings-page .profile-setting-copy,
+.dashboard .settings-page .profile-hero-card>div,
+.dashboard .settings-page .profile-facts-grid>div,
+.dashboard .settings-page .settings-card>div,
+.dashboard .settings-page .notification-preference>div,
+.dashboard .settings-page .notification-master-row>div,
+.dashboard .settings-page .notification-quiet-row>div,
+.dashboard .settings-page .settings-action-row>div{
+  min-width:0;
+  max-width:100%;
+}
+
+.dashboard .settings-page .profile-setting-row strong,
+.dashboard .settings-page .settings-action-row strong,
+.dashboard .settings-page .profile-facts-grid strong{
+  margin-bottom:.8rem!important;
+}
+
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small,
+.dashboard .settings-page .settings-action-row span,
+.dashboard .settings-page .profile-facts-grid span,
+.dashboard .settings-page p{
+  overflow-wrap:anywhere;
+  word-break:normal;
+}
+
+.dashboard .settings-page .profile-facts-grid,
+.dashboard .settings-page .profile-settings-list{
+  gap:1.6rem;
+}
+
+@media(max-width:800px){
+  .dashboard .settings-page{
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+
+  .dashboard .settings-page .profile-hero-card,
+  .dashboard .settings-page .profile-facts-grid>div,
+  .dashboard .settings-page .settings-card,
+  .dashboard .settings-page .settings-section,
+  .dashboard .settings-page .notifications-settings-section,
+  .dashboard .settings-page .profile-settings-list,
+  .dashboard .settings-page .profile-setting-row,
+  .dashboard .settings-page .notification-preference,
+  .dashboard .settings-page .notification-master-row,
+  .dashboard .settings-page .notification-quiet-row,
+  .dashboard .settings-page .settings-action-row,
+  .dashboard .settings-page .settings-facts>div,
+  .dashboard .settings-page .settings-delete-modal{
+    padding:1.6rem!important;
+  }
+
+  .dashboard .settings-page .settings-section,
+  .dashboard .settings-page .notifications-settings-section,
+  .dashboard .settings-page .settings-card,
+  .dashboard .settings-page .profile-settings-list{
+    margin-bottom:1.6rem;
+  }
+
+  .dashboard .settings-page .profile-settings-list,
+  .dashboard .settings-page .profile-facts-grid{
+    gap:1.2rem;
+  }
+
+  .dashboard .settings-page .profile-setting-row,
+  .dashboard .settings-page .notification-master-row,
+  .dashboard .settings-page .notification-preference,
+  .dashboard .settings-page .notification-quiet-row,
+  .dashboard .settings-page .settings-action-row{
+    gap:1.2rem!important;
+  }
+}
+
+@media(max-width:430px){
+  .dashboard .settings-page{
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+
+  .dashboard .settings-page .profile-setting-row,
+  .dashboard .settings-page .notification-master-row,
+  .dashboard .settings-page .notification-preference,
+  .dashboard .settings-page .notification-quiet-row,
+  .dashboard .settings-page .settings-action-row{
+    align-items:flex-start;
+  }
+}
