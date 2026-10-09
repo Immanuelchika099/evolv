@@ -4310,3 +4310,22 @@ body:has(.dashboard.dashboard-ai-active) {
 }
 
 
+
+
+/* Restore the AI screen's normal top-bar and message spacing. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  top:calc(env(safe-area-inset-top,0px) + 2.1rem) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  padding-top:calc(10rem + env(safe-area-inset-top,0px)) !important;
+  scroll-padding-top:calc(10rem + env(safe-area-inset-top,0px)) !important;
+}
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar{
+    top:calc(env(safe-area-inset-top,0px) + 2.1rem) !important;
+  }
+  .dashboard.dashboard-ai-active .ai-page .ai-messages{
+    padding-top:calc(10rem + env(safe-area-inset-top,0px)) !important;
+    scroll-padding-top:calc(10rem + env(safe-area-inset-top,0px)) !important;
+  }
+}
