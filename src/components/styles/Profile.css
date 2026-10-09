@@ -1530,3 +1530,41 @@ body,
 .dashboard .settings-page {
   padding-bottom:0!important;
 }
+
+
+/* Final profile canvas override: transparent page shell, unchanged card surfaces. */
+.dashboard .panel-page.settings-page,
+.dashboard .settings-page > .settings-heading,
+.dashboard .settings-page > .profile-layout,
+.dashboard .profile-layout,
+.dashboard .profile-settings-column {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+.dashboard .panel-page.settings-page {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
+}
+.dashboard .profile-layout,
+.dashboard .profile-settings-column,
+.dashboard .profile-stat-grid {
+  overflow: visible !important;
+  min-width: 0 !important;
+}
+.dashboard .profile-stat-grid > article {
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+}
