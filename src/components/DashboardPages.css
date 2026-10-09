@@ -4579,3 +4579,13 @@ body,
     padding-right:1.6rem!important;
   }
 }
+
+
+/* Restore top safe-area breathing room and force the profile canvas to pure black. */
+.dashboard{padding-top:env(safe-area-inset-top,0px)!important;background:#000!important;background-color:#000!important;background-image:none!important}
+.dashboard .dash-main,
+.dashboard .dashboard-pages,
+.dashboard .settings-page,
+.dashboard .settings-page > .settings-heading,
+.dashboard .settings-page > .profile-layout{background:#000!important;background-color:#000!important;background-image:none!important}
+.dashboard .settings-page{padding-bottom:calc(6.8rem + env(safe-area-inset-bottom,0px) + 2rem)!important}
