@@ -1339,3 +1339,129 @@ body,
     align-items:flex-start;
   }
 }
+
+
+/* PROFILE + EDIT DIALOG FIXES: full-width page, contained controls, fixed modal */
+.dashboard .settings-page,
+.dashboard .dashboard-pages > .panel-page.settings-page,
+.dashboard .dash-main > .panel-page.settings-page {
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  margin-left:0!important;
+  margin-right:0!important;
+}
+
+.dashboard .settings-page {
+  padding-left:clamp(1.6rem,3vw,3.2rem)!important;
+  padding-right:clamp(1.6rem,3vw,3.2rem)!important;
+}
+
+.dashboard .settings-page .settings-section,
+.dashboard .settings-page .settings-card,
+.dashboard .settings-page .settings-facts,
+.dashboard .settings-page .settings-heading,
+.dashboard .settings-page .settings-section-head {
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+}
+
+.dashboard .settings-page .settings-card,
+.dashboard .settings-page .settings-card form,
+.dashboard .settings-page .settings-card label,
+.dashboard .settings-page .settings-card input,
+.dashboard .settings-page .settings-card select,
+.dashboard .settings-page .settings-card textarea,
+.dashboard .settings-page input[type="time"],
+.dashboard .settings-page input[type="date"] {
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+
+.dashboard .settings-page input[type="time"],
+.dashboard .settings-page input[type="date"],
+.dashboard .settings-page select {
+  width:100%!important;
+  display:block!important;
+}
+
+.dashboard .settings-page .settings-card form {
+  overflow:hidden!important;
+}
+
+.dashboard .settings-page .settings-card label,
+.dashboard .settings-page .settings-section,
+.dashboard .settings-page .settings-card {
+  overflow-wrap:anywhere;
+}
+
+@media(max-width:800px) {
+  .dashboard .settings-page,
+  .dashboard .dashboard-pages > .panel-page.settings-page {
+    padding-left:1.6rem!important;
+    padding-right:1.6rem!important;
+  }
+}
+
+/* Keep profile editing as a viewport-fixed dialog rather than a tall page section. */
+.dashboard [class*="profile-edit-overlay"],
+.dashboard [class*="edit-profile-overlay"],
+.dashboard [class*="profile-modal-overlay"],
+.dashboard [class*="edit-profile-backdrop"],
+.dashboard [class*="profile-dialog-backdrop"] {
+  position:fixed!important;
+  inset:0!important;
+  z-index:10000!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100vw!important;
+  height:100dvh!important;
+  min-height:0!important;
+  max-height:100dvh!important;
+  margin:0!important;
+  padding:1.6rem!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+.dashboard [class*="profile-edit-modal"],
+.dashboard [class*="edit-profile-modal"],
+.dashboard [class*="profile-dialog"],
+.dashboard [class*="profile-edit-panel"],
+.dashboard [class*="edit-profile-panel"] {
+  width:min(68rem,100%)!important;
+  max-width:calc(100vw - 3.2rem)!important;
+  max-height:calc(100dvh - 3.2rem)!important;
+  height:auto!important;
+  min-height:0!important;
+  margin:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+.dashboard [class*="profile-edit-modal"] form,
+.dashboard [class*="edit-profile-modal"] form,
+.dashboard [class*="profile-dialog"] form,
+.dashboard [class*="profile-edit-panel"] form,
+.dashboard [class*="edit-profile-panel"] form {
+  min-height:0!important;
+  max-height:none!important;
+  overflow:visible!important;
+}
+
+@media(max-width:600px) {
+  .dashboard [class*="profile-edit-modal"],
+  .dashboard [class*="edit-profile-modal"],
+  .dashboard [class*="profile-dialog"],
+  .dashboard [class*="profile-edit-panel"],
+  .dashboard [class*="edit-profile-panel"] {
+    width:100%!important;
+    max-width:100%!important;
+    max-height:calc(100dvh - 3.2rem)!important;
+    padding:2.4rem!important;
+    border-radius:3rem!important;
+  }
+}
