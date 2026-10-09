@@ -62,3 +62,29 @@ svg,
 video{
   max-width:100%;
 }
+
+
+/* Single source of truth for the application canvas. */
+:root {
+  --app-bg: #000000;
+  color-scheme: dark;
+  background-color: var(--app-bg);
+}
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 320px;
+  min-height: 100%;
+  background-color: var(--app-bg) !important;
+  background-image: none !important;
+}
+body {
+  margin: 0;
+  background: var(--app-bg) !important;
+  overscroll-behavior-x: none;
+}
+#root {
+  min-height: 100dvh;
+  isolation: isolate;
+}
