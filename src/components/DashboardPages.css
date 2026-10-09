@@ -4589,3 +4589,47 @@ body,
 .dashboard .settings-page > .settings-heading,
 .dashboard .settings-page > .profile-layout{background:#000!important;background-color:#000!important;background-image:none!important}
 .dashboard .settings-page{padding-bottom:calc(6.8rem + env(safe-area-inset-bottom,0px) + 2rem)!important}
+
+
+/* Logged-in pages: one shared safe-area offset and one uninterrupted black canvas. */
+.dashboard {
+  box-sizing: border-box !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #f4f4f1 !important;
+}
+.dashboard .dash-main {
+  padding-top: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+.dashboard .dashboard-pages,
+.dashboard .dashboard-pages > *,
+.dashboard .settings-page,
+.dashboard .settings-page > .settings-heading,
+.dashboard .settings-page > .profile-layout,
+.dashboard .settings-page > section,
+.dashboard .settings-page .profile-section,
+.dashboard .settings-page .settings-section {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+.dashboard::before,
+.dashboard::after,
+.dashboard .dash-main::before,
+.dashboard .dash-main::after,
+.dashboard .dashboard-pages::before,
+.dashboard .dashboard-pages::after,
+.dashboard .settings-page::before,
+.dashboard .settings-page::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
