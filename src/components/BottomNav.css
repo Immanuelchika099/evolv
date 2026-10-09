@@ -247,6 +247,22 @@ html.evolv-android .evolv-bottom-nav {
 }
 
 
-/* Restore Evolv's compact floating dock; avoid a full-width bottom bar. */
-.evolv-bottom-nav{position:fixed!important;left:50%!important;right:auto!important;bottom:calc(.75rem + env(safe-area-inset-bottom,0px))!important;transform:translateX(-50%)!important;width:calc(100vw - 1.6rem)!important;max-width:42rem!important;height:6.8rem!important;min-height:6.8rem!important;padding:.55rem!important;margin:0!important;border:1px solid rgba(255,255,255,.1)!important;border-radius:2.2rem!important;background:rgba(13,13,13,.94)!important;box-shadow:0 1.8rem 5rem rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.06)!important}
+/* Keep the existing nav design; dock it flush to the bottom edge. */
+.evolv-bottom-nav{
+  position:fixed!important;
+  left:50%!important;
+  right:auto!important;
+  bottom:0!important;
+  transform:translateX(-50%)!important;
+  width:calc(100vw - 1.6rem)!important;
+  max-width:42rem!important;
+  height:6.8rem!important;
+  min-height:6.8rem!important;
+  padding:.55rem!important;
+  margin:0!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:2.2rem 2.2rem 0 0!important;
+  background:rgba(13,13,13,.94)!important;
+  box-shadow:0 1.8rem 5rem rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.06)!important;
+}
 .evolv-bottom-nav button{height:5.65rem!important}
