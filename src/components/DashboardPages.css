@@ -4583,7 +4583,7 @@ body,
 
 /* Restore top safe-area breathing room and force the profile canvas to pure black. */
 .dashboard{padding-top:env(safe-area-inset-top,0px)!important;background:#000!important;background-color:#000!important;background-image:none!important}
-.dashboard .dash-main,
+.dashboard:not(.dashboard-ai-active) .dash-main,
 .dashboard .dashboard-pages,
 .dashboard .settings-page,
 .dashboard .settings-page > .settings-heading,
@@ -4592,7 +4592,7 @@ body,
 
 
 /* Logged-in pages: one shared safe-area offset and one uninterrupted black canvas. */
-.dashboard {
+.dashboard:not(.dashboard-ai-active) {
   box-sizing: border-box !important;
   padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
   background: transparent !important;
@@ -4600,7 +4600,7 @@ body,
   background-image: none !important;
   color: #f4f4f1 !important;
 }
-.dashboard .dash-main {
+.dashboard:not(.dashboard-ai-active) .dash-main {
   padding-top: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -4619,8 +4619,8 @@ body,
 }
 .dashboard::before,
 .dashboard::after,
-.dashboard .dash-main::before,
-.dashboard .dash-main::after,
+.dashboard:not(.dashboard-ai-active) .dash-main::before,
+.dashboard:not(.dashboard-ai-active) .dash-main::after,
 .dashboard .dashboard-pages::before,
 .dashboard .dashboard-pages::after,
 .dashboard .settings-page::before,
@@ -4643,8 +4643,8 @@ body,
   background-color: #000000 !important;
   background-image: none !important;
 }
-.dashboard,
-.dashboard .dash-main,
+.dashboard:not(.dashboard-ai-active),
+.dashboard:not(.dashboard-ai-active) .dash-main,
 .dashboard .panel-page.settings-page,
 .dashboard .settings-page > .settings-heading,
 .dashboard .settings-page > .profile-layout,
@@ -4663,12 +4663,12 @@ body,
   border-radius: 0 !important;
   box-shadow: none !important;
 }
-.dashboard {
+.dashboard:not(.dashboard-ai-active) {
   min-height: 0 !important;
   height: auto !important;
   padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
 }
-.dashboard .dash-main {
+.dashboard:not(.dashboard-ai-active) .dash-main {
   min-height: 0 !important;
   height: auto !important;
   padding-top: 0 !important;
@@ -4693,8 +4693,8 @@ body,
 }
 .dashboard::before,
 .dashboard::after,
-.dashboard .dash-main::before,
-.dashboard .dash-main::after,
+.dashboard:not(.dashboard-ai-active) .dash-main::before,
+.dashboard:not(.dashboard-ai-active) .dash-main::after,
 .dashboard .panel-page.settings-page::before,
 .dashboard .panel-page.settings-page::after,
 .dashboard .settings-heading::before,
