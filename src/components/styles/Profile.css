@@ -1573,3 +1573,38 @@ body,
     padding-right: 1.6rem !important;
   }
 }
+
+
+/* Profile surfaces: black belongs on the individual cards, never the page canvas. */
+.dashboard .panel-page.settings-page,
+.dashboard .settings-page > .settings-heading,
+.dashboard .settings-page > .profile-layout,
+.dashboard .settings-page .profile-settings-column {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Restore the individual profile cards as the only solid-black surfaces. */
+.dashboard .settings-page .profile-summary-card,
+.dashboard .settings-page .profile-settings-section,
+.dashboard .settings-page .profile-stat-grid > article {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 2.4rem !important;
+  box-shadow: none !important;
+}
+
+/* The list is content inside its section card, not another page-sized panel. */
+.dashboard .settings-page .profile-settings-list,
+.dashboard .settings-page .profile-settings-section-head {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
