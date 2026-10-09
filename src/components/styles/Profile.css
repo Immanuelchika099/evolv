@@ -1525,3 +1525,8 @@ body,
   min-width:0!important;
   box-sizing:border-box!important;
 }
+
+/* Keep the shared layout as the sole bottom-nav clearance owner. */
+.dashboard .settings-page {
+  padding-bottom:0!important;
+}
