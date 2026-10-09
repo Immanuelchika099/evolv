@@ -516,3 +516,28 @@ html:has(.dashboard.dashboard-ai-active) {
   background-color:#000!important;
   background-image:none!important;
 }
+
+
+/* Restore the earlier AI screen spacing; avoid the extra top offset. */
+.dashboard.dashboard-ai-active .ai-page{
+  padding-top:0 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar{
+  top:calc(env(safe-area-inset-top,0px) + 1.6rem) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages{
+  padding-top:calc(8.4rem + env(safe-area-inset-top,0px)) !important;
+  scroll-padding-top:calc(8.4rem + env(safe-area-inset-top,0px)) !important;
+}
+@media(max-width:800px){
+  .dashboard.dashboard-ai-active .ai-page{
+    padding-top:0 !important;
+  }
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar{
+    top:calc(env(safe-area-inset-top,0px) + 1.6rem) !important;
+  }
+  .dashboard.dashboard-ai-active .ai-page .ai-messages{
+    padding-top:calc(8.4rem + env(safe-area-inset-top,0px)) !important;
+    scroll-padding-top:calc(8.4rem + env(safe-area-inset-top,0px)) !important;
+  }
+}
