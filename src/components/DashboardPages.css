@@ -3848,3 +3848,62 @@ html.evolv-android .goals-page .goal-item{
 .dashboard .state-ring-track{background:conic-gradient(from -90deg,#f2f2ee 0 var(--ring-progress),rgba(255,255,255,.08) var(--ring-progress) 360deg)!important}.dashboard .state-ring{box-shadow:0 24px 65px rgba(0,0,0,.3)!important}.dashboard .mini-progress i,.dashboard .progress-goal-track i{background:#f2f2ee!important;box-shadow:none!important}
 @media(max-width:800px){.dashboard .dash-main{padding:6rem 1.6rem 12rem!important}.dashboard .dashboard-pages,.dashboard .dashboard-home,.dashboard .panel-page,.dashboard .settings-page{width:100%!important}.dashboard .dashboard-welcome-minimal{min-height:24rem!important;padding:3.5rem 0 4rem!important}.dashboard .today-snapshot,.dashboard .evolv-life-overview{margin-top:5.5rem!important}.dashboard .today-metrics{grid-template-columns:1fr 1fr!important;gap:1rem!important}.dashboard .today-metric,.dashboard .today-empty{min-height:15.8rem!important;padding:1.8rem!important;border-radius:1.8rem!important}.dashboard .today-metric .metric-row-icon,.dashboard .today-empty>svg:first-child{width:3.7rem!important;height:3.7rem!important;min-width:3.7rem!important}.dashboard .today-metric>span:nth-child(2),.dashboard .today-empty>span{padding-top:2rem!important}.dashboard .today-metric strong,.dashboard .today-empty strong{font-size:1.45rem!important}.dashboard .today-metric small,.dashboard .today-empty small{font-size:1.05rem!important}.dashboard .goal-create-form,.dashboard .goal-item,.dashboard .settings-page .profile-summary-card{padding:2rem!important;border-radius:1.9rem!important}.dashboard .settings-page .profile-setting-row{min-height:9rem!important;padding:2.2rem 2rem!important;gap:1.6rem!important}}
 @media(max-width:430px){.dashboard .dash-main{padding-left:1.3rem!important;padding-right:1.3rem!important}.dashboard .today-metrics{gap:.8rem!important}.dashboard .today-metric,.dashboard .today-empty{min-height:14.8rem!important;padding:1.5rem!important}.dashboard .today-metric strong,.dashboard .today-empty strong{font-size:1.35rem!important}}
+
+/* PROFILE SPACING PATCH — spacing only; preserve the existing visual design */
+.dashboard .settings-page,
+.dashboard .settings-page * { box-sizing: border-box; }
+
+.dashboard .settings-page {
+  padding-inline: 2.4rem !important;
+  min-width: 0;
+}
+.dashboard .settings-page .profile-layout {
+  gap: 2.4rem !important;
+  min-width: 0;
+}
+.dashboard .settings-page .profile-summary-card {
+  padding: 2.4rem !important;
+  min-width: 0;
+}
+.dashboard .settings-page .profile-stat-grid,
+.dashboard .settings-page .profile-settings-list { min-width: 0; }
+.dashboard .settings-page .profile-stat-grid article {
+  min-width: 0;
+  padding: 2rem !important;
+}
+.dashboard .settings-page .profile-setting-row {
+  min-width: 0;
+  padding: 1.8rem 2.4rem !important;
+  gap: 1.6rem !important;
+}
+.dashboard .settings-page .profile-setting-row > div:first-child,
+.dashboard .settings-page .profile-setting-copy {
+  min-width: 0;
+  padding-right: 0 !important;
+}
+.dashboard .settings-page .profile-setting-row strong,
+.dashboard .settings-page .profile-setting-row span,
+.dashboard .settings-page .profile-setting-row small,
+.dashboard .settings-page .profile-summary-copy p,
+.dashboard .settings-page .profile-summary-copy small,
+.dashboard .settings-page .profile-summary-focus strong {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.dashboard .settings-page .profile-settings-section-head {
+  margin-bottom: 1.2rem !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard .settings-page { padding-inline: 1.6rem !important; }
+  .dashboard .settings-page .profile-layout { gap: 1.6rem !important; }
+  .dashboard .settings-page .profile-summary-card { padding: 1.6rem !important; }
+  .dashboard .settings-page .profile-stat-grid article { padding: 1.6rem !important; }
+  .dashboard .settings-page .profile-setting-row {
+    padding: 1.6rem !important;
+    gap: 1.2rem !important;
+  }
+  .dashboard .settings-page .profile-setting-row > div:first-child,
+  .dashboard .settings-page .profile-setting-copy { flex: 1 1 12rem; }
+}
+
