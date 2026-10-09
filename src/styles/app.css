@@ -54,13 +54,13 @@ body {
   border-radius: 0 !important;
   box-shadow: none !important;
 }
-.dashboard {
+.dashboard:not(.dashboard-ai-active) {
   min-height: 0 !important;
   height: auto !important;
-  /* Keep the existing safe-area/status-bar clearance unchanged. */
+  /* Safe-area clearance belongs to normal dashboard pages, never the full-screen AI canvas. */
   padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
 }
-.dashboard .dash-main {
+.dashboard:not(.dashboard-ai-active) .dash-main {
   min-height: 0 !important;
   height: auto !important;
   padding-top: 0 !important;
