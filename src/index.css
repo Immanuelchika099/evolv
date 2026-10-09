@@ -88,3 +88,29 @@ body {
   min-height: 100dvh;
   isolation: isolate;
 }
+
+
+/* App canvas: one uninterrupted black surface, including iOS overscroll. */
+:root {
+  --app-bg: #000000;
+  color-scheme: dark;
+  background-color: var(--app-bg);
+}
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 320px;
+  background-color: var(--app-bg) !important;
+  background-image: none !important;
+}
+html,
+body {
+  min-height: 0;
+  margin: 0;
+  background: var(--app-bg) !important;
+}
+#root {
+  min-height: 100dvh;
+  background: var(--app-bg) !important;
+}
