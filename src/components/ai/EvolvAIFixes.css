@@ -629,3 +629,27 @@ html:has(.dashboard.dashboard-ai-active) {
     padding: .65rem 1rem calc(.65rem + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
+
+
+/* AI-only viewport clearance correction.
+   The AI screen replaces the bottom navigation, so it must not inherit
+   the dashboard's bottom-nav clearance or padded main canvas. */
+.dashboard.dashboard-ai-active {
+  --evolv-bottom-nav-clearance: 0px !important;
+}
+.dashboard.dashboard-ai-active > .dash-main {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  min-height: 0 !important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell {
+  bottom: 0 !important;
+  margin-bottom: 0 !important;
+  padding-bottom: calc(.65rem + env(safe-area-inset-bottom, 0px)) !important;
+  transform: none !important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar,
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  margin-bottom: 0 !important;
+}
