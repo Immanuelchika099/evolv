@@ -4743,3 +4743,22 @@ body,
 .dashboard .dashboard-home .life-area-row:hover .life-area-icon {
   color: var(--area-color, #c4c4cc) !important;
 }
+
+
+/* MY AREAS: remove hover movement and hover highlighting; keep the normal icon colors. */
+.dashboard .dashboard-home .life-area-row,
+.dashboard .dashboard-home .life-area-row:hover,
+.dashboard .dashboard-home .life-area-row:focus-visible,
+.dashboard .dashboard-home .life-area-row:active {
+  padding-left: 1.5rem !important;
+  padding-right: 0 !important;
+  background: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+.dashboard .dashboard-home .life-area-row:hover .life-area-icon,
+.dashboard .dashboard-home .life-area-row:focus-visible .life-area-icon,
+.dashboard .dashboard-home .life-area-row:active .life-area-icon {
+  color: var(--area-color, #c4c4cc) !important;
+}
