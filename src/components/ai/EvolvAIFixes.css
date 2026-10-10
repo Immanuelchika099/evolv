@@ -658,3 +658,70 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
   margin-bottom: 0 !important;
 }
+
+
+/* FINAL OVERRIDE — AI composer height and alignment.
+   Keep this after the older layout rules above: earlier declarations set
+   the field's min-height back to zero, which made the typing area stay short. */
+.dashboard.dashboard-ai-active .ai-promptbar-shell {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  padding: .8rem 1rem calc(.8rem + env(safe-area-inset-bottom, 0px)) !important;
+  transform: none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar {
+  width: min(60rem, 100%) !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: .8rem !important;
+  min-height: 8.2rem !important;
+  height: auto !important;
+  padding: 1.2rem !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+  display: block !important;
+  align-self: stretch !important;
+  flex: 0 1 auto !important;
+  width: 100% !important;
+  min-height: 3.4rem !important;
+  max-height: 11rem !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: .2rem 0 !important;
+  text-align: left !important;
+  line-height: 1.5 !important;
+  vertical-align: top !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-promptbar-shell {
+    padding: .7rem .9rem calc(.7rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+    min-height: 8.2rem !important;
+    padding: 1.2rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+    min-height: 3.4rem !important;
+    font-size: 1.6rem !important;
+  }
+}
