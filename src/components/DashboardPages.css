@@ -4762,3 +4762,25 @@ body,
 .dashboard .dashboard-home .life-area-row:active .life-area-icon {
   color: var(--area-color, #c4c4cc) !important;
 }
+
+
+/* Homepage-only polish: remove hover feedback from the empty "Log something" action
+   without changing its resting appearance or any other dashboard cards. */
+.dashboard .dashboard-home .today-empty.dashboard-empty-action,
+.dashboard .dashboard-home .today-empty.dashboard-empty-action:hover,
+.dashboard .dashboard-home .today-empty.dashboard-empty-action:focus-visible,
+.dashboard .dashboard-home .today-empty.dashboard-empty-action:active {
+  background: transparent !important;
+  transform: none !important;
+  box-shadow: none !important;
+  transition: none !important;
+}
+
+/* MY AREAS: show each category glyph on its own, without a surrounding tile.
+   Keep the area rows/cards and their spacing untouched. */
+.dashboard .dashboard-home .life-area-icon {
+  border: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
