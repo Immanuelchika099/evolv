@@ -516,3 +516,116 @@ html:has(.dashboard.dashboard-ai-active) {
   background-color:#000!important;
   background-image:none!important;
 }
+
+
+/* FINAL SPACING FIX — keep the AI toolbar below the device safe area and
+   anchor the composer cleanly to the bottom without an artificial spacer. */
+.dashboard.dashboard-ai-active .ai-page {
+  position: relative !important;
+  inset: auto !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  min-height: 0 !important;
+  max-height: 100dvh !important;
+  margin: 0 !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 7.2rem) 0 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 1.2rem) !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  min-height: 5.6rem !important;
+  height: 5.6rem !important;
+  max-height: 5.6rem !important;
+  margin: 0 !important;
+  padding: 0 1.2rem !important;
+  box-sizing: border-box !important;
+  z-index: 100500 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat {
+  position: relative !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  top: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding-top: 1.2rem !important;
+  padding-bottom: calc(9rem + env(safe-area-inset-bottom, 0px)) !important;
+  scroll-padding-top: 1.2rem !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: .8rem 1.2rem calc(.8rem + env(safe-area-inset-bottom, 0px)) !important;
+  transform: none !important;
+  box-sizing: border-box !important;
+  z-index: 100501 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar {
+  width: min(60rem, 100%) !important;
+  min-height: 0 !important;
+  margin: 0 auto !important;
+  transform: none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  min-height: 0 !important;
+  margin: 0 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+  min-height: 2.2rem !important;
+  max-height: 11rem !important;
+  margin: 0 !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page {
+    height: 100dvh !important;
+    min-height: 0 !important;
+    max-height: 100dvh !important;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 7.2rem) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar {
+    top: calc(env(safe-area-inset-top, 0px) + 1.2rem) !important;
+    padding-left: 1.2rem !important;
+    padding-right: 1.2rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    padding-top: 1rem !important;
+    padding-bottom: calc(8.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell {
+    padding: .65rem 1rem calc(.65rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
