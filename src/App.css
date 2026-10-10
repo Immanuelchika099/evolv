@@ -1621,11 +1621,9 @@ html.evolv-android .goals-page .goal-item {
 .dashboard-home .metric-row-icon,
 .dashboard-home .life-area-icon,
 .dashboard-home .dashboard-quick-icon {
-  color: rgba(255,255,255,.82) !important;
-  border-color: rgba(255,255,255,.08) !important;
-  background: rgba(255,255,255,.035) !important;
-  --metric-color: rgba(255,255,255,.82) !important;
-  --area-color: rgba(255,255,255,.82) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
 }
 
 .dashboard-home .today-metric strong,
