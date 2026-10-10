@@ -4,6 +4,7 @@ import './index.css'
 import './styles/app.css'
 import './auth-overrides.css'
 import App from './App.jsx'
+import AppErrorBoundary from './AppErrorBoundary.jsx'
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -13,6 +14,8 @@ if ('serviceWorker' in navigator) {
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
+    <AppErrorBoundary>
+      <App />
+    </AppErrorBoundary>
   </StrictMode>,
 )
