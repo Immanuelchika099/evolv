@@ -4728,3 +4728,18 @@ body,
   border-color: color-mix(in srgb, var(--area-color, #c4c4cc) 25%, transparent);
   background: color-mix(in srgb, var(--area-color, #c4c4cc) 9%, transparent);
 }
+
+
+/* MY AREAS: override legacy monochrome icon rules so each area keeps its own recognizable color. */
+.dashboard .dashboard-home .life-area-row .life-area-icon {
+  color: var(--area-color, #c4c4cc) !important;
+  border-color: color-mix(in srgb, var(--area-color, #c4c4cc) 32%, transparent) !important;
+  background: color-mix(in srgb, var(--area-color, #c4c4cc) 12%, transparent) !important;
+}
+.dashboard .dashboard-home .life-area-row .life-area-icon svg {
+  color: var(--area-color, #c4c4cc) !important;
+  stroke: currentColor !important;
+}
+.dashboard .dashboard-home .life-area-row:hover .life-area-icon {
+  color: var(--area-color, #c4c4cc) !important;
+}
