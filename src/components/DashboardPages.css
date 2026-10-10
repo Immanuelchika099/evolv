@@ -4776,11 +4776,27 @@ body,
   transition: none !important;
 }
 
-/* MY AREAS: show each category glyph on its own, without a surrounding tile.
-   Keep the area rows/cards and their spacing untouched. */
-.dashboard .dashboard-home .life-area-icon {
+/* MY AREAS: show only the colored glyph, with no icon tile or reserved box. */
+.dashboard .dashboard-home .life-area-row .life-area-icon {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 .9rem 0 0 !important;
   border: 0 !important;
   background: transparent !important;
   border-radius: 0 !important;
   box-shadow: none !important;
+}
+.dashboard .dashboard-home .life-area-row .life-area-icon svg {
+  display: block !important;
+  width: 1.7rem !important;
+  height: 1.7rem !important;
+  color: var(--area-color) !important;
+  stroke: currentColor !important;
 }
