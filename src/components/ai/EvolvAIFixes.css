@@ -644,9 +644,14 @@ html:has(.dashboard.dashboard-ai-active) {
   min-height: 0 !important;
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell {
+  position: fixed !important;
+  left: 0 !important;
+  right: 0 !important;
   bottom: 0 !important;
-  margin-bottom: 0 !important;
-  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+  margin: 0 !important;
+  padding: .45rem 1rem calc(.35rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: #000 !important;
+  box-sizing: border-box !important;
   transform: none !important;
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar,
