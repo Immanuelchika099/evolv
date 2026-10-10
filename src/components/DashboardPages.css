@@ -4710,3 +4710,21 @@ body,
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
+
+
+/* Recognizable category colors on the logged-in homepage. Keep the canvas monochrome; color lives on the icons only. */
+.dashboard-home .today-metric .metric-row-icon {
+  color: var(--metric-color, #c4c4cc) !important;
+  background: color-mix(in srgb, var(--metric-color, #c4c4cc) 10%, transparent) !important;
+  border-color: color-mix(in srgb, var(--metric-color, #c4c4cc) 22%, transparent) !important;
+}
+.dashboard-home .today-metric .metric-row-icon svg,
+.dashboard-home .life-area-icon svg {
+  color: currentColor;
+  stroke: currentColor;
+}
+.dashboard-home .life-area-icon {
+  color: var(--area-color, #c4c4cc);
+  border-color: color-mix(in srgb, var(--area-color, #c4c4cc) 25%, transparent);
+  background: color-mix(in srgb, var(--area-color, #c4c4cc) 9%, transparent);
+}
