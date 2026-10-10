@@ -72,7 +72,7 @@ function HomePage({ pageProps }) {
             if (item.type === 'meal') {
               return (
                 <button key={item.key} className="today-metric" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
-                  <span className="metric-row-icon" aria-hidden="true"><Utensils size={17} /></span>
+                  <span className="metric-row-icon" aria-hidden="true" style={{ '--metric-color': '#ff9f0a' }}><Utensils size={17} /></span>
                   <span>
                     <strong>{item.meal.description || 'Meal'}</strong>
                     <small>{item.meal.meal_type || 'Meal'}{item.meal.calories ? ` · ${item.meal.calories} kcal` : ''}</small>
@@ -85,7 +85,7 @@ function HomePage({ pageProps }) {
             const M = icons[item.def.slug] || Sparkles
             return (
               <button key={item.key} className="today-metric" onClick={() => openLog(metricArea[item.def.slug], item.def)}>
-                <span className="metric-row-icon" aria-hidden="true"><M size={17} /></span>
+                <span className="metric-row-icon" aria-hidden="true" style={{ '--metric-color': ({ sleep: '#a78bfa', water: '#45b7f5', steps: '#ff9f43', exercise: '#30d158', energy: '#ffd60a', weight: '#64d2ff', mood: '#ff6b9a', focus: '#5e9cff', reflection: '#bf9bff', stress: '#ff8057', learning: '#64d2ff', building: '#8e9fff', outreach: '#64d2ff', applications: '#a1a1aa', skills: '#bf9bff', income: '#30d158', spending: '#ff9f43', savings: '#30d158', bills: '#64d2ff', habits: '#30d158', reading: '#bf9bff', social: '#ff6b9a', personal: '#30d158' })[item.def.slug] || '#b8b8c2' }}><M size={17} /></span>
                 <span>
                   <strong>{item.def.name}</strong>
                   <small>{valueText(item.log, item.def)}</small>
@@ -123,7 +123,7 @@ function HomePage({ pageProps }) {
               key={id}
               onClick={() => { goTo('area'); setArea(id) }}
             >
-              <span className="life-area-icon"><I size={17} /></span>
+              <span className="life-area-icon" style={{ '--area-color': m.color, color: m.color }}><I size={17} /></span>
               <span className="life-area-main"><strong>{m.title}</strong><small>{value === '—' ? 'No activity' : value + ' today'}</small></span>
               <ChevronRight size={17} />
             </button>
