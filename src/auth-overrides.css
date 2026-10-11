@@ -147,3 +147,325 @@
     display:none;
   }
 }
+
+
+/* EVOLV — clearer, roomier sign-up and sign-in hierarchy */
+.auth-page .auth-content{
+  width:min(100% - 3.2rem, 46rem);
+  margin-inline:auto;
+  padding:clamp(2.8rem, 5vw, 4.8rem) 0 3.6rem;
+}
+
+.auth-page .auth-content > .section-label{
+  display:inline-block;
+  margin-bottom:1.2rem;
+  font-size:1.2rem;
+  line-height:1.5;
+  letter-spacing:.14em;
+}
+
+.auth-page .auth-content > h1{
+  margin:0 0 1.5rem;
+  font-size:clamp(3.4rem, 7vw, 4.8rem);
+  line-height:1.08;
+  letter-spacing:-.045em;
+}
+
+.auth-page .auth-content > p{
+  max-width:40rem;
+  margin:0;
+  color:rgba(244,241,234,.68);
+  font-size:1.6rem;
+  line-height:1.7;
+}
+
+.auth-page .auth-method{
+  min-width:0;
+}
+
+.auth-page .auth-method-google{
+  margin-top:3.2rem;
+}
+
+.auth-page .auth-method-heading{
+  margin-bottom:1.2rem;
+}
+
+.auth-page .auth-method-kicker{
+  display:block;
+  margin-bottom:.6rem;
+  color:#c5c5c5;
+  font-size:1.2rem;
+  font-weight:700;
+  line-height:1.5;
+  letter-spacing:.12em;
+}
+
+.auth-page .auth-method-heading p{
+  margin:0;
+  color:rgba(244,241,234,.64);
+  font-size:1.45rem;
+  line-height:1.65;
+}
+
+.auth-page .google-auth-primary{
+  margin:1.4rem 0 0;
+}
+
+.auth-page .google-auth-button-primary{
+  min-height:7.4rem;
+  gap:1.5rem;
+  padding:1.5rem 1.8rem;
+  border-radius:1.5rem;
+}
+
+.auth-page .google-auth-button-primary .google-provider-logo{
+  width:2.6rem;
+  height:2.6rem;
+  flex-basis:2.6rem;
+}
+
+.auth-page .google-auth-copy{
+  gap:.45rem;
+}
+
+.auth-page .google-auth-copy strong{
+  font-size:1.65rem;
+  line-height:1.35;
+}
+
+.auth-page .google-auth-copy small{
+  font-size:1.3rem;
+  line-height:1.45;
+}
+
+.auth-page .google-auth-badge{
+  font-size:1rem;
+  letter-spacing:.06em;
+}
+
+.auth-page .auth-divider{
+  display:flex;
+  align-items:center;
+  gap:1.4rem;
+  margin:2.8rem 0;
+  color:rgba(244,241,234,.48);
+}
+
+.auth-page .auth-divider::before,
+.auth-page .auth-divider::after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:rgba(255,255,255,.14);
+}
+
+.auth-page .auth-divider span{
+  flex:0 0 auto;
+  font-size:1.15rem;
+  line-height:1.5;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-align:center;
+}
+
+.auth-page .auth-email-heading{
+  margin-bottom:1.8rem;
+}
+
+.auth-page .auth-email-heading h2{
+  margin:0 0 .6rem;
+  color:#f4f1ea;
+  font-size:2rem;
+  font-weight:600;
+  line-height:1.35;
+  letter-spacing:-.025em;
+}
+
+.auth-page .auth-form{
+  display:grid;
+  gap:1.8rem;
+  margin:0;
+}
+
+.auth-page .auth-form label{
+  display:grid;
+  gap:.8rem;
+  min-width:0;
+}
+
+.auth-page .auth-form label > span{
+  color:#e8e6e1;
+  font-size:1.45rem;
+  font-weight:600;
+  line-height:1.5;
+}
+
+.auth-page .auth-form input{
+  box-sizing:border-box;
+  width:100%;
+  min-height:5.4rem;
+  padding:1.4rem 1.5rem;
+  border-radius:1.2rem;
+  font-size:1.6rem;
+  line-height:1.5;
+}
+
+.auth-page .auth-form input::placeholder{
+  font-size:1.5rem;
+  color:rgba(244,241,234,.4);
+}
+
+.auth-page .auth-submit{
+  width:100%;
+  min-height:5.4rem;
+  margin-top:.2rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  font-size:1.6rem;
+  line-height:1.4;
+}
+
+.auth-page .forgot-password,
+.auth-page .auth-switch,
+.auth-page .auth-back{
+  font-size:1.45rem;
+  line-height:1.6;
+}
+
+.auth-page .auth-alternative{
+  display:grid;
+  justify-items:center;
+  gap:1.1rem;
+  margin-top:2.6rem;
+  padding-top:2.2rem;
+  border-top:1px solid rgba(255,255,255,.1);
+}
+
+.auth-page .auth-alternative > span{
+  color:rgba(244,241,234,.58);
+  font-size:1.35rem;
+  line-height:1.5;
+}
+
+.auth-page .auth-github-button{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1rem;
+  width:100%;
+  min-height:5.4rem;
+  padding:1.2rem 1.5rem;
+  border:1px solid rgba(255,255,255,.18);
+  border-radius:1.2rem;
+  background:rgba(255,255,255,.04);
+  color:#f4f1ea;
+  font-size:1.55rem;
+  line-height:1.4;
+}
+
+.auth-page .auth-github-button .auth-provider-logo{
+  width:2rem;
+  height:2rem;
+}
+
+.auth-page .auth-switch{
+  display:block;
+  max-width:100%;
+  margin:2rem auto 0;
+  text-align:center;
+}
+
+.auth-page .auth-back{
+  margin-top:1.4rem;
+}
+
+@media(max-width:800px){
+  .auth-page .auth-content{
+    width:calc(100% - 3.6rem);
+    padding-top:2.8rem;
+    padding-bottom:3rem;
+  }
+
+  .auth-page .auth-content > h1{
+    font-size:clamp(3.4rem, 10vw, 4.2rem);
+  }
+
+  .auth-page .auth-content > p{
+    font-size:1.55rem;
+    line-height:1.7;
+  }
+
+  .auth-page .auth-method-google{
+    margin-top:2.6rem;
+  }
+
+  .auth-page .auth-method-heading p{
+    font-size:1.45rem;
+  }
+
+  .auth-page .google-auth-primary{
+    margin:1.3rem 0 0;
+  }
+
+  .auth-page .google-auth-button-primary{
+    min-height:7rem;
+    padding:1.3rem 1.4rem;
+    gap:1.2rem;
+  }
+
+  .auth-page .google-auth-copy strong{
+    font-size:1.55rem;
+  }
+
+  .auth-page .google-auth-copy small{
+    font-size:1.25rem;
+  }
+
+  .auth-page .google-auth-badge{
+    display:none;
+  }
+
+  .auth-page .auth-divider{
+    gap:1rem;
+    margin:2.5rem 0;
+  }
+
+  .auth-page .auth-divider span{
+    font-size:1.05rem;
+  }
+
+  .auth-page .auth-form{
+    gap:1.6rem;
+  }
+
+  .auth-page .auth-form label > span{
+    font-size:1.45rem;
+  }
+
+  .auth-page .auth-form input{
+    min-height:5.2rem;
+    font-size:1.6rem;
+  }
+
+  .auth-page .auth-email-heading h2{
+    font-size:1.9rem;
+  }
+}
+
+@media(max-width:360px){
+  .auth-page .auth-content{
+    width:calc(100% - 3rem);
+  }
+
+  .auth-page .auth-content > h1{
+    font-size:3.3rem;
+  }
+
+  .auth-page .auth-divider span{
+    font-size:1rem;
+    letter-spacing:.04em;
+  }
+}
