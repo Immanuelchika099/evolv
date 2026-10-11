@@ -469,3 +469,101 @@
     letter-spacing:.04em;
   }
 }
+
+
+/* EVOLV auth — compact provider row and simple email fallback */
+.auth-page .auth-content-compact{
+  width:min(calc(100% - 3.2rem), 46rem);
+  padding-top:2.2rem;
+  padding-bottom:2.6rem;
+}
+.auth-page .auth-content-compact > h1{
+  margin:0 0 2.2rem;
+  font-size:clamp(2.8rem, 7vw, 3.8rem);
+  line-height:1.15;
+  letter-spacing:-.04em;
+}
+.auth-page .auth-provider-row{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+  align-items:stretch;
+}
+.auth-page .auth-provider-choice{
+  box-sizing:border-box;
+  width:100%;
+  min-width:0;
+  min-height:5.6rem;
+  margin:0;
+  padding:1rem 1.2rem;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:.85rem;
+  border-radius:1.2rem;
+  font:600 1.3rem/1.35 Manrope,sans-serif;
+  text-align:center;
+  box-shadow:none;
+}
+.auth-page .auth-provider-choice span{
+  min-width:0;
+}
+.auth-page .auth-provider-choice .auth-provider-logo{
+  width:1.9rem;
+  height:1.9rem;
+  flex:0 0 1.9rem;
+}
+.auth-page .auth-provider-choice .google-auth-copy,
+.auth-page .auth-provider-choice .google-auth-badge{
+  display:none;
+}
+.auth-page .auth-provider-choice.auth-github-button{
+  background:#151515;
+  border:1px solid rgba(255,255,255,.18);
+  color:#f4f1ea;
+}
+.auth-page .auth-divider-compact{
+  margin:2.1rem 0;
+  gap:1rem;
+}
+.auth-page .auth-divider-compact span{
+  font-size:1.1rem;
+  letter-spacing:.08em;
+}
+.auth-page .auth-method-email .auth-form{
+  gap:1.35rem;
+}
+.auth-page .auth-method-email .auth-form label{
+  gap:.55rem;
+}
+.auth-page .auth-method-email .auth-form input{
+  min-height:5.1rem;
+}
+.auth-page .auth-method-email .auth-submit{
+  min-height:5.2rem;
+}
+.auth-page .auth-switch{
+  margin-top:1.6rem;
+}
+.auth-page .auth-back{
+  margin-top:.8rem;
+}
+@media(max-width:390px){
+  .auth-page .auth-content-compact{
+    width:calc(100% - 2.8rem);
+    padding-top:1.8rem;
+  }
+  .auth-page .auth-provider-row{
+    gap:.7rem;
+  }
+  .auth-page .auth-provider-choice{
+    padding:.9rem .6rem;
+    gap:.55rem;
+    font-size:1.15rem;
+  }
+  .auth-page .auth-provider-choice .auth-provider-logo{
+    width:1.7rem;
+    height:1.7rem;
+    flex-basis:1.7rem;
+  }
+}
