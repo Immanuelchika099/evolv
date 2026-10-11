@@ -537,20 +537,31 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
           ? 'Create your account so the progress you build in EVOLV can stay connected to you.'
           : 'Sign in and continue from where you left off.'}</p>
 
-        <div className="google-auth-primary">
-          <button className="google-auth-button google-auth-button-primary" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
-            <img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" aria-hidden="true" />
-            <span className="google-auth-copy">
-              <strong>Continue with Google</strong>
-              <small>{mode === 'signup' ? 'Start your EVOLV journey in seconds.' : 'Get back to your EVOLV journey instantly.'}</small>
-            </span>
-            <span className="google-auth-badge">RECOMMENDED</span>
-          </button>
-        </div>
+        <section className="auth-method auth-method-google" aria-label="Continue with Google">
+          <div className="auth-method-heading">
+            <span className="auth-method-kicker">THE QUICK WAY</span>
+            <p>Continue with your Google account. No extra details to remember.</p>
+          </div>
+          <div className="google-auth-primary">
+            <button className="google-auth-button google-auth-button-primary" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
+              <img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" aria-hidden="true" />
+              <span className="google-auth-copy">
+                <strong>Continue with Google</strong>
+                <small>{mode === 'signup' ? 'Create your account securely' : 'Sign in securely to EVOLV'}</small>
+              </span>
+              <span className="google-auth-badge">EASIEST</span>
+            </button>
+          </div>
+        </section>
 
-        <div className="auth-divider"><span>OR USE EMAIL</span></div>
+        <div className="auth-divider"><span>OR CONTINUE WITH EMAIL</span></div>
 
-        <form className="auth-form" onSubmit={submit}>
+        <section className="auth-method auth-method-email" aria-label="Continue with email">
+          <div className="auth-method-heading auth-email-heading">
+            <h2>{mode === 'signup' ? 'Use your email' : 'Sign in with email'}</h2>
+            <p>{mode === 'signup' ? 'Create an account with your email address and a password.' : 'Enter the email and password linked to your account.'}</p>
+          </div>
+          <form className="auth-form" onSubmit={submit}>
           <label>
             <span>Email</span>
             <input
@@ -590,12 +601,16 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
               : (mode === 'signup' ? 'Create account' : 'Sign in')}
             {!sending && <ArrowRight size={16} />}
           </button>
-        </form>
+          </form>
+        </section>
 
-        <button className="google-auth-button" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
-          <img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" aria-hidden="true" />
-          Continue with GitHub
-        </button>
+        <div className="auth-alternative">
+          <span>Prefer another option?</span>
+          <button className="google-auth-button auth-github-button" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
+            <img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" aria-hidden="true" />
+            Continue with GitHub
+          </button>
+        </div>
 
         <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setError(''); setMessage('') }}>
           {mode === 'signup' ? 'Already have an account? Sign in' : "New to EVOLV? Create an account"}
