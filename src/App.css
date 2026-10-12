@@ -2456,3 +2456,20 @@ html,body,#root{background:#000 !important;}
   .auth-flow-content .auth-email-choice { margin-bottom: 2.2rem; }
   .auth-flow-content .auth-switch { margin-top: 2.2rem; }
 }
+
+
+/* Give the first social sign-in action clear breathing room below the intro copy. */
+.auth-flow-content .auth-flow-subtitle {
+  margin-bottom: 3.6rem !important;
+}
+.auth-flow-content .auth-provider-stack {
+  margin-top: 1.2rem !important;
+}
+@media (max-width: 600px) {
+  .auth-flow-content .auth-flow-subtitle {
+    margin-bottom: 2.8rem !important;
+  }
+  .auth-flow-content .auth-provider-stack {
+    margin-top: 1rem !important;
+  }
+}
