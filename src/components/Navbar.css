@@ -361,3 +361,16 @@
     border-radius:999px;
   }
 }
+
+
+/* Keep the EVOLV navbar mark understated, including on auth pages. */
+.evolv-brand-svg {
+  width: 3.2rem !important;
+  max-height: 3.2rem;
+}
+@media (max-width: 800px) {
+  .evolv-brand-svg {
+    width: 2.8rem !important;
+    max-height: 2.8rem;
+  }
+}
