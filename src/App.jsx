@@ -564,6 +564,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
       </section>
       <footer className="onboard-footer"><span>{data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span><span>YOUR DATA, YOUR JOURNEY.</span></footer>
     </div>
+  )
 }
 
 
