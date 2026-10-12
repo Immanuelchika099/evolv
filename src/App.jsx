@@ -375,6 +375,8 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
     return storedError || ''
   })
   const [message, setMessage] = useState('')
+  const [authStage, setAuthStage] = useState('choices')
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     function resetOAuthLoading() {
@@ -529,80 +531,39 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
         <button className="auth-brand" onClick={onHome} aria-label="Back to EVOLV home"><Brand /></button>
         <span className="step-count">{mode === 'signup' ? 'CREATE ACCOUNT' : 'WELCOME BACK'}</span>
       </header>
-
-      <section className="auth-content auth-content-compact">
-        <h1>{mode === 'signup' ? 'Create account' : 'Welcome back'}</h1>
-
-        <div className="auth-provider-row" aria-label="Other sign-in options">
-          <button className="google-auth-button google-auth-button-primary auth-provider-choice" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
-            <img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" aria-hidden="true" />
-            <span>Continue with Google</span>
-          </button>
-          <button className="google-auth-button auth-github-button auth-provider-choice" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
-            <img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" aria-hidden="true" />
-            <span>Continue with GitHub</span>
-          </button>
-        </div>
-
-        <div className="auth-divider auth-divider-compact"><span>OR EMAIL</span></div>
-
-        <section className="auth-method auth-method-email" aria-label="Continue with email">
-          <form className="auth-form" onSubmit={submit}>
-          <label>
-            <span>Email</span>
-            <input
-              required
-              type="email"
-              value={email}
-              onChange={e => setEmail(e.target.value)}
-              placeholder="you@example.com"
-              autoComplete="email"
-            />
-          </label>
-
-          <label>
-            <span>Password</span>
-            <input
-              required
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-              placeholder="••••••••"
-              autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
-            />
-          </label>
-
-          {mode === 'login' && (
-            <button className="forgot-password" type="button" onClick={requestPasswordReset} disabled={sending}>
-              Forgot password?
-            </button>
-          )}
-
+      <section className="auth-content auth-content-compact auth-flow-content">
+        {authStage === 'choices' ? <>
+          <div className="auth-welcome-mark"><img src="/evolv-mark.svg" alt="" /></div>
+          <h1>{mode === 'signup' ? 'Your next chapter starts here.' : 'Welcome back.'}</h1>
+          <p className="auth-flow-subtitle">{mode === 'signup' ? 'Make space for the person you’re becoming.' : 'Pick up where your growth journey left off.'}</p>
+          <div className="auth-provider-stack">
+            <button className="google-auth-button google-auth-button-primary auth-choice-google" type="button" onClick={() => continueWithProvider('google')} disabled={sending}><img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" /><span>{sending ? 'Connecting…' : 'Continue with Google'}</span></button>
+            <button className="google-auth-button auth-choice-github" type="button" onClick={() => continueWithProvider('github')} disabled={sending}><img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" /><span>Continue with GitHub</span></button>
+          </div>
+          <div className="auth-divider auth-divider-compact"><span>OR</span></div>
+          <button className="auth-email-choice" type="button" onClick={() => { setAuthStage('email'); setError(''); setMessage('') }}><span>Continue with email</span><ArrowRight size={18}/></button>
           {error && <p className="auth-error" role="alert">{error}</p>}
           {message && <p className="auth-message">{message}</p>}
-
-          <button className="button button-primary auth-submit" disabled={sending} type="submit">
-            {sending
-              ? (mode === 'signup' ? 'Creating account…' : 'Signing in…')
-              : (mode === 'signup' ? 'Create account' : 'Sign in')}
-            {!sending && <ArrowRight size={16} />}
-          </button>
-          </form>
-        </section>
-
-        <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setError(''); setMessage('') }}>
-          {mode === 'signup' ? 'Already have an account? Sign in' : "New to EVOLV? Create an account"}
-        </button>
-
-        <button className="auth-back" onClick={onHome}><ChevronLeft size={15} /> Back to homepage</button>
+        </> : <>
+          <button className="auth-step-back" type="button" onClick={() => { setAuthStage('choices'); setError(''); setMessage('') }}><ChevronLeft size={20}/> Back</button>
+          <div className="auth-step-progress"><span className="active"/><span className={authStage === 'password' ? 'active' : ''}/></div>
+          <h1>{mode === 'signup' ? (authStage === 'email' ? 'What’s your email address?' : 'Create a password') : 'Sign in with email'}</h1>
+          <p className="auth-flow-subtitle">{mode === 'signup' ? (authStage === 'email' ? 'We’ll use this to set up your Evolv account.' : 'Use at least 8 characters.') : 'Enter your details to continue your journey.'}</p>
+          <section className="auth-method auth-method-email">
+            <form className="auth-form" onSubmit={submit}>
+              {authStage === 'email' || mode === 'login' ? <label><span>Email address</span><input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" autoFocus/></label> : <div className="auth-email-summary"><span>Email address</span><strong>{email}</strong><button type="button" onClick={() => setAuthStage('email')}>Change</button></div>}
+              {(authStage === 'password' || mode === 'login') && <label><span>Password</span><div className="auth-password-wrap"><input required minLength={mode === 'signup' ? 8 : undefined} type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder={mode === 'signup' ? 'At least 8 characters' : 'Your password'} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}/><button type="button" className="auth-password-toggle" onClick={() => setShowPassword(v => !v)}>{showPassword ? 'Hide' : 'Show'}</button></div>{mode === 'signup' && <small className="auth-password-hint">Use 8 or more characters, including letters and numbers.</small>}</label>}
+              {mode === 'login' && <button className="forgot-password" type="button" onClick={requestPasswordReset} disabled={sending}>Forgot password?</button>}
+              {error && <p className="auth-error" role="alert">{error}</p>}{message && <p className="auth-message">{message}</p>}
+              {mode === 'signup' && authStage === 'email' ? <button className="button button-primary auth-submit" type="button" disabled={!email.trim()} onClick={() => { setAuthStage('password'); setError(''); setMessage('') }}>Next <ArrowRight size={16}/></button> : <button className="button button-primary auth-submit" disabled={sending} type="submit">{sending ? (mode === 'signup' ? 'Creating account…' : 'Signing in…') : (mode === 'signup' ? 'Create account' : 'Sign in')}{!sending && <ArrowRight size={16}/>}</button>}
+            </form>
+          </section>
+        </>}
+        <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setAuthStage('choices'); setEmail(''); setPassword(''); setError(''); setMessage('') }}>{mode === 'signup' ? 'Already have an account? Log in' : 'New to EVOLV? Create an account'}</button>
+        <button className="auth-back" onClick={onHome}><ChevronLeft size={15}/> Back to homepage</button>
       </section>
-
-      <footer className="onboard-footer">
-        <span>{data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span>
-        <span>YOUR DATA, YOUR JOURNEY.</span>
-      </footer>
+      <footer className="onboard-footer"><span>{data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span><span>YOUR DATA, YOUR JOURNEY.</span></footer>
     </div>
-  )
 }
 
 
