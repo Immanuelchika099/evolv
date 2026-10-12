@@ -533,7 +533,6 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
       </header>
       <section className="auth-content auth-content-compact auth-flow-content">
         {authStage === 'choices' ? <>
-          <div className="auth-welcome-mark"><img src="/evolv-mark.svg" alt="" /></div>
           <h1>{mode === 'signup' ? 'Your next chapter starts here.' : 'Welcome back.'}</h1>
           <p className="auth-flow-subtitle">{mode === 'signup' ? 'Make space for the person you’re becoming.' : 'Pick up where your growth journey left off.'}</p>
           <div className="auth-provider-stack">
