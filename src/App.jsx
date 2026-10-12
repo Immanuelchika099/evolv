@@ -658,22 +658,6 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           })
         })
 
-        const hero = pageEl.querySelector('.ev-hero')
-        const heroCopy = pageEl.querySelector('.ev-hero-content')
-        const heroStage = pageEl.querySelector('.ev-hero-stage')
-        if (hero && heroCopy && heroStage) {
-          gsap.timeline({
-            scrollTrigger: {
-              trigger: hero,
-              start: 'top top',
-              end: '+=650',
-              scrub: 1,
-            },
-          })
-            .to(heroCopy, { yPercent: -25, opacity: 0 }, 0)
-            .to(heroStage, { yPercent: 12, scale: .86, opacity: 0 }, 0)
-        }
-
         ScrollTrigger.refresh()
       }, pageEl)
     } catch (error) {
