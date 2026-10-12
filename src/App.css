@@ -2408,3 +2408,51 @@ html,body,#root{background:#000 !important;}
   .ev-marquee-track { animation: none; }
   .ev-orbit { animation: none; }
 }
+
+
+/* Auth screen spacing: keep the layout calm and clearly separated. */
+.auth-flow-content {
+  gap: 0;
+}
+.auth-flow-content > h1 {
+  margin-top: 0;
+  margin-bottom: 1.6rem;
+  line-height: 1.16;
+}
+.auth-flow-content .auth-flow-subtitle {
+  margin-top: 0;
+  margin-bottom: 2.8rem;
+  line-height: 1.65;
+}
+.auth-flow-content .auth-provider-stack {
+  gap: 1.2rem;
+  margin-top: .4rem;
+}
+.auth-flow-content .auth-divider {
+  margin: 2.4rem 0;
+}
+.auth-flow-content .auth-email-choice {
+  margin-bottom: 2.8rem;
+}
+.auth-flow-content .auth-switch {
+  margin-top: 2.8rem;
+}
+.auth-flow-content .auth-back {
+  margin-top: 1.8rem;
+}
+.auth-flow-content .auth-step-progress {
+  margin: 1.8rem 0 2.8rem;
+}
+.auth-flow-content .auth-method-email {
+  margin-top: .8rem;
+}
+.auth-flow-content .auth-form {
+  gap: 2rem;
+}
+@media (max-width: 600px) {
+  .auth-flow-content > h1 { margin-bottom: 1.3rem; }
+  .auth-flow-content .auth-flow-subtitle { margin-bottom: 2.2rem; }
+  .auth-flow-content .auth-divider { margin: 1.9rem 0; }
+  .auth-flow-content .auth-email-choice { margin-bottom: 2.2rem; }
+  .auth-flow-content .auth-switch { margin-top: 2.2rem; }
+}
