@@ -1003,8 +1003,15 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
                     aria-label="More options for your message"
                     title="More options"
                     onClick={event => {
-                      const rect = event.currentTarget.getBoundingClientRect()
-                      setPromptMenu({ content: message.content || '', index, x: rect.left, y: rect.bottom + 6 })
+                      const messageNode = event.currentTarget.closest('.ai-message.user')
+                      const textNode = messageNode?.querySelector('p')
+                      if (!textNode) return
+
+                      const range = document.createRange()
+                      range.selectNodeContents(textNode)
+                      const selection = window.getSelection()
+                      selection?.removeAllRanges()
+                      selection?.addRange(range)
                     }}
                   >
                     <MoreHorizontal size={19} aria-hidden="true" />
@@ -1034,25 +1041,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           )}
           <div ref={bottomRef} />
         </div>
-        {promptMenu && (
-          <>
-            <button type="button" className="ai-user-menu-dismiss" aria-label="Close message options" onClick={closePromptMenu} />
-            <div
-              className="ai-user-message-glass-menu"
-              role="menu"
-              aria-label="Sent message options"
-              style={{
-                left: `${Math.max(12, Math.min(promptMenu.x, window.innerWidth - 204))}px`,
-                top: `${Math.max(12, Math.min(promptMenu.y, window.innerHeight - 210))}px`,
-              }}
-            >
-              <button type="button" role="menuitem" onClick={() => void runPromptAction('copy')}>Copy</button>
-              <button type="button" role="menuitem" onClick={() => void runPromptAction('edit')}>Edit message</button>
-              <button type="button" role="menuitem" onClick={() => void runPromptAction('select')}>Select text</button>
-              <button type="button" role="menuitem" onClick={() => void runPromptAction('share')}>Share</button>
-            </div>
-          </>
-        )}
         {showScrollToBottom && messages.length > 0 && (
           <button
             type="button"
