@@ -123,7 +123,7 @@ function HomePage({ pageProps }) {
 
       <section className="home-overview-grid" aria-label="Daily progress and statistics">
         <article className="home-progress-card">
-          <div className="home-card-heading"><span>{now.toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'short' })}</span><span className="home-live-dot"/> </div>
+          <div className="home-card-heading"><span>{`${now.toLocaleDateString(undefined, { weekday: 'long' })} ${now.getDate()} ${now.toLocaleDateString(undefined, { month: 'short' })}`}</span><span className="home-live-dot"/> </div>
           <div className="home-progress-content">
             <div className="home-progress-ring" style={{ '--home-progress': `${progress}%` }} role="img" aria-label={`${progress}% of daily check-in target`}>
               <div className="home-progress-ring-inner">
