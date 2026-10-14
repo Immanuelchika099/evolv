@@ -805,9 +805,8 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* A minimal three-dot trigger with the platform's native select menu on iOS. */
-.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu {
-  position: relative !important;
+/* Compact sent-message ellipsis and a restrained Liquid Glass-style fallback menu. */
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu-trigger {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -815,27 +814,66 @@ html:has(.dashboard.dashboard-ai-active) {
   width: 3.2rem !important;
   height: 2.8rem !important;
   margin: .25rem .35rem 0 0 !important;
-  color: rgba(245,245,245,.68) !important;
-  border-radius: 1.2rem !important;
-  -webkit-tap-highlight-color: transparent !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu:active {
-  background: rgba(255,255,255,.08) !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu select {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  opacity: .015 !important;
-  margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
+  border-radius: 1.2rem !important;
   background: transparent !important;
-  color: transparent !important;
+  color: rgba(245,245,245,.68) !important;
   cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu-trigger:active {
+  background: rgba(255,255,255,.09) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-menu-dismiss {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10020 !important;
+  border: 0 !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-glass-menu {
+  position: fixed !important;
+  z-index: 10021 !important;
+  right: 1.6rem !important;
+  bottom: 9rem !important;
+  min-width: 18rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: .2rem !important;
+  padding: .65rem !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  border-radius: 1.8rem !important;
+  background: rgba(35,35,38,.88) !important;
+  color: #f5f5f5 !important;
+  box-shadow: 0 1.2rem 4rem rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.08) !important;
+  -webkit-backdrop-filter: blur(28px) saturate(1.45) !important;
+  backdrop-filter: blur(28px) saturate(1.45) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-glass-menu button {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  min-height: 4.2rem !important;
+  padding: .9rem 1.2rem !important;
+  border: 0 !important;
+  border-radius: 1.1rem !important;
+  background: transparent !important;
+  color: inherit !important;
+  text-align: left !important;
+  font: inherit !important;
+  font-size: 1.5rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-glass-menu button:active {
+  background: rgba(255,255,255,.1) !important;
+}
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-user-message-glass-menu {
+    right: 1.2rem !important;
+    bottom: 8.5rem !important;
+    min-width: 19rem !important;
+  }
 }
 
 /* Allow iOS Safari to select sent-message text and show its native callout. */
