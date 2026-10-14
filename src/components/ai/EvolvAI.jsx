@@ -925,7 +925,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         >
           <section className="ai-history-sheet">
             <div className="ai-history-head">
-              <div><span className="section-label">YOUR AI HISTORY</span><h3>Previous chats.</h3></div>
+              <div><h3>Previous chats.</h3></div>
               <button type="button" className="ai-history-close" onClick={() => setHistoryOpen(false)} aria-label="Close chat history"><X size={18}/></button>
             </div>
             <div className="ai-history-list">
