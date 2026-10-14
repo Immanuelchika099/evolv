@@ -2473,3 +2473,39 @@ html,body,#root{background:#000 !important;}
     margin-top: 1rem !important;
   }
 }
+
+
+/* Progress page: give each section room to breathe, including the divider above Goal Progress. */
+.progress-page .progress-section-card,
+.progress-page .progress-overview-card {
+  margin-bottom: 2.4rem;
+}
+
+.progress-page .progress-goals-card {
+  margin-top: 2.4rem !important;
+  margin-bottom: 2.4rem !important;
+}
+
+.progress-page .progress-section-card + .progress-section-card,
+.progress-page .progress-overview-card + .progress-section-card,
+.progress-page .progress-section-card + .progress-overview-card {
+  margin-top: 2.4rem;
+}
+
+@media (max-width: 40rem) {
+  .progress-page .progress-section-card,
+  .progress-page .progress-overview-card {
+    margin-bottom: 2rem;
+  }
+
+  .progress-page .progress-goals-card {
+    margin-top: 2rem !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .progress-page .progress-section-card + .progress-section-card,
+  .progress-page .progress-overview-card + .progress-section-card,
+  .progress-page .progress-section-card + .progress-overview-card {
+    margin-top: 2rem;
+  }
+}
