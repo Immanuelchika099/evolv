@@ -4996,7 +4996,7 @@ body,
 .progress-page .home-heatmap-months {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 1.57rem;
+  grid-auto-columns: 1.15rem;
   justify-content: start;
   align-items: start;
   gap: .42rem;
@@ -5018,7 +5018,7 @@ body,
 }
 @media (max-width: 700px) {
   .progress-page .home-heatmap-months {
-    grid-auto-columns: 1.35rem;
+    grid-auto-columns: 1rem;
     gap: .35rem;
   }
   .progress-page .home-heatmap-grid {
