@@ -1272,6 +1272,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [logs,setLogs]=useState([])
   const [meals,setMeals]=useState([])
   const [goals,setGoals]=useState([])
+  const [goalCheckins,setGoalCheckins]=useState([])
   const [profile,setProfile]=useState(null)
   const [loading,setLoading]=useState(true)
   const [notifications,setNotifications]=useState([])
@@ -1381,14 +1382,16 @@ function Dashboard({ data, onLogout, onArticle }) {
       const {data:a}=await supabase.auth.getUser()
       const u=a?.user
       if(!u)return
-      const [{data:l},{data:m},{data:g}]=await Promise.all([
+      const [{data:l},{data:m},{data:g},{data:gc}]=await Promise.all([
         supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
         supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
-        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').eq('user_id',u.id).order('created_at',{ascending:false})
+        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').eq('user_id',u.id).order('created_at',{ascending:false}),
+        supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000)
       ])
       if(l)setLogs(l)
       if(m)setMeals(m)
       if(g)setGoals(g)
+      if(gc)setGoalCheckins(gc)
     }
 
     window.addEventListener('evolv-tracking-updated',refreshAiTracking)
@@ -1396,17 +1399,18 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[])
 
   useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
-    const [p,d,l,m,g,n]=await Promise.all([
+    const [p,d,l,m,g,n,gc]=await Promise.all([
       supabase.from('profiles').select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').eq('id',u.id).maybeSingle(),
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false}),
-      supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50)
+      supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50),
+      supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000)
      ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||'',user_metadata:u.user_metadata||{}});setProfileName(p.data.first_name||'')}
     setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');
     setDefs(d.data||[]);
-    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);if(d.error||l.error||m.error||g.error||n.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);setGoalCheckins(gc.data||[]);if(d.error||l.error||m.error||g.error||n.error||gc.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     if(active!=='notifications') return
@@ -1509,6 +1513,20 @@ function Dashboard({ data, onLogout, onArticle }) {
     setArea(null)
     setEditingEntry(null)
     if(wasEditing) setActive('logs')
+  }
+  async function checkInGoal(goal){
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u||!goal?.id)return
+    const todayKey=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())
+    if(goalCheckins.some(item=>item.goal_id===goal.id && item.checkin_date===todayKey)){
+      setError('You’ve already logged a step for this goal today. Come back tomorrow to keep the record honest.')
+      return
+    }
+    const {data:entry,error:x}=await supabase.from('goal_checkins').insert({goal_id:goal.id,user_id:u.id,checkin_date:todayKey}).select('id,goal_id,user_id,checkin_date,note,created_at').single()
+    if(x){setError(x.message);return}
+    setGoalCheckins(current=>[entry,...current])
+    setError('')
   }
   async function createGoal(e){
     e.preventDefault()
@@ -2050,7 +2068,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[])
 
   const pageProps = {
-    active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, profile,
+    active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, goalCheckins, profile,
     loading, notifications, saving, goalTitle, setGoalTitle, goalDescription, setGoalDescription,
     goalDueDate, setGoalDueDate, editingGoal, setEditingGoal, profileName, setProfileName,
     profileMessage,
@@ -2060,7 +2078,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     setProgressMetric, selectedEntry, editingEntry, manageLogsOpen, setManageLogsOpen, dashboardMainRef,
     goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, valueText, openLog,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
-    updateGoal, deleteGoal, saveProfile,
+    updateGoal, deleteGoal, checkInGoal, saveProfile,
     toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour, deleteNotification,
     openReflection, setReflectionOpen, deleteAccount, onLogout, onArticle, data,
     handleAvatarChange, removeAvatar, setProfileMessage,
