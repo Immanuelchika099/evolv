@@ -5046,3 +5046,20 @@ body,
 .progress-page .progress-heatmap-card .home-heatmap-total span {
   font-size: 1.1rem;
 }
+
+
+/* Progress activity graph: use Evolv's signature lime palette, never the old cyan tones. */
+.progress-page {
+  --home-lime: #c1f45b;
+}
+.progress-page .home-heatmap-cell.level-1,
+.progress-page .home-heatmap-footer i.level-1 { background: #33491f !important; }
+.progress-page .home-heatmap-cell.level-2,
+.progress-page .home-heatmap-footer i.level-2 { background: #587d2c !important; }
+.progress-page .home-heatmap-cell.level-3,
+.progress-page .home-heatmap-footer i.level-3 { background: #8fbd3f !important; }
+.progress-page .home-heatmap-cell.level-4,
+.progress-page .home-heatmap-footer i.level-4 { background: var(--home-lime) !important; }
+.progress-page .home-heatmap-cell:not([class*="level-"]) {
+  background: #202027;
+}
