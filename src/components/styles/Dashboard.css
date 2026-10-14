@@ -2035,7 +2035,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .glass-task:hover{
   transform:none;
-  padding-left:12px !important;
+  
   background:linear-gradient(90deg,rgba(183,217,76,.035),transparent 65%) !important;
 }
 .dashboard .glass-task .task-text{
@@ -2240,7 +2240,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .glass-task:hover{
   transform:translateY(-2px) !important;
-  padding-left:19px !important;
+  
   background:rgba(183,217,76,.045) !important;
   border-color:rgba(183,217,76,.18) !important;
 }
