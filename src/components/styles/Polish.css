@@ -67,6 +67,7 @@ body,
 
 .dashboard .goal-create-form,
 .dashboard .goal-item,
+.dashboard .glass-task,
 .dashboard .today-metric,
 .dashboard .today-empty,
 .dashboard .progress-overview-card,
@@ -103,6 +104,7 @@ body,
 }
 
 .dashboard .goal-item,
+.dashboard .glass-task,
 .dashboard .today-metric,
 .dashboard .today-empty,
 .dashboard .progress-overview-card,
@@ -123,6 +125,7 @@ body,
 
 @media (hover: hover) {
   .dashboard .goal-item:hover,
+  .dashboard .glass-task:hover,
   .dashboard .today-metric:hover,
   .dashboard .today-empty:hover,
   .dashboard .progress-overview-card:hover,
@@ -142,6 +145,7 @@ body,
 }
 
 .dashboard .goal-item:focus-visible,
+.dashboard .glass-task:focus-visible,
 .dashboard .today-metric:focus-visible,
 .dashboard .today-empty:focus-visible,
 .dashboard .progress-overview-card:focus-visible,
@@ -161,6 +165,22 @@ body,
 .dashboard .today-metric,
 .dashboard .today-empty {
   overflow-wrap: anywhere;
+}
+
+.dashboard .glass-task {
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  background-image: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  transition:
+    transform 180ms ease-out,
+    border-color 180ms ease-out,
+    background-color 180ms ease-out,
+    box-shadow 180ms ease-out;
+}
+
+.dashboard .glass-task:hover {
+  background-color: var(--color-surface-raised);
+  background-image: linear-gradient(145deg, rgba(200,243,106,.035), rgba(255,255,255,.018));
 }
 
 .dashboard .life-area-row,
@@ -218,6 +238,7 @@ body,
 
 @media (prefers-reduced-motion: reduce) {
   .dashboard .goal-item,
+  .dashboard .glass-task,
   .dashboard .today-metric,
   .dashboard .today-empty,
   .dashboard .progress-overview-card,
