@@ -509,7 +509,6 @@ function GoalsPage({ pageProps }) {
           <div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':g.status==='paused'?'Paused':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}{g.due_date&&<small className="goal-due-copy">Due {new Date(g.due_date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</small>}</div><strong>{g.progress||0}%</strong></div>
           <div className="mini-progress"><i style={{width:Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}}/></div>
           <div className="goal-item-actions">
-            <label><span>Progress</span><input type="range" min="0" max="100" value={Math.min(100,Math.max(0,Number(g.progress)||0))} onChange={e=>updateGoal(g,{progress:Number(e.target.value),status:Number(e.target.value)>=100?'completed':'active'})}/></label>
             <select value={g.status||'active'} onChange={e=>updateGoal(g,{status:e.target.value})} aria-label="Goal status"><option value="active">In progress</option><option value="paused">Paused</option><option value="completed">Completed</option></select>
             <button type="button" onClick={()=>beginGoalEdit(g)} aria-label={'Edit '+g.title}><Pencil size={15}/> Edit</button>
             <button type="button" className="goal-delete-button" onClick={()=>deleteGoal(g)} aria-label={'Delete '+g.title}><Trash2 size={15}/> Delete</button>
