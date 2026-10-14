@@ -618,7 +618,7 @@
   padding: calc(32px + env(safe-area-inset-top, 0px)) 16px calc(32px + env(safe-area-inset-bottom, 0px));
   background: var(--bg);
   color: var(--text);
-  font-family: Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -665,14 +665,14 @@
 .auth-page .auth-intro h1 {
   margin: 0;
   color: var(--text);
-  font: 650 25px/1.2 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 650 25px/1.2 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   letter-spacing: -0.8px;
 }
 
 .auth-page .auth-intro p {
   margin: 8px 0 0;
   color: var(--muted);
-  font: 400 14px/1.5 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 400 14px/1.5 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-signup-banner {
@@ -688,7 +688,7 @@
   background: var(--accent-tint);
   color: var(--accent);
   text-align: left;
-  font: 550 13px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 550 13px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
   transition: background 160ms ease, border-color 160ms ease, transform 160ms ease;
 }
@@ -737,7 +737,7 @@
   border-radius: var(--radius);
   background: #101010;
   color: var(--text);
-  font: 550 14px/1.35 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 550 14px/1.35 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
   transition: background 160ms ease, border-color 160ms ease, opacity 160ms ease;
 }
@@ -772,7 +772,7 @@
   align-items: center;
   gap: 13px;
   color: var(--muted);
-  font: 500 11px/1.3 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 11px/1.3 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   letter-spacing: .12em;
 }
 
@@ -795,7 +795,7 @@
 .auth-page .auth-quick-form > label,
 .auth-page .auth-form label > span {
   color: var(--muted);
-  font: 500 13px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 13px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -813,7 +813,7 @@
   outline: none;
   background: #0e0e0e;
   color: var(--text);
-  font: 400 15px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 400 15px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   box-shadow: none;
   transition: border-color 160ms ease, background 160ms ease;
 }
@@ -844,7 +844,7 @@
   border-radius: var(--radius);
   background: var(--accent);
   color: #0a0a0a;
-  font: 650 14px/1.3 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 650 14px/1.3 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
   transition: filter 160ms ease, transform 160ms ease, background 160ms ease;
 }
@@ -879,7 +879,7 @@
   gap: 5px;
   color: var(--muted);
   text-align: center;
-  font: 400 13px/1.5 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 400 13px/1.5 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-account-switch button {
@@ -887,7 +887,7 @@
   padding: 0;
   background: transparent;
   color: var(--text);
-  font: 550 13px/1.5 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 550 13px/1.5 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
 }
 
@@ -899,7 +899,7 @@
   margin: 22px 0 0;
   color: var(--muted);
   text-align: center;
-  font: 400 11px/1.65 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 400 11px/1.65 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-legal span {
@@ -910,7 +910,7 @@
 .auth-page .auth-message {
   margin: 12px 0 0;
   color: var(--error);
-  font: 400 13px/1.5 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 400 13px/1.5 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   overflow-wrap: anywhere;
 }
 
@@ -931,7 +931,7 @@
   border: 0;
   background: transparent;
   color: var(--muted);
-  font: 500 13px/1.5 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 13px/1.5 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
 }
 
@@ -943,14 +943,14 @@
 .auth-page .auth-email-step h2 {
   margin: 0;
   color: var(--text);
-  font: 600 21px/1.3 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 600 21px/1.3 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   letter-spacing: -.4px;
 }
 
 .auth-page .auth-step-copy {
   margin: 7px 0 18px;
   color: var(--muted);
-  font: 400 13px/1.55 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 400 13px/1.55 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-form {
@@ -978,7 +978,7 @@
   border: 0;
   background: transparent;
   color: var(--muted);
-  font: 500 12px/1.2 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 12px/1.2 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
 }
 
@@ -996,14 +996,14 @@
 .auth-page .auth-email-summary span {
   grid-column: 1 / -1;
   color: var(--muted);
-  font: 500 12px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 12px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-email-summary strong {
   min-width: 0;
   overflow-wrap: anywhere;
   color: var(--text);
-  font: 450 14px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 450 14px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-email-summary button {
@@ -1011,7 +1011,7 @@
   padding: 4px 0 4px 8px;
   background: transparent;
   color: var(--accent);
-  font: 500 12px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 12px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
   cursor: pointer;
 }
 
@@ -1019,7 +1019,7 @@
   justify-self: end;
   padding: 0;
   color: var(--muted);
-  font: 500 12px/1.4 Inter, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+  font: 500 12px/1.4 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
 
 .auth-page .auth-form .auth-error,
@@ -1054,4 +1054,12 @@
   .auth-page .auth-continue-button {
     transition: none;
   }
+}
+
+
+/* Override legacy provider-stack declarations without affecting other pages. */
+.auth-page .auth-provider-stack .auth-provider-button {
+  min-height: 52px;
+  border-radius: var(--radius);
+  font: 550 14px/1.35 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
