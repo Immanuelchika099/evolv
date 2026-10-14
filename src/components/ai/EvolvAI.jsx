@@ -188,10 +188,15 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       }
     })
 
+    let archivedIds = []
+    try { archivedIds = JSON.parse(localStorage.getItem('evolv-ai-archived-chats') || '[]') } catch {}
     setChatHistory(
-      Array.from(grouped.values()).sort(
-        (a, b) => new Date(b.updatedAt) - new Date(a.updatedAt),
-      ),
+      Array.from(grouped.values())
+        .filter(chat => !archivedIds.includes(chat.chatId))
+        .sort((a, b) => {
+          const pinOrder = Number(pinnedChat.includes(b.chatId)) - Number(pinnedChat.includes(a.chatId))
+          return pinOrder || new Date(b.updatedAt) - new Date(a.updatedAt)
+        }),
     )
   }
 
@@ -405,6 +410,9 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
 
     setChatHistory(current => current.filter(chat => chat.chatId !== id))
+    const nextPinned = pinnedChat.filter(chatIdValue => chatIdValue !== id)
+    setPinnedChat(nextPinned)
+    localStorage.setItem('evolv-ai-pinned-chats', JSON.stringify(nextPinned))
     setPressedChatId('')
     if (chatId === id) startNewChat()
   }
