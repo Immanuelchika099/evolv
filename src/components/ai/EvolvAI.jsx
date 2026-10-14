@@ -878,7 +878,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
               <MoreHorizontal size={20} />
             </button>
             {chatOptionsOpen && <>
-              <button className="ai-chat-menu-backdrop" type="button" aria-label="Close chat options" onClick={() => setChatOptionsOpen(false)} />
               <div className="ai-chat-options-menu" role="menu" aria-label="Chat options">
                 <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); void shareCurrentChat() }}><Share2 /><span>Share</span></button>
                 <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); togglePinCurrentChat() }}>{pinnedChat.includes(chatId) ? <PinOff /> : <Pin />}<span>{pinnedChat.includes(chatId) ? 'Unpin chat' : 'Pin chat'}</span></button>
