@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
-  Check, Search, Files
+  Check, Search, Files, Pin, PinOff, FolderPlus, Archive, Trash2
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
@@ -96,6 +96,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [messages, setMessages] = useState([])
   const [showScrollToBottom, setShowScrollToBottom] = useState(false)
   const [findInChat, setFindInChat] = useState(false)
+  const [chatOptionsOpen, setChatOptionsOpen] = useState(false)
   const [chatSearch, setChatSearch] = useState('')
   const [uploadedFilesOpen, setUploadedFilesOpen] = useState(false)
   const [pinnedChat, setPinnedChat] = useState(() => { try { return JSON.parse(localStorage.getItem('evolv-ai-pinned-chats') || '[]') } catch { return [] } })
@@ -872,7 +873,24 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             <Plus size={17} />
             <span>New chat</span>
           </button>
-          <div className="ai-more-native-wrap"><button className="ai-more-button" type="button" aria-label="More chat options" tabIndex="-1"><MoreHorizontal size={20} /></button><select className="ai-more-native-select" aria-label="Chat options" defaultValue="" onChange={event => { const action = event.target.value; event.target.value = ""; if (action === "share") void shareCurrentChat(); if (action === "pin") togglePinCurrentChat(); if (action === "project") addCurrentChatToProject(); if (action === "files") setUploadedFilesOpen(true); if (action === "find") { setFindInChat(true); setChatSearch(""); } if (action === "archive") archiveCurrentChat(); if (action === "delete") void deleteCurrentChat(); }}><option value="" disabled>More options</option><option value="share">Share</option><option value="pin">{pinnedChat.includes(chatId) ? "Unpin chat" : "Pin chat"}</option><option value="project">Add to project</option><option value="files">Uploaded files</option><option value="find">Find in chat</option><option value="archive">Archive</option><option value="delete">Delete chat</option></select></div>
+          <div className="ai-more-native-wrap">
+            <button className="ai-more-button" type="button" aria-label="More chat options" aria-expanded={chatOptionsOpen} onClick={() => setChatOptionsOpen(open => !open)}>
+              <MoreHorizontal size={20} />
+            </button>
+            {chatOptionsOpen && <>
+              <button className="ai-chat-menu-backdrop" type="button" aria-label="Close chat options" onClick={() => setChatOptionsOpen(false)} />
+              <div className="ai-chat-options-menu" role="menu" aria-label="Chat options">
+                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); void shareCurrentChat() }}><Share2 /><span>Share</span></button>
+                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); togglePinCurrentChat() }}>{pinnedChat.includes(chatId) ? <PinOff /> : <Pin />}<span>{pinnedChat.includes(chatId) ? 'Unpin chat' : 'Pin chat'}</span></button>
+                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); addCurrentChatToProject() }}><FolderPlus /><span>Add to project</span></button>
+                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); setUploadedFilesOpen(true) }}><Files /><span>Uploaded files</span></button>
+                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); setFindInChat(true); setChatSearch('') }}><Search /><span>Find in chat</span></button>
+                <span className="ai-chat-menu-divider" />
+                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); archiveCurrentChat() }}><Archive /><span>Archive</span></button>
+                <button type="button" role="menuitem" className="danger" onClick={() => { setChatOptionsOpen(false); void deleteCurrentChat() }}><Trash2 /><span>Delete chat</span></button>
+              </div>
+            </>}
+          </div>
         </div>
       </div>
       {findInChat && (<form className="ai-chat-find-panel" onSubmit={event => { event.preventDefault(); findMatchingMessage(); }}><input autoFocus value={chatSearch} onChange={event => setChatSearch(event.target.value)} placeholder="Find in this chat…" aria-label="Find in this chat" /><button type="submit" aria-label="Find next"><Search size={15} /></button><button type="button" aria-label="Close find in chat" onClick={() => { setFindInChat(false); setChatSearch(""); }}><X size={15} /></button></form>)}
