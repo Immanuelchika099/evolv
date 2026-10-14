@@ -863,3 +863,51 @@ html:has(.dashboard.dashboard-ai-active) {
   height: 1.7rem !important;
   color: #e7e7e7 !important;
 }
+
+
+/* Floating return-to-latest control for long AI conversations. */
+.dashboard.dashboard-ai-active .ai-page .ai-chat {
+  position: relative !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-scroll-to-bottom {
+  position: fixed !important;
+  left: 50% !important;
+  bottom: calc(10.8rem + env(safe-area-inset-bottom, 0px)) !important;
+  z-index: 100300 !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 4.2rem !important;
+  height: 4.2rem !important;
+  padding: 0 !important;
+  border: 1px solid rgba(255,255,255,.14) !important;
+  border-radius: 50% !important;
+  background: rgba(38,38,38,.96) !important;
+  color: #f5f5f5 !important;
+  box-shadow: 0 .5rem 1.8rem rgba(0,0,0,.4) !important;
+  transform: translateX(-50%) !important;
+  cursor: pointer !important;
+  -webkit-tap-highlight-color: transparent !important;
+  animation: ai-scroll-arrow-in .18s ease-out both;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-scroll-to-bottom:hover {
+  background: #454545 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-scroll-to-bottom:active {
+  transform: translateX(-50%) scale(.94) !important;
+}
+@keyframes ai-scroll-arrow-in {
+  from { opacity: 0; translate: 0 .5rem; }
+  to { opacity: 1; translate: 0 0; }
+}
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-scroll-to-bottom {
+    bottom: calc(10.7rem + env(safe-area-inset-bottom, 0px)) !important;
+    width: 4.1rem !important;
+    height: 4.1rem !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard.dashboard-ai-active .ai-page .ai-scroll-to-bottom {
+    animation: none !important;
+  }
+}
