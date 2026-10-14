@@ -5118,6 +5118,7 @@ body,
 /* Final homepage and progress-page refinements */
 .dashboard-home-redesign .home-progress-ring-inner {
   background: #101010 !important;
+  border-color: transparent !important;
 }
 .dashboard .progress-page > .progress-goals-card {
   border-bottom: 1px solid var(--evolv-line) !important;
