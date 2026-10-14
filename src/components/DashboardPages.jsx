@@ -365,32 +365,33 @@ function ProgressPage({ pageProps }) {
     map[key] = (map[key] || 0) + 1
     return map
   }, {})
-  const heatmapRangeMonth = new Date(heatmapNow.getFullYear(), heatmapNow.getMonth() - 5, 1)
-  const heatmapStart = new Date(heatmapRangeMonth)
+  const heatmapYear = heatmapNow.getFullYear()
+  const heatmapYearStart = new Date(heatmapYear, 0, 1)
+  const heatmapStart = new Date(heatmapYearStart)
   heatmapStart.setDate(heatmapStart.getDate() - heatmapStart.getDay())
-  const heatmapEnd = new Date(heatmapNow)
-  heatmapEnd.setHours(0, 0, 0, 0)
+  const heatmapEnd = new Date(heatmapYear, 11, 31)
   const heatmap = []
   for (const date = new Date(heatmapStart); date <= heatmapEnd; date.setDate(date.getDate() + 1)) {
     const day = new Date(date)
     const key = dateKey(day)
     heatmap.push({ key, count: heatmapActivityByDay[key] || 0, date: day })
   }
-  const heatmapMonthLabels = heatmap
-    .map((item, index) => ({ ...item, index }))
-    .filter(item => {
-      const index = item.index
-      if (index > 0) {
-        const previous = heatmap[index - 1].date
-        if (previous.getMonth() === item.date.getMonth() && previous.getFullYear() === item.date.getFullYear()) return false
-      }
-      return item.date.getFullYear() > heatmapRangeMonth.getFullYear() ||
-        (item.date.getFullYear() === heatmapRangeMonth.getFullYear() && item.date.getMonth() >= heatmapRangeMonth.getMonth())
-    })
+  const heatmapMonthLabels = Array.from({ length: 12 }, (_, month) => {
+    const date = new Date(heatmapYear, month, 1)
+    const dayOffset = Math.round((date - heatmapStart) / 86400000)
+    return { key: dateKey(date), date, index: dayOffset }
+  })
   useEffect(() => {
     const scrollToCurrentMonth = () => {
       const container = heatmapScrollRef.current
-      if (container) container.scrollLeft = container.scrollWidth
+      if (!container) return
+      const firstOfMonth = new Date(heatmapNow.getFullYear(), heatmapNow.getMonth(), 1)
+      const dayOffset = Math.round((firstOfMonth - heatmapStart) / 86400000)
+      const weekColumn = Math.floor(dayOffset / 7)
+      const styles = window.getComputedStyle(container.querySelector('.home-heatmap-grid'))
+      const cellWidth = parseFloat(styles.gridAutoColumns) || 16
+      const columnGap = parseFloat(styles.columnGap) || 5
+      container.scrollLeft = Math.max(0, weekColumn * (cellWidth + columnGap) - (cellWidth + columnGap) * 2)
     }
     const frame = window.requestAnimationFrame(scrollToCurrentMonth)
     window.addEventListener('resize', scrollToCurrentMonth)
@@ -398,7 +399,7 @@ function ProgressPage({ pageProps }) {
       window.cancelAnimationFrame(frame)
       window.removeEventListener('resize', scrollToCurrentMonth)
     }
-  }, [])
+  }, [heatmapNow.getFullYear(), heatmapNow.getMonth()])
 
   return (()=>{
         const now=new Date()
@@ -432,14 +433,14 @@ function ProgressPage({ pageProps }) {
 
           <section className="home-heatmap-card progress-heatmap-card">
             <div className="home-heatmap-heading">
-              <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity over the last six months.</p></div>
+              <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity across the year.</p></div>
               <div className="home-heatmap-total"><strong>{heatmapActivity.length}</strong><span>check-ins</span></div>
             </div>
             <div className="home-heatmap-scroll" ref={heatmapScrollRef}>
               <div className="home-heatmap-months" aria-hidden="true">
                 {heatmapMonthLabels.map(item => <span key={item.key} style={{ gridColumnStart: Math.floor(item.index / 7) + 1 }}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
               </div>
-              <div className="home-heatmap-grid" role="img" aria-label="Contribution graph of saved check-ins over the last six months">
+              <div className="home-heatmap-grid" role="img" aria-label={`Contribution graph of saved check-ins across ${heatmapYear}`}>
                 {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
               </div>
             </div>
