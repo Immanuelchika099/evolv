@@ -1116,17 +1116,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
                     className="ai-user-message-menu-trigger"
                     aria-label="More options for your message"
                     title="More options"
-                    onClick={event => {
-                      const messageNode = event.currentTarget.closest('.ai-message.user')
-                      const textNode = messageNode?.querySelector('p')
-                      if (!textNode) return
-
-                      const range = document.createRange()
-                      range.selectNodeContents(textNode)
-                      const selection = window.getSelection()
-                      selection?.removeAllRanges()
-                      selection?.addRange(range)
-                    }}
+                    onClick={event => openPromptMenu(event, message, index)}
                   >
                     <MoreHorizontal size={19} aria-hidden="true" />
                   </button>
@@ -1147,6 +1137,37 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
               </div>
             )
           })}
+          {promptMenu && (
+            <div
+              className="ai-prompt-menu-backdrop"
+              onMouseDown={event => {
+                if (event.target === event.currentTarget) closePromptMenu()
+              }}
+              onTouchStart={event => {
+                if (event.target === event.currentTarget) closePromptMenu()
+              }}
+            >
+              <div
+                className="ai-prompt-menu"
+                role="menu"
+                aria-label="Prompt options"
+                style={{
+                  top: Math.max(12, Math.min(promptMenu.y, window.innerHeight - 164)),
+                  left: Math.max(12, Math.min(promptMenu.x, window.innerWidth - 208)),
+                }}
+              >
+                <button type="button" role="menuitem" onClick={() => runPromptAction('copy')}>
+                  <Copy size={16} aria-hidden="true" /><span>Copy</span>
+                </button>
+                <button type="button" role="menuitem" onClick={() => runPromptAction('edit')}>
+                  <Pencil size={16} aria-hidden="true" /><span>Edit prompt</span>
+                </button>
+                <button type="button" role="menuitem" onClick={() => runPromptAction('share')}>
+                  <Share2 size={16} aria-hidden="true" /><span>Share prompt</span>
+                </button>
+              </div>
+            </div>
+          )}
           {sending && !typing && (
             <div className="ai-message assistant">
               <span className="ai-message-role">EVOLV</span>
