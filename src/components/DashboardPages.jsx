@@ -34,6 +34,7 @@ function HomePage({ pageProps }) {
   } = pageProps
 
   const [now, setNow] = useState(() => new Date())
+  const [statsMode, setStatsMode] = useState('week')
   const [skippedToday, setSkippedToday] = useState(() => {
     try {
       return localStorage.getItem('evolv-skip-day') === new Intl.DateTimeFormat('en-CA', {
@@ -121,7 +122,7 @@ function HomePage({ pageProps }) {
       <section className="dashboard-welcome dashboard-welcome-minimal">
         <div className="dashboard-welcome-copy">
           <span className="dashboard-eyebrow">{greeting} · {now.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase()}</span>
-          <h1>{name.trim().split(/\s+/)[0] || 'There'}<span className="home-title-period">.</span></h1>
+          <h1 className="home-greeting-title"><span>{name.trim().split(/\s+/)[0] || 'There'}</span><span className="home-title-period">.</span></h1>
           <p className="home-subtitle">Every small step counts. Here's your progress.</p>
         </div>
         <button className="home-add-button" type="button" onClick={() => openLog()} aria-label="Add a check-in"><Plus size={21}/></button>
@@ -152,11 +153,14 @@ function HomePage({ pageProps }) {
 
         <article className="home-statistics-card">
           <div className="home-card-heading"><span>STATISTICS</span><button type="button" onClick={() => goTo('progress')}>View progress <ArrowRight size={13}/></button></div>
-          <div className="home-stat-range"><span className="is-active">Last 7 days</span><span>Activity</span></div>
-          <div className="home-stat-average"><strong>{dailyAverage}%</strong><span>daily target pace</span></div>
+          <div className="home-stat-range" role="tablist" aria-label="Statistics view">
+            <button type="button" role="tab" aria-selected={statsMode === 'week'} className={statsMode === 'week' ? 'is-active' : ''} onClick={() => setStatsMode('week')}>Last 7 days</button>
+            <button type="button" role="tab" aria-selected={statsMode === 'activity'} className={statsMode === 'activity' ? 'is-active' : ''} onClick={() => setStatsMode('activity')}>Activity</button>
+          </div>
+          <div className="home-stat-average"><strong>{statsMode === 'week' ? String(dailyAverage) + '%' : weeklyTotal}</strong><span>{statsMode === 'week' ? 'daily target pace' : 'check-ins this week'}</span></div>
           <div className="home-week-bars" aria-label="Daily check-in activity for the last seven days">
             {days.map(day => <div className="home-week-bar-column" key={day.key} title={`${day.count} check-ins on ${day.date.toLocaleDateString()}`}>
-              <div className="home-week-bar-track"><i style={{ height: `${Math.max(day.count ? 12 : 4, day.count / maxDay * 100)}%` }}/></div>
+              <div className="home-week-bar-track"><i style={{ height: `${Math.max(day.count ? 12 : 4, (statsMode === 'week' ? Math.min(100, day.count / dailyTarget * 100) : day.count / maxDay * 100))}%` }}/></div>
               <span>{day.label}</span><small>{day.count}</small>
             </div>)}
           </div>
