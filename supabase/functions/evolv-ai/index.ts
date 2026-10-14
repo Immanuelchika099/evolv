@@ -490,7 +490,7 @@ Deno.serve(async (req: Request) => {
         content: m.content.slice(0, 4000),
       }))
 
-    const firstName = profile?.first_name?.trim() || "there"
+    const firstName = String(profile?.first_name || profile?.full_name || profile?.name || "").trim().split(/\s+/)[0] || "there"
     const timezone =
       typeof profile?.timezone === "string" && profile.timezone.trim()
         ? profile.timezone.trim()
