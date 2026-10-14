@@ -5258,3 +5258,9 @@ body,
     font-size: 1.1rem;
   }
 }
+
+
+/* The homepage log cards don't need the completion tick in the corner. */
+.dashboard-home-redesign .home-today-row .home-today-check {
+  display: none !important;
+}
