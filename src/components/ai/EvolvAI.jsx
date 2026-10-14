@@ -1004,7 +1004,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
                     title="More options"
                     onClick={event => {
                       const rect = event.currentTarget.getBoundingClientRect()
-                      setPromptMenu({ content: message.content || '', index, x: rect.right, y: rect.bottom })
+                      setPromptMenu({ content: message.content || '', index, x: rect.left, y: rect.bottom + 6 })
                     }}
                   >
                     <MoreHorizontal size={19} aria-hidden="true" />
@@ -1037,7 +1037,15 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         {promptMenu && (
           <>
             <button type="button" className="ai-user-menu-dismiss" aria-label="Close message options" onClick={closePromptMenu} />
-            <div className="ai-user-message-glass-menu" role="menu" aria-label="Sent message options">
+            <div
+              className="ai-user-message-glass-menu"
+              role="menu"
+              aria-label="Sent message options"
+              style={{
+                left: `${Math.max(12, Math.min(promptMenu.x, window.innerWidth - 204))}px`,
+                top: `${Math.max(12, Math.min(promptMenu.y, window.innerHeight - 210))}px`,
+              }}
+            >
               <button type="button" role="menuitem" onClick={() => void runPromptAction('copy')}>Copy</button>
               <button type="button" role="menuitem" onClick={() => void runPromptAction('edit')}>Edit message</button>
               <button type="button" role="menuitem" onClick={() => void runPromptAction('select')}>Select text</button>
