@@ -874,21 +874,34 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             <span>New chat</span>
           </button>
           <div className="ai-more-native-wrap">
-            <button className="ai-more-button" type="button" aria-label="More chat options" aria-expanded={chatOptionsOpen} onClick={() => setChatOptionsOpen(open => !open)}>
-              <MoreHorizontal size={20} />
+            <button className="ai-more-button" type="button" aria-label="More chat options" tabIndex={-1}>
+              <MoreHorizontal size={20} aria-hidden="true" />
             </button>
-            {chatOptionsOpen && <>
-              <div className="ai-chat-options-menu" role="menu" aria-label="Chat options">
-                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); void shareCurrentChat() }}><Share2 /><span>Share</span></button>
-                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); togglePinCurrentChat() }}>{pinnedChat.includes(chatId) ? <PinOff /> : <Pin />}<span>{pinnedChat.includes(chatId) ? 'Unpin chat' : 'Pin chat'}</span></button>
-                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); addCurrentChatToProject() }}><FolderPlus /><span>Add to project</span></button>
-                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); setUploadedFilesOpen(true) }}><Files /><span>Uploaded files</span></button>
-                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); setFindInChat(true); setChatSearch('') }}><Search /><span>Find in chat</span></button>
-                <span className="ai-chat-menu-divider" />
-                <button type="button" role="menuitem" onClick={() => { setChatOptionsOpen(false); archiveCurrentChat() }}><Archive /><span>Archive</span></button>
-                <button type="button" role="menuitem" className="danger" onClick={() => { setChatOptionsOpen(false); void deleteCurrentChat() }}><Trash2 /><span>Delete chat</span></button>
-              </div>
-            </>}
+            <select
+              className="ai-more-native-select"
+              aria-label="Chat options"
+              value=""
+              onChange={event => {
+                const action = event.target.value
+                if (action === 'share') void shareCurrentChat()
+                if (action === 'pin') togglePinCurrentChat()
+                if (action === 'project') addCurrentChatToProject()
+                if (action === 'files') setUploadedFilesOpen(true)
+                if (action === 'find') { setFindInChat(true); setChatSearch('') }
+                if (action === 'archive') archiveCurrentChat()
+                if (action === 'delete') void deleteCurrentChat()
+                event.target.value = ''
+              }}
+            >
+              <option value="" disabled>More options</option>
+              <option value="share">Share</option>
+              <option value="pin">{pinnedChat.includes(chatId) ? 'Unpin chat' : 'Pin chat'}</option>
+              <option value="project">Add to project</option>
+              <option value="files">Uploaded files</option>
+              <option value="find">Find in chat</option>
+              <option value="archive">Archive</option>
+              <option value="delete">Delete chat</option>
+            </select>
           </div>
         </div>
       </div>
