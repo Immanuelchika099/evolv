@@ -5063,3 +5063,13 @@ body,
 .progress-page .home-heatmap-cell:not([class*="level-"]) {
   background: #202027;
 }
+
+
+/* Final override: the Progress activity card must use the same neutral black surface as its sibling cards. */
+.dashboard .progress-page .progress-heatmap-card {
+  background: #000 !important;
+  background-color: #000 !important;
+  background-image: none !important;
+  border: 1px solid var(--evolv-line-soft) !important;
+  box-shadow: none !important;
+}
