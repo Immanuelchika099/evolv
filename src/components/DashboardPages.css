@@ -5716,3 +5716,73 @@ body,
     font-size: 2.3rem !important;
   }
 }
+
+
+/* Goal creation form — readable labels and contained date input */
+.dashboard .goals-page .goal-create-form .goal-type-choice button {
+  min-width: 0 !important;
+  font-size: 1.5rem !important;
+  padding: 1.5rem !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-type-choice button > span {
+  min-width: 0 !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-type-choice strong {
+  font-size: 1.6rem !important;
+  line-height: 1.35 !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-next-action-field,
+.dashboard .goals-page .goal-create-form .goal-date-field {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  gap: .8rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-next-action-field > span,
+.dashboard .goals-page .goal-create-form .goal-date-field > span {
+  min-width: 0 !important;
+  font-size: 1.5rem !important;
+  line-height: 1.4 !important;
+  color: rgba(255,255,255,.78) !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-date-field > span small {
+  font-size: 1.25rem !important;
+  color: rgba(255,255,255,.45) !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-date-field input[type="date"],
+.dashboard .goals-page .goal-create-form .goal-next-action-field input {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+  font-size: 1.5rem !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard .goals-page .goal-create-form .goal-type-choice button {
+    padding: 1.35rem !important;
+  }
+
+  .dashboard .goals-page .goal-create-form .goal-type-choice strong {
+    font-size: 1.55rem !important;
+  }
+
+  .dashboard .goals-page .goal-create-form .goal-next-action-field > span,
+  .dashboard .goals-page .goal-create-form .goal-date-field > span {
+    font-size: 1.45rem !important;
+  }
+
+  .dashboard .goals-page .goal-create-form .goal-date-field > span small {
+    font-size: 1.2rem !important;
+  }
+}
