@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
-  Check, Search, Pin, FolderPlus, Files, Archive, Trash2
+  Check, Search, Files
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
@@ -95,7 +95,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   })
   const [messages, setMessages] = useState([])
   const [showScrollToBottom, setShowScrollToBottom] = useState(false)
-  const [chatMenuOpen, setChatMenuOpen] = useState(false)
   const [findInChat, setFindInChat] = useState(false)
   const [chatSearch, setChatSearch] = useState('')
   const [uploadedFilesOpen, setUploadedFilesOpen] = useState(false)
@@ -272,14 +271,12 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       : [...pinnedChat, chatId]
     setPinnedChat(next)
     localStorage.setItem('evolv-ai-pinned-chats', JSON.stringify(next))
-    setChatMenuOpen(false)
   }
 
   async function shareCurrentChat() {
     const transcript = messages.map(message => `${message.role === 'user' ? 'You' : 'Evolv'}: ${message.content || ''}`).join('\\n\\n').trim()
     if (!transcript) {
       setError('Send a message before sharing this chat.')
-      setChatMenuOpen(false)
       return
     }
     try {
