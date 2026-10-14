@@ -102,3 +102,18 @@ body {
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
 }
+
+
+/* Progress page: explicit spacing between the Activity graph and Goal Progress.
+   This file is loaded by main.jsx; src/App.css is not part of the app's import chain. */
+.dashboard .progress-page > .progress-heatmap-card {
+  margin-bottom: 3.2rem !important;
+}
+.dashboard .progress-page > .progress-section-card.progress-goals-card {
+  margin-top: 0 !important;
+}
+@media (max-width: 700px) {
+  .dashboard .progress-page > .progress-heatmap-card {
+    margin-bottom: 2.8rem !important;
+  }
+}
