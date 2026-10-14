@@ -2536,3 +2536,34 @@ html,body,#root{background:#000 !important;}
     gap: 2.6rem !important;
   }
 }
+
+
+/* Hard fix for the Progress Activity/Goals seam.
+   Use an explicit bottom margin on Activity instead of relying on flex gap,
+   which was competing with legacy card-spacing rules in this page. */
+.dashboard .dashboard-panel.progress-page {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0 !important;
+  row-gap: 0 !important;
+}
+
+.dashboard .dashboard-panel.progress-page > .progress-heatmap-card {
+  display: block !important;
+  position: relative !important;
+  flex: 0 0 auto !important;
+  margin: 0 0 3.2rem !important;
+}
+
+.dashboard .dashboard-panel.progress-page > .progress-section-card.progress-goals-card {
+  display: block !important;
+  position: relative !important;
+  flex: 0 0 auto !important;
+  margin: 0 0 0 !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard .dashboard-panel.progress-page > .progress-heatmap-card {
+    margin-bottom: 2.8rem !important;
+  }
+}
