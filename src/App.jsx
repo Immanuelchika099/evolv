@@ -1392,7 +1392,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       const [{data:l},{data:m},{data:g},{data:gc},{data:gm}]=await Promise.all([
         supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
         supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
-        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').eq('user_id',u.id).order('created_at',{ascending:false}),
+        supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').eq('user_id',u.id).order('created_at',{ascending:false}),
         supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000),
         supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true})
       ])
@@ -1413,7 +1413,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
-      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at').order('created_at',{ascending:false}),
+      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').order('created_at',{ascending:false}),
       supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50),
       supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000),
       supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true})
@@ -1538,6 +1538,73 @@ function Dashboard({ data, onLogout, onArticle }) {
     setGoalCheckins(current=>[entry,...current])
     setError('')
   }
+  async function addGoalMilestone(goal, rawTitle){
+    const title=String(rawTitle||'').trim()
+    if(!title||!goal?.id)return false
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return false
+    const current=goalMilestones.filter(item=>item.goal_id===goal.id)
+    const {data:item,error:x}=await supabase.from('goal_milestones').insert({goal_id:goal.id,user_id:u.id,title,sort_order:current.length}).select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').single()
+    if(x){setError(x.message);return false}
+    setGoalMilestones(items=>[...items,item].sort((left,right)=>left.sort_order-right.sort_order))
+    return true
+  }
+  async function toggleGoalMilestone(milestone){
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    const next=!milestone.is_completed
+    const {data:item,error:x}=await supabase.from('goal_milestones').update({is_completed:next,completed_at:next?new Date().toISOString():null}).eq('id',milestone.id).eq('user_id',u.id).select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').single()
+    if(x){setError(x.message);return}
+    const group=[...goalMilestones.filter(current=>current.goal_id===item.goal_id&&current.id!==item.id),item]
+    setGoalMilestones(items=>items.map(current=>current.id===item.id?item:current))
+    const progress=group.length?Math.round(group.filter(current=>current.is_completed).length/group.length*100):0
+    const goal=goals.find(current=>current.id===item.goal_id)
+    if(goal)await updateGoal(goal,{progress,status:progress>=100?'completed':goal.status==='completed'?'active':goal.status})
+  }
+  async function deleteGoalMilestone(milestone){
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    const {error:x}=await supabase.from('goal_milestones').delete().eq('id',milestone.id).eq('user_id',u.id)
+    if(x){setError(x.message);return}
+    const remaining=goalMilestones.filter(item=>item.goal_id===milestone.goal_id&&item.id!==milestone.id)
+    setGoalMilestones(items=>items.filter(item=>item.id!==milestone.id))
+    const goal=goals.find(item=>item.id===milestone.goal_id)
+    if(goal&&remaining.length){const progress=Math.round(remaining.filter(item=>item.is_completed).length/remaining.length*100);await updateGoal(goal,{progress,status:progress>=100?'completed':goal.status==='completed'?'active':goal.status})}
+  }
+  async function generateGoalPlan(goal){
+    if(!goal?.id)return
+    setGoalCoachLoading(current=>({...current,[goal.id]:true}))
+    setError('')
+    try{
+      const existing=goalMilestones.filter(item=>item.goal_id===goal.id).map(item=>item.title)
+      const prompt=['Act as the goal planning coach inside EVOLV. Create a realistic, specific plan for this user goal.','Return ONLY valid JSON with exactly this shape: {"next_action":"one concrete action the user can do next","milestones":["milestone 1","milestone 2","milestone 3"]}.','Provide 3 to 5 milestones for a project goal, or 3 to 5 repeatable checkpoints for a habit goal. Keep each short, concrete, and measurable where possible.','Do not invent current progress. Avoid motivational filler. Do not include markdown fences or text outside the JSON.','Goal type: '+(goal.goal_type||'project'),'Goal title: '+goal.title,'Description: '+(goal.description||'Not provided'),'Target date: '+(goal.due_date||'Not set'),'Current next action: '+(goal.next_action||'Not set'),'Existing milestones (avoid duplicating): '+(existing.join('; ')||'None')].join('\n')
+      const {data:result,error:invokeError}=await supabase.functions.invoke('evolv-ai',{body:{messages:[{role:'user',content:prompt}],profile:{first_name:profile?.first_name||data.name||'',focus:profile?.focus||'',growth_areas:profile?.growth_areas||[]}}})
+      if(invokeError)throw invokeError
+      if(result?.error)throw new Error(result.error)
+      const raw=String(result?.reply||'').replace(/^\s*```(?:json)?/i,'').replace(/```\s*$/,'').trim()
+      const start=raw.indexOf('{'),end=raw.lastIndexOf('}')
+      if(start<0||end<start)throw new Error('The coach returned an incomplete plan. Please try again.')
+      const parsed=JSON.parse(raw.slice(start,end+1))
+      const plan={next_action:String(parsed.next_action||'').trim(),milestones:Array.isArray(parsed.milestones)?parsed.milestones.map(item=>String(item).trim()).filter(Boolean).slice(0,5):[]}
+      if(!plan.next_action||!plan.milestones.length)throw new Error('The coach returned an incomplete plan. Please try again.')
+      setGoalPlans(current=>({...current,[goal.id]:plan}))
+    }catch(error){setError(error?.message||'Could not build a goal plan right now. Please try again.')}finally{setGoalCoachLoading(current=>({...current,[goal.id]:false}))}
+  }
+  async function applyGoalPlan(goal){
+    const plan=goalPlans[goal.id]
+    if(!plan)return
+    const {data:a}=await supabase.auth.getUser()
+    const u=a?.user
+    if(!u)return
+    const {data:updated,error:x}=await supabase.from('goals').update({next_action:plan.next_action,updated_at:new Date().toISOString()}).eq('id',goal.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').single()
+    if(x){setError(x.message);return}
+    setGoals(current=>current.map(item=>item.id===goal.id?updated:item))
+    for(const title of plan.milestones){const exists=goalMilestones.some(item=>item.goal_id===goal.id&&item.title.toLowerCase()===title.toLowerCase());if(!exists)await addGoalMilestone(goal,title)}
+    setGoalPlans(current=>({...current,[goal.id]:null}))
+  }
   async function createGoal(e){
     e.preventDefault()
     if(!goalTitle.trim())return
@@ -1548,7 +1615,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     const {data:g,error:x}=await supabase.from('goals').insert({
       user_id:u.id,title:goalTitle.trim(),description:goalDescription.trim()||null,
       due_date:goalDueDate||null,status:'active',progress:0,goal_type:goalType,next_action:goalNextAction.trim()||null
-    }).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    }).select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').single()
     setSaving(false)
     if(x){setError(x.message);return}
     setGoals(c=>[g,...c]);setGoalTitle('');setGoalDescription('');setGoalDueDate('');setGoalType('project');setGoalNextAction('')
@@ -1570,7 +1637,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     if(!u){setSaving(false);return}
     const {data:g,error:x}=await supabase.from('goals').update({
       title:goalTitle.trim(),description:goalDescription.trim()||null,due_date:goalDueDate||null,goal_type:goalType,next_action:goalNextAction.trim()||null,updated_at:new Date().toISOString()
-    }).eq('id',editingGoal.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    }).eq('id',editingGoal.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').single()
     setSaving(false)
     if(x){setError(x.message);return}
     setGoals(c=>c.map(item=>item.id===g.id?g:item))
@@ -1580,7 +1647,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     const {data:a}=await supabase.auth.getUser()
     const u=a?.user
     if(!u)return
-    const {data:updated,error:x}=await supabase.from('goals').update({...changes,updated_at:new Date().toISOString()}).eq('id',g.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at').single()
+    const {data:updated,error:x}=await supabase.from('goals').update({...changes,updated_at:new Date().toISOString()}).eq('id',g.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').single()
     if(x){setError(x.message);return}
     setGoals(c=>c.map(item=>item.id===g.id?updated:item))
   }
