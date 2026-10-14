@@ -99,12 +99,29 @@ function HomePage({ pageProps }) {
   }
   bestStreak = streak
 
-  const heatmap = Array.from({ length: 182 }, (_, index) => {
-    const date = new Date(now)
-    date.setDate(now.getDate() - (181 - index))
-    const key = dateKey(date)
-    return { key, count: activityByDay[key] || 0, date }
-  })
+  // Build a real calendar grid: start on Sunday, five months before the
+  // current month, and render every day through today (including zero-activity days).
+  const heatmapStart = new Date(now.getFullYear(), now.getMonth() - 5, 1)
+  heatmapStart.setDate(heatmapStart.getDate() - heatmapStart.getDay())
+  const heatmapEnd = new Date(now)
+  heatmapEnd.setHours(0, 0, 0, 0)
+  const heatmap = []
+  for (const date = new Date(heatmapStart); date <= heatmapEnd; date.setDate(date.getDate() + 1)) {
+    const day = new Date(date)
+    const key = dateKey(day)
+    heatmap.push({ key, count: activityByDay[key] || 0, date: day })
+  }
+  const heatmapMonthLabels = heatmap
+    .map((item, index) => ({ ...item, index }))
+    .filter(({ item, index }) => {
+      if (index > 0) {
+        const previous = heatmap[index - 1].date
+        if (previous.getMonth() === item.date.getMonth() && previous.getFullYear() === item.date.getFullYear()) return false
+      }
+      // The first partial week can include dates from the month before the six-month window.
+      return item.date.getFullYear() > heatmapStart.getFullYear() ||
+        (item.date.getFullYear() === heatmapStart.getFullYear() && item.date.getMonth() >= heatmapStart.getMonth())
+    })
   useEffect(() => {
     const scrollToCurrentMonth = () => {
       const container = heatmapScrollRef.current
@@ -194,7 +211,7 @@ function HomePage({ pageProps }) {
         </div>
         <div className="home-heatmap-scroll" ref={heatmapScrollRef}>
           <div className="home-heatmap-months" aria-hidden="true">
-            {heatmap.filter((item, index) => index === 0 || item.date.getMonth() !== heatmap[index - 1].date.getMonth()).map(item => <span key={item.key}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
+            {heatmapMonthLabels.map(item => <span key={item.key} style={{ gridColumnStart: Math.floor(item.index / 7) + 1 }}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
           </div>
           <div className="home-heatmap-grid" role="img" aria-label="Contribution graph of saved check-ins over the last six months">
             {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
