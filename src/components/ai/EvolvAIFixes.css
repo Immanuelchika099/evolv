@@ -911,3 +911,169 @@ html:has(.dashboard.dashboard-ai-active) {
     animation: none !important;
   }
 }
+
+
+/* Compact ChatGPT-style menu for the current conversation. */
+.dashboard.dashboard-ai-active .ai-page .ai-chat-menu-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100400 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 6.6rem) !important;
+  right: 1.2rem !important;
+  z-index: 100510 !important;
+  width: min(25rem, calc(100vw - 2.4rem)) !important;
+  padding: .65rem !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 1.5rem !important;
+  background: rgba(30,30,30,.98) !important;
+  box-shadow: 0 1.4rem 4.2rem rgba(0,0,0,.55) !important;
+  backdrop-filter: blur(2rem) !important;
+  -webkit-backdrop-filter: blur(2rem) !important;
+  animation: ai-chat-menu-in .16s ease-out both;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu > button {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.15rem !important;
+  width: 100% !important;
+  min-height: 4.1rem !important;
+  padding: .9rem 1.05rem !important;
+  border: 0 !important;
+  border-radius: .9rem !important;
+  background: transparent !important;
+  color: #f1f1f1 !important;
+  text-align: left !important;
+  font: inherit !important;
+  font-size: 1.45rem !important;
+  cursor: pointer !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu > button svg {
+  width: 1.65rem !important;
+  height: 1.65rem !important;
+  flex: 0 0 1.65rem !important;
+  color: #c8c8c8 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu > button:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu > button:active {
+  background: rgba(255,255,255,.08) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu > button.danger,
+.dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu > button.danger svg {
+  color: #ff7777 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-menu-shortcut {
+  margin-left: auto !important;
+  color: #858585 !important;
+  font-size: 1.2rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-menu-divider {
+  display: block !important;
+  height: 1px !important;
+  margin: .55rem .7rem !important;
+  background: rgba(255,255,255,.09) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-find-form {
+  display: flex !important;
+  align-items: center !important;
+  gap: .6rem !important;
+  margin: .3rem .35rem .6rem !important;
+  padding: .35rem .55rem .35rem 1rem !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 1rem !important;
+  background: rgba(0,0,0,.3) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-find-form input {
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: .65rem 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  color: #f5f5f5 !important;
+  font: inherit !important;
+  font-size: 1.35rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-find-form input::placeholder {
+  color: #858585 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat-find-form button {
+  display: grid !important;
+  place-items: center !important;
+  width: 3rem !important;
+  height: 3rem !important;
+  flex: 0 0 3rem !important;
+  border: 0 !important;
+  border-radius: .7rem !important;
+  background: rgba(255,255,255,.08) !important;
+  color: #fff !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-files-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100600 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  padding: 1.2rem !important;
+  background: rgba(0,0,0,.55) !important;
+  backdrop-filter: blur(.6rem) !important;
+  -webkit-backdrop-filter: blur(.6rem) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-files-sheet {
+  width: min(52rem, 100%) !important;
+  max-height: min(65dvh, 56rem) !important;
+  overflow: auto !important;
+  padding: 1.8rem !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 2rem !important;
+  background: #181818 !important;
+  color: #f5f5f5 !important;
+  box-shadow: 0 2rem 6rem rgba(0,0,0,.45) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-files-sheet .ai-history-head h3 {
+  margin: .6rem 0 0 !important;
+  font-size: 2.2rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-files-list {
+  display: grid !important;
+  gap: .8rem !important;
+  margin-top: 1.8rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-file-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1rem !important;
+  min-height: 4.8rem !important;
+  padding: .8rem 1rem !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 1.1rem !important;
+  background: rgba(255,255,255,.035) !important;
+  font-size: 1.4rem !important;
+  overflow-wrap: anywhere !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-file-row img {
+  width: 4rem !important;
+  height: 4rem !important;
+  flex: 0 0 4rem !important;
+  object-fit: cover !important;
+  border-radius: .7rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-uploaded-files-empty {
+  padding: 1.2rem 0 !important;
+  color: #aaa !important;
+  font-size: 1.4rem !important;
+}
+@keyframes ai-chat-menu-in {
+  from { opacity: 0; transform: translateY(-.4rem) scale(.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard.dashboard-ai-active .ai-page .ai-chat-options-menu { animation: none !important; }
+}
