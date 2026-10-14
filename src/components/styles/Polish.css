@@ -200,15 +200,6 @@ body,
   overflow-wrap: anywhere;
 }
 
-/* Rows should signal interaction without changing their width or padding. */
-.dashboard .goal-item:hover,
-.dashboard .life-area-row:hover,
-.dashboard .logs-page .logs-page-row:hover,
-.dashboard .dashboard-home .life-area-row:hover {
-  padding-left: inherit;
-  padding-right: inherit;
-}
-
 .dashboard .life-area-row,
 .dashboard .logs-page .logs-page-row {
   transition: background-color 180ms ease-out, border-color 180ms ease-out;
