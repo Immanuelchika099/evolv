@@ -363,3 +363,33 @@
     font-size:.9rem;
   }
 }
+
+
+/* Specificity fixes for the nested EVOLV wordmark and subtitle-to-button gap. */
+.auth-direct-page .onboard-head > .auth-brand{
+  display:flex;align-items:center;justify-content:flex-start;flex:0 0 auto;
+  width:auto;height:auto;min-height:0;padding:0;border:0;background:transparent;
+}
+.auth-direct-page .onboard-head > .auth-brand .evolv-brand{
+  display:inline-flex;align-items:center;width:auto;height:auto;padding:0;margin:0;
+}
+.auth-direct-page .onboard-head > .auth-brand .evolv-brand-svg{
+  display:block;width:3.2rem !important;height:3.2rem !important;
+  min-width:0 !important;max-width:3.2rem !important;object-fit:contain;
+}
+.auth-direct-page .auth-flow-content > .auth-flow-subtitle{
+  margin-bottom:3.6rem !important;padding-bottom:0;line-height:1.7;
+}
+.auth-direct-page .auth-flow-content > .auth-provider-stack{
+  margin-top:0 !important;gap:1.2rem;
+}
+.auth-direct-page .auth-flow-content > .auth-divider-compact{margin-top:2.5rem;}
+.auth-direct-page .auth-flow-content > .auth-email-choice{margin-top:0;}
+.auth-direct-page .auth-flow-content > .auth-switch{margin-top:2.2rem;}
+.auth-direct-page .auth-back{font-size:1.25rem;line-height:1.5;gap:.6rem;}
+@media(max-width:600px){
+  .auth-direct-page .onboard-head > .auth-brand .evolv-brand-svg{
+    width:2.7rem !important;height:2.7rem !important;max-width:2.7rem !important;
+  }
+  .auth-direct-page .auth-flow-content > .auth-flow-subtitle{margin-bottom:3.2rem !important;}
+}
