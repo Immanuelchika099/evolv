@@ -349,6 +349,7 @@ function ProgressPage({ pageProps }) {
   const { progressRange, setProgressRange, progressMetric, setProgressMetric, logs, meals, defs, goals, checkins = [], momentum = 0, goTo, valueText, WeeklyProgressChart: Chart } = pageProps
   const heatmapScrollRef = useRef(null)
   const [heatmapNow, setHeatmapNow] = useState(() => new Date())
+  const [goalGraphRange, setGoalGraphRange] = useState('year')
   useEffect(() => {
     const timer = window.setInterval(() => setHeatmapNow(new Date()), 60000)
     return () => window.clearInterval(timer)
@@ -365,6 +366,32 @@ function ProgressPage({ pageProps }) {
     map[key] = (map[key] || 0) + 1
     return map
   }, {})
+
+  // Goal activity is based only on saved goal records. Creation and the latest
+  // saved update are visible; no activity is fabricated for earlier dates.
+  const goalActivityByDay = (goals || []).reduce((map, goal) => {
+    const dates = [goal.created_at, goal.updated_at]
+      .filter(Boolean)
+      .map(value => dateKey(new Date(value)))
+      .filter((value, index, all) => value && all.indexOf(value) === index)
+    dates.forEach(key => { map[key] = (map[key] || 0) + 1 })
+    return map
+  }, {})
+  const goalGraphDays = (() => {
+    const end = new Date(heatmapNow)
+    end.setHours(0, 0, 0, 0)
+    const count = goalGraphRange === 'week' ? 7 : goalGraphRange === 'month' ? 30 : 365
+    const start = new Date(end)
+    start.setDate(start.getDate() - count + 1)
+    return Array.from({ length: count }, (_, index) => {
+      const date = new Date(start)
+      date.setDate(start.getDate() + index)
+      const key = dateKey(date)
+      return { key, date, count: goalActivityByDay[key] || 0 }
+    })
+  })()
+  const goalActiveDays = goalGraphDays.filter(day => day.count > 0).length
+  const goalActionsInRange = goalGraphDays.reduce((sum, day) => sum + day.count, 0)
   const heatmapYear = heatmapNow.getFullYear()
   const heatmapYearStart = new Date(heatmapYear, 0, 1)
   const heatmapStart = new Date(heatmapYearStart)
@@ -445,6 +472,24 @@ function ProgressPage({ pageProps }) {
               </div>
             </div>
             <div className="home-heatmap-footer"><span>Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span><span>{new Set(heatmap.filter(day => day.count > 0 && day.date >= new Date(heatmapNow.getFullYear(), heatmapNow.getMonth(), heatmapNow.getDate() - 6)).map(day => day.key)).size}/7 this week</span></div>
+          </section>
+
+          <section className="home-heatmap-card goal-heatmap-card" aria-label="Goal contribution graph">
+            <div className="home-heatmap-heading goal-heatmap-heading">
+              <div><h2>Goal activity</h2><p>Small steps, recorded over time.</p></div>
+              <div className="home-heatmap-total"><strong>{goalActiveDays}</strong><span>active days</span></div>
+            </div>
+            <div className="goal-heatmap-toolbar">
+              <div className="goal-heatmap-summary"><strong>{goalActionsInRange}</strong><span>goal records</span></div>
+              <div className="goal-heatmap-range" role="group" aria-label="Goal activity time range">
+                {['week', 'month', 'year'].map(range => <button key={range} type="button" className={goalGraphRange === range ? 'is-active' : ''} aria-pressed={goalGraphRange === range} onClick={() => setGoalGraphRange(range)}>{range.charAt(0).toUpperCase() + range.slice(1)}</button>)}
+              </div>
+            </div>
+            <div className={`goal-heatmap-grid goal-heatmap-${goalGraphRange}`} role="group" aria-label={`Goal activity over the past ${goalGraphRange === 'week' ? '7 days' : goalGraphRange === 'month' ? '30 days' : 'year'}`}>
+              {goalGraphDays.map(day => <span key={day.key} className={`goal-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : day.count <= 4 ? 3 : 4}`} title={`${day.count} goal record${day.count === 1 ? '' : 's'} · ${day.date.toLocaleDateString()}`} aria-label={`${day.count} goal record${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString()}`} />)}
+            </div>
+            <div className="goal-heatmap-footer"><span>{goalGraphDays[0]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – {goalGraphDays[goalGraphDays.length - 1]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span><span className="goal-heatmap-legend">Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span></div>
+            <p className="goal-heatmap-note">Tracks when goals were created or last updated. Older goal activity isn’t backfilled.</p>
           </section>
 
           <section className="progress-section-card progress-goals-card">
