@@ -836,9 +836,9 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-user-message-glass-menu {
   position: fixed !important;
   z-index: 10021 !important;
-  right: 1.6rem !important;
-  bottom: 9rem !important;
-  min-width: 18rem !important;
+  left: 1.6rem;
+  top: 10rem;
+  min-width: 19.2rem !important;
   display: flex !important;
   flex-direction: column !important;
   gap: .2rem !important;
@@ -870,9 +870,8 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 @media (max-width: 800px) {
   .dashboard.dashboard-ai-active .ai-page .ai-user-message-glass-menu {
-    right: 1.2rem !important;
-    bottom: 8.5rem !important;
-    min-width: 19rem !important;
+    min-width: 19.2rem !important;
+    max-width: calc(100vw - 2.4rem) !important;
   }
 }
 
