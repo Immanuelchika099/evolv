@@ -839,3 +839,35 @@ html:has(.dashboard.dashboard-ai-active) {
   cursor: text !important;
   -webkit-user-drag: text !important;
 }
+
+
+/* Use the browser's real native select control for the AI top-bar actions.
+   On iOS/Android the OS/browser chooses its own picker presentation. */
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap .ai-more-button {
+  pointer-events: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-select {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 4.2rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+  border: 0 !important;
+  border-radius: 1.2rem !important;
+  appearance: auto !important;
+  -webkit-appearance: menulist !important;
+  cursor: pointer !important;
+  color: transparent !important;
+  background: transparent !important;
+  font-size: 16px !important;
+}
