@@ -113,7 +113,8 @@ function HomePage({ pageProps }) {
   }
   const heatmapMonthLabels = heatmap
     .map((item, index) => ({ ...item, index }))
-    .filter(({ item, index }) => {
+    .filter(item => {
+      const index = item.index
       if (index > 0) {
         const previous = heatmap[index - 1].date
         if (previous.getMonth() === item.date.getMonth() && previous.getFullYear() === item.date.getFullYear()) return false
