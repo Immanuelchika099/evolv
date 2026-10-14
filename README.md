@@ -3,7 +3,7 @@
 **EVOLV** is a full-stack personal growth and wellbeing web app built to help people turn intentions into consistent, visible progress.
 
 It gives users one place to set goals, track everyday habits and wellbeing, reflect on their progress, and get personalized support through an AI assistant. The experience is designed to feel calm and focused rather than overwhelming.
-
+ 
 ## What EVOLV does
 
 - **Authentication** — secure account access with email/password, Google, and GitHub sign-in.
