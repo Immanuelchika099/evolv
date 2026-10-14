@@ -101,7 +101,8 @@ function HomePage({ pageProps }) {
 
   // Build a real calendar grid: start on Sunday, five months before the
   // current month, and render every day through today (including zero-activity days).
-  const heatmapStart = new Date(now.getFullYear(), now.getMonth() - 5, 1)
+  const heatmapRangeMonth = new Date(now.getFullYear(), now.getMonth() - 5, 1)
+  const heatmapStart = new Date(heatmapRangeMonth)
   heatmapStart.setDate(heatmapStart.getDate() - heatmapStart.getDay())
   const heatmapEnd = new Date(now)
   heatmapEnd.setHours(0, 0, 0, 0)
@@ -120,8 +121,8 @@ function HomePage({ pageProps }) {
         if (previous.getMonth() === item.date.getMonth() && previous.getFullYear() === item.date.getFullYear()) return false
       }
       // The first partial week can include dates from the month before the six-month window.
-      return item.date.getFullYear() > heatmapStart.getFullYear() ||
-        (item.date.getFullYear() === heatmapStart.getFullYear() && item.date.getMonth() >= heatmapStart.getMonth())
+      return item.date.getFullYear() > heatmapRangeMonth.getFullYear() ||
+        (item.date.getFullYear() === heatmapRangeMonth.getFullYear() && item.date.getMonth() >= heatmapRangeMonth.getMonth())
     })
   useEffect(() => {
     const scrollToCurrentMonth = () => {
