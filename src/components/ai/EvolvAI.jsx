@@ -94,6 +94,9 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
   })
   const [messages, setMessages] = useState([])
+  const [promptMenu, setPromptMenu] = useState(null)
+  const promptHoldTimerRef = useRef(null)
+  const promptHoldStartRef = useRef(null)
   const [hasStartedTyping, setHasStartedTyping] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState('')
@@ -387,6 +390,72 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
     setMessages([])
     setHasStartedTyping(false)
+  }
+
+  function openPromptMenu(event, message, index) {
+    event.preventDefault()
+    const touch = event.touches?.[0] || event.changedTouches?.[0]
+    const x = touch?.clientX ?? event.clientX ?? window.innerWidth / 2
+    const y = touch?.clientY ?? event.clientY ?? window.innerHeight / 2
+    setPromptMenu({ content: message.content || '', index, x, y })
+  }
+
+  function closePromptMenu() {
+    window.clearTimeout(promptHoldTimerRef.current)
+    setPromptMenu(null)
+  }
+
+  function startPromptHold(event, message, index) {
+    if (event.pointerType === 'mouse') return
+    const touch = event.touches?.[0] || event
+    promptHoldStartRef.current = { x: touch.clientX, y: touch.clientY }
+    window.clearTimeout(promptHoldTimerRef.current)
+    promptHoldTimerRef.current = window.setTimeout(() => {
+      openPromptMenu(event, message, index)
+    }, 520)
+  }
+
+  function movePromptHold(event) {
+    if (!promptHoldStartRef.current) return
+    const touch = event.touches?.[0] || event
+    if (Math.abs(touch.clientX - promptHoldStartRef.current.x) > 10 ||
+        Math.abs(touch.clientY - promptHoldStartRef.current.y) > 10) {
+      window.clearTimeout(promptHoldTimerRef.current)
+      promptHoldStartRef.current = null
+    }
+  }
+
+  async function runPromptAction(action) {
+    const item = promptMenu
+    if (!item) return
+    closePromptMenu()
+
+    if (action === 'copy') {
+      await copyMessage(item.content, `prompt-${item.index}`)
+      return
+    }
+
+    if (action === 'edit') {
+      window.dispatchEvent(new CustomEvent('evolv:edit-prompt', { detail: { text: item.content } }))
+      setHasStartedTyping(true)
+      return
+    }
+
+    if (action === 'select') {
+      const messageNode = messagesRef.current?.querySelectorAll('.ai-message.user p')?.[item.index]
+      if (messageNode) {
+        const range = document.createRange()
+        range.selectNodeContents(messageNode)
+        const selection = window.getSelection()
+        selection?.removeAllRanges()
+        selection?.addRange(range)
+      }
+      return
+    }
+
+    if (action === 'share') {
+      await shareMessage(item.content, `prompt-${item.index}`)
+    }
   }
 
   async function copyMessage(content, key) {
@@ -777,7 +846,18 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             const messageKey = String(message.id || index)
             const isTypingMessage = message.role === 'assistant' && typing && index === messages.length - 1
             return (
-              <div className={`ai-message ${message.role}`} key={messageKey}>
+              <div
+                className={`ai-message ${message.role}`}
+                key={messageKey}
+                onContextMenu={message.role === 'user' ? event => openPromptMenu(event, message, index) : undefined}
+                onPointerDown={message.role === 'user' ? event => startPromptHold(event, message, index) : undefined}
+                onPointerMove={message.role === 'user' ? movePromptHold : undefined}
+                onPointerUp={() => { window.clearTimeout(promptHoldTimerRef.current); promptHoldStartRef.current = null }}
+                onPointerCancel={() => { window.clearTimeout(promptHoldTimerRef.current); promptHoldStartRef.current = null }}
+                onTouchStart={message.role === 'user' ? event => startPromptHold(event, message, index) : undefined}
+                onTouchMove={message.role === 'user' ? movePromptHold : undefined}
+                onTouchEnd={() => { window.clearTimeout(promptHoldTimerRef.current); promptHoldStartRef.current = null }}
+              >
                 <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
                 {message.role === 'user' && message.attachments?.length ? (
                   <div className="ai-message-attachments">
@@ -854,6 +934,25 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           pressScale={0.96}
         />
       </div>
+      {promptMenu && (
+        <>
+          <button type="button" className="ai-prompt-menu-backdrop" aria-label="Close prompt options" onClick={closePromptMenu} />
+          <div
+            className="ai-prompt-context-menu"
+            role="menu"
+            aria-label="Prompt options"
+            style={{
+              left: Math.max(12, Math.min(promptMenu.x, window.innerWidth - 208)),
+              top: Math.max(12, Math.min(promptMenu.y, window.innerHeight - 228)),
+            }}
+          >
+            <button type="button" role="menuitem" onClick={() => runPromptAction('copy')}><Copy size={16} />Copy prompt</button>
+            <button type="button" role="menuitem" onClick={() => runPromptAction('edit')}><span className="ai-prompt-menu-pencil">✎</span>Edit prompt</button>
+            <button type="button" role="menuitem" onClick={() => runPromptAction('select')}><span className="ai-prompt-menu-select">▤</span>Select text</button>
+            <button type="button" role="menuitem" onClick={() => runPromptAction('share')}><Share2 size={16} />Share prompt</button>
+          </div>
+        </>
+      )}
       {error && <p className="auth-error" role="alert">{error}</p>}
     </section>
   )
