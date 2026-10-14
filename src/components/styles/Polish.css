@@ -252,7 +252,20 @@ body,
   .dashboard .settings-page .settings-section,
   .dashboard .life-area-row,
   .dashboard .logs-page .logs-page-row,
-  .dashboard .ai-page .ai-composer {
+  .dashboard .ai-page .ai-composer,
+  .dashboard .goal-item:hover,
+  .dashboard .glass-task:hover,
+  .dashboard .today-metric:hover,
+  .dashboard .today-empty:hover,
+  .dashboard .progress-overview-card:hover,
+  .dashboard .log-detail-card:hover,
+  .dashboard .daily-brief-card:hover,
+  .dashboard .progress-heatmap-card:hover,
+  .dashboard .progress-section-card:hover,
+  .dashboard .settings-page .profile-summary-card:hover,
+  .dashboard .settings-page .profile-hero-card:hover,
+  .dashboard .settings-page .settings-card:hover,
+  .dashboard .settings-page .settings-section:hover {
     transform: none;
     transition: none;
   }
