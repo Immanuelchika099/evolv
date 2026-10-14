@@ -1045,3 +1045,30 @@ html:has(.dashboard.dashboard-ai-active) {
   box-shadow: none !important;
   -webkit-tap-highlight-color: transparent !important;
 }
+
+
+/* HARD OVERRIDE: remove the browser/iOS blue focus border from AI toolbar controls.
+   Keep the neutral button backgrounds and the toolbar's own bottom divider intact. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button:active,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button:focus,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button:focus-visible,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button:focus-within,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-more-native-select,
+.dashboard.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-more-native-select:focus,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-more-native-select:focus-visible {
+  outline: none !important;
+  outline-color: transparent !important;
+  outline-width: 0 !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-focus-ring-color: transparent !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button::before,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button::after {
+  outline: none !important;
+  box-shadow: none !important;
+}
