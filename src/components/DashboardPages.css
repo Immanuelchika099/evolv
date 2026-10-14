@@ -5117,14 +5117,45 @@ body,
 
 /* Final homepage and progress-page refinements */
 .dashboard-home-redesign .home-progress-ring-inner {
-  background: transparent !important;
+  background: #101010 !important;
 }
 .dashboard .progress-page > .progress-goals-card {
-  border-bottom: 0 !important;
+  border-bottom: 1px solid var(--evolv-line) !important;
   box-shadow: none !important;
 }
-.dashboard .progress-page > .progress-goals-card::after,
-.dashboard .progress-page > .progress-goals-card::before {
-  content: none !important;
-  display: none !important;
+.dashboard .progress-page > .progress-simple-stats {
+  border-bottom: 0 !important;
+}
+
+/* Keep the live indicator in the app's default lime accent. */
+.dashboard-home-redesign .home-live-dot {
+  background: var(--home-lime) !important;
+  box-shadow: 0 0 .8rem rgba(193, 244, 91, .3);
+  animation: evolv-live-pulse 1.8s ease-in-out infinite;
+}
+@keyframes evolv-live-pulse {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 .35rem rgba(193, 244, 91, .35), 0 0 .8rem rgba(193, 244, 91, .18);
+  }
+  50% {
+    opacity: .4;
+    box-shadow: 0 0 .8rem rgba(193, 244, 91, .5), 0 0 1.3rem rgba(193, 244, 91, .22);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-home-redesign .home-live-dot {
+    animation: none !important;
+    opacity: 1;
+    box-shadow: 0 0 .55rem rgba(193, 244, 91, .25);
+  }
+}
+
+/* Date label sits just above the Today card without changing card styling. */
+.dashboard-home-redesign .home-today-date {
+  grid-column: 1 / -1;
+  margin-bottom: -.6rem;
+  color: rgba(255, 255, 255, .68);
+  font-size: 1.25rem;
+  font-weight: 600;
 }
