@@ -6262,3 +6262,44 @@ body,
 .progress-page .home-heatmap-cell.level-4,
 .progress-page .home-heatmap-footer i.level-4 { background: #c1f45b !important; }
 
+
+
+/* Atmospheric glow beneath the dashboard greeting — subtle, soft, and unmistakably Evolv. */
+.dashboard .dashboard-home-redesign .dashboard-welcome-minimal {
+  position: relative !important;
+  isolation: isolate;
+  overflow: hidden;
+}
+.dashboard .dashboard-home-redesign .dashboard-welcome-minimal::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: min(58rem, 90vw);
+  height: 27rem;
+  left: -9rem;
+  top: -8.5rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 34% 48%, rgba(193, 244, 91, .13) 0%, rgba(145, 190, 66, .075) 28%, rgba(94, 126, 49, .035) 49%, transparent 72%);
+  filter: blur(3.8rem);
+  opacity: .9;
+}
+.dashboard .dashboard-home-redesign .dashboard-welcome-minimal > * {
+  position: relative;
+  z-index: 1;
+}
+@media (max-width: 800px) {
+  .dashboard .dashboard-home-redesign .dashboard-welcome-minimal::before {
+    width: 42rem;
+    height: 23rem;
+    left: -12rem;
+    top: -6rem;
+    filter: blur(3.2rem);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .dashboard-home-redesign .dashboard-welcome-minimal::before {
+    filter: blur(2.8rem);
+  }
+}
