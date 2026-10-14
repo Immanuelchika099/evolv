@@ -490,3 +490,168 @@ body,
     transform: none;
   }
 }
+
+
+/* Goals: calm hierarchy, readable type, and no redundant introductory copy. */
+.dashboard .goals-page {
+  gap: 24px;
+}
+
+.dashboard .goals-page > .section-label {
+  margin: 0 0 -16px;
+  font-size: 1.15rem;
+  letter-spacing: .12em;
+}
+
+.dashboard .goals-page > h2 {
+  margin: 0;
+  font-size: clamp(3.2rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -.045em;
+}
+
+.dashboard .goals-page .goal-create-form {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+}
+
+.dashboard .goals-page .goal-type-choice {
+  gap: 10px;
+}
+
+.dashboard .goals-page .goal-type-choice button {
+  min-height: 54px;
+  padding: 12px 14px;
+  gap: 10px;
+}
+
+.dashboard .goals-page .goal-type-choice button strong {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.dashboard .goals-page .goal-create-form input,
+.dashboard .goals-page .goal-create-form textarea,
+.dashboard .goals-page .goal-create-form select {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.dashboard .goals-page .goal-create-form input,
+.dashboard .goals-page .goal-create-form textarea {
+  padding: 13px 15px;
+}
+
+.dashboard .goals-page .goal-create-form textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.dashboard .goals-page .goal-next-action-field > span,
+.dashboard .goals-page .goal-date-field > span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.dashboard .goals-page .goal-next-action-field small,
+.dashboard .goals-page .goal-date-field small {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.dashboard .goals-page .goal-list {
+  gap: 16px;
+}
+
+.dashboard .goals-page .goal-item {
+  padding: 24px !important;
+}
+
+.dashboard .goals-page .goal-status-copy,
+.dashboard .goals-page .goal-next-action > span,
+.dashboard .goals-page .goal-milestone-heading > span {
+  font-size: 1.15rem;
+  letter-spacing: .09em;
+  line-height: 1.4;
+}
+
+.dashboard .goals-page .goal-item h3 {
+  font-size: clamp(2rem, 2.5vw, 2.3rem);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+
+.dashboard .goals-page .goal-item-top > strong {
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 500;
+}
+
+.dashboard .goals-page .goal-item p,
+.dashboard .goals-page .goal-milestone-row label > span,
+.dashboard .goals-page .goal-ai-plan li {
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+
+.dashboard .goals-page .goal-due-copy,
+.dashboard .goals-page .goal-milestone-heading small,
+.dashboard .goals-page .goal-habit-week small {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+.dashboard .goals-page .goal-next-action {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 12px;
+}
+
+.dashboard .goals-page .goal-next-action p {
+  margin-top: 6px;
+  font-size: 1.4rem;
+}
+
+.dashboard .goals-page .goal-item-actions select,
+.dashboard .goals-page .goal-item-actions > button,
+.dashboard .goals-page .goal-coach-row button,
+.dashboard .goals-page .goal-checkin-button,
+.dashboard .goals-page .goal-add-milestone button {
+  min-height: 40px;
+  font-size: 1.3rem;
+}
+
+.dashboard .goals-page .goal-empty p {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .dashboard .goals-page {
+    gap: 20px;
+  }
+
+  .dashboard .goals-page .goal-create-form,
+  .dashboard .goals-page .goal-item {
+    padding: 18px !important;
+  }
+
+  .dashboard .goals-page .goal-type-choice button {
+    padding: 10px;
+  }
+
+  .dashboard .goals-page .goal-item h3 {
+    font-size: 2rem;
+  }
+
+  .dashboard .goals-page .goal-item-top > strong {
+    font-size: 1.8rem;
+  }
+}
