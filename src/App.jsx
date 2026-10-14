@@ -1537,14 +1537,14 @@ function Dashboard({ data, onLogout, onArticle }) {
     setGoalCheckins(current=>[entry,...current])
     setError('')
   }
-  async function addGoalMilestone(goal, rawTitle){
+  async function addGoalMilestone(goal, rawTitle, requestedOrder){
     const title=String(rawTitle||'').trim()
     if(!title||!goal?.id)return false
     const {data:a}=await supabase.auth.getUser()
     const u=a?.user
     if(!u)return false
     const current=goalMilestones.filter(item=>item.goal_id===goal.id)
-    const {data:item,error:x}=await supabase.from('goal_milestones').insert({goal_id:goal.id,user_id:u.id,title,sort_order:current.length}).select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').single()
+    const {data:item,error:x}=await supabase.from('goal_milestones').insert({goal_id:goal.id,user_id:u.id,title,sort_order:Number.isInteger(requestedOrder)?requestedOrder:current.length}).select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').single()
     if(x){setError(x.message);return false}
     setGoalMilestones(items=>[...items,item].sort((left,right)=>left.sort_order-right.sort_order))
     return true
@@ -1560,7 +1560,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     setGoalMilestones(items=>items.map(current=>current.id===item.id?item:current))
     const progress=group.length?Math.round(group.filter(current=>current.is_completed).length/group.length*100):0
     const goal=goals.find(current=>current.id===item.goal_id)
-    if(goal)await updateGoal(goal,{progress,status:progress>=100?'completed':goal.status==='completed'?'active':goal.status})
+    if(goal&&(goal.goal_type||'project')!=='habit')await updateGoal(goal,{progress,status:progress>=100?'completed':goal.status==='completed'?'active':goal.status})
   }
   async function deleteGoalMilestone(milestone){
     const {data:a}=await supabase.auth.getUser()
@@ -1571,7 +1571,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     const remaining=goalMilestones.filter(item=>item.goal_id===milestone.goal_id&&item.id!==milestone.id)
     setGoalMilestones(items=>items.filter(item=>item.id!==milestone.id))
     const goal=goals.find(item=>item.id===milestone.goal_id)
-    if(goal&&remaining.length){const progress=Math.round(remaining.filter(item=>item.is_completed).length/remaining.length*100);await updateGoal(goal,{progress,status:progress>=100?'completed':goal.status==='completed'?'active':goal.status})}
+    if(goal&&(goal.goal_type||'project')!=='habit'&&remaining.length){const progress=Math.round(remaining.filter(item=>item.is_completed).length/remaining.length*100);await updateGoal(goal,{progress,status:progress>=100?'completed':goal.status==='completed'?'active':goal.status})}
   }
   async function generateGoalPlan(goal){
     if(!goal?.id)return
@@ -1601,7 +1601,8 @@ function Dashboard({ data, onLogout, onArticle }) {
     const {data:updated,error:x}=await supabase.from('goals').update({next_action:plan.next_action,updated_at:new Date().toISOString()}).eq('id',goal.id).eq('user_id',u.id).select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').single()
     if(x){setError(x.message);return}
     setGoals(current=>current.map(item=>item.id===goal.id?updated:item))
-    for(const title of plan.milestones){const exists=goalMilestones.some(item=>item.goal_id===goal.id&&item.title.toLowerCase()===title.toLowerCase());if(!exists)await addGoalMilestone(goal,title)}
+    let order=goalMilestones.filter(item=>item.goal_id===goal.id).length
+    for(const title of plan.milestones){const exists=goalMilestones.some(item=>item.goal_id===goal.id&&item.title.toLowerCase()===title.toLowerCase());if(!exists){await addGoalMilestone(goal,title,order);order+=1}}
     setGoalPlans(current=>({...current,[goal.id]:null}))
   }
   async function createGoal(e){
