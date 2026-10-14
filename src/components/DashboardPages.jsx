@@ -367,14 +367,10 @@ function ProgressPage({ pageProps }) {
     return map
   }, {})
 
-  // Goal activity is based only on saved goal records. Creation and the latest
-  // saved update are visible; no activity is fabricated for earlier dates.
-  const goalActivityByDay = (goals || []).reduce((map, goal) => {
-    const dates = [goal.created_at, goal.updated_at]
-      .filter(Boolean)
-      .map(value => dateKey(new Date(value)))
-      .filter((value, index, all) => value && all.indexOf(value) === index)
-    dates.forEach(key => { map[key] = (map[key] || 0) + 1 })
+  // The graph reflects deliberate, saved goal check-ins rather than edits.
+  const goalActivityByDay = (pageProps.goalCheckins || []).reduce((map, item) => {
+    const key = item.checkin_date || (item.created_at ? dateKey(new Date(item.created_at)) : '')
+    if (key) map[key] = (map[key] || 0) + 1
     return map
   }, {})
   const goalGraphDays = (() => {
@@ -491,7 +487,7 @@ function ProgressPage({ pageProps }) {
               </div>
             </div>
             <div className="goal-heatmap-footer"><span>{goalGraphDays[0]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – {goalGraphDays[goalGraphDays.length - 1]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span><span className="goal-heatmap-legend">Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span></div>
-            <p className="goal-heatmap-note">Tracks when goals were created or last updated. Older goal activity isn’t backfilled.</p>
+            <p className="goal-heatmap-note">Tracks the days you deliberately checked in on a goal. Earlier activity isn’t backfilled.</p>
           </section>
 
           <section className="progress-section-card progress-goals-card">
@@ -557,6 +553,7 @@ function GoalsPage({ pageProps }) {
           <div className="mini-progress"><i style={{width:Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}}/></div>
           <div className="goal-item-actions">
             <select value={g.status||'active'} onChange={e=>updateGoal(g,{status:e.target.value})} aria-label="Goal status"><option value="active">In progress</option><option value="paused">Paused</option><option value="completed">Completed</option></select>
+            {g.status!=='completed'&&<button type="button" className="goal-checkin-button" onClick={()=>pageProps.checkInGoal?.(g)} aria-label={'Log a step for '+g.title}><Check size={15}/> Log a step</button>}
             <button type="button" onClick={()=>beginGoalEdit(g)} aria-label={'Edit '+g.title}><Pencil size={15}/> Edit</button>
             <button type="button" className="goal-delete-button" onClick={()=>deleteGoal(g)} aria-label={'Delete '+g.title}><Trash2 size={15}/> Delete</button>
           </div>
