@@ -541,23 +541,41 @@ function ProgressPage({ pageProps }) {
 }
 
 function GoalsPage({ pageProps }) {
-  const { goTo, goalTitle, setGoalTitle, goalDescription, setGoalDescription, goalDueDate, setGoalDueDate, createGoal, editingGoal, saving, saveGoalEdit, goals, updateGoal, beginGoalEdit, deleteGoal } = pageProps
-  return <section className="panel-page dashboard-panel goals-page"><button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button><span className="section-label">DIRECTION</span><h2>Goals.</h2><p className="panel-intro">Choose what you want to work toward.</p><form className="goal-create-form" onSubmit={editingGoal?saveGoalEdit:createGoal}>
-          <input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder="What would you like to work toward?" required/>
-          <textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Add a little more, if you like" rows="3"/>
-          <label className="goal-date-field"><span>Target date <small>optional</small></span><input type="date" value={goalDueDate} onChange={e=>setGoalDueDate(e.target.value)}/></label>
-          <div className="goal-form-actions"><button className="button button-primary" disabled={saving} type="submit">{editingGoal?<><Check size={15}/> {saving?'Saving…':'Save changes'}</>:<><Plus size={15}/> {saving?'Saving…':'Add goal'}</>}</button>{editingGoal&&<button type="button" className="goal-cancel-button" onClick={()=>{setEditingGoal(null);setGoalTitle('');setGoalDescription('');setGoalDueDate('')}}>Cancel</button>}</div>
-        </form>
-        <div className="goal-list">{goals.map(g=><article className="goal-item" key={g.id}>
-          <div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':g.status==='paused'?'Paused':'In progress'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}{g.due_date&&<small className="goal-due-copy">Due {new Date(g.due_date).toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</small>}</div><strong>{g.progress||0}%</strong></div>
-          <div className="mini-progress"><i style={{width:Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}}/></div>
-          <div className="goal-item-actions">
-            <select value={g.status||'active'} onChange={e=>updateGoal(g,{status:e.target.value})} aria-label="Goal status"><option value="active">In progress</option><option value="paused">Paused</option><option value="completed">Completed</option></select>
-            {g.status!=='completed'&&<button type="button" className="goal-checkin-button" onClick={()=>pageProps.checkInGoal?.(g)} aria-label={'Log a step for '+g.title}><Check size={15}/> Log a step</button>}
-            <button type="button" onClick={()=>beginGoalEdit(g)} aria-label={'Edit '+g.title}><Pencil size={15}/> Edit</button>
-            <button type="button" className="goal-delete-button" onClick={()=>deleteGoal(g)} aria-label={'Delete '+g.title}><Trash2 size={15}/> Delete</button>
-          </div>
-        </article>)}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div></section>
+  const { goTo, goalTitle, setGoalTitle, goalDescription, setGoalDescription, goalDueDate, setGoalDueDate, goalType, setGoalType, goalNextAction, setGoalNextAction, createGoal, editingGoal, setEditingGoal, saving, saveGoalEdit, goals, goalCheckins = [], goalMilestones = [], goalPlans = {}, goalCoachLoading = {}, goalMilestoneDrafts = {}, setGoalMilestoneDrafts, updateGoal, beginGoalEdit, deleteGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, checkInGoal } = pageProps
+  const resetForm = () => { setEditingGoal(null); setGoalTitle(''); setGoalDescription(''); setGoalDueDate(''); setGoalType('project'); setGoalNextAction('') }
+  const dateKey = date => new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date)
+  return <section className="panel-page dashboard-panel goals-page">
+    <button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button>
+    <span className="section-label">DIRECTION</span><h2>Goals.</h2>
+    <p className="panel-intro">Give each goal a structure, a next step, and a way to see progress.</p>
+    <form className="goal-create-form" onSubmit={editingGoal?saveGoalEdit:createGoal}>
+      <div className="goal-type-choice" role="group" aria-label="Goal structure">
+        <button type="button" className={goalType==='project'?'is-active':''} aria-pressed={goalType==='project'} onClick={()=>setGoalType('project')}><BriefcaseBusiness size={17}/><span><strong>Project</strong><small>Build toward a defined outcome</small></span></button>
+        <button type="button" className={goalType==='habit'?'is-active':''} aria-pressed={goalType==='habit'} onClick={()=>setGoalType('habit')}><Sprout size={17}/><span><strong>Habit</strong><small>Practise something consistently</small></span></button>
+      </div>
+      <input value={goalTitle} onChange={e=>setGoalTitle(e.target.value)} placeholder={goalType==='habit'?'What do you want to practise?':'What do you want to accomplish?'} required/>
+      <textarea value={goalDescription} onChange={e=>setGoalDescription(e.target.value)} placeholder="Why does this matter? (optional)" rows="3"/>
+      <label className="goal-next-action-field"><span>First next action <small>optional, but useful</small></span><input value={goalNextAction} onChange={e=>setGoalNextAction(e.target.value)} placeholder="What is the very next step?"/></label>
+      <label className="goal-date-field"><span>Target date <small>optional</small></span><input type="date" value={goalDueDate} onChange={e=>setGoalDueDate(e.target.value)}/></label>
+      <div className="goal-form-actions"><button className="button button-primary" disabled={saving} type="submit">{editingGoal?<><Check size={15}/> {saving?'Saving…':'Save changes'}</>:<><Plus size={15}/> {saving?'Saving…':'Add goal'}</>}</button>{editingGoal&&<button type="button" className="goal-cancel-button" onClick={resetForm}>Cancel</button>}</div>
+    </form>
+    <div className="goal-list">{goals.map(g=>{
+      const isHabit=(g.goal_type||'project')==='habit'
+      const milestones=goalMilestones.filter(item=>item.goal_id===g.id)
+      const completedMilestones=milestones.filter(item=>item.is_completed).length
+      const lastSevenDays=new Set(goalCheckins.filter(item=>item.goal_id===g.id&&item.checkin_date>=dateKey(new Date(Date.now()-6*86400000))).map(item=>item.checkin_date))
+      return <article className="goal-item" key={g.id}>
+        <div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}{g.due_date&&<small className="goal-due-copy">Target {new Date(g.due_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</small>}</div><strong>{Math.min(100,Math.max(0,Number(g.progress)||0))}%</strong></div>
+        <div className="mini-progress"><i style={{width:Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}}/></div>
+        <div className="goal-next-action"><span>NEXT ACTION</span><p className={g.next_action?'':'is-empty'}>{g.next_action||'Add a next step or ask the AI coach to make a plan.'}</p></div>
+        {isHabit?<div className="goal-habit-week"><div className="goal-milestone-heading"><span>CONSISTENCY</span><small>{lastSevenDays.size}/7 days this week</small></div><div>{Array.from({length:7},(_,index)=>{const date=new Date();date.setHours(12,0,0,0);date.setDate(date.getDate()-(6-index));const key=dateKey(date);return <i key={key} className={lastSevenDays.has(key)?'is-done':''} title={date.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}/>})}</div><button type="button" className="goal-checkin-button" disabled={g.status==='completed'||lastSevenDays.has(dateKey(new Date()))} onClick={()=>checkInGoal(g)}><Check size={15}/>{lastSevenDays.has(dateKey(new Date()))?'Checked in today':'Log today’s practice'}</button></div>
+        :<div className="goal-milestone-section"><div className="goal-milestone-heading"><span>MILESTONES</span><small>{completedMilestones}/{milestones.length} complete</small></div>{milestones.map(item=><div className={'goal-milestone-row'+(item.is_completed?' is-complete':'')} key={item.id}><label><input type="checkbox" checked={item.is_completed} onChange={()=>toggleGoalMilestone(item)}/><span>{item.title}</span></label><button type="button" aria-label={'Delete milestone '+item.title} onClick={()=>deleteGoalMilestone(item)}><X size={14}/></button></div>)}<form className="goal-add-milestone" onSubmit={async event=>{event.preventDefault();const title=goalMilestoneDrafts[g.id]||'';if(await addGoalMilestone(g,title))setGoalMilestoneDrafts(current=>({...current,[g.id]:''}))}}><input value={goalMilestoneDrafts[g.id]||''} onChange={event=>setGoalMilestoneDrafts(current=>({...current,[g.id]:event.target.value}))} placeholder="Add a milestone" aria-label="New milestone" maxLength={180}/><button type="submit" disabled={!(goalMilestoneDrafts[g.id]||'').trim()}><Plus size={15}/> Add</button></form></div>}
+        {goalPlans[g.id]&&<div className="goal-ai-plan"><div className="goal-ai-plan-heading"><Sparkles size={16}/><strong>Proposed plan</strong></div><p className="goal-ai-next"><b>Next action</b>{goalPlans[g.id].next_action}</p><ol>{goalPlans[g.id].milestones.map((title,index)=><li key={index}>{title}</li>)}</ol><button type="button" className="goal-apply-plan" onClick={()=>applyGoalPlan(g)}><Check size={15}/> Save plan to this goal</button></div>}
+        <div className="goal-coach-row"><button type="button" onClick={()=>generateGoalPlan(g)} disabled={!!goalCoachLoading[g.id]}><Sparkles size={15}/>{goalCoachLoading[g.id]?'Building your plan…':'Plan with AI'}</button>{!isHabit&&g.status!=='completed'&&<button type="button" className="goal-checkin-button" onClick={()=>checkInGoal(g)}><Check size={15}/> Log a step</button>}</div>
+        <div className="goal-item-actions"><select value={g.status||'active'} onChange={e=>updateGoal(g,{status:e.target.value})} aria-label="Goal status"><option value="active">In progress</option><option value="completed">Completed</option><option value="archived">Archived</option></select><button type="button" onClick={()=>beginGoalEdit(g)} aria-label={'Edit '+g.title}><Pencil size={15}/> Edit</button><button type="button" className="goal-delete-button" onClick={()=>deleteGoal(g)} aria-label={'Delete '+g.title}><Trash2 size={15}/> Delete</button></div>
+      </article>
+    })}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>Nothing here yet. Add your first goal above.</p></div>}</div>
+  </section>
 }
 
 function ProfilePage({ pageProps }) {
