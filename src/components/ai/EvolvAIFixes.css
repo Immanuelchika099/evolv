@@ -903,3 +903,19 @@ html:has(.dashboard.dashboard-ai-active) {
     animation-duration:.75s !important;
   }
 }
+
+
+/* Use each device's native system sans-serif for AI response text.
+   iOS resolves to the Apple system font; Android resolves to its system UI font. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant p,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant li,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant h1,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant h2,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant h3,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant h4,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant blockquote,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant td,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant th {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+}
