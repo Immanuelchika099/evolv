@@ -82,7 +82,7 @@ function App() {
   const [authMode, setAuthMode] = useState('signup')
   const directSignup = window.location.pathname.replace(/\/+$/, '') === '/signup'
   const [data, setData] = useState(() => {
-    if (window.location.pathname.replace(/\\/+$/, '') === '/signup') return initialData
+    if (window.location.pathname.replace(/\/+$/, '') === '/signup') return initialData
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
     catch { return initialData }
   })
