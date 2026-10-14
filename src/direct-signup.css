@@ -1,0 +1,164 @@
+/* EVOLV direct signup route — standalone, focused account-entry experience */
+.auth-direct-page{
+  position:relative;
+  min-height:100svh;
+  overflow:hidden;
+  isolation:isolate;
+  background:#070707;
+  color:#f4f1ea;
+}
+.auth-direct-page::before{
+  content:"";
+  position:absolute;
+  z-index:-1;
+  width:min(78vw,78rem);
+  aspect-ratio:1;
+  top:-38rem;
+  left:50%;
+  transform:translateX(-50%);
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(200,243,106,.095) 0%,rgba(200,243,106,.025) 34%,transparent 68%);
+  pointer-events:none;
+}
+.auth-direct-page .onboard-head{
+  width:min(100% - 4rem,118rem);
+  margin-inline:auto;
+  padding-top:2.4rem;
+}
+.auth-direct-page .onboard-head .step-count{
+  color:rgba(244,241,234,.55);
+  letter-spacing:.16em;
+}
+.auth-direct-page .auth-content-compact{
+  position:relative;
+  width:min(calc(100% - 3.2rem),46rem);
+  margin:clamp(3.5rem,8vh,8rem) auto 4rem;
+  padding:clamp(2.8rem,6vw,4.4rem);
+  border:1px solid rgba(255,255,255,.11);
+  border-radius:2.4rem;
+  background:linear-gradient(145deg,rgba(24,24,24,.96),rgba(12,12,12,.96));
+  box-shadow:0 2.8rem 9rem rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter:blur(18px);
+}
+.auth-direct-page .auth-flow-content::before{
+  content:"A BETTER DAILY SYSTEM";
+  display:inline-flex;
+  align-items:center;
+  gap:.8rem;
+  margin-bottom:2rem;
+  color:#c8f36a;
+  font:600 1.05rem/1.4 'DM Mono',monospace;
+  letter-spacing:.12em;
+}
+.auth-direct-page .auth-flow-content>h1{
+  max-width:36rem;
+  margin:0 0 1.1rem;
+  font-size:clamp(3.4rem,7vw,4.7rem);
+  line-height:1.04;
+  letter-spacing:-.055em;
+}
+.auth-direct-page .auth-flow-subtitle{
+  max-width:36rem;
+  margin:0 0 2.8rem;
+  color:rgba(244,241,234,.62);
+  font-size:1.5rem;
+  line-height:1.7;
+}
+.auth-direct-page .auth-provider-stack{
+  gap:1rem;
+}
+.auth-direct-page .auth-provider-stack button{
+  min-height:5.8rem;
+  border-radius:1.2rem;
+  font-size:1.45rem;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.auth-direct-page .auth-provider-stack button:hover:not(:disabled){
+  transform:translateY(-1px);
+}
+.auth-direct-page .auth-provider-stack .auth-choice-google{
+  background:#f4f1ea;
+  border-color:#f4f1ea;
+  color:#111;
+}
+.auth-direct-page .auth-provider-stack .auth-choice-github{
+  background:#111;
+  border-color:rgba(255,255,255,.16);
+}
+.auth-direct-page .auth-divider-compact{
+  margin:2rem 0;
+}
+.auth-direct-page .auth-email-choice{
+  min-height:5.6rem;
+  border-radius:1.2rem;
+  background:#171717;
+  border-color:rgba(255,255,255,.15);
+  font-size:1.45rem;
+}
+.auth-direct-page .auth-email-choice:hover{
+  border-color:rgba(200,243,106,.5);
+  background:#1c1c1c;
+}
+.auth-direct-page .auth-switch{
+  margin-top:2rem;
+  color:rgba(244,241,234,.78);
+  font-size:1.35rem;
+}
+.auth-direct-page .auth-back{
+  display:none;
+}
+.auth-direct-page .onboard-footer{
+  width:min(100% - 4rem,118rem);
+  margin:0 auto;
+  padding:1.5rem 0 2.4rem;
+  border-top:1px solid rgba(255,255,255,.08);
+  color:rgba(244,241,234,.4);
+  font-size:1rem;
+  letter-spacing:.1em;
+}
+.auth-direct-page .auth-step-back{
+  margin-bottom:2rem;
+}
+.auth-direct-page .auth-form input,
+.auth-direct-page .auth-email-summary{
+  border-color:rgba(255,255,255,.14);
+  background:#0b0b0b;
+}
+.auth-direct-page .auth-submit{
+  border-radius:1.2rem;
+}
+.auth-direct-page .auth-error,
+.auth-direct-page .auth-message{
+  overflow-wrap:anywhere;
+}
+@media(max-width:600px){
+  .auth-direct-page .onboard-head{
+    width:calc(100% - 3.2rem);
+    padding-top:1.8rem;
+  }
+  .auth-direct-page .auth-content-compact{
+    width:calc(100% - 2.8rem);
+    margin:3.5rem auto 3rem;
+    padding:2.6rem 2rem;
+    border-radius:2rem;
+  }
+  .auth-direct-page .auth-flow-content::before{
+    margin-bottom:1.7rem;
+    font-size:.95rem;
+  }
+  .auth-direct-page .auth-flow-content>h1{
+    font-size:clamp(3.3rem,10vw,4.1rem);
+  }
+  .auth-direct-page .auth-flow-subtitle{
+    font-size:1.45rem;
+    margin-bottom:2.3rem;
+  }
+  .auth-direct-page .onboard-footer{
+    width:calc(100% - 3.2rem);
+    font-size:.9rem;
+    gap:1rem;
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  .auth-direct-page .auth-provider-stack button{transition:none}
+}
