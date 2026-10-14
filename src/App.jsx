@@ -1279,7 +1279,6 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [goalMilestoneDrafts,setGoalMilestoneDrafts]=useState({})
   const [goalType,setGoalType]=useState('project')
   const [goalNextAction,setGoalNextAction]=useState('')
-  const [goalCheckins,setGoalCheckins]=useState([])
   const [profile,setProfile]=useState(null)
   const [loading,setLoading]=useState(true)
   const [notifications,setNotifications]=useState([])
@@ -1534,7 +1533,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       return
     }
     const {data:entry,error:x}=await supabase.from('goal_checkins').insert({goal_id:goal.id,user_id:u.id,checkin_date:todayKey}).select('id,goal_id,user_id,checkin_date,note,created_at').single()
-    if(x){setError(x.message);return}
+    if(x){setError(x.code==='23505'?'You’ve already logged a step for this goal today. Come back tomorrow.':x.message);return}
     setGoalCheckins(current=>[entry,...current])
     setError('')
   }
