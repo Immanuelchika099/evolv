@@ -116,14 +116,14 @@ function HomePage({ pageProps }) {
       <section className="dashboard-welcome dashboard-welcome-minimal">
         <div className="dashboard-welcome-copy">
           <span className="dashboard-eyebrow">{greeting.charAt(0) + greeting.slice(1).toLowerCase()}</span>
-          <h1 className="home-greeting-title"><span>{name.trim().split(/\s+/)[0] || 'There'}</span><span className="home-title-period">.</span></h1>
         </div>
         <button className="home-add-button" type="button" onClick={() => openLog()} aria-label="Add a check-in"><Plus size={21}/></button>
       </section>
 
       <section className="home-overview-grid" aria-label="Daily progress and statistics">
+        <div className="home-today-date">{`${now.toLocaleDateString(undefined, { weekday: 'long' })} ${now.getDate()} ${now.toLocaleDateString(undefined, { month: 'short' })}`}</div>
         <article className="home-progress-card">
-          <div className="home-card-heading"><span>{`${now.toLocaleDateString(undefined, { weekday: 'long' })} ${now.getDate()} ${now.toLocaleDateString(undefined, { month: 'short' })}`}</span><span className="home-live-dot"/> </div>
+          <div className="home-card-heading"><span>TODAY</span><span className="home-live-dot"/> </div>
           <div className="home-progress-content">
             <div className="home-progress-ring" style={{ '--home-progress': `${progress}%` }} role="img" aria-label={`${progress}% of daily check-in target`}>
               <div className="home-progress-ring-inner">
