@@ -274,7 +274,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   }
 
   async function shareCurrentChat() {
-    const transcript = messages.map(message => `${message.role === 'user' ? 'You' : 'Evolv'}: ${message.content || ''}`).join('\\n\\n').trim()
+    const transcript = messages.map(message => `${message.role === 'user' ? 'You' : 'Evolv'}: ${message.content || ''}`).join('\n\n').trim()
     if (!transcript) {
       setError('Send a message before sharing this chat.')
       return
@@ -289,7 +289,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     } catch (shareError) {
       if (shareError?.name !== 'AbortError') setError('Could not share this chat. Please try again.')
     }
-    setChatMenuOpen(false)
+    
   }
 
   function addCurrentChatToProject() {
@@ -304,7 +304,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         setError('Could not save this project association.')
       }
     }
-    setChatMenuOpen(false)
+    
   }
 
   function archiveCurrentChat() {
@@ -312,13 +312,13 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       const archived = JSON.parse(localStorage.getItem('evolv-ai-archived-chats') || '[]')
       if (!archived.includes(chatId)) localStorage.setItem('evolv-ai-archived-chats', JSON.stringify([...archived, chatId]))
     } catch {}
-    setChatMenuOpen(false)
+    
     startNewChat()
   }
 
   async function deleteCurrentChat() {
     const confirmed = window.confirm('Permanently delete this conversation? This cannot be undone.')
-    setChatMenuOpen(false)
+    
     if (!confirmed) return
     const userId = (await supabase.auth.getUser()).data.user?.id
     if (!userId) {
@@ -344,7 +344,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     const match = nodes.find(node => node.textContent?.toLowerCase().includes(query))
     if (match) {
       match.scrollIntoView({ behavior: 'smooth', block: 'center' })
-      setChatMenuOpen(false)
+      
     } else {
       setError('No matching message found in this chat.')
     }
