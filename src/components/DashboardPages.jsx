@@ -558,6 +558,7 @@ function ProgressPage({ pageProps }) {
 }
 
 function GoalsPage({ pageProps }) {
+  const [expandedGoalId, setExpandedGoalId] = useState(null)
   const { goTo, goalTitle, setGoalTitle, goalDescription, setGoalDescription, goalDueDate, setGoalDueDate, goalType, setGoalType, goalNextAction, setGoalNextAction, createGoal, editingGoal, setEditingGoal, saving, saveGoalEdit, goals, goalCheckins = [], goalMilestones = [], goalPlans = {}, goalCoachLoading = {}, goalMilestoneDrafts = {}, setGoalMilestoneDrafts, updateGoal, beginGoalEdit, deleteGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, checkInGoal } = pageProps
   const resetForm = () => { setEditingGoal(null); setGoalTitle(''); setGoalDescription(''); setGoalDueDate(''); setGoalType('project'); setGoalNextAction('') }
   const dateKey = date => new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date)
@@ -580,8 +581,14 @@ function GoalsPage({ pageProps }) {
       const milestones=goalMilestones.filter(item=>item.goal_id===g.id)
       const completedMilestones=milestones.filter(item=>item.is_completed).length
       const lastSevenDays=new Set(goalCheckins.filter(item=>item.goal_id===g.id&&item.checkin_date>=dateKey(new Date(Date.now()-6*86400000))).map(item=>item.checkin_date))
-      return <article className="goal-item" key={g.id}>
-        <div className="goal-item-top"><div><span className="goal-status-copy">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><h3>{g.title}</h3>{g.description&&<p>{g.description}</p>}{g.due_date&&<small className="goal-due-copy">Target {new Date(g.due_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</small>}</div><strong>{isHabit?lastSevenDays.size+'/7':Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}</strong></div>
+      const isExpanded = expandedGoalId === g.id
+      return <article className={`goal-item goal-accordion-item ${isExpanded ? 'is-expanded' : 'is-collapsed'}`} key={g.id}>
+        <button type="button" className="goal-accordion-trigger" aria-expanded={isExpanded} onClick={() => setExpandedGoalId(current => current === g.id ? null : g.id)}>
+          <span className="goal-accordion-heading"><span className="goal-accordion-status">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><strong>{g.title}</strong></span>
+          <ChevronDown size={18} aria-hidden="true" className="goal-accordion-chevron" />
+        </button>
+        <div className="goal-item-content"><div className="goal-item-content-inner">
+        <div className="goal-item-top"><div>{g.description&&<p>{g.description}</p>}{g.due_date&&<small className="goal-due-copy">Target {new Date(g.due_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'})}</small>}</div><strong>{isHabit?lastSevenDays.size+'/7':Math.min(100,Math.max(0,Number(g.progress)||0))+'%'}</strong></div>
         <div className="mini-progress"><i style={{width:(isHabit?lastSevenDays.size/7*100:Math.min(100,Math.max(0,Number(g.progress)||0)))+'%'}}/></div>
         <div className="goal-next-action"><span>NEXT ACTION</span><p className={g.next_action?'':'is-empty'}>{g.next_action||'Add a next step, or plan it with AI.'}</p></div>
         {isHabit&&<div className="goal-habit-week"><div className="goal-milestone-heading"><span>CONSISTENCY</span><small>{lastSevenDays.size}/7 days this week</small></div><div>{Array.from({length:7},(_,index)=>{const date=new Date();date.setHours(12,0,0,0);date.setDate(date.getDate()-(6-index));const key=dateKey(date);return <i key={key} className={lastSevenDays.has(key)?'is-done':''} title={date.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric'})}/>})}</div><button type="button" className="goal-checkin-button" disabled={g.status==='completed'||lastSevenDays.has(dateKey(new Date()))} onClick={()=>checkInGoal(g)}><Check size={15}/>{lastSevenDays.has(dateKey(new Date()))?'Checked in today':'Log today’s practice'}</button></div>}
@@ -589,6 +596,7 @@ function GoalsPage({ pageProps }) {
         {goalPlans[g.id]&&<div className="goal-ai-plan"><div className="goal-ai-plan-heading"><Sparkles size={16}/><strong>Proposed plan</strong></div><p className="goal-ai-next"><b>Next action</b>{goalPlans[g.id].next_action}</p><ol>{goalPlans[g.id].milestones.map((title,index)=><li key={index}>{title}</li>)}</ol><button type="button" className="goal-apply-plan" onClick={()=>applyGoalPlan(g)}><Check size={15}/> Save plan to this goal</button></div>}
         <div className="goal-coach-row"><button type="button" onClick={()=>generateGoalPlan(g)} disabled={!!goalCoachLoading[g.id]}><Sparkles size={15}/>{goalCoachLoading[g.id]?'Building your plan…':'Plan with AI'}</button>{!isHabit&&g.status!=='completed'&&<button type="button" className="goal-checkin-button" onClick={()=>checkInGoal(g)}><Check size={15}/> Log a step</button>}</div>
         <div className="goal-item-actions"><select value={g.status||'active'} onChange={e=>updateGoal(g,{status:e.target.value})} aria-label="Goal status"><option value="active">In progress</option><option value="completed">Completed</option><option value="archived">Archived</option></select><button type="button" onClick={()=>beginGoalEdit(g)} aria-label={'Edit '+g.title}><Pencil size={15}/> Edit</button><button type="button" className="goal-delete-button" onClick={()=>deleteGoal(g)} aria-label={'Delete '+g.title}><Trash2 size={15}/> Delete</button></div>
+        </div></div>
       </article>
     })}{!goals.length&&<div className="goal-empty"><Target size={22}/><p>No goals yet. Add your first one above.</p></div>}</div>
   </section>
