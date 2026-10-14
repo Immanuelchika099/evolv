@@ -6200,3 +6200,65 @@ body,
 .progress-page .home-heatmap-footer i.level-3 { background: #858580 !important; }
 .progress-page .home-heatmap-cell.level-4,
 .progress-page .home-heatmap-footer i.level-4 { background: #e1e1dc !important; }
+
+/* Restore Evolv's signature lime accents without bringing back decorative color clutter. */
+.dashboard-home-redesign {
+  --evolv-lime: #c1f45b;
+}
+.dashboard-home-redesign .home-progress-ring {
+  background: conic-gradient(from -90deg, var(--evolv-lime) var(--home-progress), rgba(255,255,255,.09) var(--home-progress));
+  box-shadow: 0 0 2.2rem rgba(193,244,91,.075);
+}
+.dashboard-home-redesign .home-progress-segments i.is-filled,
+.dashboard-home-redesign .home-week-bar-track i,
+.dashboard-home-redesign .home-today-bar i,
+.dashboard-home-redesign .home-area-progress i {
+  background: var(--evolv-lime);
+}
+.dashboard-home-redesign .home-stat-fire,
+.dashboard-home-redesign .home-stat-check,
+.dashboard-home-redesign .home-stat-days,
+.dashboard-home-redesign .home-stat-goals {
+  color: var(--evolv-lime);
+}
+.dashboard-home-redesign .home-stat-icon,
+.dashboard-home-redesign .home-today-icon,
+.dashboard-home-redesign .home-area-icon {
+  background: rgba(193,244,91,.09);
+  color: var(--evolv-lime) !important;
+}
+.dashboard-home-redesign .home-add-button {
+  border-color: rgba(193,244,91,.25);
+}
+.dashboard-home-redesign .home-add-button:hover {
+  border-color: rgba(193,244,91,.5);
+}
+.dashboard-home-redesign .home-heatmap-cell.level-1,
+.dashboard-home-redesign .home-heatmap-footer i.level-1,
+.goal-heatmap-cell.level-1 {
+  background: #33491f !important;
+}
+.dashboard-home-redesign .home-heatmap-cell.level-2,
+.dashboard-home-redesign .home-heatmap-footer i.level-2,
+.goal-heatmap-cell.level-2 {
+  background: #587d2c !important;
+}
+.dashboard-home-redesign .home-heatmap-cell.level-3,
+.dashboard-home-redesign .home-heatmap-footer i.level-3,
+.goal-heatmap-cell.level-3 {
+  background: #8fbd3f !important;
+}
+.dashboard-home-redesign .home-heatmap-cell.level-4,
+.dashboard-home-redesign .home-heatmap-footer i.level-4,
+.goal-heatmap-cell.level-4 {
+  background: var(--evolv-lime) !important;
+}
+.progress-page .home-heatmap-cell.level-1,
+.progress-page .home-heatmap-footer i.level-1 { background: #33491f !important; }
+.progress-page .home-heatmap-cell.level-2,
+.progress-page .home-heatmap-footer i.level-2 { background: #587d2c !important; }
+.progress-page .home-heatmap-cell.level-3,
+.progress-page .home-heatmap-footer i.level-3 { background: #8fbd3f !important; }
+.progress-page .home-heatmap-cell.level-4,
+.progress-page .home-heatmap-footer i.level-4 { background: #c1f45b !important; }
+
