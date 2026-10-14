@@ -431,20 +431,20 @@ function ProgressPage({ pageProps }) {
             </button>
           </div>
 
-          <section className="home-heatmap-card progress-heatmap-card">
+          <section className="home-heatmap-card progress-heatmap-card" aria-label="Yearly activity">
             <div className="home-heatmap-heading">
-              <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity across the year.</p></div>
+              <h2>Activity</h2>
               <div className="home-heatmap-total"><strong>{heatmapActivity.length}</strong><span>check-ins</span></div>
             </div>
             <div className="home-heatmap-scroll" ref={heatmapScrollRef}>
               <div className="home-heatmap-months" aria-hidden="true">
                 {heatmapMonthLabels.map(item => <span key={item.key} style={{ gridColumnStart: Math.floor(item.index / 7) + 1 }}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
               </div>
-              <div className="home-heatmap-grid" role="img" aria-label={`Contribution graph of saved check-ins across ${heatmapYear}`}>
+              <div className="home-heatmap-grid" role="img" aria-label={`Contribution graph across ${heatmapYear}`}>
                 {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
               </div>
             </div>
-            <div className="home-heatmap-footer"><span>Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span><span>{new Set(heatmap.filter(day => day.count > 0 && day.date >= new Date(heatmapNow.getFullYear(), heatmapNow.getMonth(), heatmapNow.getDate() - 6)).map(day => day.key)).size}/7 active days this week</span></div>
+            <div className="home-heatmap-footer"><span>Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span><span>{new Set(heatmap.filter(day => day.count > 0 && day.date >= new Date(heatmapNow.getFullYear(), heatmapNow.getMonth(), heatmapNow.getDate() - 6)).map(day => day.key)).size}/7 this week</span></div>
           </section>
 
           <section className="progress-section-card progress-goals-card">
