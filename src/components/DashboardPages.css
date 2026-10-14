@@ -5027,3 +5027,22 @@ body,
     gap: .35rem;
   }
 }
+
+/* Let the yearly activity graph visually match the other Progress cards. */
+.progress-page .progress-heatmap-card {
+  background: linear-gradient(145deg, rgba(20,20,26,.96), rgba(8,8,11,.98));
+  border: 1px solid rgba(255,255,255,.095);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+.progress-page .progress-heatmap-card .home-heatmap-heading {
+  align-items: center;
+}
+.progress-page .progress-heatmap-card .home-heatmap-heading h2 {
+  margin: 0;
+}
+.progress-page .progress-heatmap-card .home-heatmap-total strong {
+  font-size: 2.2rem;
+}
+.progress-page .progress-heatmap-card .home-heatmap-total span {
+  font-size: 1.1rem;
+}
