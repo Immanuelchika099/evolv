@@ -805,6 +805,39 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
+/* A minimal three-dot trigger with the platform's native select menu on iOS. */
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  align-self: flex-end !important;
+  width: 3.2rem !important;
+  height: 2.8rem !important;
+  margin: .25rem .35rem 0 0 !important;
+  color: rgba(245,245,245,.68) !important;
+  border-radius: 1.2rem !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu:active {
+  background: rgba(255,255,255,.08) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-user-message-menu select {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: .015 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: transparent !important;
+  color: transparent !important;
+  cursor: pointer !important;
+}
+
 /* Allow iOS Safari to select sent-message text and show its native callout. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user,
 .dashboard.dashboard-ai-active .ai-page .ai-message.user p,
