@@ -4925,3 +4925,26 @@ body,
  .home-area-card{padding:1.3rem}
 }
 @media(prefers-reduced-motion:reduce){.home-week-bar-track i,.home-progress-segments i,.home-area-progress i,.home-today-row{transition:none!important}}
+
+
+/* Dashboard brand polish: restore Evolv lime accents and make the stats selector a real toggle. */
+.dashboard-home-redesign{--home-lime:#c1f45b}
+.dashboard-home-redesign .home-title-period{display:inline-block;white-space:nowrap;color:var(--home-lime);margin-left:.015em}
+.dashboard-home-redesign .home-greeting-title{display:flex;align-items:baseline;gap:0;flex-wrap:nowrap;white-space:nowrap;width:max-content;max-width:100%;line-height:1.04}
+.dashboard-home-redesign .home-greeting-title>span:first-child{display:inline-block;white-space:nowrap}
+.dashboard-home-redesign .home-add-button{background:var(--home-lime);border-color:rgba(193,244,91,.5);color:#11130b;box-shadow:0 8px 28px rgba(193,244,91,.12)}
+.dashboard-home-redesign .home-progress-ring{background:conic-gradient(from -90deg,var(--home-lime) var(--home-progress),rgba(255,255,255,.085) var(--home-progress));box-shadow:0 0 3.5rem rgba(193,244,91,.08)}
+.dashboard-home-redesign .home-progress-segments i.is-filled{background:var(--home-lime);box-shadow:0 0 1.2rem rgba(193,244,91,.12)}
+.dashboard-home-redesign .home-stat-range button{min-width:0;padding:.9rem .7rem;text-align:center;color:rgba(255,255,255,.43);font:inherit;font-size:1.15rem;border:0;border-radius:.9rem;background:transparent;cursor:pointer;transition:background .2s ease,color .2s ease}
+.dashboard-home-redesign .home-stat-range button.is-active{background:rgba(193,244,91,.13);color:var(--home-lime)}
+.dashboard-home-redesign .home-stat-range button:focus-visible{outline:2px solid var(--home-lime);outline-offset:2px}
+.dashboard-home-redesign .home-stat-average strong{color:var(--home-lime)}
+.dashboard-home-redesign .home-week-bar-track i{background:linear-gradient(180deg,#d8ff8c,#9fdc35)}
+.dashboard-home-redesign .home-today-empty>span{background:rgba(193,244,91,.13);color:var(--home-lime)}
+.dashboard-home-redesign .home-area-progress i{background:var(--task-color)}
+.dashboard-home-redesign .home-skip-button:hover{border-color:rgba(193,244,91,.32);color:var(--home-lime)}
+.dashboard-home-redesign .home-heatmap-cell.level-1,.dashboard-home-redesign .home-heatmap-footer i.level-1{background:#33491f}
+.dashboard-home-redesign .home-heatmap-cell.level-2,.dashboard-home-redesign .home-heatmap-footer i.level-2{background:#587d2c}
+.dashboard-home-redesign .home-heatmap-cell.level-3,.dashboard-home-redesign .home-heatmap-footer i.level-3{background:#8fbd3f}
+.dashboard-home-redesign .home-heatmap-cell.level-4,.dashboard-home-redesign .home-heatmap-footer i.level-4{background:var(--home-lime)}
+@media(max-width:560px){.dashboard-home-redesign .home-greeting-title{font-size:clamp(2.8rem,9vw,4.2rem)}}
