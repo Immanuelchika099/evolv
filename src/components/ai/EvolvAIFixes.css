@@ -1151,3 +1151,18 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap .ai-more-button {
   pointer-events: auto !important;
 }
+
+
+/* Keep the stop control compact while Evolv AI is generating a response. */
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar[data-busy] .prompt-bar__send {
+  width: 2.9rem !important;
+  height: 2.9rem !important;
+  min-width: 2.9rem !important;
+  min-height: 2.9rem !important;
+  border-radius: 50% !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar[data-busy] .prompt-bar__glyph {
+  width: 1.55rem !important;
+  height: 1.55rem !important;
+}
