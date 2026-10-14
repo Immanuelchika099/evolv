@@ -162,6 +162,23 @@ export default function PromptBar({
   latest.current = { onSend, onStop, onAttach, onDictate, onEffortChange, onInputChange };
 
   const [draft, setDraft] = useState('');
+
+  useEffect(() => {
+    function handleEditPrompt(event) {
+      const text = String(event.detail?.text || '');
+      setDraft(text);
+      latest.current.onInputChange?.(text);
+      setDismissed(false);
+      requestAnimationFrame(() => {
+        const input = inputRef.current;
+        if (!input) return;
+        input.focus({ preventScroll: true });
+        input.setSelectionRange(text.length, text.length);
+      });
+    }
+    window.addEventListener('evolv:edit-prompt', handleEditPrompt);
+    return () => window.removeEventListener('evolv:edit-prompt', handleEditPrompt);
+  }, []);
   const [attachments, setAttachments] = useState([]);
   const [modelKey, setModelKey] = useState(defaultModel);
   const [plusOpen, setPlusOpen] = useState(false);
