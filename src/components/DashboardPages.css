@@ -5630,3 +5630,89 @@ body,
   opacity: 0 !important;
 }
 
+
+
+/* Manage Goals — improve readability inside the expanded Bulk Up / Pass Exams cards */
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-accordion-status {
+  font-size: 1.25rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: .045em !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-accordion-heading > strong {
+  font-size: clamp(2.4rem, 4vw, 3rem) !important;
+  line-height: 1.12 !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-top > div > p,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-next-action > p,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-milestone-row label,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-ai-plan ol {
+  font-size: 1.5rem !important;
+  line-height: 1.6 !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-due-copy {
+  font-size: 1.4rem !important;
+  line-height: 1.5 !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-top > strong {
+  font-size: 2.5rem !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-next-action > span,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-milestone-heading > span,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-habit-week > span {
+  font-size: 1.2rem !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-milestone-heading small {
+  font-size: 1.3rem !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-add-milestone input,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-add-milestone button,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-coach-row button,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-actions select,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-actions > button,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-actions label > span,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-ai-apply-plan {
+  font-size: 1.4rem !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-add-milestone input {
+  min-height: 4.6rem !important;
+}
+
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-add-milestone button,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-coach-row button,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-actions select,
+.dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-actions > button {
+  min-height: 4.4rem !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-accordion-status {
+    font-size: 1.2rem !important;
+  }
+
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-accordion-heading > strong {
+    font-size: 2.5rem !important;
+  }
+
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-top > div > p,
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-next-action > p,
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-milestone-row label,
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-ai-plan ol {
+    font-size: 1.45rem !important;
+  }
+
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-due-copy {
+    font-size: 1.35rem !important;
+  }
+
+  .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-item-top > strong {
+    font-size: 2.3rem !important;
+  }
+}
