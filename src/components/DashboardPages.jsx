@@ -27,112 +27,196 @@ export function DashboardPages({ active, pageProps }) {
 }
 
 function HomePage({ pageProps }) {
-  const { name, todayLogs = [], todayMeals = [], defs, icons, metricArea, valueText, openLog, goTo, setArea, areas, loading } = pageProps
+  const {
+    name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
+    valueText, openLog, goTo, setArea, areas = {}, loading, logs = [], meals = [],
+    goals = []
+  } = pageProps
 
   const [now, setNow] = useState(() => new Date())
+  const [skippedToday, setSkippedToday] = useState(() => {
+    try {
+      return localStorage.getItem('evolv-skip-day') === new Intl.DateTimeFormat('en-CA', {
+        year: 'numeric', month: '2-digit', day: '2-digit'
+      }).format(new Date())
+    } catch { return false }
+  })
+
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 60000)
     return () => window.clearInterval(timer)
   }, [])
-  const hour = now.getHours()
-  const greeting = hour >= 5 && hour < 12 ? 'GOOD MORNING' : hour >= 12 && hour < 17 ? 'GOOD AFTERNOON' : 'GOOD EVENING'
 
+  const dateKey = (date) => new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric', month: '2-digit', day: '2-digit'
+  }).format(date)
+  const today = dateKey(now)
+  const greeting = now.getHours() >= 5 && now.getHours() < 12
+    ? 'GOOD MORNING' : now.getHours() >= 12 && now.getHours() < 17 ? 'GOOD AFTERNOON' : 'GOOD EVENING'
+
+  const allActivity = [
+    ...logs.map(item => ({ date: item.logged_at || item.created_at, type: 'log' })),
+    ...meals.map(item => ({ date: item.logged_at || item.created_at, type: 'meal' }))
+  ].filter(item => item.date && !Number.isNaN(new Date(item.date).getTime()))
+
+  const activityByDay = allActivity.reduce((map, item) => {
+    const key = dateKey(new Date(item.date))
+    map[key] = (map[key] || 0) + 1
+    return map
+  }, {})
+  const todayCount = todayLogs.length + todayMeals.length
+  const dailyTarget = 5
+  const progress = Math.min(100, Math.round((todayCount / dailyTarget) * 100))
+  const remaining = Math.max(0, dailyTarget - todayCount)
+
+  const days = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(now)
+    date.setDate(now.getDate() - (6 - index))
+    const key = dateKey(date)
+    return {
+      key,
+      date,
+      label: date.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 1),
+      count: activityByDay[key] || 0
+    }
+  })
+  const weeklyTotal = days.reduce((sum, day) => sum + day.count, 0)
+  const activeDays = days.filter(day => day.count > 0).length
+  const dailyAverage = Math.round((days.reduce((sum, day) => sum + Math.min(100, day.count / dailyTarget * 100), 0) / 7))
+  const maxDay = Math.max(1, ...days.map(day => day.count))
+
+  let bestStreak = 0
+  let streak = 0
+  const activityDates = new Set(Object.keys(activityByDay))
+  for (let offset = 0; offset < 365; offset += 1) {
+    const date = new Date(now)
+    date.setDate(now.getDate() - offset)
+    if (activityDates.has(dateKey(date))) streak += 1
+    else if (offset === 0) continue
+    else break
+  }
+  bestStreak = streak
+
+  const heatmap = Array.from({ length: 182 }, (_, index) => {
+    const date = new Date(now)
+    date.setDate(now.getDate() - (181 - index))
+    const key = dateKey(date)
+    return { key, count: activityByDay[key] || 0, date }
+  })
   const loggedItems = [
     ...todayLogs.map((log, index) => {
       const def = defs.find(d => String(d.id) === String(log.metric_id))
       return def ? { key: `log-${log.id || index}`, log, def, type: 'log' } : null
     }).filter(Boolean),
-    ...todayMeals.map((meal, index) => ({
-      key: `meal-${meal.id || index}`,
-      meal,
-      type: 'meal'
-    }))
+    ...todayMeals.map((meal, index) => ({ key: `meal-${meal.id || index}`, meal, type: 'meal' }))
   ]
 
+  function skipToday() {
+    try { localStorage.setItem('evolv-skip-day', today) } catch {}
+    setSkippedToday(true)
+  }
+
   return (
-    <div className="dashboard-home">
+    <div className="dashboard-home dashboard-home-redesign">
       <section className="dashboard-welcome dashboard-welcome-minimal">
         <div className="dashboard-welcome-copy">
-          <span className="dashboard-eyebrow">{greeting}</span>
-          <h1>{name.trim().split(/\s+/)[0] || 'There'}.</h1>
+          <span className="dashboard-eyebrow">{greeting} · {now.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' }).toUpperCase()}</span>
+          <h1>{name.trim().split(/\s+/)[0] || 'There'}<span className="home-title-period">.</span></h1>
+          <p className="home-subtitle">Every small step counts. Here's your progress.</p>
         </div>
+        <button className="home-add-button" type="button" onClick={() => openLog()} aria-label="Add a check-in"><Plus size={21}/></button>
       </section>
 
-      <section className="today-snapshot">
-        <div className="today-snapshot-head dashboard-section-head-clean">
-          <div>
-            <span className="section-label">TODAY</span>
-            <h2>Your day</h2>
+      <section className="home-overview-grid" aria-label="Daily progress and statistics">
+        <article className="home-progress-card">
+          <div className="home-card-heading"><span>TODAY</span><span className="home-live-dot"/> </div>
+          <div className="home-progress-content">
+            <div className="home-progress-ring" style={{ '--home-progress': `${progress}%` }} role="img" aria-label={`${progress}% of daily check-in target`}>
+              <div className="home-progress-ring-inner">
+                <strong>{progress}<small>%</small></strong>
+                <span>{Math.min(todayCount, dailyTarget)} of {dailyTarget} check-ins</span>
+              </div>
+            </div>
+            <div className="home-progress-message">
+              <h2>{progress >= 100 ? 'You showed up. 🔥' : progress >= 60 ? "You're almost there 🔥" : todayCount ? 'Keep your momentum going' : 'Start with one small step.'}</h2>
+              <p>{progress >= 100 ? 'You reached your daily check-in target.' : remaining ? `Just ${remaining} more ${remaining === 1 ? 'check-in' : 'check-ins'} to reach today’s target.` : 'Your consistency is adding up.'}</p>
+              <div className="home-progress-segments" aria-label={`${progress}% complete`}>
+                {Array.from({ length: dailyTarget }, (_, index) => <i key={index} className={index < Math.min(todayCount, dailyTarget) ? 'is-filled' : ''}/>)}
+              </div>
+              {!skippedToday && <button type="button" className="home-skip-button" onClick={skipToday}>Skip for today <ChevronRight size={15}/></button>}
+              {skippedToday && <span className="home-skip-confirmation">Today’s reminder has been dismissed.</span>}
+            </div>
           </div>
-          <span className="today-log-count">{loggedItems.length}</span>
+          <div className="home-progress-foot"><span>YOUR PACE</span><strong>{todayCount} {todayCount === 1 ? 'check-in' : 'check-ins'} recorded</strong></div>
+        </article>
+
+        <article className="home-statistics-card">
+          <div className="home-card-heading"><span>STATISTICS</span><button type="button" onClick={() => goTo('progress')}>View progress <ArrowRight size={13}/></button></div>
+          <div className="home-stat-range"><span className="is-active">Last 7 days</span><span>Activity</span></div>
+          <div className="home-stat-average"><strong>{dailyAverage}%</strong><span>daily target pace</span></div>
+          <div className="home-week-bars" aria-label="Daily check-in activity for the last seven days">
+            {days.map(day => <div className="home-week-bar-column" key={day.key} title={`${day.count} check-ins on ${day.date.toLocaleDateString()}`}>
+              <div className="home-week-bar-track"><i style={{ height: `${Math.max(day.count ? 12 : 4, day.count / maxDay * 100)}%` }}/></div>
+              <span>{day.label}</span><small>{day.count}</small>
+            </div>)}
+          </div>
+          <div className="home-stat-mini-grid">
+            <div><span className="home-stat-icon home-stat-fire">↗</span><span><small>Current streak</small><strong>{bestStreak} {bestStreak === 1 ? 'day' : 'days'}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-check">✓</span><span><small>Total check-ins</small><strong>{allActivity.length}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-days">⌁</span><span><small>Active days</small><strong>{Object.keys(activityByDay).length}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-goals">☆</span><span><small>Active goals</small><strong>{goals.filter(goal => goal.status === 'active').length}</strong></span></div>
+          </div>
+        </article>
+      </section>
+
+      <section className="home-heatmap-card">
+        <div className="home-heatmap-heading">
+          <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity over the last six months.</p></div>
+          <div className="home-heatmap-total"><strong>{allActivity.length}</strong><span>check-ins</span></div>
         </div>
+        <div className="home-heatmap-scroll">
+          <div className="home-heatmap-months" aria-hidden="true">
+            {heatmap.filter((item, index) => index === 0 || item.date.getMonth() !== heatmap[index - 1].date.getMonth()).map(item => <span key={item.key}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
+          </div>
+          <div className="home-heatmap-grid" role="img" aria-label="Contribution graph of saved check-ins over the last six months">
+            {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
+          </div>
+        </div>
+        <div className="home-heatmap-footer"><span>Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span><span>{activeDays}/7 active days this week</span></div>
+      </section>
 
-        <div className="today-metrics">
-          {loggedItems.length > 0 && loggedItems.map(item => {
-            if (item.type === 'meal') {
-              return (
-                <button key={item.key} className="today-metric" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
-                  <span className="metric-row-icon" aria-hidden="true" style={{ '--metric-color': '#ff9f0a' }}><Utensils size={17} /></span>
-                  <span>
-                    <strong>{item.meal.description || 'Meal'}</strong>
-                    <small>{item.meal.meal_type || 'Meal'}{item.meal.calories ? ` · ${item.meal.calories} kcal` : ''}</small>
-                  </span>
-                  <ChevronRight size={15} />
-                </button>
-              )
-            }
-
+      <section className="home-today-section">
+        <div className="home-section-title"><div><span className="section-label">TODAY'S ACTIVITY</span><h2>Keep the rhythm.</h2></div><button type="button" onClick={() => goTo('logs')}>View history <ArrowRight size={14}/></button></div>
+        <div className="home-today-list">
+          {loggedItems.map(item => {
+            if (item.type === 'meal') return <button key={item.key} className="home-today-row" type="button" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}><span className="home-today-icon" style={{ '--task-color': '#f5a35c' }}><Utensils size={17}/></span><span className="home-today-copy"><strong>{item.meal.description || 'Meal'}</strong><small>{item.meal.meal_type || 'Meal'}{item.meal.calories ? ` · ${item.meal.calories} kcal` : ''}</small></span><span className="home-today-bar"><i style={{ width: '100%' }}/></span><span className="home-today-count">Logged</span><span className="home-today-check">✓</span></button>
             const M = icons[item.def.slug] || Sparkles
-            return (
-              <button key={item.key} className="today-metric" onClick={() => openLog(metricArea[item.def.slug], item.def)}>
-                <span className="metric-row-icon" aria-hidden="true" style={{ '--metric-color': ({ sleep: '#a78bfa', water: '#45b7f5', steps: '#ff9f43', exercise: '#30d158', energy: '#ffd60a', weight: '#64d2ff', mood: '#ff6b9a', focus: '#5e9cff', reflection: '#bf9bff', stress: '#ff8057', learning: '#64d2ff', building: '#8e9fff', outreach: '#64d2ff', applications: '#a1a1aa', skills: '#bf9bff', income: '#30d158', spending: '#ff9f43', savings: '#30d158', bills: '#64d2ff', habits: '#30d158', reading: '#bf9bff', social: '#ff6b9a', personal: '#30d158' })[item.def.slug] || '#b8b8c2' }}><M size={17} /></span>
-                <span>
-                  <strong>{item.def.name}</strong>
-                  <small>{valueText(item.log, item.def)}</small>
-                </span>
-                <ChevronRight size={15} />
-              </button>
-            )
+            const color = item.def.color || '#8f8cff'
+            return <button key={item.key} className="home-today-row" type="button" onClick={() => openLog(metricArea[item.def.slug], item.def)}><span className="home-today-icon" style={{ '--task-color': color }}><M size={17}/></span><span className="home-today-copy"><strong>{item.def.name}</strong><small>{valueText(item.log, item.def)}</small></span><span className="home-today-bar"><i style={{ width: '100%' }}/></span><span className="home-today-count">Logged</span><span className="home-today-check">✓</span></button>
           })}
-
-          {!loading && !loggedItems.length && (
-            <button className="today-empty dashboard-empty-action" onClick={() => openLog()}>
-              <Plus size={17} />
-              <span><strong>Log something</strong><small>Start your day</small></span>
-              <ChevronRight size={15} />
-            </button>
-          )}
+          {!loading && loggedItems.length === 0 && <button type="button" className="home-today-empty" onClick={() => openLog()}><span><Plus size={17}/></span><strong>Make your first check-in</strong><small>A small action is enough to begin.</small><ArrowRight size={16}/></button>}
+          {loading && <div className="home-today-loading">Loading your saved activity…</div>}
         </div>
       </section>
 
-      <section className="evolv-life-overview dashboard-areas-card">
-        <div className="dashboard-section-head-clean dashboard-areas-head">
-          <span className="section-label">YOUR AREAS</span>
-        </div>
-        {Object.entries(areas).map(([id, m]) => {
-          const I = m.icon
-          const rs = defs.filter(d => metricArea[d.slug] === id)
-          const tracked = rs.filter(d => todayLogs.some(l => String(l.metric_id) === String(d.id))).length
-          const value = id === 'nutrition'
-            ? (todayMeals.length ? String(todayMeals.length) : '—')
-            : (tracked ? String(tracked) : '—')
-
-          return (
-            <button
-              className="life-area-row"
-              key={id}
-              onClick={() => { goTo('area'); setArea(id) }}
-            >
-              <span className="life-area-icon" style={{ '--area-color': m.color, color: m.color }}><I size={17} /></span>
-              <span className="life-area-main"><strong>{m.title}</strong><small>{value === '—' ? 'No activity' : value + ' today'}</small></span>
-              <ChevronRight size={17} />
+      <section className="home-areas-section">
+        <div className="home-section-title"><div><span className="section-label">YOUR WORLD</span><h2>Growth, in every area.</h2></div></div>
+        <div className="home-areas-grid">
+          {Object.entries(areas).map(([id, item]) => {
+            const Icon = item.icon
+            const metricDefs = defs.filter(def => metricArea[def.slug] === id)
+            const count = id === 'nutrition' ? todayMeals.length : todayLogs.filter(log => metricDefs.some(def => String(def.id) === String(log.metric_id))).length
+            const percent = Math.min(100, Math.round(count / 3 * 100))
+            return <button type="button" className="home-area-card" key={id} onClick={() => { goTo('area'); setArea(id) }}>
+              <span className="home-area-icon" style={{ '--task-color': item.color }}><Icon size={18}/></span><span className="home-area-name">{item.title}</span><strong>{count}</strong><small>{count ? 'activity today' : 'Ready when you are'}</small><span className="home-area-progress"><i style={{ width: `${percent}%` }}/></span>
             </button>
-          )
-        })}
+          })}
+        </div>
       </section>
     </div>
   )
 }
+
 function AreaPage({ pageProps }) {
   const { area, areas, defs, logs, meals, metricArea, latest, icons, valueText, openLog, goTo, onArticle } = pageProps
   return (()=>{
