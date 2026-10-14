@@ -162,3 +162,204 @@
 @media(prefers-reduced-motion:reduce){
   .auth-direct-page .auth-provider-stack button{transition:none}
 }
+
+
+/* Final direct-signup layout refinements: deliberate spacing, consistent alignment,
+   and a smaller brand mark on the standalone route. */
+.auth-direct-page .onboard-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.6rem;
+}
+.auth-direct-page .onboard-head .auth-brand{
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-start;
+  width:auto;
+  min-width:0;
+  max-width:12rem;
+  padding:0;
+  margin:0;
+  flex:0 0 auto;
+  background:transparent;
+  border:0;
+}
+.auth-direct-page .onboard-head .auth-brand img,
+.auth-direct-page .onboard-head .auth-brand svg,
+.auth-direct-page .onboard-head .auth-brand .brand-mark,
+.auth-direct-page .onboard-head .auth-brand .brand-logo{
+  display:block;
+  width:3.2rem !important;
+  height:3.2rem !important;
+  max-width:3.2rem !important;
+  max-height:3.2rem !important;
+  object-fit:contain;
+}
+.auth-direct-page .onboard-head .step-count{
+  margin-left:auto;
+  font-size:1.1rem;
+  line-height:1.4;
+  text-align:right;
+  white-space:nowrap;
+}
+.auth-direct-page .auth-content-compact{
+  box-sizing:border-box;
+  width:min(calc(100% - 3.2rem),46rem);
+  padding:clamp(2.5rem,5vw,3.6rem);
+}
+.auth-direct-page .auth-flow-content::before{
+  margin-bottom:1.6rem;
+  font-size:1rem;
+  line-height:1.4;
+}
+.auth-direct-page .auth-flow-content>h1{
+  margin:0 0 1.4rem;
+  font-size:clamp(3.2rem,6vw,4.2rem);
+  line-height:1.08;
+  letter-spacing:-.045em;
+}
+.auth-direct-page .auth-flow-subtitle{
+  max-width:34rem;
+  margin:0 0 3.2rem;
+  font-size:1.45rem;
+  line-height:1.65;
+  overflow-wrap:normal;
+}
+.auth-direct-page .auth-provider-stack{
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+  margin-top:.4rem;
+}
+.auth-direct-page .auth-provider-stack button{
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-width:0;
+  min-height:5.4rem;
+  margin:0;
+  padding:1.3rem 1.6rem;
+  gap:1rem;
+  line-height:1.35;
+}
+.auth-direct-page .auth-divider-compact{
+  display:flex;
+  align-items:center;
+  gap:1.4rem;
+  margin:2.4rem 0;
+  line-height:1.4;
+  font-size:1.1rem;
+}
+.auth-direct-page .auth-divider-compact::before,
+.auth-direct-page .auth-divider-compact::after{
+  content:"";
+  height:1px;
+  flex:1;
+  background:rgba(255,255,255,.12);
+}
+.auth-direct-page .auth-email-choice{
+  box-sizing:border-box;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  width:100%;
+  min-width:0;
+  min-height:5.4rem;
+  padding:1.3rem 1.6rem;
+  line-height:1.35;
+}
+.auth-direct-page .auth-switch{
+  display:block;
+  width:100%;
+  margin:2.2rem 0 0;
+  padding:.6rem 0;
+  line-height:1.6;
+  text-align:center;
+  overflow-wrap:anywhere;
+}
+.auth-direct-page .auth-back{
+  display:inline-flex;
+  width:auto;
+  margin:1.8rem auto 0;
+  padding:.8rem 1rem;
+  line-height:1.5;
+}
+.auth-direct-page .auth-content-compact > .auth-back{
+  display:flex;
+  justify-content:center;
+}
+.auth-direct-page .auth-step-back{
+  margin-bottom:2.2rem;
+}
+.auth-direct-page .onboard-footer{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:1.6rem;
+  line-height:1.5;
+}
+@media(max-width:600px){
+  .auth-direct-page .onboard-head{
+    width:calc(100% - 3.2rem);
+    padding-top:1.8rem;
+  }
+  .auth-direct-page .onboard-head .auth-brand img,
+  .auth-direct-page .onboard-head .auth-brand svg,
+  .auth-direct-page .onboard-head .auth-brand .brand-mark,
+  .auth-direct-page .onboard-head .auth-brand .brand-logo{
+    width:2.8rem !important;
+    height:2.8rem !important;
+    max-width:2.8rem !important;
+    max-height:2.8rem !important;
+  }
+  .auth-direct-page .onboard-head .step-count{
+    font-size:1rem;
+  }
+  .auth-direct-page .auth-content-compact{
+    width:calc(100% - 3.2rem);
+    margin:3rem auto 3rem;
+    padding:2.4rem 2rem;
+  }
+  .auth-direct-page .auth-flow-content::before{
+    margin-bottom:1.4rem;
+    font-size:.95rem;
+  }
+  .auth-direct-page .auth-flow-content>h1{
+    margin-bottom:1.2rem;
+    font-size:clamp(3rem,9vw,3.8rem);
+    line-height:1.08;
+  }
+  .auth-direct-page .auth-flow-subtitle{
+    margin-bottom:2.8rem;
+    font-size:1.4rem;
+    line-height:1.65;
+  }
+  .auth-direct-page .auth-provider-stack{
+    gap:1.1rem;
+  }
+  .auth-direct-page .auth-provider-stack button,
+  .auth-direct-page .auth-email-choice{
+    min-height:5.2rem;
+    padding:1.2rem 1.4rem;
+    font-size:1.35rem;
+  }
+  .auth-direct-page .auth-divider-compact{
+    margin:2.1rem 0;
+  }
+  .auth-direct-page .auth-switch{
+    margin-top:1.8rem;
+    font-size:1.2rem;
+  }
+  .auth-direct-page .auth-back{
+    margin-top:1.4rem;
+    font-size:1.2rem;
+  }
+  .auth-direct-page .onboard-footer{
+    width:calc(100% - 3.2rem);
+    flex-wrap:wrap;
+    font-size:.9rem;
+  }
+}
