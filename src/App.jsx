@@ -374,7 +374,7 @@ function EvolvLoader() {
   )
 }
 
-function AuthPage({ mode, setMode, data, onSuccess, onHome, directSignup = false }) {
+function AuthPage({ mode, setMode, onSuccess, directSignup = false }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [sending, setSending] = useState(false)
@@ -552,9 +552,8 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome, directSignup = false
           setMessage('')
         }}>
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M20 12.5V7.8a1.8 1.8 0 0 0-1.8-1.8H5.8A1.8 1.8 0 0 0 4 7.8v8.4A1.8 1.8 0 0 0 5.8 18H12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M8 6V4.8A1.8 1.8 0 0 1 9.8 3h4.4A1.8 1.8 0 0 1 16 4.8V6M8 10h8M8 13h5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-            <path d="M18.2 14.2v6m-3-3h6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+            <path d="M3 10h18v4H3zM5 14v7h14v-7M12 10v11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M12 10H7.7a2.2 2.2 0 1 1 2.2-2.2c0 1.1 2.1 2.2 2.1 2.2ZM12 10h4.3a2.2 2.2 0 1 0-2.2-2.2C14.1 8.9 12 10 12 10Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           <span>Sign up with work email &amp; start evolving</span>
           <svg className="auth-banner-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
