@@ -493,10 +493,6 @@ function ProgressPage({ pageProps }) {
             </article>
           </div>
 
-          <div className="progress-definition progress-simple-note">
-            <span className="section-label">KEEP GOING</span>
-            <p>Small, consistent steps are what Evolv is here to help you notice.</p>
-          </div>
         </section>
       })()
 }
