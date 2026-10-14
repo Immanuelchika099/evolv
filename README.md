@@ -1,63 +1,58 @@
-# EVOLV
+# EVOLV — AI-Powered Productivity
 
-**EVOLV** is a full-stack personal growth and wellbeing web app built to help people turn intentions into consistent, visible progress.
+**EVOLV** is an AI-powered productivity app designed to simplify daily planning, support smarter decision-making, and help people make meaningful progress toward their goals.
 
-It gives users one place to set goals, track everyday habits and wellbeing, reflect on their progress, and get personalized support through an AI assistant. The experience is designed to feel calm and focused rather than overwhelming.
- 
-## What EVOLV does
+By bringing goal management, progress insights, reminders, and an AI assistant into one focused experience, EVOLV helps users understand their priorities, organise their workload, and stay focused on what matters.
 
-- **Authentication** — secure account access with email/password, Google, and GitHub sign-in.
-- **Personal onboarding** — guides new users through setting up their EVOLV experience.
-- **Personal dashboard** — a personalized home for goals, progress, momentum, and daily activity.
-- **Goal tracking** — create and manage meaningful goals and track progress over time.
-- **Health & wellbeing  logs** — record sleep, food intake, mood, joy, environment, and other daily check-ins.
-- **Sleep tracking** — log sleep using bedtime and wake-up times and view it in hours.
-- **Progress visualization** — see activity and momentum through visual progress indicators and charts.
-- **AI companion** — chat with an AI assistant that can use the user's profile and progress context to provide more relevant responses.
-- **Persistent data** — user progress and activity are stored in a real backend so information remains available across sessions.
-- **Notifications** — notification infrastructure for scheduled wellbeing check-ins and reminders.
-- **Profile & account management** — manage profile information, avatar, notification preferences, and account actions.
-- **Health guides & articles** — access practical wellbeing content directly inside the app.
-- **Responsive experience** — carefully designed for both mobile and desktop, with a mobile-first interaction style.
-- **Premium UI & motion** — cinematic layouts, glass-style navigation, subtle green accents, animated interactions, and GSAP-powered motion.
+The product is built around a simple principle: productivity should feel clear and intentional, not overwhelming. Its interface prioritizes meaningful context, thoughtful visual hierarchy, and subtle guidance over unnecessary visual noise.
 
-## Tech Stack
+## What EVOLV offers
 
-- **React**
-- **JavaScript**
-- **CSS**
-- **Supabase**
+- **AI assistant** — chat with an AI assistant for personalised guidance and support informed by relevant profile and progress context.
+- **Goal management** — create, organise, and manage goals while keeping progress visible.
+- **Progress insights** — understand activity and momentum through visual indicators, charts, and progress views.
+- **Personalised dashboard** — bring goals, priorities, progress, and daily activity together in one place.
+- **Daily check-ins** — record useful wellbeing and routine context to support more informed reflection and planning.
+- **Reminders and notifications** — receive scheduled check-ins and reminders that help maintain consistency.
+- **Authentication** — sign in securely with email/password, Google, or GitHub.
+- **Personalised onboarding** — set up an experience around individual goals and preferences.
+- **Persistent data** — keep account information, goals, and progress available across sessions through a connected backend.
+- **Profile and account management** — manage personal information, avatar, notification preferences, and account actions.
+- **Guides and articles** — access practical content within the app.
+- **Responsive interface** — use EVOLV across mobile and desktop, with mobile-first interactions.
+
+## Product philosophy
+
+EVOLV aims to make productivity easier to understand and act on. Instead of presenting disconnected information without context, it brings goals, progress, and AI assistance together to help users decide what deserves their attention and keep moving forward.
+
+The design direction is calm, minimal, and intentional: clear hierarchy, considered spacing, restrained visual detail, and useful guidance over visual clutter.
+
+## Tech stack
+
+- **Frontend:** React, JavaScript, CSS
+- **Backend:** Supabase
   - Authentication
   - PostgreSQL database
   - Edge Functions
-- **GSAP**
-- **Recharts**
-- **AI integration**
-- **GitHub**
-- **Vercel**
+- **AI:** AI assistant integration
+- **Animation:** GSAP
+- **Data visualisation:** Recharts
+- **Deployment:** Vercel
 
 ## Architecture
 
-EVOLV is built as a real full-stack application rather than a static frontend concept.
-
-The React client handles the user experience and application state, while Supabase provides authentication, persistent database storage, and server-side Edge Functions. AI requests and notification functionality are connected through backend services, allowing the application to work with real user data.
-
-## Why I built EVOLV
-
-EVOLV was created around a simple idea: personal growth becomes easier to understand when you can actually see it.
-
-Instead of treating goals, health, habits, and reflection as disconnected activities, EVOLV brings them together into one focused experience where users can build consistency, understand their momentum, and keep moving forward.
+EVOLV is a full-stack application, not just a static frontend concept. The React client handles the user interface and application state, while Supabase provides authentication, persistent database storage, and server-side Edge Functions. AI and notification features connect through backend services.
 
 ## Project highlights
 
-This project covers the full product development process:
+EVOLV brings together product thinking and implementation across:
 
-**Concept → UX/UI design → frontend development → authentication → database design → backend integration → AI integration → responsive design → animations → deployment.**
+**Product concept → UX/UI design → frontend development → authentication → database design → backend integration → AI integration → responsive design → motion → deployment.**
 
-EVOLV is one of my main portfolio projects and demonstrates my ability to build and polish a functional product from idea to production.
+It is an ongoing portfolio project focused on building a useful, cohesive productivity experience powered by AI.
 
 ---
 
-### Built by Iman Chika
+### Built by Iman
 
 Software Engineering Student & Developer
