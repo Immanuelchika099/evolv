@@ -5601,3 +5601,22 @@ body,
   }
 }
 
+/* Final surface override: goal cards must render true black, not charcoal */
+.dashboard .goals-page .goal-list .goal-item,
+.dashboard .goal-list .goal-item.goal-accordion-item,
+.goals-page .goal-list .goal-item.goal-accordion-item {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+.dashboard .goals-page .goal-list .goal-item::before,
+.dashboard .goal-list .goal-item.goal-accordion-item::before,
+.goals-page .goal-list .goal-item.goal-accordion-item::before {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  opacity: 0 !important;
+}
+
