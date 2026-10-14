@@ -169,3 +169,32 @@
   .prompt-bar__send { width: 36px; height: 36px; }
   .prompt-bar__glyph { width: 23px; height: 23px; }
 }
+
+
+/* Stop-generation control: circular outer button; keep the rounded-square glyph. */
+.prompt-bar__send {
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  border-radius: 50% !important;
+}
+
+.prompt-bar__send .prompt-bar__glyph {
+  width: 20px !important;
+  height: 20px !important;
+}
+
+@media (pointer: coarse) {
+  .prompt-bar__send {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    min-height: 32px !important;
+  }
+
+  .prompt-bar__send .prompt-bar__glyph {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
