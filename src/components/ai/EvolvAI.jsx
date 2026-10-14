@@ -124,6 +124,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         .order('created_at', { ascending: true })
         .limit(100)
       if (mounted) {
+        shouldAutoScrollRef.current = true
         setMessages(data?.length ? data : [])
         setHasStartedTyping(false)
       }
@@ -326,6 +327,18 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     return () => node.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Keep the latest response in view while the user is already at the bottom,
+  // without pulling them back down if they intentionally scroll up.
+  useEffect(() => {
+    const node = messagesRef.current
+    if (!node || !shouldAutoScrollRef.current) return
+
+    const frame = window.requestAnimationFrame(() => {
+      node.scrollTop = node.scrollHeight
+    })
+    return () => window.cancelAnimationFrame(frame)
+  }, [messages, typing, sending])
+
   useEffect(() => {
     return () => window.speechSynthesis?.cancel()
   }, [])
@@ -431,6 +444,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       ? safeAttachments.map(file => `[Attached: ${file.name || 'file'}]`).join(' ')
       : ''
     const storedUserContent = [cleanText, attachmentSummary].filter(Boolean).join(' ')
+    shouldAutoScrollRef.current = true
     const nextMessages = [...messages, { role: 'user', content: storedUserContent, attachments: safeAttachments }]
     setMessages(nextMessages)
     setSending(true)
