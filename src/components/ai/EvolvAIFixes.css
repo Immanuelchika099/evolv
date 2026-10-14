@@ -807,11 +807,12 @@ html:has(.dashboard.dashboard-ai-active) {
 
 /* Long-press menu for sent user prompts. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user {
-  -webkit-touch-callout: none;
+  -webkit-touch-callout: default !important;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.user p {
-  -webkit-user-select: text;
-  user-select: text;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-touch-callout: default !important;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-prompt-menu-backdrop {
   position: fixed !important;
