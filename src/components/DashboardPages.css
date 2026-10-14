@@ -5264,3 +5264,35 @@ body,
 .dashboard-home-redesign .home-today-row .home-today-check {
   display: none !important;
 }
+
+
+/* Compact the two-column homepage activity cards while keeping their breathing room. */
+.dashboard-home-redesign .home-today-row {
+  min-height: 11.5rem;
+  padding: 1.3rem;
+  grid-template-areas:
+    "icon icon"
+    "copy copy";
+  align-content: start;
+  gap: 1.1rem;
+}
+.dashboard-home-redesign .home-today-icon {
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 1.05rem;
+}
+.dashboard-home-redesign .home-today-copy {
+  align-self: start;
+  gap: .35rem;
+}
+@media (max-width: 420px) {
+  .dashboard-home-redesign .home-today-row {
+    min-height: 10.5rem;
+    padding: 1.1rem;
+    gap: .9rem;
+  }
+  .dashboard-home-redesign .home-today-icon {
+    width: 2.9rem;
+    height: 2.9rem;
+  }
+}
