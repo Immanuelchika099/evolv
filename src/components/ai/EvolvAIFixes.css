@@ -1157,3 +1157,16 @@ html:has(.dashboard.dashboard-ai-active) {
   background: rgba(255,255,255,.07) !important;
   color: #f5f5f5 !important;
 }
+
+
+/* Keep the three-dot icon visible while the transparent native select handles taps. */
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap .ai-more-button {
+  position: relative !important;
+  z-index: 1 !important;
+  pointer-events: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-select {
+  z-index: 2 !important;
+  color: transparent !important;
+  background: transparent !important;
+}
