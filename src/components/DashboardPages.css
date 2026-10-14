@@ -5786,3 +5786,76 @@ body,
     font-size: 1.2rem !important;
   }
 }
+
+
+/* Edit goal actions — keep Save and Cancel separated and visibly styled */
+.dashboard .goals-page .goal-create-form .goal-form-actions {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  flex-wrap: nowrap !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin-top: 1rem !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-form-actions > button {
+  position: static !important;
+  display: inline-flex !important;
+  flex: 1 1 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .7rem !important;
+  width: auto !important;
+  min-width: 0 !important;
+  min-height: 4.8rem !important;
+  margin: 0 !important;
+  padding: 1.2rem 1.4rem !important;
+  box-sizing: border-box !important;
+  border-radius: 1.2rem !important;
+  font-family: inherit !important;
+  font-size: 1.45rem !important;
+  font-weight: 650 !important;
+  line-height: 1.25 !important;
+  white-space: nowrap !important;
+  cursor: pointer !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-form-actions > button.button-primary {
+  border: 1px solid #c1f45b !important;
+  background: #c1f45b !important;
+  color: #11140a !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-form-actions > button.goal-cancel-button {
+  border: 1px solid #3a3a3a !important;
+  background: #171717 !important;
+  color: #f3f3f3 !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-form-actions > button.goal-cancel-button:hover {
+  border-color: #666 !important;
+  background: #242424 !important;
+  color: #fff !important;
+}
+
+.dashboard .goals-page .goal-create-form .goal-form-actions > button:disabled {
+  opacity: .6 !important;
+  cursor: wait !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard .goals-page .goal-create-form .goal-form-actions {
+    gap: .8rem !important;
+  }
+
+  .dashboard .goals-page .goal-create-form .goal-form-actions > button {
+    min-height: 4.6rem !important;
+    padding: 1.1rem .8rem !important;
+    font-size: 1.35rem !important;
+  }
+}
