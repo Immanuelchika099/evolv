@@ -85,6 +85,35 @@ export default function ProfileSettingsPage({pageProps}){
   async function exportData(){try{const blob=new Blob([JSON.stringify({exported_at:new Date().toISOString(),profile,auth_user:{id:user?.id,email:user?.email,created_at:user?.created_at,user_metadata:user?.user_metadata},logs,meals,goals,notifications:pageProps.notifications||[],preferences:settings},null,2)],{type:'application/json'});const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='evolv-data-'+new Date().toISOString().slice(0,10)+'.json';a.click();URL.revokeObjectURL(url);showToast('Your EVOLV data was exported.')}catch{showToast('Could not export your data.',true)}}
   async function resetHabitData(){setResetting(true);try{if(!user?.id)throw new Error('Your session has expired.');for(const [table,column] of [['goal_checkins','user_id'],['daily_reflections','user_id'],['notification_delivery_log','user_id'],['push_subscriptions','user_id'],['metric_logs','user_id'],['meal_logs','user_id'],['goals','user_id']]){const {error}=await supabase.from(table).delete().eq(column,user.id);if(error)throw error}setConfirmAction(null);window.dispatchEvent(new Event('evolv-tracking-updated'));showToast('Habit data reset.');setTimeout(()=>window.location.reload(),500)}catch(err){showToast(err?.message||'Could not reset habit data.',true)}finally{setResetting(false)}}
 
+  async function handleConfirmedAction(){
+    const action = confirmAction
+    if(!action) return
+
+    if(action === 'reset'){
+      await resetHabitData()
+      return
+    }
+
+    setConfirmAction(null)
+    if(action === 'logout'){
+      try{
+        await onLogout()
+      }catch(err){
+        showToast(err?.message || 'Could not log out. Please try again.', true)
+      }
+      return
+    }
+
+    if(action === 'delete'){
+      try{
+        const result = await deleteAccount()
+        if(result === false) showToast('Could not start account deletion. Please try again.', true)
+      }catch(err){
+        showToast(err?.message || 'Could not delete your account. Please try again.', true)
+      }
+    }
+  }
+
   const allActivity=useMemo(()=>[...logs,...meals],[logs,meals]),streaks=useMemo(()=>streaksFor(allActivity),[allActivity]),memberSince=user?.created_at||profile?.created_at?new Date(user?.created_at||profile?.created_at).toLocaleDateString(undefined,{month:'short',year:'numeric'}):'—',completed=allActivity.length,initials=profileName.trim().split(/\s+/).filter(Boolean).slice(0,2).map(p=>p[0]).join('').toUpperCase()||'E',displayAvatar=avatarPreview||localAvatar||avatarUrl,firstName=profileName.trim().split(/\s+/)[0]||'There'
 
   if(loading&&!user)return <section className="panel-page dashboard-panel settings-page settings-loading" aria-busy="true"><span className="section-label">YOUR SPACE</span><h2>Profile.</h2><div className="settings-loading-line"/><div className="settings-loading-line short"/></section>
@@ -141,7 +170,7 @@ export default function ProfileSettingsPage({pageProps}){
       </div>
     </div>
     {editOpen&&createPortal(<div className="profile-modal-backdrop" role="presentation" onMouseDown={e=>e.target===e.currentTarget&&cancelEdit()}><section className="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-edit-title"><div className="profile-modal-head"><div><span className="section-label">ACCOUNT</span><h3 id="profile-edit-title">Edit profile.</h3></div><button type="button" onClick={cancelEdit} aria-label="Close edit profile"><X size={18}/></button></div><form onSubmit={saveProfile}><label><span>Name</span><input autoFocus maxLength={80} value={draft.name} onChange={e=>{setDraft({...draft,name:e.target.value});setUnsaved(true)}}/></label><label><span>Email</span><input type="email" maxLength={320} value={draft.email} onChange={e=>{setDraft({...draft,email:e.target.value});setUnsaved(true)}}/></label><label><span>Bio <small>optional</small></span><textarea maxLength={180} rows="3" value={draft.bio} onChange={e=>{setDraft({...draft,bio:e.target.value});setUnsaved(true)}} placeholder="A short line about you."/></label>{error&&<p className="profile-inline-error" role="alert">{error}</p>}<div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={cancelEdit}>Cancel</button><button type="submit" className="button button-primary" disabled={saving}>{saving?'Saving…':'Save changes'} <Check size={15}/></button></div></form></section></div>,document.body)}
-    {confirmAction&&<div className="profile-modal-backdrop"><section className="profile-modal confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="profile-confirm-title"><div className="confirmation-icon"><Trash2 size={18}/></div><span className="section-label">ARE YOU SURE</span><h3 id="profile-confirm-title">{confirmAction==='reset'?'Reset habit data?':confirmAction==='logout'?'Log out of EVOLV?':'Delete your account?'}</h3><p>{confirmAction==='reset'?'This permanently removes your logs, meals, goals, reflections and notification history. Your account stays intact.':confirmAction==='logout'?'Your data remains saved. You can sign back in whenever you are ready.':'This permanently removes your EVOLV account. This cannot be undone.'}</p><div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={()=>setConfirmAction(null)}>Cancel</button><button type="button" className="settings-danger-button" disabled={resetting||deleting} onClick={()=>{if(confirmAction==='reset')resetHabitData();if(confirmAction==='logout'){setConfirmAction(null);onLogout()};if(confirmAction==='delete'){setConfirmAction(null);deleteAccount()}}}>{resetting||deleting?'Working…':confirmAction==='reset'?'Reset data':confirmAction==='logout'?'Log out':'Delete account'}</button></div></section></div>}
+    {confirmAction&&<div className="profile-modal-backdrop"><section className="profile-modal confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="profile-confirm-title"><div className="confirmation-icon"><Trash2 size={18}/></div><span className="section-label">ARE YOU SURE</span><h3 id="profile-confirm-title">{confirmAction==='reset'?'Reset habit data?':confirmAction==='logout'?'Log out of EVOLV?':'Delete your account?'}</h3><p>{confirmAction==='reset'?'This permanently removes your logs, meals, goals, reflections and notification history. Your account stays intact.':confirmAction==='logout'?'Your data remains saved. You can sign back in whenever you are ready.':'This permanently removes your EVOLV account. This cannot be undone.'}</p><div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={()=>setConfirmAction(null)}>Cancel</button><button type="button" className="settings-danger-button" disabled={resetting||deleting} onClick={handleConfirmedAction}>{resetting||deleting?'Working…':confirmAction==='reset'?'Reset data':confirmAction==='logout'?'Log out':'Delete account'}</button></div></section></div>}
     {toast&&<div className={'profile-toast '+(toastError?'error':'')} role="status" aria-live="polite">{toast}</div>}
   </section>
 }
