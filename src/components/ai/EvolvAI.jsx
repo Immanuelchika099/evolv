@@ -178,7 +178,7 @@ function EvolvCalendarBridge({ event, onCancel, onAdded }) {
 }
 
 function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
-  const firstName = profile?.first_name || 'there'
+  const firstName = String(profile?.first_name || profile?.full_name || profile?.name || '').trim().split(/\s+/)[0] || 'there'
   const [chatId, setChatId] = useState(() => {
     try {
       return localStorage.getItem('evolv-ai-chat-id') || crypto.randomUUID()
@@ -796,7 +796,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         signal: controller.current.signal,
         body: JSON.stringify({
           messages: nextMessages,
-          profile,
+          profile: profile ? { ...profile, first_name: firstName } : profile,
           progress: progressContext,
           model: model?.key || null,
           effort: effort || null,
