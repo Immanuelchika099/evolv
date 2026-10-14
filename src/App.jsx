@@ -399,181 +399,145 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome, directSignup = false
     window.addEventListener('pageshow', handlePageShow)
     window.addEventListener('popstate', resetOAuthLoading)
 
-    return () => {
-      window.removeEventListener('pageshow', handlePageShow)
-      window.removeEventListener('popstate', resetOAuthLoading)
-    }
-  }, [])
-
-  async function continueWithProvider(provider) {
-    setSending(true)
-    setError('')
-    setMessage('')
-
-    // Remember that this OAuth attempt was explicitly made from the
-    // sign-in screen. After the provider redirects back, App validates
-    // that an EVOLV profile already exists before allowing access.
-    if (mode === 'login') {
-      sessionStorage.setItem('evolv-oauth-intent', 'login')
-    } else {
-      sessionStorage.removeItem('evolv-oauth-intent')
-    }
-
-    const { error: oauthError } = await supabase.auth.signInWithOAuth({
-      provider,
-      options: { redirectTo: window.location.origin },
-    })
-
-    if (oauthError) {
-      sessionStorage.removeItem('evolv-oauth-intent')
-      setError(oauthError.message || `Could not continue with ${provider}. Please try again.`)
-      setSending(false)
-    }
-  }
-
-  async function requestPasswordReset() {
-    const cleanEmail = email.trim()
-
-    if (!cleanEmail) {
-      setError('Enter your email first.')
-      return
-    }
-
-    setSending(true)
-    setError('')
-    setMessage('')
-
-    const { error: resetError } = await supabase.auth.resetPasswordForEmail(cleanEmail, {
-      redirectTo: window.location.origin,
-    })
-
-    setSending(false)
-
-    if (resetError) {
-      setError(resetError.message || 'Could not send the password reset email. Please try again.')
-      return
-    }
-
-    setMessage('Password reset instructions have been sent to your email.')
-  }
-
-  async function submit(event) {
-    event.preventDefault()
-    const cleanEmail = email.trim()
-
-    if (!cleanEmail || !password) {
-      setError('Enter your email and password to continue.')
-      return
-    }
-
-    setSending(true)
-    setError('')
-    setMessage('')
-
-    try {
-      const result = mode === 'signup'
-        ? await supabase.auth.signUp({
-          email: cleanEmail,
-          password,
-          options: { emailRedirectTo: window.location.origin },
-        })
-        : await supabase.auth.signInWithPassword({
-          email: cleanEmail,
-          password,
-        })
-
-      if (result.error) {
-        console.error('EVOLV auth error:', {
-          message: result.error.message,
-          code: result.error.code,
-          status: result.error.status,
-          name: result.error.name,
-        })
-
-        const code = result.error.code || ''
-        if (code === 'signup_disabled') {
-          setError('Account creation is currently disabled. Check your EVOLV authentication settings.')
-        } else if (code === 'email_provider_disabled') {
-          setError('Email sign-up is not enabled yet. Check EVOLV authentication settings.')
-        } else if (code === 'weak_password') {
-          setError('That password is too weak. Please choose a stronger password.')
-        } else if (code === 'user_already_exists') {
-          setError('An account with this email already exists. Try signing in instead.')
-        } else if (code === 'over_email_send_rate_limit') {
-          setError('Too many confirmation emails have been requested. Please wait a little and try again.')
-        } else {
-          setError(result.error.message || 'EVOLV could not create your account. Please try again.')
-        }
-        return
-      }
-
-      if (mode === 'signup' && !result.data.session) {
-        setMessage('Your account was created. Check your email to confirm it, then come back and sign in.')
-        return
-      }
-
-      if (result.data.user) {
-        try {
-          await onSuccess(result.data.user, mode)
-        } catch (profileError) {
-          console.error('EVOLV profile setup failed:', profileError)
-          setError(profileError?.message || 'Your account was created, but we could not finish setting up your EVOLV profile.')
-        }
-      }
-    } catch (submitError) {
-      console.error('EVOLV authentication request failed:', submitError)
-
-      const message = submitError?.message || ''
-      if (/failed to fetch|network|load failed/i.test(message)) {
-        setError('EVOLV could not reach its authentication service. Check your connection and try again.')
-      } else {
-        setError(message || 'Something went wrong while creating your account. Please try again.')
-      }
-    } finally {
-      setSending(false)
-    }
-  }
-
-  return (
+    return (
     <div className={`page-enter auth-page${directSignup ? ' auth-direct-page' : ''}`}>
-      <header className="onboard-head">
-        <button className="auth-brand" onClick={onHome} aria-label="Back to EVOLV home"><Brand /></button>
-        <span className="step-count">{mode === 'signup' ? 'CREATE ACCOUNT' : 'WELCOME BACK'}</span>
-      </header>
-      <section className="auth-content auth-content-compact auth-flow-content">
-        {authStage === 'choices' ? <>
-          <h1>{directSignup && mode === 'signup' ? 'Make your next move.' : mode === 'signup' ? 'Your next chapter starts here.' : 'Welcome back.'}</h1>
-          <p className="auth-flow-subtitle">{directSignup && mode === 'signup' ? 'Create your account and get straight into your growth dashboard.' : mode === 'signup' ? 'Make space for the person you’re becoming.' : 'Pick up where your growth journey left off.'}</p>
-          <div className="auth-provider-stack">
-            <button className="google-auth-button google-auth-button-primary auth-choice-google" type="button" onClick={() => continueWithProvider('google')} disabled={sending}><img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" /><span>{sending ? 'Connecting…' : 'Continue with Google'}</span></button>
-            <button className="google-auth-button auth-choice-github" type="button" onClick={() => continueWithProvider('github')} disabled={sending}><img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" /><span>Continue with GitHub</span></button>
-          </div>
-          <div className="auth-divider auth-divider-compact"><span>OR</span></div>
-          <button className="auth-email-choice" type="button" onClick={() => { setAuthStage('email'); setError(''); setMessage('') }}><span>Continue with email</span><ArrowRight size={18}/></button>
-          {error && <p className="auth-error" role="alert">{error}</p>}
-          {message && <p className="auth-message">{message}</p>}
-        </> : <>
-          <button className="auth-step-back" type="button" onClick={() => { setAuthStage('choices'); setError(''); setMessage('') }}><ChevronLeft size={20}/> Back</button>
-          <div className="auth-step-progress"><span className="active"/><span className={authStage === 'password' ? 'active' : ''}/></div>
-          <h1>{mode === 'signup' ? (authStage === 'email' ? 'What’s your email address?' : 'Create a password') : 'Sign in with email'}</h1>
-          <p className="auth-flow-subtitle">{mode === 'signup' ? (authStage === 'email' ? 'We’ll use this to set up your Evolv account.' : 'Use at least 8 characters.') : 'Enter your details to continue your journey.'}</p>
-          <section className="auth-method auth-method-email">
+      <main className="auth-shell">
+        <div className="auth-welcome-mark" aria-hidden="true">
+          <img src="/evolv-mark.svg" alt="" />
+        </div>
+
+        <header className="auth-intro">
+          <h1>Welcome to EVOLV</h1>
+          <p>Sign in and continue creating</p>
+        </header>
+
+        <button
+          className="auth-signup-banner"
+          type="button"
+          onClick={() => {
+            setMode('signup')
+            setAuthStage('choices')
+            setError('')
+            setMessage('')
+          }}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20 12.5V7.8a1.8 1.8 0 0 0-1.8-1.8H5.8A1.8 1.8 0 0 0 4 7.8v8.4A1.8 1.8 0 0 0 5.8 18H12" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M8 6V4.8A1.8 1.8 0 0 1 9.8 3h4.4A1.8 1.8 0 0 1 16 4.8V6M8 10h8M8 13h5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
+            <path d="M18.2 14.2v6m-3-3h6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+          </svg>
+          <span>Sign up with work email &amp; start evolving</span>
+          <svg className="auth-banner-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
+
+        <div className="auth-provider-stack">
+          <button className="auth-provider-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
+            <svg className="auth-provider-icon auth-google-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5Z" transform="translate(0 4)"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.73 7.18l7.64 5.93c4.46-4.13 7.13-10.2 7.13-17.58Z" transform="translate(0 0)"/>
+              <path fill="#FBBC05" d="M10.53 28.59a14.4 14.4 0 0 1 0-9.18l-7.98-6.19a23.9 23.9 0 0 0 0 21.56l7.98-6.19Z" transform="translate(0 0)"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.9-5.87l-7.64-5.93c-2.12 1.42-4.84 2.27-8.26 2.27-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48Z" transform="translate(0 -4)"/>
+            </svg>
+            <span>{sending ? 'Connecting…' : 'Continue with Google'}</span>
+          </button>
+
+          <button className="auth-provider-button" type="button" onClick={() => continueWithProvider('github')} disabled={sending}>
+            <svg className="auth-provider-icon auth-github-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.75-1.32-3.75-1.32-.5-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15.99 1.7 2.6 1.21 3.23.92.1-.72.39-1.21.71-1.49-2.47-.28-5.07-1.24-5.07-5.5 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.95 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.12-1.44 3.05-1.14 3.05-1.14.61 1.53.23 2.67.12 2.95.71.78 1.14 1.77 1.14 2.99 0 4.27-2.6 5.21-5.08 5.49.4.34.76 1.02.76 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/>
+            </svg>
+            <span>{sending ? 'Connecting…' : 'Continue with GitHub'}</span>
+          </button>
+        </div>
+
+        <div className="auth-divider auth-divider-compact"><span>OR</span></div>
+
+        {authStage === 'choices' ? (
+          <form className="auth-quick-form" onSubmit={(event) => {
+            event.preventDefault()
+            if (!email.trim()) {
+              setError('Enter your work email to continue.')
+              return
+            }
+            setError('')
+            setMessage('')
+            setAuthStage(mode === 'signup' ? 'password' : 'email')
+          }}>
+            <label htmlFor="auth-work-email">Work email</label>
+            <input
+              id="auth-work-email"
+              type="email"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+              placeholder="name@company.com"
+              autoComplete="email"
+              required
+            />
+            <button className="auth-continue-button" type="submit" disabled={sending}>
+              <span>Continue</span>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+          </form>
+        ) : (
+          <section className="auth-email-step">
+            <button className="auth-step-back" type="button" onClick={() => { setAuthStage('choices'); setError(''); setMessage('') }}>
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              Back
+            </button>
+            <h2>{mode === 'signup' ? 'Create your password' : 'Sign in with email'}</h2>
+            <p className="auth-step-copy">{mode === 'signup' ? 'Use at least 8 characters to secure your account.' : 'Enter your password to continue.'}</p>
             <form className="auth-form" onSubmit={submit}>
-              {authStage === 'email' || mode === 'login' ? <label><span>Email address</span><input required type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="you@example.com" autoComplete="email" autoFocus/></label> : <div className="auth-email-summary"><span>Email address</span><strong>{email}</strong><button type="button" onClick={() => setAuthStage('email')}>Change</button></div>}
-              {(authStage === 'password' || mode === 'login') && <label><span>Password</span><div className="auth-password-wrap"><input required minLength={mode === 'signup' ? 8 : undefined} type={showPassword ? 'text' : 'password'} value={password} onChange={e => setPassword(e.target.value)} placeholder={mode === 'signup' ? 'At least 8 characters' : 'Your password'} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}/><button type="button" className="auth-password-toggle" onClick={() => setShowPassword(v => !v)}>{showPassword ? 'Hide' : 'Show'}</button></div>{mode === 'signup' && <small className="auth-password-hint">Use 8 or more characters, including letters and numbers.</small>}</label>}
+              {mode === 'login' ? (
+                <label>
+                  <span>Work email</span>
+                  <input required type="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="name@company.com" autoComplete="email" autoFocus />
+                </label>
+              ) : (
+                <div className="auth-email-summary">
+                  <span>Work email</span>
+                  <strong>{email}</strong>
+                  <button type="button" onClick={() => setAuthStage('choices')}>Change</button>
+                </div>
+              )}
+              <label>
+                <span>Password</span>
+                <div className="auth-password-wrap">
+                  <input required minLength={mode === 'signup' ? 8 : undefined} type={showPassword ? 'text' : 'password'} value={password} onChange={event => setPassword(event.target.value)} placeholder={mode === 'signup' ? 'At least 8 characters' : 'Your password'} autoComplete={mode === 'signup' ? 'new-password' : 'current-password'} />
+                  <button type="button" className="auth-password-toggle" onClick={() => setShowPassword(value => !value)}>{showPassword ? 'Hide' : 'Show'}</button>
+                </div>
+              </label>
               {mode === 'login' && <button className="forgot-password" type="button" onClick={requestPasswordReset} disabled={sending}>Forgot password?</button>}
-              {error && <p className="auth-error" role="alert">{error}</p>}{message && <p className="auth-message">{message}</p>}
-              {mode === 'signup' && authStage === 'email' ? <button className="button button-primary auth-submit" type="button" disabled={!email.trim()} onClick={() => { setAuthStage('password'); setError(''); setMessage('') }}>Next <ArrowRight size={16}/></button> : <button className="button button-primary auth-submit" disabled={sending} type="submit">{sending ? (mode === 'signup' ? 'Creating account…' : 'Signing in…') : (mode === 'signup' ? 'Create account' : 'Sign in')}{!sending && <ArrowRight size={16}/>}</button>}
+              {error && <p className="auth-error" role="alert">{error}</p>}
+              {message && <p className="auth-message" role="status">{message}</p>}
+              <button className="auth-continue-button" type="submit" disabled={sending}>
+                <span>{sending ? (mode === 'signup' ? 'Creating account…' : 'Signing in…') : (mode === 'signup' ? 'Create account' : 'Sign in')}</span>
+                {!sending && <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
+              </button>
             </form>
           </section>
-        </>}
-        <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setAuthStage('choices'); setEmail(''); setPassword(''); setError(''); setMessage('') }}>{mode === 'signup' ? 'Already have an account? Log in' : 'New to EVOLV? Create an account'}</button>
-        <button className="auth-back" onClick={onHome}><ChevronLeft size={15}/> Back to homepage</button>
-      </section>
-      <footer className="onboard-footer"><span>{directSignup ? 'EVOLV / YOUR NEXT SELF' : data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span><span>{directSignup ? 'START WHERE YOU ARE.' : 'YOUR DATA, YOUR JOURNEY.'}</span></footer>
+        )}
+
+        {authStage === 'choices' && error && <p className="auth-error" role="alert">{error}</p>}
+        {authStage === 'choices' && message && <p className="auth-message" role="status">{message}</p>}
+
+        <div className="auth-account-switch">
+          <span>{mode === 'signup' ? 'Already have an account?' : 'New to EVOLV?'}</span>
+          <button type="button" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setAuthStage('choices'); setEmail(''); setPassword(''); setError(''); setMessage('') }}>
+            {mode === 'signup' ? 'Log in' : 'Create account'}
+          </button>
+        </div>
+
+        <p className="auth-legal">By continuing, you agree to EVOLV&apos;s <span>Terms</span> and <span>Privacy Policy</span></p>
+      </main>
     </div>
   )
 }
+
 
 
 
