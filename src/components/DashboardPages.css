@@ -5348,3 +5348,38 @@ body,
     font-size: 1.35rem !important;
   }
 }
+
+
+/* Keep dashboard form fields neutral on focus: no rounded focus ring,
+   lime fill, or browser-default highlight when typing or changing a select. */
+.dashboard .panel-page input:not([type="checkbox"]):not([type="radio"]):not([type="file"]),
+.dashboard .panel-page textarea,
+.dashboard .panel-page select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.dashboard .panel-page input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):hover,
+.dashboard .panel-page textarea:hover,
+.dashboard .panel-page select:hover,
+.dashboard .panel-page input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus,
+.dashboard .panel-page textarea:focus,
+.dashboard .panel-page select:focus,
+.dashboard .panel-page input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):focus-visible,
+.dashboard .panel-page textarea:focus-visible,
+.dashboard .panel-page select:focus-visible,
+.dashboard .panel-page input:not([type="checkbox"]):not([type="radio"]):not([type="file"]):active,
+.dashboard .panel-page textarea:active,
+.dashboard .panel-page select:active {
+  background-color: #101010 !important;
+  background-image: none !important;
+  border-color: rgba(255, 255, 255, .12) !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #f4f4f5 !important;
+}
+
+.dashboard .panel-page input:not([type="checkbox"]):not([type="radio"]):not([type="file"])::selection,
+.dashboard .panel-page textarea::selection {
+  background: rgba(255, 255, 255, .18);
+  color: #fff;
+}
