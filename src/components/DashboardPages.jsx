@@ -33,6 +33,8 @@ function HomePage({ pageProps }) {
     goals = []
   } = pageProps
 
+  const firstName = String(name || '').trim().split(/\s+/)[0] || 'there'
+
   const [now, setNow] = useState(() => new Date())
   const [statsMode, setStatsMode] = useState('week')
   const [skippedToday, setSkippedToday] = useState(() => {
@@ -116,7 +118,7 @@ function HomePage({ pageProps }) {
       <section className="dashboard-welcome dashboard-welcome-minimal">
         <div className="dashboard-welcome-copy">
           <span className="dashboard-eyebrow">{greeting.charAt(0) + greeting.slice(1).toLowerCase()}</span>
-          <h1 className="home-greeting-title">{name || 'there'}</h1>
+          <h1 className="home-greeting-title">{firstName}</h1>
         </div>
         <button className="home-add-button" type="button" onClick={() => openLog()} aria-label="Add a check-in"><Plus size={21}/></button>
       </section>
