@@ -5,7 +5,7 @@ import {
   WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell,
   Footprints, Zap, Scale, Smile, Focus, NotebookPen, BookOpen, Receipt,
   PiggyBank, ArrowDownLeft, ArrowUpRight, Activity, Users, CheckCircle2,
-  Utensils, Sparkles, Send, Sunrise, X, LineChart
+  Utensils, Sparkles, Send, Sunrise, X, LineChart, ChevronDown
 } from 'lucide-react'
 import './DashboardPages.css'
 import '../styles/tokens.css'
@@ -350,6 +350,7 @@ function ProgressPage({ pageProps }) {
   const heatmapScrollRef = useRef(null)
   const [heatmapNow, setHeatmapNow] = useState(() => new Date())
   const [goalGraphRange, setGoalGraphRange] = useState('year')
+  const [expandedProgressCard, setExpandedProgressCard] = useState('goal-progress')
   useEffect(() => {
     const timer = window.setInterval(() => setHeatmapNow(new Date()), 60000)
     return () => window.clearInterval(timer)
@@ -518,22 +519,38 @@ function ProgressPage({ pageProps }) {
             )}
           </section>
 
-          <div className="progress-overview-grid progress-simple-stats">
-            <article className="progress-overview-card progress-overview-primary">
-              <span className="section-label">GOAL PROGRESS</span>
-              <strong>{activeGoals.length?goalProgress+'%':'—'}</strong>
-              <p>Across your active goals.</p>
-            </article>
-            <article className="progress-overview-card">
-              <span className="section-label">LOGGED</span>
-              <strong>{thingsLogged}</strong>
-              <p>Entries in {progressRange} days.</p>
-            </article>
-            <article className="progress-overview-card">
-              <span className="section-label">ACTIVE DAYS</span>
-              <strong>{activeDays}</strong>
-              <p>Days you checked in.</p>
-            </article>
+          <div className="progress-overview-grid progress-simple-stats progress-accordion" aria-label="Progress details">
+            {[
+              { id: 'goal-progress', label: 'GOAL PROGRESS', value: activeGoals.length ? goalProgress + '%' : '—', detail: 'Across your active goals.' },
+              { id: 'logged', label: 'LOGGED', value: thingsLogged, detail: `Entries in ${progressRange} days.` },
+              { id: 'active-days', label: 'ACTIVE DAYS', value: activeDays, detail: 'Days you checked in.' }
+            ].map((item, index) => {
+              const isOpen = expandedProgressCard === item.id
+              return (
+                <article className={`progress-overview-card progress-accordion-card ${isOpen ? 'is-open' : 'is-closed'}`} key={item.id}>
+                  <button
+                    type="button"
+                    className="progress-accordion-trigger"
+                    aria-expanded={isOpen}
+                    aria-controls={`progress-panel-${item.id}`}
+                    onClick={() => setExpandedProgressCard(isOpen ? null : item.id)}
+                  >
+                    <span className="section-label">{item.label}</span>
+                    <ChevronDown size={18} aria-hidden="true" />
+                  </button>
+                  <div
+                    className="progress-accordion-panel"
+                    id={`progress-panel-${item.id}`}
+                    aria-hidden={!isOpen}
+                  >
+                    <div className="progress-accordion-panel-inner">
+                      <strong>{item.value}</strong>
+                      <p>{item.detail}</p>
+                    </div>
+                  </div>
+                </article>
+              )
+            })}
           </div>
 
         </section>
