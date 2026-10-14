@@ -68,7 +68,6 @@ function HomePage({ pageProps }) {
   const dailyTarget = 5
   const progress = Math.min(100, Math.round((todayCount / dailyTarget) * 100))
   const remaining = Math.max(0, dailyTarget - todayCount)
-  const todayUnique = new Set(todayLogs.map(item => String(item.metric_id))).size + todayMeals.length
 
   const days = Array.from({ length: 7 }, (_, index) => {
     const date = new Date(now)
@@ -177,7 +176,7 @@ function HomePage({ pageProps }) {
         </div>
         <div className="home-heatmap-scroll">
           <div className="home-heatmap-months" aria-hidden="true">
-            {heatmap.filter((item, index) => index === 0 || item.date.getDate() <= 7).map(item => <span key={item.key}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
+            {heatmap.filter((item, index) => index === 0 || item.date.getMonth() !== heatmap[index - 1].date.getMonth()).map(item => <span key={item.key}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
           </div>
           <div className="home-heatmap-grid" role="img" aria-label="Contribution graph of saved check-ins over the last six months">
             {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
