@@ -1677,7 +1677,6 @@
 }
 
 .dashboard .ai-page .ai-composer:focus-within{
-  max-width:80rem !important;
   border-color:rgba(255,255,255,.16) !important;
   box-shadow:0 2rem 5.5rem rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.045) !important;
 }
@@ -2794,18 +2793,16 @@
   border-radius:2.8rem !important;
   background:rgba(24,26,24,.92) !important;
   box-shadow:0 1.6rem 4rem rgba(0,0,0,.28) !important;
-  transform:scaleX(1) !important;
+  transform:none !important;
   transform-origin:center !important;
   transition:transform .34s cubic-bezier(.22,1,.36,1),background .28s ease,border-color .28s ease,box-shadow .34s ease !important;
   will-change:transform !important;
 }
 .dashboard .ai-page .ai-composer:focus-within{
-  width:min(100%,78rem) !important;
-  max-width:78rem !important;
   border-color:rgba(255,255,255,.11) !important;
   background:rgba(25,27,25,.98) !important;
   box-shadow:0 1.9rem 4.8rem rgba(0,0,0,.34) !important;
-  transform:scaleX(1.012) !important;
+  transform:none !important;
 }
 .dashboard .ai-page .ai-composer textarea{
   padding:1.05rem .5rem !important;
@@ -2818,7 +2815,7 @@
 @media(max-width:800px){
   .dashboard .ai-page .ai-input{padding:.85rem 1rem 1rem !important;}
   .dashboard .ai-page .ai-composer{border-radius:2.55rem !important;}
-  .dashboard .ai-page .ai-composer:focus-within{transform:scaleX(1.006) !important;}
+  .dashboard .ai-page .ai-composer:focus-within{transform:none !important;}
 }
 @media(prefers-reduced-motion:reduce){
   .dashboard .ai-page .ai-composer{transform:none !important;transition:none !important;}
@@ -3112,8 +3109,6 @@
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{
-  width:min(100%,78rem) !important;
-  max-width:78rem !important;
   transform:none !important;
 }
 
@@ -3220,8 +3215,8 @@
 
 
 .dashboard.dashboard-ai-active .ai-page .ai-composer{transition:width .28s cubic-bezier(.22,1,.36,1),transform .28s cubic-bezier(.22,1,.36,1);}
-.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{transform:translateY(-.25rem) scaleX(1.015) !important;}
-@media(max-width:800px){.dashboard.dashboard-ai-active .ai-page .ai-composer{width:calc(100% - .6rem) !important;max-width:none !important;}.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{width:100% !important;transform:translateY(-.2rem) scaleX(1.01) !important;}}
+.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{transform:none !important;}
+@media(max-width:800px){.dashboard.dashboard-ai-active .ai-page .ai-composer{width:100% !important;max-width:none !important;}.dashboard.dashboard-ai-active .ai-page .ai-composer:focus-within{width:100% !important;max-width:none !important;transform:none !important;}}
 @media(prefers-reduced-motion:reduce){.dashboard.dashboard-ai-active .ai-page .ai-composer{transition:none !important;}}
 
 
