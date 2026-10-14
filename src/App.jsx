@@ -339,8 +339,9 @@ function App() {
     sessionStorage.removeItem('evolv-oauth-intent')
     sessionStorage.removeItem('evolv-auth-error')
     setAuthMode('signup')
-    setView('landing')
     setData(initialData)
+    window.history.replaceState({}, '', '/signup')
+    setView('auth')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
@@ -2225,7 +2226,7 @@ function Dashboard({ data, onLogout, onArticle }) {
 
       // Return to account creation after the deleted account has been cleared.
       localStorage.setItem('evolv-view','auth')
-      window.location.href='/'
+      window.location.href='/signup'
       return true
     }catch(error){
       console.error('EVOLV account deletion failed:',error)
