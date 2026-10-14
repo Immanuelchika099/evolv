@@ -5073,3 +5073,43 @@ body,
   border: 1px solid rgba(255,255,255,.085) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
 }
+
+/* Progress page spacing fix: older section rules applied 5rem margins while
+   later card overrides reset only some sides, making the vertical rhythm
+   inconsistent. Use one parent gap so the activity, goals, and stats never touch. */
+.progress-page {
+  display: flex;
+  flex-direction: column;
+  gap: 2.8rem;
+}
+
+.progress-page > .progress-heatmap-card,
+.progress-page > .progress-section-card,
+.progress-page > .progress-overview-grid,
+.progress-page > .progress-definition {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+.progress-page > .progress-goals-card {
+  padding-bottom: 2.8rem;
+}
+
+.progress-page > .progress-simple-stats {
+  padding-top: 2.4rem;
+}
+
+@media (max-width: 700px) {
+  .progress-page {
+    gap: 2.4rem;
+  }
+
+  .progress-page > .progress-goals-card {
+    padding-bottom: 2.4rem;
+  }
+
+  .progress-page > .progress-simple-stats {
+    padding-top: 2rem;
+  }
+}
+
