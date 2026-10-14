@@ -3,8 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import './styles/app.css'
 import './auth-overrides.css'
-import './components/styles/Polish.css'
 import App from './App.jsx'
+import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
 
 if ('serviceWorker' in navigator) {
