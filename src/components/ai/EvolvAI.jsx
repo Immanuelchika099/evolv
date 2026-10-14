@@ -590,10 +590,23 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
 
   function openPromptMenu(event, message, index) {
     event.preventDefault()
-    const touch = event.touches?.[0] || event.changedTouches?.[0]
-    const x = touch?.clientX ?? event.clientX ?? window.innerWidth / 2
-    const y = touch?.clientY ?? event.clientY ?? window.innerHeight / 2
-    setPromptMenu({ content: message.content || '', index, x, y })
+    const trigger = event.currentTarget?.getBoundingClientRect
+      ? event.currentTarget
+      : event.target?.closest?.('button')
+    const rect = trigger?.getBoundingClientRect?.()
+    const menuWidth = 196
+    const menuHeight = 142
+    const gap = 8
+
+    // Anchor the menu to the three-dot button, not the tap/click coordinates.
+    // Prefer opening above it so the fixed prompt bar cannot cover it near the
+    // bottom of the conversation (especially on Android).
+    const anchorX = rect ? rect.right : (event.clientX ?? window.innerWidth / 2)
+    const anchorY = rect ? rect.top : (event.clientY ?? window.innerHeight / 2)
+    const top = Math.max(12, anchorY - menuHeight - gap)
+    const left = Math.max(12, Math.min(anchorX - menuWidth, window.innerWidth - menuWidth - 12))
+
+    setPromptMenu({ content: message.content || '', index, x: left, y: top })
   }
 
   function closePromptMenu() {
@@ -1152,8 +1165,8 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
                 role="menu"
                 aria-label="Prompt options"
                 style={{
-                  top: Math.max(12, Math.min(promptMenu.y, window.innerHeight - 164)),
-                  left: Math.max(12, Math.min(promptMenu.x, window.innerWidth - 208)),
+                  top: promptMenu.y,
+                  left: promptMenu.x,
                 }}
               >
                 <button type="button" role="menuitem" onClick={() => runPromptAction('copy')}>
