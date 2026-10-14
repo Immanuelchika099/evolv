@@ -6105,28 +6105,28 @@ body,
 .progress-page .progress-heatmap-card .home-heatmap-cell.level-1,
 .progress-page .progress-heatmap-card .home-heatmap-footer i.level-1,
 .goal-heatmap-cell.level-1 {
-  background: #333333;
+  background: #333333 !important;
 }
 .dashboard-home-redesign .home-heatmap-cell.level-2,
 .dashboard-home-redesign .home-heatmap-footer i.level-2,
 .progress-page .progress-heatmap-card .home-heatmap-cell.level-2,
 .progress-page .progress-heatmap-card .home-heatmap-footer i.level-2,
 .goal-heatmap-cell.level-2 {
-  background: #555555;
+  background: #555555 !important;
 }
 .dashboard-home-redesign .home-heatmap-cell.level-3,
 .dashboard-home-redesign .home-heatmap-footer i.level-3,
 .progress-page .progress-heatmap-card .home-heatmap-cell.level-3,
 .progress-page .progress-heatmap-card .home-heatmap-footer i.level-3,
 .goal-heatmap-cell.level-3 {
-  background: #858580;
+  background: #858580 !important;
 }
 .dashboard-home-redesign .home-heatmap-cell.level-4,
 .dashboard-home-redesign .home-heatmap-footer i.level-4,
 .progress-page .progress-heatmap-card .home-heatmap-cell.level-4,
 .progress-page .progress-heatmap-card .home-heatmap-footer i.level-4,
 .goal-heatmap-cell.level-4 {
-  background: #e1e1dc;
+  background: #e1e1dc !important;
 }
 .dashboard-home-redesign .home-heatmap-card h2,
 .progress-page .progress-heatmap-card h2 {
@@ -6183,3 +6183,20 @@ body,
   }
 }
 
+
+
+/* The Progress page has older !important lime rules; explicitly neutralise them here. */
+.dashboard .progress-page .progress-heatmap-card {
+  background: #080808 !important;
+  background-color: #080808 !important;
+  background-image: none !important;
+  border-radius: 1.8rem !important;
+}
+.progress-page .home-heatmap-cell.level-1,
+.progress-page .home-heatmap-footer i.level-1 { background: #333333 !important; }
+.progress-page .home-heatmap-cell.level-2,
+.progress-page .home-heatmap-footer i.level-2 { background: #555555 !important; }
+.progress-page .home-heatmap-cell.level-3,
+.progress-page .home-heatmap-footer i.level-3 { background: #858580 !important; }
+.progress-page .home-heatmap-cell.level-4,
+.progress-page .home-heatmap-footer i.level-4 { background: #e1e1dc !important; }
