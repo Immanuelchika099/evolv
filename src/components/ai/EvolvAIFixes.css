@@ -725,3 +725,81 @@ html:has(.dashboard.dashboard-ai-active) {
     font-size: 1.6rem !important;
   }
 }
+
+
+/* ChatGPT-like conversation behavior and right-aligned user turns. */
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+  overscroll-behavior-y: contain !important;
+  touch-action: pan-y !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.18) transparent;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  width: calc(100% - 3.2rem) !important;
+  max-width: min(72rem, calc(100% - 3.2rem)) !important;
+  margin: 1.2rem 1.6rem 1.6rem auto !important;
+  text-align: left !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-message-role {
+  display: none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  display: block !important;
+  width: fit-content !important;
+  max-width: min(100%, 48rem) !important;
+  margin: 0 !important;
+  padding: 1.15rem 1.6rem !important;
+  border: 1px solid rgba(255,255,255,.055) !important;
+  border-radius: 2rem !important;
+  background: #303030 !important;
+  color: #f5f5f5 !important;
+  font-size: 1.65rem !important;
+  line-height: 1.55 !important;
+  white-space: pre-wrap !important;
+  overflow-wrap: anywhere !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-message-attachments {
+  justify-content: flex-end !important;
+  max-width: 100% !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  width: calc(100% - 3.2rem) !important;
+  max-width: min(72rem, calc(100% - 3.2rem)) !important;
+  margin: 1.6rem auto 2rem !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user {
+    width: calc(100% - 2.4rem) !important;
+    max-width: calc(100% - 2.4rem) !important;
+    margin: 1rem 1.2rem 1.4rem auto !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+    max-width: min(100%, 32rem) !important;
+    padding: 1rem 1.35rem !important;
+    font-size: 1.6rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+    width: calc(100% - 2.4rem) !important;
+    max-width: calc(100% - 2.4rem) !important;
+    margin: 1.4rem auto 1.8rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    scroll-behavior: auto !important;
+  }
+}
