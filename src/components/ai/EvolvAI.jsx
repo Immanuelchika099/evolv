@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
-  Check
+  Check, Search, Pin, FolderPlus, Files, Archive, Trash2
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
@@ -95,6 +95,11 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   })
   const [messages, setMessages] = useState([])
   const [showScrollToBottom, setShowScrollToBottom] = useState(false)
+  const [chatMenuOpen, setChatMenuOpen] = useState(false)
+  const [findInChat, setFindInChat] = useState(false)
+  const [chatSearch, setChatSearch] = useState('')
+  const [uploadedFilesOpen, setUploadedFilesOpen] = useState(false)
+  const [pinnedChat, setPinnedChat] = useState(() => { try { return JSON.parse(localStorage.getItem('evolv-ai-pinned-chats') || '[]') } catch { return [] } })
   const [promptMenu, setPromptMenu] = useState(null)
   const promptHoldTimerRef = useRef(null)
   const promptHoldStartRef = useRef(null)
@@ -253,6 +258,93 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
       })
     } catch (titleError) {
       console.error('EVOLV AI chat title request failed:', titleError)
+    }
+  }
+
+  function togglePinCurrentChat() {
+    const next = pinnedChat.includes(chatId)
+      ? pinnedChat.filter(id => id !== chatId)
+      : [...pinnedChat, chatId]
+    setPinnedChat(next)
+    localStorage.setItem('evolv-ai-pinned-chats', JSON.stringify(next))
+    setChatMenuOpen(false)
+  }
+
+  async function shareCurrentChat() {
+    const transcript = messages.map(message => `${message.role === 'user' ? 'You' : 'Evolv'}: ${message.content || ''}`).join('\\n\\n').trim()
+    if (!transcript) {
+      setError('Send a message before sharing this chat.')
+      setChatMenuOpen(false)
+      return
+    }
+    try {
+      if (navigator.share) await navigator.share({ title: 'Evolv AI chat', text: transcript })
+      else {
+        await navigator.clipboard.writeText(transcript)
+        setCopiedMessage('chat-share')
+        window.setTimeout(() => setCopiedMessage(current => current === 'chat-share' ? '' : current), 1400)
+      }
+    } catch (shareError) {
+      if (shareError?.name !== 'AbortError') setError('Could not share this chat. Please try again.')
+    }
+    setChatMenuOpen(false)
+  }
+
+  function addCurrentChatToProject() {
+    const projectName = window.prompt('Add this conversation to which project?')
+    if (projectName?.trim()) {
+      try {
+        const projects = JSON.parse(localStorage.getItem('evolv-ai-projects') || '{}')
+        projects[chatId] = [...new Set([...(projects[chatId] || []), projectName.trim()])]
+        localStorage.setItem('evolv-ai-projects', JSON.stringify(projects))
+        setError('')
+      } catch {
+        setError('Could not save this project association.')
+      }
+    }
+    setChatMenuOpen(false)
+  }
+
+  function archiveCurrentChat() {
+    try {
+      const archived = JSON.parse(localStorage.getItem('evolv-ai-archived-chats') || '[]')
+      if (!archived.includes(chatId)) localStorage.setItem('evolv-ai-archived-chats', JSON.stringify([...archived, chatId]))
+    } catch {}
+    setChatMenuOpen(false)
+    startNewChat()
+  }
+
+  async function deleteCurrentChat() {
+    const confirmed = window.confirm('Permanently delete this conversation? This cannot be undone.')
+    setChatMenuOpen(false)
+    if (!confirmed) return
+    const userId = (await supabase.auth.getUser()).data.user?.id
+    if (!userId) {
+      setError('Please sign in again to delete this chat.')
+      return
+    }
+    const [{ error: messagesError }, { error: titleError }] = await Promise.all([
+      supabase.from('ai_messages').delete().eq('user_id', userId).eq('chat_id', chatId),
+      supabase.from('ai_chat_titles').delete().eq('user_id', userId).eq('chat_id', chatId),
+    ])
+    if (messagesError || titleError) {
+      setError('Could not delete this chat. Please try again.')
+      return
+    }
+    setChatHistory(current => current.filter(chat => chat.chatId !== chatId))
+    startNewChat()
+  }
+
+  function findMatchingMessage() {
+    const query = chatSearch.trim().toLowerCase()
+    if (!query) return
+    const nodes = Array.from(messagesRef.current?.querySelectorAll('.ai-message') || [])
+    const match = nodes.find(node => node.textContent?.toLowerCase().includes(query))
+    if (match) {
+      match.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      setChatMenuOpen(false)
+    } else {
+      setError('No matching message found in this chat.')
     }
   }
 
@@ -775,11 +867,52 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
             <Plus size={17} />
             <span>New chat</span>
           </button>
-          <button className="ai-more-button" type="button" aria-label="More options" title="More options">
+          <button className="ai-more-button" type="button" aria-label="More chat options" title="More options" aria-expanded={chatMenuOpen} onClick={() => setChatMenuOpen(value => !value)}>
             <MoreHorizontal size={20} />
           </button>
         </div>
       </div>
+      {chatMenuOpen && (
+        <>
+          <button type="button" className="ai-chat-menu-backdrop" aria-label="Close chat menu" onClick={() => setChatMenuOpen(false)} />
+          <div className="ai-chat-options-menu" role="menu" aria-label="Chat options">
+            <button type="button" role="menuitem" onClick={shareCurrentChat}><Share2 size={16} />Share</button>
+            <button type="button" role="menuitem" onClick={togglePinCurrentChat}><Pin size={16} />{pinnedChat.includes(chatId) ? 'Unpin chat' : 'Pin'}</button>
+            <button type="button" role="menuitem" onClick={addCurrentChatToProject}><FolderPlus size={16} />Add to project</button>
+            <button type="button" role="menuitem" onClick={() => { setUploadedFilesOpen(true); setChatMenuOpen(false) }}><Files size={16} />Uploaded files</button>
+            <button type="button" role="menuitem" onClick={() => { setFindInChat(value => !value); setChatSearch('') }}><Search size={16} />Find in chat <span className="ai-chat-menu-shortcut">⌘ F</span></button>
+            {findInChat && (
+              <form className="ai-chat-find-form" onSubmit={event => { event.preventDefault(); findMatchingMessage() }}>
+                <input autoFocus value={chatSearch} onChange={event => setChatSearch(event.target.value)} placeholder="Find in this chat…" aria-label="Find in this chat" />
+                <button type="submit" aria-label="Find next"><Search size={15} /></button>
+              </form>
+            )}
+            <span className="ai-chat-menu-divider" />
+            <button type="button" role="menuitem" onClick={archiveCurrentChat}><Archive size={16} />Archive</button>
+            <button type="button" role="menuitem" className="danger" onClick={deleteCurrentChat}><Trash2 size={16} />Delete</button>
+          </div>
+        </>
+      )}
+      {uploadedFilesOpen && (
+        <div className="ai-uploaded-files-overlay" role="dialog" aria-modal="true" aria-label="Uploaded files" onMouseDown={event => { if (event.target === event.currentTarget) setUploadedFilesOpen(false) }}>
+          <section className="ai-uploaded-files-sheet">
+            <div className="ai-history-head">
+              <div><span className="section-label">THIS CONVERSATION</span><h3>Uploaded files.</h3></div>
+              <button type="button" className="ai-history-close" onClick={() => setUploadedFilesOpen(false)} aria-label="Close uploaded files"><X size={18} /></button>
+            </div>
+            <div className="ai-uploaded-files-list">
+              {messages.flatMap((message, messageIndex) => (message.attachments || []).map((attachment, attachmentIndex) => ({ ...attachment, messageIndex, attachmentIndex }))).length ? (
+                messages.flatMap((message, messageIndex) => (message.attachments || []).map((attachment, attachmentIndex) => ({ ...attachment, messageIndex, attachmentIndex }))).map(file => (
+                  <div className="ai-uploaded-file-row" key={`${file.messageIndex}-${file.attachmentIndex}-${file.name || 'file'}`}>
+                    {file.data ? <img src={file.data} alt="" /> : <Files size={18} />}
+                    <span>{file.name || 'Uploaded image'}</span>
+                  </div>
+                ))
+              ) : <p className="ai-uploaded-files-empty">No files have been uploaded in this conversation.</p>}
+            </div>
+          </section>
+        </div>
+      )}
       {historyOpen && (
         <div
           className="ai-history-overlay"
