@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
-  Check, Search, Files, Pin, PinOff, FolderPlus, Archive, Trash2
+  Check, Search, Files
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
@@ -96,7 +96,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [messages, setMessages] = useState([])
   const [showScrollToBottom, setShowScrollToBottom] = useState(false)
   const [findInChat, setFindInChat] = useState(false)
-  const [chatOptionsOpen, setChatOptionsOpen] = useState(false)
   const [chatSearch, setChatSearch] = useState('')
   const [uploadedFilesOpen, setUploadedFilesOpen] = useState(false)
   const [pinnedChat, setPinnedChat] = useState(() => { try { return JSON.parse(localStorage.getItem('evolv-ai-pinned-chats') || '[]') } catch { return [] } })
