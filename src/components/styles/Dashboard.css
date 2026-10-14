@@ -5026,7 +5026,7 @@ html.evolv-android .reflection-sheet *{
 
 
 .dashboard .ai-page .ai-composer{
-  transform:scaleX(1) !important;
+  transform:none !important;
   transform-origin:center center !important;
   transition:
     transform .32s cubic-bezier(.22,1,.36,1),
@@ -5036,7 +5036,7 @@ html.evolv-android .reflection-sheet *{
 }
 .dashboard .ai-page .ai-composer:focus-within{
   max-width:76rem !important;
-  transform:scaleX(1.018) !important;
+  transform:none !important;
 }
 @media(max-width:800px){
   .dashboard .ai-page .ai-composer{
@@ -5047,7 +5047,7 @@ html.evolv-android .reflection-sheet *{
   }
   .dashboard .ai-page .ai-composer:focus-within{
     max-width:none !important;
-    transform:scaleX(1.008) !important;
+    transform:none !important;
   }
 }
 @media(prefers-reduced-motion:reduce){
@@ -5086,21 +5086,20 @@ html.evolv-android .reflection-sheet *{
   border-radius:2.9rem !important;
   background:rgba(18,20,18,.94) !important;
   box-shadow:0 .8rem 3rem rgba(0,0,0,.22) !important;
-  transform:scaleX(1) !important;
+  transform:none !important;
   transform-origin:center center !important;
   transition:
-    width .34s cubic-bezier(.22,1,.36,1),
     transform .34s cubic-bezier(.22,1,.36,1),
     background .28s ease,
     border-color .28s ease,
     box-shadow .34s ease !important;
-  will-change:width,transform !important;
+  will-change:auto;
 }
 
 .dashboard .ai-page .ai-composer:focus-within{
-  width:min(100%,80rem) !important;
-  max-width:80rem !important;
-  transform:scaleX(1.004) !important;
+  width:min(100%,76rem) !important;
+  max-width:76rem !important;
+  transform:none !important;
   border-color:rgba(255,255,255,.11) !important;
   background:rgba(21,23,21,.98) !important;
   box-shadow:0 1.2rem 3.8rem rgba(0,0,0,.28) !important;
@@ -5133,7 +5132,7 @@ html.evolv-android .reflection-sheet *{
   .dashboard .ai-page .ai-composer:focus-within{
     width:100% !important;
     max-width:none !important;
-    transform:scaleX(1.003) !important;
+    transform:none !important;
   }
 }
 
