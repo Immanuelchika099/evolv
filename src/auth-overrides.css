@@ -1063,3 +1063,69 @@
   border-radius: var(--radius);
   font: 550 14px/1.35 Manrope, -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
 }
+
+
+/* Auth typography pass: larger, easier to read on mobile without changing layout. */
+.auth-page .auth-intro h1 {
+  font-size: clamp(28px, 7vw, 32px) !important;
+  line-height: 1.16 !important;
+  letter-spacing: -0.045em !important;
+}
+.auth-page .auth-intro p {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+.auth-page .auth-signup-banner {
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+  gap: 11px;
+}
+.auth-page .auth-provider-stack .auth-provider-button {
+  min-height: 56px;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+.auth-page .auth-divider-compact {
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+}
+.auth-page .auth-quick-form > label,
+.auth-page .auth-form label > span {
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+}
+.auth-page .auth-quick-form input,
+.auth-page .auth-form input {
+  min-height: 54px;
+  font-size: 16px !important;
+  line-height: 1.4 !important;
+}
+.auth-page .auth-continue-button {
+  min-height: 56px;
+  font-size: 16px !important;
+  line-height: 1.35 !important;
+}
+.auth-page .auth-account-switch,
+.auth-page .auth-account-switch button {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+.auth-page .auth-legal {
+  font-size: 12px !important;
+  line-height: 1.65 !important;
+}
+.auth-page .auth-email-summary,
+.auth-page .auth-step-copy,
+.auth-page .auth-step-back,
+.auth-page .forgot-password {
+  font-size: 14px;
+  line-height: 1.5;
+}
+@media (max-width: 360px) {
+  .auth-page .auth-signup-banner {
+    font-size: 14px !important;
+  }
+  .auth-page .auth-provider-stack .auth-provider-button {
+    font-size: 15px !important;
+  }
+}
