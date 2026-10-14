@@ -984,14 +984,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
               <div
                 className={`ai-message ${message.role}`}
                 key={messageKey}
-                onContextMenu={message.role === 'user' ? event => openPromptMenu(event, message, index) : undefined}
-                onPointerDown={message.role === 'user' ? event => startPromptHold(event, message, index) : undefined}
-                onPointerMove={message.role === 'user' ? movePromptHold : undefined}
-                onPointerUp={() => { window.clearTimeout(promptHoldTimerRef.current); promptHoldStartRef.current = null }}
-                onPointerCancel={() => { window.clearTimeout(promptHoldTimerRef.current); promptHoldStartRef.current = null }}
-                onTouchStart={message.role === 'user' ? event => startPromptHold(event, message, index) : undefined}
-                onTouchMove={message.role === 'user' ? movePromptHold : undefined}
-                onTouchEnd={() => { window.clearTimeout(promptHoldTimerRef.current); promptHoldStartRef.current = null }}
               >
                 <span className="ai-message-role">{message.role === 'assistant' ? 'EVOLV' : 'YOU'}</span>
                 {message.role === 'user' && message.attachments?.length ? (
@@ -1085,25 +1077,6 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           pressScale={0.96}
         />
       </div>
-      {promptMenu && (
-        <>
-          <button type="button" className="ai-prompt-menu-backdrop" aria-label="Close prompt options" onClick={closePromptMenu} />
-          <div
-            className="ai-prompt-context-menu"
-            role="menu"
-            aria-label="Prompt options"
-            style={{
-              left: Math.max(12, Math.min(promptMenu.x, window.innerWidth - 208)),
-              top: Math.max(12, Math.min(promptMenu.y, window.innerHeight - 228)),
-            }}
-          >
-            <button type="button" role="menuitem" onClick={() => runPromptAction('copy')}><Copy size={16} />Copy prompt</button>
-            <button type="button" role="menuitem" onClick={() => runPromptAction('edit')}><span className="ai-prompt-menu-pencil">✎</span>Edit prompt</button>
-            <button type="button" role="menuitem" onClick={() => runPromptAction('select')}><span className="ai-prompt-menu-select">▤</span>Select text</button>
-            <button type="button" role="menuitem" onClick={() => runPromptAction('share')}><Share2 size={16} />Share prompt</button>
-          </div>
-        </>
-      )}
       {error && <p className="auth-error" role="alert">{error}</p>}
     </section>
   )
