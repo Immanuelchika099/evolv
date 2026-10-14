@@ -159,10 +159,10 @@ function HomePage({ pageProps }) {
             </div>)}
           </div>
           <div className="home-stat-mini-grid">
-            <div><span className="home-stat-icon home-stat-fire">↗</span><span><small>Current streak</small><strong>{bestStreak} {bestStreak === 1 ? 'day' : 'days'}</strong></span></div>
-            <div><span className="home-stat-icon home-stat-check">✓</span><span><small>Total check-ins</small><strong>{allActivity.length}</strong></span></div>
-            <div><span className="home-stat-icon home-stat-days">⌁</span><span><small>Active days</small><strong>{Object.keys(activityByDay).length}</strong></span></div>
-            <div><span className="home-stat-icon home-stat-goals">☆</span><span><small>Active goals</small><strong>{goals.filter(goal => goal.status === 'active').length}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-fire"><ArrowUpRight size={18} strokeWidth={2}/></span><span><small>Current streak</small><strong>{bestStreak} {bestStreak === 1 ? 'day' : 'days'}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-check"><CheckCircle2 size={18} strokeWidth={2}/></span><span><small>Total check-ins</small><strong>{allActivity.length}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-days"><Activity size={18} strokeWidth={2}/></span><span><small>Active days</small><strong>{Object.keys(activityByDay).length}</strong></span></div>
+            <div><span className="home-stat-icon home-stat-goals"><Target size={18} strokeWidth={2}/></span><span><small>Active goals</small><strong>{goals.filter(goal => goal.status === 'active').length}</strong></span></div>
           </div>
         </article>
       </section>
