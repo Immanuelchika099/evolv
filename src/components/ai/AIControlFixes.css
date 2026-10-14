@@ -1,0 +1,10 @@
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-more-button,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-new-chat:focus,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-new-chat:focus-visible,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-more-button:focus,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-more-button:focus-visible {
+  outline: 0 !important;
+  box-shadow: none !important;
+  -webkit-tap-highlight-color: transparent !important;
+}
