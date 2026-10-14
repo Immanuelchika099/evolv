@@ -803,3 +803,63 @@ html:has(.dashboard.dashboard-ai-active) {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Long-press menu for sent user prompts. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  -webkit-touch-callout: none;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  -webkit-user-select: text;
+  user-select: text;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-menu-backdrop {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 10020 !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  cursor: default !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-context-menu {
+  position: fixed !important;
+  z-index: 10021 !important;
+  width: 19.6rem !important;
+  padding: .55rem !important;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 1.5rem !important;
+  background: rgba(35,35,35,.97) !important;
+  box-shadow: 0 1.2rem 4rem rgba(0,0,0,.48) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-context-menu button {
+  display: flex !important;
+  align-items: center !important;
+  gap: 1.1rem !important;
+  width: 100% !important;
+  min-height: 4.2rem !important;
+  padding: .8rem 1rem !important;
+  border: 0 !important;
+  border-radius: .9rem !important;
+  background: transparent !important;
+  color: #f5f5f5 !important;
+  text-align: left !important;
+  font: inherit !important;
+  font-size: 1.45rem !important;
+  cursor: pointer !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-context-menu button:active,
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-context-menu button:hover {
+  background: rgba(255,255,255,.09) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-context-menu button svg,
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-menu-pencil,
+.dashboard.dashboard-ai-active .ai-page .ai-prompt-menu-select {
+  width: 1.7rem !important;
+  min-width: 1.7rem !important;
+  height: 1.7rem !important;
+  color: #e7e7e7 !important;
+}
