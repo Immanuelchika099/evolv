@@ -55,7 +55,10 @@ function getProviderFirstName(user) {
 
 function App() {
   const root = useRef(null)
-  const [view, setView] = useState(() => localStorage.getItem('evolv-view') || 'landing')
+  const [view, setView] = useState(() => {
+    const path = window.location.pathname.replace(/\/+$/, '') || '/'
+    return path === '/signup' ? 'auth' : (localStorage.getItem('evolv-view') || 'landing')
+  })
   // Android's installed PWA already shows the app icon during its native
   // launch splash. Do not stack our React preload over that splash.
   // In a normal browser there is no native PWA splash, so keep the EVOLV
@@ -77,6 +80,7 @@ function App() {
   const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
   const [authMode, setAuthMode] = useState('signup')
+  const directSignup = window.location.pathname.replace(/\/+$/, '') === '/signup'
   const [data, setData] = useState(() => {
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
     catch { return initialData }
@@ -230,6 +234,7 @@ function App() {
   }
 
   function returnHome() {
+    if (window.location.pathname !== '/') window.history.replaceState({}, '', '/')
     setArticle(null)
     setStep(0)
     localStorage.setItem('evolv-view', 'landing')
@@ -289,6 +294,9 @@ function App() {
   }
 
   async function finishAuth(user, authMode = 'signup') {
+    if (window.location.pathname.replace(/\/+$/, '') === '/signup') {
+      window.history.replaceState({}, '', '/')
+    }
     if (authMode === 'signup') {
       await supabase.from('profiles').upsert({
         id: user.id,
@@ -337,7 +345,7 @@ function App() {
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
-      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} data={data} onSuccess={finishAuth} onHome={returnHome} />}
+      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} data={data} onSuccess={finishAuth} onHome={returnHome} directSignup={directSignup} />}
       {view === 'onboarding' && (
         <Onboarding
           step={step}
@@ -365,7 +373,7 @@ function EvolvLoader() {
   )
 }
 
-function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
+function AuthPage({ mode, setMode, data, onSuccess, onHome, directSignup = false }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [sending, setSending] = useState(false)
@@ -526,15 +534,15 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
   }
 
   return (
-    <div className="page-enter auth-page">
+    <div className={`page-enter auth-page${directSignup ? ' auth-direct-page' : ''}`}>
       <header className="onboard-head">
         <button className="auth-brand" onClick={onHome} aria-label="Back to EVOLV home"><Brand /></button>
         <span className="step-count">{mode === 'signup' ? 'CREATE ACCOUNT' : 'WELCOME BACK'}</span>
       </header>
       <section className="auth-content auth-content-compact auth-flow-content">
         {authStage === 'choices' ? <>
-          <h1>{mode === 'signup' ? 'Your next chapter starts here.' : 'Welcome back.'}</h1>
-          <p className="auth-flow-subtitle">{mode === 'signup' ? 'Make space for the person you’re becoming.' : 'Pick up where your growth journey left off.'}</p>
+          <h1>{directSignup && mode === 'signup' ? 'Make your next move.' : mode === 'signup' ? 'Your next chapter starts here.' : 'Welcome back.'}</h1>
+          <p className="auth-flow-subtitle">{directSignup && mode === 'signup' ? 'Create your account and get straight into your growth dashboard.' : mode === 'signup' ? 'Make space for the person you’re becoming.' : 'Pick up where your growth journey left off.'}</p>
           <div className="auth-provider-stack">
             <button className="google-auth-button google-auth-button-primary auth-choice-google" type="button" onClick={() => continueWithProvider('google')} disabled={sending}><img className="auth-provider-logo google-provider-logo" src="/google-g-logo.svg" alt="" /><span>{sending ? 'Connecting…' : 'Continue with Google'}</span></button>
             <button className="google-auth-button auth-choice-github" type="button" onClick={() => continueWithProvider('github')} disabled={sending}><img className="auth-provider-logo github-provider-logo" src="/github-mark.svg" alt="" /><span>Continue with GitHub</span></button>
@@ -561,7 +569,7 @@ function AuthPage({ mode, setMode, data, onSuccess, onHome }) {
         <button className="auth-switch" onClick={() => { setMode(mode === 'signup' ? 'login' : 'signup'); setAuthStage('choices'); setEmail(''); setPassword(''); setError(''); setMessage('') }}>{mode === 'signup' ? 'Already have an account? Log in' : 'New to EVOLV? Create an account'}</button>
         <button className="auth-back" onClick={onHome}><ChevronLeft size={15}/> Back to homepage</button>
       </section>
-      <footer className="onboard-footer"><span>{data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span><span>YOUR DATA, YOUR JOURNEY.</span></footer>
+      <footer className="onboard-footer"><span>{directSignup ? 'EVOLV / YOUR NEXT SELF' : data.name ? `BUILDING FOR ${data.name.toUpperCase()}` : 'EVOLV / YOUR NEXT SELF'}</span><span>{directSignup ? 'START WHERE YOU ARE.' : 'YOUR DATA, YOUR JOURNEY.'}</span></footer>
     </div>
   )
 }
