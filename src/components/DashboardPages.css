@@ -4990,3 +4990,40 @@ body,
     gap: .35rem;
   }
 }
+
+
+/* Progress activity calendar: keep all twelve month labels aligned to week columns. */
+.progress-page .home-heatmap-months {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1.57rem;
+  justify-content: start;
+  align-items: start;
+  gap: .42rem;
+  width: max-content;
+  min-width: max-content;
+  margin-bottom: .9rem;
+}
+.progress-page .home-heatmap-months span {
+  white-space: nowrap;
+  line-height: 1.2;
+}
+.progress-page .home-heatmap-grid {
+  grid-template-rows: repeat(7, 1.15rem);
+  grid-auto-columns: 1.15rem;
+  grid-auto-flow: column;
+  gap: .42rem;
+  width: max-content;
+  min-width: max-content;
+}
+@media (max-width: 700px) {
+  .progress-page .home-heatmap-months {
+    grid-auto-columns: 1.35rem;
+    gap: .35rem;
+  }
+  .progress-page .home-heatmap-grid {
+    grid-template-rows: repeat(7, 1rem);
+    grid-auto-columns: 1rem;
+    gap: .35rem;
+  }
+}
