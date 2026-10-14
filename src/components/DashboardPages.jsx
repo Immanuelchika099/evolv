@@ -34,7 +34,6 @@ function HomePage({ pageProps }) {
   } = pageProps
 
   const [now, setNow] = useState(() => new Date())
-  const heatmapScrollRef = useRef(null)
   const [statsMode, setStatsMode] = useState('week')
   const [skippedToday, setSkippedToday] = useState(() => {
     try {
@@ -98,44 +97,6 @@ function HomePage({ pageProps }) {
     else break
   }
   bestStreak = streak
-
-  // Build a real calendar grid: start on Sunday, five months before the
-  // current month, and render every day through today (including zero-activity days).
-  const heatmapRangeMonth = new Date(now.getFullYear(), now.getMonth() - 5, 1)
-  const heatmapStart = new Date(heatmapRangeMonth)
-  heatmapStart.setDate(heatmapStart.getDate() - heatmapStart.getDay())
-  const heatmapEnd = new Date(now)
-  heatmapEnd.setHours(0, 0, 0, 0)
-  const heatmap = []
-  for (const date = new Date(heatmapStart); date <= heatmapEnd; date.setDate(date.getDate() + 1)) {
-    const day = new Date(date)
-    const key = dateKey(day)
-    heatmap.push({ key, count: activityByDay[key] || 0, date: day })
-  }
-  const heatmapMonthLabels = heatmap
-    .map((item, index) => ({ ...item, index }))
-    .filter(item => {
-      const index = item.index
-      if (index > 0) {
-        const previous = heatmap[index - 1].date
-        if (previous.getMonth() === item.date.getMonth() && previous.getFullYear() === item.date.getFullYear()) return false
-      }
-      // The first partial week can include dates from the month before the six-month window.
-      return item.date.getFullYear() > heatmapRangeMonth.getFullYear() ||
-        (item.date.getFullYear() === heatmapRangeMonth.getFullYear() && item.date.getMonth() >= heatmapRangeMonth.getMonth())
-    })
-  useEffect(() => {
-    const scrollToCurrentMonth = () => {
-      const container = heatmapScrollRef.current
-      if (container) container.scrollLeft = container.scrollWidth
-    }
-    const frame = window.requestAnimationFrame(scrollToCurrentMonth)
-    window.addEventListener('resize', scrollToCurrentMonth)
-    return () => {
-      window.cancelAnimationFrame(frame)
-      window.removeEventListener('resize', scrollToCurrentMonth)
-    }
-  }, [])
 
   const loggedItems = [
     ...todayLogs.map((log, index) => {
@@ -204,22 +165,6 @@ function HomePage({ pageProps }) {
             <div><span className="home-stat-icon home-stat-goals">☆</span><span><small>Active goals</small><strong>{goals.filter(goal => goal.status === 'active').length}</strong></span></div>
           </div>
         </article>
-      </section>
-
-      <section className="home-heatmap-card">
-        <div className="home-heatmap-heading">
-          <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity over the last six months.</p></div>
-          <div className="home-heatmap-total"><strong>{allActivity.length}</strong><span>check-ins</span></div>
-        </div>
-        <div className="home-heatmap-scroll" ref={heatmapScrollRef}>
-          <div className="home-heatmap-months" aria-hidden="true">
-            {heatmapMonthLabels.map(item => <span key={item.key} style={{ gridColumnStart: Math.floor(item.index / 7) + 1 }}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
-          </div>
-          <div className="home-heatmap-grid" role="img" aria-label="Contribution graph of saved check-ins over the last six months">
-            {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
-          </div>
-        </div>
-        <div className="home-heatmap-footer"><span>Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span><span>{activeDays}/7 active days this week</span></div>
       </section>
 
       <section className="home-today-section">
@@ -402,6 +347,59 @@ function LogDetailPage({ pageProps }) {
 
 function ProgressPage({ pageProps }) {
   const { progressRange, setProgressRange, progressMetric, setProgressMetric, logs, meals, defs, goals, checkins = [], momentum = 0, goTo, valueText, WeeklyProgressChart: Chart } = pageProps
+  const heatmapScrollRef = useRef(null)
+  const [heatmapNow, setHeatmapNow] = useState(() => new Date())
+  useEffect(() => {
+    const timer = window.setInterval(() => setHeatmapNow(new Date()), 60000)
+    return () => window.clearInterval(timer)
+  }, [])
+  const dateKey = (date) => new Intl.DateTimeFormat('en-CA', {
+    year: 'numeric', month: '2-digit', day: '2-digit'
+  }).format(date)
+  const heatmapActivity = [
+    ...((pageProps.logs || []).map(item => ({ date: item.logged_at || item.created_at }))),
+    ...((pageProps.meals || []).map(item => ({ date: item.logged_at || item.created_at })))
+  ].filter(item => item.date && !Number.isNaN(new Date(item.date).getTime()))
+  const heatmapActivityByDay = heatmapActivity.reduce((map, item) => {
+    const key = dateKey(new Date(item.date))
+    map[key] = (map[key] || 0) + 1
+    return map
+  }, {})
+  const heatmapRangeMonth = new Date(heatmapNow.getFullYear(), heatmapNow.getMonth() - 5, 1)
+  const heatmapStart = new Date(heatmapRangeMonth)
+  heatmapStart.setDate(heatmapStart.getDate() - heatmapStart.getDay())
+  const heatmapEnd = new Date(heatmapNow)
+  heatmapEnd.setHours(0, 0, 0, 0)
+  const heatmap = []
+  for (const date = new Date(heatmapStart); date <= heatmapEnd; date.setDate(date.getDate() + 1)) {
+    const day = new Date(date)
+    const key = dateKey(day)
+    heatmap.push({ key, count: heatmapActivityByDay[key] || 0, date: day })
+  }
+  const heatmapMonthLabels = heatmap
+    .map((item, index) => ({ ...item, index }))
+    .filter(item => {
+      const index = item.index
+      if (index > 0) {
+        const previous = heatmap[index - 1].date
+        if (previous.getMonth() === item.date.getMonth() && previous.getFullYear() === item.date.getFullYear()) return false
+      }
+      return item.date.getFullYear() > heatmapRangeMonth.getFullYear() ||
+        (item.date.getFullYear() === heatmapRangeMonth.getFullYear() && item.date.getMonth() >= heatmapRangeMonth.getMonth())
+    })
+  useEffect(() => {
+    const scrollToCurrentMonth = () => {
+      const container = heatmapScrollRef.current
+      if (container) container.scrollLeft = container.scrollWidth
+    }
+    const frame = window.requestAnimationFrame(scrollToCurrentMonth)
+    window.addEventListener('resize', scrollToCurrentMonth)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('resize', scrollToCurrentMonth)
+    }
+  }, [])
+
   return (()=>{
         const now=new Date()
         const periodStart=new Date(now)
@@ -431,6 +429,22 @@ function ProgressPage({ pageProps }) {
               <span className="manage-logs-button-arrow"><ChevronRight size={17}/></span>
             </button>
           </div>
+
+          <section className="home-heatmap-card progress-heatmap-card">
+            <div className="home-heatmap-heading">
+              <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity over the last six months.</p></div>
+              <div className="home-heatmap-total"><strong>{heatmapActivity.length}</strong><span>check-ins</span></div>
+            </div>
+            <div className="home-heatmap-scroll" ref={heatmapScrollRef}>
+              <div className="home-heatmap-months" aria-hidden="true">
+                {heatmapMonthLabels.map(item => <span key={item.key} style={{ gridColumnStart: Math.floor(item.index / 7) + 1 }}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
+              </div>
+              <div className="home-heatmap-grid" role="img" aria-label="Contribution graph of saved check-ins over the last six months">
+                {heatmap.map(day => <span key={day.key} className={`home-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count <= 3 ? 2 : day.count <= 5 ? 3 : 4}`} title={`${day.count} check-ins · ${day.date.toLocaleDateString()}`}/>)}
+              </div>
+            </div>
+            <div className="home-heatmap-footer"><span>Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span><span>{new Set(heatmap.filter(day => day.count > 0 && day.date >= new Date(heatmapNow.getFullYear(), heatmapNow.getMonth(), heatmapNow.getDate() - 6)).map(day => day.key)).size}/7 active days this week</span></div>
+          </section>
 
           <section className="progress-section-card progress-goals-card">
             <div className="progress-section-head">
