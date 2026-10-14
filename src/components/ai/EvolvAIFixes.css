@@ -1079,9 +1079,9 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Use the real browser/iOS select interaction for the top chat actions.
-   The visible dots are only the trigger; the transparent select receives taps,
-   allowing Safari to present its own native options UI where supported. */
+/* Compact custom chat menu with SF Symbols-inspired line icons.
+   Web pages cannot render Apple SF Symbols directly, so Lucide provides a
+   consistent, lightweight system-icon look across iOS and other browsers. */
 .dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap {
   position: relative !important;
   display: inline-grid !important;
@@ -1091,26 +1091,13 @@ html:has(.dashboard.dashboard-ai-active) {
   flex: 0 0 4.2rem !important;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap .ai-more-button {
+  position: relative !important;
+  z-index: 1 !important;
   display: grid !important;
   place-items: center !important;
   width: 100% !important;
   height: 100% !important;
-  pointer-events: none !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-more-native-select {
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: 2 !important;
-  display: block !important;
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  opacity: 0 !important;
-  appearance: none !important;
-  -webkit-appearance: none !important;
-  cursor: pointer !important;
-  font-size: 16px !important;
+  pointer-events: auto !important;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-chat-find-panel {
   position: fixed !important;
@@ -1159,14 +1146,7 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Keep the three-dot icon visible while the transparent native select handles taps. */
+/* The custom menu button remains interactive; no invisible native select overlays it. */
 .dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap .ai-more-button {
-  position: relative !important;
-  z-index: 1 !important;
-  pointer-events: none !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-more-native-select {
-  z-index: 2 !important;
-  color: transparent !important;
-  background: transparent !important;
+  pointer-events: auto !important;
 }
