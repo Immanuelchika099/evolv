@@ -5564,3 +5564,40 @@ body,
   .goals-page .goal-coach-row button { flex:1; }
   .goals-page .goal-add-milestone input { width:100%; }
 }
+
+/* Goals Manage — stable card spacing and restrained black surfaces */
+.goals-page .goal-list {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-4, 1.6rem) !important;
+  margin-bottom: 10rem;
+}
+
+.goals-page .goal-list > .goal-item {
+  flex: 0 0 auto;
+  min-width: 0;
+  margin: 0 !important;
+  border: 1px solid #2b2b2b !important;
+  border-radius: 1.8rem !important;
+  background: #000000 !important;
+  box-shadow: none !important;
+  padding: 2rem 2.1rem 1.65rem !important;
+  transition: border-color .18s ease, background-color .18s ease;
+}
+
+.goals-page .goal-list > .goal-item::before {
+  display: none !important;
+}
+
+.goals-page .goal-list > .goal-item:hover,
+.goals-page .goal-list > .goal-item:focus-within {
+  border-color: #333333 !important;
+}
+
+@media (max-width: 700px) {
+  .goals-page .goal-list > .goal-item {
+    padding: 1.7rem 1.5rem 1.45rem !important;
+    border-radius: 1.55rem !important;
+  }
+}
+
