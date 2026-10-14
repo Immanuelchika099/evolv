@@ -5454,3 +5454,15 @@ body,
     margin-bottom: 3rem !important;
   }
 }
+
+
+/* Goal check-in action: a clear, low-friction way to record real effort. */
+.dashboard .goal-item-actions .goal-checkin-button {
+  border-color: rgba(200, 243, 106, .2);
+  color: #c8f36a;
+  background: rgba(200, 243, 106, .055);
+}
+.dashboard .goal-item-actions .goal-checkin-button:hover {
+  background: rgba(200, 243, 106, .1);
+  border-color: rgba(200, 243, 106, .32);
+}
