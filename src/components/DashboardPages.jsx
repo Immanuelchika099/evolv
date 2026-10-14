@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import {
   ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, ChevronRight,
   Plus, Settings, Target, Pencil, Trash2, MessageCircle, HeartPulse, Apple,
@@ -34,6 +34,7 @@ function HomePage({ pageProps }) {
   } = pageProps
 
   const [now, setNow] = useState(() => new Date())
+  const heatmapScrollRef = useRef(null)
   const [statsMode, setStatsMode] = useState('week')
   const [skippedToday, setSkippedToday] = useState(() => {
     try {
@@ -104,6 +105,19 @@ function HomePage({ pageProps }) {
     const key = dateKey(date)
     return { key, count: activityByDay[key] || 0, date }
   })
+  useEffect(() => {
+    const scrollToCurrentMonth = () => {
+      const container = heatmapScrollRef.current
+      if (container) container.scrollLeft = container.scrollWidth
+    }
+    const frame = window.requestAnimationFrame(scrollToCurrentMonth)
+    window.addEventListener('resize', scrollToCurrentMonth)
+    return () => {
+      window.cancelAnimationFrame(frame)
+      window.removeEventListener('resize', scrollToCurrentMonth)
+    }
+  }, [])
+
   const loggedItems = [
     ...todayLogs.map((log, index) => {
       const def = defs.find(d => String(d.id) === String(log.metric_id))
@@ -178,7 +192,7 @@ function HomePage({ pageProps }) {
           <div><span className="section-label">YOUR CONSISTENCY</span><h2>Every day adds up.</h2><p>Your activity over the last six months.</p></div>
           <div className="home-heatmap-total"><strong>{allActivity.length}</strong><span>check-ins</span></div>
         </div>
-        <div className="home-heatmap-scroll">
+        <div className="home-heatmap-scroll" ref={heatmapScrollRef}>
           <div className="home-heatmap-months" aria-hidden="true">
             {heatmap.filter((item, index) => index === 0 || item.date.getMonth() !== heatmap[index - 1].date.getMonth()).map(item => <span key={item.key}>{item.date.toLocaleDateString(undefined, { month: 'short' })}</span>)}
           </div>
