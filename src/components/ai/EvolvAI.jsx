@@ -997,38 +997,18 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
                 ) : null}
                 {message.content ? <p>{message.content}{isTypingMessage ? <><span className="ai-cursor" aria-hidden="true">▍</span><span className="ai-typing-dot" aria-hidden="true" /></> : null}</p> : null}
                 {message.role === 'user' && message.content && (
-                  <div className="ai-user-message-menu" aria-label="Sent message options">
-                    <MoreHorizontal size={18} aria-hidden="true" />
-                    <select
-                      aria-label="Message options"
-                      value=""
-                      onChange={event => {
-                        const action = event.target.value
-                        if (action === 'copy') void copyMessage(message.content, `prompt-${index}`)
-                        if (action === 'edit') {
-                          window.dispatchEvent(new CustomEvent('evolv:edit-prompt', { detail: { text: message.content } }))
-                          setHasStartedTyping(true)
-                        }
-                        if (action === 'share') void shareMessage(message.content, `prompt-${index}`)
-                        if (action === 'select') {
-                          const messageNode = messagesRef.current?.querySelectorAll('.ai-message.user p')?.[index]
-                          if (messageNode) {
-                            const range = document.createRange()
-                            range.selectNodeContents(messageNode)
-                            const selection = window.getSelection()
-                            selection?.removeAllRanges()
-                            selection?.addRange(range)
-                          }
-                        }
-                      }}
-                    >
-                      <option value="" disabled>Message options</option>
-                      <option value="copy">Copy</option>
-                      <option value="edit">Edit message</option>
-                      <option value="select">Select text</option>
-                      <option value="share">Share</option>
-                    </select>
-                  </div>
+                  <button
+                    type="button"
+                    className="ai-user-message-menu-trigger"
+                    aria-label="More options for your message"
+                    title="More options"
+                    onClick={event => {
+                      const rect = event.currentTarget.getBoundingClientRect()
+                      setPromptMenu({ content: message.content || '', index, x: rect.right, y: rect.bottom })
+                    }}
+                  >
+                    <MoreHorizontal size={19} aria-hidden="true" />
+                  </button>
                 )}
                 {message.role === 'assistant' && !isTypingMessage && message.content && (
                   <div className="ai-message-actions" aria-label="Message actions">
@@ -1054,6 +1034,17 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           )}
           <div ref={bottomRef} />
         </div>
+        {promptMenu && (
+          <>
+            <button type="button" className="ai-user-menu-dismiss" aria-label="Close message options" onClick={closePromptMenu} />
+            <div className="ai-user-message-glass-menu" role="menu" aria-label="Sent message options">
+              <button type="button" role="menuitem" onClick={() => void runPromptAction('copy')}>Copy</button>
+              <button type="button" role="menuitem" onClick={() => void runPromptAction('edit')}>Edit message</button>
+              <button type="button" role="menuitem" onClick={() => void runPromptAction('select')}>Select text</button>
+              <button type="button" role="menuitem" onClick={() => void runPromptAction('share')}>Share</button>
+            </div>
+          </>
+        )}
         {showScrollToBottom && messages.length > 0 && (
           <button
             type="button"
