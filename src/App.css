@@ -2509,3 +2509,30 @@ html,body,#root{background:#000 !important;}
     margin-top: 2rem;
   }
 }
+
+
+/* FINAL Progress spacing override.
+   App.css loads after the dashboard page stylesheet, so earlier margin resets
+   can be reintroduced here. Keep the Activity and Goals cards separated by
+   the parent gap and remove the older forced Goals margin. */
+.dashboard .dashboard-panel.progress-page {
+  display: flex !important;
+  flex-direction: column !important;
+  row-gap: 3rem !important;
+  gap: 3rem !important;
+}
+
+.dashboard .dashboard-panel.progress-page > .progress-heatmap-card,
+.dashboard .dashboard-panel.progress-page > .progress-section-card.progress-goals-card,
+.dashboard .dashboard-panel.progress-page > .progress-overview-grid,
+.dashboard .dashboard-panel.progress-page > .progress-definition {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 700px) {
+  .dashboard .dashboard-panel.progress-page {
+    row-gap: 2.6rem !important;
+    gap: 2.6rem !important;
+  }
+}
