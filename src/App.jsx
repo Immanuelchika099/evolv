@@ -328,9 +328,17 @@ function App() {
   }
 
   async function logout() {
-    await supabase.auth.signOut()
+    const { error } = await supabase.auth.signOut({ scope: 'local' })
+    if (error) {
+      console.error('EVOLV sign-out failed:', error)
+      throw new Error(error.message || 'EVOLV could not sign you out. Please try again.')
+    }
+
     localStorage.removeItem('evolv-view')
     localStorage.removeItem('evolv-onboarding')
+    sessionStorage.removeItem('evolv-oauth-intent')
+    sessionStorage.removeItem('evolv-auth-error')
+    setAuthMode('signup')
     setView('landing')
     setData(initialData)
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -2173,38 +2181,40 @@ function Dashboard({ data, onLogout, onArticle }) {
     }
   }
   async function deleteAccount(){
-    if(deleting)return
+    if(deleting) return false
     setDeleting(true)
 
     try{
-      const {data:s,error:sessionError}=await supabase.auth.getSession()
-      const session=s?.session
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
+      const session = sessionData?.session
 
-      if(sessionError||!session?.access_token){
-        setDeleting(false)
-        return
-      }
+      if(sessionError) throw sessionError
+      if(!session?.access_token) throw new Error('Your session has expired. Sign in again before deleting your account.')
 
-      const response=await fetch(
-        import.meta.env.VITE_SUPABASE_URL+'/functions/v1/delete-account',
-        {
-          method:'POST',
-          headers:{
-            Authorization:'Bearer '+session.access_token,
-            apikey:import.meta.env.VITE_SUPABASE_ANON_KEY,
-            'Content-Type':'application/json'
+      // Use the shared Supabase client so the function URL, API key and current
+      // access token are supplied consistently with the rest of EVOLV.
+      const { data: deletionData, error: deletionError } = await supabase.functions.invoke('delete-account', {
+        method: 'POST',
+      })
+
+      if(deletionError){
+        let detail = ''
+        try {
+          const response = deletionError.context
+          if(response && typeof response.clone === 'function'){
+            const body = await response.clone().json()
+            detail = body?.error || body?.message || body?.details || ''
           }
-        }
-      )
-
-      if(!response.ok){
-        setDeleting(false)
-        return
+        } catch {}
+        throw new Error(detail || deletionError.message || 'The delete-account service rejected the request.')
       }
+      if(deletionData?.error) throw new Error(deletionData.error)
+      if(deletionData?.success === false) throw new Error(deletionData.message || 'EVOLV could not delete your account.')
 
-      // The account is gone. Explicitly clear the local EVOLV state too so
-      // this device cannot reopen the dashboard after deletion.
-      await supabase.auth.signOut()
+      // The account is gone. Clear the local session and device-only state.
+      const { error: signOutError } = await supabase.auth.signOut({ scope: 'local' })
+      if(signOutError) console.warn('EVOLV account was deleted, but local sign-out returned an error:', signOutError)
+
       localStorage.removeItem('evolv-view')
       localStorage.removeItem('evolv-onboarding')
       localStorage.removeItem('evolv-notifications-enabled')
@@ -2213,12 +2223,14 @@ function Dashboard({ data, onLogout, onArticle }) {
       sessionStorage.removeItem('evolv-oauth-intent')
       sessionStorage.removeItem('evolv-auth-error')
 
-      // Root URL, but with the account-creation view restored. This gives
-      // the deleted user a clean path to create a new EVOLV account.
+      // Return to account creation after the deleted account has been cleared.
       localStorage.setItem('evolv-view','auth')
       window.location.href='/'
+      return true
     }catch(error){
       console.error('EVOLV account deletion failed:',error)
+      throw new Error(error?.message || 'Could not delete your EVOLV account. Please try again.')
+    }finally{
       setDeleting(false)
     }
   }
