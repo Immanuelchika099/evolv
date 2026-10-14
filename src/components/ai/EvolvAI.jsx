@@ -93,7 +93,7 @@ function AssistantMessageContent({ content, typing = false }) {
 }
 
 import {
-  History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
+  History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown, Pencil,
   Check, Search, Files
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
