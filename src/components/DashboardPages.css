@@ -5439,3 +5439,18 @@ body,
 @media (prefers-reduced-motion: reduce) {
   .goal-heatmap-range button { transition: none; }
 }
+
+
+/* Keep the new Goal Activity graph visually separate from Goal Progress below it. */
+.dashboard .progress-page > .goal-heatmap-card {
+  display: flow-root;
+  margin-bottom: 3.4rem !important;
+}
+.dashboard .progress-page > .goal-heatmap-card + .progress-goals-card {
+  margin-top: 0 !important;
+}
+@media (max-width: 700px) {
+  .dashboard .progress-page > .goal-heatmap-card {
+    margin-bottom: 3rem !important;
+  }
+}
