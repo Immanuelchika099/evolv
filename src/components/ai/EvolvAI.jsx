@@ -1,4 +1,97 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+
+function renderInlineMarkdown(text, keyPrefix = 'inline') {
+  const parts = String(text || '').split(/(\*\*[^*]+\*\*|\*[^*]+\*|\`[^\`]+\`|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g)
+  return parts.map((part, index) => {
+    if (!part) return null
+    const key = `${keyPrefix}-${index}`
+    if (part.startsWith('**') && part.endsWith('**')) return <strong key={key}>{part.slice(2, -2)}</strong>
+    if (part.startsWith('*') && part.endsWith('*')) return <em key={key}>{part.slice(1, -1)}</em>
+    if (part.startsWith('`') && part.endsWith('`')) return <code key={key}>{part.slice(1, -1)}</code>
+    const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/)
+    if (link) return <a key={key} href={link[2]} target="_blank" rel="noreferrer noopener">{link[1]}</a>
+    return part
+  })
+}
+
+function AssistantMessageContent({ content, typing = false }) {
+  const lines = String(content || '').replace(/\r\n?/g, '\n').split('\n')
+  const blocks = []
+  let paragraph = []
+  let list = []
+  let listType = ''
+  let quote = []
+  let code = []
+  let inCode = false
+
+  const flushParagraph = () => {
+    if (!paragraph.length) return
+    blocks.push(<p key={`p-${blocks.length}`}>{paragraph.map((line, index) => <React.Fragment key={index}>{index > 0 && <br />}{renderInlineMarkdown(line, `p-${blocks.length}-${index}`)}</React.Fragment>)}</p>)
+    paragraph = []
+  }
+  const flushList = () => {
+    if (!list.length) return
+    const Tag = listType === 'ol' ? 'ol' : 'ul'
+    blocks.push(<Tag key={`list-${blocks.length}`}>{list.map((item, index) => <li key={index}>{renderInlineMarkdown(item, `li-${blocks.length}-${index}`)}</li>)}</Tag>)
+    list = []
+    listType = ''
+  }
+  const flushQuote = () => {
+    if (!quote.length) return
+    blocks.push(<blockquote key={`quote-${blocks.length}`}>{quote.map((line, index) => <p key={index}>{renderInlineMarkdown(line, `quote-${blocks.length}-${index}`)}</p>)}</blockquote>)
+    quote = []
+  }
+  const flushCode = () => {
+    blocks.push(<pre key={`code-${blocks.length}`}><code>{code.join('\n')}</code></pre>)
+    code = []
+  }
+
+  lines.forEach((line, index) => {
+    const trimmed = line.trim()
+    if (trimmed.startsWith('```')) {
+      flushParagraph(); flushList(); flushQuote()
+      if (inCode) flushCode()
+      inCode = !inCode
+      return
+    }
+    if (inCode) { code.push(line); return }
+    if (!trimmed) { flushParagraph(); flushList(); flushQuote(); return }
+    if (/^#{1,4}\s+/.test(trimmed)) {
+      flushParagraph(); flushList(); flushQuote()
+      const match = trimmed.match(/^(#{1,4})\s+(.*)$/)
+      const Tag = match[1].length <= 2 ? 'h2' : 'h3'
+      blocks.push(<Tag key={`heading-${index}`}>{renderInlineMarkdown(match[2], `heading-${index}`)}</Tag>)
+      return
+    }
+    if (/^([-*_])\1\1+\s*$/.test(trimmed)) {
+      flushParagraph(); flushList(); flushQuote()
+      blocks.push(<hr key={`hr-${index}`} />)
+      return
+    }
+    if (/^>\s?/.test(trimmed)) {
+      flushParagraph(); flushList()
+      quote.push(trimmed.replace(/^>\s?/, ''))
+      return
+    }
+    const unordered = trimmed.match(/^[-*+]\s+(.+)$/)
+    const ordered = trimmed.match(/^\d+[.)]\s+(.+)$/)
+    if (unordered || ordered) {
+      flushParagraph(); flushQuote()
+      const nextType = ordered ? 'ol' : 'ul'
+      if (list.length && listType !== nextType) flushList()
+      listType = nextType
+      list.push((unordered || ordered)[1])
+      return
+    }
+    flushList(); flushQuote()
+    paragraph.push(line)
+  })
+  flushParagraph(); flushList(); flushQuote()
+  if (inCode) flushCode()
+
+  return <div className="ai-response-content">{blocks}{typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</div>
+}
+
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
   Check, Search, Files
@@ -1016,7 +1109,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
                     ))}
                   </div>
                 ) : null}
-                {message.content ? <p>{message.content}{isTypingMessage ? <><span className="ai-cursor" aria-hidden="true">▍</span><span className="ai-typing-dot" aria-hidden="true" /></> : null}</p> : null}
+                {message.content ? (message.role === 'assistant' ? <AssistantMessageContent content={message.content} typing={isTypingMessage} /> : <p>{message.content}</p>) : null}
                 {message.role === 'user' && message.content && (
                   <button
                     type="button"
