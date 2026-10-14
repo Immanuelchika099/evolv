@@ -483,7 +483,7 @@ function ProgressPage({ pageProps }) {
             </div>
             <div className={`goal-heatmap-scroll ${goalGraphRange === 'year' ? 'is-year' : ''}`}>
               <div className={`goal-heatmap-grid goal-heatmap-${goalGraphRange}`} role="group" aria-label={`Goal activity over the past ${goalGraphRange === 'week' ? '7 days' : goalGraphRange === 'month' ? '30 days' : 'year'}`}>
-                {goalGraphDays.map(day => <span key={day.key} className={`goal-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : day.count <= 4 ? 3 : 4}`} title={`${day.count} goal check-in${day.count === 1 ? '' : 's'} · ${day.date.toLocaleDateString()}`} aria-label={`${day.count} goal record${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString()}`} />)}
+                {goalGraphDays.map(day => <span key={day.key} className={`goal-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : day.count <= 4 ? 3 : 4}`} title={`${day.count} goal check-in${day.count === 1 ? '' : 's'} · ${day.date.toLocaleDateString()}`} aria-label={`${day.count} goal check-in${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString()}`} />)}
               </div>
             </div>
             <div className="goal-heatmap-footer"><span>{goalGraphDays[0]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – {goalGraphDays[goalGraphDays.length - 1]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span><span className="goal-heatmap-legend">Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span></div>
