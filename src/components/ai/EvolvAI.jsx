@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import {
-  History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2,
+  History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown,
   Check
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -94,6 +94,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
   })
   const [messages, setMessages] = useState([])
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false)
   const [promptMenu, setPromptMenu] = useState(null)
   const promptHoldTimerRef = useRef(null)
   const promptHoldStartRef = useRef(null)
@@ -323,6 +324,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     function handleScroll() {
       const distanceFromBottom = node.scrollHeight - node.scrollTop - node.clientHeight
       shouldAutoScrollRef.current = distanceFromBottom < 120
+      setShowScrollToBottom(distanceFromBottom > 140)
     }
 
     handleScroll()
@@ -893,6 +895,22 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
           )}
           <div ref={bottomRef} />
         </div>
+        {showScrollToBottom && messages.length > 0 && (
+          <button
+            type="button"
+            className="ai-scroll-to-bottom"
+            aria-label="Scroll to latest messages"
+            title="Latest messages"
+            onClick={() => {
+              const node = messagesRef.current
+              if (!node) return
+              shouldAutoScrollRef.current = true
+              node.scrollTo({ top: node.scrollHeight, behavior: 'smooth' })
+            }}
+          >
+            <ArrowDown size={19} strokeWidth={2.2} />
+          </button>
+        )}
       </div>
       {pendingCalendarEvent && (
         <EvolvCalendarBridge
