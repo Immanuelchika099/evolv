@@ -111,6 +111,7 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
   const [pendingCalendarEvent, setPendingCalendarEvent] = useState(null)
   const [chatHistory, setChatHistory] = useState([])
   const [historyOpen, setHistoryOpen] = useState(false)
+  const [historyLoading, setHistoryLoading] = useState(false)
   const [pressedChatId, setPressedChatId] = useState('')
   const historyPressTimerRef = useRef(null)
   const bottomRef = useRef(null)
@@ -350,15 +351,18 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
     }
   }
 
-  async function openChatHistory() {
+  function openChatHistory() {
     if (historyOpen) {
       setHistoryOpen(false)
       window.setTimeout(() => messagesRef.current?.focus?.(), 0)
       return
     }
+
+    // Open the drawer immediately; fetch the conversations in the background.
     setError('')
-    await loadChatHistory()
+    setHistoryLoading(true)
     setHistoryOpen(true)
+    loadChatHistory().finally(() => setHistoryLoading(false))
   }
 
   function selectChatFromHistory(id) {
@@ -941,7 +945,12 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
               <button type="button" className="ai-history-close" onClick={() => setHistoryOpen(false)} aria-label="Close chat history"><X size={18}/></button>
             </div>
             <div className="ai-history-list">
-              {chatHistory.length ? chatHistory.map(chat => (
+              {historyLoading ? (
+                <div className="ai-history-loading" role="status" aria-label="Loading chat history">
+                  <span className="ai-history-spinner" aria-hidden="true" />
+                  <span className="ai-history-loading-label">Loading chats</span>
+                </div>
+              ) : chatHistory.length ? chatHistory.map(chat => (
                 <div
                   className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'}
                   key={chat.chatId}
