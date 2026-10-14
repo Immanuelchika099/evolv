@@ -5573,25 +5573,35 @@ body,
   margin-bottom: 10rem;
 }
 
-.goals-page .goal-list > .goal-item {
+.goals-page .goal-list > .goal-item,
+.goals-page .goal-list > .goal-item:hover,
+.goals-page .goal-list > .goal-item:focus,
+.goals-page .goal-list > .goal-item:focus-within,
+.goals-page .goal-list > .goal-item:active {
   flex: 0 0 auto;
   min-width: 0;
   margin: 0 !important;
   border: 1px solid #2b2b2b !important;
   border-radius: 1.8rem !important;
   background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
   box-shadow: none !important;
   padding: 2rem 2.1rem 1.65rem !important;
-  transition: border-color .18s ease, background-color .18s ease;
+  transition: none !important;
 }
 
-.goals-page .goal-list > .goal-item::before {
+.goals-page .goal-list > .goal-item::before,
+.goals-page .goal-list > .goal-item::after,
+.goals-page .goal-list > .goal-item:hover::before,
+.goals-page .goal-list > .goal-item:hover::after,
+.goals-page .goal-list > .goal-item:focus-within::before,
+.goals-page .goal-list > .goal-item:focus-within::after {
   display: none !important;
-}
-
-.goals-page .goal-list > .goal-item:hover,
-.goals-page .goal-list > .goal-item:focus-within {
-  border-color: #333333 !important;
+  content: none !important;
+  background: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 @media (max-width: 700px) {
