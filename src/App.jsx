@@ -1335,6 +1335,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [meals,setMeals]=useState([])
   const [goals,setGoals]=useState([])
   const [goalCheckins,setGoalCheckins]=useState([])
+  const [dailyReflections,setDailyReflections]=useState([])
   const [goalMilestones,setGoalMilestones]=useState([])
   const [goalPlans,setGoalPlans]=useState({})
   const [goalCoachLoading,setGoalCoachLoading]=useState({})
@@ -1455,18 +1456,20 @@ function Dashboard({ data, onLogout, onArticle }) {
       const {data:a}=await supabase.auth.getUser()
       const u=a?.user
       if(!u)return
-      const [{data:l},{data:m},{data:g},{data:gc},{data:gm}]=await Promise.all([
+      const [{data:l},{data:m},{data:g},{data:gc},{data:gm},{data:dr}]=await Promise.all([
         supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
         supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
         supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').eq('user_id',u.id).order('created_at',{ascending:false}),
         supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000),
-        supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true})
+        supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true}),
+        supabase.from('daily_reflections').select('id,reflection_date,mood,day_feeling,note,created_at').eq('user_id',u.id).order('reflection_date',{ascending:false}).limit(30)
       ])
       if(l)setLogs(l)
       if(m)setMeals(m)
       if(g)setGoals(g)
       if(gc)setGoalCheckins(gc)
       if(gm)setGoalMilestones(gm)
+      if(dr)setDailyReflections(dr)
     }
 
     window.addEventListener('evolv-tracking-updated',refreshAiTracking)
@@ -1474,7 +1477,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[])
 
   useEffect(()=>{let mounted=true;async function load(){setLoading(true);const {data:a}=await supabase.auth.getUser();const u=a?.user;if(!u){await onLogout();return}
-    const [p,d,l,m,g,n,gc,gm]=await Promise.all([
+    const [p,d,l,m,g,n,gc,gm,dr]=await Promise.all([
       supabase.from('profiles').select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').eq('id',u.id).maybeSingle(),
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
@@ -1482,11 +1485,12 @@ function Dashboard({ data, onLogout, onArticle }) {
       supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').order('created_at',{ascending:false}),
       supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50),
       supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000),
-      supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true})
+      supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true}),
+      supabase.from('daily_reflections').select('id,reflection_date,mood,day_feeling,note,created_at').eq('user_id',u.id).order('reflection_date',{ascending:false}).limit(30)
      ]);if(!mounted)return;if(p.data){setProfile({...p.data,email:u.email||'',user_metadata:u.user_metadata||{}});setProfileName(p.data.first_name||'')}
     setAvatarUrl(p.data?.avatar_url||u.user_metadata?.avatar_url||localStorage.getItem('evolv-avatar-'+u.id)||'');
     setDefs(d.data||[]);
-    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);setGoalCheckins(gc.data||[]);setGoalMilestones(gm.data||[]);if(d.error||l.error||m.error||g.error||n.error||gc.error||gm.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
+    setLogs(l.data||[]);setMeals(m.data||[]);setGoals(g.data||[]);setNotifications(n.data||[]);setGoalCheckins(gc.data||[]);setGoalMilestones(gm.data||[]);setDailyReflections(dr.data||[]);if(d.error||l.error||m.error||g.error||n.error||gc.error||gm.error||dr.error)setError('Some tracking data could not be loaded.');setLoading(false)}load();return()=>{mounted=false}},[onLogout])
 
   useEffect(()=>{
     if(active!=='notifications') return
@@ -2245,7 +2249,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     reflectionMood, reflectionFeeling, reflectionNote, reflectionSaving, avatarUrl, avatarUploading,
     avatarInputRef, deleting, error, progressRange, setProgressRange, progressMetric,
     setProgressMetric, selectedEntry, editingEntry, manageLogsOpen, setManageLogsOpen, dashboardMainRef,
-    goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, valueText, openLog,
+    goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, dailyReflections, valueText, openLog,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
     updateGoal, deleteGoal, checkInGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, saveProfile,
     toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour, deleteNotification,
@@ -2259,7 +2263,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='ai'
-        ? <EvolvAI key="evolv-ai-page" profile={profile} goals={goals} checkins={[]} momentum={0} logs={logs} meals={meals} definitions={defs}/>
+        ? <EvolvAI key="evolv-ai-page" profile={profile} goals={goals} checkins={goalCheckins} reflections={dailyReflections} momentum={new Set([...logs.map(item=>localDateKey(item.logged_at||item.created_at)),...meals.map(item=>localDateKey(item.logged_at||item.created_at)),...goalCheckins.map(item=>item.checkin_date)].filter(date=>date && date >= localDateKey(new Date(Date.now()-6*86400000)))).size} logs={logs} meals={meals} definitions={defs}/>
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
