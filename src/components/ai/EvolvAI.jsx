@@ -99,6 +99,7 @@ import {
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
 import './EvolvAIFixes.css'
+import './EvolvAIMobileViewport.css'
 import { Attachment01Icon, Globe02Icon } from '@hugeicons/core-free-icons'
 
 function EvolvCalendarBridge({ event, onCancel, onAdded }) {
@@ -187,14 +188,25 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     }, 80)
   }, [])
 
-  // Keep the AI workspace matched to the actually visible viewport on short phones.
+  // Lock document scrolling while AI is open and follow the visible viewport as the keyboard opens.
   useEffect(() => {
     const root = document.documentElement
+    const body = document.body
+    const appRoot = document.getElementById('root')
+    const activeClass = 'evolv-ai-viewport-active'
+
+    root.classList.add(activeClass)
+    body.classList.add(activeClass)
+    appRoot?.classList.add(activeClass)
+
     const updateViewportHeight = () => {
       const viewport = window.visualViewport
       const height = viewport?.height || window.innerHeight
-      const offsetTop = viewport?.offsetTop || 0
-      if (height > 0) root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(height)}px`)
+      const offsetTop = Math.max(0, viewport?.offsetTop || 0)
+
+      if (height > 0) {
+        root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(height)}px`)
+      }
       root.style.setProperty('--evolv-ai-viewport-offset-top', `${Math.round(offsetTop)}px`)
     }
 
@@ -211,6 +223,9 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
       window.visualViewport?.removeEventListener('scroll', updateViewportHeight)
       root.style.removeProperty('--evolv-ai-viewport-height')
       root.style.removeProperty('--evolv-ai-viewport-offset-top')
+      root.classList.remove(activeClass)
+      body.classList.remove(activeClass)
+      appRoot?.classList.remove(activeClass)
     }
   }, [])
 
