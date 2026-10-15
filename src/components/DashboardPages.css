@@ -7070,3 +7070,137 @@ body,
 .evolv-avatar-done { width:100%; min-height:4.4rem; margin-top:1.8rem; border:0; border-radius:999px; background:#b8f34a; color:#11130d; font-size:1.45rem; font-weight:700; cursor:pointer; }
 .evolv-avatar-note { display:block; margin-top:1rem; color:#777970; text-align:center; font-size:1.15rem; }
 @media(max-width:480px) { .evolv-avatar-editor { padding:2.2rem 1.7rem; } .evolv-avatar-choices button { flex-wrap:wrap; font-size:1.2rem; } .evolv-mascot-wrap { padding-bottom:3.2rem; } }
+
+
+/* EVOLV Avatar Studio — illustrated, fully customizable profile companion. */
+.evolv-mascot-wrap .evolv-custom-portrait {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: min(100%, 19rem);
+  height: auto;
+  max-height: 23rem;
+  overflow: visible;
+  object-fit: contain;
+  filter: drop-shadow(0 1.4rem 2.5rem rgba(0,0,0,.25));
+}
+.evolv-mascot-wrap.glow-lime .evolv-mascot-halo {
+  background: radial-gradient(circle, rgba(184,243,74,.17), rgba(184,243,74,.045) 42%, transparent 72%);
+}
+.evolv-mascot-wrap.glow-violet .evolv-mascot-halo {
+  background: radial-gradient(circle, rgba(163,130,238,.17), rgba(163,130,238,.045) 42%, transparent 72%);
+}
+.evolv-mascot-wrap.glow-none .evolv-mascot-halo { opacity: 0; }
+.avatar-studio {
+  width: min(100%, 48rem);
+  padding: 2.5rem;
+}
+.avatar-studio-preview {
+  position: relative;
+  display: grid;
+  place-items: center;
+  height: 19rem;
+  margin: 1.5rem 0 1.7rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.07);
+  border-radius: 1.8rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+}
+.avatar-studio-preview > span {
+  position: absolute;
+  width: 21rem;
+  height: 18rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,243,74,.14), transparent 70%);
+  filter: blur(1.8rem);
+  pointer-events: none;
+}
+.avatar-studio-preview.glow-violet > span { background: radial-gradient(circle, rgba(163,130,238,.17), transparent 70%); }
+.avatar-studio-preview.glow-none > span { opacity: 0; }
+.avatar-studio-preview svg {
+  position: relative;
+  z-index: 1;
+  width: 15rem;
+  height: 17rem;
+  overflow: visible;
+  filter: drop-shadow(0 1.2rem 1.8rem rgba(0,0,0,.3));
+}
+.avatar-studio-field { margin-top: 1.55rem; }
+.avatar-studio-label {
+  display: block;
+  margin-bottom: .8rem;
+  color: #b9bbb3;
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: .055em;
+  text-transform: uppercase;
+}
+.avatar-studio-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .7rem;
+}
+.avatar-studio-options button {
+  position: relative;
+  min-height: 3.8rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .8rem 1.05rem;
+  border: 1px solid rgba(255,255,255,.085);
+  border-radius: 1.1rem;
+  background: rgba(255,255,255,.025);
+  color: #e9eae4;
+  font-size: 1.3rem;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.avatar-studio-options button:hover { border-color: rgba(184,243,74,.35); transform: translateY(-1px); }
+.avatar-studio-options button.is-selected {
+  border-color: rgba(184,243,74,.65);
+  background: rgba(184,243,74,.09);
+  color: #f7f8f2;
+}
+.avatar-studio-options button svg { color: #b8f34a; flex: 0 0 auto; }
+.avatar-studio-options.is-colors { gap: 1rem; }
+.avatar-studio-options.is-colors button {
+  width: 3.7rem;
+  min-width: 3.7rem;
+  height: 3.7rem;
+  min-height: 3.7rem;
+  padding: .45rem;
+  border-radius: 50%;
+}
+.avatar-color-dot {
+  display: block;
+  width: 2.15rem;
+  height: 2.15rem;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.08);
+}
+.avatar-studio-options.is-colors button svg {
+  position: absolute;
+  right: -.2rem;
+  top: -.35rem;
+  width: 1.6rem;
+  height: 1.6rem;
+  padding: .2rem;
+  border-radius: 50%;
+  background: #b8f34a;
+  color: #11130d;
+}
+.avatar-studio .evolv-avatar-done { margin-top: 2.2rem; }
+@media (max-width: 600px) {
+  .avatar-studio { padding: 2.2rem 1.6rem 1.8rem; border-radius: 2rem; }
+  .avatar-studio-preview { height: 17rem; }
+  .avatar-studio-preview svg { width: 13.5rem; height: 15.5rem; }
+  .avatar-studio-options { gap: .6rem; }
+  .avatar-studio-options button { min-height: 3.7rem; padding: .8rem .9rem; font-size: 1.25rem; }
+  .avatar-studio-options.is-colors { gap: .9rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .avatar-studio-options button { transition: none; }
+}
