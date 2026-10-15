@@ -11,6 +11,8 @@ const DEFAULT_PREFERENCES = {
   hydration: true,
   reflection: true,
   morningTime: "08:00",
+  dinner: true,
+  dinnerTime: "19:00",
   hydrationTime: "13:00",
   reflectionTime: "22:30",
   quietHours: true,
