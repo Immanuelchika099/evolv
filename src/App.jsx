@@ -776,26 +776,16 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         <div className="ev-hero-watermark" aria-hidden="true">EVOLV</div>
 
         <div className="ev-hero-content">
-          <div className="ev-hero-eyebrow"><span>PERSONAL GROWTH SYSTEM</span><i /> BUILT FOR YOUR NEXT SELF</div>
+          <div className="ev-hero-eyebrow"><span>A LITTLE SPACE TO GROW</span></div>
           <h1 className="ev-hero-title">
             <span className="ev-hero-title-line">Become more.</span>
             <span className="ev-hero-title-line"><em>On purpose.</em></span>
           </h1>
-          <p className="ev-hero-copy">A quieter way to turn goals into progress. Define what matters, build your rhythm, and see yourself moving.</p>
+          <p className="ev-hero-copy">Understand yourself a little better. Build gentle routines. Grow at your own pace.</p>
           <div className="ev-hero-actions">
             <button className="ev-btn ev-btn-solid" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button>
-            <button className="ev-btn ev-btn-line" type="button" onClick={onExplore}>Explore the system <ArrowDownRight size={17} /></button>
+            <button className="ev-btn ev-btn-line" type="button" onClick={onExplore}>Take a look around <ArrowDownRight size={17} /></button>
           </div>
-        </div>
-
-        <div className="ev-hero-stage" aria-label="EVOLV progress preview">
-          <div className="ev-orbit" aria-hidden="true" />
-          <div className="ev-stage-meta"><span>EVOLV / 01</span><span>YOUR PROGRESS</span></div>
-          <div className="ev-stage-main">
-            <div className="ev-stage-score"><strong>72</strong><span>%</span></div>
-            <div className="ev-stage-copy"><span>THIS WEEK</span><b>Momentum is building.</b><i><u /></i><small>+18% from last week</small></div>
-          </div>
-          <div className="ev-stage-footer"><span>CAREER</span><span>SKILLS</span><span>LIFE</span><span>HEALTH</span></div>
         </div>
 
         <div className="ev-scroll-cue"><span>SCROLL TO EXPLORE</span><i /></div>
@@ -816,31 +806,17 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         <div className="ev-statement-copy">
           <span className="ev-label">THE SHIFT</span>
           <h2>Your growth deserves<br /><em>a place to live.</em></h2>
-          <p>Ambition gets noisy when everything lives in your head. EVOLV gives your goals, routines and momentum one calm place to become visible.</p>
+          <p>A quiet place to check in, find your rhythm and make room for what matters.</p>
         </div>
-      </section>
-
-      <section className="ev-band ev-reveal">
-        <span>WE</span><strong>DEFINE</strong><i>→</i><strong>BUILD</strong><i>→</i><strong>TRACK</strong><i>→</i><strong>EVOLVE</strong>
       </section>
 
       <section className="ev-system ev-reveal" id="features">
         <div className="ev-section-head"><div><span className="ev-label">02 — THE SYSTEM</span><h2>Four moves.<br /><em>One direction.</em></h2></div><p>EVOLV turns personal growth into something you can actually see, understand and keep moving.</p></div>
-        <div className="ev-system-grid">
-          {[
-            ['01','DEFINE','Decide what matters in this season of your life.',Target],
-            ['02','BUILD','Turn intention into goals you can actually act on.',Sprout],
-            ['03','TRACK','See momentum, patterns and progress over time.',TrendingUp],
-            ['04','EVOLVE','Reflect, adjust and keep becoming your next self.',Sparkles],
-          ].map(([num,title,text,Icon]) => (
-            <article className="ev-system-card" key={num}>
-              <span className="ev-card-num">{num}</span>
-              <Icon size={25} strokeWidth={1.5} />
-              <h3>{title}</h3>
-              <p>{text}</p>
-              <span className="ev-card-arrow"><ArrowUpRight size={17} /></span>
-            </article>
-          ))}
+        <div className="ev-system-steps">
+          <div><span>01</span><strong>Notice</strong><small>Check in with yourself.</small></div>
+          <div><span>02</span><strong>Choose</strong><small>Focus on what matters.</small></div>
+          <div><span>03</span><strong>Practice</strong><small>Take one small step.</small></div>
+          <div><span>04</span><strong>Reflect</strong><small>Learn as you go.</small></div>
         </div>
       </section>
 
@@ -848,7 +824,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         <div className="ev-experience-copy">
           <span className="ev-label">03 — INSIDE EVOLV</span>
           <h2>Everything you need.<br /><em>Nothing you don't.</em></h2>
-          <p>Your dashboard keeps the important things close: active goals, logged progress, growth areas and the momentum you've built.</p>
+          <p>Your goals and check-ins, together in one calm space.</p>
           <button className="ev-text-link" type="button" onClick={onStart}>Enter your space <ArrowRight size={16} /></button>
         </div>
         <div className="ev-device">
@@ -874,17 +850,6 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
               <span>0{index + 1}</span><strong>{area.title}</strong><small>{area.text}</small><ArrowUpRight size={20} />
             </button>
           ))}
-        </div>
-      </section>
-
-      <section className="ev-stats ev-reveal">
-        <div className="ev-stats-watermark">KEEP GOING</div>
-        <span className="ev-label">05 — THE IDEA</span>
-        <h2>Progress becomes different<br /><em>when you can see it.</em></h2>
-        <div className="ev-stat-grid">
-          <div><strong className="ev-stat-number" data-value="4">0</strong><span>STEPS TO EVOLVE</span></div>
-          <div><strong className="ev-stat-number" data-value="6">0</strong><span>GROWTH AREAS</span></div>
-          <div><strong className="ev-stat-number" data-value="1">0</strong><span>PLACE FOR YOUR PROGRESS</span></div>
         </div>
       </section>
 
