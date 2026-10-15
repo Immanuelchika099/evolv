@@ -7,7 +7,7 @@ import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
-import BlinkingSquares from './components/BlinkingSquares/BlinkingSquares'
+import GradientASCII from './components/GradientASCII/GradientASCII'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
 import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
@@ -1308,7 +1308,25 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
   return (
     <div className="evolv-onboarding page-enter">
       <div className="evolv-onboarding-background" aria-hidden="true">
-        <BlinkingSquares direction="top" gridSize={58} squareSize={0.48} fadeStart={0} fadeEnd={1} falloff={1.6} minBrightness={0.28} twinkleSpeed={0.7} twinkleStrength={0.55} intensity={0.65} opacity={0.42} squareColor="#B8F34A" dpr={1.5} />
+        <GradientASCII
+          colors={['#B8F34A', '#F6F8F0', '#B8F34A']}
+          shape="horizon"
+          characters=" =+xX0S8#@"
+          cellSize={17}
+          density={0.72}
+          glyphOpacity={0.68}
+          gradientOpacity={0.3}
+          glow={0.16}
+          softness={0.62}
+          flow={0.32}
+          speed={0.42}
+          grain={0.025}
+          mouseInteraction={false}
+          clickEffect="none"
+          intro
+          dpr={1.25}
+          className="evolv-onboarding-ascii"
+        />
         <div className="evolv-welcome-vignette" />
       </div>
       <header className="evolv-onboarding-header">
