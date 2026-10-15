@@ -103,9 +103,9 @@ export default function Avatar3D({ className = '', label = '3D avatar', interact
     <div ref={shellRef} className={`evolv-avatar-3d-shell ${className}`} aria-label={label}>
       {modelState === 'loading' && <div className="evolv-avatar-3d-loading" aria-hidden="true"><span /></div>}
       {modelState === 'error' && (
-        <div className="evolv-avatar-3d-error" role="img" aria-label={`${label} unavailable`}>
-          <span className="evolv-avatar-3d-error-head" />
-          <span className="evolv-avatar-3d-error-body" />
+        <div className="evolv-avatar-3d-error" role="status">
+          <span>3D preview unavailable</span>
+          <small>Check your connection and reopen the preview.</small>
         </div>
       )}
       {viewerReady && (
