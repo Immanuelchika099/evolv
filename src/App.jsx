@@ -1892,7 +1892,9 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
 
   async function syncCurrentPushSettings(nextOverrides={}){
-    const next={...notificationTimes,...nextOverrides}
+    let latestPreferences = {}
+    try { latestPreferences = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}') } catch {}
+    const next={...notificationTimes,...latestPreferences,...nextOverrides}
     if(next.reflectionTime) setReflectionTime(next.reflectionTime)
     persistNotificationTimes(next)
     if(!notificationsEnabled) return true
@@ -1961,10 +1963,12 @@ function Dashboard({ data, onLogout, onArticle }) {
       }
 
       const timezone=Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos'
+      let latestPreferences = {}
+      try { latestPreferences = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}') } catch {}
       const saved=await syncPushSettings({
         subscription:subscription.toJSON(),
         timezone,
-        preferences:notificationTimes,
+        preferences:{...notificationTimes,...latestPreferences},
         reflectionTime,
         enabled:true
       })
