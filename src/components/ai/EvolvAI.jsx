@@ -191,8 +191,17 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   useEffect(() => {
     const root = document.documentElement
     const updateViewportHeight = () => {
-      const height = window.visualViewport?.height || window.innerHeight
+      const visualViewport = window.visualViewport
+      const height = visualViewport?.height || window.innerHeight
       if (height > 0) root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(height)}px`)
+
+      // On iOS, the on-screen keyboard can shrink the visual viewport while
+      // fixed elements remain anchored to the layout viewport. Lift the composer
+      // by exactly the covered portion so the typing field stays visible.
+      const keyboardInset = visualViewport
+        ? Math.max(0, window.innerHeight - (visualViewport.height + visualViewport.offsetTop))
+        : 0
+      root.style.setProperty('--evolv-ai-keyboard-inset', `${Math.round(keyboardInset)}px`)
     }
 
     updateViewportHeight()
