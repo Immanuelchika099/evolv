@@ -41,8 +41,10 @@ export default function DailyRoutinePage({ pageProps }) {
   useEffect(() => {
     try {
       const stored = JSON.parse(localStorage.getItem(storageKey) || '{}')
-      setItems(Array.isArray(stored.items) ? stored.items : defaults)
+      const loadedItems = Array.isArray(stored.items) ? stored.items : defaults
+      setItems(loadedItems)
       setCompleted(stored.completedDate === date ? (stored.completed || {}) : {})
+      syncRoutineReminders(loadedItems, remindersEnabled)
     } catch {
       setItems(defaults)
       setCompleted({})
