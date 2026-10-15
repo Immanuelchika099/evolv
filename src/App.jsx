@@ -811,7 +811,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       </section>
 
       <section className="ev-system ev-reveal" id="features">
-        <div className="ev-section-head"><div><span className="ev-label">02 — THE SYSTEM</span><h2>Four moves.<br /><em>One direction.</em></h2></div><p>EVOLV turns personal growth into something you can actually see, understand and keep moving.</p></div>
+        <div className="ev-section-head"><div><span className="ev-label">02 — THE SYSTEM</span><h2>Four moves.<br /><em>One direction.</em></h2></div><p>No pressure to change everything. Just a few gentle steps, when you're ready.</p></div>
         <div className="ev-system-steps">
           <div><span>01</span><strong>Notice</strong><small>Check in with yourself.</small></div>
           <div><span>02</span><strong>Choose</strong><small>Focus on what matters.</small></div>
