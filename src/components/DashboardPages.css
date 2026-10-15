@@ -7519,3 +7519,90 @@ body,
   background: rgba(70,208,165,.1);
   border-color: rgba(70,208,165,.21);
 }
+
+
+/* Mood check-in — expressive, personalized mini avatars instead of emoji. */
+.calm-mood-options {
+  gap: clamp(.65rem, 2vw, 1.25rem);
+  margin-top: 2.2rem;
+}
+.calm-mood-option {
+  min-height: 12rem;
+  justify-content: flex-start;
+  gap: .9rem;
+  padding: 1.1rem .65rem 1.2rem;
+  border-radius: 1.7rem;
+  background: linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+}
+.calm-mood-option:hover {
+  background: linear-gradient(160deg, rgba(255,255,255,.075), rgba(255,255,255,.025));
+  border-color: rgba(255,255,255,.17);
+}
+.calm-mood-option:focus-visible {
+  outline: 2px solid rgba(184,243,74,.75);
+  outline-offset: 3px;
+}
+.calm-mood-avatar-wrap {
+  display: grid;
+  place-items: center;
+  width: 6.4rem;
+  height: 6.4rem;
+  flex: 0 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--mood-avatar-border, rgba(255,255,255,.1));
+  border-radius: 1.8rem;
+  background: radial-gradient(circle at 50% 25%, var(--mood-avatar-glow), transparent 76%), rgba(255,255,255,.025);
+  transition: transform .22s ease, border-color .22s ease;
+}
+.calm-mood-avatar {
+  display: block;
+  width: 6.6rem;
+  height: 7.3rem;
+  margin-top: .5rem;
+  transform: translateY(.35rem) scale(1.02);
+}
+.calm-mood-option small {
+  font-size: 1.3rem;
+  font-weight: 600;
+  letter-spacing: -.015em;
+  color: rgba(255,255,255,.82);
+}
+.calm-mood-option:hover .calm-mood-avatar-wrap {
+  transform: translateY(-2px) scale(1.035);
+  border-color: var(--mood-avatar-border, rgba(255,255,255,.2));
+}
+.calm-mood-option.mood-good {
+  --mood-avatar-glow: rgba(255, 204, 126, .25);
+  --mood-avatar-border: rgba(255, 204, 126, .24);
+}
+.calm-mood-option.mood-okay {
+  --mood-avatar-glow: rgba(125, 186, 255, .2);
+  --mood-avatar-border: rgba(125, 186, 255, .22);
+}
+.calm-mood-option.mood-low {
+  --mood-avatar-glow: rgba(174, 157, 255, .22);
+  --mood-avatar-border: rgba(174, 157, 255, .24);
+}
+.calm-mood-option.mood-stressed {
+  --mood-avatar-glow: rgba(255, 143, 155, .2);
+  --mood-avatar-border: rgba(255, 143, 155, .22);
+}
+@media (max-width: 430px) {
+  .calm-mood-options { gap: .65rem; }
+  .calm-mood-option {
+    min-height: 10.6rem;
+    padding: .85rem .3rem 1rem;
+    border-radius: 1.35rem;
+    gap: .65rem;
+  }
+  .calm-mood-avatar-wrap {
+    width: 5.3rem;
+    height: 5.3rem;
+    border-radius: 1.45rem;
+  }
+  .calm-mood-avatar {
+    width: 5.7rem;
+    height: 6.3rem;
+  }
+  .calm-mood-option small { font-size: 1.18rem; }
+}
