@@ -62,13 +62,12 @@ function App() {
   const [view, setView] = useState(() => {
     const path = window.location.pathname.replace(/\/+$/, '') || '/'
     const savedView = localStorage.getItem('evolv-view')
-    // The signup entry point is also a first-time entry point: let people
-    // personalise EVOLV before asking them to create an account.
-    // An active authenticated session is still restored below as usual.
+    // The installed PWA starts at /dashboard so returning users reopen
+    // their actual app, not the marketing site. Auth restoration below verifies
+    // the saved Supabase session before deciding where that route should land.
     const initialView = savedView === 'onboarding' ? 'welcome' : savedView
-    // A direct /onboarding link must always open the first-run welcome screen,
-    // even if this browser previously saved dashboard as its last view.
     if (path === '/onboarding') return 'welcome'
+    if (path === '/dashboard') return 'dashboard'
     return path === '/signup' ? 'onboarding' : (initialView || 'landing')
   })
   // Android's installed PWA already shows the app icon during its native
@@ -116,8 +115,22 @@ function App() {
     let mounted = true
 
     async function restoreAuth() {
-      const { data: sessionData } = await supabase.auth.getSession()
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession()
       if (!mounted) return
+      if (sessionError) console.error('EVOLV session restore failed:', sessionError)
+
+      if (!sessionData?.session?.user) {
+        // A PWA launch at /dashboard must never fall through to the public
+        // landing page when the session needs refreshing or the user signed out.
+        const launchPath = window.location.pathname.replace(/\\/+$/, '') || '/'
+        if (launchPath === '/dashboard') {
+          setAuthMode('login')
+          localStorage.setItem('evolv-view', 'auth')
+          setView('auth')
+        }
+        return
+      }
+
       if (sessionData?.session?.user) {
         const user = sessionData.session.user
         const oauthIntent = sessionStorage.getItem('evolv-oauth-intent')
