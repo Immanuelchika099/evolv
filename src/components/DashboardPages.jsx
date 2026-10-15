@@ -118,7 +118,7 @@ function HomePage({ pageProps }) {
             <button type="button" className="evolv-avatar-done" onClick={() => setAvatarEditorOpen(false)}>Done</button>
             <small className="evolv-avatar-note">Preferences are saved on this device for now.</small>
           </section>
-        </div>
+        </div>}
       </section>
 
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
