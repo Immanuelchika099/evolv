@@ -6966,3 +6966,7 @@ body,
       transparent 77%);
   }
 }
+
+
+/* User requested no ambient glow behind the dashboard greeting. */
+.dashboard-home.calm-home .calm-home-welcome::before { display: none !important; content: none !important; }
