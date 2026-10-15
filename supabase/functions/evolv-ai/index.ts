@@ -380,9 +380,9 @@ async function executeTool(
         .limit(30),
       supabase
         .from("meal_logs")
-        .select("id,meal_type,eaten_at,description,calories,protein_g,carbs_g,fat_g,water_ml,note")
+        .select("id,meal_type,logged_at,description,calories,protein_g,carbs_g,fat_g,water_ml,note")
         .eq("user_id", userId)
-        .order("eaten_at", { ascending: false })
+        .order("logged_at", { ascending: false })
         .limit(20),
       supabase
         .from("daily_reflections")
