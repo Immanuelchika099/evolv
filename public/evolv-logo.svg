@@ -1,20 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title">
-<title id="title">EVOLV</title>
-<defs>
-<linearGradient id="g" x1="120" y1="70" x2="385" y2="330" gradientUnits="userSpaceOnUse">
-<animateTransform attributeName="gradientTransform" type="translate" values="-32 -18; 32 18; -32 -18" dur="5s" repeatCount="indefinite"/>
-<stop offset="0" stop-color="#b8ff68"/><stop offset=".42" stop-color="#65e68c"/><stop offset=".76" stop-color="#18c6a3"/><stop offset="1" stop-color="#0a9fb4"/>
-</linearGradient>
-
-<filter id="liquidMetal" x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB">
-  <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="flow">
-    <animate attributeName="baseFrequency" values="0.035 0.025;0.06 0.035;0.035 0.025" dur="4.5s" repeatCount="indefinite"/>
-  </feTurbulence>
-  <feDisplacementMap in="SourceGraphic" in2="flow" scale="2.8" xChannelSelector="R" yChannelSelector="G">
-    <animate attributeName="scale" values="7;12;7" dur="8s" repeatCount="indefinite"/>
-  </feDisplacementMap>
-</filter>
-</defs>
-<path fill="url(#g)" filter="url(#liquidMetal)" d="M257 48c-73 0-130 51-130 119 0 54 34 91 86 103 17 4 36 6 55 6h91c9 0 16-6 17-15 1-10-6-18-16-18h-91c-22 0-42-3-58-10 19-29 48-47 84-58 24-8 48-12 73-15 9-1 15-10 12-19-13-56-65-93-123-93zm-92 146c0-44 38-78 91-78 32 0 59 12 75 34-22 4-45 10-66 18-45 17-77 39-100 68v-42zm17 82c18 24 46 38 86 43 19 2 40 3 61 3-20 21-46 33-76 33-36 0-61-13-71-36-3-7-3-15 0-23z"/>
-<text x="256" y="423" text-anchor="middle" fill="#fff" font-family="Manrope,Arial,sans-serif" font-size="92" font-weight="500" letter-spacing="-6" filter="url(#liquidMetal)">evolv</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">EVOLV</title>
+  <desc id="desc">EVOLV personal growth brand mark and wordmark.</desc>
+  <defs>
+    <linearGradient id="evolvMarkGradient" x1="142" y1="56" x2="370" y2="302" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#D7FF91"/>
+      <stop offset=".48" stop-color="#79E89A"/>
+      <stop offset="1" stop-color="#23C7B0"/>
+    </linearGradient>
+  </defs>
+  <g transform="translate(152 38) scale(1.78)">
+    <path d="M86 34.5C77.8 23.2 64.6 17 50.8 19.4 31.7 22.7 19.5 38.8 20.8 57.7c1.3 18.7 16.3 33.2 35.1 33.2 13.3 0 24.8-7.1 30.5-18.5M24 58.5h47.5M71.5 58.5 89 41" fill="none" stroke="url(#evolvMarkGradient)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="256" y="389" text-anchor="middle" fill="#F7F8F4" font-family="Manrope, Inter, Arial, sans-serif" font-size="88" font-weight="650" letter-spacing="-5">evolv</text>
 </svg>
