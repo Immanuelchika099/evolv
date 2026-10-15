@@ -8,7 +8,7 @@ import {
   Utensils, Sparkles, Send, Sunrise, X, LineChart, ChevronDown
 } from 'lucide-react'
 import './DashboardPages.css'
-import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
+import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
 import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
@@ -44,12 +44,13 @@ function HomePage({ pageProps }) {
       return { ...DEFAULT_AVATAR, ...saved }
     } catch { return { ...DEFAULT_AVATAR } }
   })
-  const [avatarEditorOpen, setAvatarEditorOpen] = useState(false)
-
-  function updateAvatarStyle(updated) {
-    setAvatarStyle(updated)
-    try { localStorage.setItem('evolv-avatar-preferences', JSON.stringify(updated)) } catch {}
-  }
+  useEffect(() => {
+    const syncAvatar = () => {
+      try { setAvatarStyle({ ...DEFAULT_AVATAR, ...JSON.parse(localStorage.getItem('evolv-avatar-preferences') || '{}') }) } catch {}
+    }
+    window.addEventListener('evolv-avatar-updated', syncAvatar)
+    return () => window.removeEventListener('evolv-avatar-updated', syncAvatar)
+  }, [])
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 60000)
@@ -154,10 +155,8 @@ function HomePage({ pageProps }) {
         </div>
         <div className={`evolv-mascot-wrap glow-${avatarStyle.glow}`}>
           <span className="evolv-mascot-halo" aria-hidden="true" />
-          <AvatarPortrait preferences={avatarStyle} className="evolv-mascot evolv-custom-portrait" />
-          <button className="evolv-avatar-edit" type="button" onClick={() => setAvatarEditorOpen(true)} aria-label="Customize your avatar"><Pencil size={14} /><span>Customize</span></button>
+          <AvatarPortrait preferences={avatarStyle} expression="wave" className="evolv-mascot evolv-custom-portrait" />
         </div>
-        {avatarEditorOpen && <AvatarStudio preferences={avatarStyle} onChange={updateAvatarStyle} onClose={() => setAvatarEditorOpen(false)} />}
       </section>
 
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
