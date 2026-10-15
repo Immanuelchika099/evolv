@@ -89,3 +89,40 @@
  .routine-row-icon { display:none; }
  .routine-time input { width:7.7rem; }
 }
+
+
+/* Calm routine page: less explanatory copy, clearer spacing. */
+.routine-heading { margin-bottom:2.2rem; }
+.routine-heading h1 { margin:.7rem 0 0; }
+.routine-heading p { display:none; }
+.routine-progress-panel { padding:2.4rem; }
+.routine-progress-bottom { font-size:1.3rem; }
+.routine-insight-card>p { min-height:0; font-size:1.4rem; }
+.routine-section-heading { align-items:center; margin-bottom:1.8rem; }
+.routine-section-heading h2 { margin:.8rem 0 0; }
+.routine-row { min-height:6.2rem; }
+.routine-row-copy { justify-content:center; }
+.routine-row-copy strong { font-size:1.55rem; }
+.routine-row-copy small { display:none; }
+.routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid #272823; border-radius:1.4rem; background:#0b0c0a; }
+.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:#151612; color:#c3f36b; }
+.routine-reminder-control>div { display:flex; flex:1; min-width:0; flex-direction:column; gap:.35rem; }
+.routine-reminder-control strong { font-size:1.45rem; font-weight:600; }
+.routine-reminder-control small { color:#999b94; font-size:1.25rem; }
+.routine-reminder-control .routine-toggle { flex:0 0 4.1rem; }
+.routine-reminder-note { padding:1.5rem 1.7rem; }
+.routine-reminder-note p { font-size:1.3rem; }
+.routine-reminder-note>button { font-size:1.25rem; }
+@media(max-width:700px) {
+  .routine-heading { margin-bottom:1.7rem; }
+  .routine-heading h1 { font-size:4rem; }
+  .routine-progress-panel { padding:1.8rem; }
+  .routine-progress-top h2 { font-size:1.85rem; }
+  .routine-section-heading { align-items:flex-start; flex-direction:row; gap:.8rem; }
+  .routine-section-heading h2 { font-size:2.3rem; }
+  .routine-row { min-height:6.2rem; gap:.85rem; }
+  .routine-row-copy strong { font-size:1.4rem; }
+  .routine-reminder-control { padding:1.3rem; }
+  .routine-reminder-control strong { font-size:1.4rem; }
+  .routine-reminder-note { gap:1rem; }
+}
