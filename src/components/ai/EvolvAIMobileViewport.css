@@ -25,7 +25,7 @@ body.evolv-ai-viewport-active {
   width: 100% !important;
   height: 100vh !important;
   height: 100dvh !important;
-  height: var(--evolv-ai-viewport-height, 100dvh) !important;
+  height: var(--evolv-ai-viewport-height, 100vh) !important;
   min-height: 0 !important;
   max-height: none !important;
   margin: 0 !important;
