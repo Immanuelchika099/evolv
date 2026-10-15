@@ -61,7 +61,19 @@ function HomePage({ pageProps }) {
     }))
   ].slice(0, 3)
 
-  function startCheckIn() {
+  function startCheckIn(selectedMood = '') {
+    const mood = String(selectedMood || '').trim().toLowerCase()
+    const moodPrompts = {
+      good: "I checked in on EVOLV and I'm feeling good today. Start a gentle, conversational check-in. Ask one question at a time about what's helping me feel this way, without turning it into a long questionnaire. Only save a mood record after confirming the details with me.",
+      okay: "I checked in on EVOLV and I'm feeling okay today. Help me understand how I'm doing with one gentle question at a time. Don't assume I'm happy or sad, and don't turn this into a long questionnaire. Only save a mood record after confirming the details with me.",
+      low: "I checked in on EVOLV and I'm feeling low today. Respond with warmth, without diagnosing me or trying to fix everything at once. Ask one gentle question at a time about what might be weighing on me. Don't assume the cause, and only save a mood record after confirming the details with me.",
+      stressed: "I checked in on EVOLV and I'm feeling stressed today. Help me slow down and understand what's putting pressure on me. Ask one gentle question at a time, then help me find one manageable next step. Don't diagnose me or assume the cause. Only save a mood record after confirming the details with me."
+    }
+    if (mood && moodPrompts[mood]) {
+      localStorage.setItem('evolv-ai-pending-prompt', moodPrompts[mood])
+      goTo('ai')
+      return
+    }
     if (moodMetric) openLog(metricArea[moodMetric.slug] || 'health', moodMetric)
     else openLog()
   }
@@ -85,7 +97,7 @@ function HomePage({ pageProps }) {
             { label: 'Low', face: '☹', mood: 'low' },
             { label: 'Stressed', face: '〰', mood: 'stressed' }
           ].map(option => (
-            <button type="button" key={option.mood} onClick={startCheckIn} className="calm-mood-option" aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
+            <button type="button" key={option.mood} onClick={() => startCheckIn(option.label)} className="calm-mood-option" aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
               <span aria-hidden="true">{option.face}</span>
               <small>{option.label}</small>
             </button>
