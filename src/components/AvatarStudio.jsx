@@ -61,9 +61,10 @@ export function AvatarPortrait({ preferences = DEFAULT_AVATAR, className = '', e
     neutral: { leftBrow: 'M49 61 Q54 58 59 61', rightBrow: 'M70 61 Q75 58 79 61', eyes: 'open', mouth: 'M57 86 Q64 89 71 86' }
   }
   const faceExpression = expressions[expression] || expressions.neutral
-  return <svg className={className} viewBox="0 0 128 142" role="img" aria-label={expression === 'neutral' ? 'Customizable illustrated avatar' : expression + ' mood avatar'}>
+  return <svg className={className} viewBox="0 0 128 142" role="img" aria-label={expression === 'neutral' ? 'Customizable illustrated avatar' : expression === 'wave' ? 'Your avatar waving hello' : expression + ' mood avatar'}>
     <ellipse cx="64" cy="133" rx="37" ry="5" fill="#000" opacity=".25" />
     <path d="M35 137 Q35 107 48 101 L80 101 Q94 109 94 137Z" fill={a.presentation === 'feminine' ? '#B8F34A' : '#8FBC42'} />
+    {expression === 'wave' && <g className="avatar-wave-arm" stroke={a.skin} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none"><path d="M85 113 Q96 101 99 84 L103 68"/><path d="M103 68 L99 56 M103 68 L108 54 M103 68 L115 60 M103 68 L116 70" strokeWidth="5.5"/></g>}
     <path d="M52 96 L52 108 Q64 120 76 108 L76 96Z" fill={a.skin} />
     <path d={face} fill={a.skin} />
     <ellipse cx="41" cy="68" rx="4" ry="7" fill={a.skin} /><ellipse cx="87" cy="68" rx="4" ry="7" fill={a.skin} />
