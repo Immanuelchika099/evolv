@@ -59,6 +59,11 @@ function isDue(clock, target) {
   return delta >= 0 && delta < DELIVERY_WINDOW_MINUTES
 }
 
+function minutesBefore(time, leadMinutes = 10) {
+  const total = (toMinutes(time, "08:00") - leadMinutes + 1440) % 1440
+  return String(Math.floor(total / 60)).padStart(2, "0") + ":" + String(total % 60).padStart(2, "0")
+}
+
 Deno.serve(async (req) => {
   const admin = createClient(
     Deno.env.get("SUPABASE_URL")!,
@@ -232,6 +237,48 @@ Deno.serve(async (req) => {
         }
       }
     }
+    const routineReminders = Array.isArray(preferences.routineReminders) ? preferences.routineReminders : []
+    for (const reminder of routineReminders) {
+      if (!reminder || reminder.enabled === false || !reminder.id || !reminder.time) continue
+      const kind = "routine_" + String(reminder.id).replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 32)
+      const target = minutesBefore(String(reminder.time), 10)
+      if (inQuietHours(clock, preferences) || !isDue(clock, target)) continue
+      const { error: claimError } = await admin.from("notification_delivery_log").insert({
+        user_id: row.user_id, delivery_date: clock.date, kind
+      })
+      if (claimError) {
+        if (claimError.code === "23505") { skippedDuplicate += 1; continue }
+        console.error("EVOLV routine reminder claim failed", claimError.message)
+        continue
+      }
+      const label = String(reminder.label || "Your next routine").slice(0, 80)
+      const payload = {
+        title: label + " in 10 minutes",
+        body: "A gentle heads-up from EVOLV. Get ready when you can.",
+        icon: "/evolv-mark.svg", badge: "/evolv-mark.svg",
+        tag: "evolv-" + kind, url: "/dashboard",
+        data: { reminder: kind, routineId: reminder.id },
+        actions: [{ action: "open", title: "Open EVOLV" }]
+      }
+      try {
+        await webpush.sendNotification(row.subscription, JSON.stringify(payload))
+        lastSent[kind] = clock.date
+        sent += 1
+      } catch (pushError) {
+        const status = pushError?.statusCode
+        console.error("EVOLV routine push failed", JSON.stringify({
+          subscriptionId: row.id, kind, status, error: String(pushError?.message || pushError)
+        }))
+        await admin.from("notification_delivery_log").delete()
+          .eq("user_id", row.user_id).eq("delivery_date", clock.date).eq("kind", kind)
+        if (status === 404 || status === 410) {
+          await admin.from("push_subscriptions").delete().eq("id", row.id)
+          removed += 1
+          break
+        }
+      }
+    }
+
 
     await admin
       .from("push_subscriptions")
