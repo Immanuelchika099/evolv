@@ -9,6 +9,7 @@ import {
 } from 'lucide-react'
 import './DashboardPages.css'
 import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
+import Avatar3D from './Avatar3D'
 import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
@@ -169,7 +170,7 @@ function HomePage({ pageProps }) {
         </div>
         <div className={`evolv-mascot-wrap glow-${avatarStyle.glow}`}>
           <span className="evolv-mascot-halo" aria-hidden="true" />
-          <AvatarPortrait preferences={avatarStyle} expression="wave" className="evolv-mascot evolv-custom-portrait" />
+          <Avatar3D className="evolv-mascot evolv-custom-portrait" label="Your 3D EVOLV companion" />
         </div>
       </section>
 
