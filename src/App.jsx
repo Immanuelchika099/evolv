@@ -123,7 +123,7 @@ function App() {
       if (!sessionData?.session?.user) {
         // A PWA launch at /dashboard must never fall through to the public
         // landing page when the session needs refreshing or the user signed out.
-        const launchPath = window.location.pathname.replace(/\\/+$/, '') || '/'
+        const launchPath = window.location.pathname.replace(/\/+$/, '') || '/'
         if (launchPath === '/dashboard') {
           setAuthMode('login')
           localStorage.setItem('evolv-view', 'auth')
