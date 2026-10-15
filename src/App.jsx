@@ -94,25 +94,6 @@ function App() {
     catch { return initialData }
   })
 
-  async function ensureProfile(user) {
-    const { data: existing } = await supabase.from('profiles').select('id').eq('id', user.id).maybeSingle()
-    if (existing) return
-
-    let saved = initialData
-    try { saved = { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } } catch {}
-
-    const providerFirstName = getProviderFirstName(user)
-    const profileFirstName = providerFirstName || getFirstName(saved.name)
-
-    await supabase.from('profiles').upsert({
-      id: user.id,
-      first_name: profileFirstName,
-      growth_areas: saved.areas || [],
-      focus: saved.focus || '',
-      first_goal: saved.goal?.trim() || '',
-    })
-  }
-
   useEffect(() => {
     document.documentElement.classList.toggle('evolv-android', /Android/i.test(navigator.userAgent))
     return () => document.documentElement.classList.remove('evolv-android')
