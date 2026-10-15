@@ -1,4 +1,3 @@
-import React from 'react'
 import { Check, X } from 'lucide-react'
 
 export const DEFAULT_AVATAR = {
