@@ -177,7 +177,7 @@ function EvolvCalendarBridge({ event, onCancel, onAdded }) {
   )
 }
 
-function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
+function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
   useEffect(() => {
     const pending = localStorage.getItem('evolv-ai-pending-prompt')
     if (!pending) return
@@ -785,7 +785,9 @@ function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], 
         progress: Number(goal.progress || 0),
       })),
       totalCheckins: checkins.length,
-      recentCheckins: checkins.slice(0, 7).map(item => item.checkin_date),
+      recentCheckins: checkins.slice(0, 14).map(item => ({ date: item.checkin_date, note: item.note || null })),
+      recentReflections: reflections.slice(0, 10).map(item => ({ date: item.reflection_date, mood: item.mood, feeling: item.day_feeling || null, note: item.note || null })),
+      activeDaysLast7: new Set([...logs.map(item => String(item.logged_at || item.created_at || '').slice(0, 10)), ...meals.map(item => String(item.logged_at || item.created_at || '').slice(0, 10)), ...checkins.map(item => item.checkin_date)].filter(date => date && date >= new Date(Date.now() - 6 * 86400000).toISOString().slice(0, 10))).size,
       recentLogs,
       recentMeals,
     }
