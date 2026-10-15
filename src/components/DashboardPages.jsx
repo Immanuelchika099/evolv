@@ -141,11 +141,6 @@ function HomePage({ pageProps }) {
         )}
       </section>
 
-      {Object.keys(areas).length > 0 && (
-        <section className="calm-home-areas">
-          <div className="calm-focus-heading"><div><h2>Explore an area</h2></div><button type="button" onClick={() => goTo('area')} aria-label="Explore growth areas"><ArrowRight size={18}/></button></div>
-        </section>
-      )}
     </div>
   )
 }
