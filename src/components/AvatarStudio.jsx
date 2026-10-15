@@ -1,5 +1,6 @@
 import { Check, X } from 'lucide-react'
 import SelfieAvatar from './SelfieAvatar'
+import Avatar3D from './Avatar3D'
 
 export const DEFAULT_AVATAR = {
   presentation: 'androgynous',
@@ -125,7 +126,7 @@ export function AvatarStudio({ preferences, onChange, onClose }) {
       <button type="button" className="evolv-avatar-close" onClick={onClose} aria-label="Close avatar editor"><X size={19} /></button>
       <span className="calm-section-kicker">MAKE IT YOURS</span><h2 id="evolv-avatar-title">Your avatar</h2>
       <p>Build a look that feels like you. Every choice updates your preview.</p>
-      <div className={`avatar-studio-preview glow-${a.glow}`}><span /><AvatarPortrait preferences={a} /></div>
+      <div className={`avatar-studio-preview avatar-studio-preview-3d glow-${a.glow}`}><span /><Avatar3D interactive label="Interactive 3D avatar preview" /></div>
       <SelfieAvatar onApply={suggestion => onChange({ ...a, ...suggestion, glow: a.glow })} />
       <div className="avatar-studio-manual-heading"><strong>Fine-tune your look</strong><span>Change any feature below.</span></div>
       <OptionGrid label="Presentation" value={a.presentation} options={AVATAR_OPTIONS.presentation} onChange={v => set('presentation', v)} />
