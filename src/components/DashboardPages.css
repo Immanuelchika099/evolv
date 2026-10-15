@@ -7606,3 +7606,48 @@ body,
   }
   .calm-mood-option small { font-size: 1.18rem; }
 }
+
+/* AI reflections: comfortable, readable type and a more intentional card rhythm. */
+.calm-insights-section { margin-top: 4.8rem; }
+.calm-insights-eyebrow { font-size: 1.2rem; letter-spacing: .12em; margin-bottom: 1.1rem; }
+.calm-insights-section .calm-focus-heading h2 { font-size: clamp(2.8rem, 4.5vw, 3.8rem); }
+.calm-insights-grid { gap: 1.4rem; margin-top: 2rem; }
+.calm-insight-card { min-height: 22rem; padding: 2rem; gap: 2rem; border-radius: 2rem; background: linear-gradient(150deg, rgba(255,255,255,.055), rgba(255,255,255,.018)); }
+.calm-insight-icon { width: 4.8rem; height: 4.8rem; border-radius: 1.5rem; }
+.calm-insight-icon svg { width: 2.2rem; height: 2.2rem; }
+.calm-insight-copy strong { font-size: 1.85rem; line-height: 1.25; margin-bottom: .9rem; }
+.calm-insight-copy small { font-size: 1.5rem; line-height: 1.65; color: rgba(255,255,255,.72); }
+.calm-insight-arrow { width: 3.2rem; height: 3.2rem; }
+.calm-insight-arrow svg { width: 1.8rem; height: 1.8rem; }
+.avatar-wave-arm { transform-box: fill-box; transform-origin: 96% 92%; animation: evolv-avatar-wave 1.8s ease-in-out infinite; }
+@keyframes evolv-avatar-wave { 0%,100% { transform: rotate(0deg); } 18%,42% { transform: rotate(14deg); } 30%,54% { transform: rotate(-9deg); } 68% { transform: rotate(4deg); } }
+.profile-avatar-studio-card { display: grid; grid-template-columns: minmax(11rem, 17rem) minmax(0, 1fr); align-items: center; gap: 2.2rem; margin-bottom: 2rem; padding: 2.2rem; border: 1px solid rgba(255,255,255,.09); border-radius: 2.2rem; background: radial-gradient(circle at 14% 48%, rgba(184,243,74,.09), transparent 46%), linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)); }
+.profile-avatar-studio-art { position: relative; display: flex; align-items: flex-end; justify-content: center; min-height: 16rem; overflow: hidden; border-radius: 1.6rem; background: rgba(255,255,255,.025); }
+.profile-avatar-studio-orbit { position: absolute; width: 13rem; height: 13rem; bottom: -2rem; border-radius: 50%; background: radial-gradient(circle, rgba(184,243,74,.15), transparent 68%); }
+.profile-avatar-studio-portrait { position: relative; z-index: 1; display: block; width: 13rem; max-height: 16rem; filter: drop-shadow(0 1rem 1.8rem rgba(0,0,0,.25)); }
+.profile-avatar-studio-copy { min-width: 0; }
+.profile-avatar-studio-copy h3 { margin: .8rem 0; color: #f4f2ec; font-size: clamp(2.5rem, 3vw, 3.2rem); letter-spacing: -.045em; }
+.profile-avatar-studio-copy p { max-width: 42rem; margin: 0 0 1.7rem; color: rgba(255,255,255,.7); font-size: 1.55rem; line-height: 1.65; }
+.profile-avatar-studio-button { display: inline-flex; align-items: center; justify-content: center; gap: .9rem; min-height: 4.6rem; padding: 0 1.6rem; border: 1px solid rgba(184,243,74,.34); border-radius: 999px; background: rgba(184,243,74,.1); color: #d7f6a0; font-size: 1.45rem; font-weight: 650; cursor: pointer; }
+.profile-avatar-studio-button:hover { background: rgba(184,243,74,.17); }
+.profile-avatar-studio-portal { position: relative; z-index: 10000; }
+.profile-avatar-studio-portal .evolv-avatar-backdrop { z-index: 10001; }
+@media (max-width: 760px) {
+ .calm-insights-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+ .calm-insight-card { min-height: 0; display: grid; grid-template-columns: 4.8rem minmax(0,1fr) 3rem; align-items: center; gap: 1.4rem; padding: 1.7rem; }
+ .calm-insight-copy strong { font-size: 1.8rem; }
+ .calm-insight-copy small { font-size: 1.5rem; line-height: 1.55; }
+ .calm-insight-arrow { grid-column: 3; grid-row: 1; align-self: center; }
+ .profile-avatar-studio-card { grid-template-columns: 10rem minmax(0,1fr); gap: 1.4rem; padding: 1.5rem; }
+ .profile-avatar-studio-art { min-height: 13rem; }
+ .profile-avatar-studio-portrait { width: 10rem; max-height: 13rem; }
+ .profile-avatar-studio-copy h3 { font-size: 2.4rem; }
+ .profile-avatar-studio-copy p { font-size: 1.45rem; line-height: 1.5; }
+ .profile-avatar-studio-button { min-height: 4.3rem; padding: 0 1.2rem; font-size: 1.3rem; gap: .6rem; }
+}
+@media (max-width: 390px) {
+ .profile-avatar-studio-card { grid-template-columns: 8rem minmax(0,1fr); }
+ .profile-avatar-studio-art { min-height: 11rem; }
+ .profile-avatar-studio-portrait { width: 8.5rem; max-height: 11rem; }
+}
+@media (prefers-reduced-motion: reduce) { .avatar-wave-arm { animation: none !important; } }
