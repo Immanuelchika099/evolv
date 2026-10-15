@@ -8,6 +8,7 @@ import {
   Utensils, Sparkles, Send, Sunrise, X, LineChart, ChevronDown
 } from 'lucide-react'
 import './DashboardPages.css'
+import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
@@ -38,14 +39,16 @@ function HomePage({ pageProps }) {
   const firstName = String(name || '').trim().split(/\\s+/)[0] || 'there'
   const [now, setNow] = useState(() => new Date())
   const [avatarStyle, setAvatarStyle] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('evolv-avatar-preferences') || '{"look":"original","glow":"violet"}') } catch { return { look: 'original', glow: 'violet' } }
+    try {
+      const saved = JSON.parse(localStorage.getItem('evolv-avatar-preferences') || '{}')
+      return { ...DEFAULT_AVATAR, ...saved }
+    } catch { return { ...DEFAULT_AVATAR } }
   })
   const [avatarEditorOpen, setAvatarEditorOpen] = useState(false)
 
-  function updateAvatarStyle(next) {
-    const updated = { ...avatarStyle, ...next }
+  function updateAvatarStyle(updated) {
     setAvatarStyle(updated)
-    localStorage.setItem('evolv-avatar-preferences', JSON.stringify(updated))
+    try { localStorage.setItem('evolv-avatar-preferences', JSON.stringify(updated)) } catch {}
   }
 
   useEffect(() => {
@@ -98,27 +101,10 @@ function HomePage({ pageProps }) {
         </div>
         <div className={`evolv-mascot-wrap glow-${avatarStyle.glow}`}>
           <span className="evolv-mascot-halo" aria-hidden="true" />
-          <img className={`evolv-mascot look-${avatarStyle.look}`} src="/evolv-mascot.svg" alt="Your EVOLV avatar" fetchPriority="high" />
+          <AvatarPortrait preferences={avatarStyle} className="evolv-mascot evolv-custom-portrait" />
           <button className="evolv-avatar-edit" type="button" onClick={() => setAvatarEditorOpen(true)} aria-label="Customize your avatar"><Pencil size={14} /><span>Customize</span></button>
         </div>
-        {avatarEditorOpen && <div className="evolv-avatar-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setAvatarEditorOpen(false) }}>
-          <section className="evolv-avatar-editor" role="dialog" aria-modal="true" aria-labelledby="evolv-avatar-title">
-            <button type="button" className="evolv-avatar-close" onClick={() => setAvatarEditorOpen(false)} aria-label="Close avatar editor"><X size={19} /></button>
-            <span className="calm-section-kicker">MAKE IT YOURS</span><h2 id="evolv-avatar-title">Your avatar</h2>
-            <p>Give your EVOLV companion a look that feels like you.</p>
-            <div className="evolv-avatar-preview"><img className={`look-${avatarStyle.look}`} src="/evolv-mascot.svg" alt="Avatar preview" /></div>
-            <span className="evolv-avatar-label">Character style</span>
-            <div className="evolv-avatar-choices">
-              {[{id:'original',label:'Classic'},{id:'warm',label:'Warm'},{id:'cool',label:'Cool'}].map(choice => <button type="button" key={choice.id} className={avatarStyle.look === choice.id ? 'is-selected' : ''} onClick={() => updateAvatarStyle({look:choice.id})}><span className={`evolv-avatar-swatch swatch-${choice.id}`} /><span>{choice.label}</span>{avatarStyle.look === choice.id && <Check size={15} />}</button>)}
-            </div>
-            <span className="evolv-avatar-label">Glow</span>
-            <div className="evolv-avatar-choices glow-choices">
-              {[{id:'violet',label:'Violet'},{id:'lime',label:'Lime'},{id:'none',label:'None'}].map(choice => <button type="button" key={choice.id} className={avatarStyle.glow === choice.id ? 'is-selected' : ''} onClick={() => updateAvatarStyle({glow:choice.id})}><span className={`evolv-glow-swatch glow-swatch-${choice.id}`} /><span>{choice.label}</span>{avatarStyle.glow === choice.id && <Check size={15} />}</button>)}
-            </div>
-            <button type="button" className="evolv-avatar-done" onClick={() => setAvatarEditorOpen(false)}>Done</button>
-            <small className="evolv-avatar-note">Preferences are saved on this device for now.</small>
-          </section>
-        </div>}
+        {avatarEditorOpen && <AvatarStudio preferences={avatarStyle} onChange={updateAvatarStyle} onClose={() => setAvatarEditorOpen(false)} />}
       </section>
 
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
