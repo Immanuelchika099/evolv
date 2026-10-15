@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BottomNav from './components/BottomNav'
@@ -1407,7 +1407,12 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [editingEntry,setEditingEntry]=useState(null)
   const [manageLogsOpen,setManageLogsOpen]=useState(false)
   const dashboardMainRef=useRef(null)
-  const goTo=(page)=>{
+  const goTo=(requestedPage)=>{
+    let page=requestedPage
+    if(page==='logs' || page==='log-detail'){
+      localStorage.setItem('evolv-ai-pending-prompt', 'Help me review my recent progress conversationally. Ask what I want to understand or update, use the context you already have, and help me make a useful next step. Do not open a generic log list or form.')
+      page='ai'
+    }
     setActive(page)
     setArea(null)
     setMetric(null)
@@ -1564,7 +1569,23 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[defs])
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
-  function openLog(a=null,m=null){setArea(a);setMetric(m);setEditingEntry(null);setSelectedEntry(null);setLogOpen(true);setError('')}
+  function openLog(a=null,m=null){
+    const selected = m || (a ? defs.find(item => item.area === a) : null)
+    let prompt = 'Help me check in on my day. Ask me one question at a time, understand what I tell you, and update my Evolv progress only when you have enough information. Do not give me a generic form.'
+    if(selected?.slug === 'sleep'){
+      prompt = 'I want to record my sleep in Evolv. Ask me conversationally when I went to bed and when I woke up, work out the duration, and save the sleep record using the available tracking tool. Ask one question at a time and do not guess missing details.'
+    }else if(selected?.slug === 'meals' || selected?.value_type === 'meal' || a === 'nutrition'){
+      prompt = 'Help me record a meal in Evolv. Ask me naturally what I ate and roughly when, then save the meal using the available tool. Keep it conversational and do not show me a generic form.'
+    }else if(selected){
+      prompt = 'Help me update my Evolv ' + selected.name + ' record through conversation. Ask me what you need in plain language, one question at a time, then save it using the available tracking tool. Do not show me a generic form or ask me to enter a random value without context.'
+    }
+    localStorage.setItem('evolv-ai-pending-prompt', prompt)
+    setLogOpen(false)
+    setEditingEntry(null)
+    setSelectedEntry(null)
+    goTo('ai')
+    setError('')
+  }
   function openEntry(item){
     const entry=item.entry
     const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
@@ -1579,12 +1600,10 @@ function Dashboard({ data, onLogout, onArticle }) {
 
     if(item.type==='log' && !definition)return
 
-    // Leave the detail route before clearing the selected entry.
-    // Otherwise the detail page renders nothing for one frame while the
-    // edit sheet is opening, which can appear as a blank page in the PWA.
-    setActive('logs')
+    const entryLabel = item.type === 'meal' ? 'meal' : (definition?.name || 'progress')
+    localStorage.setItem('evolv-ai-pending-prompt', 'I want to update or correct my existing ' + entryLabel + ' record in Evolv. Help me do it conversationally. Ask what needs changing, confirm the details, and use the available tools if you can update it safely. Do not open a generic form.')
     setSelectedEntry(null)
-    setEditingEntry({type:item.type,entry,definition})
+    setEditingEntry(null)
 
     if(item.type==='meal'){
       setArea('nutrition')
@@ -1594,7 +1613,8 @@ function Dashboard({ data, onLogout, onArticle }) {
       setMetric(definition)
     }
 
-    setLogOpen(true)
+    setLogOpen(false)
+    goTo('ai')
     setError('')
   }
   async function deleteEntry(item){
@@ -2266,7 +2286,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
 
   return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
-    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></header>
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='ai'
@@ -2274,9 +2294,9 @@ function Dashboard({ data, onLogout, onArticle }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} onLog={()=>goTo('logs')} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
     <PWAInstallPrompt />
-    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
+    
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
 }

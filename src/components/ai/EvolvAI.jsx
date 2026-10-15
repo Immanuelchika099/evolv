@@ -178,6 +178,14 @@ function EvolvCalendarBridge({ event, onCancel, onAdded }) {
 }
 
 function EvolvAI({ profile, goals = [], checkins = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
+  useEffect(() => {
+    const pending = localStorage.getItem('evolv-ai-pending-prompt')
+    if (!pending) return
+    localStorage.removeItem('evolv-ai-pending-prompt')
+    window.setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('evolv:edit-prompt', { detail: { text: pending } }))
+    }, 80)
+  }, [])
   const firstName = String(profile?.first_name || profile?.full_name || profile?.name || '').trim().split(/\s+/)[0] || 'there'
   const [chatId, setChatId] = useState(() => {
     try {

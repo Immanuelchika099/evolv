@@ -1,7 +1,7 @@
-import { Home, Plus, Sparkles, LineChart, UserRound } from 'lucide-react'
+import { Home, CalendarClock, Sparkles, LineChart, UserRound } from 'lucide-react'
 import './BottomNav.css'
 
-function BottomNav({ active, onNavigate, onLog, avatarUrl = '' }) {
+function BottomNav({ active, onNavigate, avatarUrl = '' }) {
   return (
     <nav className="evolv-bottom-nav" aria-label="App navigation">
       <button
@@ -15,11 +15,11 @@ function BottomNav({ active, onNavigate, onLog, avatarUrl = '' }) {
 
       <button
         type="button"
-        className="log-nav-button"
-        onClick={onLog}
+        className={active === 'routine' ? 'bottom-active' : ''}
+        onClick={() => onNavigate('routine')}
       >
-        <span><Plus size={21} /></span>
-        <small>Log</small>
+        <span><CalendarClock size={19} /></span>
+        <small>Routine</small>
       </button>
 
       <button
