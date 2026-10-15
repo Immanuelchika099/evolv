@@ -1200,3 +1200,14 @@ html:has(.dashboard.dashboard-ai-active) {
     padding-bottom: calc(9rem + env(safe-area-inset-bottom, 0px)) !important;
   }
 }
+
+
+/* Keyboard-aware composer: keep the input above the mobile on-screen keyboard.
+   JS calculates the covered layout-viewport area from visualViewport when available. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+  bottom: var(--evolv-ai-keyboard-inset, 0px) !important;
+  transition: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  scroll-padding-bottom: calc(10rem + var(--evolv-ai-keyboard-inset, 0px)) !important;
+}
