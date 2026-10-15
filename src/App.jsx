@@ -149,7 +149,7 @@ function AmbientSound({ active }) {
 
   return (
     <>
-      <audio ref={audioRef} src={EVOLV_AMBIENT_AUDIO} preload="auto" loop />
+      <audio ref={audioRef} src={EVOLV_AMBIENT_AUDIO} preload={active ? 'auto' : 'none'} loop />
       {active && (
         <button
           type="button"
