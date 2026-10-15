@@ -1,4 +1,5 @@
 import { Check, X } from 'lucide-react'
+import SelfieAvatar from './SelfieAvatar'
 
 export const DEFAULT_AVATAR = {
   presentation: 'androgynous',
@@ -95,6 +96,8 @@ export function AvatarStudio({ preferences, onChange, onClose }) {
       <span className="calm-section-kicker">MAKE IT YOURS</span><h2 id="evolv-avatar-title">Your avatar</h2>
       <p>Build a look that feels like you. Every choice updates your preview.</p>
       <div className={`avatar-studio-preview glow-${a.glow}`}><span /><AvatarPortrait preferences={a} /></div>
+      <SelfieAvatar onApply={suggestion => onChange({ ...a, ...suggestion, glow: a.glow })} />
+      <div className="avatar-studio-manual-heading"><strong>Fine-tune your look</strong><span>Change any feature below.</span></div>
       <OptionGrid label="Presentation" value={a.presentation} options={AVATAR_OPTIONS.presentation} onChange={v => set('presentation', v)} />
       <OptionGrid label="Face shape" value={a.face} options={AVATAR_OPTIONS.face} onChange={v => set('face', v)} />
       <OptionGrid label="Hair style" value={a.hair} options={AVATAR_OPTIONS.hair} onChange={v => set('hair', v)} />
