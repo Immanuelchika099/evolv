@@ -107,11 +107,7 @@
   }
 }
 
-/* The AI page should never lock the document while generating. */
-body:has(.dashboard.dashboard-ai-active){
-  overflow-x:hidden !important;
-  overflow-y:auto !important;
-}
+/* Document scrolling is locked by EvolvAIMobileViewport.css while AI is active. */
 
 
 /* Keep AI controls fixed; hide only the dashboard-wide navbar on the AI page. */
