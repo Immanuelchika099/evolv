@@ -12,9 +12,11 @@ import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
 import ProfileSettingsPage from './ProfileSettingsPage'
+import DailyRoutinePage from './DailyRoutinePage'
 
 export function DashboardPages({ active, pageProps }) {
   if (active === 'overview') return <HomePage pageProps={pageProps} />
+  if (active === 'routine') return <DailyRoutinePage pageProps={pageProps} />
   if (active === 'area') return <AreaPage pageProps={pageProps} />
   if (active === 'logs') return <LogsPage pageProps={pageProps} />
   if (active === 'log-detail') return <LogDetailPage pageProps={pageProps} />
