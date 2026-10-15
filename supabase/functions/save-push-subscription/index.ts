@@ -45,14 +45,24 @@ Deno.serve(async (req) => {
     const enabled = body.enabled !== false
     const subscription = body.subscription || null
     const timezone = body.timezone || "Africa/Lagos"
-    const preferences = { ...DEFAULT_PREFERENCES, ...(body.preferences || {}) }
+    const endpoint = subscription?.endpoint || ("disabled:" + user.id)
+    const { data: existing } = await supabase
+      .from("push_subscriptions")
+      .select("preferences")
+      .eq("user_id", user.id)
+      .eq("endpoint", endpoint)
+      .maybeSingle()
+    const preferences = {
+      ...DEFAULT_PREFERENCES,
+      ...(existing?.preferences || {}),
+      ...(body.preferences || {})
+    }
     if (body.reflectionTime) preferences.reflectionTime = body.reflectionTime
 
     if (!subscription?.endpoint && enabled) {
       return Response.json({ error: "Push subscription is required." }, { status: 400, headers: cors })
     }
 
-    const endpoint = subscription?.endpoint || ("disabled:" + user.id)
     const { error } = await supabase.from("push_subscriptions").upsert({
       user_id: user.id,
       endpoint,
