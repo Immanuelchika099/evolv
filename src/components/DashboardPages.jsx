@@ -35,170 +35,117 @@ function HomePage({ pageProps }) {
     goals = []
   } = pageProps
 
-  const firstName = String(name || '').trim().split(/\s+/)[0] || 'there'
-
+  const firstName = String(name || '').trim().split(/\\s+/)[0] || 'there'
   const [now, setNow] = useState(() => new Date())
-  const [statsMode, setStatsMode] = useState('week')
-  const [skippedToday, setSkippedToday] = useState(() => {
-    try {
-      return localStorage.getItem('evolv-skip-day') === new Intl.DateTimeFormat('en-CA', {
-        year: 'numeric', month: '2-digit', day: '2-digit'
-      }).format(new Date())
-    } catch { return false }
-  })
 
   useEffect(() => {
     const timer = window.setInterval(() => setNow(new Date()), 60000)
     return () => window.clearInterval(timer)
   }, [])
 
-  const dateKey = (date) => new Intl.DateTimeFormat('en-CA', {
-    year: 'numeric', month: '2-digit', day: '2-digit'
-  }).format(date)
-  const today = dateKey(now)
   const greeting = now.getHours() >= 5 && now.getHours() < 12
-    ? 'GOOD MORNING' : now.getHours() >= 12 && now.getHours() < 17 ? 'GOOD AFTERNOON' : 'GOOD EVENING'
-
-  const allActivity = [
-    ...logs.map(item => ({ date: item.logged_at || item.created_at, type: 'log' })),
-    ...meals.map(item => ({ date: item.logged_at || item.created_at, type: 'meal' }))
-  ].filter(item => item.date && !Number.isNaN(new Date(item.date).getTime()))
-
-  const activityByDay = allActivity.reduce((map, item) => {
-    const key = dateKey(new Date(item.date))
-    map[key] = (map[key] || 0) + 1
-    return map
-  }, {})
-  const todayCount = todayLogs.length + todayMeals.length
-  const dailyTarget = 5
-  const progress = Math.min(100, Math.round((todayCount / dailyTarget) * 100))
-  const remaining = Math.max(0, dailyTarget - todayCount)
-
-  const days = Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(now)
-    date.setDate(now.getDate() - (6 - index))
-    const key = dateKey(date)
-    return {
-      key,
-      date,
-      label: date.toLocaleDateString(undefined, { weekday: 'short' }).slice(0, 1),
-      count: activityByDay[key] || 0
-    }
-  })
-  const weeklyTotal = days.reduce((sum, day) => sum + day.count, 0)
-  const activeDays = days.filter(day => day.count > 0).length
-  const dailyAverage = Math.round((days.reduce((sum, day) => sum + Math.min(100, day.count / dailyTarget * 100), 0) / 7))
-  const maxDay = Math.max(1, ...days.map(day => day.count))
-
-  let bestStreak = 0
-  let streak = 0
-  const activityDates = new Set(Object.keys(activityByDay))
-  for (let offset = 0; offset < 365; offset += 1) {
-    const date = new Date(now)
-    date.setDate(now.getDate() - offset)
-    if (activityDates.has(dateKey(date))) streak += 1
-    else if (offset === 0) continue
-    else break
-  }
-  bestStreak = streak
-
-  const loggedItems = [
+    ? 'Good morning' : now.getHours() >= 12 && now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
+  const moodMetric = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
+  const activeGoals = goals.filter(goal => goal.status === 'active')
+  const recentActivity = [
     ...todayLogs.map((log, index) => {
-      const def = defs.find(d => String(d.id) === String(log.metric_id))
-      return def ? { key: `log-${log.id || index}`, log, def, type: 'log' } : null
+      const def = defs.find(item => String(item.id) === String(log.metric_id))
+      return def ? { key: `log-${log.id || index}`, title: def.name, detail: valueText(log, def), icon: icons[def.slug] || Activity, onClick: () => openLog(metricArea[def.slug], def) } : null
     }).filter(Boolean),
-    ...todayMeals.map((meal, index) => ({ key: `meal-${meal.id || index}`, meal, type: 'meal' }))
-  ]
+    ...todayMeals.map((meal, index) => ({
+      key: `meal-${meal.id || index}`,
+      title: meal.description || 'Meal logged',
+      detail: meal.meal_type || 'Nutrition',
+      icon: Utensils,
+      onClick: () => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })
+    }))
+  ].slice(0, 3)
 
-  function skipToday() {
-    try { localStorage.setItem('evolv-skip-day', today) } catch {}
-    setSkippedToday(true)
+  function startCheckIn() {
+    if (moodMetric) openLog(metricArea[moodMetric.slug] || 'health', moodMetric)
+    else openLog()
   }
 
   return (
-    <div className="dashboard-home dashboard-home-redesign">
-      <section className="dashboard-welcome dashboard-welcome-minimal">
-        <div className="dashboard-welcome-copy">
-          <span className="dashboard-eyebrow">{greeting.charAt(0) + greeting.slice(1).toLowerCase()}</span>
-          <h1 className="home-greeting-title">{firstName}</h1>
-        </div>
-        <button className="home-add-button" type="button" onClick={() => openLog()} aria-label="Add a check-in"><Plus size={21}/></button>
+    <div className="dashboard-home calm-home">
+      <section className="calm-home-welcome">
+        <span className="calm-home-greeting">{greeting}</span>
+        <h1>{firstName}<span>.</span></h1>
+        <p>Take a breath. You can start wherever you are.</p>
       </section>
 
-      <section className="home-overview-grid" aria-label="Daily progress and statistics">
-        <div className="home-today-date">{`${now.toLocaleDateString(undefined, { weekday: 'long' })} ${now.getDate()} ${now.toLocaleDateString(undefined, { month: 'short' })}`}</div>
-        <article className="home-progress-card">
-          <div className="home-card-heading"><span>TODAY</span><span className="home-live-dot"/> </div>
-          <div className="home-progress-content">
-            <div className="home-progress-ring" style={{ '--home-progress': `${progress}%` }} role="img" aria-label={`${progress}% of daily check-in target`}>
-              <div className="home-progress-ring-inner">
-                <strong>{progress}<small>%</small></strong>
-                <span>{Math.min(todayCount, dailyTarget)} of {dailyTarget} check-ins</span>
-              </div>
-            </div>
-            <div className="home-progress-message">
-              <h2>{progress >= 100 ? 'You showed up. 🔥' : progress >= 60 ? "You're almost there 🔥" : todayCount ? 'Keep your momentum going' : 'Start with one small step.'}</h2>
-              <p>{progress >= 100 ? 'You reached your daily check-in target.' : remaining ? `Just ${remaining} more ${remaining === 1 ? 'check-in' : 'check-ins'} to reach today’s target.` : 'Your consistency is adding up.'}</p>
-              <div className="home-progress-segments" aria-label={`${progress}% complete`}>
-                {Array.from({ length: dailyTarget }, (_, index) => <i key={index} className={index < Math.min(todayCount, dailyTarget) ? 'is-filled' : ''}/>)}
-              </div>
-              {!skippedToday && <button type="button" className="home-skip-button" onClick={skipToday}>Skip for today <ChevronRight size={15}/></button>}
-              {skippedToday && <span className="home-skip-confirmation">Today’s reminder has been dismissed.</span>}
-            </div>
-          </div>
-          <div className="home-progress-foot"><span>YOUR PACE</span><strong>{todayCount} {todayCount === 1 ? 'check-in' : 'check-ins'} recorded</strong></div>
-        </article>
-
-        <article className="home-statistics-card">
-          <div className="home-card-heading"><span>STATISTICS</span><button type="button" onClick={() => goTo('progress')}>View progress <ArrowRight size={13}/></button></div>
-          <div className="home-stat-range" role="tablist" aria-label="Statistics view">
-            <button type="button" role="tab" aria-selected={statsMode === 'week'} className={statsMode === 'week' ? 'is-active' : ''} onClick={() => setStatsMode('week')}>Last 7 days</button>
-            <button type="button" role="tab" aria-selected={statsMode === 'activity'} className={statsMode === 'activity' ? 'is-active' : ''} onClick={() => setStatsMode('activity')}>Activity</button>
-          </div>
-          <div className="home-stat-average"><strong>{statsMode === 'week' ? String(dailyAverage) + '%' : weeklyTotal}</strong><span>{statsMode === 'week' ? 'daily target pace' : 'check-ins this week'}</span></div>
-          <div className="home-week-bars" aria-label="Daily check-in activity for the last seven days">
-            {days.map(day => <div className="home-week-bar-column" key={day.key} title={`${day.count} check-ins on ${day.date.toLocaleDateString()}`}>
-              <div className="home-week-bar-track"><i style={{ height: `${Math.max(day.count ? 12 : 4, (statsMode === 'week' ? Math.min(100, day.count / dailyTarget * 100) : day.count / maxDay * 100))}%` }}/></div>
-              <span>{day.label}</span><small>{day.count}</small>
-            </div>)}
-          </div>
-          <div className="home-stat-mini-grid">
-            <div><span className="home-stat-icon home-stat-fire"><ArrowUpRight size={18} strokeWidth={2}/></span><span><small>Current streak</small><strong>{bestStreak} {bestStreak === 1 ? 'day' : 'days'}</strong></span></div>
-            <div><span className="home-stat-icon home-stat-check"><CheckCircle2 size={18} strokeWidth={2}/></span><span><small>Total check-ins</small><strong>{allActivity.length}</strong></span></div>
-            <div><span className="home-stat-icon home-stat-days"><Activity size={18} strokeWidth={2}/></span><span><small>Active days</small><strong>{Object.keys(activityByDay).length}</strong></span></div>
-            <div><span className="home-stat-icon home-stat-goals"><Target size={18} strokeWidth={2}/></span><span><small>Active goals</small><strong>{goals.filter(goal => goal.status === 'active').length}</strong></span></div>
-          </div>
-        </article>
-      </section>
-
-      <section className="home-today-section">
-        <div className="home-section-title"><div><span className="section-label">TODAY'S ACTIVITY</span><h2>Keep the rhythm.</h2></div><button type="button" onClick={() => goTo('logs')}>View history <ArrowRight size={14}/></button></div>
-        <div className="home-today-list">
-          {loggedItems.map(item => {
-            if (item.type === 'meal') return <button key={item.key} className="home-today-row" type="button" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}><span className="home-today-icon" style={{ '--task-color': '#f5a35c' }}><Utensils size={17}/></span><span className="home-today-copy"><strong>{item.meal.description || 'Meal'}</strong><small>{item.meal.meal_type || 'Meal'}{item.meal.calories ? ` · ${item.meal.calories} kcal` : ''}</small></span><span className="home-today-bar"><i style={{ width: '100%' }}/></span><span className="home-today-count">Logged</span><span className="home-today-check">✓</span></button>
-            const M = icons[item.def.slug] || Sparkles
-            const color = item.def.color || '#8f8cff'
-            return <button key={item.key} className="home-today-row" type="button" onClick={() => openLog(metricArea[item.def.slug], item.def)}><span className="home-today-icon" style={{ '--task-color': color }}><M size={17}/></span><span className="home-today-copy"><strong>{item.def.name}</strong><small>{valueText(item.log, item.def)}</small></span><span className="home-today-bar"><i style={{ width: '100%' }}/></span><span className="home-today-count">Logged</span><span className="home-today-check">✓</span></button>
-          })}
-          {!loading && loggedItems.length === 0 && <button type="button" className="home-today-empty" onClick={() => openLog()}><span><Plus size={17}/></span><strong>Make your first check-in</strong><small>A small action is enough to begin.</small><ArrowRight size={16}/></button>}
-          {loading && <div className="home-today-loading">Loading your saved activity…</div>}
-        </div>
-      </section>
-
-      <section className="home-areas-section">
-        <div className="home-section-title"><div><span className="section-label">YOUR WORLD</span><h2>Growth, in every area.</h2></div></div>
-        <div className="home-areas-grid">
-          {Object.entries(areas).map(([id, item]) => {
-            const Icon = item.icon
-            const metricDefs = defs.filter(def => metricArea[def.slug] === id)
-            const count = id === 'nutrition' ? todayMeals.length : todayLogs.filter(log => metricDefs.some(def => String(def.id) === String(log.metric_id))).length
-            const percent = Math.min(100, Math.round(count / 3 * 100))
-            return <button type="button" className="home-area-card" key={id} onClick={() => { goTo('area'); setArea(id) }}>
-              <span className="home-area-icon" style={{ '--task-color': item.color }}><Icon size={18}/></span><span className="home-area-name">{item.title}</span><strong>{count}</strong><small>{count ? 'activity today' : 'Ready when you are'}</small><span className="home-area-progress"><i style={{ width: `${percent}%` }}/></span>
+      <section className="calm-checkin" aria-labelledby="calm-checkin-title">
+        <div className="calm-section-kicker">A MOMENT FOR YOU</div>
+        <h2 id="calm-checkin-title">How are you feeling today?</h2>
+        <p>No pressure to have it all figured out.</p>
+        <div className="calm-mood-options">
+          {[
+            { label: 'Good', face: '☺', mood: 'good' },
+            { label: 'Okay', face: '◡', mood: 'okay' },
+            { label: 'Low', face: '☹', mood: 'low' },
+            { label: 'Stressed', face: '〰', mood: 'stressed' }
+          ].map(option => (
+            <button type="button" key={option.mood} onClick={startCheckIn} className="calm-mood-option" aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
+              <span aria-hidden="true">{option.face}</span>
+              <small>{option.label}</small>
             </button>
-          })}
+          ))}
+        </div>
+        <button type="button" className="calm-checkin-cta" onClick={startCheckIn}>
+          Check in with yourself <ArrowRight size={17} />
+        </button>
+      </section>
+
+      <section className="calm-home-focus" aria-label="Your growth at a glance">
+        <div className="calm-focus-heading">
+          <div><span className="calm-section-kicker">YOUR OWN PACE</span><h2>A little progress, at a time.</h2></div>
+          <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
+        </div>
+        <div className="calm-focus-row">
+          <span className="calm-focus-mark"><Target size={19}/></span>
+          <div><strong>{activeGoals.length ? `${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}` : 'Make room for what matters'}</strong><p>{activeGoals.length ? 'Keep going at a pace that works for you.' : 'Choose one thing you would like to grow.'}</p></div>
+          <button type="button" onClick={() => goTo('goals')}>{activeGoals.length ? 'View' : 'Explore'} <ArrowRight size={14}/></button>
         </div>
       </section>
+
+      <section className="calm-home-activity">
+        <div className="calm-focus-heading">
+          <div><span className="calm-section-kicker">TODAY</span><h2>Your little moments</h2></div>
+          <button type="button" onClick={() => goTo('logs')} aria-label="View check-in history"><ArrowRight size={18}/></button>
+        </div>
+        {loading ? (
+          <p className="calm-activity-note">Bringing your day together…</p>
+        ) : recentActivity.length ? (
+          <div className="calm-activity-list">
+            {recentActivity.map(item => {
+              const Icon = item.icon
+              return <button type="button" className="calm-activity-item" key={item.key} onClick={item.onClick}>
+                <span><Icon size={17}/></span><div><strong>{item.title}</strong><small>{item.detail}</small></div><ChevronRight size={16}/>
+              </button>
+            })}
+          </div>
+        ) : (
+          <button type="button" className="calm-activity-empty" onClick={startCheckIn}>
+            <span className="calm-empty-plus"><Plus size={18}/></span>
+            <span><strong>Nothing to catch up on.</strong><small>Whenever you're ready, start with one check-in.</small></span>
+            <ArrowRight size={17}/>
+          </button>
+        )}
+      </section>
+
+      {Object.keys(areas).length > 0 && (
+        <section className="calm-home-areas">
+          <div className="calm-focus-heading"><div><span className="calm-section-kicker">YOUR LIFE, YOUR WAY</span><h2>Explore what matters</h2></div></div>
+          <div className="calm-area-links">
+            {Object.entries(areas).slice(0, 6).map(([id, item]) => {
+              const Icon = item.icon
+              return <button type="button" key={id} onClick={() => { goTo('area'); setArea(id) }}>
+                <span style={{ '--calm-area-color': item.color || '#b8f34a' }}><Icon size={18}/></span><strong>{item.title}</strong><ArrowRight size={15}/>
+              </button>
+            })}
+          </div>
+        </section>
+      )}
     </div>
   )
 }
