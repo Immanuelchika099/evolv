@@ -57,8 +57,6 @@ function getProviderFirstName(user) {
   )
 }
 
-const AMBIENT_ENABLED_KEY = 'evolv-ambient-enabled'
-
 function AmbientSound({ active }) {
   const engineRef = useRef(null)
   const [playing, setPlaying] = useState(false)
