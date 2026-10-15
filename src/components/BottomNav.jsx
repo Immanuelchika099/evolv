@@ -1,9 +1,16 @@
 import { Home, CalendarClock, Sparkles, LineChart, UserRound } from 'lucide-react'
 import './BottomNav.css'
+import './LiquidGlassNav.css'
 
 function BottomNav({ active, onNavigate, avatarUrl = '' }) {
   return (
     <nav className="evolv-bottom-nav" aria-label="App navigation">
+      <liquid-glass
+        className="evolv-liquid-glass-surface"
+        preset="frosted"
+        aria-hidden="true"
+      />
+
       <button
         type="button"
         className={active === 'overview' ? 'bottom-active' : ''}
