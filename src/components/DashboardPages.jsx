@@ -68,6 +68,16 @@ function HomePage({ pageProps }) {
   const moodEntries = moodDef ? logs.filter(entry => String(entry.metric_id) === String(moodDef.id)).slice(0, 7) : []
   const recentInsightLogs = logs.slice(0, 7)
   const recentInsightMeals = meals.slice(0, 7)
+  const sleepValues = sleepEntries
+    .map(entry => Number(entry.value_numeric ?? entry.value))
+    .filter(value => Number.isFinite(value) && value >= 0 && value <= 24)
+  const averageSleep = sleepValues.length
+    ? sleepValues.reduce((total, value) => total + value, 0) / sleepValues.length
+    : null
+  const trackedRecently = [...new Set(recentInsightLogs.map(entry => {
+    const def = defs.find(item => String(item.id) === String(entry.metric_id))
+    return def?.name
+  }).filter(Boolean))]
   const insightContext = [
     'Use only these EVOLV records; do not invent data or diagnose me.',
     'Recent check-ins: ' + (recentInsightLogs.length ? recentInsightLogs.map(entry => {
@@ -83,9 +93,11 @@ function HomePage({ pageProps }) {
       title: 'Sleep & energy',
       icon: Moon,
       tone: 'lavender',
-      detail: sleepEntries.length
-        ? 'You have ' + sleepEntries.length + ' recent sleep check-in' + (sleepEntries.length === 1 ? '' : 's') + '. Explore how rest may connect with the rest of your routine.'
-        : 'Start logging sleep to build a clearer picture of your rest over time.',
+      detail: averageSleep !== null && sleepValues.length >= 2
+        ? 'Your last ' + sleepValues.length + ' sleep entries average ' + averageSleep.toFixed(1) + ' hours. Explore what that might mean for your energy.'
+        : averageSleep !== null
+          ? 'Your latest sleep entry is ' + averageSleep.toFixed(1) + ' hours. A few more check-ins can help reveal patterns.'
+          : 'Start logging sleep to build a clearer picture of your rest over time.',
       prompt: 'Help me understand my sleep and daily energy using my EVOLV records. Look for patterns only if there is enough data, explain uncertainty, and suggest one gentle next step.\n' + insightContext
     },
     {
@@ -94,8 +106,10 @@ function HomePage({ pageProps }) {
       icon: Brain,
       tone: 'coral',
       detail: moodEntries.length > 1
-        ? 'You have recorded your mood ' + moodEntries.length + ' times recently. Let’s gently explore what may be influencing how you feel.'
-        : 'A few mood check-ins over time can help you reflect on how you feel, without judging or labelling yourself.',
+        ? 'Your recent mood check-ins are ready to explore alongside sleep, focus and daily routines—without jumping to conclusions.'
+        : moodEntries.length === 1
+          ? 'You’ve started checking in on mood. A few entries over time can make reflection more useful.'
+          : 'Check in with how you feel, then explore your reflections with care and without judgement.',
       prompt: 'Help me reflect on my mood and wellbeing using my EVOLV records. Do not diagnose me or infer a mental-health condition. Note uncertainty, ask one gentle question if needed, and suggest one manageable next step.\n' + insightContext
     },
     {
@@ -103,8 +117,8 @@ function HomePage({ pageProps }) {
       title: 'Your daily rhythm',
       icon: Activity,
       tone: 'mint',
-      detail: recentInsightLogs.length + recentInsightMeals.length
-        ? 'You have ' + (recentInsightLogs.length + recentInsightMeals.length) + ' recent routine entr' + (recentInsightLogs.length + recentInsightMeals.length === 1 ? 'y' : 'ies') + '. Explore the connections between habits at your own pace.'
+      detail: trackedRecently.length || recentInsightMeals.length
+        ? 'Recently tracked: ' + [...trackedRecently.slice(0, 3), ...(recentInsightMeals.length ? ['meals'] : [])].join(', ') + '. Explore how your routines fit together.'
         : 'As you record meals, movement, sleep or focus, EVOLV can help you make sense of your routine.',
       prompt: 'Review my recent EVOLV routine records and identify only useful, evidence-supported patterns across habits. Do not overstate correlations or shame me. Give me one clear observation and one practical next step.\n' + insightContext
     }
