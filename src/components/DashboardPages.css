@@ -7204,3 +7204,57 @@ body,
 @media (prefers-reduced-motion: reduce) {
   .avatar-studio-options button { transition: none; }
 }
+
+
+/* EVOLV Identity: private selfie-to-avatar flow. */
+.avatar-studio-manual-heading {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  margin: 2rem 0 .4rem;
+}
+.avatar-studio-manual-heading strong { color: #f5f5ef; font-size: 1.65rem; letter-spacing: -.025em; }
+.avatar-studio-manual-heading span { color: rgba(245,245,240,.53); font-size: 1.25rem; }
+.selfie-avatar {
+  padding: 1.45rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.65rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+}
+.selfie-avatar-heading { display:flex; align-items:center; gap:1rem; margin-bottom:1.25rem; }
+.selfie-avatar-icon { width:3.8rem; height:3.8rem; display:grid; place-items:center; flex:0 0 auto; border:1px solid rgba(193,244,91,.18); border-radius:1.2rem; background:rgba(193,244,91,.08); color:#c1f45b; }
+.selfie-avatar-heading strong { display:block; color:#f5f5ef; font-size:1.5rem; font-weight:650; }
+.selfie-avatar-heading p { margin:.35rem 0 0; color:rgba(245,245,240,.53); font-size:1.25rem; line-height:1.45; }
+.selfie-avatar-input { display:none; }
+.selfie-avatar-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.8rem; }
+.selfie-avatar-actions button, .selfie-avatar-selected-actions button {
+  display:inline-flex; align-items:center; justify-content:center; gap:.65rem;
+  min-height:4.1rem; padding:.9rem 1rem; border:1px solid rgba(255,255,255,.1);
+  border-radius:1.15rem; background:rgba(255,255,255,.035); color:#f0f0e9;
+  font:inherit; font-size:1.3rem; cursor:pointer; transition:background .18s ease,border-color .18s ease;
+}
+.selfie-avatar-actions button:first-child { border-color:rgba(193,244,91,.26); background:rgba(193,244,91,.07); }
+.selfie-avatar-actions button:hover, .selfie-avatar-selected-actions button:hover { border-color:rgba(193,244,91,.4); background:rgba(193,244,91,.07); }
+.selfie-avatar-selected { display:flex; flex-direction:column; gap:1rem; }
+.selfie-avatar-selected > img { display:block; width:100%; max-height:22rem; object-fit:contain; border-radius:1.2rem; background:#090a08; }
+.selfie-avatar-selected-actions { display:grid; grid-template-columns:1fr 1fr auto; gap:.65rem; }
+.selfie-avatar-selected-actions button { min-width:0; min-height:3.7rem; padding:.7rem; font-size:1.2rem; }
+.selfie-avatar-selected-actions button:last-child { width:3.8rem; }
+.selfie-avatar-consent { display:flex; align-items:flex-start; gap:.8rem; padding:.9rem .1rem; color:rgba(245,245,240,.62); font-size:1.2rem; line-height:1.5; cursor:pointer; }
+.selfie-avatar-consent input { flex:0 0 auto; width:1.6rem; height:1.6rem; margin:.15rem 0 0; accent-color:#c1f45b; }
+.selfie-avatar-analyze { display:flex; align-items:center; justify-content:center; gap:.7rem; width:100%; min-height:4.4rem; padding:1rem; border:0; border-radius:999px; background:#c1f45b; color:#10120b; font-size:1.4rem; font-weight:750; cursor:pointer; }
+.selfie-avatar-analyze:disabled { opacity:.42; cursor:not-allowed; }
+.selfie-avatar-spinner { animation:selfie-avatar-spin .9s linear infinite; }
+@keyframes selfie-avatar-spin { to { transform:rotate(360deg); } }
+.selfie-avatar-privacy { display:flex; align-items:flex-start; gap:.6rem; margin-top:1.15rem; color:rgba(245,245,240,.42); font-size:1.15rem; line-height:1.45; }
+.selfie-avatar-privacy svg { flex:0 0 auto; margin-top:.1rem; color:#a4c86b; }
+.selfie-avatar-message { margin:1rem 0 0; padding:.9rem 1rem; border-radius:1rem; font-size:1.25rem; line-height:1.5; }
+.selfie-avatar-message.is-error { border:1px solid rgba(255,113,113,.2); background:rgba(255,90,90,.06); color:#ffb2b2; }
+.selfie-avatar-message.is-success { border:1px solid rgba(193,244,91,.18); background:rgba(193,244,91,.06); color:#d9f6a5; }
+@media (max-width:600px) {
+  .selfie-avatar { padding:1.2rem; }
+  .selfie-avatar-actions { grid-template-columns:1fr; }
+  .selfie-avatar-selected-actions { grid-template-columns:1fr 1fr auto; }
+  .selfie-avatar-selected-actions button { font-size:1.1rem; }
+}
+@media (prefers-reduced-motion:reduce) { .selfie-avatar-spinner { animation:none; } .selfie-avatar-actions button,.selfie-avatar-selected-actions button { transition:none; } }
