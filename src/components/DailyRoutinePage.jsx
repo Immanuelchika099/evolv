@@ -67,12 +67,13 @@ export default function DailyRoutinePage({ pageProps }) {
   }
 
   async function syncRoutineReminders(nextItems, enabled = remindersEnabled) {
-    const routineReminders = enabled ? nextItems.filter(item => item.enabled).map(item => ({
-      id: item.id, label: item.label, time: item.time, enabled: true
-    })) : []
     try {
       const stored = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}')
-      const preferences = { ...stored, routineReminders }
+      const savedLeadMinutes = Math.min(720, Math.max(0, Number(stored.routineReminderLeadMinutes ?? leadMinutes ?? 10)))
+      const routineReminders = enabled ? nextItems.filter(item => item.enabled).map(item => ({
+        id: item.id, label: item.label, time: item.time, enabled: true, leadMinutes: savedLeadMinutes
+      })) : []
+      const preferences = { ...stored, routineReminderLeadMinutes: savedLeadMinutes, routineReminders }
       localStorage.setItem('evolv-notification-times', JSON.stringify(preferences))
       if (localStorage.getItem('evolv-notifications-enabled') !== 'true') return
       const registration = await navigator.serviceWorker?.ready
@@ -87,6 +88,18 @@ export default function DailyRoutinePage({ pageProps }) {
       console.error('Could not sync routine reminders:', error)
       setProfileMessage?.('Routine saved. Check notification settings to enable reminders.')
     }
+  }
+
+  function saveLeadMinutes(event) {
+    const raw = event.currentTarget.value
+    if (raw === '') { setLeadMinutes(''); return }
+    const value = Math.min(720, Math.max(0, Math.round(Number(raw))))
+    setLeadMinutes(value)
+    try {
+      const preferences = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}')
+      localStorage.setItem('evolv-notification-times', JSON.stringify({ ...preferences, routineReminderLeadMinutes: value }))
+    } catch {}
+    syncRoutineReminders(items)
   }
 
   function toggleRoutineReminders() {
@@ -194,7 +207,8 @@ export default function DailyRoutinePage({ pageProps }) {
 
       <section className="routine-reminder-control">
         <span className="routine-reminder-control-icon"><Bell size={17}/></span>
-        <div><strong>10-minute reminders</strong><small>{remindersEnabled ? 'Before each enabled routine' : 'Reminders are off'}</small></div>
+        <div><strong>Routine reminders</strong><small>{remindersEnabled ? (Number(leadMinutes) === 0 ? 'At each scheduled time' : `${leadMinutes} ${Number(leadMinutes) === 1 ? 'minute' : 'minutes'} before each enabled routine`) : 'Reminders are off'}</small></div>
+        <label className="routine-lead-time"><span>Minutes before</span><input type="number" min="0" max="720" step="1" value={leadMinutes} onChange={saveLeadMinutes} aria-label="Minutes before each routine reminder" /></label>
         <button type="button" className={'routine-toggle' + (remindersEnabled ? ' is-on' : '')} aria-pressed={remindersEnabled} aria-label={remindersEnabled ? 'Turn routine reminders off' : 'Turn routine reminders on'} onClick={toggleRoutineReminders}><span/></button>
       </section>
 
@@ -205,7 +219,7 @@ export default function DailyRoutinePage({ pageProps }) {
 
       <section className="routine-reminder-note">
         <div className="routine-reminder-icon"><Waves size={18}/></div>
-        <div><strong>{notificationsEnabled ? 'Notifications are on' : 'Enable phone notifications'}</strong><p>{notificationsEnabled ? 'You’ll be reminded 10 minutes before enabled routines.' : 'Turn them on in settings to receive routine reminders.'}</p></div>
+        <div><strong>{notificationsEnabled ? 'Notifications are on' : 'Enable phone notifications'}</strong><p>{notificationsEnabled ? (Number(leadMinutes) === 0 ? 'You’ll be reminded at each scheduled routine time.' : `You’ll be reminded ${leadMinutes} ${Number(leadMinutes) === 1 ? 'minute' : 'minutes'} before enabled routines.`) : 'Turn them on in settings to receive routine reminders.'}</p></div>
         <button type="button" onClick={() => goTo('profile')}>Settings <ChevronRight size={15}/></button>
       </section>
     </div>
