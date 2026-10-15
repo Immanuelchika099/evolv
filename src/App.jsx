@@ -9,6 +9,7 @@ import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import PatternWaves from './components/PatternWaves/PatternWaves'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
+import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
@@ -1229,12 +1230,12 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           wave="silk"
           color="#B8F34A"
           backgroundColor="#050505"
-          opacity={0.28}
+          opacity={0.12}
           fade="center"
-          fadeSize={0.72}
-          speed={0.22}
-          depth={0.72}
-          shine={0.38}
+          fadeSize={0.82}
+          speed={0.12}
+          depth={0.52}
+          shine={0.18}
           interactive={false}
           intro
           className="evolv-welcome-pattern"
@@ -1249,13 +1250,13 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
         <button className="evolv-welcome-signin" type="button" onClick={onSignIn}>Sign in <ArrowRight size={15} /></button>
       </header>
       <main className="evolv-welcome-content">
-        <span className="evolv-welcome-eyebrow"><i /> A LITTLE SPACE TO GROW</span>
-        <h1>Become more.<br /><em>On purpose.</em></h1>
-        <p>A calmer way to understand yourself, build better routines, and grow at your own pace.</p>
+        <span className="evolv-welcome-eyebrow"><i /> YOUR SPACE TO GROW</span>
+        <h1>One step at a time.<br /><em>Become you.</em></h1>
+        <p>Build better habits, understand yourself, and make room for the person you’re becoming.</p>
         <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started <ArrowRight size={18} /></button>
-        <span className="evolv-welcome-note">YOUR NEXT CHAPTER STARTS HERE</span>
+        <span className="evolv-welcome-note">GROW AT YOUR OWN PACE</span>
       </main>
-      <div className="evolv-welcome-bottom" aria-hidden="true"><span>DEFINE</span><i /> <span>BUILD</span><i /> <span>REFLECT</span><i /> <span>EVOLVE</span></div>
+      <div className="evolv-welcome-bottom" aria-hidden="true"><span>NOTICE</span><i /> <span>GROW</span><i /> <span>REPEAT</span></div>
     </div>
   )
 }
