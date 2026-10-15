@@ -6654,3 +6654,90 @@ body,
     transition: none !important;
   }
 }
+
+
+/* Dashboard top navigation: full-width glass with a soft fade, not a boxed bar. */
+.dashboard .app-topbar {
+  position: fixed !important;
+  inset: 0 0 auto !important;
+  z-index: 10000 !important;
+  width: 100% !important;
+  min-height: calc(7.2rem + env(safe-area-inset-top, 0px)) !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 1.1rem) clamp(1.8rem, 4vw, 4.2rem) 1.2rem !important;
+  margin: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 1.6rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.82) 0%,
+    rgba(0,0,0,.62) 48%,
+    rgba(0,0,0,.28) 76%,
+    rgba(0,0,0,0) 100%
+  ) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(18px) saturate(115%) !important;
+  backdrop-filter: blur(18px) saturate(115%) !important;
+  isolation: isolate;
+}
+.dashboard .app-topbar::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 -4.8rem;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(0,0,0,.36) 0%,
+    rgba(0,0,0,.2) 42%,
+    rgba(0,0,0,.07) 72%,
+    transparent 100%
+  );
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.8) 48%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, rgba(0,0,0,.8) 48%, transparent 100%);
+}
+.dashboard .app-topbar > * {
+  position: relative;
+  z-index: 1;
+}
+.dashboard .app-topbar .app-logo-button,
+.dashboard .app-topbar .routine-nav-button,
+.dashboard .app-topbar .notification-button {
+  box-shadow: none !important;
+}
+.dashboard .app-topbar .routine-nav-button,
+.dashboard .app-topbar .notification-button {
+  background: rgba(16,16,16,.42) !important;
+  border-color: rgba(255,255,255,.1) !important;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.dashboard .app-topbar .routine-nav-button:hover,
+.dashboard .app-topbar .notification-button:hover {
+  background: rgba(255,255,255,.07) !important;
+  border-color: rgba(255,255,255,.17) !important;
+}
+@media (max-width: 600px) {
+  .dashboard .app-topbar {
+    min-height: calc(6.5rem + env(safe-area-inset-top, 0px)) !important;
+    padding: calc(env(safe-area-inset-top, 0px) + .8rem) 1.6rem 1rem !important;
+  }
+  .dashboard .app-topbar::before {
+    inset-bottom: -4rem;
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .dashboard .app-topbar {
+    background: linear-gradient(180deg, rgba(0,0,0,.96), rgba(0,0,0,.82) 58%, transparent) !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  .dashboard .app-topbar::before {
+    display: none;
+  }
+}
