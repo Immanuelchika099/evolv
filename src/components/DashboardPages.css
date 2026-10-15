@@ -7771,3 +7771,32 @@ body,
     min-height: 22rem !important;
   }
 }
+
+
+/* Visible, neutral fallback if the remote 3D viewer or model cannot load. */
+.evolv-avatar-3d-error {
+  position: absolute;
+  inset: 8% 8% 0;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+.evolv-avatar-3d-error-head {
+  z-index: 1;
+  width: 6.8rem;
+  height: 7.4rem;
+  margin-bottom: -1.2rem;
+  border-radius: 48% 48% 44% 44%;
+  background: linear-gradient(135deg, #e6c4a8, #b98368);
+  box-shadow: inset -1.1rem -0.7rem 1.5rem rgba(35,18,12,.18);
+}
+.evolv-avatar-3d-error-body {
+  width: 13rem;
+  height: 12rem;
+  border-radius: 48% 48% 8% 8%;
+  background: linear-gradient(115deg, #d9ddd2, #858d81 58%, #4e554c);
+  clip-path: polygon(28% 0, 72% 0, 100% 100%, 0 100%);
+  filter: drop-shadow(0 1rem 1.5rem rgba(0,0,0,.2));
+}
