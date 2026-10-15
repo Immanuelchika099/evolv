@@ -21,7 +21,8 @@ export default function Avatar3D({ className = '', label = '3D avatar', interact
     }
 
     const loadViewer = (index = 0) => {
-      if (cancelled || index >= VIEWER_URLS.length) return
+      if (cancelled) return
+      if (index >= VIEWER_URLS.length) { setModelState('error'); return }
       const existing = document.querySelector('script[data-evolv-model-viewer]')
       if (existing) existing.remove()
 
