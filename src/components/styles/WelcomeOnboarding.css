@@ -13,7 +13,7 @@
 .evolv-onboarding-background {
   position: absolute;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
 }
@@ -184,6 +184,12 @@
 .evolv-onboarding {
   display: flex;
   flex-direction: column;
+}
+.evolv-onboarding-header,
+.evolv-onboarding-progress,
+.evolv-onboarding-main {
+  position: relative;
+  z-index: 1;
 }
 .evolv-onboarding-header {
   display: flex;
