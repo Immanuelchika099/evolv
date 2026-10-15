@@ -287,22 +287,13 @@ function App() {
       getAvatarPreset(completedData.avatarStyle || DEFAULT_AVATAR.presentation)
     ))
 
-    const { data: authData } = await supabase.auth.getUser()
-    const user = authData?.user
-    if (user) {
-      const { error: profileError } = await supabase.from('profiles').upsert({
-        id: user.id,
-        first_name: completedData.name,
-        growth_areas: completedData.areas || [],
-        focus: completedData.focus || '',
-        first_goal: completedData.goal?.trim() || '',
-      })
-      if (profileError) console.error('EVOLV onboarding profile save failed:', profileError)
-    }
-
+    // Complete the personal setup first; only then ask the user to create
+    // an account or sign in. This marker survives the Google/GitHub redirect.
+    localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
     setData(completedData)
-    localStorage.setItem('evolv-view', 'dashboard')
-    setView('dashboard')
+    setAuthMode('signup')
+    localStorage.setItem('evolv-view', 'auth')
+    setView('auth')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
@@ -319,8 +310,37 @@ function App() {
 
     if (profileError) console.error('EVOLV profile lookup failed:', profileError)
 
-    // A new account has no profile row yet. Let the user finish the short
-    // onboarding journey before creating one. Existing accounts skip it.
+    // Users who completed onboarding before authentication should land
+    // in the dashboard after OAuth, with their choices saved to the profile.
+    const onboardingReady = localStorage.getItem('evolv-onboarding-ready-for-auth') === 'true'
+    if ((authMode === 'signup' || !profile) && onboardingReady) {
+      const saved = (() => {
+        try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
+        catch { return { ...initialData, ...data } }
+      })()
+      const completedData = {
+        ...saved,
+        name: getFirstName(saved.name || getProviderFirstName(user)),
+      }
+      const { error: saveError } = await supabase.from('profiles').upsert({
+        id: user.id,
+        first_name: completedData.name,
+        growth_areas: completedData.areas || [],
+        focus: completedData.focus || '',
+        first_goal: completedData.goal?.trim() || '',
+      })
+      if (saveError) console.error('EVOLV onboarding profile save failed:', saveError)
+      setData(completedData)
+      localStorage.setItem('evolv-onboarding', JSON.stringify(completedData))
+      localStorage.removeItem('evolv-onboarding-ready-for-auth')
+      localStorage.setItem('evolv-view', 'dashboard')
+      setView('dashboard')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+
+    // A direct /signup visit can bypass the intro, so retain a safe fallback
+    // for brand-new accounts that have not completed onboarding yet.
     if (authMode === 'signup' || !profile) {
       const nextData = {
         ...initialData,
@@ -380,7 +400,7 @@ function App() {
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
-      {view === 'welcome' && <WelcomeScreen onGetStarted={() => openAuth('signup')} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
+      {view === 'welcome' && <WelcomeScreen onGetStarted={() => { setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
       {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} />}
       {view === 'onboarding' && (
         <Onboarding
