@@ -2,15 +2,16 @@
 <title id="title">EVOLV</title>
 <defs>
 <linearGradient id="g" x1="120" y1="70" x2="385" y2="330" gradientUnits="userSpaceOnUse">
+<animateTransform attributeName="gradientTransform" type="translate" values="-32 -18; 32 18; -32 -18" dur="5s" repeatCount="indefinite"/>
 <stop offset="0" stop-color="#b8ff68"/><stop offset=".42" stop-color="#65e68c"/><stop offset=".76" stop-color="#18c6a3"/><stop offset="1" stop-color="#0a9fb4"/>
 </linearGradient>
 
 <filter id="liquidMetal" x="-12%" y="-12%" width="124%" height="124%" color-interpolation-filters="sRGB">
   <feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="7" result="flow">
-    <animate attributeName="baseFrequency" values="0.012 0.02;0.022 0.012;0.012 0.02" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="baseFrequency" values="0.035 0.025;0.06 0.035;0.035 0.025" dur="4.5s" repeatCount="indefinite"/>
   </feTurbulence>
   <feDisplacementMap in="SourceGraphic" in2="flow" scale="2.8" xChannelSelector="R" yChannelSelector="G">
-    <animate attributeName="scale" values="2.8;4.2;2.8" dur="8s" repeatCount="indefinite"/>
+    <animate attributeName="scale" values="7;12;7" dur="8s" repeatCount="indefinite"/>
   </feDisplacementMap>
 </filter>
 </defs>
