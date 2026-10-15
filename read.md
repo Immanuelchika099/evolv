@@ -1,1 +1,3 @@
-# evolv
+# EVOLV
+
+Your personal growth companion.
