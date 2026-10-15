@@ -505,3 +505,73 @@
   .evolv-onboarding-progress i { transition: none; }
   .evolv-onboarding-main { animation: none; }
 }
+
+
+/* Calm the animated onboarding background without removing its texture. */
+.evolv-onboarding-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(4, 5, 4, .48) 0%, rgba(4, 5, 4, .34) 46%, rgba(4, 5, 4, .56) 100%),
+    rgba(4, 5, 4, .22);
+  backdrop-filter: brightness(.72) saturate(.68);
+  -webkit-backdrop-filter: brightness(.72) saturate(.68);
+}
+.evolv-onboarding-header,
+.evolv-onboarding-progress,
+.evolv-onboarding-main {
+  position: relative;
+  z-index: 3;
+}
+.evolv-onboarding-avatar-preview {
+  width: min(100%, 32rem);
+  margin: 2.6rem auto 0;
+  text-align: center;
+}
+.evolv-onboarding-avatar-stage {
+  position: relative;
+  width: 100%;
+  height: 28rem;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 2.4rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(0,0,0,.28));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 2.5rem 7rem rgba(0,0,0,.24);
+}
+.evolv-onboarding-avatar-stage > .evolv-avatar-3d-shell {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+.evolv-onboarding-avatar-halo {
+  position: absolute;
+  width: 70%;
+  aspect-ratio: 1;
+  left: 15%;
+  top: 10%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(184,243,74,.09), transparent 68%);
+  pointer-events: none;
+}
+.evolv-onboarding-avatar-caption {
+  max-width: 34rem;
+  margin: 1.4rem auto 0;
+  color: rgba(245,245,239,.64);
+  font-size: 1.3rem;
+  line-height: 1.65;
+}
+.evolv-onboarding-ready-avatar .evolv-avatar-3d-shell {
+  width: 100%;
+  height: 100%;
+}
+.evolv-onboarding-ready-avatar .evolv-avatar-3d-loading {
+  opacity: .5;
+}
+@media (max-width: 640px) {
+  .evolv-onboarding-avatar-preview { margin-top: 1.8rem; }
+  .evolv-onboarding-avatar-stage { height: 24rem; border-radius: 1.8rem; }
+}
+
