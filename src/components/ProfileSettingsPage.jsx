@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronRight, Check, X, Trash2, Download } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronRight, Check, X, Trash2, Download, ArrowUpRight } from 'lucide-react'
+import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
 
@@ -29,6 +30,8 @@ export default function ProfileSettingsPage({pageProps}){
   const [editOpen,setEditOpen]=useState(false),[saving,setSaving]=useState(false),[error,setError]=useState('')
   const [toast,setToast]=useState(''),[toastError,setToastError]=useState(false),[confirmAction,setConfirmAction]=useState(null),[resetting,setResetting]=useState(false)
   const [avatarPreview,setAvatarPreview]=useState(''),[avatarBusy,setAvatarBusy]=useState(false),[localAvatar,setLocalAvatar]=useState(avatarUrl||''),[unsaved,setUnsaved]=useState(false)
+  const [avatarStudioOpen,setAvatarStudioOpen]=useState(false)
+  const [avatarStyle,setAvatarStyle]=useState(()=>{try{return {...DEFAULT_AVATAR,...JSON.parse(localStorage.getItem('evolv-avatar-preferences')||'{}')}}catch{return {...DEFAULT_AVATAR}}})
   const settingsKey=user?.id?'evolv-profile-settings-'+user.id:null
 
   useEffect(()=>{let mounted=true;(async()=>{const {data:a}=await supabase.auth.getUser();if(!mounted||!a?.user)return;const current=a.user;const {data:p}=await supabase.from('profiles').select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').eq('id',current.id).maybeSingle();if(!mounted)return;setUser(current);setDraft({name:p?.first_name||profileName||'',email:current.email||'',bio:current.user_metadata?.bio||''});setLocalAvatar(p?.avatar_url||current.user_metadata?.avatar_url||avatarUrl||'')})();return()=>{mounted=false}},[])
@@ -49,6 +52,7 @@ export default function ProfileSettingsPage({pageProps}){
   useEffect(()=>()=>{if(avatarPreview)URL.revokeObjectURL(avatarPreview)},[avatarPreview])
 
   function showToast(message,isError=false){setToastError(isError);setToast(message)}
+  function updateAvatarStyle(updated){setAvatarStyle(updated);try{localStorage.setItem('evolv-avatar-preferences',JSON.stringify(updated))}catch{};window.dispatchEvent(new CustomEvent('evolv-avatar-updated'))}
   function updateSetting(key,value){const next={...settings,[key]:value};setSettings(next);if(settingsKey)localStorage.setItem(settingsKey,JSON.stringify(next));if(key==='animations')document.documentElement.classList.toggle('evolv-reduced-motion',value===false);window.dispatchEvent(new CustomEvent('evolv-settings-updated',{detail:next}));showToast('Preference saved.')}
   function beginEdit(){setDraft({name:profileName||'',email:user?.email||profile?.email||'',bio:user?.user_metadata?.bio||''});setError('');setUnsaved(false);setEditOpen(true)}
   function cancelEdit(){beginEdit();setEditOpen(false);setUnsaved(false)}
@@ -135,6 +139,10 @@ export default function ProfileSettingsPage({pageProps}){
         <div className="profile-summary-focus"><span className="section-label">GROWTH AREAS</span><strong>{(profile?.growth_areas||data?.areas||[]).length||0} selected</strong></div>
       </aside>
       <div className="profile-settings-column">
+        <section className="profile-avatar-studio-card" aria-labelledby="profile-avatar-studio-title">
+          <div className="profile-avatar-studio-art"><span className="profile-avatar-studio-orbit"/><AvatarPortrait preferences={avatarStyle} expression="wave" className="profile-avatar-studio-portrait"/></div>
+          <div className="profile-avatar-studio-copy"><span className="section-label">MAKE IT YOURS</span><h3 id="profile-avatar-studio-title">Your avatar</h3><p>Give your EVOLV companion a look that feels like you. Change your face, hair, colours and more.</p><button type="button" className="profile-avatar-studio-button" onClick={()=>setAvatarStudioOpen(true)}><Pencil size={15}/> Open Avatar Studio <ArrowUpRight size={15}/></button></div>
+        </section>
         <section className="profile-stat-grid" aria-label="Your EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
         <ProfileSettingsSection label="ACCOUNT" title="Account">
           <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
@@ -169,6 +177,7 @@ export default function ProfileSettingsPage({pageProps}){
         </ProfileSettingsSection>
       </div>
     </div>
+    {avatarStudioOpen&&createPortal(<div className="profile-avatar-studio-portal"><AvatarStudio preferences={avatarStyle} onChange={updateAvatarStyle} onClose={()=>setAvatarStudioOpen(false)}/></div>,document.body)}
     {editOpen&&createPortal(<div className="profile-modal-backdrop" role="presentation" onMouseDown={e=>e.target===e.currentTarget&&cancelEdit()}><section className="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-edit-title"><div className="profile-modal-head"><div><span className="section-label">ACCOUNT</span><h3 id="profile-edit-title">Edit profile.</h3></div><button type="button" onClick={cancelEdit} aria-label="Close edit profile"><X size={18}/></button></div><form onSubmit={saveProfile}><label><span>Name</span><input autoFocus maxLength={80} value={draft.name} onChange={e=>{setDraft({...draft,name:e.target.value});setUnsaved(true)}}/></label><label><span>Email</span><input type="email" maxLength={320} value={draft.email} onChange={e=>{setDraft({...draft,email:e.target.value});setUnsaved(true)}}/></label><label><span>Bio <small>optional</small></span><textarea maxLength={180} rows="3" value={draft.bio} onChange={e=>{setDraft({...draft,bio:e.target.value});setUnsaved(true)}} placeholder="A short line about you."/></label>{error&&<p className="profile-inline-error" role="alert">{error}</p>}<div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={cancelEdit}>Cancel</button><button type="submit" className="button button-primary" disabled={saving}>{saving?'Saving…':'Save changes'} <Check size={15}/></button></div></form></section></div>,document.body)}
     {confirmAction&&createPortal(<div className="profile-modal-backdrop confirmation-backdrop" role="presentation" onMouseDown={e=>e.target===e.currentTarget&&setConfirmAction(null)}><section className="profile-modal confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="profile-confirm-title" aria-describedby="profile-confirm-copy"><div className={'confirmation-icon '+(confirmAction==='delete'?'is-destructive':'')}>{confirmAction==='delete'?<Trash2 size={19}/>:<Check size={19}/>}</div><span className="section-label">ARE YOU SURE</span><h3 id="profile-confirm-title">{confirmAction==='reset'?'Reset habit data?':confirmAction==='logout'?'Log out of EVOLV?':'Delete your account?'}</h3><p id="profile-confirm-copy">{confirmAction==='reset'?'This permanently removes your logs, meals, goals, reflections and notification history. Your account stays intact.':confirmAction==='logout'?'Your data remains saved. You can sign back in whenever you are ready.':'This permanently removes your EVOLV account and saved information. This cannot be undone.'}</p><div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={()=>setConfirmAction(null)}>Cancel</button><button type="button" className="settings-danger-button" disabled={resetting||deleting} onClick={handleConfirmedAction}>{resetting||deleting?'Working…':confirmAction==='reset'?'Reset data':confirmAction==='logout'?'Log out':'Delete account'}</button></div></section></div>,document.body)}
     {toast&&<div className={'profile-toast '+(toastError?'error':'')} role="status" aria-live="polite">{toast}</div>}
