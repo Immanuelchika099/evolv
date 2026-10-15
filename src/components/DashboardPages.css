@@ -7672,3 +7672,62 @@ body,
   .avatar-wave-arm { animation: none; }
 }
 
+/* Real-time 3D companion powered by a glTF model viewer. */
+.evolv-avatar-3d-shell {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+.evolv-avatar-3d-shell model-viewer {
+  display: block;
+  width: 100%;
+  height: 100%;
+  outline: none;
+}
+.evolv-avatar-3d-loading {
+  position: absolute;
+  inset: 15% 10%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(184,243,74,.10), rgba(0,0,0,0) 68%);
+  pointer-events: none;
+}
+.evolv-avatar-3d-loading span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 2px solid rgba(255,255,255,.12);
+  border-top-color: #b8f34a;
+  border-radius: 50%;
+  transform: translate(-50%,-50%);
+  animation: evolv-avatar-3d-spin .8s linear infinite;
+}
+@keyframes evolv-avatar-3d-spin { to { transform: translate(-50%,-50%) rotate(360deg); } }
+.evolv-mascot-wrap .evolv-avatar-3d-shell.evolv-custom-portrait {
+  width: min(100%, 22rem);
+  height: 25rem;
+  max-height: none;
+  margin: -1.5rem auto -2rem;
+  overflow: visible;
+}
+.avatar-studio-preview-3d {
+  height: 25rem !important;
+  min-height: 25rem;
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 72%, rgba(184,243,74,.09), transparent 67%);
+}
+.avatar-studio-preview-3d .evolv-avatar-3d-shell { height: 100%; }
+.avatar-studio-preview-3d .evolv-avatar-3d-shell model-viewer { min-height: 25rem; }
+@media (max-width: 480px) {
+  .evolv-mascot-wrap .evolv-avatar-3d-shell.evolv-custom-portrait { width: min(100%, 20rem); height: 23rem; margin-top: -1rem; }
+  .avatar-studio-preview-3d, .avatar-studio-preview-3d .evolv-avatar-3d-shell model-viewer { height: 23rem !important; min-height: 23rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-avatar-3d-loading span { animation: none; }
+}
+
