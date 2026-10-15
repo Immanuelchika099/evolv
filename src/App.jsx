@@ -1326,24 +1326,21 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
   return (
     <div className="evolv-onboarding page-enter">
       <div className="evolv-onboarding-background" aria-hidden="true">
-        <GradientASCII
-          colors={['#B8F34A', '#F6F8F0', '#B8F34A']}
-          shape="horizon"
-          characters=" =+xX0S8#@"
-          cellSize={17}
-          density={0.72}
-          glyphOpacity={0.68}
-          gradientOpacity={0.3}
-          glow={0.16}
-          softness={0.62}
-          flow={0.32}
-          speed={0.42}
-          grain={0.025}
-          mouseInteraction={false}
-          clickEffect="none"
+        <PatternWaves
+          preset="silk"
+          pattern="line"
+          wave="silk"
+          color="#B8F34A"
+          backgroundColor="#050505"
+          opacity={0.12}
+          fade="center"
+          fadeSize={0.82}
+          speed={0.12}
+          depth={0.52}
+          shine={0.18}
+          interactive={false}
           intro
-          dpr={1.25}
-          className="evolv-onboarding-ascii"
+          className="evolv-onboarding-pattern"
         />
         <div className="evolv-welcome-vignette" />
       </div>
