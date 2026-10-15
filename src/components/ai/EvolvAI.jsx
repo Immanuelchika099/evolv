@@ -191,8 +191,11 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   useEffect(() => {
     const root = document.documentElement
     const updateViewportHeight = () => {
-      const height = window.visualViewport?.height || window.innerHeight
+      const viewport = window.visualViewport
+      const height = viewport?.height || window.innerHeight
+      const offsetTop = viewport?.offsetTop || 0
       if (height > 0) root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(height)}px`)
+      root.style.setProperty('--evolv-ai-viewport-offset-top', `${Math.round(offsetTop)}px`)
     }
 
     updateViewportHeight()
@@ -207,6 +210,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
       window.visualViewport?.removeEventListener('resize', updateViewportHeight)
       window.visualViewport?.removeEventListener('scroll', updateViewportHeight)
       root.style.removeProperty('--evolv-ai-viewport-height')
+      root.style.removeProperty('--evolv-ai-viewport-offset-top')
     }
   }, [])
 
