@@ -65,6 +65,9 @@ function App() {
     // personalise EVOLV before asking them to create an account.
     // An active authenticated session is still restored below as usual.
     const initialView = savedView === 'onboarding' ? 'welcome' : savedView
+    // A direct /onboarding link must always open the first-run welcome screen,
+    // even if this browser previously saved dashboard as its last view.
+    if (path === '/onboarding') return 'welcome'
     return path === '/signup' ? 'onboarding' : (initialView || 'landing')
   })
   // Android's installed PWA already shows the app icon during its native
@@ -403,7 +406,7 @@ function App() {
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
-      {view === 'welcome' && <WelcomeScreen onGetStarted={() => { setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
+      {view === 'welcome' && <WelcomeScreen onGetStarted={() => { if (window.location.pathname.replace(/\\/+$/, '') === '/onboarding') window.history.replaceState({}, '', '/'); setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
       {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} />}
       {view === 'onboarding' && (
         <Onboarding
