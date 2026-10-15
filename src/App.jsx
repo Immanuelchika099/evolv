@@ -8,6 +8,7 @@ import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import PatternWaves from './components/PatternWaves/PatternWaves'
+import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
@@ -36,6 +37,7 @@ const initialData = {
   areas: [],
   focus: '',
   goal: '',
+  avatarStyle: 'androgynous',
 }
 
 function getFirstName(value = '') {
@@ -167,9 +169,7 @@ function App() {
           return
         }
 
-        await ensureProfile(user)
-        localStorage.setItem('evolv-view', 'dashboard')
-        setView('dashboard')
+        await finishAuth(user, 'restore')
       }
     }
 
@@ -184,8 +184,8 @@ function App() {
         // new-account experience by sending the user straight into the app.
         if (sessionStorage.getItem('evolv-oauth-intent') === 'login') return
 
-        localStorage.setItem('evolv-view', 'dashboard')
-        setView('dashboard')
+        // Auth routing is handled by restoreAuth or the explicit submit handler.
+        // Avoid racing those paths by sending every auth event straight to the dashboard.
       }
     })
 
@@ -229,9 +229,16 @@ function App() {
 
   function enterApp() {
     setArticle(null)
-    setStep(0)
-    localStorage.setItem('evolv-view', 'onboarding')
-    setView('onboarding')
+    localStorage.setItem('evolv-view', 'welcome')
+    setView('welcome')
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+
+  function openAuth(mode = 'signup') {
+    setAuthMode(mode)
+    localStorage.setItem('evolv-view', 'auth')
+    setView('auth')
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   function returnHome() {
@@ -286,42 +293,74 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  function finishOnboarding() {
-    localStorage.setItem('evolv-onboarding', JSON.stringify(data))
-    localStorage.setItem('evolv-view', 'auth')
-    setAuthMode('signup')
-    setView('auth')
+  async function finishOnboarding() {
+    const completedData = { ...data, name: getFirstName(data.name) }
+    localStorage.setItem('evolv-onboarding', JSON.stringify(completedData))
+    localStorage.setItem('evolv-avatar-preferences', JSON.stringify({
+      ...DEFAULT_AVATAR,
+      presentation: completedData.avatarStyle || DEFAULT_AVATAR.presentation,
+    }))
+
+    const { data: authData } = await supabase.auth.getUser()
+    const user = authData?.user
+    if (user) {
+      const { error: profileError } = await supabase.from('profiles').upsert({
+        id: user.id,
+        first_name: completedData.name,
+        growth_areas: completedData.areas || [],
+        focus: completedData.focus || '',
+        first_goal: completedData.goal?.trim() || '',
+      })
+      if (profileError) console.error('EVOLV onboarding profile save failed:', profileError)
+    }
+
+    setData(completedData)
+    localStorage.setItem('evolv-view', 'dashboard')
+    setView('dashboard')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  async function finishAuth(user, authMode = 'signup') {
+  async function finishAuth(user, authMode = 'login') {
     if (window.location.pathname.replace(/\/+$/, '') === '/signup') {
       window.history.replaceState({}, '', '/')
     }
-    if (authMode === 'signup') {
-      await supabase.from('profiles').upsert({
-        id: user.id,
-        first_name: getFirstName(data.name),
-        growth_areas: data.areas,
-        focus: data.focus,
-        first_goal: data.goal.trim(),
-      })
-    } else {
-      const { data: profile } = await supabase
-        .from('profiles')
-        .select('first_name,growth_areas,focus,first_goal,avatar_url')
-        .eq('id', user.id)
-        .maybeSingle()
 
-      if (profile) {
-        setData({
-          name: profile.first_name || '',
-          areas: profile.growth_areas || [],
-          focus: profile.focus || '',
-          goal: profile.first_goal || '',
-        })
+    const { data: profile, error: profileError } = await supabase
+      .from('profiles')
+      .select('first_name,growth_areas,focus,first_goal,avatar_url')
+      .eq('id', user.id)
+      .maybeSingle()
+
+    if (profileError) console.error('EVOLV profile lookup failed:', profileError)
+
+    // A new account has no profile row yet. Let the user finish the short
+    // onboarding journey before creating one. Existing accounts skip it.
+    if (authMode === 'signup' || !profile) {
+      const nextData = {
+        ...initialData,
+        name: getProviderFirstName(user) || data.name || '',
+        avatarStyle: 'androgynous',
       }
+      setData(nextData)
+      setStep(0)
+      localStorage.setItem('evolv-view', 'onboarding')
+      setView('onboarding')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
     }
+
+    const savedOnboarding = (() => {
+      try { return JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') }
+      catch { return {} }
+    })()
+    setData({
+      ...initialData,
+      ...savedOnboarding,
+      name: profile.first_name || savedOnboarding.name || getProviderFirstName(user),
+      areas: profile.growth_areas || savedOnboarding.areas || [],
+      focus: profile.focus || savedOnboarding.focus || '',
+      goal: profile.first_goal || savedOnboarding.goal || '',
+    })
     localStorage.setItem('evolv-view', 'dashboard')
     setView('dashboard')
     window.scrollTo({ top: 0, behavior: 'instant' })
@@ -355,6 +394,7 @@ function App() {
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
+      {view === 'welcome' && <WelcomeScreen onGetStarted={() => openAuth('signup')} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
       {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} />}
       {view === 'onboarding' && (
         <Onboarding
@@ -363,7 +403,7 @@ function App() {
           data={data}
           setData={setData}
           onFinish={finishOnboarding}
-          onExit={returnHome}
+          onExit={() => openAuth('login')}
         />
       )}
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} onArticle={openArticle} />}
@@ -1175,31 +1215,70 @@ function ArticlePage({ article, onStart, onBack }) {
   )
 }
 
-function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
-  const journey = [
-    { label: 'THE BEGINNING', title: <>Before you build<br /><em>your next chapter.</em></>, copy: 'EVOLV starts with a simple question: what would you change if you actually had a place to work on it?', type: 'intro' },
-    { label: 'MAKE IT YOURS', title: <>First, what should<br /><em>we call you?</em></>, copy: 'This becomes your space. Nothing here is about becoming someone else — it is about becoming more of who you want to be.', type: 'name' },
-    { label: 'YOUR WORLD', title: <>Where do you want<br /><em>to move forward?</em></>, copy: 'Choose the parts of life that feel important in this season. You can change them whenever you want.', type: 'areas' },
-    { label: 'YOUR DIRECTION', title: <>What are you<br /><em>ready for?</em></>, copy: 'Growth looks different from season to season. Pick the direction that feels most true right now.', type: 'focus' },
-    { label: 'MAKE IT REAL', title: <>What is one thing<br /><em>you want to change?</em></>, copy: 'Give yourself something real to work toward. It does not need to be perfect — it just needs to matter.', type: 'goal' },
-    { label: 'YOUR NEXT SELF', title: <>You're not starting<br /><em>from zero.</em></>, copy: 'You have a direction. You have something that matters. Now EVOLV can help you turn that intention into visible progress.', type: 'ready' },
-  ]
+const onboardingGoals = [
+  { id: 'sleep', title: 'Sleep & energy', detail: 'Feel more rested and steady', symbol: '☾' },
+  { id: 'mood', title: 'Mood & wellbeing', detail: 'Understand how I feel', symbol: '♡' },
+  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', symbol: '↗' },
+  { id: 'self-care', title: 'Self-care', detail: 'Make more room for myself', symbol: '✳' },
+  { id: 'career', title: 'Learning & career', detail: 'Keep growing my skills', symbol: '⌘' },
+  { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', symbol: '₦' },
+]
 
-  const current = journey[step]
-  const total = journey.length
-  const canContinue = current.type === 'intro' || current.type === 'ready'
-    ? true
-    : current.type === 'name'
-      ? data.name.trim().length > 0
-      : current.type === 'areas'
-        ? data.areas.length > 0
-        : current.type === 'focus'
-          ? Boolean(data.focus)
-          : data.goal.trim().length > 0
+function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
+  return (
+    <div className="evolv-welcome page-enter">
+      <div className="evolv-welcome-background" aria-hidden="true">
+        <PatternWaves
+          preset="silk"
+          pattern="line"
+          wave="silk"
+          color="#B8F34A"
+          backgroundColor="#050505"
+          opacity={0.28}
+          fade="center"
+          fadeSize={0.72}
+          speed={0.22}
+          depth={0.72}
+          shine={0.38}
+          interactive={false}
+          intro
+          className="evolv-welcome-pattern"
+        />
+        <div className="evolv-welcome-vignette" />
+      </div>
+      <header className="evolv-welcome-header">
+        <button className="evolv-welcome-wordmark" type="button" onClick={onExplore} aria-label="Explore EVOLV website">
+          <img src="/evolv-mark.svg" alt="EVOLV" />
+          <span>EVOLV</span>
+        </button>
+        <button className="evolv-welcome-signin" type="button" onClick={onSignIn}>Sign in <ArrowRight size={15} /></button>
+      </header>
+      <main className="evolv-welcome-content">
+        <span className="evolv-welcome-eyebrow"><i /> A LITTLE SPACE TO GROW</span>
+        <h1>Become more.<br /><em>On purpose.</em></h1>
+        <p>A calmer way to understand yourself, build better routines, and grow at your own pace.</p>
+        <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started <ArrowRight size={18} /></button>
+        <span className="evolv-welcome-note">YOUR NEXT CHAPTER STARTS HERE</span>
+      </main>
+      <div className="evolv-welcome-bottom" aria-hidden="true"><span>DEFINE</span><i /> <span>BUILD</span><i /> <span>REFLECT</span><i /> <span>EVOLVE</span></div>
+    </div>
+  )
+}
+
+function Onboarding({ step, setStep, data, setData, onFinish }) {
+  const stages = [
+    { eyebrow: 'FIRST THINGS FIRST', title: <>What should we<br /><em>call you?</em></>, copy: 'We want EVOLV to feel like your space, from the very first hello.', type: 'name' },
+    { eyebrow: 'MEET YOUR COMPANION', title: <>Let’s make your<br /><em>avatar yours.</em></>, copy: 'Choose a starting style. You can personalize the details or change it later in your profile.', type: 'avatar' },
+    { eyebrow: 'YOUR NEXT CHAPTER', title: <>What matters to<br /><em>you right now?</em></>, copy: 'Pick a few things you would like EVOLV to help you pay attention to. You can skip this.', type: 'goals' },
+    { eyebrow: 'READY WHEN YOU ARE', title: <>You’re all set{data.name ? `, ${getFirstName(data.name)}` : ''}.<br /><em>Let’s begin.</em></>, copy: 'Your journey to becoming your next self starts here.', type: 'ready' },
+  ]
+  const current = stages[step] || stages[0]
+  const canContinue = current.type !== 'name' || data.name.trim().length > 0
+  const avatarStyle = data.avatarStyle || 'androgynous'
 
   function next() {
     if (!canContinue) return
-    if (step < total - 1) setStep(step + 1)
+    if (step < stages.length - 1) setStep(step + 1)
     else onFinish()
   }
 
@@ -1208,119 +1287,77 @@ function Onboarding({ step, setStep, data, setData, onFinish, onExit }) {
   }
 
   return (
-    <div className="page-enter onboarding">
-      <header className="onboard-head">
-        <button className="onboard-brand" onClick={() => setStep(0)} aria-label="Return to beginning of journey"><Brand /></button>
-        <div className="onboard-head-actions">
-          <div className="step-count">{step === 0 ? 'START' : `0${step} / 0${total - 1}`}</div>
-          <button className="exit-journey" onClick={onExit}>
-            Exit journey
-          </button>
-        </div>
-      </header>
-
-      <div className="onboard-progress">
-        <i style={{ width: `${((step + 1) / total) * 100}%` }} />
+    <div className="evolv-onboarding page-enter">
+      <div className="evolv-onboarding-background" aria-hidden="true">
+        <PatternWaves preset="silk" pattern="line" wave="silk" color="#B8F34A" backgroundColor="#050505" opacity={0.15} fade="center" fadeSize={0.8} speed={0.2} depth={0.6} shine={0.3} interactive={false} className="evolv-onboarding-pattern" />
+        <div className="evolv-welcome-vignette" />
       </div>
-
-      <section className="onboard-content">
-        <div className="onboard-stage">
-          {step > 0 && (
-            <div className="onboard-back-row">
-              <button className="back-button" onClick={back} aria-label={`Go back to step ${step}`}>
-                <span className="back-icon"><ChevronLeft size={14} /></span>
-                <span className="back-label">Back</span>
-              </button>
-              <span className="back-context">{current.label}</span>
-            </div>
-          )}
-          <div className={`onboard-step ${current.type === 'areas' ? 'wide' : ''} ${current.type === 'intro' || current.type === 'ready' ? 'onboard-landing-step' : ''}`}>
-          <span className="section-label">{current.label}</span>
+      <header className="evolv-onboarding-header">
+        <img src="/evolv-mark.svg" alt="EVOLV" />
+        <div className="evolv-onboarding-step">{step + 1}<span> / {stages.length}</span></div>
+      </header>
+      <div className="evolv-onboarding-progress"><i style={{ width: `${((step + 1) / stages.length) * 100}%` }} /></div>
+      <main className="evolv-onboarding-main" key={current.type}>
+        <button className="evolv-onboarding-back" type="button" onClick={back} disabled={step === 0} aria-label="Go back"><ChevronLeft size={17} /><span>Back</span></button>
+        <section className={`evolv-onboarding-stage evolv-onboarding-${current.type}`}>
+          <span className="evolv-onboarding-eyebrow">{current.eyebrow}</span>
           <h1>{current.title}</h1>
-          <p>{current.copy}</p>
-
-          {current.type === 'intro' && (
-            <div className="journey-intro">
-              <div className="journey-orbit"><span /><i /><b /></div>
-              <div className="journey-note">
-                <span>THE IDEA</span>
-                <strong>Direction → Action → Progress</strong>
-                <small>One step at a time.</small>
-              </div>
-            </div>
-          )}
-
+          <p className="evolv-onboarding-copy">{current.copy}</p>
           {current.type === 'name' && (
-            <div className="onboard-field-wrap">
-              <input autoFocus value={data.name} onChange={e => setData({ ...data, name: e.target.value })} placeholder="Your first name" />
-              <span>We'll use this to make your space feel like yours.</span>
+            <label className="evolv-onboarding-name">
+              <span>Your preferred name</span>
+              <input autoFocus value={data.name} onChange={event => setData({ ...data, name: event.target.value })} onKeyDown={event => { if (event.key === 'Enter' && canContinue) next() }} placeholder="What should we call you?" autoComplete="given-name" maxLength={40} />
+            </label>
+          )}
+          {current.type === 'avatar' && (
+            <div className="evolv-avatar-choices" role="radiogroup" aria-label="Choose your avatar style">
+              {[
+                { id: 'masculine', label: 'Masculine' },
+                { id: 'feminine', label: 'Feminine' },
+                { id: 'androgynous', label: 'Neutral' },
+              ].map(option => {
+                const selected = avatarStyle === option.id
+                const preferences = { ...DEFAULT_AVATAR, presentation: option.id }
+                return (
+                  <button key={option.id} type="button" className={`evolv-avatar-choice${selected ? ' is-selected' : ''}`} role="radio" aria-checked={selected} onClick={() => setData({ ...data, avatarStyle: option.id })}>
+                    <span className="evolv-avatar-choice-art"><AvatarPortrait preferences={preferences} expression="wave" /></span>
+                    <span className="evolv-avatar-choice-label">{option.label}</span>
+                    {selected && <span className="evolv-avatar-choice-check"><Check size={14} /></span>}
+                  </button>
+                )
+              })}
+              <span className="evolv-avatar-choice-note">This is an appearance preference, not a question about your gender.</span>
             </div>
           )}
-
-          {current.type === 'areas' && (
-            <div className="choice-grid">
-              {growthAreas.map((a, i) => (
-                <button
-                  className={data.areas.includes(a.id) ? 'choice active' : 'choice'}
-                  key={a.id}
-                  onClick={() => setData({
-                    ...data,
-                    areas: data.areas.includes(a.id)
-                      ? data.areas.filter(x => x !== a.id)
-                      : [...data.areas, a.id]
-                  })}
-                >
-                  <span className="choice-number">0{i + 1}</span>
-                  <span>{a.title}</span>
-                  <small>{a.text}</small>
-                  {data.areas.includes(a.id) && <Check size={16} />}
-                </button>
-              ))}
+          {current.type === 'goals' && (
+            <div className="evolv-onboarding-goals">
+              {onboardingGoals.map(goal => {
+                const selected = (data.areas || []).includes(goal.id)
+                return (
+                  <button type="button" key={goal.id} className={`evolv-onboarding-goal${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => setData({ ...data, areas: selected ? data.areas.filter(id => id !== goal.id) : [...(data.areas || []), goal.id] })}>
+                    <span className="evolv-onboarding-goal-symbol">{goal.symbol}</span>
+                    <span className="evolv-onboarding-goal-text"><strong>{goal.title}</strong><small>{goal.detail}</small></span>
+                    <span className="evolv-onboarding-goal-check">{selected ? <Check size={15} /> : <Plus size={15} />}</span>
+                  </button>
+                )
+              })}
             </div>
           )}
-
-          {current.type === 'focus' && (
-            <div className="focus-list">
-              {['I want more clarity', 'I want to build discipline', 'I want to level up', 'I want to become consistent'].map(x => (
-                <button className={data.focus === x ? 'focus active' : 'focus'} key={x} onClick={() => setData({ ...data, focus: x })}>
-                  <span>{x}</span>
-                  <ArrowRight size={16} />
-                </button>
-              ))}
-            </div>
-          )}
-
-          {current.type === 'goal' && (
-            <div className="onboard-field-wrap">
-              <textarea autoFocus value={data.goal} onChange={e => setData({ ...data, goal: e.target.value })} placeholder="e.g. Become confident with backend development" rows="3" />
-              <span>Keep it simple. You can refine it once you're inside.</span>
-            </div>
-          )}
-
           {current.type === 'ready' && (
-            <div className="journey-ready">
-              <div className="ready-card">
-                <span>YOUR STARTING POINT</span>
-                <strong>{data.name || 'Your space'}</strong>
-                <p>{data.goal || 'Your first goal'}</p>
-                <div className="ready-meta">
-                  <span>{data.areas.length} growth {data.areas.length === 1 ? 'area' : 'areas'}</span>
-                  <span>{data.focus || 'Your direction'}</span>
-                </div>
-              </div>
-              <p className="ready-small">Next, we'll create your account so your journey can stay connected to you.</p>
+            <div className="evolv-onboarding-ready">
+              <div className="evolv-onboarding-ready-avatar"><AvatarPortrait preferences={{ ...DEFAULT_AVATAR, presentation: avatarStyle }} expression="wave" /></div>
+              <strong>{getFirstName(data.name) || 'Your next self'}</strong>
+              <span>{(data.areas || []).length ? `${data.areas.length} focus areas chosen` : 'Your journey, your pace'}</span>
             </div>
           )}
-          </div>
-        </div>
-      </section>
-
-      <footer className="onboard-footer">
-        <span>{step === 0 ? 'A DIFFERENT KIND OF START' : step === total - 1 ? 'READY WHEN YOU ARE' : 'YOUR JOURNEY / 0' + step}</span>
-        <button className="button button-primary" disabled={!canContinue} onClick={next}>
-          {step === 0 ? 'Begin the journey' : step === total - 1 ? 'Create my EVOLV account' : 'Continue'} <ArrowRight size={16} />
-        </button>
-      </footer>
+        </section>
+        <footer className="evolv-onboarding-footer">
+          {current.type === 'goals' ? <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Skip for now</button> : <span className="evolv-onboarding-footer-note">A SMALL STEP, JUST FOR YOU</span>}
+          <button className="evolv-onboarding-continue" type="button" disabled={!canContinue} onClick={next}>
+            {current.type === 'ready' ? 'Enter EVOLV' : current.type === 'name' ? 'Continue' : current.type === 'avatar' ? 'Continue' : 'Choose goals'} <ArrowRight size={17} />
+          </button>
+        </footer>
+      </main>
     </div>
   )
 }
