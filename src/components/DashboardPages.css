@@ -6823,3 +6823,94 @@ body,
     opacity: .98;
   }
 }
+
+
+/* Give the goals area a clearer visual anchor on the dashboard. */
+.dashboard-home.calm-home .calm-home-focus {
+  position: relative;
+  padding: clamp(1.8rem, 3vw, 2.5rem);
+  border: 1px solid rgba(193,244,91,.14);
+  border-radius: 2rem;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(193,244,91,.075), transparent 58%),
+    linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  box-shadow: 0 1.8rem 4.8rem rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.025);
+}
+.dashboard-home.calm-home .calm-home-focus::before {
+  content: "";
+  position: absolute;
+  left: 2.5rem;
+  top: 0;
+  width: 5.2rem;
+  height: 2px;
+  border-radius: 0 0 1rem 1rem;
+  background: #c1f45b;
+  box-shadow: 0 0 1.8rem rgba(193,244,91,.4);
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-heading {
+  margin-bottom: 1.6rem;
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-heading h2 {
+  font-size: clamp(2.4rem, 3.8vw, 2.9rem);
+  font-weight: 650;
+  color: #f7f7f2;
+  letter-spacing: -.045em;
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-row {
+  min-height: 6.8rem;
+  padding: 1.7rem 1.6rem;
+  border-color: rgba(255,255,255,.085);
+  background: rgba(0,0,0,.24);
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-mark {
+  width: 4.4rem;
+  height: 4.4rem;
+  flex: 0 0 4.4rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(193,244,91,.16);
+  border-radius: 1.35rem;
+  background: rgba(193,244,91,.09);
+  color: #c1f45b;
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-row strong {
+  font-size: 1.65rem;
+  color: rgba(248,248,243,.94);
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-row > button {
+  min-height: 3.6rem;
+  padding: 0 1.15rem;
+  border: 1px solid rgba(193,244,91,.18);
+  border-radius: 999px;
+  background: rgba(193,244,91,.07);
+  color: #c1f45b;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.dashboard-home.calm-home .calm-home-focus .calm-focus-row > button:hover {
+  background: rgba(193,244,91,.13);
+}
+@media (max-width: 600px) {
+  .dashboard-home.calm-home .calm-home-focus {
+    padding: 1.8rem 1.4rem 1.5rem;
+    border-radius: 1.8rem;
+  }
+  .dashboard-home.calm-home .calm-home-focus::before {
+    left: 1.8rem;
+    width: 4.4rem;
+  }
+  .dashboard-home.calm-home .calm-home-focus .calm-focus-heading h2 {
+    font-size: 2.55rem;
+  }
+  .dashboard-home.calm-home .calm-home-focus .calm-focus-row {
+    gap: 1rem;
+    padding: 1.35rem 1.1rem;
+  }
+  .dashboard-home.calm-home .calm-home-focus .calm-focus-row strong {
+    font-size: 1.5rem;
+  }
+  .dashboard-home.calm-home .calm-home-focus .calm-focus-row > button {
+    padding: 0 .9rem;
+    font-size: 1.3rem;
+  }
+}
