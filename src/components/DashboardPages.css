@@ -6937,3 +6937,32 @@ body,
   .dashboard-home.calm-home .calm-goal-snapshot-copy small { font-size:1.2rem; }
   .dashboard-home.calm-home .calm-goal-empty { padding:1.3rem 1.15rem; }
 }
+
+
+/* Final balance pass: perfectly round routine controls and a top-right welcome glow. */
+.dashboard-home.calm-home .calm-home-welcome::before {
+  left: auto;
+  right: -5rem;
+  top: -1.5rem;
+  width: min(58rem, 105vw);
+  height: 30rem;
+  background: radial-gradient(ellipse at 72% 18%,
+    rgba(193,244,91,.18) 0%,
+    rgba(155,196,77,.095) 31%,
+    rgba(100,125,61,.04) 53%,
+    transparent 76%);
+}
+@media (max-width: 600px) {
+  .dashboard-home.calm-home .calm-home-welcome::before {
+    left: auto;
+    right: -4rem;
+    top: -1.2rem;
+    width: 38rem;
+    height: 25rem;
+    background: radial-gradient(ellipse at 74% 16%,
+      rgba(193,244,91,.19) 0%,
+      rgba(155,196,77,.09) 34%,
+      rgba(100,125,61,.035) 56%,
+      transparent 77%);
+  }
+}
