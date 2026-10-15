@@ -225,7 +225,7 @@ function GradientASCII({
       window.removeEventListener('pointerdown', onPointerDown);
       document.removeEventListener('visibilitychange', resize);
     };
-  }, [colors, shape, characters, cellSize, density, glyphOpacity, gradientOpacity, glow, depthOfField, flicker, softness, scale, flow, speed, grain, variation, mouseInteraction, scrambleRadius, clickEffect, intro, lightMode, fontFamily, dpr]);
+  }, [colors?.join(','), shape, characters, cellSize, density, glyphOpacity, gradientOpacity, glow, depthOfField, flicker, softness, scale, flow, speed, grain, variation, mouseInteraction, scrambleRadius, clickEffect, intro, lightMode, fontFamily, dpr]);
 
   return (
     <div ref={containerRef} className={`gradient-ascii-container${className ? ` ${className}` : ''}`} style={style} {...rest}>
