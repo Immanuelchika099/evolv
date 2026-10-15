@@ -7651,3 +7651,24 @@ body,
  .profile-avatar-studio-portrait { width: 8.5rem; max-height: 11rem; }
 }
 @media (prefers-reduced-motion: reduce) { .avatar-wave-arm { animation: none !important; } }
+
+/* Avatar polish: natural sleeve-to-hand connection and gentle greeting motion. */
+.avatar-wave-arm {
+  transform-box: fill-box;
+  transform-origin: 88% 94%;
+  animation: evolv-avatar-wave 2.8s ease-in-out infinite;
+}
+@keyframes evolv-avatar-wave {
+  0%, 100% { transform: rotate(0deg); }
+  18%, 42% { transform: rotate(-4deg); }
+  30% { transform: rotate(3deg); }
+  55% { transform: rotate(0deg); }
+}
+.avatar-studio-preview svg { width: auto; height: 100%; max-width: 100%; overflow: visible; }
+.avatar-studio-options.is-colors button { position: relative; min-width: 3.2rem; min-height: 3.2rem; display: inline-flex; align-items: center; justify-content: center; padding: .5rem; }
+.avatar-color-dot { display: block; width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid rgba(255,255,255,.24); box-shadow: inset 0 0 0 1px rgba(0,0,0,.08); }
+.avatar-studio-options.is-colors button.is-selected { border-color: rgba(184,243,74,.68); background: rgba(255,255,255,.06); }
+@media (prefers-reduced-motion: reduce) {
+  .avatar-wave-arm { animation: none; }
+}
+
