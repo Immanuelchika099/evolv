@@ -201,3 +201,61 @@ html.evolv-android .evolv-bottom-nav {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+
+
+/* Stable mobile dock: avoid backdrop-filter compositing while the page scrolls.
+   The frosted-glass layer was causing the fixed navigation to visibly jitter
+   on mobile Safari. Keep the dock fixed to the viewport with a simple dark,
+   slightly transparent surface instead. */
+.evolv-bottom-nav {
+  position: fixed !important;
+  inset-inline: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  width: 100% !important;
+  max-width: none !important;
+  height: 6.8rem !important;
+  min-height: 6.8rem !important;
+  padding: .55rem .55rem calc(.55rem + env(safe-area-inset-bottom, 0px)) !important;
+  margin: 0 !important;
+  transform: none !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 1.8rem 1.8rem 0 0 !important;
+  background: rgba(8,8,8,.94) !important;
+  background-image: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 -1px 0 rgba(255,255,255,.025), 0 -1.4rem 3.4rem rgba(0,0,0,.28) !important;
+  will-change: auto !important;
+  isolation: isolate;
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.evolv-bottom-nav button.bottom-active,
+.evolv-bottom-nav button.bottom-active:hover,
+.evolv-bottom-nav button.bottom-active:focus,
+.evolv-bottom-nav button.bottom-active:active {
+  color: rgba(255,255,255,.94) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none !important;
+  outline-color: transparent;
+}
+
+.evolv-bottom-nav button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 48rem) {
+  .evolv-bottom-nav {
+    inset-inline: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    transform: none !important;
+    border-radius: 0 !important;
+  }
+}
