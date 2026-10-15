@@ -10,7 +10,9 @@ export const DEFAULT_AVATAR = {
   eyes: '#38251D',
   facialHair: 'none',
   accessory: 'none',
-  glow: 'lime',
+  outfit: 'tee',
+  outfitColor: '#25272B',
+  glow: 'violet',
 }
 
 export const AVATAR_OPTIONS = {
@@ -19,10 +21,12 @@ export const AVATAR_OPTIONS = {
   hair: [{ id: 'curls', label: 'Curly' }, { id: 'afro', label: 'Afro' }, { id: 'fade', label: 'Fade' }, { id: 'braids', label: 'Box braids' }, { id: 'cornrows', label: 'Cornrows' }, { id: 'locs', label: 'Locs' }, { id: 'bob', label: 'Bob' }, { id: 'long', label: 'Long' }, { id: 'bun', label: 'Bun' }, { id: 'ponytail', label: 'Ponytail' }, { id: 'waves', label: 'Waves' }, { id: 'shaved', label: 'Shaved' }],
   facialHair: [{ id: 'none', label: 'Clean-shaven' }, { id: 'mustache', label: 'Mustache' }, { id: 'beard', label: 'Beard' }, { id: 'goatee', label: 'Goatee' }],
   accessory: [{ id: 'none', label: 'None' }, { id: 'glasses', label: 'Glasses' }, { id: 'earrings', label: 'Earrings' }],
+  outfit: [{ id: 'tee', label: 'T-shirt' }, { id: 'hoodie', label: 'Hoodie' }, { id: 'sweatshirt', label: 'Sweatshirt' }, { id: 'jacket', label: 'Jacket' }],
 }
 const SKINS = ['#F5D4B8', '#E9B995', '#D99A70', '#B97853', '#8D573D', '#603A2B', '#39251F']
 const HAIRS = ['#171311', '#38251D', '#69452F', '#A56A3D', '#D2AD72', '#B64B35', '#7A4D8D', '#D7D1C7']
 const EYES = ['#38251D', '#2E5945', '#4B7192', '#6B4C32']
+const OUTFIT_COLORS = ['#17191D', '#25272B', '#E9E7E2', '#8B9BB0', '#C5A3D8', '#B8F34A', '#A84C45', '#315D4B', '#D4A86A']
 
 function HairShape({ style, color }) {
   const common = { fill: color, stroke: color, strokeWidth: 2, strokeLinejoin: 'round' }
@@ -63,8 +67,15 @@ export function AvatarPortrait({ preferences = DEFAULT_AVATAR, className = '', e
   const faceExpression = expressions[expression] || expressions.neutral
   return <svg className={className} viewBox="0 0 128 142" role="img" aria-label={expression === 'neutral' ? 'Customizable illustrated avatar' : expression === 'wave' ? 'Your avatar waving hello' : expression + ' mood avatar'}>
     <ellipse cx="64" cy="133" rx="37" ry="5" fill="#000" opacity=".25" />
-    <path d="M35 137 Q35 107 48 101 L80 101 Q94 109 94 137Z" fill={a.presentation === 'feminine' ? '#B8F34A' : '#8FBC42'} />
-    {expression === 'wave' && <g className="avatar-wave-arm" stroke={a.skin} strokeWidth="10" strokeLinecap="round" strokeLinejoin="round" fill="none"><path d="M85 113 Q96 101 99 84 L103 68"/><path d="M103 68 L99 56 M103 68 L108 54 M103 68 L115 60 M103 68 L116 70" strokeWidth="5.5"/></g>}
+    <path d="M35 137 Q35 111 48 101 L80 101 Q94 111 94 137Z" fill={a.outfitColor} />
+    {a.outfit === 'hoodie' && <g fill="none" stroke={a.outfitColor} strokeWidth="7" strokeLinejoin="round"><path d="M49 103 Q45 91 55 89 L64 98 L73 89 Q83 92 79 103"/><path d="M64 104 L64 136" stroke="#FFFFFF" strokeOpacity=".16" strokeWidth="1.5"/></g>}
+    {a.outfit === 'sweatshirt' && <g fill="none" stroke="#FFFFFF" strokeOpacity=".18" strokeWidth="2"><path d="M42 119 L86 119"/><path d="M43 124 L85 124"/></g>}
+    {a.outfit === 'jacket' && <g><path d="M49 102 L60 137 L64 109 L68 137 L80 102" fill="none" stroke="#FFFFFF" strokeOpacity=".35" strokeWidth="2"/><path d="M64 109 L64 136" fill="none" stroke="#FFFFFF" strokeOpacity=".35" strokeWidth="1.5"/></g>}
+    {expression === 'wave' && <g className="avatar-wave-arm">
+      <path d="M85 111 Q96 101 98 86" fill="none" stroke={a.outfitColor} strokeWidth="15" strokeLinecap="round" />
+      <path d="M98 86 Q100 78 102 69" fill="none" stroke={a.skin} strokeWidth="9" strokeLinecap="round" />
+      <path d="M98 70 Q94 64 96 57 Q99 54 101 61 L103 66 L106 54 Q110 52 110 58 L108 67 L113 59 Q117 59 115 64 L111 72 Q117 70 117 74 Q115 80 105 79 L100 77Z" fill={a.skin} stroke={a.skin} strokeWidth="1.5" strokeLinejoin="round" />
+    </g>}
     <path d="M52 96 L52 108 Q64 120 76 108 L76 96Z" fill={a.skin} />
     <path d={face} fill={a.skin} />
     <ellipse cx="41" cy="68" rx="4" ry="7" fill={a.skin} /><ellipse cx="87" cy="68" rx="4" ry="7" fill={a.skin} />
@@ -124,6 +135,8 @@ export function AvatarStudio({ preferences, onChange, onClose }) {
       <OptionGrid label="Hair color" value={a.hairColor} options={colorOptions(HAIRS)} colors onChange={v => set('hairColor', v)} />
       <OptionGrid label="Eye color" value={a.eyes} options={colorOptions(EYES)} colors onChange={v => set('eyes', v)} />
       <OptionGrid label="Facial hair" value={a.facialHair} options={AVATAR_OPTIONS.facialHair} onChange={v => set('facialHair', v)} />
+      <OptionGrid label="Clothing" value={a.outfit} options={AVATAR_OPTIONS.outfit} onChange={v => set('outfit', v)} />
+      <OptionGrid label="Clothing color" value={a.outfitColor} options={colorOptions(OUTFIT_COLORS)} colors onChange={v => set('outfitColor', v)} />
       <OptionGrid label="Accessories" value={a.accessory} options={AVATAR_OPTIONS.accessory} onChange={v => set('accessory', v)} />
       <OptionGrid label="Ambient glow" value={a.glow} options={[{id:'lime',label:'Lime'},{id:'violet',label:'Violet'},{id:'none',label:'Off'}]} onChange={v => set('glow', v)} />
       <button type="button" className="evolv-avatar-done" onClick={onClose}>Save look</button>
