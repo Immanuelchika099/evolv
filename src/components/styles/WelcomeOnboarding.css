@@ -112,7 +112,7 @@
   margin: 2.5rem 0 2rem;
   color: #f8f8f2;
   font-size: clamp(4.8rem, 8.2vw, 9.2rem);
-  font-weight: 600;
+  font-weight: 750;
   letter-spacing: -.085em;
   line-height: .96;
 }
@@ -249,6 +249,7 @@
 .evolv-onboarding-stage h1 {
   margin: 1.8rem 0 1.5rem;
   font-size: clamp(3.7rem, 6vw, 6.2rem);
+  font-weight: 750;
   letter-spacing: -.075em;
   line-height: 1.02;
 }
