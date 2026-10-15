@@ -282,10 +282,9 @@ function App() {
   async function finishOnboarding() {
     const completedData = { ...data, name: getFirstName(data.name) }
     localStorage.setItem('evolv-onboarding', JSON.stringify(completedData))
-    localStorage.setItem('evolv-avatar-preferences', JSON.stringify({
-      ...DEFAULT_AVATAR,
-      presentation: completedData.avatarStyle || DEFAULT_AVATAR.presentation,
-    }))
+    localStorage.setItem('evolv-avatar-preferences', JSON.stringify(
+      getAvatarPreset(completedData.avatarStyle || DEFAULT_AVATAR.presentation)
+    ))
 
     const { data: authData } = await supabase.auth.getUser()
     const user = authData?.user
@@ -1210,6 +1209,16 @@ const onboardingGoals = [
   { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', symbol: '₦' },
 ]
 
+const avatarStylePresets = {
+  masculine: { presentation: 'masculine', face: 'angular', hair: 'fade', hairColor: '#171311', accessory: 'none' },
+  feminine: { presentation: 'feminine', face: 'oval', hair: 'long', hairColor: '#211812', accessory: 'earrings' },
+  androgynous: { presentation: 'androgynous', face: 'oval', hair: 'curls', hairColor: '#211812', accessory: 'none' },
+}
+
+function getAvatarPreset(style = 'androgynous') {
+  return { ...DEFAULT_AVATAR, ...(avatarStylePresets[style] || avatarStylePresets.androgynous) }
+}
+
 function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
   return (
     <div className="evolv-welcome page-enter">
@@ -1303,7 +1312,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
                 { id: 'androgynous', label: 'Neutral' },
               ].map(option => {
                 const selected = avatarStyle === option.id
-                const preferences = { ...DEFAULT_AVATAR, presentation: option.id }
+                const preferences = getAvatarPreset(option.id)
                 return (
                   <button key={option.id} type="button" className={`evolv-avatar-choice${selected ? ' is-selected' : ''}`} role="radio" aria-checked={selected} onClick={() => setData({ ...data, avatarStyle: option.id })}>
                     <span className="evolv-avatar-choice-art"><AvatarPortrait preferences={preferences} expression="wave" /></span>
@@ -1331,7 +1340,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           )}
           {current.type === 'ready' && (
             <div className="evolv-onboarding-ready">
-              <div className="evolv-onboarding-ready-avatar"><AvatarPortrait preferences={{ ...DEFAULT_AVATAR, presentation: avatarStyle }} expression="wave" /></div>
+              <div className="evolv-onboarding-ready-avatar"><AvatarPortrait preferences={getAvatarPreset(avatarStyle)} expression="wave" /></div>
               <strong>{getFirstName(data.name) || 'Your next self'}</strong>
               <span>{(data.areas || []).length ? `${data.areas.length} focus areas chosen` : 'Your journey, your pace'}</span>
             </div>
