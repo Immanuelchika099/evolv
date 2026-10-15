@@ -10,6 +10,7 @@ import ContactModal from './components/contact/ContactModal'
 import GradientASCII from './components/GradientASCII/GradientASCII'
 import PatternWaves from './components/PatternWaves/PatternWaves'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
+import Avatar3D from './components/Avatar3D'
 import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
@@ -1364,23 +1365,12 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
             </label>
           )}
           {current.type === 'avatar' && (
-            <div className="evolv-avatar-choices" role="radiogroup" aria-label="Choose your avatar style">
-              {[
-                { id: 'masculine', label: 'Masculine' },
-                { id: 'feminine', label: 'Feminine' },
-                { id: 'androgynous', label: 'Neutral' },
-              ].map(option => {
-                const selected = avatarStyle === option.id
-                const preferences = getAvatarPreset(option.id)
-                return (
-                  <button key={option.id} type="button" className={`evolv-avatar-choice${selected ? ' is-selected' : ''}`} role="radio" aria-checked={selected} onClick={() => setData({ ...data, avatarStyle: option.id })}>
-                    <span className="evolv-avatar-choice-art"><AvatarPortrait preferences={preferences} expression="wave" /></span>
-                    <span className="evolv-avatar-choice-label">{option.label}</span>
-                    {selected && <span className="evolv-avatar-choice-check"><Check size={14} /></span>}
-                  </button>
-                )
-              })}
-              <span className="evolv-avatar-choice-note">This is an appearance preference, not a question about your gender.</span>
+            <div className="evolv-onboarding-avatar-preview">
+              <div className="evolv-onboarding-avatar-stage">
+                <span className="evolv-onboarding-avatar-halo" aria-hidden="true" />
+                <Avatar3D interactive label="EVOLV 3D companion preview" />
+              </div>
+              <p className="evolv-onboarding-avatar-caption">A more personal space starts with a companion. You can revisit your avatar in your profile.</p>
             </div>
           )}
           {current.type === 'goals' && (
@@ -1399,7 +1389,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           )}
           {current.type === 'ready' && (
             <div className="evolv-onboarding-ready">
-              <div className="evolv-onboarding-ready-avatar"><AvatarPortrait preferences={getAvatarPreset(avatarStyle)} expression="wave" /></div>
+              <div className="evolv-onboarding-ready-avatar"><Avatar3D label="Your EVOLV companion" /></div>
               <strong>{getFirstName(data.name) || 'Your next self'}</strong>
               <span>{(data.areas || []).length ? `${data.areas.length} focus areas chosen` : 'Your journey, your pace'}</span>
             </div>
