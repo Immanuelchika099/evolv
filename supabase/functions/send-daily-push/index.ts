@@ -2,7 +2,7 @@ import { createClient } from "npm:@supabase/supabase-js@2"
 import webpush from "npm:web-push@3.6.7"
 
 const cors = { "Access-Control-Allow-Origin": "*" }
-const DELIVERY_WINDOW_MINUTES = 5
+const DELIVERY_WINDOW_MINUTES = 10
 
 function alarmIsDue(clock, alarm) {
   const target = toMinutes(String(alarm.alarm_at || '').slice(11, 16), '08:00')
@@ -23,6 +23,7 @@ function alarmIsDue(clock, alarm) {
 
 const DEFAULTS = {
   morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Start gently. Choose one thing that would make today feel worthwhile.", defaultTime: "08:00", url: "/dashboard" },
+  lunch: { title: (name) => "Time for lunch, " + name + " 🍽️", body: "Pause for a proper meal and give yourself a little energy for the rest of the day.", defaultTime: "12:30", url: "/dashboard?log=meal" },
   hydration: { title: () => "A little reset 💧", body: "Take a moment, have some water, and check in with yourself.", defaultTime: "13:00", url: "/dashboard?log=water" },
   reflection: { title: () => "Your day, before you close it 🌙", body: "A quiet moment is waiting. How did today feel?", defaultTime: "22:30", url: "/dashboard?reflection=1" }
 }
@@ -135,7 +136,8 @@ Deno.serve(async (req) => {
     if (inQuietHours(clock, preferences)) continue
 
     for (const [kind, message] of Object.entries(DEFAULTS)) {
-      if (!preferences[kind]) continue
+      // Lunch is enabled by default for existing subscriptions; users can explicitly turn it off.
+      if (kind === "lunch" ? preferences.lunch === false : !preferences[kind]) continue
 
       const target = preferences[kind + "Time"] || message.defaultTime
       if (!isDue(clock, target)) continue
@@ -241,7 +243,8 @@ Deno.serve(async (req) => {
     for (const reminder of routineReminders) {
       if (!reminder || reminder.enabled === false || !reminder.id || !reminder.time) continue
       const kind = "routine_" + String(reminder.id).replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 32)
-      const target = minutesBefore(String(reminder.time), 10)
+      const leadMinutes = Math.min(720, Math.max(0, Number(preferences.routineReminderLeadMinutes ?? reminder.leadMinutes ?? 10)))
+      const target = minutesBefore(String(reminder.time), leadMinutes)
       if (inQuietHours(clock, preferences) || !isDue(clock, target)) continue
       const { error: claimError } = await admin.from("notification_delivery_log").insert({
         user_id: row.user_id, delivery_date: clock.date, kind
@@ -253,8 +256,8 @@ Deno.serve(async (req) => {
       }
       const label = String(reminder.label || "Your next routine").slice(0, 80)
       const payload = {
-        title: label + " in 10 minutes",
-        body: "A gentle heads-up from EVOLV. Get ready when you can.",
+        title: leadMinutes === 0 ? "It’s time for " + label.toLowerCase() : label + " in " + leadMinutes + (leadMinutes === 1 ? " minute" : " minutes"),
+        body: leadMinutes === 0 ? "Your planned routine is scheduled for now." : "A gentle heads-up from EVOLV. Get ready when you can.",
         icon: "/evolv-mark.svg", badge: "/evolv-mark.svg",
         tag: "evolv-" + kind, url: "/dashboard",
         data: { reminder: kind, routineId: reminder.id },
