@@ -109,11 +109,28 @@ function HomePage({ pageProps }) {
           <div><h2>Your goals</h2></div>
           <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
         </div>
-        <div className="calm-focus-row">
-          <span className="calm-focus-mark"><Target size={19}/></span>
-          <div><strong>{activeGoals.length ? `${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}` : 'One thing you want to grow'}</strong></div>
-          <button type="button" onClick={() => goTo('goals')}>{activeGoals.length ? 'View' : 'Explore'} <ArrowRight size={14}/></button>
-        </div>
+        {activeGoals.length ? (
+          <div className="calm-goal-snapshot">
+            <div className="calm-goal-snapshot-top">
+              <span className="calm-focus-mark"><Target size={19}/></span>
+              <div className="calm-goal-snapshot-copy">
+                <strong>{activeGoals[0].title}</strong>
+                <small>{activeGoals.length > 1 ? `+ ${activeGoals.length - 1} more active ${activeGoals.length - 1 === 1 ? 'goal' : 'goals'}` : 'Your current focus'}</small>
+              </div>
+              <span className="calm-goal-percent">{Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}%</span>
+            </div>
+            <div className="calm-goal-progress-track" role="progressbar" aria-label={`Progress on ${activeGoals[0].title}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}>
+              <span style={{ width: `${Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}%` }} />
+            </div>
+            <button type="button" className="calm-goal-view-all" onClick={() => goTo('goals')}>View goals <ArrowRight size={14}/></button>
+          </div>
+        ) : (
+          <button type="button" className="calm-goal-empty" onClick={() => goTo('goals')}>
+            <span className="calm-focus-mark"><Target size={19}/></span>
+            <span><strong>Set your first goal</strong><small>Start with one thing that matters.</small></span>
+            <ArrowRight size={17}/>
+          </button>
+        )}
       </section>
 
       <section className="calm-home-activity">
