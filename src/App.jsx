@@ -508,7 +508,7 @@ function App() {
 
   return (
     <main ref={root} className="app">
-      <AmbientSound active={view === 'welcome' || view === 'onboarding' || view === 'auth'} />
+      <AmbientSound active={view === 'welcome' || view === 'onboarding' || view === 'auth' || view === 'dashboard'} />
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
