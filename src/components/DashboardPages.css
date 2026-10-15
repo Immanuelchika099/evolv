@@ -7731,3 +7731,43 @@ body,
   .evolv-avatar-3d-loading span { animation: none; }
 }
 
+
+
+/* Ensure the real 3D greeting avatar has a concrete box to render into.
+   The older illustrated-avatar rule sets height:auto and otherwise collapses
+   the model-viewer shell on the logged-in home screen. */
+.calm-home-welcome-avatar .evolv-mascot-wrap .evolv-avatar-3d-shell.evolv-custom-portrait {
+  display: block !important;
+  flex: 0 0 clamp(15rem, 29vw, 23rem) !important;
+  width: min(100%, 23rem) !important;
+  height: 26rem !important;
+  min-height: 26rem !important;
+  max-height: none !important;
+  align-self: stretch !important;
+  overflow: hidden !important;
+}
+
+.calm-home-welcome-avatar .evolv-avatar-3d-shell.evolv-custom-portrait model-viewer {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 26rem !important;
+}
+
+@media (max-width: 600px) {
+  .calm-home-welcome-avatar .evolv-mascot-wrap {
+    flex: 0 0 12.5rem !important;
+    min-height: 22rem !important;
+  }
+
+  .calm-home-welcome-avatar .evolv-mascot-wrap .evolv-avatar-3d-shell.evolv-custom-portrait {
+    flex: 0 0 12.5rem !important;
+    width: 12.5rem !important;
+    height: 22rem !important;
+    min-height: 22rem !important;
+  }
+
+  .calm-home-welcome-avatar .evolv-avatar-3d-shell.evolv-custom-portrait model-viewer {
+    min-height: 22rem !important;
+  }
+}
