@@ -7043,3 +7043,30 @@ body,
 
 /* User requested no ambient glow behind the dashboard greeting. */
 .dashboard-home.calm-home .calm-home-welcome::before { display: none !important; content: none !important; }
+
+
+/* Avatar customization — local-first foundation for future user profiles. */
+.evolv-mascot-wrap { padding-bottom: 3.5rem; }
+.evolv-mascot-wrap.glow-lime .evolv-mascot-halo { background: radial-gradient(circle, rgba(184,243,74,.17), rgba(184,243,74,.045) 42%, transparent 72%); }
+.evolv-mascot-wrap.glow-none .evolv-mascot-halo { opacity: 0; }
+.evolv-mascot.look-warm, .evolv-avatar-preview img.look-warm { filter: sepia(.14) saturate(1.12) drop-shadow(0 1.4rem 2.5rem rgba(0,0,0,.25)); }
+.evolv-mascot.look-cool, .evolv-avatar-preview img.look-cool { filter: hue-rotate(12deg) saturate(.88) drop-shadow(0 1.4rem 2.5rem rgba(0,0,0,.25)); }
+.evolv-avatar-edit { position:absolute; right:0; bottom:.2rem; z-index:3; display:inline-flex; align-items:center; gap:.55rem; padding:.8rem 1rem; border:1px solid rgba(255,255,255,.12); border-radius:999px; background:rgba(23,24,26,.88); color:#e9eae4; font-size:1.2rem; cursor:pointer; backdrop-filter:blur(12px); }
+.evolv-avatar-edit:hover { border-color:rgba(184,243,74,.4); }
+.evolv-avatar-backdrop { position:fixed; inset:0; z-index:9999; display:grid; place-items:center; padding:1.6rem; background:rgba(0,0,0,.72); backdrop-filter:blur(12px); }
+.evolv-avatar-editor { position:relative; width:min(100%,42rem); max-height:min(88dvh,76rem); overflow:auto; padding:2.6rem; border:1px solid rgba(255,255,255,.1); border-radius:2.4rem; background:#111214; color:#f4f4f0; box-shadow:0 2.5rem 8rem rgba(0,0,0,.5); }
+.evolv-avatar-close { position:absolute; top:1.6rem; right:1.6rem; width:3.6rem; height:3.6rem; display:grid; place-items:center; border:1px solid rgba(255,255,255,.1); border-radius:50%; background:rgba(255,255,255,.04); color:#fff; cursor:pointer; }
+.evolv-avatar-editor h2 { margin:1rem 0 .5rem; font-size:2.8rem; letter-spacing:-.04em; }
+.evolv-avatar-editor > p { margin:0; color:#a8aaa3; font-size:1.4rem; line-height:1.5; }
+.evolv-avatar-preview { height:15rem; display:flex; justify-content:center; margin:1.2rem 0 .8rem; overflow:hidden; background:radial-gradient(ellipse at 50% 75%,rgba(151,129,210,.14),transparent 65%); }
+.evolv-avatar-preview img { height:100%; width:auto; object-fit:contain; }
+.evolv-avatar-label { display:block; margin:1.4rem 0 .8rem; color:#a8aaa3; font-size:1.2rem; font-weight:650; letter-spacing:.08em; text-transform:uppercase; }
+.evolv-avatar-choices { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.8rem; }
+.evolv-avatar-choices button { min-width:0; display:flex; align-items:center; justify-content:center; gap:.65rem; padding:.95rem .5rem; border:1px solid rgba(255,255,255,.09); border-radius:1.2rem; background:rgba(255,255,255,.025); color:#e9eae4; font-size:1.3rem; cursor:pointer; }
+.evolv-avatar-choices button.is-selected { border-color:rgba(184,243,74,.6); background:rgba(184,243,74,.07); }
+.evolv-avatar-swatch,.evolv-glow-swatch { flex:0 0 1.2rem; width:1.2rem; height:1.2rem; border-radius:50%; background:#b9a1e8; }
+.swatch-warm { background:#dba67f; }.swatch-cool { background:#879fce; }.swatch-original { background:#b9a1e8; }
+.glow-swatch-lime { background:#b8f34a; }.glow-swatch-none { background:#45464a; }
+.evolv-avatar-done { width:100%; min-height:4.4rem; margin-top:1.8rem; border:0; border-radius:999px; background:#b8f34a; color:#11130d; font-size:1.45rem; font-weight:700; cursor:pointer; }
+.evolv-avatar-note { display:block; margin-top:1rem; color:#777970; text-align:center; font-size:1.15rem; }
+@media(max-width:480px) { .evolv-avatar-editor { padding:2.2rem 1.7rem; } .evolv-avatar-choices button { flex-wrap:wrap; font-size:1.2rem; } .evolv-mascot-wrap { padding-bottom:3.2rem; } }
