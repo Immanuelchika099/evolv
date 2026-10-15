@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Camera, ImagePlus, LoaderCircle, ShieldCheck, Sparkles, Upload, X } from 'lucide-react'
 
-const MAX_BYTES = 5 * 1024 * 1024
+const MAX_BYTES = 3 * 1024 * 1024
 const ACCEPTED = ['image/jpeg', 'image/png', 'image/webp']
 
 export default function SelfieAvatar({ onApply }) {
@@ -26,7 +26,7 @@ export default function SelfieAvatar({ onApply }) {
       return
     }
     if (file.size > MAX_BYTES) {
-      setError('Choose a photo smaller than 5 MB.')
+      setError('Choose a photo smaller than 3 MB.')
       return
     }
     setPhoto({ file, url: URL.createObjectURL(file) })
