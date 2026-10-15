@@ -183,3 +183,14 @@
     transform: translateX(1.4rem);
   }
 }
+
+
+/* Adjustable lead time for routine reminders. */
+.routine-lead-time { display:flex; align-items:center; gap:.7rem; color:#a4a69e; font-size:1.15rem; white-space:nowrap; }
+.routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid #34362f; border-radius:.9rem; background:#11120f; color:#f5f6f1; font:inherit; font-size:1.35rem; text-align:center; }
+.routine-lead-time input:focus { outline:1px solid #c3f36b; border-color:#c3f36b; }
+@media(max-width:700px) {
+  .routine-reminder-control { flex-wrap:wrap; }
+  .routine-lead-time { width:100%; justify-content:space-between; padding:.6rem 0 0 5rem; }
+  .routine-lead-time input { width:7rem; }
+}
