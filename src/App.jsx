@@ -57,6 +57,116 @@ function getProviderFirstName(user) {
   )
 }
 
+const EVOLV_AMBIENT_AUDIO = 'https://assets.mixkit.co/active_storage/sfx/2507/2507-preview.mp3'
+const AMBIENT_ENABLED_KEY = 'evolv-ambient-enabled'
+const AMBIENT_POSITION_KEY = 'evolv-ambient-position'
+
+function AmbientSound({ active }) {
+  const audioRef = useRef(null)
+  const [enabled, setEnabled] = useState(() => {
+    try { return localStorage.getItem(AMBIENT_ENABLED_KEY) !== 'false' }
+    catch { return true }
+  })
+  const [playing, setPlaying] = useState(false)
+
+  function savePosition() {
+    const audio = audioRef.current
+    if (!audio || !Number.isFinite(audio.currentTime)) return
+    try { localStorage.setItem(AMBIENT_POSITION_KEY, String(audio.currentTime)) } catch {}
+  }
+
+  async function startAudio() {
+    const audio = audioRef.current
+    if (!audio || !enabled || !active) return
+    try {
+      await audio.play()
+      setPlaying(true)
+    } catch {
+      // Browsers can block sound until the visitor taps the sound control.
+      setPlaying(false)
+    }
+  }
+
+  function toggleSound() {
+    const next = !enabled
+    setEnabled(next)
+    try { localStorage.setItem(AMBIENT_ENABLED_KEY, String(next)) } catch {}
+    if (!next) {
+      audioRef.current?.pause()
+      savePosition()
+      setPlaying(false)
+      return
+    }
+    startAudio()
+  }
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    audio.volume = 0.12
+    audio.loop = true
+
+    function restorePosition() {
+      let saved = 0
+      try { saved = Number(localStorage.getItem(AMBIENT_POSITION_KEY) || 0) } catch {}
+      if (Number.isFinite(saved) && saved > 0 && saved < audio.duration) {
+        audio.currentTime = saved
+      }
+      if (active && enabled) startAudio()
+    }
+
+    audio.addEventListener('loadedmetadata', restorePosition)
+    audio.addEventListener('timeupdate', savePosition)
+    const saveOnLeave = () => savePosition()
+    window.addEventListener('pagehide', saveOnLeave)
+    window.addEventListener('beforeunload', saveOnLeave)
+
+    if (audio.readyState >= 1) restorePosition()
+    if (active && enabled) startAudio()
+    else {
+      audio.pause()
+      setPlaying(false)
+    }
+
+    return () => {
+      audio.removeEventListener('loadedmetadata', restorePosition)
+      audio.removeEventListener('timeupdate', savePosition)
+      window.removeEventListener('pagehide', saveOnLeave)
+      window.removeEventListener('beforeunload', saveOnLeave)
+    }
+  }, [active, enabled])
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+    if (active && enabled) startAudio()
+    else {
+      savePosition()
+      audio.pause()
+      setPlaying(false)
+    }
+  }, [active, enabled])
+
+  return (
+    <>
+      <audio ref={audioRef} src={EVOLV_AMBIENT_AUDIO} preload="auto" loop />
+      {active && (
+        <button
+          type="button"
+          className="evolv-ambient-toggle"
+          onClick={toggleSound}
+          aria-label={enabled ? 'Turn ambient sound off' : 'Turn ambient sound on'}
+          aria-pressed={enabled}
+          title={enabled ? 'Ambient sound on' : 'Ambient sound off'}
+        >
+          {enabled ? <Volume2 size={17} strokeWidth={1.7} /> : <VolumeX size={17} strokeWidth={1.7} />}
+          <span>{enabled ? (playing ? 'Sound on' : 'Sound on · tap if silent') : 'Sound off'}</span>
+        </button>
+      )}
+    </>
+  )
+}
+
 function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => {
@@ -412,6 +522,7 @@ function App() {
 
   return (
     <main ref={root} className="app">
+      <AmbientSound active={view === 'welcome' || view === 'onboarding' || view === 'auth'} />
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
