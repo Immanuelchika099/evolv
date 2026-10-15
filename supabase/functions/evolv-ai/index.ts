@@ -220,27 +220,124 @@ async function executeTool(
   }
 
   if (name === "get_user_insights") {
-    const since = new Date(Date.now()-30*86400000).toISOString().slice(0,10)
+    const since = new Date(Date.now() - 30 * 86400000).toISOString().slice(0, 10)
+    const sinceTimestamp = new Date(Date.now() - 30 * 86400000).toISOString()
     const [goalsResult, metricsResult, mealsResult, reflectionsResult] = await Promise.all([
-      supabase.from("goals").select("id,title,status,progress,due_date,metric_id,target_value,start_value,unit,target_direction,target_period,updated_at").eq("user_id",userId).neq("status","archived").order("updated_at",{ascending:false}).limit(30),
-      supabase.from("metric_logs").select("metric_id,logged_for,value_numeric,value,unit,created_at").eq("user_id",userId).gte("logged_for",since).order("logged_for",{ascending:true}).limit(500),
-      supabase.from("meal_logs").select("meal_type,calories,protein_g,logged_at").eq("user_id",userId).gte("logged_at",new Date(Date.now()-30*86400000).toISOString()).order("logged_at",{ascending:true}).limit(300),
-      supabase.from("daily_reflections").select("reflection_date,mood").eq("user_id",userId).gte("reflection_date",since).order("reflection_date",{ascending:true}).limit(31),
+      supabase.from("goals").select("id,title,description,status,progress,due_date,metric_id,target_value,start_value,unit,target_direction,target_period,updated_at").eq("user_id", userId).neq("status", "archived").order("updated_at", { ascending: false }).limit(30),
+      supabase.from("metric_logs").select("metric_id,logged_for,value_numeric,value,unit,note,logged_at,created_at").eq("user_id", userId).gte("logged_for", since).order("logged_for", { ascending: true }).limit(500),
+      supabase.from("meal_logs").select("meal_type,description,calories,protein_g,logged_at").eq("user_id", userId).gte("logged_at", sinceTimestamp).order("logged_at", { ascending: true }).limit(300),
+      supabase.from("daily_reflections").select("reflection_date,mood,day_feeling,note").eq("user_id", userId).gte("reflection_date", since).order("reflection_date", { ascending: true }).limit(31),
     ])
     if (goalsResult.error) throw goalsResult.error
     if (metricsResult.error) throw metricsResult.error
     if (mealsResult.error) throw mealsResult.error
     if (reflectionsResult.error) throw reflectionsResult.error
-    const groups:Record<string,number[]> = {}
-    for (const row of metricsResult.data || []) { const id=row.metric_id; if(!groups[id]) groups[id]=[]; groups[id].push(Number(row.value_numeric ?? row.value ?? 0)) }
-    const ids=Object.keys(groups)
-    const defs=ids.length ? await supabase.from("metric_definitions").select("id,name,slug,unit").in("id",ids) : {data:[],error:null}
-    if(defs.error) throw defs.error
-    const byId=Object.fromEntries((defs.data||[]).map((d:any)=>[d.id,d]))
-    const avg=(a:number[])=>a.length?a.reduce((x,y)=>x+y,0)/a.length:0
-    const trends=ids.map(id=>{ const v=groups[id], mid=Math.max(1,Math.ceil(v.length/2)), earlier=v.slice(0,mid), recent=v.slice(mid), a=avg(earlier), b=avg(recent); return {metric:byId[id]?.name||id,slug:byId[id]?.slug||null,unit:byId[id]?.unit||null,entries:v.length,average_30d:Number(avg(v).toFixed(2)),recent_average:Number(b.toFixed(2)),earlier_average:Number(a.toFixed(2)),change_percent:a?Number((((b-a)/Math.abs(a))*100).toFixed(1)):null} })
-    const moods=(reflectionsResult.data||[]).map((r:any)=>Number(r.mood)).filter((n:number)=>Number.isFinite(n))
-    return {period_days:30,goals:goalsResult.data||[],metric_trends:trends,reflection_mood_average:moods.length?Number(avg(moods).toFixed(2)):null,reflection_days:moods.length,meals_logged:(mealsResult.data||[]).length,note:"Descriptive trends only; not a diagnosis."}
+
+    const metricRows = metricsResult.data || []
+    const mealRows = mealsResult.data || []
+    const reflectionRows = reflectionsResult.data || []
+    const groups: Record<string, number[]> = {}
+    for (const row of metricRows) {
+      const id = row.metric_id
+      if (!groups[id]) groups[id] = []
+      const value = Number(row.value_numeric ?? row.value)
+      if (Number.isFinite(value)) groups[id].push(value)
+    }
+
+    const ids = Object.keys(groups)
+    const defs = ids.length
+      ? await supabase.from("metric_definitions").select("id,name,slug,unit").in("id", ids)
+      : { data: [], error: null }
+    if (defs.error) throw defs.error
+    const byId = Object.fromEntries((defs.data || []).map((d: any) => [d.id, d]))
+    const avg = (values: number[]) => values.length ? values.reduce((sum, value) => sum + value, 0) / values.length : null
+    const round = (value: number | null) => value === null || !Number.isFinite(value) ? null : Number(value.toFixed(2))
+    const trends = ids.map(id => {
+      const values = groups[id]
+      const midpoint = Math.ceil(values.length / 2)
+      const earlier = values.slice(0, midpoint)
+      const recent = values.slice(midpoint)
+      const earlierAverage = avg(earlier)
+      const recentAverage = avg(recent)
+      return {
+        metric: byId[id]?.name || id,
+        slug: byId[id]?.slug || null,
+        unit: byId[id]?.unit || null,
+        entries: values.length,
+        average_30d: round(avg(values)),
+        recent_average: round(recentAverage),
+        earlier_average: round(earlierAverage),
+        change_percent: earlierAverage && recentAverage !== null
+          ? Number((((recentAverage - earlierAverage) / Math.abs(earlierAverage)) * 100).toFixed(1))
+          : null,
+      }
+    })
+
+    const trendBySlug = Object.fromEntries(trends.filter((item: any) => item.slug).map((item: any) => [item.slug, item]))
+    const sleepRows = metricRows.filter((row: any) => byId[row.metric_id]?.slug === "sleep")
+    const sleepValues = sleepRows.map((row: any) => Number(row.value_numeric ?? row.value)).filter((value: number) => Number.isFinite(value) && value >= 0 && value <= 24)
+    const sleepDates = [...new Set(sleepRows.map((row: any) => row.logged_for).filter(Boolean))]
+    const spendingRows = metricRows.filter((row: any) => ["spending", "expenses", "expense"].includes(byId[row.metric_id]?.slug))
+    const spendingValues = spendingRows.map((row: any) => Number(row.value_numeric ?? row.value)).filter((value: number) => Number.isFinite(value) && value >= 0)
+    const mealCountsByType: Record<string, number> = {}
+    const mealCountsByDate: Record<string, number> = {}
+    const mealTimes: string[] = []
+    for (const meal of mealRows) {
+      const type = String(meal.meal_type || "unspecified").toLowerCase()
+      mealCountsByType[type] = (mealCountsByType[type] || 0) + 1
+      if (meal.logged_at) {
+        const date = new Date(meal.logged_at)
+        if (!Number.isNaN(date.getTime())) {
+          const key = date.toISOString().slice(0, 10)
+          mealCountsByDate[key] = (mealCountsByDate[key] || 0) + 1
+          mealTimes.push(date.toISOString().slice(11, 16))
+        }
+      }
+    }
+    const moods = reflectionRows.map((row: any) => Number(row.mood)).filter((value: number) => Number.isFinite(value))
+    const moodAverage = avg(moods)
+    const recentReflections = reflectionRows.slice(-8).map((row: any) => ({
+      date: row.reflection_date,
+      mood: row.mood,
+      feeling: row.day_feeling || null,
+      note: typeof row.note === "string" ? row.note.slice(0, 500) : null,
+    }))
+
+    return {
+      period_days: 30,
+      goals: goalsResult.data || [],
+      metric_trends: trends,
+      routine_signals: {
+        sleep: {
+          entries: sleepValues.length,
+          days_recorded: sleepDates.length,
+          average_hours: round(avg(sleepValues)),
+          shortest_hours: sleepValues.length ? Math.min(...sleepValues) : null,
+          longest_hours: sleepValues.length ? Math.max(...sleepValues) : null,
+          days_below_7_hours: sleepValues.filter((value: number) => value < 7).length,
+          guidance: "Describe logged sleep patterns cautiously. Missing records do not prove poor sleep, and duration alone cannot assess sleep quality.",
+        },
+        spending: {
+          entries: spendingValues.length,
+          recorded_total_ngn: round(spendingValues.reduce((sum: number, value: number) => sum + value, 0)),
+          average_recorded_entry_ngn: round(avg(spendingValues)),
+          guidance: "These are only recorded entries, not necessarily the user's complete spending. Ask about budget and obligations before judging whether spending is healthy.",
+        },
+        eating: {
+          meals_recorded: mealRows.length,
+          days_with_meal_records: Object.keys(mealCountsByDate).length,
+          meal_counts_by_type: mealCountsByType,
+          recorded_meals_per_recorded_day: round(avg(Object.values(mealCountsByDate))),
+          recent_meal_times_utc: mealTimes.slice(-20),
+          guidance: "Meal records may be incomplete. Do not infer that a user skipped meals or has a poor diet from missing data; ask about their real routine.",
+        },
+      },
+      reflection_mood_average: round(moodAverage),
+      reflection_days: moods.length,
+      recent_reflections: recentReflections,
+      meals_logged: mealRows.length,
+      note: "Patterns are descriptive, not diagnoses. Explain uncertainty and distinguish recorded data from assumptions.",
+    }
   }
 
   if (name === "get_user_goals") {
@@ -583,6 +680,19 @@ NIGERIAN LANGUAGE & CULTURAL CONTEXT:
 - Understand place references such as Iwofe from conversational context when relevant. Do not assume a reference has one meaning when the surrounding conversation suggests otherwise.
 - When the user is discussing serious, sensitive, technical, medical, financial, academic, or professional matters, prioritize clarity and professionalism while still respecting their natural communication style.
 - Feel Nigerian-aware, not like you are performing a stereotype.
+
+
+PERSONAL PATTERN ANALYSIS — MAKE EVOLV FEEL LIKE IT KNOWS THE PERSON, NOT LIKE A FORM:
+- When a user asks whether their sleep, spending, eating, mood, routines, career direction, or overall life is going well, use get_user_insights. Do not answer from vibes or generic wellness rules when their real data is available.
+- Translate the data into a useful human explanation: what looks steady, what seems to be changing, what evidence supports that observation, and one realistic next step. Do not overwhelm the user with every metric.
+- Sleep: use logged duration, frequency, and change over time. Explain that sleep quality also depends on consistency, restfulness, waking during the night, and the person's needs. Do not call a sleep routine "good" or "bad" from duration alone.
+- Spending: use recorded spending entries and their trend, but make clear when records may be incomplete. Ask about income, bills, responsibilities, and the user's own budget before judging affordability. Never shame the user for spending.
+- Eating: use recorded meal frequency and times only as partial evidence. Do not estimate calories or nutrition from a food description unless asked and clearly label estimates. Missing meal entries do not prove the person did not eat.
+- Mood and mental wellbeing: listen to what the user actually says, reflect their feelings without minimizing them, and use recent reflections only when relevant. You may notice a pattern such as the user reporting low mood repeatedly, but never diagnose depression, bipolar disorder, anxiety, or another condition from chat or app data. If they ask whether they may be depressed, explain that you cannot diagnose them, ask gently how long this has been going on and how it is affecting daily life, and encourage qualified support when appropriate.
+- Career and growth: connect the user's goals with actual learning, building, focus, and follow-through patterns when available. Help them see what is working, what is blocking them, and a practical next move. Do not equate productivity with personal worth.
+- For emotional disclosures, respond to the person first. Do not immediately convert vulnerable feelings into metrics or a checklist. Ask at most one thoughtful follow-up at a time.
+- Be transparent about data quality. Say "from what you've recorded" or "this may suggest" when the evidence is limited. Never invent patterns or claim to know a person's mental state with certainty.
+- When a useful insight emerges naturally, share it conversationally. Do not wait for the user to ask for a report, but do not send unsolicited sensitive interpretations or make alarming claims.
 
 
 WELLNESS SAFETY:
