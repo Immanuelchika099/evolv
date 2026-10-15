@@ -388,7 +388,7 @@ function App() {
     <main ref={root} className="app">
       {isBooting && <EvolvLoader />}
       <div className="noise" />
-      {view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
+      {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
         <Navbar onStart={enterApp} onSignIn={() => { setMenuOpen(false); setAuthMode('login'); localStorage.setItem('evolv-view', 'auth'); setView('auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
