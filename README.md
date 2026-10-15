@@ -4,7 +4,7 @@
 
 By bringing goal management, progress insights, reminders, and an AI assistant into one focused experience, EVOLV helps users understand their priorities, organise their workload, and stay focused on what matters.
 
-The product is built around a simple principle: productivity should feel clear and intentional, not overwhelming. Its interface prioritizes meaningful context, thoughtful visual hierarchy, and subtle guidance over unnecessary visual noise.
+The product is  built around a simple principle: productivity should feel clear and intentional, not overwhelming. Its interface prioritizes meaningful context, thoughtful visual hierarchy, and subtle guidance over unnecessary visual noise.
 
 ## What EVOLV offers
 
