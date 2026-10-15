@@ -6341,6 +6341,79 @@ body,
 }
 .calm-home button { font: inherit; }
 .calm-home-welcome { padding: clamp(1.8rem, 4vw, 3.2rem) 0 .8rem; }
+
+/* Friendly EVOLV mascot beside the greeting; designed for later avatar personalization. */
+.calm-home-welcome-avatar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  min-height: 22rem;
+  overflow: hidden;
+}
+.calm-home-welcome-copy { position: relative; z-index: 2; min-width: 0; }
+.evolv-mascot-wrap {
+  position: relative;
+  align-self: stretch;
+  flex: 0 0 clamp(12rem, 29vw, 23rem);
+  min-width: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  margin: -1rem -1rem -.8rem 0;
+  isolation: isolate;
+}
+.evolv-mascot-halo {
+  position: absolute;
+  z-index: -1;
+  width: 88%;
+  aspect-ratio: 1;
+  bottom: 8%;
+  left: 6%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(151,129,210,.18), rgba(151,129,210,.055) 42%, transparent 72%);
+  filter: blur(1.2rem);
+  animation: evolv-mascot-breathe 6s ease-in-out infinite;
+}
+.evolv-mascot {
+  display: block;
+  width: 100%;
+  max-height: 24rem;
+  object-fit: contain;
+  object-position: bottom center;
+  transform-origin: 50% 100%;
+  animation: evolv-mascot-arrive .85s cubic-bezier(.2,.75,.25,1) both, evolv-mascot-float 5s ease-in-out 1s infinite;
+  filter: drop-shadow(0 1.4rem 2.5rem rgba(0,0,0,.25));
+}
+@keyframes evolv-mascot-arrive {
+  from { opacity: 0; transform: translate3d(0,1.2rem,0) scale(.96); }
+  to { opacity: 1; transform: translate3d(0,0,0) scale(1); }
+}
+@keyframes evolv-mascot-float {
+  0%,100% { translate: 0 0; }
+  50% { translate: 0 -.45rem; }
+}
+@keyframes evolv-mascot-breathe {
+  0%,100% { opacity: .65; transform: scale(.94); }
+  50% { opacity: 1; transform: scale(1.06); }
+}
+@media (min-width: 760px) {
+  .calm-home-welcome-avatar { min-height: 25rem; }
+  .evolv-mascot-wrap { flex-basis: 24rem; margin-right: 1.5rem; }
+  .evolv-mascot { max-height: 27rem; }
+}
+@media (max-width: 480px) {
+  .calm-home-welcome-avatar { min-height: 17rem; gap: .3rem; }
+  .evolv-mascot-wrap { flex-basis: 12.5rem; margin-right: -.7rem; margin-left: -1.4rem; }
+  .evolv-mascot { max-height: 17rem; }
+  .calm-home-welcome-avatar .calm-home-welcome-copy { flex: 1 1 auto; }
+  .calm-home-welcome-avatar .calm-home-welcome-copy h1 { font-size: clamp(3.9rem, 10vw, 5.2rem); overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-mascot, .evolv-mascot-halo { animation: none !important; }
+}
+
 .calm-home-greeting, .calm-section-kicker {
   color: #a9aaa2;
   font-size: 1.25rem;
