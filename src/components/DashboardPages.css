@@ -7496,3 +7496,26 @@ body,
   .dashboard-pages .metric-row-icon,
   .dashboard-pages .life-area-icon { transition: none; }
 }
+
+
+/* Keep life-area icons varied even if an area is configured with the brand accent. */
+.dashboard-pages .life-area-row:nth-child(4n + 1) .life-area-icon {
+  color: #83baff;
+  background: rgba(83,154,255,.11);
+  border-color: rgba(83,154,255,.22);
+}
+.dashboard-pages .life-area-row:nth-child(4n + 2) .life-area-icon {
+  color: #b6a1ff;
+  background: rgba(155,126,255,.11);
+  border-color: rgba(155,126,255,.22);
+}
+.dashboard-pages .life-area-row:nth-child(4n + 3) .life-area-icon {
+  color: #ffad91;
+  background: rgba(255,143,112,.11);
+  border-color: rgba(255,143,112,.22);
+}
+.dashboard-pages .life-area-row:nth-child(4n) .life-area-icon {
+  color: #7de0c2;
+  background: rgba(70,208,165,.1);
+  border-color: rgba(70,208,165,.21);
+}
