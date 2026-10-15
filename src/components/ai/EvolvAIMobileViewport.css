@@ -218,3 +218,39 @@ body.evolv-ai-viewport-active {
     scroll-behavior: auto !important;
   }
 }
+
+
+/* Final iOS keyboard fix: keep the composer anchored to the visible viewport.
+   The visual viewport height is already updated by EvolvAI.jsx; adding the
+   keyboard height again as a bottom offset pushed the composer out of view. */
+.dashboard.dashboard-ai-active .ai-promptbar-shell {
+  bottom: 0 !important;
+  z-index: 100501 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+  transform: none !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar,
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field,
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page {
+  height: var(--evolv-ai-viewport-height, 100dvh) !important;
+  min-height: 0 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat {
+  min-height: 0 !important;
+  height: 100% !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  overscroll-behavior-y: contain !important;
+  scroll-padding-bottom: 12rem !important;
+}
