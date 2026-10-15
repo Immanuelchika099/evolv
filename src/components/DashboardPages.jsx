@@ -60,6 +60,59 @@ function HomePage({ pageProps }) {
     ? 'Good morning' : now.getHours() >= 12 && now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
   const moodMetric = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
   const activeGoals = goals.filter(goal => goal.status === 'active')
+  const insightMetric = slug => defs.find(def => String(def.slug || '').toLowerCase() === slug)
+  const sleepDef = insightMetric('sleep')
+  const moodDef = insightMetric('mood')
+  const sleepEntries = sleepDef ? logs.filter(entry => String(entry.metric_id) === String(sleepDef.id)).slice(0, 7) : []
+  const moodEntries = moodDef ? logs.filter(entry => String(entry.metric_id) === String(moodDef.id)).slice(0, 7) : []
+  const recentInsightLogs = logs.slice(0, 7)
+  const recentInsightMeals = meals.slice(0, 7)
+  const insightContext = [
+    'Use only these EVOLV records; do not invent data or diagnose me.',
+    'Recent check-ins: ' + (recentInsightLogs.length ? recentInsightLogs.map(entry => {
+      const def = defs.find(item => String(item.id) === String(entry.metric_id))
+      return def ? def.name + ': ' + valueText(entry, def) + (entry.logged_at ? ' (' + new Date(entry.logged_at).toLocaleDateString() + ')' : '') : null
+    }).filter(Boolean).join('; ') : 'No recent metric check-ins yet.'),
+    'Recent meals: ' + (recentInsightMeals.length ? recentInsightMeals.map(meal => (meal.meal_type || 'meal') + ': ' + (meal.description || 'logged') + (meal.logged_at ? ' (' + new Date(meal.logged_at).toLocaleDateString() + ')' : '')).join('; ') : 'No meal entries yet.'),
+    'Active goals: ' + (activeGoals.length ? activeGoals.map(goal => goal.title + ' (' + Math.max(0, Math.min(100, Number(goal.progress || 0))) + '%)').join('; ') : 'No active goals yet.')
+  ].join('\\n')
+  const insightCards = [
+    {
+      key: 'sleep',
+      title: 'Sleep & energy',
+      icon: Moon,
+      tone: 'lavender',
+      detail: sleepEntries.length
+        ? 'You have ' + sleepEntries.length + ' recent sleep check-in' + (sleepEntries.length === 1 ? '' : 's') + '. Explore how rest may connect with the rest of your routine.'
+        : 'Start logging sleep to build a clearer picture of your rest over time.',
+      prompt: 'Help me understand my sleep and daily energy using my EVOLV records. Look for patterns only if there is enough data, explain uncertainty, and suggest one gentle next step.\\n' + insightContext
+    },
+    {
+      key: 'mood',
+      title: 'Mood & wellbeing',
+      icon: Brain,
+      tone: 'coral',
+      detail: moodEntries.length > 1
+        ? 'You have recorded your mood ' + moodEntries.length + ' times recently. Let’s gently explore what may be influencing how you feel.'
+        : 'A few mood check-ins over time can help you reflect on how you feel, without judging or labelling yourself.',
+      prompt: 'Help me reflect on my mood and wellbeing using my EVOLV records. Do not diagnose me or infer a mental-health condition. Note uncertainty, ask one gentle question if needed, and suggest one manageable next step.\\n' + insightContext
+    },
+    {
+      key: 'rhythm',
+      title: 'Your daily rhythm',
+      icon: Activity,
+      tone: 'mint',
+      detail: recentInsightLogs.length + recentInsightMeals.length
+        ? 'You have ' + (recentInsightLogs.length + recentInsightMeals.length) + ' recent routine entr' + (recentInsightLogs.length + recentInsightMeals.length === 1 ? 'y' : 'ies') + '. Explore the connections between habits at your own pace.'
+        : 'As you record meals, movement, sleep or focus, EVOLV can help you make sense of your routine.',
+      prompt: 'Review my recent EVOLV routine records and identify only useful, evidence-supported patterns across habits. Do not overstate correlations or shame me. Give me one clear observation and one practical next step.\\n' + insightContext
+    }
+  ]
+
+  function openInsight(prompt) {
+    try { localStorage.setItem('evolv-ai-pending-prompt', prompt) } catch {}
+    goTo('ai')
+  }
   const recentActivity = [
     ...todayLogs.map((log, index) => {
       const def = defs.find(item => String(item.id) === String(log.metric_id))
@@ -122,6 +175,26 @@ function HomePage({ pageProps }) {
               <small>{option.label}</small>
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="calm-insights-section" aria-labelledby="calm-insights-title">
+        <div className="calm-focus-heading">
+          <div>
+            <span className="calm-insights-eyebrow"><Sparkles size={13} /> PERSONALIZED REFLECTIONS</span>
+            <h2 id="calm-insights-title">AI insights</h2>
+          </div>
+          <button type="button" onClick={() => openInsight('Help me review my recent EVOLV records and share a few careful, evidence-based observations about my routines. Do not diagnose me or invent missing data.\\n' + insightContext)} aria-label="Explore all AI insights"><ArrowRight size={18}/></button>
+        </div>
+        <div className="calm-insights-grid">
+          {insightCards.map(card => {
+            const Icon = card.icon
+            return <button type="button" className={'calm-insight-card tone-' + card.tone} key={card.key} onClick={() => openInsight(card.prompt)}>
+              <span className="calm-insight-icon"><Icon size={19} strokeWidth={1.8}/></span>
+              <span className="calm-insight-copy"><strong>{card.title}</strong><small>{card.detail}</small></span>
+              <span className="calm-insight-arrow"><ArrowUpRight size={16}/></span>
+            </button>
+          })}
         </div>
       </section>
 
