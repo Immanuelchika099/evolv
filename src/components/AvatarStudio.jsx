@@ -36,6 +36,7 @@ function HairShape({ style, color }) {
   if (style === 'bun') return <g {...common}><circle cx="64" cy="15" r="12"/><path d="M36 56 Q30 20 64 22 Q98 20 92 56 L84 44 Q64 31 44 44Z"/></g>
   if (style === 'ponytail') return <g {...common}><path d="M84 30 Q109 32 101 56 Q98 66 88 69 L84 60Z"/><path d="M36 56 Q30 20 64 20 Q95 20 92 55 L84 44 Q64 31 44 44Z"/></g>
   if (style === 'waves') return <path d="M34 57 Q27 21 47 22 Q55 11 66 21 Q78 10 86 26 Q99 27 92 57 L84 43 Q64 31 44 43Z" {...common} />
+  if (style === 'curls') return <g {...common}><path d="M35 57 Q28 22 64 19 Q100 22 93 57 L84 43 Q64 29 44 43Z" />{[[39,36],[46,26],[55,22],[65,21],[75,23],[84,29],[89,39],[38,47],[90,48]].map(([cx,cy],i)=><circle key={i} cx={cx} cy={cy} r="5.5" stroke={color} strokeWidth="1" />)}</g>
   return <path d="M35 56 Q29 21 64 19 Q99 21 93 56 L84 43 Q64 29 44 43Z" {...common} />
 }
 
