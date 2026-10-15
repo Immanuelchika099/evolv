@@ -83,13 +83,12 @@ function HomePage({ pageProps }) {
       <section className="calm-home-welcome">
         <span className="calm-home-greeting">{greeting}</span>
         <h1>{firstName}<span>.</span></h1>
-        <p>Take a breath. You can start wherever you are.</p>
+        <p>A fresh moment, at your pace.</p>
       </section>
 
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
-        <div className="calm-section-kicker">A MOMENT FOR YOU</div>
-        <h2 id="calm-checkin-title">How are you feeling today?</h2>
-        <p>No pressure to have it all figured out.</p>
+        <h2 id="calm-checkin-title">How are you feeling?</h2>
+        <p>Choose what feels closest.</p>
         <div className="calm-mood-options">
           {[
             { label: 'Good', face: '☺', mood: 'good' },
@@ -103,26 +102,23 @@ function HomePage({ pageProps }) {
             </button>
           ))}
         </div>
-        <button type="button" className="calm-checkin-cta" onClick={startCheckIn}>
-          Check in with yourself <ArrowRight size={17} />
-        </button>
       </section>
 
       <section className="calm-home-focus" aria-label="Your growth at a glance">
         <div className="calm-focus-heading">
-          <div><span className="calm-section-kicker">YOUR OWN PACE</span><h2>A little progress, at a time.</h2></div>
+          <div><h2>Your goals</h2></div>
           <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
         </div>
         <div className="calm-focus-row">
           <span className="calm-focus-mark"><Target size={19}/></span>
-          <div><strong>{activeGoals.length ? `${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}` : 'Make room for what matters'}</strong><p>{activeGoals.length ? 'Keep going at a pace that works for you.' : 'Choose one thing you would like to grow.'}</p></div>
+          <div><strong>{activeGoals.length ? `${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}` : 'One thing you want to grow'}</strong></div>
           <button type="button" onClick={() => goTo('goals')}>{activeGoals.length ? 'View' : 'Explore'} <ArrowRight size={14}/></button>
         </div>
       </section>
 
       <section className="calm-home-activity">
         <div className="calm-focus-heading">
-          <div><span className="calm-section-kicker">TODAY</span><h2>Your little moments</h2></div>
+          <div><h2>Today</h2></div>
           <button type="button" onClick={() => goTo('logs')} aria-label="View check-in history"><ArrowRight size={18}/></button>
         </div>
         {loading ? (
@@ -147,15 +143,7 @@ function HomePage({ pageProps }) {
 
       {Object.keys(areas).length > 0 && (
         <section className="calm-home-areas">
-          <div className="calm-focus-heading"><div><span className="calm-section-kicker">YOUR LIFE, YOUR WAY</span><h2>Explore what matters</h2></div></div>
-          <div className="calm-area-links">
-            {Object.entries(areas).slice(0, 6).map(([id, item]) => {
-              const Icon = item.icon
-              return <button type="button" key={id} onClick={() => { goTo('area'); setArea(id) }}>
-                <span style={{ '--calm-area-color': item.color || '#b8f34a' }}><Icon size={18}/></span><strong>{item.title}</strong><ArrowRight size={15}/>
-              </button>
-            })}
-          </div>
+          <div className="calm-focus-heading"><div><h2>Explore an area</h2></div><button type="button" onClick={() => goTo('area')} aria-label="Explore growth areas"><ArrowRight size={18}/></button></div>
         </section>
       )}
     </div>
