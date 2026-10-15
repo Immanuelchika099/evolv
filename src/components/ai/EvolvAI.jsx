@@ -216,6 +216,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
       window.visualViewport?.removeEventListener('resize', updateViewportHeight)
       window.visualViewport?.removeEventListener('scroll', updateViewportHeight)
       root.style.removeProperty('--evolv-ai-viewport-height')
+      root.style.removeProperty('--evolv-ai-keyboard-inset')
     }
   }, [])
 
