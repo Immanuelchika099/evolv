@@ -1583,7 +1583,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     setLogOpen(false)
     setEditingEntry(null)
     setSelectedEntry(null)
-    setActive('ai')
+    goTo('ai')
     setError('')
   }
   function openEntry(item){
@@ -1614,7 +1614,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     }
 
     setLogOpen(false)
-    setActive('ai')
+    goTo('ai')
     setError('')
   }
   async function deleteEntry(item){
