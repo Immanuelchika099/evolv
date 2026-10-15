@@ -1129,3 +1129,32 @@
     font-size: 15px !important;
   }
 }
+
+
+/* EVOLV auth — improve readability for the account switch and legal copy */
+.auth-page .auth-account-switch,
+.auth-page .auth-account-switch span,
+.auth-page .auth-account-switch button,
+.auth-page .auth-switch {
+  font-size: 1.6rem !important;
+  line-height: 1.65 !important;
+}
+
+.auth-page .auth-legal {
+  font-size: 1.4rem !important;
+  line-height: 1.75 !important;
+}
+
+@media (max-width: 800px) {
+  .auth-page .auth-account-switch,
+  .auth-page .auth-account-switch span,
+  .auth-page .auth-account-switch button,
+  .auth-page .auth-switch {
+    font-size: 1.6rem !important;
+  }
+
+  .auth-page .auth-legal {
+    font-size: 1.35rem !important;
+    line-height: 1.75 !important;
+  }
+}
