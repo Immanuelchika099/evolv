@@ -1473,3 +1473,247 @@ body,
 @media(prefers-reduced-motion:reduce){
   .landing-v2 *, .landing-v2 *:before,.landing-v2 *:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}
 }
+
+
+/* EVOLV landing refinement — consistent type, deliberate spacing, and quieter cards. */
+.landing-v2 {
+  --ev-ink: #f4f4ef;
+  --ev-muted: rgba(244,244,239,.64);
+  --ev-dim: rgba(244,244,239,.42);
+  --ev-border: rgba(255,255,255,.105);
+  --ev-panel: #101110;
+  color: var(--ev-ink);
+  font-family: Manrope, sans-serif;
+}
+.landing-v2 .ev-hero {
+  min-height: min(860px, 100svh);
+  padding: clamp(138px, 17vh, 190px) max(24px, calc((100vw - 1180px)/2)) 88px !important;
+  border-radius: 0 !important;
+  background: #050605 !important;
+}
+.landing-v2 .ev-hero-grid {
+  opacity: .25 !important;
+  background-size: 88px 88px !important;
+}
+.landing-v2 .ev-hero-glow {
+  opacity: .7;
+  right: -18% !important;
+}
+.landing-v2 .ev-hero-content { width: min(100%, 850px) !important; }
+.landing-v2 .ev-hero-eyebrow {
+  padding: 9px 12px !important;
+  font-size: 1.05rem !important;
+  letter-spacing: .14em !important;
+}
+.landing-v2 .ev-hero-title {
+  margin: 34px 0 24px !important;
+  font-size: clamp(6.4rem, 9vw, 12rem) !important;
+  line-height: .91 !important;
+  letter-spacing: -.082em !important;
+  font-weight: 500 !important;
+}
+.landing-v2 .ev-hero-copy {
+  max-width: 470px !important;
+  font-size: clamp(1.55rem, 1.35vw, 1.75rem) !important;
+  line-height: 1.8 !important;
+  letter-spacing: -.018em !important;
+}
+.landing-v2 .ev-hero-actions { gap: 12px !important; margin-top: 32px !important; }
+.landing-v2 .ev-btn {
+  min-height: 5.2rem !important;
+  padding: 0 2.1rem !important;
+  font-size: 1.35rem !important;
+  letter-spacing: -.015em !important;
+}
+.landing-v2 .ev-scroll-cue { font-size: 1rem !important; letter-spacing: .14em !important; }
+.landing-v2 .ev-marquee { padding: 2.1rem 0 !important; }
+.landing-v2 .ev-marquee-content { gap: 2.8rem !important; padding-right: 2.8rem !important; }
+.landing-v2 .ev-marquee-content span { font-size: 1.1rem !important; letter-spacing: .16em !important; }
+.landing-v2 .ev-statement,
+.landing-v2 .ev-system,
+.landing-v2 .ev-areas,
+.landing-v2 .ev-faq {
+  width: min(1180px, calc(100% - 80px)) !important;
+  padding: clamp(90px, 10vw, 138px) 0 !important;
+}
+.landing-v2 .ev-statement { grid-template-columns: 80px minmax(0,1fr) !important; gap: clamp(28px, 6vw, 76px) !important; }
+.landing-v2 .ev-label { font-size: 1.05rem !important; letter-spacing: .15em !important; }
+.landing-v2 .ev-statement-copy h2,
+.landing-v2 .ev-section-head h2,
+.landing-v2 .ev-experience-copy h2,
+.landing-v2 .ev-areas h2,
+.landing-v2 .ev-faq h2 {
+  font-size: clamp(4.4rem, 5.8vw, 7.6rem) !important;
+  line-height: 1.02 !important;
+  letter-spacing: -.075em !important;
+  margin: 2.2rem 0 !important;
+}
+.landing-v2 .ev-statement-copy p,
+.landing-v2 .ev-section-head > p,
+.landing-v2 .ev-experience-copy > p {
+  max-width: 48rem !important;
+  font-size: 1.55rem !important;
+  line-height: 1.85 !important;
+  color: var(--ev-muted) !important;
+}
+.landing-v2 .ev-section-head { gap: 4rem !important; margin-bottom: 4.2rem !important; }
+.landing-v2 .ev-section-head > p { max-width: 34rem !important; font-size: 1.5rem !important; }
+.landing-v2 .ev-system-steps {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(0,1fr)) !important;
+  gap: 1.2rem !important;
+  margin-top: 3.6rem !important;
+}
+.landing-v2 .ev-system-steps > div {
+  display: flex !important;
+  min-width: 0 !important;
+  min-height: 20rem !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 1.6rem !important;
+  padding: 2.3rem !important;
+  border: 1px solid var(--ev-border) !important;
+  border-radius: 1.8rem !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.009)) !important;
+  transition: border-color .25s ease, background .25s ease, transform .25s ease !important;
+}
+.landing-v2 .ev-system-steps > div > span {
+  color: var(--ev-accent) !important;
+  font: 1.05rem 'DM Mono', monospace !important;
+}
+.landing-v2 .ev-system-steps strong {
+  display: block !important;
+  color: var(--ev-ink) !important;
+  font-size: clamp(2rem, 2.2vw, 2.7rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: -.055em !important;
+  line-height: 1.15 !important;
+}
+.landing-v2 .ev-system-steps small {
+  color: var(--ev-muted) !important;
+  font-size: 1.35rem !important;
+  line-height: 1.6 !important;
+}
+@media (hover:hover) {
+  .landing-v2 .ev-system-steps > div:hover {
+    transform: translateY(-3px);
+    border-color: rgba(200,243,106,.28) !important;
+    background: linear-gradient(145deg, rgba(200,243,106,.045), rgba(255,255,255,.012)) !important;
+  }
+}
+.landing-v2 .ev-experience {
+  padding: clamp(76px, 9vw, 116px) max(40px, calc((100vw - 1180px)/2)) !important;
+  gap: clamp(38px, 7vw, 96px) !important;
+  background: #0a0b0a !important;
+}
+.landing-v2 .ev-experience-copy h2 { font-size: clamp(4.2rem, 5.1vw, 6.8rem) !important; }
+.landing-v2 .ev-text-link { font-size: 1.35rem !important; }
+.landing-v2 .ev-device {
+  padding: clamp(1.7rem, 2.5vw, 2.5rem) !important;
+  border-radius: 2.2rem !important;
+  background: linear-gradient(145deg, #121412, #0b0c0b) !important;
+  box-shadow: 0 3rem 8rem rgba(0,0,0,.22) !important;
+}
+.landing-v2 .ev-device-top,
+.landing-v2 .ev-device-bottom { font-size: 1rem !important; letter-spacing: .12em !important; }
+.landing-v2 .ev-device-list > div { min-height: 5.5rem !important; gap: 1.4rem !important; }
+.landing-v2 .ev-device-list > div b { font-size: 1.35rem !important; font-weight: 500 !important; }
+.landing-v2 .ev-device-list > div span,
+.landing-v2 .ev-device-list > div i { font-size: 1rem !important; }
+.landing-v2 .ev-service-list { border-top: 1px solid var(--ev-border) !important; }
+.landing-v2 .ev-service-row {
+  grid-template-columns: 5rem minmax(16rem,.85fr) minmax(0,1fr) 2.4rem !important;
+  min-height: 9.2rem !important;
+  gap: 2rem !important;
+  padding: 2rem 1.2rem !important;
+  border-bottom: 1px solid var(--ev-border) !important;
+  border-radius: 1.2rem !important;
+}
+.landing-v2 .ev-service-row > span { font-size: 1.05rem !important; }
+.landing-v2 .ev-service-row strong { font-size: clamp(2.1rem, 2.45vw, 3rem) !important; line-height: 1.2 !important; }
+.landing-v2 .ev-service-row small { font-size: 1.35rem !important; line-height: 1.6 !important; color: var(--ev-muted) !important; }
+.landing-v2 .ev-faq-item summary { padding: 2.2rem 0 !important; font-size: 1.55rem !important; line-height: 1.5 !important; }
+.landing-v2 .ev-faq-item summary span { font-size: 2rem !important; }
+.landing-v2 .ev-faq-item p { font-size: 1.4rem !important; line-height: 1.8 !important; color: var(--ev-muted) !important; }
+.landing-v2 .ev-final { min-height: 51rem !important; padding: 9rem 2.4rem !important; background: radial-gradient(ellipse at 50% 70%, rgba(200,243,106,.055), transparent 48%), #070807 !important; }
+.landing-v2 .ev-final h2 { font-size: clamp(5.2rem, 7.6vw, 9.6rem) !important; line-height: .96 !important; letter-spacing: -.08em !important; }
+.landing-v2 .ev-final .ev-btn { margin-top: 1rem !important; }
+.landing-v2 .site-footer { padding: 6.4rem 0 2.8rem !important; }
+.landing-v2 .footer-brand p { max-width: 34rem; font-size: 1.35rem !important; line-height: 1.8 !important; }
+.landing-v2 .footer-links span,
+.landing-v2 .footer-bottom { font-size: 1rem !important; letter-spacing: .12em !important; }
+.landing-v2 .footer-links a,
+.landing-v2 .footer-links button.footer-contact { font-size: 1.35rem !important; }
+@media (max-width: 900px) {
+  .landing-v2 .ev-system-steps { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+  .landing-v2 .ev-system-steps > div { min-height: 17rem !important; }
+}
+@media (max-width: 800px) {
+  .landing-v2 .ev-hero {
+    min-height: min(780px, 100svh) !important;
+    padding: 13rem 2.2rem 8rem !important;
+    border-radius: 0 !important;
+  }
+  .landing-v2 .ev-hero-grid { background-size: 5.6rem 5.6rem !important; opacity: .2 !important; }
+  .landing-v2 .ev-hero-title { font-size: clamp(5.6rem, 12.2vw, 8.2rem) !important; line-height: .94 !important; margin: 2.6rem 0 2rem !important; }
+  .landing-v2 .ev-hero-copy { font-size: 1.55rem !important; line-height: 1.75 !important; }
+  .landing-v2 .ev-hero-actions { gap: .9rem !important; margin-top: 2.7rem !important; }
+  .landing-v2 .ev-btn { min-height: 4.9rem !important; padding: 0 1.6rem !important; font-size: 1.25rem !important; }
+  .landing-v2 .ev-scroll-cue { left: 2.2rem !important; bottom: 2.5rem !important; font-size: .95rem !important; }
+  .landing-v2 .ev-marquee { padding: 1.7rem 0 !important; }
+  .landing-v2 .ev-statement,
+  .landing-v2 .ev-system,
+  .landing-v2 .ev-areas,
+  .landing-v2 .ev-faq { width: calc(100% - 4rem) !important; padding: 8.2rem 0 !important; }
+  .landing-v2 .ev-statement { grid-template-columns: 1fr !important; gap: 1.8rem !important; }
+  .landing-v2 .ev-section-index { padding-top: 0 !important; }
+  .landing-v2 .ev-statement-copy h2,
+  .landing-v2 .ev-section-head h2,
+  .landing-v2 .ev-experience-copy h2,
+  .landing-v2 .ev-areas h2,
+  .landing-v2 .ev-faq h2 { font-size: clamp(4.2rem, 10.5vw, 6.2rem) !important; line-height: 1.02 !important; margin: 1.8rem 0 !important; }
+  .landing-v2 .ev-statement-copy p,
+  .landing-v2 .ev-section-head > p,
+  .landing-v2 .ev-experience-copy > p { font-size: 1.5rem !important; line-height: 1.8 !important; }
+  .landing-v2 .ev-section-head { margin-bottom: 2.8rem !important; }
+  .landing-v2 .ev-system-steps { grid-template-columns: 1fr 1fr !important; gap: .9rem !important; margin-top: 2.8rem !important; }
+  .landing-v2 .ev-system-steps > div { min-height: 15.5rem !important; padding: 1.7rem !important; border-radius: 1.5rem !important; gap: 1.2rem !important; }
+  .landing-v2 .ev-system-steps strong { font-size: 2rem !important; }
+  .landing-v2 .ev-system-steps small { font-size: 1.25rem !important; }
+  .landing-v2 .ev-experience { padding: 7rem 2rem !important; gap: 3.6rem !important; }
+  .landing-v2 .ev-device { padding: 1.6rem !important; border-radius: 1.8rem !important; }
+  .landing-v2 .ev-device-top,
+  .landing-v2 .ev-device-bottom { font-size: .9rem !important; }
+  .landing-v2 .ev-device-list > div { min-height: 5rem !important; grid-template-columns: 2.4rem minmax(0,1fr) !important; gap: 1rem !important; }
+  .landing-v2 .ev-device-list > div b { font-size: 1.2rem !important; }
+  .landing-v2 .ev-device-list > div i { display: none !important; }
+  .landing-v2 .ev-service-row { grid-template-columns: 2.6rem minmax(0,1fr) 2rem !important; gap: 1.2rem !important; min-height: 7.6rem !important; padding: 1.6rem .4rem !important; }
+  .landing-v2 .ev-service-row strong { font-size: 2.1rem !important; }
+  .landing-v2 .ev-service-row small { display: none !important; }
+  .landing-v2 .ev-service-row:hover { padding-left: .8rem !important; }
+  .landing-v2 .ev-faq { display: block !important; }
+  .landing-v2 .ev-faq-list { margin-top: 2.8rem !important; }
+  .landing-v2 .ev-faq-item summary { font-size: 1.45rem !important; padding: 1.9rem 0 !important; }
+  .landing-v2 .ev-faq-item p { font-size: 1.35rem !important; }
+  .landing-v2 .ev-final { min-height: 42rem !important; padding: 7rem 1.8rem !important; }
+  .landing-v2 .ev-final h2 { font-size: clamp(4.6rem, 10.5vw, 7rem) !important; }
+  .landing-v2 .site-footer { width: calc(100% - 4rem) !important; padding-top: 5rem !important; }
+  .landing-v2 .footer-brand { padding-bottom: 3.5rem !important; }
+  .landing-v2 .footer-brand p { font-size: 1.3rem !important; text-align: left !important; }
+  .landing-v2 .footer-links { gap: 2.8rem !important; padding-bottom: 3.5rem !important; }
+  .landing-v2 .footer-links a,
+  .landing-v2 .footer-links button.footer-contact { font-size: 1.3rem !important; }
+  .landing-v2 .footer-bottom { gap: 1.2rem !important; font-size: .95rem !important; line-height: 1.7 !important; }
+}
+@media (max-width: 390px) {
+  .landing-v2 .ev-hero { padding-inline: 1.8rem !important; }
+  .landing-v2 .ev-hero-title { font-size: clamp(5.1rem, 12vw, 5.6rem) !important; }
+  .landing-v2 .ev-hero-actions { align-items: stretch; flex-direction: column; width: min(100%, 29rem); }
+  .landing-v2 .ev-hero-actions .ev-btn { justify-content: center; }
+  .landing-v2 .ev-system-steps > div { padding: 1.4rem !important; min-height: 14.5rem !important; }
+  .landing-v2 .ev-system-steps strong { font-size: 1.8rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-v2 .ev-system-steps > div { transition: none !important; }
+}
