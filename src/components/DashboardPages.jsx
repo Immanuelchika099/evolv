@@ -165,13 +165,15 @@ function HomePage({ pageProps }) {
         <p>Choose what feels closest.</p>
         <div className="calm-mood-options">
           {[
-            { label: 'Good', face: '☺', mood: 'good' },
-            { label: 'Okay', face: '◡', mood: 'okay' },
-            { label: 'Low', face: '☹', mood: 'low' },
-            { label: 'Stressed', face: '〰', mood: 'stressed' }
+            { label: 'Good', mood: 'good', note: 'Feeling good' },
+            { label: 'Okay', mood: 'okay', note: 'Taking it as it comes' },
+            { label: 'Low', mood: 'low', note: 'A little heavy' },
+            { label: 'Stressed', mood: 'stressed', note: 'A lot on my mind' }
           ].map(option => (
-            <button type="button" key={option.mood} onClick={() => startCheckIn(option.label)} className="calm-mood-option" aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
-              <span aria-hidden="true">{option.face}</span>
+            <button type="button" key={option.mood} onClick={() => startCheckIn(option.label)} className={'calm-mood-option mood-' + option.mood} aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
+              <span className="calm-mood-avatar-wrap" aria-hidden="true">
+                <AvatarPortrait preferences={avatarStyle} expression={option.mood} className="calm-mood-avatar" />
+              </span>
               <small>{option.label}</small>
             </button>
           ))}
