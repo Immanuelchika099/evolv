@@ -33,6 +33,9 @@ export default function DailyRoutinePage({ pageProps }) {
   const [items, setItems] = useState(defaults)
   const [completed, setCompleted] = useState({})
   const [saved, setSaved] = useState(false)
+  const [leadMinutes, setLeadMinutes] = useState(() => {
+    try { const prefs = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}'); return Math.min(720, Math.max(0, Number(prefs.routineReminderLeadMinutes ?? 10))) } catch { return 10 }
+  })
   const [remindersEnabled, setRemindersEnabled] = useState(() => {
     try { return localStorage.getItem('evolv-routine-reminders-' + (profile?.id || 'local')) !== 'false' } catch { return true }
   })
