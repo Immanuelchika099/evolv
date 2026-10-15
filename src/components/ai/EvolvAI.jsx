@@ -186,6 +186,30 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
       window.dispatchEvent(new CustomEvent('evolv:edit-prompt', { detail: { text: pending } }))
     }, 80)
   }, [])
+
+  // Keep the AI workspace matched to the actually visible viewport on short phones.
+  useEffect(() => {
+    const root = document.documentElement
+    const updateViewportHeight = () => {
+      const height = window.visualViewport?.height || window.innerHeight
+      if (height > 0) root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(height)}px`)
+    }
+
+    updateViewportHeight()
+    window.addEventListener('resize', updateViewportHeight)
+    window.addEventListener('orientationchange', updateViewportHeight)
+    window.visualViewport?.addEventListener('resize', updateViewportHeight)
+    window.visualViewport?.addEventListener('scroll', updateViewportHeight)
+
+    return () => {
+      window.removeEventListener('resize', updateViewportHeight)
+      window.removeEventListener('orientationchange', updateViewportHeight)
+      window.visualViewport?.removeEventListener('resize', updateViewportHeight)
+      window.visualViewport?.removeEventListener('scroll', updateViewportHeight)
+      root.style.removeProperty('--evolv-ai-viewport-height')
+    }
+  }, [])
+
   const firstName = String(profile?.first_name || profile?.full_name || profile?.name || '').trim().split(/\s+/)[0] || 'there'
   const [chatId, setChatId] = useState(() => {
     try {
