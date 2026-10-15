@@ -1564,7 +1564,23 @@ function Dashboard({ data, onLogout, onArticle }) {
   },[defs])
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
-  function openLog(a=null,m=null){setArea(a);setMetric(m);setEditingEntry(null);setSelectedEntry(null);setLogOpen(true);setError('')}
+  function openLog(a=null,m=null){
+    const selected = m || (a ? defs.find(item => item.area === a) : null)
+    let prompt = 'Help me check in on my day. Ask me one question at a time, understand what I tell you, and update my Evolv progress only when you have enough information. Do not give me a generic form.'
+    if(selected?.slug === 'sleep'){
+      prompt = 'I want to record my sleep in Evolv. Ask me conversationally when I went to bed and when I woke up, work out the duration, and save the sleep record using the available tracking tool. Ask one question at a time and do not guess missing details.'
+    }else if(selected?.slug === 'meals' || selected?.value_type === 'meal' || a === 'nutrition'){
+      prompt = 'Help me record a meal in Evolv. Ask me naturally what I ate and roughly when, then save the meal using the available tool. Keep it conversational and do not show me a generic form.'
+    }else if(selected){
+      prompt = 'Help me update my Evolv ' + selected.name + ' record through conversation. Ask me what you need in plain language, one question at a time, then save it using the available tracking tool. Do not show me a generic form or ask me to enter a random value without context.'
+    }
+    localStorage.setItem('evolv-ai-pending-prompt', prompt)
+    setLogOpen(false)
+    setEditingEntry(null)
+    setSelectedEntry(null)
+    setActive('ai')
+    setError('')
+  }
   function openEntry(item){
     const entry=item.entry
     const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
@@ -2274,9 +2290,9 @@ function Dashboard({ data, onLogout, onArticle }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} onLog={()=>goTo('logs')} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
     <PWAInstallPrompt />
-    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={()=>{if(!saving){setLogOpen(false);setMetric(null);setEditingEntry(null)}}}/>}
+    
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
 }
