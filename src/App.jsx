@@ -61,11 +61,11 @@ function App() {
   const [view, setView] = useState(() => {
     const path = window.location.pathname.replace(/\/+$/, '') || '/'
     const savedView = localStorage.getItem('evolv-view')
-    // Older versions ran onboarding before authentication. Send those
-    // unfinished local-only journeys to welcome; an active session will
-    // be restored and routed to onboarding or the dashboard below.
+    // The signup entry point is also a first-time entry point: let people
+    // personalise EVOLV before asking them to create an account.
+    // An active authenticated session is still restored below as usual.
     const initialView = savedView === 'onboarding' ? 'welcome' : savedView
-    return path === '/signup' ? 'auth' : (initialView || 'landing')
+    return path === '/signup' ? 'onboarding' : (initialView || 'landing')
   })
   // Android's installed PWA already shows the app icon during its native
   // launch splash. Do not stack our React preload over that splash.
@@ -290,6 +290,9 @@ function App() {
     // Complete the personal setup first; only then ask the user to create
     // an account or sign in. This marker survives the Google/GitHub redirect.
     localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
+    if (window.location.pathname.replace(/\/+$/, '') === '/signup') {
+      window.history.replaceState({}, '', '/')
+    }
     setData(completedData)
     setAuthMode('signup')
     localStorage.setItem('evolv-view', 'auth')
