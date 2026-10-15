@@ -6741,3 +6741,85 @@ body,
     display: none;
   }
 }
+
+
+/* Make the dashboard greeting feel confident and welcoming, with a fuller glow. */
+.dashboard-home.calm-home .calm-home-welcome {
+  padding-top: clamp(2.6rem, 5vw, 4.2rem);
+  padding-bottom: 1rem;
+}
+.dashboard-home.calm-home .calm-home-greeting {
+  display: block;
+  margin-bottom: 1rem;
+  font-size: clamp(1.65rem, 2.1vw, 2rem);
+  line-height: 1.35;
+  font-weight: 700;
+  letter-spacing: -.035em;
+  color: rgba(245,245,240,.9);
+}
+.dashboard-home.calm-home .calm-home-welcome h1 {
+  margin: 0;
+  font-size: clamp(4.8rem, 8vw, 7.4rem);
+  line-height: .98;
+  font-weight: 750;
+  letter-spacing: -.075em;
+  color: #f7f7f2;
+  text-wrap: balance;
+}
+.dashboard-home.calm-home .calm-home-welcome h1 span {
+  color: #c1f45b;
+}
+.dashboard-home.calm-home .calm-home-welcome p {
+  margin-top: 1.5rem;
+  font-size: clamp(1.5rem, 1.8vw, 1.7rem);
+  line-height: 1.65;
+  color: rgba(245,245,240,.66);
+}
+.dashboard-home.calm-home .calm-home-welcome::before {
+  width: min(68rem, 120vw);
+  height: 34rem;
+  left: -13rem;
+  top: -8.5rem;
+  background: radial-gradient(ellipse at 43% 46%,
+    rgba(193,244,91,.16) 0%,
+    rgba(155,196,77,.09) 30%,
+    rgba(100,125,61,.045) 52%,
+    rgba(60,75,40,.018) 65%,
+    transparent 78%);
+  filter: blur(4.2rem);
+  opacity: .98;
+}
+@media (max-width: 600px) {
+  .dashboard-home.calm-home .calm-home-welcome {
+    padding-top: 2rem;
+    padding-bottom: .5rem;
+  }
+  .dashboard-home.calm-home .calm-home-greeting {
+    margin-bottom: .9rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+  }
+  .dashboard-home.calm-home .calm-home-welcome h1 {
+    font-size: clamp(4.8rem, 15vw, 6.2rem);
+    line-height: 1;
+    letter-spacing: -.07em;
+    font-weight: 750;
+  }
+  .dashboard-home.calm-home .calm-home-welcome p {
+    margin-top: 1.2rem;
+    font-size: 1.5rem;
+  }
+  .dashboard-home.calm-home .calm-home-welcome::before {
+    width: 48rem;
+    height: 29rem;
+    left: -13rem;
+    top: -5.5rem;
+    background: radial-gradient(ellipse at 45% 44%,
+      rgba(193,244,91,.17) 0%,
+      rgba(155,196,77,.095) 34%,
+      rgba(100,125,61,.04) 56%,
+      transparent 78%);
+    filter: blur(3.6rem);
+    opacity: .98;
+  }
+}
