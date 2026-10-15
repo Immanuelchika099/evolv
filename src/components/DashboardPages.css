@@ -6482,3 +6482,76 @@ body,
 @media (prefers-reduced-motion: reduce) {
   .calm-home * { transition:none !important; scroll-behavior:auto !important; }
 }
+
+
+/* Homepage calm pass: keep the welcome, check-in and today's activity in focus. */
+.dashboard-home.calm-home {
+  gap: clamp(2.8rem, 5vw, 4rem);
+}
+.calm-home-welcome {
+  padding-bottom: 0;
+}
+.calm-home-welcome p {
+  max-width: 34rem;
+}
+.calm-checkin {
+  padding: clamp(2rem, 4vw, 3.2rem);
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  border-color: rgba(255,255,255,.065);
+}
+.calm-checkin h2 {
+  margin-top: 0;
+}
+.calm-checkin > p {
+  margin-top: .6rem;
+}
+.calm-mood-options {
+  margin-bottom: .2rem;
+}
+.calm-focus-heading {
+  margin-bottom: 1.2rem;
+}
+.calm-focus-heading h2 {
+  font-size: clamp(2.1rem, 3.5vw, 2.7rem);
+}
+.calm-focus-row {
+  padding: 1.6rem 1.8rem;
+  background: rgba(255,255,255,.018);
+  border-color: rgba(255,255,255,.065);
+}
+.calm-focus-row > div {
+  display: flex;
+  align-items: center;
+}
+.calm-focus-row strong {
+  font-size: 1.5rem;
+  line-height: 1.45;
+}
+.calm-activity-item {
+  padding: 1.35rem .2rem;
+}
+@media (max-width: 600px) {
+  .dashboard-home.calm-home {
+    padding: 1.8rem 1.7rem 8.5rem;
+    gap: 3rem;
+  }
+  .calm-home-welcome {
+    padding-top: .8rem;
+  }
+  .calm-checkin {
+    padding: 2rem 1.6rem;
+  }
+  .calm-checkin h2 {
+    font-size: 2.45rem;
+  }
+  .calm-mood-options {
+    margin-top: 1.7rem;
+    gap: .7rem;
+  }
+  .calm-mood-option {
+    min-height: 7.2rem;
+  }
+  .calm-focus-row {
+    padding: 1.35rem 1.2rem;
+  }
+}
