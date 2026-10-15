@@ -1407,7 +1407,12 @@ function Dashboard({ data, onLogout, onArticle }) {
   const [editingEntry,setEditingEntry]=useState(null)
   const [manageLogsOpen,setManageLogsOpen]=useState(false)
   const dashboardMainRef=useRef(null)
-  const goTo=(page)=>{
+  const goTo=(requestedPage)=>{
+    let page=requestedPage
+    if(page==='logs' || page==='log-detail'){
+      localStorage.setItem('evolv-ai-pending-prompt', 'Help me review my recent progress conversationally. Ask what I want to understand or update, use the context you already have, and help me make a useful next step. Do not open a generic log list or form.')
+      page='ai'
+    }
     setActive(page)
     setArea(null)
     setMetric(null)
@@ -1595,12 +1600,10 @@ function Dashboard({ data, onLogout, onArticle }) {
 
     if(item.type==='log' && !definition)return
 
-    // Leave the detail route before clearing the selected entry.
-    // Otherwise the detail page renders nothing for one frame while the
-    // edit sheet is opening, which can appear as a blank page in the PWA.
-    setActive('logs')
+    const entryLabel = item.type === 'meal' ? 'meal' : (definition?.name || 'progress')
+    localStorage.setItem('evolv-ai-pending-prompt', 'I want to update or correct my existing ' + entryLabel + ' record in Evolv. Help me do it conversationally. Ask what needs changing, confirm the details, and use the available tools if you can update it safely. Do not open a generic form.')
     setSelectedEntry(null)
-    setEditingEntry({type:item.type,entry,definition})
+    setEditingEntry(null)
 
     if(item.type==='meal'){
       setArea('nutrition')
@@ -1610,7 +1613,8 @@ function Dashboard({ data, onLogout, onArticle }) {
       setMetric(definition)
     }
 
-    setLogOpen(true)
+    setLogOpen(false)
+    setActive('ai')
     setError('')
   }
   async function deleteEntry(item){
