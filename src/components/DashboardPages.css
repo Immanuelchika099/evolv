@@ -6555,3 +6555,102 @@ body,
     padding: 1.35rem 1.2rem;
   }
 }
+
+
+/* Gentle ambient welcome glow and softer transitions for the calm homepage. */
+.dashboard-home.calm-home .calm-home-welcome {
+  position: relative;
+  isolation: isolate;
+  padding-top: clamp(2rem, 4vw, 3.4rem);
+}
+.dashboard-home.calm-home .calm-home-welcome::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: min(54rem, 105vw);
+  height: 27rem;
+  left: -10rem;
+  top: -7rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 40% 48%,
+    rgba(193,244,91,.105) 0%,
+    rgba(155,196,77,.055) 34%,
+    rgba(100,125,61,.022) 55%,
+    transparent 74%);
+  filter: blur(3.4rem);
+  opacity: .88;
+}
+.dashboard-home.calm-home .calm-home-welcome h1,
+.dashboard-home.calm-home .calm-home-welcome p,
+.dashboard-home.calm-home .calm-home-greeting {
+  position: relative;
+}
+.dashboard-home.calm-home .calm-checkin {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,.027), rgba(255,255,255,.008));
+  border-color: rgba(255,255,255,.055);
+  box-shadow: 0 1.8rem 5rem rgba(0,0,0,.12);
+}
+.dashboard-home.calm-home .calm-checkin::after {
+  content: "";
+  position: absolute;
+  left: 2.4rem;
+  right: 2.4rem;
+  bottom: -1.6rem;
+  height: 1px;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.075), transparent);
+}
+.dashboard-home.calm-home .calm-focus-row,
+.dashboard-home.calm-home .calm-activity-empty {
+  border-color: rgba(255,255,255,.045);
+  background: linear-gradient(110deg, rgba(255,255,255,.025), rgba(255,255,255,.008));
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.dashboard-home.calm-home .calm-focus-row:hover,
+.dashboard-home.calm-home .calm-activity-empty:hover {
+  border-color: rgba(193,244,91,.16);
+  background: rgba(255,255,255,.03);
+}
+.dashboard-home.calm-home .calm-focus-heading > button {
+  border-color: rgba(255,255,255,.065);
+  background: rgba(255,255,255,.018);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.dashboard-home.calm-home .calm-focus-heading > button:hover {
+  border-color: rgba(193,244,91,.22);
+  background: rgba(193,244,91,.055);
+  transform: translateX(2px);
+}
+.dashboard-home.calm-home .calm-activity-item {
+  transition: background .2s ease, padding-left .2s ease;
+}
+.dashboard-home.calm-home .calm-activity-item:hover {
+  padding-left: .65rem;
+  background: linear-gradient(90deg, rgba(255,255,255,.025), transparent 85%);
+}
+@media (max-width: 600px) {
+  .dashboard-home.calm-home .calm-home-welcome {
+    padding-top: 1.5rem;
+  }
+  .dashboard-home.calm-home .calm-home-welcome::before {
+    width: 40rem;
+    height: 22rem;
+    left: -12rem;
+    top: -5rem;
+    filter: blur(3rem);
+  }
+  .dashboard-home.calm-home .calm-checkin::after {
+    left: 1.4rem;
+    right: 1.4rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-home.calm-home .calm-focus-row,
+  .dashboard-home.calm-home .calm-activity-empty,
+  .dashboard-home.calm-home .calm-focus-heading > button,
+  .dashboard-home.calm-home .calm-activity-item {
+    transition: none !important;
+  }
+}
