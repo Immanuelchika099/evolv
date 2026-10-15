@@ -7,7 +7,7 @@ import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
-import PatternWaves from './components/PatternWaves/PatternWaves'
+import BlinkingSquares from './components/BlinkingSquares/BlinkingSquares'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
 import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
@@ -1308,7 +1308,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
   return (
     <div className="evolv-onboarding page-enter">
       <div className="evolv-onboarding-background" aria-hidden="true">
-        <PatternWaves preset="silk" pattern="line" wave="silk" color="#B8F34A" backgroundColor="#050505" opacity={0.15} fade="center" fadeSize={0.8} speed={0.2} depth={0.6} shine={0.3} interactive={false} className="evolv-onboarding-pattern" />
+        <BlinkingSquares direction="top" gridSize={58} squareSize={0.48} fadeStart={0} fadeEnd={1} falloff={1.6} minBrightness={0.28} twinkleSpeed={0.7} twinkleStrength={0.55} intensity={0.65} opacity={0.42} squareColor="#3451B2" dpr={1.5} />
         <div className="evolv-welcome-vignette" />
       </div>
       <header className="evolv-onboarding-header">
