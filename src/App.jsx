@@ -1308,7 +1308,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
   return (
     <div className="evolv-onboarding page-enter">
       <div className="evolv-onboarding-background" aria-hidden="true">
-        <BlinkingSquares direction="top" gridSize={58} squareSize={0.48} fadeStart={0} fadeEnd={1} falloff={1.6} minBrightness={0.28} twinkleSpeed={0.7} twinkleStrength={0.55} intensity={0.65} opacity={0.42} squareColor="#3451B2" dpr={1.5} />
+        <BlinkingSquares direction="top" gridSize={58} squareSize={0.48} fadeStart={0} fadeEnd={1} falloff={1.6} minBrightness={0.28} twinkleSpeed={0.7} twinkleStrength={0.55} intensity={0.65} opacity={0.42} squareColor="#B8F34A" dpr={1.5} />
         <div className="evolv-welcome-vignette" />
       </div>
       <header className="evolv-onboarding-header">
