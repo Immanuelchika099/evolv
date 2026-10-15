@@ -41,7 +41,7 @@ function HairShape({ style, color }) {
   return <path d="M35 56 Q29 21 64 19 Q99 21 93 56 L84 43 Q64 29 44 43Z" {...common} />
 }
 
-export function AvatarPortrait({ preferences = DEFAULT_AVATAR, className = '' }) {
+export function AvatarPortrait({ preferences = DEFAULT_AVATAR, className = '', expression = 'neutral' }) {
   const a = { ...DEFAULT_AVATAR, ...preferences }
   const facePaths = {
     oval: 'M64 34 C45 34 39 49 41 67 C43 86 52 99 64 99 C76 99 85 86 87 67 C89 49 83 34 64 34Z',
@@ -53,18 +53,36 @@ export function AvatarPortrait({ preferences = DEFAULT_AVATAR, className = '' })
   }
   const face = facePaths[a.face] || facePaths.oval
   const shortHair = ['fade', 'shaved', 'waves'].includes(a.hair)
-  return <svg className={className} viewBox="0 0 128 142" role="img" aria-label="Customizable illustrated avatar">
+  const expressions = {
+    good: { leftBrow: 'M49 59 Q54 55 59 59', rightBrow: 'M70 59 Q75 55 79 59', eyes: 'smile', mouth: 'M54 82 Q64 96 74 82 Q64 88 54 82Z' },
+    okay: { leftBrow: 'M49 60 Q54 58 59 60', rightBrow: 'M70 60 Q75 58 79 60', eyes: 'open', mouth: 'M57 86 Q64 89 71 86' },
+    low: { leftBrow: 'M49 61 Q54 65 59 62', rightBrow: 'M70 62 Q75 65 79 61', eyes: 'low', mouth: 'M56 90 Q64 83 72 90' },
+    stressed: { leftBrow: 'M49 62 L59 58', rightBrow: 'M70 58 L79 62', eyes: 'wide', mouth: 'M59 86 Q64 82 69 86 Q69 93 64 93 Q59 93 59 86Z' },
+    neutral: { leftBrow: 'M49 61 Q54 58 59 61', rightBrow: 'M70 61 Q75 58 79 61', eyes: 'open', mouth: 'M57 86 Q64 89 71 86' }
+  }
+  const faceExpression = expressions[expression] || expressions.neutral
+  return <svg className={className} viewBox="0 0 128 142" role="img" aria-label={expression === 'neutral' ? 'Customizable illustrated avatar' : expression + ' mood avatar'}>
     <ellipse cx="64" cy="133" rx="37" ry="5" fill="#000" opacity=".25" />
     <path d="M35 137 Q35 107 48 101 L80 101 Q94 109 94 137Z" fill={a.presentation === 'feminine' ? '#B8F34A' : '#8FBC42'} />
     <path d="M52 96 L52 108 Q64 120 76 108 L76 96Z" fill={a.skin} />
     <path d={face} fill={a.skin} />
     <ellipse cx="41" cy="68" rx="4" ry="7" fill={a.skin} /><ellipse cx="87" cy="68" rx="4" ry="7" fill={a.skin} />
     <HairShape style={a.hair} color={a.hairColor} />
-    <path d="M49 61 Q54 58 58 61" fill="none" stroke="#422D24" strokeWidth="2" strokeLinecap="round" />
-    <path d="M70 61 Q74 58 79 61" fill="none" stroke="#422D24" strokeWidth="2" strokeLinecap="round" />
-    <ellipse cx="54" cy="67" rx="2.4" ry="3" fill={a.eyes} /><ellipse cx="74" cy="67" rx="2.4" ry="3" fill={a.eyes} />
+    <path d={faceExpression.leftBrow} fill="none" stroke="#422D24" strokeWidth="2.3" strokeLinecap="round" />
+    <path d={faceExpression.rightBrow} fill="none" stroke="#422D24" strokeWidth="2.3" strokeLinecap="round" />
+    {faceExpression.eyes === 'smile' ? <>
+      <path d="M49 68 Q54 61 59 68" fill="none" stroke={a.eyes} strokeWidth="2.8" strokeLinecap="round" />
+      <path d="M69 68 Q74 61 79 68" fill="none" stroke={a.eyes} strokeWidth="2.8" strokeLinecap="round" />
+    </> : faceExpression.eyes === 'low' ? <>
+      <path d="M50 68 Q54 71 59 68" fill="none" stroke={a.eyes} strokeWidth="2.8" strokeLinecap="round" />
+      <path d="M69 68 Q74 71 78 68" fill="none" stroke={a.eyes} strokeWidth="2.8" strokeLinecap="round" />
+    </> : <>
+      <ellipse cx="54" cy="67" rx={faceExpression.eyes === 'wide' ? 3 : 2.4} ry={faceExpression.eyes === 'wide' ? 4 : 3} fill={a.eyes} />
+      <ellipse cx="74" cy="67" rx={faceExpression.eyes === 'wide' ? 3 : 2.4} ry={faceExpression.eyes === 'wide' ? 4 : 3} fill={a.eyes} />
+    </>}
     <path d="M64 68 L61 77 Q64 80 67 77" fill="none" stroke="#875943" strokeWidth="1.7" strokeLinecap="round" />
-    <path d="M56 85 Q64 91 72 85" fill="none" stroke="#884E46" strokeWidth="2" strokeLinecap="round" />
+    {expression === 'good' && <><ellipse cx="47" cy="77" rx="5" ry="2.5" fill="#F38C8C" opacity=".42" /><ellipse cx="81" cy="77" rx="5" ry="2.5" fill="#F38C8C" opacity=".42" /></>}
+    <path d={faceExpression.mouth} fill={expression === 'good' ? '#884E46' : 'none'} stroke="#884E46" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
     {a.facialHair === 'mustache' && <path d="M54 81 Q59 77 64 82 Q69 77 74 81 Q72 87 64 85 Q56 87 54 81Z" fill={a.hairColor} />}
     {a.facialHair === 'beard' && <path d="M43 74 Q45 96 64 101 Q83 96 85 74 L79 86 Q64 94 49 86Z" fill={a.hairColor} />}
     {a.facialHair === 'goatee' && <path d="M58 84 Q64 89 70 84 L68 94 L64 97 L60 94Z" fill={a.hairColor} />}
