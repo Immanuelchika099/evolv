@@ -59,7 +59,12 @@ function App() {
   const root = useRef(null)
   const [view, setView] = useState(() => {
     const path = window.location.pathname.replace(/\/+$/, '') || '/'
-    return path === '/signup' ? 'auth' : (localStorage.getItem('evolv-view') || 'landing')
+    const savedView = localStorage.getItem('evolv-view')
+    // Older versions ran onboarding before authentication. Send those
+    // unfinished local-only journeys to welcome; an active session will
+    // be restored and routed to onboarding or the dashboard below.
+    const initialView = savedView === 'onboarding' ? 'welcome' : savedView
+    return path === '/signup' ? 'auth' : (initialView || 'landing')
   })
   // Android's installed PWA already shows the app icon during its native
   // launch splash. Do not stack our React preload over that splash.
