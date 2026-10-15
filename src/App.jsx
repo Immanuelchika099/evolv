@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise } from 'lucide-react'
+import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BottomNav from './components/BottomNav'
@@ -2266,7 +2266,7 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
 
   return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
-    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></header>
+    <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='ai'
