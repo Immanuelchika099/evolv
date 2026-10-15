@@ -57,114 +57,102 @@ function getProviderFirstName(user) {
   )
 }
 
-const EVOLV_AMBIENT_AUDIO = 'https://assets.mixkit.co/active_storage/sfx/2507/2507-preview.mp3'
 const AMBIENT_ENABLED_KEY = 'evolv-ambient-enabled'
-const AMBIENT_POSITION_KEY = 'evolv-ambient-position'
 
 function AmbientSound({ active }) {
-  const audioRef = useRef(null)
-  const [enabled, setEnabled] = useState(() => {
-    try { return localStorage.getItem(AMBIENT_ENABLED_KEY) !== 'false' }
-    catch { return true }
-  })
+  const engineRef = useRef(null)
   const [playing, setPlaying] = useState(false)
 
-  function savePosition() {
-    const audio = audioRef.current
-    if (!audio || !Number.isFinite(audio.currentTime)) return
-    try { localStorage.setItem(AMBIENT_POSITION_KEY, String(audio.currentTime)) } catch {}
-  }
-
-  async function startAudio() {
-    const audio = audioRef.current
-    if (!audio || !enabled || !active) return
+  async function startAir() {
+    if (!active) return
     try {
-      await audio.play()
-      setPlaying(true)
+      let engine = engineRef.current
+      if (!engine) {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext
+        if (!AudioContextClass) return
+        const context = new AudioContextClass()
+        const length = context.sampleRate * 6
+        const buffer = context.createBuffer(1, length, context.sampleRate)
+        const data = buffer.getChannelData(0)
+        let brown = 0
+        for (let i = 0; i < length; i += 1) {
+          brown = (brown + 0.025 * (Math.random() * 2 - 1)) / 1.025
+          data[i] = brown * 3.2
+        }
+        const source = context.createBufferSource()
+        source.buffer = buffer
+        source.loop = true
+        const filter = context.createBiquadFilter()
+        filter.type = 'lowpass'
+        filter.frequency.value = 430
+        filter.Q.value = 0.35
+        const gain = context.createGain()
+        gain.gain.value = 0.014
+        const drift = context.createOscillator()
+        drift.type = 'sine'
+        drift.frequency.value = 0.035
+        const driftAmount = context.createGain()
+        driftAmount.gain.value = 0.003
+        drift.connect(driftAmount)
+        driftAmount.connect(gain.gain)
+        source.connect(filter)
+        filter.connect(gain)
+        gain.connect(context.destination)
+        source.start()
+        drift.start()
+        engine = { context, source, drift }
+        engineRef.current = engine
+      }
+      await engine.context.resume()
+      setPlaying(engine.context.state === 'running')
     } catch {
-      // Browsers can block sound until the visitor taps the sound control.
       setPlaying(false)
     }
   }
 
-  function toggleSound() {
-    const next = !enabled
-    setEnabled(next)
-    try { localStorage.setItem(AMBIENT_ENABLED_KEY, String(next)) } catch {}
-    if (!next) {
-      audioRef.current?.pause()
-      savePosition()
-      setPlaying(false)
+  function pauseAir() {
+    const engine = engineRef.current
+    if (engine?.context?.state === 'running') engine.context.suspend().catch(() => {})
+    setPlaying(false)
+  }
+
+  useEffect(() => {
+    if (!active) {
+      pauseAir()
       return
     }
-    startAudio()
-  }
 
-  useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
-    audio.volume = 0.12
-    audio.loop = true
-
-    function restorePosition() {
-      let saved = 0
-      try { saved = Number(localStorage.getItem(AMBIENT_POSITION_KEY) || 0) } catch {}
-      if (Number.isFinite(saved) && saved > 0 && saved < audio.duration) {
-        audio.currentTime = saved
-      }
-      if (active && enabled) startAudio()
+    // Try immediately where autoplay is allowed, then retry after the user's
+    // first natural interaction if iOS/Safari blocks audio on launch.
+    startAir()
+    const resumeAfterInteraction = () => startAir()
+    document.addEventListener('pointerdown', resumeAfterInteraction, { passive: true })
+    document.addEventListener('touchstart', resumeAfterInteraction, { passive: true })
+    document.addEventListener('keydown', resumeAfterInteraction)
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible' && active) startAir()
+      else pauseAir()
     }
-
-    audio.addEventListener('loadedmetadata', restorePosition)
-    audio.addEventListener('timeupdate', savePosition)
-    const saveOnLeave = () => savePosition()
-    window.addEventListener('pagehide', saveOnLeave)
-    window.addEventListener('beforeunload', saveOnLeave)
-
-    if (audio.readyState >= 1) restorePosition()
-    if (active && enabled) startAudio()
-    else {
-      audio.pause()
-      setPlaying(false)
-    }
+    document.addEventListener('visibilitychange', onVisibility)
 
     return () => {
-      audio.removeEventListener('loadedmetadata', restorePosition)
-      audio.removeEventListener('timeupdate', savePosition)
-      window.removeEventListener('pagehide', saveOnLeave)
-      window.removeEventListener('beforeunload', saveOnLeave)
+      document.removeEventListener('pointerdown', resumeAfterInteraction)
+      document.removeEventListener('touchstart', resumeAfterInteraction)
+      document.removeEventListener('keydown', resumeAfterInteraction)
+      document.removeEventListener('visibilitychange', onVisibility)
+      pauseAir()
     }
-  }, [active, enabled])
+  }, [active])
 
-  useEffect(() => {
-    const audio = audioRef.current
-    if (!audio) return
-    if (active && enabled) startAudio()
-    else {
-      savePosition()
-      audio.pause()
-      setPlaying(false)
-    }
-  }, [active, enabled])
+  useEffect(() => () => {
+    const engine = engineRef.current
+    if (!engine) return
+    try { engine.source.stop() } catch {}
+    try { engine.drift.stop() } catch {}
+    engine.context.close().catch(() => {})
+  }, [])
 
-  return (
-    <>
-      <audio ref={audioRef} src={EVOLV_AMBIENT_AUDIO} preload={active ? 'auto' : 'none'} loop />
-      {active && (
-        <button
-          type="button"
-          className="evolv-ambient-toggle"
-          onClick={toggleSound}
-          aria-label={enabled ? 'Turn ambient sound off' : 'Turn ambient sound on'}
-          aria-pressed={enabled}
-          title={enabled ? 'Ambient sound on' : 'Ambient sound off'}
-        >
-          {enabled ? <Volume2 size={17} strokeWidth={1.7} /> : <VolumeX size={17} strokeWidth={1.7} />}
-          <span>{enabled ? (playing ? 'Sound on' : 'Sound on · tap if silent') : 'Sound off'}</span>
-        </button>
-      )}
-    </>
-  )
+  return null
 }
 
 function App() {
