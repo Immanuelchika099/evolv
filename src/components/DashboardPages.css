@@ -6914,3 +6914,26 @@ body,
     font-size: 1.3rem;
   }
 }
+
+
+/* Compact goal progress: show the actual goal and its progress at a glance. */
+.dashboard-home.calm-home .calm-goal-snapshot { padding:1.6rem 1.6rem 1.2rem; border:1px solid rgba(255,255,255,.075); border-radius:1.6rem; background:rgba(0,0,0,.24); }
+.dashboard-home.calm-home .calm-goal-snapshot-top { display:flex; align-items:center; gap:1.15rem; min-width:0; }
+.dashboard-home.calm-home .calm-goal-snapshot-copy { display:flex; flex:1; flex-direction:column; gap:.35rem; min-width:0; }
+.dashboard-home.calm-home .calm-goal-snapshot-copy strong { overflow:hidden; color:#f7f7f2; font-size:1.65rem; font-weight:650; line-height:1.35; text-overflow:ellipsis; white-space:nowrap; }
+.dashboard-home.calm-home .calm-goal-snapshot-copy small { color:rgba(245,245,240,.52); font-size:1.25rem; line-height:1.4; }
+.dashboard-home.calm-home .calm-goal-percent { flex:0 0 auto; color:#c1f45b; font-size:1.55rem; font-weight:700; font-variant-numeric:tabular-nums; }
+.dashboard-home.calm-home .calm-goal-progress-track { width:100%; height:.65rem; margin-top:1.5rem; overflow:hidden; border-radius:999px; background:rgba(255,255,255,.09); }
+.dashboard-home.calm-home .calm-goal-progress-track > span { display:block; height:100%; border-radius:inherit; background:linear-gradient(90deg,#8dbb36,#c1f45b); box-shadow:0 0 .9rem rgba(193,244,91,.2); transition:width .3s ease; }
+.dashboard-home.calm-home .calm-goal-view-all { display:inline-flex; align-items:center; gap:.6rem; margin-top:1.2rem; padding:.3rem 0; border:0; background:transparent; color:#c1f45b; font-size:1.35rem; font-weight:600; cursor:pointer; }
+.dashboard-home.calm-home .calm-goal-empty { display:flex; align-items:center; gap:1.1rem; width:100%; padding:1.5rem; border:1px solid rgba(255,255,255,.075); border-radius:1.6rem; background:rgba(0,0,0,.2); color:#f7f7f2; text-align:left; cursor:pointer; }
+.dashboard-home.calm-home .calm-goal-empty > span:nth-child(2) { display:flex; flex:1; flex-direction:column; gap:.35rem; min-width:0; }
+.dashboard-home.calm-home .calm-goal-empty strong { font-size:1.55rem; font-weight:650; }
+.dashboard-home.calm-home .calm-goal-empty small { color:rgba(245,245,240,.58); font-size:1.3rem; }
+.dashboard-home.calm-home .calm-goal-empty > svg { color:#c1f45b; }
+@media (max-width:600px) {
+  .dashboard-home.calm-home .calm-goal-snapshot { padding:1.35rem 1.2rem 1rem; }
+  .dashboard-home.calm-home .calm-goal-snapshot-copy strong { font-size:1.5rem; }
+  .dashboard-home.calm-home .calm-goal-snapshot-copy small { font-size:1.2rem; }
+  .dashboard-home.calm-home .calm-goal-empty { padding:1.3rem 1.15rem; }
+}
