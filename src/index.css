@@ -167,3 +167,80 @@ button.chat-send-button svg,
   stroke: currentColor;
 }
 
+
+
+/* FINAL GLOBAL CONTRAST PASS — all blue primary/accent buttons keep white content. */
+:root {
+  --accent-foreground: #ffffff !important;
+  --color-accent-foreground: #ffffff !important;
+  --button-primary-foreground: #ffffff !important;
+}
+
+/* Cover primary actions across landing, auth, onboarding, dashboard, goals and AI. */
+button.bottom-active,
+button.primary,
+button.primary-button,
+button.btn-primary,
+button.button-primary,
+button.primary-cta,
+button.auth-submit,
+button.auth-flow-submit,
+button.onboard-continue,
+button.onboarding-next,
+button.goal-heatmap-range .is-active,
+button.prompt-bar__send[data-armed],
+button[style*="#74AAFF"],
+button[style*="rgb(116, 170, 255)"],
+a.primary,
+a.primary-button,
+a.btn-primary,
+a.button-primary,
+.auth-page .google-auth-button-primary,
+.auth-page .auth-submit,
+.auth-direct-page .auth-submit,
+.onboarding button.primary,
+.dashboard button.primary {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+button.bottom-active *,
+button.primary *,
+button.primary-button *,
+button.btn-primary *,
+button.button-primary *,
+button.primary-cta *,
+button.auth-submit *,
+button.auth-flow-submit *,
+button.onboard-continue *,
+button.onboarding-next *,
+button.goal-heatmap-range .is-active *,
+button.prompt-bar__send[data-armed] *,
+button[style*="#74AAFF"] *,
+button[style*="rgb(116, 170, 255)"] *,
+a.primary *,
+a.primary-button *,
+a.btn-primary *,
+a.button-primary *,
+.auth-page .google-auth-button-primary *,
+.auth-page .auth-submit *,
+.auth-direct-page .auth-submit *,
+.onboarding button.primary *,
+.dashboard button.primary * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+/* Remove leftover violet/purple styling from the routine navigation controls. */
+.routine-nav-button,
+.routine-nav-button:hover,
+.routine-nav-button:focus-visible {
+  color: #ffffff !important;
+  border-color: #292a2e !important;
+  background: #0b0c0f !important;
+}
+.routine-nav-button:focus-visible {
+  outline-color: rgba(116, 170, 255, .7) !important;
+}
