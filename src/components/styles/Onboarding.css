@@ -67,7 +67,7 @@
   display:block;
   height:100%;
   background:var(--accent);
-  box-shadow:0 0 14px #5145c8;
+  box-shadow:0 0 14px #74AAFF;
   transition:width .65s cubic-bezier(.22,1,.36,1);
 }
 .onboard-content{
@@ -101,14 +101,14 @@
   flex:0 0 auto;
   border:1px solid #ffffff14;
   border-radius:50%;
-  box-shadow:0 0 90px #5145c810;
+  box-shadow:0 0 90px #74AAFF10;
 }
 .journey-orbit:before,
 .journey-orbit:after{
   content:"";
   position:absolute;
   inset:22px;
-  border:1px solid #5145c830;
+  border:1px solid #74AAFF30;
   border-radius:50%;
 }
 .journey-orbit:after{
@@ -124,7 +124,7 @@
   transform:translate(-50%,-50%);
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 35px #5145c8;
+  box-shadow:0 0 35px #74AAFF;
 }
 .journey-orbit i,
 .journey-orbit b{
@@ -132,7 +132,7 @@
   width:6px;
   height:6px;
   border-radius:50%;
-  background:#5145c8;
+  background:#74AAFF;
 }
 .journey-orbit i{top:15px;right:43px}
 .journey-orbit b{bottom:35px;left:20px}
@@ -245,10 +245,10 @@
 .onboarding .onboard-brand{background:none;border:0;padding:0;color:inherit;cursor:pointer;display:inline-flex;align-items:center}
 .onboarding .onboard-brand .evolv-brand{pointer-events:none}
 .onboarding .onboard-progress{position:relative;z-index:4;width:min(1180px,calc(100% - 48px));margin:20px auto 0;height:1px;background:#ffffff12;overflow:hidden}
-.onboarding .onboard-progress i{display:block;height:100%;background:#aba6ff;transition:width .7s cubic-bezier(.22,1,.36,1)}
+.onboarding .onboard-progress i{display:block;height:100%;background:#74AAFF;transition:width .7s cubic-bezier(.22,1,.36,1)}
 .onboarding .onboard-content{position:relative;z-index:2;width:min(1180px,calc(100% - 48px));margin:0 auto;padding:42px 0 90px}
 .onboarding .back-button{display:inline-flex;align-items:center;gap:5px;margin:0 0 38px -5px;padding:7px 10px;background:transparent;border:0;color:#59615b;font:10px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:color .25s,transform .25s}
-.onboarding .back-button:hover{color:#aba6ff;transform:translateX(-3px)}
+.onboarding .back-button:hover{color:#74AAFF;transform:translateX(-3px)}
 .onboarding .onboard-step{animation:onboardCinematicIn .7s cubic-bezier(.22,1,.36,1) both}
 @keyframes onboardCinematicIn{from{opacity:0;transform:translateY(22px);filter:blur(5px)}to{opacity:1;transform:none;filter:blur(0)}}
 .onboarding .onboard-step>h1{letter-spacing:-.055em}
@@ -295,7 +295,7 @@
   transition:transform .3s ease,opacity .3s ease;
 }
 .onboarding .back-button:hover{
-  color:#aba6ff;
+  color:#74AAFF;
   opacity:1;
   transform:translateX(-3px);
 }
@@ -318,7 +318,7 @@
   cursor:pointer;
   transition:color .25s ease,opacity .25s ease;
 }
-.onboarding .exit-journey:hover{color:#aba6ff}
+.onboarding .exit-journey:hover{color:#74AAFF}
 @media(max-width:800px){
   .onboarding .onboard-head-actions{gap:14px}
   .onboarding .exit-journey{font-size:8px}
@@ -433,7 +433,7 @@
 }
 .onboarding .back-button::after{display:none}
 .onboarding .back-label{line-height:1}
-.onboarding .back-button:hover{color:#aba6ff;transform:none}
+.onboarding .back-button:hover{color:#74AAFF;transform:none}
 .onboarding .back-button:hover .back-icon{
   transform:translateX(-3px);
   border-color:#ffffff30;
@@ -511,7 +511,7 @@
   transition:transform .25s ease,color .25s ease;
 }
 .onboarding .onboard-back-row .back-label{line-height:1}
-.onboarding .onboard-back-row .back-button:hover{color:#aba6ff;transform:none}
+.onboarding .onboard-back-row .back-button:hover{color:#74AAFF;transform:none}
 .onboarding .onboard-back-row .back-button:hover .back-icon{transform:translateX(-3px);border:0;background:none}
 .onboarding .onboard-back-row .back-context{
   color:#424a44;
