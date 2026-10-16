@@ -99,7 +99,7 @@ function HomePage({ pageProps }) {
         <div className="calm-home-welcome-copy">
           <span className="calm-home-greeting">{greeting}</span>
           <h1>{firstName}<span>.</span></h1>
-          <p>A fresh moment, at your pace.</p>
+          
         </div>
       </section>
 
