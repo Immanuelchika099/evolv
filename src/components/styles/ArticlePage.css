@@ -295,3 +295,51 @@
 }
 
 
+
+
+/* Shared “THE NEXT MOVE” CTA — consistent blue button across every external growth/article page. */
+html body #root .article-page .article-end .button.button-primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 1rem !important;
+  min-height: 5.4rem !important;
+  padding: 0 2.4rem !important;
+  border: 1px solid #74AAFF !important;
+  border-radius: 999px !important;
+  background: #74AAFF !important;
+  background-color: #74AAFF !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  font: 600 1.45rem/1 Manrope, sans-serif !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  cursor: pointer !important;
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease !important;
+}
+html body #root .article-page .article-end .button.button-primary,
+html body #root .article-page .article-end .button.button-primary * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+html body #root .article-page .article-end .button.button-primary:hover {
+  background: #5F9BF8 !important;
+  background-color: #5F9BF8 !important;
+  border-color: #5F9BF8 !important;
+  transform: translateY(-2px);
+}
+html body #root .article-page .article-end .button.button-primary:focus-visible {
+  outline: 2px solid rgba(116, 170, 255, .8) !important;
+  outline-offset: 4px !important;
+}
+@media (max-width: 760px) {
+  html body #root .article-page .article-end .button.button-primary {
+    min-height: 5.2rem !important;
+    padding: 0 2rem !important;
+    font-size: 1.4rem !important;
+  }
+}
