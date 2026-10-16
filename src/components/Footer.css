@@ -41,10 +41,10 @@
   display: block;
   width: 8rem;
   height: auto;
-  aspect-ratio: 218 / 199;
+  aspect-ratio: 4 / 3;
   object-fit: contain;
   flex: none;
-  filter: brightness(0) saturate(100%);
+  filter: none;
 }
 .footer-brand {
   display: flex;
