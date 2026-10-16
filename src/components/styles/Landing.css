@@ -1812,9 +1812,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .site-footer .footer-brand-logo {
   color: #171715 !important;
 }
-.landing-v2 .site-footer .footer-brand-svg {
-  filter: brightness(0) saturate(100%);
-}
+.landing-v2 .site-footer .footer-brand-svg { filter: none !important; }
 .landing-v2 .site-footer .footer-links span,
 .landing-v2 .site-footer .footer-bottom {
   color: #5c5b55 !important;
@@ -2403,7 +2401,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 }
 .landing-v2 .site-footer .footer-brand p { color: rgba(244,244,239,.66) !important; }
 .landing-v2 .site-footer .footer-brand-logo { color: #f4f4ef !important; }
-.landing-v2 .site-footer .footer-brand-svg { filter: brightness(0) invert(1) !important; }
+.landing-v2 .site-footer .footer-brand-svg { filter: none !important; }
 .landing-v2 .site-footer .footer-links span,
 .landing-v2 .site-footer .footer-bottom { color: rgba(244,244,239,.46) !important; }
 .landing-v2 .site-footer .footer-links a,
