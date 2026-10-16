@@ -244,3 +244,29 @@ a.button-primary *,
 .routine-nav-button:focus-visible {
   outline-color: rgba(116, 170, 255, .7) !important;
 }
+
+
+/* EVOLV boot loader: pure black canvas, consistently white wordmark. */
+html body #root .evolv-loader,
+html body #root .evolv-loader .evolv-loader-core {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+html body #root .evolv-loader {
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+html body #root .evolv-loader .evolv-loader-wordmark {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+html body #root .evolv-loader::before,
+html body #root .evolv-loader::after,
+html body #root .evolv-loader .evolv-loader-core::before,
+html body #root .evolv-loader .evolv-loader-core::after {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
