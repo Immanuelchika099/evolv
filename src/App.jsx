@@ -988,10 +988,10 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       <section className="ev-system ev-reveal" id="features">
         <div className="ev-section-head"><div><span className="ev-label">02 — THE SYSTEM</span><h2>Four moves.<br /><em>One direction.</em></h2></div><p>No pressure to change everything. Just a few gentle steps, when you're ready.</p></div>
         <div className="ev-system-steps">
-          <div><span>01</span><Target className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Notice</strong><small>Check in with yourself.</small></div>
-          <div><span>02</span><Sprout className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Choose</strong><small>Focus on what matters.</small></div>
-          <div><span>03</span><TrendingUp className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Practice</strong><small>Take one small step.</small></div>
-          <div><span>04</span><Sparkles className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Reflect</strong><small>Learn as you go.</small></div>
+          <div><Target className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><div className="ev-system-step-copy"><strong>Notice</strong><small>Check in with yourself.</small></div></div>
+          <div><Sprout className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><div className="ev-system-step-copy"><strong>Choose</strong><small>Focus on what matters.</small></div></div>
+          <div><TrendingUp className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><div className="ev-system-step-copy"><strong>Practice</strong><small>Take one small step.</small></div></div>
+          <div><Sparkles className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><div className="ev-system-step-copy"><strong>Reflect</strong><small>Learn as you go.</small></div></div>
         </div>
       </section>
 
@@ -1003,17 +1003,28 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           <button className="ev-text-link" type="button" onClick={onStart}>Enter your space <ArrowRight size={16} /></button>
         </div>
         <div className="ev-device">
-          <div className="ev-device-top"><span>EVOLV / OVERVIEW</span><span>THIS WEEK</span></div>
+          <div className="ev-device-top">
+            <span className="ev-device-brand">EVOLV <i>/</i> OVERVIEW</span>
+            <span className="ev-device-period"><span className="ev-device-live-dot" />THIS WEEK</span>
+          </div>
           <div className="ev-device-body">
-            <div className="ev-device-ring"><strong>72</strong><span>%</span><small>progress</small></div>
-            <div className="ev-device-list">
-              <div><span>01</span><b>Build with intention</b><i>ACTIVE</i></div>
-              <div><span>02</span><b>Learn something new</b><i>IN PROGRESS</i></div>
-              <div><span>03</span><b>Show up today</b><i>ACTIVE</i></div>
-              <div><span>04</span><b>Review the week</b><i>FRI</i></div>
+            <div className="ev-device-progress">
+              <span className="ev-device-kicker">WEEKLY PROGRESS</span>
+              <div className="ev-device-progress-value"><strong>72</strong><span>%</span></div>
+              <div className="ev-device-progress-track" role="img" aria-label="72 percent progress"><span /></div>
+              <small>You're building a steady rhythm.</small>
+            </div>
+            <div className="ev-device-list" aria-label="This week's focus">
+              <div><span className="ev-device-status is-active" aria-hidden="true"><Check size={13} /></span><b>Build with intention</b><i>ACTIVE</i></div>
+              <div><span className="ev-device-status is-progress" aria-hidden="true"><span /></span><b>Learn something new</b><i>IN PROGRESS</i></div>
+              <div><span className="ev-device-status is-active" aria-hidden="true"><Check size={13} /></span><b>Show up today</b><i>ACTIVE</i></div>
+              <div><span className="ev-device-status is-upcoming" aria-hidden="true"><CalendarClock size={13} /></span><b>Review the week</b><i>FRI</i></div>
             </div>
           </div>
-          <div className="ev-device-bottom"><span>+18%</span><span>FROM LAST WEEK</span><span>ON TRACK</span></div>
+          <div className="ev-device-bottom">
+            <div className="ev-device-change"><strong>+18%</strong><span>FROM LAST WEEK</span></div>
+            <span className="ev-device-track-status"><span />ON TRACK</span>
+          </div>
         </div>
       </section>
 
