@@ -988,10 +988,10 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       <section className="ev-system ev-reveal" id="features">
         <div className="ev-section-head"><div><span className="ev-label">02 — THE SYSTEM</span><h2>Four moves.<br /><em>One direction.</em></h2></div><p>No pressure to change everything. Just a few gentle steps, when you're ready.</p></div>
         <div className="ev-system-steps">
-          <div><span>01</span><strong>Notice</strong><small>Check in with yourself.</small></div>
-          <div><span>02</span><strong>Choose</strong><small>Focus on what matters.</small></div>
-          <div><span>03</span><strong>Practice</strong><small>Take one small step.</small></div>
-          <div><span>04</span><strong>Reflect</strong><small>Learn as you go.</small></div>
+          <div><span>01</span><Target className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Notice</strong><small>Check in with yourself.</small></div>
+          <div><span>02</span><Sprout className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Choose</strong><small>Focus on what matters.</small></div>
+          <div><span>03</span><TrendingUp className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Practice</strong><small>Take one small step.</small></div>
+          <div><span>04</span><Sparkles className="ev-system-step-icon" size={22} strokeWidth={1.7} aria-hidden="true" /><strong>Reflect</strong><small>Learn as you go.</small></div>
         </div>
       </section>
 
@@ -1041,7 +1041,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         <div className="ev-marquee-slanted-band">
           <div className="ev-marquee-slanted-track" aria-hidden="true">
             {[0, 1].map(copy => (
-              <div className="ev-marquee-slanted-content" key={copy}>
+              <div className="ev-marquee-slanted-content" key={copy} aria-hidden={copy === 1}>
                 <span>DESIGN</span><i>✳</i><span>TECHNOLOGY</span><i>✳</i><span>INTELLIGENCE</span><i>✳</i><span>DESIGN</span><i>✳</i><span>TECHNOLOGY</span><i>✳</i><span>INTELLIGENCE</span><i>✳</i>
               </div>
             ))}
