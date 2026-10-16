@@ -946,9 +946,25 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
   return (
     <div ref={page} className="page-enter landing landing-v2">
       <section className="ev-hero">
-        <div className="ev-hero-grid" aria-hidden="true" />
-        <div className="ev-hero-glow" aria-hidden="true" />
-        
+        <div className="ev-hero-background" aria-hidden="true">
+          <PatternWaves
+            preset="silk"
+            pattern="line"
+            wave="silk"
+            color="#74AAFF"
+            backgroundColor="#050505"
+            opacity={0.12}
+            fade="center"
+            fadeSize={0.82}
+            speed={0.12}
+            depth={0.52}
+            shine={0.18}
+            interactive={false}
+            intro
+            className="ev-hero-pattern"
+          />
+          <div className="ev-hero-vignette" />
+        </div>
 
         <div className="ev-hero-content">
           <div className="ev-hero-eyebrow"><span>A LITTLE SPACE TO GROW</span></div>
