@@ -240,3 +240,18 @@
   .footer-newsletter-controls { flex-direction: column; }
   .footer-newsletter-submit { width: 100%; }
 }
+
+.footer-newsletter-honeypot {
+  position: absolute !important;
+  left: -10000px !important;
+  width: 1px !important;
+  height: 1px !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+.footer-newsletter-submit:disabled {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+  box-shadow: none;
+}
