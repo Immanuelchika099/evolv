@@ -61,7 +61,7 @@ function AmbientSound({ active }) {
   const audioRef = useRef(null)
   const fadeTimerRef = useRef(null)
   const interactionHandlerRef = useRef(null)
-  const targetVolume = 0.07
+  const targetVolume = 0.24
 
   function clearFadeTimer() {
     if (fadeTimerRef.current) {
