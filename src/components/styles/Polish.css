@@ -890,3 +890,55 @@ body,
     transition: none;
   }
 }
+
+
+/* PUBLIC PAGE CANVAS HOTFIX — pricing and every growth-area article stay pure black.
+   The previous auth-only fix missed these separate page components. */
+html body #root .pricing-page,
+html body #root .article-page {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #f4f4f1;
+}
+html body #root .pricing-page::before,
+html body #root .pricing-page::after,
+html body #root .article-page::before,
+html body #root .article-page::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+html body #root .pricing-page .pricing-hero,
+html body #root .pricing-page .pricing-content,
+html body #root .pricing-page .pricing-comparison,
+html body #root .pricing-page .pricing-faq,
+html body #root .pricing-page .pricing-footer,
+html body #root .article-page .article-nav,
+html body #root .article-page .article-hero,
+html body #root .article-page .article-body,
+html body #root .article-page .article-end,
+html body #root .article-page .article-grid,
+html body #root .article-page .article-example,
+html body #root .article-page .article-resources {
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+html body #root .article-page .article-nav {
+  background: rgba(0, 0, 0, .94) !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+html body #root .article-page .article-visual {
+  background: #050505 !important;
+  box-shadow: none !important;
+}
+html body #root .article-page .article-visual::before,
+html body #root .article-page .article-orb {
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
