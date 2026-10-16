@@ -208,10 +208,7 @@
 .prompt-bar__send[data-armed] svg,
 .prompt-bar__send[data-armed] path {
   color: #ffffff !important;
-  stroke: currentColor;
-}
-.prompt-bar__send[data-armed] .prompt-bar__glyph * {
-  stroke: #ffffff !important;
-  fill: none;
+  fill: currentColor !important;
+  stroke: currentColor !important;
 }
 
