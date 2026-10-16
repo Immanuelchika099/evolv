@@ -6413,3 +6413,18 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
 .routine-nav-button:focus-visible{outline:2px solid #5145c8;outline-offset:3px;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 @media(max-width:420px){.routine-nav-button{width:4rem;padding:0;gap:0;}.routine-nav-button span{display:none;}.app-topbar-actions{gap:.55rem;}}
+
+/* ChatGPT-inspired user message bubbles: calm blue surface, white text. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p,
+.dashboard .ai-page .ai-message.user p {
+  background: #74AAFF !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p *,
+.dashboard .ai-page .ai-message.user p * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
