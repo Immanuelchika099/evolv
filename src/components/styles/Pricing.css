@@ -2,9 +2,9 @@
 .pricing-page{
   min-height:100vh;
   background:
-    radial-gradient(circle at 50% 8%,#12302432 0,transparent 30%),
-    radial-gradient(circle at 8% 42%,#0a211a20 0,transparent 28%),
-    #040605;
+    radial-gradient(circle at 50% 8%,#1c183632 0,transparent 30%),
+    radial-gradient(circle at 8% 42%,#1c183620 0,transparent 28%),
+    #1c1836;
   color:#f4f1ea;
 }
 .pricing-nav{
@@ -17,7 +17,7 @@
   padding:0 16px;
   border:1px solid #ffffff18;
   border-radius:999px;
-  background:#0a0f0cf2;
+  background:#1c1836f2;
   backdrop-filter:blur(22px);
   -webkit-backdrop-filter:blur(22px);
   display:flex;
@@ -79,7 +79,7 @@
   height:6px;
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 14px #9fcf5866;
+  box-shadow:0 0 14px #5145c866;
 }
 .pricing-content{
   width:min(1180px,calc(100% - 48px));
@@ -111,12 +111,12 @@
   box-shadow:0 35px 100px #0008;
 }
 .pricing-card.featured{
-  border-color:#9fcf5842;
-  background:linear-gradient(145deg,#9fcf580b,#ffffff03);
+  border-color:#5145c842;
+  background:linear-gradient(145deg,#5145c80b,#ffffff03);
   box-shadow:0 25px 80px #0006;
 }
 .pricing-card.featured:hover{
-  border-color:#9fcf5870;
+  border-color:#5145c870;
   box-shadow:0 40px 110px #0009;
 }
 .pricing-popular{
@@ -124,11 +124,11 @@
   top:0;
   right:0;
   padding:9px 14px;
-  border-left:1px solid #9fcf5830;
-  border-bottom:1px solid #9fcf5830;
+  border-left:1px solid #5145c830;
+  border-bottom:1px solid #5145c830;
   border-radius:0 0 0 14px;
-  color:#9fcf58;
-  background:#9fcf5809;
+  color:#5145c8;
+  background:#5145c809;
   font:8px 'DM Mono';
   letter-spacing:.12em;
 }
@@ -181,9 +181,9 @@
   opacity:1!important;
 }
 .pricing-card.featured .pricing-card-cta{
-  border-color:#9fcf5840;
-  background:#9fcf5810;
-  color:#9fcf58;
+  border-color:#5145c840;
+  background:#5145c810;
+  color:#5145c8;
 }
 .pricing-divider{
   height:1px;
@@ -212,7 +212,7 @@
 }
 .pricing-card li svg{
   flex:0 0 auto;
-  color:#7d9970;
+  color:#39317e;
   margin-top:1px;
 }
 .pricing-comparison{
