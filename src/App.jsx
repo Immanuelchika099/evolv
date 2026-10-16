@@ -749,7 +749,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false }) {
           <button className="auth-provider-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
             <svg className="auth-provider-icon auth-google-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
               <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2l6.6 5.1c3.9-3.6 6.1-8.9 6.1-15Z"/>
-              <path fill="#34A853" d="M24 44c5.5 0 10.1-1.8 13.5-4.9l-6.6-5.1c-1.8 1.2-4.1 1.9-6.9 1.9-5.3 0-9.8-3.6-11.4-8.4l-6.8 5.2C7.3 39.4 15.1 44 24 44Z"/>
+              <path fill="#39317e" d="M24 44c5.5 0 10.1-1.8 13.5-4.9l-6.6-5.1c-1.8 1.2-4.1 1.9-6.9 1.9-5.3 0-9.8-3.6-11.4-8.4l-6.8 5.2C7.3 39.4 15.1 44 24 44Z"/>
               <path fill="#FBBC05" d="M12.6 27.5a12 12 0 0 1 0-7l-6.8-5.2a20.1 20.1 0 0 0 0 27.4l6.8-5.2a12 12 0 0 1 0-10Z"/>
               <path fill="#EA4335" d="M24 12.1c3 0 5.7 1 7.8 3.1l5.8-5.8C34.1 6.1 29.5 4 24 4 15.1 4 7.3 8.6 3.9 15.3l6.8 5.2c1.6-4.8 6.1-8.4 13.3-8.4Z"/>
             </svg>
@@ -1377,7 +1377,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#B8F34A"
+          color="#5145c8"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1438,7 +1438,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#B8F34A"
+          color="#5145c8"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1622,10 +1622,10 @@ function Dashboard({ data, onLogout, onArticle }) {
   const areas={
     health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
     nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
-    money:{title:'Money',icon:WalletCards,color:'#62e6bd'},
+    money:{title:'Money',icon:WalletCards,color:'#5145c8'},
     career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},
     mind:{title:'Mind',icon:Brain,color:'#9b7cff'},
-    life:{title:'Life',icon:Sprout,color:'#62e6bd'}
+    life:{title:'Life',icon:Sprout,color:'#5145c8'}
   }
   const metricArea={sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',mood:'mind',focus:'mind',reflection:'mind',stress:'mind',learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',income:'money',spending:'money',savings:'money',bills:'money',habits:'life',reading:'life',social:'life',personal:'life',meals:'nutrition'}
   const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout,meals:Utensils}
@@ -2775,10 +2775,10 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   const areaMeta={
     health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
     nutrition:{title:'Nutrition',icon:Apple,color:'#ffb84d',description:'Meals, nourishment and the details you want to remember.'},
-    money:{title:'Money',icon:WalletCards,color:'#63d8b0',description:'Income, spending, savings and the bills you need to stay on top of.'},
+    money:{title:'Money',icon:WalletCards,color:'#5145c8',description:'Income, spending, savings and the bills you need to stay on top of.'},
     career:{title:'Career',icon:BriefcaseBusiness,color:'#63c8ff',description:'Applications, learning, projects, skills and outreach.'},
     mind:{title:'Mind',icon:Brain,color:'#9b7cff',description:'Mood, focus, reflection and the moments that shape your inner life.'},
-    life:{title:'Life',icon:Sprout,color:'#7bdc9f',description:'Habits, reading, people and time spent on yourself.'}
+    life:{title:'Life',icon:Sprout,color:'#5145c8',description:'Habits, reading, people and time spent on yourself.'}
   }
 
   const metricArea={
@@ -3142,7 +3142,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
           {metric&&metric.value_type!=='meal'&&(
             <div className="log-form">
               <div className="log-selected-metric">
-                <span className="log-choice-icon" style={{'--metric-color':metric.color||'#c8f36a'}}><I size={19}/></span>
+                <span className="log-choice-icon" style={{'--metric-color':metric.color||'#5145c8'}}><I size={19}/></span>
                 <div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div>
               </div>
 
@@ -3319,14 +3319,14 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
         <svg viewBox="0 0 300 125" preserveAspectRatio="none" role="img" aria-label="Weekly check-in progress chart">
           <defs>
             <linearGradient id="weeklyFlowFill" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="rgba(82,190,145,.28)" />
-              <stop offset="100%" stopColor="rgba(82,190,145,0)" />
+              <stop offset="0%" stopColor="rgba(81, 69, 200,.28)" />
+              <stop offset="100%" stopColor="rgba(81, 69, 200,0)" />
             </linearGradient>
           </defs>
           <path d={`${path} L 280 108 L 20 108 Z`} fill="url(#weeklyFlowFill)" />
-          <path d={path} fill="none" stroke="rgba(103,218,170,.95)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={path} fill="none" stroke="rgba(81, 69, 200,.95)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           {points.map(point => (
-            <circle key={point.key} cx={point.x} cy={point.y} r={point.count ? 4 : 2.5} fill="rgba(103,218,170,1)" />
+            <circle key={point.key} cx={point.x} cy={point.y} r={point.count ? 4 : 2.5} fill="rgba(81, 69, 200,1)" />
           ))}
         </svg>
         <div className="weekly-chart-days">
