@@ -194,3 +194,28 @@
   .routine-lead-time { width:100%; justify-content:space-between; padding:.6rem 0 0 5rem; }
   .routine-lead-time input { width:7rem; }
 }
+
+
+/* Routine palette migration: remove the remaining hard-coded lime accents. */
+.daily-routine-page .routine-heading h1 span,
+.daily-routine-page .routine-progress-top > strong,
+.daily-routine-page .routine-insight-icon,
+.daily-routine-page .routine-row-icon,
+.daily-routine-page .routine-next-icon,
+.daily-routine-page .routine-reminder-icon,
+.daily-routine-page .routine-reminder-control-icon { color: #74AAFF !important; }
+.daily-routine-page .routine-progress-track span { background: #74AAFF !important; }
+.daily-routine-page .routine-progress-bottom button,
+.daily-routine-page .routine-insight-card > button,
+.daily-routine-page .routine-reminder-note > button { color: #74AAFF !important; }
+.daily-routine-page .routine-insight-icon { border-color: rgba(116,170,255,.24) !important; background: rgba(116,170,255,.08) !important; }
+.daily-routine-page .routine-row-icon,
+.daily-routine-page .routine-next-icon,
+.daily-routine-page .routine-reminder-icon,
+.daily-routine-page .routine-reminder-control-icon { background: rgba(116,170,255,.09) !important; }
+.daily-routine-page .routine-row-complete .routine-check { border-color: #74AAFF !important; background: #74AAFF !important; color: #fff !important; }
+.daily-routine-page .routine-toggle.is-on { border-color: rgba(116,170,255,.75) !important; background: rgba(116,170,255,.22) !important; }
+.daily-routine-page .routine-toggle.is-on span { background: #74AAFF !important; }
+.daily-routine-page .routine-lead-time input:focus { outline-color: #74AAFF !important; border-color: #74AAFF !important; }
+.daily-routine-page .routine-toggle.is-on span { transform: translateX(1.55rem); }
+@media (max-width:700px) { .daily-routine-page .routine-toggle.is-on span { transform: translateX(1.1rem); } }
