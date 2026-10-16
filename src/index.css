@@ -328,3 +328,57 @@ html body #root .onboarding .btn-primary * {
   background-color: transparent !important;
   background-image: none !important;
 }
+
+
+/* HOTFIX: every standalone/external account page must use a pure-black canvas.
+   Remove legacy violet/blue glow layers without changing the blue primary buttons. */
+html body #root .auth-page,
+html body #root .auth-shell,
+html body #root .auth-direct-page,
+html body #root .login-page,
+html body #root .signup-page,
+html body #root .forgot-password-page,
+html body #root .reset-password-page,
+html body #root .public-page,
+html body #root .standalone-page,
+html body #root .auth-page main,
+html body #root .auth-shell main,
+html body #root .auth-direct-page main {
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+
+html body #root .auth-page::before,
+html body #root .auth-page::after,
+html body #root .auth-shell::before,
+html body #root .auth-shell::after,
+html body #root .auth-direct-page::before,
+html body #root .auth-direct-page::after,
+html body #root .login-page::before,
+html body #root .login-page::after,
+html body #root .signup-page::before,
+html body #root .signup-page::after,
+html body #root .forgot-password-page::before,
+html body #root .forgot-password-page::after,
+html body #root .reset-password-page::before,
+html body #root .reset-password-page::after,
+html body #root .public-page::before,
+html body #root .public-page::after,
+html body #root .standalone-page::before,
+html body #root .standalone-page::after {
+  background: none !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Keep account panels neutral too; never let inherited violet gradients show through. */
+html body #root .auth-page .auth-content,
+html body #root .auth-shell .auth-content,
+html body #root .auth-direct-page .auth-content-compact,
+html body #root .auth-direct-page .auth-flow-content {
+  background-color: #000000 !important;
+  background-image: none !important;
+}
