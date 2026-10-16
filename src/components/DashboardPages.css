@@ -7873,3 +7873,31 @@ body,
 @media (prefers-reduced-motion: reduce) {
   .daily-ai-insight-card { animation: none; }
 }
+
+
+/* Oversized dashboard greeting; remove the old tagline from the visual hierarchy. */
+.dashboard-home.calm-home .calm-home-greeting {
+  font-size: clamp(2.8rem, 5.5vh, 6rem) !important;
+  line-height: 1.05;
+  letter-spacing: .015em;
+  text-transform: uppercase;
+}
+.dashboard-home.calm-home .calm-home-welcome h1 {
+  font-size: clamp(7.5rem, 20vh, 19rem) !important;
+  line-height: .88;
+  letter-spacing: -.085em;
+}
+@media (max-width: 600px) {
+  .dashboard-home.calm-home .calm-home-greeting {
+    font-size: clamp(2.4rem, 4.4vh, 3.8rem) !important;
+  }
+  .dashboard-home.calm-home .calm-home-welcome h1 {
+    font-size: clamp(7rem, 17vh, 12rem) !important;
+    line-height: .9;
+  }
+}
+@media (max-width: 380px) {
+  .dashboard-home.calm-home .calm-home-welcome h1 {
+    font-size: clamp(6.4rem, 15vh, 9.5rem) !important;
+  }
+}
