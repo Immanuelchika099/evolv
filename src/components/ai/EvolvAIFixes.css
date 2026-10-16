@@ -701,7 +701,7 @@ html:has(.dashboard.dashboard-ai-active) {
   width: 100% !important;
   min-height: 3.4rem !important;
   max-height: 11rem !important;
-  height: auto !important;
+  height: auto;
   margin: 0 !important;
   padding: .2rem 0 !important;
   text-align: left !important;
@@ -1137,30 +1137,27 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Final viewport-height correction for compact iPhones and smaller Android devices.
-   JS supplies the visual viewport height where supported; 100vh remains the fallback. */
+/* Canonical AI app viewport.
+   The page tracks the visible viewport height. The composer is absolutely positioned
+   inside that page, so we never both grow the page and offset the composer for a keyboard. */
 .dashboard.dashboard-ai-active {
   position: fixed !important;
-  inset: 0 !important;
+  top: var(--evolv-ai-viewport-top, 0px) !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
   width: 100% !important;
-  height: var(--evolv-ai-viewport-height, 100vh) !important;
-  min-height: var(--evolv-ai-viewport-height, 100vh) !important;
-  max-height: none !important;
-  overflow: hidden !important;
-}
-.dashboard.dashboard-ai-active .dash-main {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: var(--evolv-ai-viewport-height, 100vh) !important;
+  height: var(--evolv-ai-viewport-height, 100dvh) !important;
   min-height: 0 !important;
   max-height: none !important;
-  padding: 0 1.2rem !important;
   margin: 0 !important;
+  padding: 0 !important;
   overflow: hidden !important;
+  overscroll-behavior: none !important;
+  box-sizing: border-box !important;
 }
-.dashboard.dashboard-ai-active .ai-page,
-.dashboard.dashboard-ai-active .ai-page .ai-chat {
+
+.dashboard.dashboard-ai-active .dash-main {
   position: absolute !important;
   inset: 0 !important;
   width: 100% !important;
@@ -1168,9 +1165,53 @@ html:has(.dashboard.dashboard-ai-active) {
   min-height: 0 !important;
   max-height: none !important;
   margin: 0 !important;
-  padding: 0 !important;
+  padding: 0 1.2rem !important;
   overflow: hidden !important;
+  box-sizing: border-box !important;
 }
+
+.dashboard.dashboard-ai-active .ai-page {
+  position: absolute !important;
+  inset: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 7.2rem) 0 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  position: absolute !important;
+  top: calc(env(safe-area-inset-top, 0px) + 1.2rem) !important;
+  right: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 5.6rem !important;
+  min-height: 5.6rem !important;
+  max-height: 5.6rem !important;
+  margin: 0 !important;
+  padding: 0 1.2rem !important;
+  box-sizing: border-box !important;
+  z-index: 100500 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-chat {
+  position: relative !important;
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
 .dashboard.dashboard-ai-active .ai-page .ai-messages {
   position: absolute !important;
   inset: 0 !important;
@@ -1178,112 +1219,132 @@ html:has(.dashboard.dashboard-ai-active) {
   height: auto !important;
   min-height: 0 !important;
   max-height: none !important;
-  padding: calc(8.4rem + env(safe-area-inset-top, 0px)) 0 calc(9.5rem + env(safe-area-inset-bottom, 0px)) !important;
-  overflow-y: auto !important;
+  margin: 0 !important;
+  padding: 1.2rem 0 calc(18rem + env(safe-area-inset-bottom, 0px)) !important;
   overflow-x: hidden !important;
+  overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior-y: contain !important;
+  touch-action: pan-y !important;
+  box-sizing: border-box !important;
+  scroll-padding-bottom: 18rem !important;
 }
+
+.dashboard.dashboard-ai-active .ai-page .ai-welcome {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 1.6rem 10rem !important;
+  pointer-events: none !important;
+  box-sizing: border-box !important;
+}
+
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
-  position: fixed !important;
-  left: 0 !important;
+  position: absolute !important;
   right: 0 !important;
   bottom: 0 !important;
-  padding: .7rem 1rem env(safe-area-inset-bottom, 0px) !important;
-  box-sizing: border-box !important;
+  left: 0 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: .7rem 1rem calc(.7rem + env(safe-area-inset-bottom, 0px)) !important;
   transform: none !important;
-}
-@media (max-width: 800px) {
-  .dashboard.dashboard-ai-active .dash-main { padding: 0 1.2rem !important; }
-  .dashboard.dashboard-ai-active .ai-page .ai-messages {
-    padding-top: calc(8rem + env(safe-area-inset-top, 0px)) !important;
-    padding-bottom: calc(9rem + env(safe-area-inset-bottom, 0px)) !important;
-  }
-}
-
-
-/* Keyboard-aware composer: keep the input above the mobile on-screen keyboard.
-   JS calculates the covered layout-viewport area from visualViewport when available. */
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
-  bottom: var(--evolv-ai-keyboard-inset, 0px) !important;
-  transition: none !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-messages {
-  scroll-padding-bottom: calc(10rem + var(--evolv-ai-keyboard-inset, 0px)) !important;
-}
-
-
-/* AI composer visibility recovery: keep the editable field above overlays and
-   prevent iOS focus/keyboard viewport changes from collapsing its hit area. */
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
-  z-index: 100000 !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-  pointer-events: none !important;
-  will-change: bottom !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar,
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
+  z-index: 100501 !important;
   visibility: visible !important;
   opacity: 1 !important;
   pointer-events: auto !important;
+  box-sizing: border-box !important;
 }
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field {
-  position: relative !important;
-  z-index: 1 !important;
-  min-height: 5.6rem !important;
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar {
+  width: min(60rem, 100%) !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  transform: none !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
+  gap: .8rem !important;
+  min-height: 8.2rem !important;
   height: auto !important;
+  margin: 0 !important;
+  padding: 1.2rem !important;
   overflow: visible !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  box-sizing: border-box !important;
 }
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
+
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
   display: block !important;
-  position: relative !important;
-  z-index: 2 !important;
+  align-self: stretch !important;
   flex: 0 1 auto !important;
   width: 100% !important;
   min-width: 0 !important;
-  min-height: 2.2rem !important;
-  height: auto;
+  min-height: 3.4rem !important;
   max-height: 11rem !important;
+  height: auto;
+  margin: 0 !important;
+  padding: .2rem 0 !important;
   color: #f5f5f5 !important;
   -webkit-text-fill-color: #f5f5f5 !important;
   caret-color: #f5f5f5 !important;
-  touch-action: manipulation !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-welcome {
-  z-index: 0 !important;
-}
-@media (max-width: 800px) {
-  .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
-    padding-left: 1.2rem !important;
-    padding-right: 1.2rem !important;
-  }
-  .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
-    font-size: 16px !important;
-  }
-}
-
-
-/* Final mobile composer fix: let taps propagate normally and use the keyboard
-   inset without shrinking the containing workspace a second time. */
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
-  pointer-events: auto !important;
-  z-index: 100000 !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar,
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
-  pointer-events: auto !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-}
-.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  text-align: left !important;
+  vertical-align: top !important;
   touch-action: auto !important;
   -webkit-user-select: text !important;
   user-select: text !important;
   -webkit-appearance: none !important;
   appearance: none !important;
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  box-sizing: border-box !important;
 }
+
+body:has(.dashboard.dashboard-ai-active),
+html:has(.dashboard.dashboard-ai-active) {
+  width: 100% !important;
+  height: 100% !important;
+  overflow: hidden !important;
+  overscroll-behavior: none !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .dash-main {
+    padding: 0 1rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page {
+    padding-top: calc(env(safe-area-inset-top, 0px) + 7.2rem) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+    padding: .65rem .9rem calc(.65rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    padding-bottom: calc(18rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+}
+
+/* Let the textarea's measured inline height grow only the composer, never the page. */
