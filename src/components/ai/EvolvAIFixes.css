@@ -1348,3 +1348,19 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 /* Let the textarea's measured inline height grow only the composer, never the page. */
+
+
+/* Keep the focused AI composer close to the iOS keyboard.
+   The visible viewport already ends above the keyboard, so safe-area bottom
+   padding here is double-counted and creates an unnecessary gap. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus),
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus-visible) {
+  padding-bottom: .2rem !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus),
+  .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus-visible) {
+    padding-bottom: .2rem !important;
+  }
+}
