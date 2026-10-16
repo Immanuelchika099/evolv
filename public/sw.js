@@ -1,4 +1,4 @@
-const EVOLV_ICON = '/evolv-mark.svg?v=6'
+const EVOLV_ICON = '/evolv-mark.svg?v=7'
 
 self.addEventListener('install', () => self.skipWaiting())
 self.addEventListener('activate', event => event.waitUntil(self.clients.claim()))
