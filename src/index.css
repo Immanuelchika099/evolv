@@ -19,7 +19,9 @@
   --color-text-muted: rgba(255,255,255,.44);
   --color-border-subtle: rgba(255,255,255,.085);
   --color-border: rgba(255,255,255,.12);
-  --color-accent-lime: #5145c8;
+  --color-accent-blue: #74AAFF;
+  /* Backwards-compatible alias while legacy component styles are cleaned up. */
+  --color-accent-lime: var(--color-accent-blue);
 
   /* Shared shape, elevation, and type scale */
   --radius-sm: 8px;
@@ -41,7 +43,7 @@
   background:#000;
   --muted:#85837f;
   --line:#ffffff1c;
-  --accent: #5145c8;
+  --accent: #74AAFF;
   --mint:#7d857b;
   -webkit-font-smoothing:antialiased;
 }
