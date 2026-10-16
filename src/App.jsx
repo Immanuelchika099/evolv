@@ -523,7 +523,6 @@ function App() {
       <AmbientSound active={view === 'welcome' || view === 'onboarding' || view === 'auth' || view === 'dashboard'} />
       {isBooting && <EvolvLoader />}
       <div className="noise" />
-      {!isBooting && <PWAInstallPrompt />}
       {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
         <Navbar onStart={enterApp} onSignIn={() => { setMenuOpen(false); setAuthMode('login'); localStorage.setItem('evolv-view', 'auth'); setView('auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
@@ -2493,6 +2492,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    <PWAInstallPrompt />
     
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
