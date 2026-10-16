@@ -1160,28 +1160,28 @@
 }
 
 
-/* Signup page: remove the remaining lime hover and email focus styling. */
+/* Signup page: restore EVOLV's calm blue highlights and hover states. */
 .auth-page .auth-signup-banner,
 .auth-page .auth-email-choice {
-  border-color: rgba(255, 255, 255, .18);
-  background: #111111;
-  color: #f4f4f4;
+  border-color: rgba(116, 170, 255, .3);
+  background: rgba(116, 170, 255, .1);
+  color: #74AAFF;
 }
 
 .auth-page .auth-signup-banner:hover,
 .auth-page .auth-email-choice:hover {
-  border-color: rgba(255, 255, 255, .32);
-  background: #1a1a1a;
-  color: #ffffff;
+  border-color: rgba(116, 170, 255, .58);
+  background: rgba(116, 170, 255, .18);
+  color: #9ac2ff;
 }
 
 .auth-page .auth-quick-form input:focus,
 .auth-page .auth-form input:focus,
 .auth-page input[type="email"]:focus {
-  border-color: #666666 !important;
+  border-color: #74AAFF !important;
   outline: none !important;
-  background: #101010;
-  box-shadow: none !important;
+  background: #10141b;
+  box-shadow: 0 0 0 3px rgba(116, 170, 255, .14) !important;
 }
 
 .auth-page .auth-continue-button,
@@ -1197,12 +1197,13 @@
   background: #1d4ed8;
   color: #ffffff;
   filter: none;
+  box-shadow: 0 5px 18px rgba(37, 99, 235, .25);
 }
 
 .auth-page .auth-continue-button:focus-visible,
 .auth-page .auth-submit:focus-visible,
 .auth-page .auth-signup-banner:focus-visible,
 .auth-page .auth-email-choice:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, .7);
+  outline: 2px solid rgba(116, 170, 255, .85);
   outline-offset: 3px;
 }
