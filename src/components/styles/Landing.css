@@ -2373,3 +2373,47 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .ev-hero-actions .ev-btn-solid svg {
   color: #fff !important;
 }
+
+
+/* Marquee typography: keep every moving label in EVOLV blue. */
+.landing-v2 .ev-marquee-content span,
+.landing-v2 .ev-marquee-slanted-content span {
+  color: #74AAFF !important;
+}
+.landing-v2 .ev-marquee-content .ev-marquee-star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #74AAFF !important;
+  font-style: normal;
+  line-height: 1;
+}
+.landing-v2 .ev-marquee-content .ev-marquee-star svg {
+  display: block;
+  color: inherit;
+}
+
+/* Make the footer grain sit over the full-bleed footer, not elsewhere on the page. */
+.landing-v2 .site-footer {
+  position: relative !important;
+  isolation: isolate;
+  background-color: #101113 !important;
+  color: #f4f4ef !important;
+  border-top-color: rgba(255,255,255,.1) !important;
+}
+.landing-v2 .site-footer .footer-brand p { color: rgba(244,244,239,.66) !important; }
+.landing-v2 .site-footer .footer-brand-logo { color: #f4f4ef !important; }
+.landing-v2 .site-footer .footer-brand-svg { filter: brightness(0) invert(1) !important; }
+.landing-v2 .site-footer .footer-links span,
+.landing-v2 .site-footer .footer-bottom { color: rgba(244,244,239,.46) !important; }
+.landing-v2 .site-footer .footer-links a,
+.landing-v2 .site-footer .footer-links button.footer-contact { color: rgba(244,244,239,.76) !important; }
+.landing-v2 .site-footer .footer-links a:hover,
+.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: #74AAFF !important; }
+.landing-v2 .site-footer .footer-bottom { border-top-color: rgba(255,255,255,.12) !important; }
+.landing-v2 .site-footer::before {
+  z-index: 0 !important;
+  opacity: .22 !important;
+  mix-blend-mode: soft-light;
+  background-size: 150px 150px !important;
+}

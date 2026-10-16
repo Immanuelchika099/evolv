@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
-import { ArrowRight, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
+import { ArrowRight, Asterisk, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import BottomNav from './components/BottomNav'
@@ -970,7 +970,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         <div className="ev-marquee-track">
           {[0,1].map(copy => (
             <div className="ev-marquee-content" key={copy} aria-hidden={copy === 1}>
-              <span>DEFINE WHAT MATTERS</span><i>✦</i><span>BUILD WITH INTENTION</span><i>✦</i><span>TRACK YOUR MOMENTUM</span><i>✦</i><span>REFLECT &amp; EVOLVE</span><i>✦</i>
+              <span>DEFINE WHAT MATTERS</span><i className="ev-marquee-star" aria-hidden="true"><Asterisk size={16} strokeWidth={1.7} /></i><span>BUILD WITH INTENTION</span><i className="ev-marquee-star" aria-hidden="true"><Asterisk size={16} strokeWidth={1.7} /></i><span>TRACK YOUR MOMENTUM</span><i className="ev-marquee-star" aria-hidden="true"><Asterisk size={16} strokeWidth={1.7} /></i><span>REFLECT &amp; EVOLVE</span><i className="ev-marquee-star" aria-hidden="true"><Asterisk size={16} strokeWidth={1.7} /></i>
             </div>
           ))}
         </div>
