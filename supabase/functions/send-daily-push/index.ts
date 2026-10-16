@@ -126,6 +126,33 @@ Deno.serve(async (req) => {
   let removed = 0
   const now = new Date()
 
+  // A user can have several active devices (e.g. iPhone Home Screen + another browser).
+  // Claim each reminder once per user, but deliver it to every active endpoint for that user.
+  async function sendToAllDevices(userId, payload, kind) {
+    let delivered = 0
+    const targets = (rows || []).filter(target => target.user_id === userId)
+    for (const target of targets) {
+      try {
+        await webpush.sendNotification(target.subscription, JSON.stringify(payload))
+        delivered += 1
+        sent += 1
+      } catch (deviceError) {
+        const status = deviceError?.statusCode
+        console.error("EVOLV push failed for device", JSON.stringify({
+          subscriptionId: target.id,
+          kind,
+          status,
+          error: String(deviceError?.message || deviceError)
+        }))
+        if (status === 404 || status === 410) {
+          await admin.from("push_subscriptions").delete().eq("id", target.id)
+          removed += 1
+        }
+      }
+    }
+    return delivered
+  }
+
   for (const row of rows || []) {
     const clock = localClock(row.timezone || "Africa/Lagos")
     const preferences = { ...row.preferences }
@@ -214,32 +241,18 @@ Deno.serve(async (req) => {
       }
 
       try {
-        await webpush.sendNotification(row.subscription, JSON.stringify(payload))
+        const deliveredToDevices = await sendToAllDevices(row.user_id, payload, kind)
+        if (!deliveredToDevices) throw new Error("No active device accepted the push.")
         lastSent[kind] = clock.date
-        sent += 1
       } catch (pushError) {
-        const status = pushError?.statusCode
-
-        console.error("EVOLV push failed", JSON.stringify({
-          subscriptionId: row.id,
+        console.error("EVOLV push failed for all devices", JSON.stringify({
+          userId: row.user_id,
           kind,
-          status,
           error: String(pushError?.message || pushError)
         }))
-
-        // A transient failure should be retried on the next minute.
-        await admin
-          .from("notification_delivery_log")
-          .delete()
-          .eq("user_id", row.user_id)
-          .eq("delivery_date", clock.date)
-          .eq("kind", kind)
-
-        if (status === 404 || status === 410) {
-          await admin.from("push_subscriptions").delete().eq("id", row.id)
-          removed += 1
-          break
-        }
+        // Retry on the next scheduler tick if none of the user's devices accepted it.
+        await admin.from("notification_delivery_log").delete()
+          .eq("user_id", row.user_id).eq("delivery_date", clock.date).eq("kind", kind)
       }
     }
     const routineReminders = Array.isArray(preferences.routineReminders) ? preferences.routineReminders : []
@@ -267,21 +280,15 @@ Deno.serve(async (req) => {
         actions: [{ action: "open", title: "Open EVOLV" }]
       }
       try {
-        await webpush.sendNotification(row.subscription, JSON.stringify(payload))
+        const deliveredToDevices = await sendToAllDevices(row.user_id, payload, kind)
+        if (!deliveredToDevices) throw new Error("No active device accepted the routine reminder.")
         lastSent[kind] = clock.date
-        sent += 1
       } catch (pushError) {
-        const status = pushError?.statusCode
-        console.error("EVOLV routine push failed", JSON.stringify({
-          subscriptionId: row.id, kind, status, error: String(pushError?.message || pushError)
+        console.error("EVOLV routine push failed for all devices", JSON.stringify({
+          userId: row.user_id, kind, error: String(pushError?.message || pushError)
         }))
         await admin.from("notification_delivery_log").delete()
           .eq("user_id", row.user_id).eq("delivery_date", clock.date).eq("kind", kind)
-        if (status === 404 || status === 410) {
-          await admin.from("push_subscriptions").delete().eq("id", row.id)
-          removed += 1
-          break
-        }
       }
     }
 
