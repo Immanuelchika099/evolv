@@ -1364,3 +1364,30 @@ html:has(.dashboard.dashboard-ai-active) {
     padding-bottom: .2rem !important;
   }
 }
+
+
+/* Keep the empty-state greeting centered in the actual visible screen,
+   independent of the chat area's top-bar offset. */
+.dashboard.dashboard-ai-active .ai-page .ai-chat.is-empty .ai-welcome {
+  position: fixed !important;
+  top: var(--evolv-ai-viewport-top, 0px) !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  z-index: 1000 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: var(--evolv-ai-viewport-height, 100dvh) !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 1.6rem !important;
+  box-sizing: border-box !important;
+  pointer-events: none !important;
+  background: transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-chat.is-empty .ai-welcome h3 {
+  margin: 0 !important;
+  text-align: center !important;
+}
