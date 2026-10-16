@@ -363,14 +363,18 @@
 }
 
 
-/* Keep the EVOLV navbar mark understated, including on auth pages. */
+/* New EVOLV mark: preserve the intricate circle artwork without distortion. */
 .evolv-brand-svg {
+  display: block;
   width: 3.2rem !important;
-  max-height: 3.2rem;
+  height: 3.2rem !important;
+  max-height: none;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
 }
 @media (max-width: 800px) {
   .evolv-brand-svg {
     width: 2.8rem !important;
-    max-height: 2.8rem;
+    height: 2.8rem !important;
   }
 }
