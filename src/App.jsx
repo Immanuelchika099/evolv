@@ -579,7 +579,7 @@ function EvolvLoader() {
   return (
     <div className="evolv-loader" aria-label="Loading EVOLV">
       <div className="evolv-loader-core">
-        <img className="evolv-loader-logo" src="/evolv-mark.svg" alt="EVOLV" />
+        <span className="evolv-loader-wordmark" style={{ fontSize: "1.15rem", fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)", textTransform: "lowercase" }}>evolv</span>
       </div>
     </div>
   )
