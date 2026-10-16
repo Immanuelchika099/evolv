@@ -1881,3 +1881,106 @@ body,
   .profile-modal-backdrop .profile-modal { padding: 23px 20px; border-radius: 18px; }
   .profile-modal-backdrop .profile-modal-actions button { flex: 1; padding-inline: 10px; }
 }
+
+
+/* Final dashboard/Profile accent enforcement: blue only, with white on blue buttons. */
+.dashboard {
+  --accent: #74AAFF !important;
+  --evolv-lime: #74AAFF !important;
+  --home-lime: #74AAFF !important;
+  --evolv-accent: #74AAFF !important;
+  --evolv-accent-dim: rgba(116,170,255,.12) !important;
+  --color-accent-start: #74AAFF !important;
+  --color-accent-end: #74AAFF !important;
+  --color-accent-dim: rgba(116,170,255,.16) !important;
+}
+.dashboard .dashboard-home-redesign { --evolv-lime:#74AAFF !important; --home-lime:#74AAFF !important; }
+.dashboard .button-primary,
+.dashboard .goal-item-actions .goal-checkin-button,
+.dashboard .goal-checkin-button,
+.dashboard .home-add-button {
+  background: #74AAFF !important;
+  background-color: #74AAFF !important;
+  border-color: #74AAFF !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+.dashboard .button-primary *,
+.dashboard .goal-item-actions .goal-checkin-button *,
+.dashboard .goal-checkin-button *,
+.dashboard .home-add-button * { color:#fff !important; fill:#fff !important; stroke:#fff !important; -webkit-text-fill-color:#fff !important; }
+.dashboard .home-progress-ring { background: conic-gradient(from -90deg, #74AAFF var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important; box-shadow: 0 0 2.2rem rgba(116,170,255,.09) !important; }
+.dashboard .home-progress-segments i.is-filled,
+.dashboard .home-week-bar-track i,
+.dashboard .home-today-bar i,
+.dashboard .home-area-progress i,
+.dashboard .mini-progress i,
+.dashboard .progress-track i { background:#74AAFF !important; box-shadow:0 0 1rem rgba(116,170,255,.12) !important; }
+.dashboard .home-stat-average strong,
+.dashboard .home-stat-fire,
+.dashboard .home-stat-check,
+.dashboard .home-stat-days,
+.dashboard .home-stat-goals,
+.dashboard .home-today-check,
+.dashboard .focus.active svg,
+.dashboard .choice.active svg,
+.dashboard .life-area-icon,
+.dashboard .life-area-icon.large,
+.dashboard .metric-detail-icon,
+.dashboard .area-detail-head .life-area-icon,
+.dashboard .life-area-icon svg,
+.dashboard .metric-detail-icon svg,
+.dashboard .area-detail-head svg,
+.dashboard .home-stat-icon,
+.dashboard .home-today-icon,
+.dashboard .home-area-icon { color:#74AAFF !important; }
+.dashboard .home-stat-icon,
+.dashboard .home-today-icon,
+.dashboard .home-area-icon,
+.dashboard .life-area-icon,
+.dashboard .life-area-icon.large,
+.dashboard .metric-detail-icon,
+.dashboard .area-detail-head .life-area-icon { background-color:rgba(116,170,255,.1) !important; border-color:rgba(116,170,255,.3) !important; }
+.dashboard .home-stat-range button.is-active,
+.dashboard .goals-page .goal-type-choice.active,
+.dashboard .goals-page .goal-type-choice.selected,
+.dashboard .log-selected-metric,
+.dashboard .special-choice-grid button.active,
+.dashboard .settings-toggle.active { background:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.45) !important; color:#74AAFF !important; }
+.dashboard .settings-toggle.active span { background:#74AAFF !important; }
+.dashboard input:focus,
+.dashboard textarea:focus,
+.dashboard select:focus,
+.dashboard button:focus-visible { outline-color:rgba(116,170,255,.72) !important; }
+.dashboard .profile-setting-row input:focus,
+.dashboard .profile-setting-row select:focus,
+.dashboard .goal-create-form input:focus,
+.dashboard .goal-create-form textarea:focus,
+.dashboard .profile-box input:focus { border-color:rgba(116,170,255,.6) !important; box-shadow:0 0 0 3px rgba(116,170,255,.08) !important; }
+.dashboard .settings-inline-action:hover,
+.dashboard .home-skip-button:hover,
+.dashboard .area-back:hover,
+.dashboard .settings-outline-button:hover { color:#74AAFF !important; }
+.dashboard .home-heatmap-cell.level-1,
+.dashboard .home-heatmap-footer i.level-1,
+.dashboard .goal-heatmap-cell.level-1,
+.dashboard .progress-page .home-heatmap-cell.level-1,
+.dashboard .progress-page .home-heatmap-footer i.level-1 { background:rgba(116,170,255,.18) !important; }
+.dashboard .home-heatmap-cell.level-2,
+.dashboard .home-heatmap-footer i.level-2,
+.dashboard .goal-heatmap-cell.level-2,
+.dashboard .progress-page .home-heatmap-cell.level-2,
+.dashboard .progress-page .home-heatmap-footer i.level-2 { background:rgba(116,170,255,.38) !important; }
+.dashboard .home-heatmap-cell.level-3,
+.dashboard .home-heatmap-footer i.level-3,
+.dashboard .goal-heatmap-cell.level-3,
+.dashboard .progress-page .home-heatmap-cell.level-3,
+.dashboard .progress-page .home-heatmap-footer i.level-3 { background:rgba(116,170,255,.66) !important; }
+.dashboard .home-heatmap-cell.level-4,
+.dashboard .home-heatmap-footer i.level-4,
+.dashboard .goal-heatmap-cell.level-4,
+.dashboard .progress-page .home-heatmap-cell.level-4,
+.dashboard .progress-page .home-heatmap-footer i.level-4 { background:#74AAFF !important; }
+.dashboard .dashboard-welcome-minimal::before {
+  background: radial-gradient(ellipse at 34% 48%, rgba(116,170,255,.13) 0%, rgba(116,170,255,.075) 28%, rgba(116,170,255,.035) 49%, transparent 72%) !important;
+}
