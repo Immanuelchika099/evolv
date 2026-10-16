@@ -270,3 +270,35 @@ html body #root .evolv-loader .evolv-loader-core::after {
   background-image: none !important;
   box-shadow: none !important;
 }
+
+
+/* Onboarding CTA contrast: blue accent backgrounds, always white text and icons. */
+html body #root .evolv-welcome-cta,
+html body #root .evolv-onboarding-continue,
+html body #root .onboarding .onboard-footer .button,
+html body #root .onboarding .onboard-continue,
+html body #root .onboarding .onboarding-next,
+html body #root .onboarding button[type="submit"],
+html body #root .onboarding .primary-button,
+html body #root .onboarding .btn-primary {
+  background: #74AAFF !important;
+  background-color: #74AAFF !important;
+  background-image: none !important;
+  border-color: #74AAFF !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  box-shadow: none !important;
+}
+html body #root .evolv-welcome-cta *,
+html body #root .evolv-onboarding-continue *,
+html body #root .onboarding .onboard-footer .button *,
+html body #root .onboarding .onboard-continue *,
+html body #root .onboarding .onboarding-next *,
+html body #root .onboarding button[type="submit"] *,
+html body #root .onboarding .primary-button *,
+html body #root .onboarding .btn-primary * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
