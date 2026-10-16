@@ -19,7 +19,7 @@
   --color-text-muted: rgba(255,255,255,.44);
   --color-border-subtle: rgba(255,255,255,.085);
   --color-border: rgba(255,255,255,.12);
-  --color-accent-lime: #c8f36a;
+  --color-accent-lime: #5145c8;
 
   /* Shared shape, elevation, and type scale */
   --radius-sm: 8px;
@@ -41,7 +41,7 @@
   background:#000;
   --muted:#85837f;
   --line:#ffffff1c;
-  --accent:#aebd78;
+  --accent: #5145c8;
   --mint:#7d857b;
   -webkit-font-smoothing:antialiased;
 }
