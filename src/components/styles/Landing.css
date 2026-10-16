@@ -1720,3 +1720,279 @@ body,
 
 /* Keep landing-page legacy surfaces from inheriting purple backgrounds. */
 html body #root .landing{background:#000!important;background-color:#000!important;background-image:none!important}html body #root .landing .landing-nav,html body #root .landing .mobile-menu{background:rgba(8,8,8,.96)!important}
+
+
+/* Scoped landing-page spacing scale and responsive refinements. */
+.landing-v2 {
+  --ev-space-1: 8px;
+  --ev-space-2: 16px;
+  --ev-space-3: 24px;
+  --ev-space-4: 32px;
+  --ev-space-5: 48px;
+  --ev-space-6: 64px;
+  --ev-space-7: 96px;
+  --ev-content-width: 1180px;
+}
+
+/* The four system cards share the same rhythm and equal row sizing. */
+.landing-v2 .ev-system-steps {
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  gap: var(--ev-space-2) !important;
+  margin-top: var(--ev-space-4) !important;
+}
+.landing-v2 .ev-system-steps > div {
+  min-width: 0;
+  min-height: 220px !important;
+  height: 100%;
+  padding: var(--ev-space-3) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: var(--ev-space-2) !important;
+}
+.landing-v2 .ev-system-steps > div > span {
+  margin: 0;
+  line-height: 1.4;
+}
+.landing-v2 .ev-system-steps strong {
+  margin: auto 0 0;
+  line-height: 1.2 !important;
+}
+.landing-v2 .ev-system-steps small {
+  margin: 0;
+  line-height: 1.55 !important;
+}
+
+/* Use one spacing scale for the main section rhythm. */
+.landing-v2 .ev-statement,
+.landing-v2 .ev-system,
+.landing-v2 .ev-areas,
+.landing-v2 .ev-faq {
+  padding-block: clamp(var(--ev-space-5), 10vw, var(--ev-space-7)) !important;
+}
+.landing-v2 .ev-section-head {
+  gap: var(--ev-space-5) !important;
+  margin-bottom: var(--ev-space-5) !important;
+}
+.landing-v2 .ev-experience {
+  padding-block: clamp(var(--ev-space-5), 9vw, var(--ev-space-7)) !important;
+  gap: clamp(var(--ev-space-4), 7vw, var(--ev-space-7)) !important;
+}
+
+/* The footer is full-bleed; only its contents follow the shared page width. */
+.landing-v2 .site-footer {
+  box-sizing: border-box !important;
+  display: block;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: var(--ev-space-6) max(24px, calc((100% - var(--ev-content-width)) / 2)) var(--ev-space-3) !important;
+  overflow: hidden;
+  border: 0 !important;
+  border-top: 1px solid rgba(25, 25, 25, .12) !important;
+  background-color: #f2f1ec !important;
+  background-image: none !important;
+  color: #171715 !important;
+}
+.landing-v2 .site-footer > * {
+  position: relative;
+  z-index: 1;
+}
+.landing-v2 .site-footer .footer-brand,
+.landing-v2 .site-footer .footer-links,
+.landing-v2 .site-footer .footer-bottom {
+  width: 100%;
+}
+.landing-v2 .site-footer .footer-brand p {
+  color: #34342f !important;
+}
+.landing-v2 .site-footer .footer-brand-logo {
+  color: #171715 !important;
+}
+.landing-v2 .site-footer .footer-brand-svg {
+  filter: brightness(0) saturate(100%);
+}
+.landing-v2 .site-footer .footer-links span,
+.landing-v2 .site-footer .footer-bottom {
+  color: #5c5b55 !important;
+}
+.landing-v2 .site-footer .footer-links a,
+.landing-v2 .site-footer .footer-links button.footer-contact {
+  color: #30302b !important;
+}
+.landing-v2 .site-footer .footer-links a:hover,
+.landing-v2 .site-footer .footer-links button.footer-contact:hover {
+  color: #1558b0 !important;
+}
+.landing-v2 .site-footer .footer-bottom {
+  border-top-color: rgba(25, 25, 25, .16) !important;
+}
+.landing-v2 .site-footer::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: .13;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+.landing-v2 .site-footer::after {
+  content: none !important;
+}
+
+/* Restored second marquee: slanted band with an infinite, seamless track. */
+.landing-v2 .ev-marquee-slanted {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: var(--ev-space-5) 0 var(--ev-space-6);
+  padding: 12px 0;
+  overflow: hidden;
+  isolation: isolate;
+}
+.landing-v2 .ev-marquee-slanted-band {
+  width: 104%;
+  margin-left: -2%;
+  padding: 25px 0;
+  overflow: hidden;
+  transform: rotate(-2.4deg);
+  border-top: 1px solid rgba(116, 170, 255, .32);
+  border-bottom: 1px solid rgba(116, 170, 255, .32);
+  background: linear-gradient(100deg, #101827, #0b0c0f 48%, #111b2a);
+  box-shadow: 0 16px 55px rgba(0,0,0,.22);
+}
+.landing-v2 .ev-marquee-slanted-track {
+  display: flex;
+  width: max-content;
+  animation: evSlantedMarquee 28s linear infinite;
+  will-change: transform;
+}
+.landing-v2 .ev-marquee-slanted-content {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: clamp(22px, 3vw, 44px);
+  padding-right: clamp(22px, 3vw, 44px);
+}
+.landing-v2 .ev-marquee-slanted-content span {
+  color: rgba(244, 244, 239, .72);
+  font: 500 clamp(22px, 3.4vw, 48px)/1 'Space Grotesk', sans-serif;
+  letter-spacing: -.045em;
+  white-space: nowrap;
+}
+.landing-v2 .ev-marquee-slanted-content span:nth-of-type(3n + 2) {
+  color: #74AAFF;
+}
+.landing-v2 .ev-marquee-slanted-content i {
+  color: rgba(116, 170, 255, .8);
+  font-style: normal;
+  font-size: clamp(12px, 1.5vw, 18px);
+}
+@keyframes evSlantedMarquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Fluid mobile hero: balanced gutters, no awkward wraps or overflow. */
+@media (max-width: 800px) {
+  .landing-v2 .ev-hero {
+    width: 100%;
+    min-width: 0;
+    min-height: auto !important;
+    padding: clamp(118px, 16vh, 150px) clamp(20px, 5vw, 32px) 76px !important;
+    align-items: stretch;
+  }
+  .landing-v2 .ev-hero-content {
+    width: 100% !important;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .landing-v2 .ev-hero-title {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(4.2rem, 12vw, 7.6rem) !important;
+    line-height: .96 !important;
+    overflow-wrap: normal;
+    word-break: normal;
+  }
+  .landing-v2 .ev-hero-title-line {
+    max-width: 100%;
+    white-space: normal;
+  }
+  .landing-v2 .ev-hero-copy {
+    width: 100%;
+    max-width: 44rem !important;
+    font-size: clamp(1.45rem, 3.9vw, 1.7rem) !important;
+    line-height: 1.7 !important;
+  }
+  .landing-v2 .ev-hero-actions {
+    width: 100%;
+    max-width: 34rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--ev-space-2) !important;
+  }
+  .landing-v2 .ev-hero-actions .ev-btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 50px !important;
+    white-space: normal;
+  }
+  .landing-v2 .ev-hero-watermark {
+    max-width: 100%;
+    overflow: hidden;
+    font-size: clamp(10rem, 32vw, 24rem) !important;
+  }
+}
+@media (max-width: 700px) {
+  .landing-v2 .ev-system-steps {
+    grid-template-columns: 1fr !important;
+    gap: var(--ev-space-2) !important;
+  }
+  .landing-v2 .ev-system-steps > div {
+    min-height: 170px !important;
+  }
+  .landing-v2 .site-footer {
+    padding: var(--ev-space-5) 24px var(--ev-space-3) !important;
+  }
+  .landing-v2 .ev-marquee-slanted {
+    margin-block: var(--ev-space-4) var(--ev-space-5);
+  }
+  .landing-v2 .ev-marquee-slanted-band {
+    width: 112%;
+    margin-left: -6%;
+    padding: 20px 0;
+    transform: rotate(-2deg);
+  }
+  .landing-v2 .ev-marquee-slanted-content {
+    gap: 22px;
+    padding-right: 22px;
+  }
+}
+@media (max-width: 430px) {
+  .landing-v2 .ev-hero {
+    padding-inline: 18px !important;
+  }
+  .landing-v2 .ev-hero-title {
+    font-size: clamp(4.2rem, 11.8vw, 5.1rem) !important;
+    letter-spacing: -.075em !important;
+  }
+  .landing-v2 .ev-hero-actions { max-width: 100%; }
+  .landing-v2 .ev-hero-actions .ev-btn { padding-inline: 18px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-v2 .ev-marquee-slanted-track {
+    animation: none !important;
+  }
+}
+
+.landing-v2 .ev-system-step-icon {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--ev-accent, #74AAFF);
+}
