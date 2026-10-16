@@ -138,9 +138,9 @@ body,
   .dashboard .settings-page .settings-card:hover,
   .dashboard .settings-page .settings-section:hover {
     transform: translateY(-2px);
-    border-color: rgba(116, 170, 255, .24);
-    background-color: rgba(116, 170, 255, .025);
-    box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 0 0 1px rgba(116, 170, 255, .025);
+    border-color: rgba(37, 99, 235, .24);
+    background-color: rgba(37, 99, 235, .025);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 0 0 1px rgba(37, 99, 235, .025);
   }
 }
 
@@ -157,7 +157,7 @@ body,
 .dashboard .settings-page .profile-hero-card:focus-visible,
 .dashboard .settings-page .settings-card:focus-visible,
 .dashboard .settings-page .settings-section:focus-visible {
-  outline: 2px solid rgba(116, 170, 255, .6);
+  outline: 2px solid rgba(37, 99, 235, .6);
   outline-offset: 3px;
 }
 
@@ -180,7 +180,7 @@ body,
 
 .dashboard .glass-task:hover {
   background-color: var(--color-surface-raised);
-  background-image: linear-gradient(145deg, rgba(116, 170, 255,.035), rgba(255,255,255,.018));
+  background-image: linear-gradient(145deg, rgba(37, 99, 235,.035), rgba(255,255,255,.018));
 }
 
 .dashboard .life-area-row,
@@ -361,8 +361,8 @@ body,
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-accordion > .progress-accordion-card.is-open {
-  border-color: rgba(116, 170, 255,.22);
-  background: linear-gradient(110deg, rgba(116, 170, 255,.045), rgba(255,255,255,.012)) !important;
+  border-color: rgba(37, 99, 235,.22);
+  background: linear-gradient(110deg, rgba(37, 99, 235,.045), rgba(255,255,255,.012)) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 12px 34px rgba(0,0,0,.16);
 }
 
@@ -411,7 +411,7 @@ body,
 }
 
 .dashboard .progress-accordion-trigger:focus-visible {
-  outline: 2px solid rgba(116, 170, 255,.62);
+  outline: 2px solid rgba(37, 99, 235,.62);
   outline-offset: -4px;
 }
 
@@ -750,7 +750,7 @@ body,
 
 .dashboard .goals-page .goal-item.is-expanded .goal-accordion-chevron {
   transform: rotate(180deg);
-  color: var(--color-accent-lime, #74AAFF);
+  color: var(--color-accent-lime, #2563eb);
 }
 
 .dashboard .goals-page .goal-item.is-collapsed .goal-accordion-status {
@@ -832,20 +832,20 @@ body,
 }
 
 .dashboard .goals-page .goal-accordion-trigger:focus-visible {
-  outline: 2px solid rgba(116, 170, 255, .7);
+  outline: 2px solid rgba(37, 99, 235, .7);
   outline-offset: -4px;
   border-radius: 16px;
 }
 
 @media (hover: hover) {
   .dashboard .goals-page .goal-item.goal-accordion-item:hover {
-    border-color: rgba(116, 170, 255, .2) !important;
+    border-color: rgba(37, 99, 235, .2) !important;
     background: #111 !important;
     box-shadow: 0 10px 28px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .035);
   }
 
   .dashboard .goals-page .goal-accordion-trigger:hover .goal-accordion-chevron {
-    color: var(--color-accent-lime, #74AAFF);
+    color: var(--color-accent-lime, #2563eb);
   }
 }
 
