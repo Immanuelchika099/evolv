@@ -552,7 +552,7 @@ function EvolvLoader() {
   return (
     <div className="evolv-loader" aria-label="Loading EVOLV">
       <div className="evolv-loader-core">
-        <span className="evolv-loader-wordmark" style={{ fontSize: "1.15rem", fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)", textTransform: "lowercase" }}>evolv</span>
+        <span className="evolv-loader-wordmark" style={{ fontSize: "1.15rem", fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)", textTransform: "lowercase" }}>[evolv]</span>
       </div>
     </div>
   )
