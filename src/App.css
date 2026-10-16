@@ -196,7 +196,7 @@
   transition:background .2s ease,transform .2s ease;
 }
 .progress-recent-row:hover{background:rgba(255,255,255,.035);transform:translateY(-1px)}
-.progress-recent-row:focus-visible{outline:2px solid rgba(200,243,106,.7);outline-offset:2px}
+.progress-recent-row:focus-visible{outline:2px solid rgba(116,170,255,.7);outline-offset:2px}
 
 .entry-detail-overlay{
   position:fixed;
@@ -322,7 +322,7 @@
   }
 
   .progress-recent-row:focus-visible{
-    outline:2px solid rgba(200,243,106,.55);
+    outline:2px solid rgba(116,170,255,.55);
     outline-offset:-2px;
   }
 
@@ -485,9 +485,9 @@
   margin-top:1.4rem;
   min-height:4.4rem;
   padding:.95rem 1.35rem;
-  border:1px solid rgba(200,243,106,.18);
+  border:1px solid rgba(116,170,255,.18);
   border-radius:999rem;
-  background:linear-gradient(135deg,rgba(200,243,106,.09),rgba(255,255,255,.035));
+  background:linear-gradient(135deg,rgba(116,170,255,.09),rgba(255,255,255,.035));
   color:rgba(255,255,255,.9);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1rem 3rem rgba(0,0,0,.18);
   font:inherit;
@@ -508,8 +508,8 @@
 }
 .manage-logs-button:hover{
   transform:translateY(-.15rem);
-  border-color:rgba(200,243,106,.32);
-  background:linear-gradient(135deg,rgba(200,243,106,.13),rgba(255,255,255,.045));
+  border-color:rgba(116,170,255,.32);
+  background:linear-gradient(135deg,rgba(116,170,255,.13),rgba(255,255,255,.045));
   box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 1.2rem 3.5rem rgba(0,0,0,.25);
 }
 .manage-logs-button:hover::before{transform:translateX(120%)}
@@ -531,7 +531,7 @@
   border:1px solid rgba(255,255,255,.1);
   border-radius:2.4rem;
   background:
-    radial-gradient(circle at 8% 0%,rgba(200,243,106,.09),transparent 28%),
+    radial-gradient(circle at 8% 0%,rgba(116,170,255,.09),transparent 28%),
     radial-gradient(circle at 96% 100%,rgba(98,230,189,.055),transparent 30%),
     linear-gradient(145deg,rgba(17,24,20,.98),rgba(8,12,10,.985));
   box-shadow:0 2.5rem 8rem rgba(0,0,0,.58),inset 0 1px 0 rgba(255,255,255,.06);
@@ -547,10 +547,10 @@
   height:4.4rem;
   display:grid;
   place-items:center;
-  border:1px solid rgba(200,243,106,.18);
+  border:1px solid rgba(116,170,255,.18);
   border-radius:1.4rem;
-  color:#c8f36a;
-  background:rgba(200,243,106,.07);
+  color:#74AAFF;
+  background:rgba(116,170,255,.07);
   box-shadow:0 1rem 3rem rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.07);
 }
 .log-history-close{
@@ -631,10 +631,10 @@
   height:3.7rem;
   display:grid;
   place-items:center;
-  border:1px solid rgba(200,243,106,.11);
+  border:1px solid rgba(116,170,255,.11);
   border-radius:1.15rem;
-  color:#c8f36a;
-  background:rgba(200,243,106,.055);
+  color:#74AAFF;
+  background:rgba(116,170,255,.055);
 }
 .log-history-row-copy{min-width:0}
 .log-history-row-copy strong{
@@ -677,8 +677,8 @@
   place-items:center;
   margin-bottom:1rem;
   border-radius:1.4rem;
-  color:#c8f36a;
-  background:rgba(200,243,106,.07);
+  color:#74AAFF;
+  background:rgba(116,170,255,.07);
 }
 .log-history-empty strong{font-size:1.7rem}
 .log-history-empty p{
@@ -745,8 +745,8 @@
   gap:1.1rem;
   padding:1rem 1.15rem;
   border-radius:1.7rem;
-  border-color:rgba(200,243,106,.15);
-  background:linear-gradient(135deg,rgba(200,243,106,.075),rgba(255,255,255,.025));
+  border-color:rgba(116,170,255,.15);
+  background:linear-gradient(135deg,rgba(116,170,255,.075),rgba(255,255,255,.025));
   text-align:left;
 }
 .manage-logs-button-icon{
@@ -755,10 +755,10 @@
   height:4.1rem;
   display:grid;
   place-items:center;
-  border:1px solid rgba(200,243,106,.15);
+  border:1px solid rgba(116,170,255,.15);
   border-radius:1.25rem;
-  color:#c8f36a;
-  background:rgba(200,243,106,.07);
+  color:#74AAFF;
+  background:rgba(116,170,255,.07);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
 }
 .manage-logs-button-copy{
@@ -821,7 +821,7 @@
 .goal-item-actions{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;align-items:end;gap:.65rem;margin-top:1rem}
 .goal-item-actions label{display:grid;gap:.35rem;min-width:0}
 .goal-item-actions label span{font-size:1.25rem;color:rgba(255,255,255,.4)}
-.goal-item-actions input[type="range"]{width:100%;accent-color:#c8f36a}
+.goal-item-actions input[type="range"]{width:100%;accent-color:#74AAFF}
 .goal-item-actions select{min-width:11rem}
 .goal-item-actions button{display:inline-flex;align-items:center;justify-content:center;gap:.45rem}
 .goal-item-actions .goal-delete-button{border-color:rgba(255,100,100,.18);color:#ffb0b0;background:rgba(255,90,90,.05)}
@@ -857,8 +857,8 @@
 }
 .goal-create-form textarea{min-height:8rem;resize:vertical}
 .goal-create-form input:focus,.goal-create-form textarea:focus,.goal-date-field input:focus{
-  border-color:rgba(200,243,106,.3);
-  box-shadow:0 0 0 .2rem rgba(200,243,106,.06);
+  border-color:rgba(116,170,255,.3);
+  box-shadow:0 0 0 .2rem rgba(116,170,255,.06);
 }
 .goal-list{
   display:grid;
@@ -894,7 +894,7 @@
   flex:0 0 auto;
   font-size:2.2rem;
   line-height:1;
-  color:#c8f36a;
+  color:#74AAFF;
 }
 .goal-status-copy{
   display:inline-flex;
@@ -913,7 +913,7 @@
   display:block;
   height:100%;
   border-radius:inherit;
-  background:#c8f36a;
+  background:#74AAFF;
 }
 .goal-empty{
   display:grid;
@@ -1033,7 +1033,7 @@
   border-radius:999rem;
   background:linear-gradient(
     to right,
-    #c8f36a 0 var(--goal-progress),
+    #74AAFF 0 var(--goal-progress),
     rgba(255,255,255,.09) var(--goal-progress) 100%
   );
 }
@@ -1047,7 +1047,7 @@
 .goal-item-actions input[type="range"]::-moz-range-progress{
   height:.7rem;
   border-radius:999rem;
-  background:#c8f36a;
+  background:#74AAFF;
 }
 
 .goal-item-actions input[type="range"]::-webkit-slider-thumb{
@@ -1058,8 +1058,8 @@
   -webkit-appearance:none;
   border:.35rem solid #10150f;
   border-radius:50%;
-  background:#c8f36a;
-  box-shadow:0 0 0 .1rem rgba(200,243,106,.35),0 .45rem 1.2rem rgba(0,0,0,.35);
+  background:#74AAFF;
+  box-shadow:0 0 0 .1rem rgba(116,170,255,.35),0 .45rem 1.2rem rgba(0,0,0,.35);
   transition:transform .18s ease,box-shadow .18s ease;
 }
 
@@ -1068,14 +1068,14 @@
   height:1.3rem;
   border:.35rem solid #10150f;
   border-radius:50%;
-  background:#c8f36a;
-  box-shadow:0 0 0 .1rem rgba(200,243,106,.35),0 .45rem 1.2rem rgba(0,0,0,.35);
+  background:#74AAFF;
+  box-shadow:0 0 0 .1rem rgba(116,170,255,.35),0 .45rem 1.2rem rgba(0,0,0,.35);
 }
 
 .goal-item-actions input[type="range"]:hover::-webkit-slider-thumb,
 .goal-item-actions input[type="range"]:focus-visible::-webkit-slider-thumb{
   transform:scale(1.14);
-  box-shadow:0 0 0 .25rem rgba(200,243,106,.1),0 .5rem 1.4rem rgba(0,0,0,.4);
+  box-shadow:0 0 0 .25rem rgba(116,170,255,.1),0 .5rem 1.4rem rgba(0,0,0,.4);
 }
 
 .goal-item-actions select{
@@ -1093,8 +1093,8 @@
 }
 
 .goal-item-actions select:focus{
-  border-color:rgba(200,243,106,.3);
-  box-shadow:0 0 0 .2rem rgba(200,243,106,.06);
+  border-color:rgba(116,170,255,.3);
+  box-shadow:0 0 0 .2rem rgba(116,170,255,.06);
 }
 
 .goal-item-actions button{
@@ -1182,8 +1182,8 @@
 }
 
 .goal-item .mini-progress i{
-  background:linear-gradient(90deg,#a9dc50,#c8f36a);
-  box-shadow:0 0 .9rem rgba(200,243,106,.16);
+  background:linear-gradient(90deg,#4D8FEF,#74AAFF);
+  box-shadow:0 0 .9rem rgba(116,170,255,.16);
 }
 
 
@@ -1280,7 +1280,7 @@
   --evolv-glass-bg-strong: rgba(255,255,255,.055);
   --evolv-glass-border: rgba(255,255,255,.085);
   --evolv-glass-highlight: rgba(255,255,255,.065);
-  --evolv-glass-green: rgba(200,243,106,.075);
+  --evolv-glass-green: rgba(116,170,255,.075);
   --evolv-glass-shadow: 0 1.5rem 4rem rgba(0,0,0,.20);
 }
 
@@ -1485,18 +1485,18 @@ html.evolv-android .goals-page .goal-item {
 /* Bright back-link treatment */
 .dashboard .area-back,
 .dashboard-panel .area-back{
-  color:#d8ff68;
+  color:#74AAFF;
   font-weight:600;
 }
 
 .dashboard .area-back svg,
 .dashboard-panel .area-back svg{
-  color:#d8ff68;
+  color:#74AAFF;
 }
 
 .dashboard .area-back:hover,
 .dashboard-panel .area-back:hover{
-  color:#efffb0;
+  color:#BBD7FF;
 }
 
 
@@ -2612,7 +2612,7 @@ html,body,#root{background:#000 !important;}
   border-top:1px solid rgba(255,255,255,.16);
 }
 .landing-v2 .ev-system-steps span {
-  color:#b8f34a;
+  color:#74AAFF;
   font-size:1.2rem;
   letter-spacing:.12em;
 }
