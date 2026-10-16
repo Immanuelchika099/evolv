@@ -1,168 +1,138 @@
-.footer-brand-logo{display:flex;align-items:center;gap:10px;color:#f2f1eb;text-decoration:none;font:600 13px 'Space Grotesk';letter-spacing:.18em}
-.footer-brand-mark{width:24px;height:24px;border:1px solid #777;border-radius:50%;display:grid;place-items:center}
-.footer-brand-mark span{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 18px var(--accent)}
-.site-footer a{color:inherit;text-decoration:none}
-.site-footer button{font:inherit}
-
-/* EVOLV vector brand mark */
-.footer-brand-svg{
-  width:24px;
-  height:24px;
-  display:block;
-  color:#f2f1eb;
-  flex:none;
+/* EVOLV footer — static off-white grain, full-bleed and high-contrast. */
+.site-footer {
+  position: relative;
+  isolation: isolate;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 64px max(24px, calc((100% - 1180px) / 2)) 28px;
+  overflow: hidden;
+  border-top: 1px solid rgba(25, 25, 25, .12);
+  background: #f2f1ec;
+  color: #171715;
 }
-
-/* NEW EVOLV LOGO SYSTEM */
-.footer-brand-logo{gap:0;}
-.footer-brand-svg{width:8rem;height:auto;aspect-ratio:218/199;object-fit:contain;}
-@media(max-width:800px){.footer-brand-svg{width:7.2rem;height:auto;}}
-
-/* GradientWaves cinematic footer */
-.site-footer{
-  position:relative;
-  isolation:isolate;
-  overflow:hidden;
-  background:linear-gradient(180deg,#050705 0%,#020302 100%);
-  border-top:1px solid rgba(200,243,106,.09);
+.site-footer > * {
+  position: relative;
+  z-index: 1;
 }
-
-.footer-waves{
-  position:absolute!important;
-  top:0!important;
-  right:0!important;
-  left:0!important;
-  bottom:0!important;
-  height:100%!important;
-  z-index:0!important;
-  opacity:.48;
-  pointer-events:none;
-  overflow:hidden;
+.site-footer::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  opacity: .13;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }
-
-.footer-waves .gradient-waves-container{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  transform:none;
-  transform-origin:center center;
+.site-footer::after { content: none; }
+.site-footer a { color: inherit; text-decoration: none; }
+.site-footer button { font: inherit; }
+.footer-brand-logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  color: #171715;
+  text-decoration: none;
 }
-
-.footer-waves-overlay{
-  position:absolute!important;
-  inset:0!important;
-  z-index:1!important;
-  pointer-events:none;
-  background:
-    linear-gradient(
-      180deg,
-      rgba(2,3,2,0) 0%,
-      rgba(2,3,2,0) 42%,
-      rgba(2,3,2,.18) 54%,
-      rgba(2,3,2,.58) 69%,
-      rgba(2,3,2,.88) 84%,
-      rgba(2,3,2,1) 100%
-    ),
-    linear-gradient(
-      90deg,
-      rgba(2,3,2,.62) 0%,
-      rgba(2,3,2,.08) 24%,
-      rgba(2,3,2,.08) 76%,
-      rgba(2,3,2,.62) 100%
-    );
+.footer-brand-svg {
+  display: block;
+  width: 8rem;
+  height: auto;
+  aspect-ratio: 218 / 199;
+  object-fit: contain;
+  flex: none;
+  filter: brightness(0) saturate(100%);
 }
-
-.site-footer::after{
-  content:"EVOLV";
-  position:absolute;
-  right:-2.5vw;
-  bottom:-10vw;
-  z-index:0;
-  color:rgba(200,243,106,.022);
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(12rem,27vw,34rem);
-  font-weight:700;
-  line-height:.72;
-  letter-spacing:-.085em;
-  white-space:nowrap;
-  pointer-events:none;
-  user-select:none;
-  transform:rotate(-4deg);
+.footer-brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  padding-bottom: 48px;
 }
-
-.site-footer > *{
-  position:relative;
-  z-index:2;
+.footer-brand p {
+  max-width: 34rem;
+  margin: 0;
+  color: #34342f;
+  font-size: 2.2rem;
+  line-height: 1.45;
+  text-align: right;
 }
-
-.site-footer > .footer-waves,
-.site-footer > .footer-waves-overlay{
-  position:absolute!important;
-  pointer-events:none;
+.footer-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  width: min(100%, 560px);
+  margin: 0 0 0 auto;
+  padding-bottom: 40px;
 }
-
-@media(max-width:800px){
-  .footer-waves{
-    height:100%!important;
-    opacity:.4;
-  }
-
-  .footer-waves .gradient-waves-container{
-    inset:0;
-    width:100%;
-    height:100%;
-    transform:none;
-  }
-
-  .footer-waves-overlay{
-    background:
-      linear-gradient(
-        180deg,
-        rgba(2,3,2,0) 0%,
-        rgba(2,3,2,0) 38%,
-        rgba(2,3,2,.24) 54%,
-        rgba(2,3,2,.64) 70%,
-        rgba(2,3,2,.92) 86%,
-        rgba(2,3,2,1) 100%
-      ),
-      linear-gradient(
-        90deg,
-        rgba(2,3,2,.68) 0%,
-        rgba(2,3,2,.12) 30%,
-        rgba(2,3,2,.68) 100%
-      );
-  }
-
-  .site-footer::after{
-    right:-7vw;
-    bottom:-4vw;
-    font-size:clamp(9rem,29vw,17rem);
-  }
+.footer-links > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 13px;
+  min-width: 0;
 }
-
-
-/* Final footer treatment — full-bleed, neutral ash waves */
-.site-footer{
-  width:100vw!important;
-  max-width:none!important;
-  margin-left:calc(50% - 50vw)!important;
-  margin-right:calc(50% - 50vw)!important;
-  background:linear-gradient(180deg,#050505 0%,#000 100%)!important;
-  border-top:1px solid rgba(210,210,210,.10)!important;
+.footer-links span,
+.footer-bottom {
+  color: #5c5b55;
+  font: 1rem 'DM Mono', monospace;
+  letter-spacing: .12em;
 }
-.footer-waves{opacity:.42!important}
-.site-footer::after{color:rgba(205,205,205,.022)!important}
-@media(max-width:800px){
-  .site-footer{width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:calc(50% - 50vw)!important}
-  .footer-waves{opacity:.34!important}
+.footer-links a,
+.footer-links button.footer-contact {
+  appearance: none;
+  -webkit-appearance: none;
+  width: max-content;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: #30302b;
+  font: 1.35rem/1.45 Manrope, sans-serif;
+  text-align: left;
+  text-decoration: none;
+  transition: color .2s ease, transform .2s ease;
 }
-
-
-/* Premium neutral footer treatment */
-.site-footer{background:#050505!important;border-top:1px solid rgba(255,255,255,.09)!important}
-.site-footer .footer-waves{opacity:.24!important;filter:grayscale(1)!important}
-.site-footer .footer-waves-overlay{background:linear-gradient(180deg,rgba(5,5,5,0) 0%,rgba(5,5,5,.08) 42%,rgba(5,5,5,.40) 68%,rgba(5,5,5,.90) 88%,#050505 100%)!important}
-.site-footer::after{color:rgba(255,255,255,.018)!important}
-.site-footer .footer-brand-mark span{background:#fff!important;box-shadow:0 0 14px rgba(255,255,255,.18)!important}
-.site-footer .footer-brand-svg{color:#f5f5f7!important}
+.footer-links a:hover,
+.footer-links button.footer-contact:hover {
+  color: #1558b0;
+  transform: translateX(2px);
+}
+.footer-contact {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+}
+.footer-links svg { stroke-width: 1.5; }
+.footer-social {
+  font-family: 'DM Mono', monospace !important;
+  letter-spacing: .02em;
+}
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-top: 22px;
+  border-top: 1px solid rgba(25, 25, 25, .16);
+}
+@media (max-width: 700px) {
+  .site-footer { padding: 48px 24px 24px; }
+  .footer-brand { display: block; padding-bottom: 36px; }
+  .footer-brand p { margin-top: 22px; text-align: left; font-size: 2rem; }
+  .footer-links { width: 100%; gap: 28px; margin: 0; padding-bottom: 36px; }
+  .footer-links span, .footer-bottom { font-size: 1.1rem; }
+  .footer-links a, .footer-links button.footer-contact { font-size: 1.4rem; }
+  .footer-bottom { line-height: 1.7; }
+}
+@media (max-width: 360px) {
+  .footer-links { gap: 18px; }
+  .footer-brand p { font-size: 1.8rem; }
+}
