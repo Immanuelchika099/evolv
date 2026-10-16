@@ -951,7 +951,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
             preset="silk"
             pattern="line"
             wave="silk"
-            color="#74AAFF"
+            color="#2563eb"
             backgroundColor="#050505"
             opacity={0.12}
             fade="center"
@@ -1391,7 +1391,7 @@ function ArticlePage({ article, onStart, onBack }) {
 const onboardingGoals = [
   { id: 'sleep', title: 'Sleep & energy', detail: 'Feel more rested and steady', icon: Moon, color: '#F5B84B', tint: 'rgba(245,184,75,.13)' },
   { id: 'mood', title: 'Mood & wellbeing', detail: 'Understand how I feel', icon: HeartPulse, color: '#FF7896', tint: 'rgba(255,120,150,.13)' },
-  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#74AAFF', tint: 'rgba(116,170,255,.13)' },
+  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#2563eb', tint: 'rgba(37, 99, 235,.13)' },
   { id: 'self-care', title: 'Self-care', detail: 'Make more room for myself', icon: Sparkles, color: '#F2A6D8', tint: 'rgba(242,166,216,.13)' },
   { id: 'career', title: 'Learning & career', detail: 'Keep growing my skills', icon: BookOpen, color: '#55D6C2', tint: 'rgba(85,214,194,.13)' },
   { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', icon: WalletCards, color: '#65CDA5', tint: 'rgba(101,205,165,.13)' },
