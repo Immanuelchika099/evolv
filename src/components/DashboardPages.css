@@ -7862,3 +7862,14 @@ body,
 @keyframes daily-ai-shimmer { to { background-position: -200% 0; } }
 @keyframes daily-ai-rotate { to { transform: rotate(360deg); } }
 @media (max-width: 640px) { .daily-ai-insight-card { padding: 1.7rem; border-radius: 1.5rem; } .daily-ai-insight-card h3 { font-size: 2.1rem; } .daily-ai-insight-observation { font-size: 1.35rem; } .daily-ai-insight-suggestion p { font-size: 1.3rem; } }
+
+
+/* A soft entrance when the daily insight content changes. */
+.daily-ai-insight-card { animation: daily-ai-insight-enter .48s cubic-bezier(.2,.7,.2,1) both; }
+@keyframes daily-ai-insight-enter {
+  from { opacity: 0; transform: translateY(7px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .daily-ai-insight-card { animation: none; }
+}
