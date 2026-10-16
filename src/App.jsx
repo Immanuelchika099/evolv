@@ -1037,6 +1037,18 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         </div>
       </section>
 
+      <section className="ev-marquee-slanted ev-reveal" aria-label="Design, technology and intelligence">
+        <div className="ev-marquee-slanted-band">
+          <div className="ev-marquee-slanted-track" aria-hidden="true">
+            {[0, 1].map(copy => (
+              <div className="ev-marquee-slanted-content" key={copy}>
+                <span>DESIGN</span><i>✳</i><span>TECHNOLOGY</span><i>✳</i><span>INTELLIGENCE</span><i>✳</i><span>DESIGN</span><i>✳</i><span>TECHNOLOGY</span><i>✳</i><span>INTELLIGENCE</span><i>✳</i>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="ev-final ev-reveal">
         <div className="ev-final-watermark">EVOLV</div>
         <span className="ev-label">07 — YOUR NEXT SELF</span>
