@@ -2411,7 +2411,14 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .site-footer .footer-bottom { border-top-color: rgba(255,255,255,.12) !important; }
 .landing-v2 .site-footer::before {
   z-index: 0 !important;
-  opacity: .22 !important;
-  mix-blend-mode: soft-light;
-  background-size: 150px 150px !important;
+  opacity: .4 !important;
+  mix-blend-mode: screen !important;
+  background-size: 110px 110px !important;
+  filter: contrast(1.2) brightness(1.25);
+}
+
+/* Section 07 CTA: keep the blue button, but make its label and arrow white. */
+.landing-v2 .ev-final .ev-btn-solid,
+.landing-v2 .ev-final .ev-btn-solid svg {
+  color: #fff !important;
 }
