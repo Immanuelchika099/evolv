@@ -7913,3 +7913,49 @@ body,
     font-size: 4.6rem !important;
   }
 }
+
+
+/* EVOLV blue activity heatmaps — override the legacy indigo/lime graph palette. */
+.dashboard-home-redesign .home-heatmap-cell.level-1,
+.dashboard-home-redesign .home-heatmap-footer i.level-1,
+.progress-page .home-heatmap-cell.level-1,
+.progress-page .home-heatmap-footer i.level-1,
+.goal-heatmap-cell.level-1,
+.goal-heatmap-legend i.level-1 {
+  background: #17263B !important;
+  border-color: rgba(116,170,255,.12) !important;
+}
+.dashboard-home-redesign .home-heatmap-cell.level-2,
+.dashboard-home-redesign .home-heatmap-footer i.level-2,
+.progress-page .home-heatmap-cell.level-2,
+.progress-page .home-heatmap-footer i.level-2,
+.goal-heatmap-cell.level-2,
+.goal-heatmap-legend i.level-2 {
+  background: #244A78 !important;
+  border-color: rgba(116,170,255,.2) !important;
+}
+.dashboard-home-redesign .home-heatmap-cell.level-3,
+.dashboard-home-redesign .home-heatmap-footer i.level-3,
+.progress-page .home-heatmap-cell.level-3,
+.progress-page .home-heatmap-footer i.level-3,
+.goal-heatmap-cell.level-3,
+.goal-heatmap-legend i.level-3 {
+  background: #3979BE !important;
+  border-color: rgba(116,170,255,.28) !important;
+}
+.dashboard-home-redesign .home-heatmap-cell.level-4,
+.dashboard-home-redesign .home-heatmap-footer i.level-4,
+.progress-page .home-heatmap-cell.level-4,
+.progress-page .home-heatmap-footer i.level-4,
+.goal-heatmap-cell.level-4,
+.goal-heatmap-legend i.level-4 {
+  background: #74AAFF !important;
+  border-color: rgba(255,255,255,.35) !important;
+}
+.goal-heatmap-range button.is-active {
+  color: #ffffff !important;
+  background: #74AAFF !important;
+}
+.goal-heatmap-range button:focus-visible {
+  outline-color: rgba(116,170,255,.7) !important;
+}
