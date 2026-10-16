@@ -58,136 +58,109 @@ function getProviderFirstName(user) {
 }
 
 function AmbientSound({ active }) {
-  const engineRef = useRef(null)
-  const [playing, setPlaying] = useState(false)
+  const audioRef = useRef(null)
+  const fadeTimerRef = useRef(null)
+  const interactionHandlerRef = useRef(null)
+  const targetVolume = 0.07
 
-  async function startAir() {
-    if (!active) return
-    try {
-      let engine = engineRef.current
-      if (!engine) {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext
-        if (!AudioContextClass) return
-        const context = new AudioContextClass()
-        const length = context.sampleRate * 6
-        const buffer = context.createBuffer(1, length, context.sampleRate)
-        const data = buffer.getChannelData(0)
-        let brown = 0
-        for (let i = 0; i < length; i += 1) {
-          brown = (brown + 0.025 * (Math.random() * 2 - 1)) / 1.025
-          data[i] = brown * 3.2
-        }
-        const source = context.createBufferSource()
-        source.buffer = buffer
-        source.loop = true
-        const filter = context.createBiquadFilter()
-        filter.type = 'lowpass'
-        filter.frequency.value = 430
-        filter.Q.value = 0.35
-        const gain = context.createGain()
-        gain.gain.value = 0.014
-        // A separate master stage lets the ambience fade out cleanly when the
-        // app is backgrounded or unmounted, instead of ending with an audible click/chime.
-        const masterGain = context.createGain()
-        masterGain.gain.value = 0
-        const drift = context.createOscillator()
-        drift.type = 'sine'
-        drift.frequency.value = 0.035
-        const driftAmount = context.createGain()
-        driftAmount.gain.value = 0.003
-        drift.connect(driftAmount)
-        driftAmount.connect(gain.gain)
-        source.connect(filter)
-        filter.connect(gain)
-        gain.connect(masterGain)
-        masterGain.connect(context.destination)
-        source.start()
-        drift.start()
-        engine = { context, source, drift, masterGain, fadeTimer: null }
-        engineRef.current = engine
-      }
-      if (engine.fadeTimer) {
-        window.clearTimeout(engine.fadeTimer)
-        engine.fadeTimer = null
-      }
-      await engine.context.resume()
-      const now = engine.context.currentTime
-      engine.masterGain.gain.cancelScheduledValues(now)
-      engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now)
-      engine.masterGain.gain.linearRampToValueAtTime(1, now + 0.22)
-      setPlaying(engine.context.state === 'running')
-    } catch {
-      setPlaying(false)
+  function clearFadeTimer() {
+    if (fadeTimerRef.current) {
+      window.clearInterval(fadeTimerRef.current)
+      fadeTimerRef.current = null
     }
   }
 
-  function pauseAir() {
-    const engine = engineRef.current
-    if (!engine) {
-      setPlaying(false)
+  function fadeTo(target, duration = 220, pauseWhenDone = false) {
+    const audio = audioRef.current
+    if (!audio) return
+    clearFadeTimer()
+
+    const startVolume = audio.volume
+    const steps = 11
+    const stepDuration = Math.max(16, duration / steps)
+    let step = 0
+
+    if (target > 0) audio.play().catch(() => {})
+    fadeTimerRef.current = window.setInterval(() => {
+      step += 1
+      const progress = Math.min(step / steps, 1)
+      audio.volume = Math.max(0, Math.min(1, startVolume + (target - startVolume) * progress))
+
+      if (progress >= 1) {
+        clearFadeTimer()
+        if (pauseWhenDone) audio.pause()
+      }
+    }, stepDuration)
+  }
+
+  async function startAmbient() {
+    const audio = audioRef.current
+    if (!active || !audio || document.visibilityState === 'hidden') return
+
+    clearFadeTimer()
+    audio.volume = 0
+    try {
+      await audio.play()
+      fadeTo(targetVolume, 700)
+    } catch {
+      // Browsers may block autoplay until the user's first natural interaction.
+    }
+  }
+
+  function pauseAmbient() {
+    const audio = audioRef.current
+    if (!audio) return
+    if (audio.paused) {
+      clearFadeTimer()
       return
     }
-
-    if (engine.fadeTimer) window.clearTimeout(engine.fadeTimer)
-    if (engine.context.state === 'running') {
-      const now = engine.context.currentTime
-      engine.masterGain.gain.cancelScheduledValues(now)
-      engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now)
-      engine.masterGain.gain.linearRampToValueAtTime(0, now + 0.18)
-      engine.fadeTimer = window.setTimeout(() => {
-        if (engine.context.state === 'running') engine.context.suspend().catch(() => {})
-        engine.fadeTimer = null
-      }, 240)
-    }
-    setPlaying(false)
+    fadeTo(0, 220, true)
   }
 
   useEffect(() => {
-    if (!active) {
-      pauseAir()
-      return
+    const audio = new Audio('/audio/ambient.m4a')
+    audio.loop = true
+    audio.preload = 'auto'
+    audio.volume = 0
+    audioRef.current = audio
+
+    const resumeAfterInteraction = () => {
+      if (active && document.visibilityState !== 'hidden') startAmbient()
+    }
+    interactionHandlerRef.current = resumeAfterInteraction
+
+    if (active) {
+      startAmbient()
+      document.addEventListener('pointerdown', resumeAfterInteraction, { passive: true })
+      document.addEventListener('touchstart', resumeAfterInteraction, { passive: true })
+      document.addEventListener('keydown', resumeAfterInteraction)
     }
 
-    // Try immediately where autoplay is allowed, then retry after the user's
-    // first natural interaction if iOS/Safari blocks audio on launch.
-    startAir()
-    const resumeAfterInteraction = () => startAir()
-    document.addEventListener('pointerdown', resumeAfterInteraction, { passive: true })
-    document.addEventListener('touchstart', resumeAfterInteraction, { passive: true })
-    document.addEventListener('keydown', resumeAfterInteraction)
     const onVisibility = () => {
-      if (document.visibilityState === 'visible' && active) startAir()
-      else pauseAir()
+      if (document.visibilityState === 'visible' && active) startAmbient()
+      else pauseAmbient()
+    }
+    const onPageHide = () => {
+      clearFadeTimer()
+      audio.pause()
+      audio.currentTime = 0
     }
     document.addEventListener('visibilitychange', onVisibility)
+    window.addEventListener('pagehide', onPageHide)
 
     return () => {
       document.removeEventListener('pointerdown', resumeAfterInteraction)
       document.removeEventListener('touchstart', resumeAfterInteraction)
       document.removeEventListener('keydown', resumeAfterInteraction)
       document.removeEventListener('visibilitychange', onVisibility)
-      pauseAir()
+      window.removeEventListener('pagehide', onPageHide)
+      clearFadeTimer()
+      audio.pause()
+      audio.removeAttribute('src')
+      audio.load()
+      audioRef.current = null
     }
   }, [active])
-
-  useEffect(() => () => {
-    const engine = engineRef.current
-    if (!engine) return
-    if (engine.fadeTimer) window.clearTimeout(engine.fadeTimer)
-    // Avoid an abrupt Web Audio shutdown, which can sound like a tiny chime
-    // on some mobile browsers when leaving or closing the app.
-    try {
-      const now = engine.context.currentTime
-      engine.masterGain.gain.cancelScheduledValues(now)
-      engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now)
-      engine.masterGain.gain.linearRampToValueAtTime(0, now + 0.12)
-    } catch {}
-    window.setTimeout(() => {
-      try { engine.source.stop() } catch {}
-      try { engine.drift.stop() } catch {}
-      if (engine.context.state !== 'closed') engine.context.close().catch(() => {})
-    }, 160)
-  }, [])
 
   return null
 }
