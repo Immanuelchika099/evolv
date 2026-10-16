@@ -1129,3 +1129,43 @@
     font-size: 15px !important;
   }
 }
+
+
+/* Signup page polish: remove every lime hover/focus treatment. */
+.auth-page .auth-signup-banner {
+  border-color: rgba(255, 255, 255, .16);
+  background: #111111;
+  color: #f4f4f4;
+}
+
+.auth-page .auth-signup-banner:hover {
+  background: #1a1a1a;
+  border-color: rgba(255, 255, 255, .3);
+  color: #ffffff;
+}
+
+.auth-page .auth-quick-form input:focus,
+.auth-page .auth-form input:focus {
+  border-color: #666666;
+  outline: none;
+  background: #101010;
+  box-shadow: none;
+}
+
+.auth-page .auth-continue-button {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.auth-page .auth-continue-button:hover:not(:disabled) {
+  border-color: #1d4ed8;
+  background: #1d4ed8;
+  filter: none;
+}
+
+.auth-page .auth-continue-button:focus-visible,
+.auth-page .auth-signup-banner:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, .7);
+  outline-offset: 3px;
+}
