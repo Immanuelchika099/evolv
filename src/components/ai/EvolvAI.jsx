@@ -574,7 +574,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
       node.scrollTop = node.scrollHeight
     })
     return () => window.cancelAnimationFrame(frame)
-  }, [messages, typing, sending])
+  }, [messages.length, typing, sending])
 
   useEffect(() => {
     return () => window.speechSynthesis?.cancel()
@@ -610,6 +610,11 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
 
   function startNewChat() {
     setHistoryOpen(false)
+    controller.current?.abort()
+    controller.current = null
+    shouldAutoScrollRef.current = true
+    setShowScrollToBottom(false)
+    window.dispatchEvent(new CustomEvent('evolv:clear-prompt'))
     window.speechSynthesis?.cancel()
     setSpeakingMessage('')
     setCopiedMessage('')
