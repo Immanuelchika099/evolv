@@ -201,10 +201,13 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
     }
   }
 
+  const generateInsightRef = useRef(generateInsight)
+  generateInsightRef.current = generateInsight
+
   useEffect(() => {
     if (dataLoading || loadedOnce.current) return
     loadedOnce.current = true
-    generateInsight()
+    generateInsightRef.current()
   }, [dataLoading])
 
   function openConversation() {
