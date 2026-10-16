@@ -283,3 +283,27 @@ html body #root .evolv-bottom-nav button.bottom-active small {
 html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
   border-color: rgba(129, 119, 255, .65) !important;
 }
+
+
+/* ChatGPT-inspired blue active state: blue surface, crisp white icon and label. */
+html body #root .evolv-bottom-nav button.bottom-active,
+html body #root .evolv-bottom-nav button.bottom-active:hover,
+html body #root .evolv-bottom-nav button.bottom-active:focus,
+html body #root .evolv-bottom-nav button.bottom-active:active {
+  color: #ffffff !important;
+  background: #74AAFF !important;
+  background-color: #74AAFF !important;
+  box-shadow: 0 0.4rem 1.4rem rgba(116, 170, 255, .22) !important;
+  outline-color: transparent !important;
+}
+
+html body #root .evolv-bottom-nav button.bottom-active > span,
+html body #root .evolv-bottom-nav button.bottom-active > span svg,
+html body #root .evolv-bottom-nav button.bottom-active small {
+  color: #ffffff !important;
+  stroke: currentColor !important;
+}
+
+html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  border-color: rgba(255, 255, 255, .85) !important;
+}
