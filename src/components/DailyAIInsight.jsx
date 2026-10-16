@@ -42,7 +42,7 @@ function buildFallbackInsight(reply) {
   }
 }
 
-export default function DailyAIInsight({ name, defs = [], logs = [], meals = [], goals = [], valueText, goTo }) {
+export default function DailyAIInsight({ dataLoading = false, name, defs = [], logs = [], meals = [], goals = [], valueText, goTo }) {
   const [insight, setInsight] = useState(null)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
@@ -101,9 +101,9 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
         .filter(row => ['user', 'assistant'].includes(row.role) && typeof row.content === 'string' && row.content.trim())
         .slice(0, 4)
         .reverse()
-        .map(row => ({ role: row.role, content: row.content.replace(/\s+/g, ' ').trim().slice(0, 260) }))
+        .map(row => ({ role: row.role, content: row.content.replace(/\s+/g, ' ').trim().slice(0, 180) }))
 
-      const recentLogs = (logs || []).slice(0, 6).map(entry => {
+      const recentLogs = (logs || []).slice(0, 5).map(entry => {
         const definition = defs.find(item => String(item.id) === String(entry.metric_id))
         return {
           date: entry.logged_for || entry.logged_at || entry.created_at || null,
@@ -112,12 +112,12 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
           note: String(entry.note || '').slice(0, 90),
         }
       })
-      const recentMeals = (meals || []).slice(0, 4).map(meal => ({
+      const recentMeals = (meals || []).slice(0, 3).map(meal => ({
         date: meal.logged_at || meal.created_at || null,
         type: meal.meal_type || 'meal',
         description: String(meal.description || '').slice(0, 90),
       }))
-      const activeGoals = (goals || []).filter(goal => goal.status === 'active').slice(0, 4).map(goal => ({
+      const activeGoals = (goals || []).filter(goal => goal.status === 'active').slice(0, 3).map(goal => ({
         title: goal.title,
         progress: Number(goal.progress || 0),
         description: String(goal.description || '').slice(0, 90),
@@ -141,7 +141,7 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
         'Recent check-ins: ' + JSON.stringify(recentLogs),
         'Recent meals: ' + JSON.stringify(recentMeals),
         'Active goals: ' + JSON.stringify(activeGoals),
-        'Previous insight: ' + (previousRows && previousRows[0] ? JSON.stringify({ title: previousRows[0].title, observation: previousRows[0].observation, suggestion: previousRows[0].suggestion }) : 'None recently.'),
+        'Previous insight: ' + (previousRows && previousRows[0] ? JSON.stringify({ title: previousRows[0].title, observation: String(previousRows[0].observation || '').slice(0, 180), suggestion: String(previousRows[0].suggestion || '').slice(0, 100) }) : 'None recently.'),
       ]
       const userPrompt = promptParts.join('\n')
 
@@ -202,10 +202,10 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
   }
 
   useEffect(() => {
-    if (loadedOnce.current) return
+    if (dataLoading || loadedOnce.current) return
     loadedOnce.current = true
     generateInsight()
-  }, [])
+  }, [dataLoading])
 
   function openConversation() {
     try {
