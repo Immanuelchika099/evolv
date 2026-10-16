@@ -302,3 +302,29 @@ html body #root .onboarding .btn-primary * {
   fill: #ffffff !important;
   stroke: #ffffff !important;
 }
+
+
+/* EVOLV — public and standalone pages use a true black canvas.
+   Keep the landing hero's silk-line canvas and the ash footer intact. */
+.auth-shell,
+.auth-page,
+.evolv-onboarding,
+.evolv-onboarding-background,
+.login-page,
+.signup-page,
+.reset-password-page,
+.forgot-password-page,
+.public-page,
+.standalone-page {
+  background-color: #000000 !important;
+  background-image: none !important;
+}
+.auth-shell::before,
+.auth-shell::after,
+.auth-page::before,
+.auth-page::after,
+.evolv-onboarding::before,
+.evolv-onboarding::after {
+  background-color: transparent !important;
+  background-image: none !important;
+}
