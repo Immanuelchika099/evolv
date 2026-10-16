@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import './Footer.css'
 
 function Brand() {
@@ -13,39 +13,29 @@ function Brand() {
 function NewsletterSignup() {
   const [email, setEmail] = useState('')
   const [message, setMessage] = useState('')
-  const [submitted, setSubmitted] = useState(false)
 
   function handleSubmit(event) {
     event.preventDefault()
     if (!email.trim()) return
-
-    // UI-first: persistence and welcome-email delivery will be connected next.
-    setSubmitted(true)
-    setMessage('Thanks for your interest — newsletter sign-ups are coming soon.')
+    setMessage('Coming soon.')
   }
 
   return (
     <section className="footer-newsletter" aria-labelledby="footer-newsletter-title">
-      <div className="footer-newsletter-copy">
-        <span className="footer-newsletter-eyebrow">STAY IN THE LOOP</span>
-        <h2 id="footer-newsletter-title">Thoughtful updates to help you keep evolving.</h2>
-      </div>
+      <h2 id="footer-newsletter-title">Stay in the loop.</h2>
       <form className="footer-newsletter-form" onSubmit={handleSubmit}>
-        <label className="footer-newsletter-label" htmlFor="footer-newsletter-email">Your email address</label>
         <div className="footer-newsletter-controls">
+          <label className="footer-newsletter-label" htmlFor="footer-newsletter-email">Email address</label>
           <input
             id="footer-newsletter-email"
             name="email"
             type="email"
             autoComplete="email"
-            placeholder="you@example.com"
+            placeholder="Email address"
             value={email}
             onChange={(event) => {
               setEmail(event.target.value)
-              if (submitted) {
-                setSubmitted(false)
-                setMessage('')
-              }
+              setMessage('')
             }}
             required
           />
@@ -53,12 +43,7 @@ function NewsletterSignup() {
             Subscribe <ArrowRight size={16} aria-hidden="true" />
           </button>
         </div>
-        {message && (
-          <p className="footer-newsletter-message" role="status">
-            {submitted && <Check size={15} aria-hidden="true" />}
-            {message}
-          </p>
-        )}
+        {message && <p className="footer-newsletter-message" role="status">{message}</p>}
       </form>
     </section>
   )
