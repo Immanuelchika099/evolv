@@ -19,7 +19,7 @@ function parseInsight(reply) {
       if (parsed.title && parsed.observation && parsed.suggestion) return {
         category: String(parsed.category || 'personal').slice(0, 40),
         title: String(parsed.title).trim().slice(0, 100),
-        observation: String(parsed.observation).trim().slice(0, 220),
+        observation: String(parsed.observation).trim().slice(0, 700),
         suggestion: String(parsed.suggestion).trim().slice(0, 350),
         evidence: Array.isArray(parsed.evidence) ? parsed.evidence.slice(0, 3).map(item => String(item).slice(0, 180)) : [],
       }
@@ -101,7 +101,7 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
         .filter(row => ['user', 'assistant'].includes(row.role) && typeof row.content === 'string' && row.content.trim())
         .slice(0, 4)
         .reverse()
-        .map(row => ({ role: row.role, content: row.content.replace(/\s+/g, ' ').trim().slice(0, 700) }))
+        .map(row => ({ role: row.role, content: row.content.replace(/\s+/g, ' ').trim().slice(0, 260) }))
 
       const recentLogs = (logs || []).slice(0, 6).map(entry => {
         const definition = defs.find(item => String(item.id) === String(entry.metric_id))
@@ -109,18 +109,18 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
           date: entry.logged_for || entry.logged_at || entry.created_at || null,
           category: (definition && (definition.name || definition.slug)) || 'check-in',
           value: definition && typeof valueText === 'function' ? valueText(entry, definition) : String(entry.value_numeric ?? entry.value ?? ''),
-          note: String(entry.note || '').slice(0, 160),
+          note: String(entry.note || '').slice(0, 90),
         }
       })
       const recentMeals = (meals || []).slice(0, 4).map(meal => ({
         date: meal.logged_at || meal.created_at || null,
         type: meal.meal_type || 'meal',
-        description: String(meal.description || '').slice(0, 160),
+        description: String(meal.description || '').slice(0, 90),
       }))
       const activeGoals = (goals || []).filter(goal => goal.status === 'active').slice(0, 4).map(goal => ({
         title: goal.title,
         progress: Number(goal.progress || 0),
-        description: String(goal.description || '').slice(0, 160),
+        description: String(goal.description || '').slice(0, 90),
       }))
 
       if (!conversations.length && !recentLogs.length && !recentMeals.length && !activeGoals.length) {
@@ -135,15 +135,15 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
         'Prefer a meaningful pattern, change, recurring theme, or progress. Avoid generic encouragement and the previous insight. Reflect feelings carefully; never diagnose mental health or quote sensitive details unsolicited. State uncertainty when needed.',
         'Keep observation to 1–3 short sentences and suggestion to one simple action.',
         'Return ONLY JSON: {"category":"sleep|mood|nutrition|money|career|routine|personal","title":"short title","observation":"grounded observation","suggestion":"one small action","evidence":["short factual signal"]}. If evidence is insufficient return {"insufficient_data":true,"message":"one kind sentence inviting more check-ins"}.',
-        'First name: ' + (String(name || '').trim().split(/\\s+/)[0] || 'there'),
+        'First name: ' + (String(name || '').trim().split(/\s+/)[0] || 'there'),
         'Local date: ' + today,
-        'Recent conversations: ' + (conversations.length ? conversations.map(item => item.role + ': ' + item.content).join('\\n') : 'No recent AI conversations.'),
+        'Recent conversations: ' + (conversations.length ? conversations.map(item => item.role + ': ' + item.content).join('\n') : 'No recent AI conversations.'),
         'Recent check-ins: ' + JSON.stringify(recentLogs),
         'Recent meals: ' + JSON.stringify(recentMeals),
         'Active goals: ' + JSON.stringify(activeGoals),
         'Previous insight: ' + (previousRows && previousRows[0] ? JSON.stringify({ title: previousRows[0].title, observation: previousRows[0].observation, suggestion: previousRows[0].suggestion }) : 'None recently.'),
       ]
-      const userPrompt = promptParts.join('\\n')
+      const userPrompt = promptParts.join('\n')
 
       const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/evolv-ai', {
         method: 'POST',
