@@ -63,6 +63,15 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       }
 
       const today = localDateKey()
+
+      // Keep the insight genuinely empty until the user has logged something.
+      // Conversations can add context, but must not manufacture an insight on their own.
+      if (!(logs || []).length && !(meals || []).length) {
+        setInsight(null)
+        setStatus('')
+        return
+      }
+
       if (!force) {
         const { data: saved, error: savedError } = await supabase
           .from('ai_daily_insights')
@@ -123,9 +132,9 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
         description: String(goal.description || '').slice(0, 90),
       }))
 
-      if (!conversations.length && !recentLogs.length && !recentMeals.length && !activeGoals.length) {
+      if (!recentLogs.length && !recentMeals.length) {
         setInsight(null)
-        setStatus('As you chat, check in, and work towards your goals, your first personal insight will appear here.')
+        setStatus('Your insight will appear here after your first check-in.')
         return
       }
 
@@ -227,7 +236,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
         </div>
         {insight && <button type="button" onClick={openConversation} aria-label="Talk through today's insight"><ArrowRight size={18} /></button>}
       </div>
-      <article className="daily-ai-insight-card" aria-live="polite">
+      <article key={insight?.id || insight?.insight_date || (status ? "empty-status" : "empty")} className="daily-ai-insight-card" aria-live="polite">
         {loading ? (
           <div className="daily-ai-insight-state"><span className="daily-ai-insight-shimmer" /><span className="daily-ai-insight-shimmer short" /><small>Finding a useful pattern from your recent days…</small></div>
         ) : insight ? (
