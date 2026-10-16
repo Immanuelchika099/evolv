@@ -198,3 +198,20 @@
     height: 20px !important;
   }
 }
+
+/* EVOLV accent: when Send is active, use the blue surface with a white glyph. */
+.prompt-bar__send[data-armed] {
+  background: #74AAFF !important;
+  color: #ffffff !important;
+}
+.prompt-bar__send[data-armed] .prompt-bar__glyph,
+.prompt-bar__send[data-armed] svg,
+.prompt-bar__send[data-armed] path {
+  color: #ffffff !important;
+  stroke: currentColor;
+}
+.prompt-bar__send[data-armed] .prompt-bar__glyph * {
+  stroke: #ffffff !important;
+  fill: none;
+}
+
