@@ -128,7 +128,7 @@ function HomePage({ pageProps }) {
         </div>
       </section>
 
-      <DailyAIInsight name={name} defs={defs} logs={logs} meals={meals} goals={goals} valueText={valueText} goTo={goTo} />
+      <DailyAIInsight dataLoading={loading} name={name} defs={defs} logs={logs} meals={meals} goals={goals} valueText={valueText} goTo={goTo} />
 
       <section className="calm-home-focus" aria-label="Your growth at a glance">
         <div className="calm-focus-heading">
