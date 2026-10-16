@@ -19,7 +19,7 @@ function parseInsight(reply) {
       if (parsed.title && parsed.observation && parsed.suggestion) return {
         category: String(parsed.category || 'personal').slice(0, 40),
         title: String(parsed.title).trim().slice(0, 100),
-        observation: String(parsed.observation).trim().slice(0, 700),
+        observation: String(parsed.observation).trim().slice(0, 220),
         suggestion: String(parsed.suggestion).trim().slice(0, 350),
         evidence: Array.isArray(parsed.evidence) ? parsed.evidence.slice(0, 3).map(item => String(item).slice(0, 180)) : [],
       }
@@ -99,11 +99,11 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
 
       const conversations = (conversationRows || [])
         .filter(row => ['user', 'assistant'].includes(row.role) && typeof row.content === 'string' && row.content.trim())
-        .slice(0, 24)
+        .slice(0, 4)
         .reverse()
         .map(row => ({ role: row.role, content: row.content.replace(/\s+/g, ' ').trim().slice(0, 700) }))
 
-      const recentLogs = (logs || []).slice(0, 20).map(entry => {
+      const recentLogs = (logs || []).slice(0, 6).map(entry => {
         const definition = defs.find(item => String(item.id) === String(entry.metric_id))
         return {
           date: entry.logged_for || entry.logged_at || entry.created_at || null,
@@ -112,12 +112,12 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
           note: String(entry.note || '').slice(0, 160),
         }
       })
-      const recentMeals = (meals || []).slice(0, 14).map(meal => ({
+      const recentMeals = (meals || []).slice(0, 4).map(meal => ({
         date: meal.logged_at || meal.created_at || null,
         type: meal.meal_type || 'meal',
         description: String(meal.description || '').slice(0, 160),
       }))
-      const activeGoals = (goals || []).filter(goal => goal.status === 'active').slice(0, 12).map(goal => ({
+      const activeGoals = (goals || []).filter(goal => goal.status === 'active').slice(0, 4).map(goal => ({
         title: goal.title,
         progress: Number(goal.progress || 0),
         description: String(goal.description || '').slice(0, 160),
@@ -130,27 +130,20 @@ export default function DailyAIInsight({ name, defs = [], logs = [], meals = [],
       }
 
       const promptParts = [
-        'Create ONE short, genuinely personal daily insight for the signed-in EVOLV user, based only on the context below. Prefer a useful pattern, change, repeated theme, or progress signal over generic encouragement. Give one practical suggestion for today.',
-        'Rules:',
-        '- Use only evidence present below or retrieved from EVOLV tools. Never invent facts or fill gaps with assumptions.',
-        "- If there is enough context, call get_user_insights to inspect the user's last 30 days of real records before deciding.",
-        '- Compare recent patterns with earlier ones when there is enough data. Do not claim a change from a single entry.',
-        '- Conversation snippets can reveal goals or recurring concerns, but do not quote private or emotionally sensitive details back unsolicited.',
-        '- Reflect feelings without diagnosing or labeling mental health.',
-        '- Missing logs do not prove a habit did not happen. Be honest when evidence is limited.',
-        '- Avoid repeating the previous insight if one is included below.',
-        '- Keep the observation to 1–3 short sentences and the suggestion to one simple action.',
-        '- Return ONLY valid JSON: {"category":"sleep|mood|nutrition|money|career|routine|personal","title":"short title","observation":"one grounded observation","suggestion":"one small action for today","evidence":["short factual signal"]}.',
-        '- If there is not enough evidence, return {"insufficient_data":true,"message":"one short, kind sentence inviting the user to keep checking in"}.',
-        'User first name: ' + (String(name || '').trim().split(/\s+/)[0] || 'there'),
+        'Create ONE short, evidence-based daily insight for this EVOLV user, with one useful suggestion for today.',
+        'Use only the context below or real data returned by get_user_insights; call that tool when enough context exists. Never invent details, infer missing habits, or claim a trend from one entry.',
+        'Prefer a meaningful pattern, change, recurring theme, or progress. Avoid generic encouragement and the previous insight. Reflect feelings carefully; never diagnose mental health or quote sensitive details unsolicited. State uncertainty when needed.',
+        'Keep observation to 1–3 short sentences and suggestion to one simple action.',
+        'Return ONLY JSON: {"category":"sleep|mood|nutrition|money|career|routine|personal","title":"short title","observation":"grounded observation","suggestion":"one small action","evidence":["short factual signal"]}. If evidence is insufficient return {"insufficient_data":true,"message":"one kind sentence inviting more check-ins"}.',
+        'First name: ' + (String(name || '').trim().split(/\\s+/)[0] || 'there'),
         'Local date: ' + today,
-        'Recent conversations (oldest first):\n' + (conversations.length ? conversations.map(item => item.role + ': ' + item.content).join('\n') : 'No recent AI conversation history is available.'),
-        'Recent logged check-ins:\n' + JSON.stringify(recentLogs),
-        'Recent meals:\n' + JSON.stringify(recentMeals),
-        'Active goals:\n' + JSON.stringify(activeGoals),
-        'Previous insight:\n' + (previousRows && previousRows[0] ? JSON.stringify({ title: previousRows[0].title, observation: previousRows[0].observation, suggestion: previousRows[0].suggestion }) : 'No recent insight.'),
+        'Recent conversations: ' + (conversations.length ? conversations.map(item => item.role + ': ' + item.content).join('\\n') : 'No recent AI conversations.'),
+        'Recent check-ins: ' + JSON.stringify(recentLogs),
+        'Recent meals: ' + JSON.stringify(recentMeals),
+        'Active goals: ' + JSON.stringify(activeGoals),
+        'Previous insight: ' + (previousRows && previousRows[0] ? JSON.stringify({ title: previousRows[0].title, observation: previousRows[0].observation, suggestion: previousRows[0].suggestion }) : 'None recently.'),
       ]
-      const userPrompt = promptParts.join('\n\n')
+      const userPrompt = promptParts.join('\\n')
 
       const response = await fetch(import.meta.env.VITE_SUPABASE_URL + '/functions/v1/evolv-ai', {
         method: 'POST',
