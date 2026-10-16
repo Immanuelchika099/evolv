@@ -2518,3 +2518,100 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .ev-final .ev-btn-solid svg {
   color: #fff !important;
 }
+
+
+/* Final landing corrections: silk lines are the hero background, not a foreground layer. */
+.landing-v2 .ev-hero {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden;
+  background: #050505 !important;
+}
+.landing-v2 .ev-hero-background {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+.landing-v2 .ev-hero-background .ev-hero-pattern {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  z-index: 0 !important;
+  opacity: 1 !important;
+  background: transparent !important;
+}
+.landing-v2 .ev-hero-background .ev-hero-pattern canvas {
+  position: absolute !important;
+  inset: 0 !important;
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+.landing-v2 .ev-hero-content,
+.landing-v2 .ev-scroll-cue {
+  position: relative;
+  z-index: 1 !important;
+}
+/* Blue primary CTA with white text and arrow. */
+.landing-v2 .ev-hero-actions .ev-btn-solid {
+  background: #74AAFF !important;
+  color: #fff !important;
+  border-color: #74AAFF !important;
+}
+.landing-v2 .ev-hero-actions .ev-btn-solid:hover {
+  background: #5f9bf8 !important;
+  border-color: #5f9bf8 !important;
+  color: #fff !important;
+}
+.landing-v2 .ev-hero-actions .ev-btn-solid,
+.landing-v2 .ev-hero-actions .ev-btn-solid span,
+.landing-v2 .ev-hero-actions .ev-btn-solid svg {
+  color: #fff !important;
+}
+/* Match IMAN's footer: pure white, full-width, with fine grain. */
+.landing-v2 .site-footer {
+  position: relative !important;
+  isolation: isolate !important;
+  overflow: hidden !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  background: #fff !important;
+  background-color: #fff !important;
+  background-image: none !important;
+  color: #111 !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(0,0,0,.12) !important;
+}
+.landing-v2 .site-footer::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: -50% !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: .2 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E") !important;
+  background-size: 180px 180px !important;
+  mix-blend-mode: multiply !important;
+  filter: none !important;
+}
+.landing-v2 .site-footer::after { content: none !important; }
+.landing-v2 .site-footer > * { position: relative; z-index: 1; }
+.landing-v2 .site-footer,
+.landing-v2 .site-footer .brand,
+.landing-v2 .site-footer .footer-brand-logo { color: #111 !important; }
+.landing-v2 .site-footer .footer-brand p { color: rgba(17,17,17,.72) !important; }
+.landing-v2 .site-footer .footer-brand-svg { filter: brightness(0) !important; }
+.landing-v2 .site-footer .footer-links span,
+.landing-v2 .site-footer .footer-bottom { color: rgba(17,17,17,.62) !important; }
+.landing-v2 .site-footer .footer-links a,
+.landing-v2 .site-footer .footer-links button.footer-contact { color: rgba(17,17,17,.78) !important; }
+.landing-v2 .site-footer .footer-links a:hover,
+.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: #1558b0 !important; }
+.landing-v2 .site-footer .footer-bottom { border-top-color: rgba(0,0,0,.15) !important; }
