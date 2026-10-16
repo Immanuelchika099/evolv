@@ -19,7 +19,7 @@
   --color-text-muted: rgba(255,255,255,.44);
   --color-border-subtle: rgba(255,255,255,.085);
   --color-border: rgba(255,255,255,.12);
-  --color-accent-blue: #74AAFF;
+  --color-accent-blue: #2563eb;
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
   --color-accent-lime: var(--color-accent-blue);
 
@@ -43,7 +43,7 @@
   background:#000;
   --muted:#85837f;
   --line:#ffffff1c;
-  --accent: #74AAFF;
+  --accent: #2563eb;
   --mint:#7d857b;
   -webkit-font-smoothing:antialiased;
 }
@@ -189,8 +189,8 @@ button.onboard-continue,
 button.onboarding-next,
 button.goal-heatmap-range .is-active,
 button.prompt-bar__send[data-armed],
-button[style*="#74AAFF"],
-button[style*="rgb(116, 170, 255)"],
+button[style*="#2563eb"],
+button[style*="rgb(37, 99, 235)"],
 a.primary,
 a.primary-button,
 a.btn-primary,
@@ -216,8 +216,8 @@ button.onboard-continue *,
 button.onboarding-next *,
 button.goal-heatmap-range .is-active *,
 button.prompt-bar__send[data-armed] *,
-button[style*="#74AAFF"] *,
-button[style*="rgb(116, 170, 255)"] *,
+button[style*="#2563eb"] *,
+button[style*="rgb(37, 99, 235)"] *,
 a.primary *,
 a.primary-button *,
 a.btn-primary *,
@@ -242,7 +242,7 @@ a.button-primary *,
   background: #0b0c0f !important;
 }
 .routine-nav-button:focus-visible {
-  outline-color: rgba(116, 170, 255, .7) !important;
+  outline-color: rgba(37, 99, 235, .7) !important;
 }
 
 
@@ -281,10 +281,10 @@ html body #root .onboarding .onboarding-next,
 html body #root .onboarding button[type="submit"],
 html body #root .onboarding .primary-button,
 html body #root .onboarding .btn-primary {
-  background: #74AAFF !important;
-  background-color: #74AAFF !important;
+  background: #2563eb !important;
+  background-color: #2563eb !important;
   background-image: none !important;
-  border-color: #74AAFF !important;
+  border-color: #2563eb !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   box-shadow: none !important;
