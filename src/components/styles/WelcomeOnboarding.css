@@ -74,8 +74,8 @@
   transition: border-color .2s ease, background .2s ease;
 }
 .evolv-welcome-signin:hover {
-  border-color: rgba(116, 170, 255,.55);
-  background: rgba(116, 170, 255,.08);
+  border-color: rgba(37, 99, 235,.55);
+  background: rgba(37, 99, 235,.08);
 }
 .evolv-welcome-content {
   position: relative;
@@ -104,8 +104,8 @@
   width: .7rem;
   height: .7rem;
   border-radius: 50%;
-  background: #74AAFF;
-  box-shadow: 0 0 1.8rem rgba(116, 170, 255,.75);
+  background: #2563eb;
+  box-shadow: 0 0 1.8rem rgba(37, 99, 235,.75);
 }
 .evolv-welcome-content h1,
 .evolv-onboarding-stage h1 {
@@ -118,7 +118,7 @@
 }
 .evolv-welcome-content h1 em,
 .evolv-onboarding-stage h1 em {
-  color: #74AAFF;
+  color: #2563eb;
   font-style: normal;
 }
 .evolv-welcome-content > p {
@@ -137,19 +137,19 @@
   min-height: 5.8rem;
   margin-top: 3.3rem;
   padding: 0 2.4rem;
-  border: 1px solid #74AAFF;
+  border: 1px solid #2563eb;
   border-radius: 99rem;
-  background: #74AAFF;
+  background: #2563eb;
   color: #ffffff;
   font: inherit; font-size: 1.55rem; font-weight: 800; line-height: 1;
   cursor: pointer;
-  box-shadow: 0 0 2.5rem rgba(116, 170, 255,.07);
+  box-shadow: 0 0 2.5rem rgba(37, 99, 235,.07);
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
 }
 .evolv-welcome-cta:hover,
 .evolv-onboarding-continue:not(:disabled):hover {
   transform: translateY(-2px);
-  box-shadow: 0 0 3rem rgba(116, 170, 255,.13);
+  box-shadow: 0 0 3rem rgba(37, 99, 235,.13);
 }
 .evolv-welcome-note {
   margin-top: 2.2rem;
@@ -176,7 +176,7 @@
   width: .35rem;
   height: .35rem;
   border-radius: 50%;
-  background: #74AAFF;
+  background: #2563eb;
   opacity: .7;
 }
 
@@ -217,7 +217,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: #74AAFF;
+  background: #2563eb;
   transition: width .35s ease;
 }
 .evolv-onboarding-main {
@@ -274,7 +274,7 @@
   margin-top: 3.5rem;
 }
 .evolv-onboarding-name > span {
-  color: #74AAFF;
+  color: #2563eb;
   font-size: 1.3rem;
   font-weight: 700;
 }
@@ -291,8 +291,8 @@
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .evolv-onboarding-name input:focus {
-  border-color: rgba(116, 170, 255,.8);
-  box-shadow: 0 0 0 .3rem rgba(116, 170, 255,.1);
+  border-color: rgba(37, 99, 235,.8);
+  box-shadow: 0 0 0 .3rem rgba(37, 99, 235,.1);
 }
 .evolv-onboarding-name input::placeholder { color: #66685f; }
 .evolv-avatar-choices {
@@ -317,11 +317,11 @@
   cursor: pointer;
   transition: border-color .2s ease, background .2s ease, transform .2s ease;
 }
-.evolv-avatar-choice:hover { transform: translateY(-2px); border-color: rgba(116, 170, 255,.4); }
+.evolv-avatar-choice:hover { transform: translateY(-2px); border-color: rgba(37, 99, 235,.4); }
 .evolv-avatar-choice.is-selected {
-  border-color: #74AAFF;
-  background: rgba(116, 170, 255,.075);
-  box-shadow: inset 0 0 0 1px rgba(116, 170, 255,.12);
+  border-color: #2563eb;
+  background: rgba(37, 99, 235,.075);
+  box-shadow: inset 0 0 0 1px rgba(37, 99, 235,.12);
 }
 .evolv-avatar-choice-art {
   display: grid;
@@ -330,7 +330,7 @@
   max-width: 15rem;
   aspect-ratio: 1 / .94;
   border-radius: 1.3rem;
-  background: radial-gradient(ellipse at 50% 38%, rgba(116, 170, 255,.13), transparent 70%);
+  background: radial-gradient(ellipse at 50% 38%, rgba(37, 99, 235,.13), transparent 70%);
 }
 .evolv-avatar-choice-art svg { display: block; width: 100%; height: 100%; max-height: 15rem; overflow: visible; }
 .evolv-avatar-choice-label { font-size: 1.4rem; font-weight: 700; }
@@ -343,7 +343,7 @@
   width: 2.3rem;
   height: 2.3rem;
   border-radius: 50%;
-  background: #74AAFF;
+  background: #2563eb;
   color: #ffffff;
 }
 .evolv-avatar-choice-note {
@@ -374,8 +374,8 @@
   transition: border-color .2s ease, background .2s ease;
 }
 .evolv-onboarding-goal.is-selected {
-  border-color: rgba(116, 170, 255,.85);
-  background: rgba(116, 170, 255,.07);
+  border-color: rgba(37, 99, 235,.85);
+  background: rgba(37, 99, 235,.07);
 }
 .evolv-onboarding-goal-symbol {
   display: grid;
@@ -384,8 +384,8 @@
   width: 3.8rem;
   height: 3.8rem;
   border-radius: 1.2rem;
-  background: var(--goal-icon-tint, rgba(116, 170, 255,.08));
-  color: var(--goal-icon-color, #74AAFF);
+  background: var(--goal-icon-tint, rgba(37, 99, 235,.08));
+  color: var(--goal-icon-color, #2563eb);
 }
 .evolv-onboarding-goal-symbol svg {
   display: block;
@@ -409,11 +409,11 @@
   height: 2.6rem;
   border: 1px solid rgba(255,255,255,.16);
   border-radius: 50%;
-  color: #74AAFF;
+  color: #2563eb;
 }
 .evolv-onboarding-goal.is-selected .evolv-onboarding-goal-check {
-  border-color: #74AAFF;
-  background: #74AAFF;
+  border-color: #2563eb;
+  background: #2563eb;
   color: #ffffff;
 }
 .evolv-onboarding-ready {
@@ -436,7 +436,7 @@
   height: 15rem;
   margin-bottom: .5rem;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(116, 170, 255,.16), transparent 70%);
+  background: radial-gradient(circle, rgba(37, 99, 235,.16), transparent 70%);
 }
 .evolv-onboarding-ready-avatar svg { width: 100%; height: 100%; overflow: visible; }
 .evolv-onboarding-ready > strong { color: #f8f8f2; font-size: 2rem; }
@@ -557,7 +557,7 @@
   left: 15%;
   top: 10%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(116, 170, 255,.09), transparent 68%);
+  background: radial-gradient(circle, rgba(37, 99, 235,.09), transparent 68%);
   pointer-events: none;
 }
 .evolv-onboarding-avatar-caption {
