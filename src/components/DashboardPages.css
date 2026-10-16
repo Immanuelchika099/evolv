@@ -7824,3 +7824,41 @@ body,
     font-size: 5.2rem !important;
   }
 }
+
+
+/* One evidence-led daily insight replaces the previous static insight cards. */
+.daily-ai-insight-card {
+  position: relative;
+  margin-top: 1.6rem;
+  padding: clamp(1.8rem, 4vw, 2.6rem);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 1.8rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+}
+.daily-ai-insight-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 2px; background: linear-gradient(180deg, rgba(211,199,255,.7), rgba(255,255,255,.04)); pointer-events: none; }
+.daily-ai-insight-topline { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1.4rem; }
+.daily-ai-insight-category { color: rgba(255,255,255,.48); font: 500 1rem/1.3 'DM Mono', monospace; letter-spacing: .08em; text-transform: uppercase; }
+.daily-ai-insight-spark { display: grid; place-items: center; width: 3.3rem; height: 3.3rem; border: 1px solid rgba(210,198,255,.2); border-radius: 1.1rem; color: #d2c6ff; background: rgba(210,198,255,.07); }
+.daily-ai-insight-card h3 { max-width: 60rem; margin: 0 0 1rem; color: #f6f4ef; font: 500 clamp(2rem, 4vw, 2.6rem)/1.18 'Space Grotesk', sans-serif; letter-spacing: -.045em; }
+.daily-ai-insight-observation { max-width: 68rem; margin: 0; color: rgba(255,255,255,.73); font-size: 1.45rem; line-height: 1.7; }
+.daily-ai-insight-evidence { margin: 1rem 0 0; color: rgba(255,255,255,.42); font-size: 1.15rem; line-height: 1.55; }
+.daily-ai-insight-suggestion { margin-top: 1.8rem; padding: 1.35rem 1.5rem; border: 1px solid rgba(255,255,255,.075); border-radius: 1.2rem; background: rgba(255,255,255,.025); }
+.daily-ai-insight-suggestion > span { display: block; margin-bottom: .5rem; color: rgba(255,255,255,.42); font: 500 .95rem/1.3 'DM Mono', monospace; letter-spacing: .09em; }
+.daily-ai-insight-suggestion p { margin: 0; color: #f2f0ea; font-size: 1.35rem; line-height: 1.55; }
+.daily-ai-insight-action, .daily-ai-insight-text-action { display: inline-flex; align-items: center; justify-content: center; gap: .65rem; min-height: 3.8rem; margin-top: 1.45rem; padding: .85rem 1.15rem; border: 1px solid rgba(255,255,255,.12); border-radius: 999px; color: #f4f2ed; background: rgba(255,255,255,.045); font: inherit; font-size: 1.2rem; cursor: pointer; transition: background .2s ease, border-color .2s ease, transform .2s ease; }
+.daily-ai-insight-action:hover, .daily-ai-insight-text-action:hover { background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.2); }
+.daily-ai-insight-action:active, .daily-ai-insight-text-action:active { transform: scale(.98); }
+.daily-ai-insight-action:disabled { opacity: .55; cursor: wait; }
+.daily-ai-insight-state { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; min-height: 10rem; justify-content: center; color: rgba(255,255,255,.65); }
+.daily-ai-insight-state p { max-width: 58rem; margin: 0; font-size: 1.35rem; line-height: 1.6; }
+.daily-ai-insight-state small { color: rgba(255,255,255,.42); font-size: 1.15rem; }
+.daily-ai-insight-shimmer { display: block; width: min(34rem, 85%); height: 1.25rem; border-radius: 999px; background: linear-gradient(90deg, rgba(255,255,255,.04), rgba(255,255,255,.12), rgba(255,255,255,.04)); background-size: 200% 100%; animation: daily-ai-shimmer 1.6s ease-in-out infinite; }
+.daily-ai-insight-shimmer.short { width: min(22rem, 62%); }
+.daily-ai-insight-state .daily-ai-insight-shimmer + small { margin-top: .5rem; }
+.daily-ai-insight-state-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.daily-ai-insight-state-actions .daily-ai-insight-action, .daily-ai-insight-state-actions .daily-ai-insight-text-action { margin-top: .35rem; }
+.daily-ai-spin { animation: daily-ai-rotate .9s linear infinite; }
+@keyframes daily-ai-shimmer { to { background-position: -200% 0; } }
+@keyframes daily-ai-rotate { to { transform: rotate(360deg); } }
+@media (max-width: 640px) { .daily-ai-insight-card { padding: 1.7rem; border-radius: 1.5rem; } .daily-ai-insight-card h3 { font-size: 2.1rem; } .daily-ai-insight-observation { font-size: 1.35rem; } .daily-ai-insight-suggestion p { font-size: 1.3rem; } }
