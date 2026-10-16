@@ -17,6 +17,7 @@ create index if not exists ai_daily_insights_user_date_idx
   on public.ai_daily_insights (user_id, insight_date desc);
 
 alter table public.ai_daily_insights enable row level security;
+revoke delete, truncate, references, trigger on public.ai_daily_insights from authenticated;
 grant select, insert, update on public.ai_daily_insights to authenticated;
 
 drop policy if exists "Users can read their own daily insights" on public.ai_daily_insights;
