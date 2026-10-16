@@ -143,34 +143,30 @@
 .footer-newsletter {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
-  align-items: end;
+  align-items: center;
   gap: 32px;
-  padding: 28px 0 38px;
-  margin-bottom: 36px;
+  padding: 24px 0 30px;
+  margin-bottom: 32px;
   border-top: 1px solid rgba(25, 25, 25, .16);
   border-bottom: 1px solid rgba(25, 25, 25, .16);
 }
-.footer-newsletter-copy { min-width: 0; }
-.footer-newsletter-eyebrow {
-  display: block;
-  margin-bottom: 12px;
-  color: #5c5b55;
-  font: 1rem 'DM Mono', monospace;
-  letter-spacing: .12em;
-}
-.footer-newsletter-copy h2 {
-  max-width: 42rem;
+.footer-newsletter > h2 {
   margin: 0;
   color: #171715;
-  font: 500 clamp(2rem, 2.5vw, 2.6rem)/1.35 Manrope, sans-serif;
+  font: 500 clamp(2rem, 2.5vw, 2.6rem)/1.3 Manrope, sans-serif;
   letter-spacing: -.035em;
 }
 .footer-newsletter-form { min-width: 0; }
 .footer-newsletter-label {
-  display: block;
-  margin-bottom: 8px;
-  color: #45453f;
-  font: 1.2rem/1.5 Manrope, sans-serif;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 .footer-newsletter-controls {
   display: flex;
@@ -224,17 +220,9 @@
   outline-offset: 3px;
 }
 .footer-newsletter-message {
-  display: flex;
-  align-items: flex-start;
-  gap: 7px;
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   color: #30302b;
-  font: 1.2rem/1.5 Manrope, sans-serif;
-}
-.footer-newsletter-message svg {
-  flex: 0 0 auto;
-  margin-top: 1px;
-  color: #2563eb;
+  font: 1.2rem/1.4 Manrope, sans-serif;
 }
 @media (max-width: 700px) {
   .footer-newsletter {
@@ -243,7 +231,7 @@
     padding: 25px 0 30px;
     margin-bottom: 32px;
   }
-  .footer-newsletter-copy h2 { max-width: 34rem; font-size: 2.2rem; }
+  .footer-newsletter > h2 { max-width: 34rem; font-size: 2.2rem; }
   .footer-newsletter-controls { gap: 7px; }
   .footer-newsletter-controls input { min-height: 50px; font-size: 1.4rem; }
   .footer-newsletter-submit { min-height: 50px; padding-inline: 13px; font-size: 1.3rem; }
