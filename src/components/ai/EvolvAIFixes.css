@@ -1263,3 +1263,27 @@ html:has(.dashboard.dashboard-ai-active) {
     font-size: 16px !important;
   }
 }
+
+
+/* Final mobile composer fix: let taps propagate normally and use the keyboard
+   inset without shrinking the containing workspace a second time. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+  pointer-events: auto !important;
+  z-index: 100000 !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
+  touch-action: auto !important;
+  -webkit-user-select: text !important;
+  user-select: text !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+}
