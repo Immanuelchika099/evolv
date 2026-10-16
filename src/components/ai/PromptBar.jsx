@@ -176,8 +176,21 @@ export default function PromptBar({
         input.setSelectionRange(text.length, text.length);
       });
     }
+    function handleClearPrompt() {
+      setDraft('');
+      setAttachments([]);
+      setDismissed(false);
+      setPlusOpen(false);
+      setModelOpen(false);
+      setEffortOpen(false);
+      latest.current.onInputChange?.('');
+    }
     window.addEventListener('evolv:edit-prompt', handleEditPrompt);
-    return () => window.removeEventListener('evolv:edit-prompt', handleEditPrompt);
+    window.addEventListener('evolv:clear-prompt', handleClearPrompt);
+    return () => {
+      window.removeEventListener('evolv:edit-prompt', handleEditPrompt);
+      window.removeEventListener('evolv:clear-prompt', handleClearPrompt);
+    };
   }, []);
   const [attachments, setAttachments] = useState([]);
   const [modelKey, setModelKey] = useState(defaultModel);
