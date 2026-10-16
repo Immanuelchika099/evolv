@@ -86,6 +86,10 @@ function AmbientSound({ active }) {
         filter.Q.value = 0.35
         const gain = context.createGain()
         gain.gain.value = 0.014
+        // A separate master stage lets the ambience fade out cleanly when the
+        // app is backgrounded or unmounted, instead of ending with an audible click/chime.
+        const masterGain = context.createGain()
+        masterGain.gain.value = 0
         const drift = context.createOscillator()
         drift.type = 'sine'
         drift.frequency.value = 0.035
@@ -95,13 +99,22 @@ function AmbientSound({ active }) {
         driftAmount.connect(gain.gain)
         source.connect(filter)
         filter.connect(gain)
-        gain.connect(context.destination)
+        gain.connect(masterGain)
+        masterGain.connect(context.destination)
         source.start()
         drift.start()
-        engine = { context, source, drift }
+        engine = { context, source, drift, masterGain, fadeTimer: null }
         engineRef.current = engine
       }
+      if (engine.fadeTimer) {
+        window.clearTimeout(engine.fadeTimer)
+        engine.fadeTimer = null
+      }
       await engine.context.resume()
+      const now = engine.context.currentTime
+      engine.masterGain.gain.cancelScheduledValues(now)
+      engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now)
+      engine.masterGain.gain.linearRampToValueAtTime(1, now + 0.22)
       setPlaying(engine.context.state === 'running')
     } catch {
       setPlaying(false)
@@ -110,7 +123,22 @@ function AmbientSound({ active }) {
 
   function pauseAir() {
     const engine = engineRef.current
-    if (engine?.context?.state === 'running') engine.context.suspend().catch(() => {})
+    if (!engine) {
+      setPlaying(false)
+      return
+    }
+
+    if (engine.fadeTimer) window.clearTimeout(engine.fadeTimer)
+    if (engine.context.state === 'running') {
+      const now = engine.context.currentTime
+      engine.masterGain.gain.cancelScheduledValues(now)
+      engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now)
+      engine.masterGain.gain.linearRampToValueAtTime(0, now + 0.18)
+      engine.fadeTimer = window.setTimeout(() => {
+        if (engine.context.state === 'running') engine.context.suspend().catch(() => {})
+        engine.fadeTimer = null
+      }, 240)
+    }
     setPlaying(false)
   }
 
@@ -145,9 +173,20 @@ function AmbientSound({ active }) {
   useEffect(() => () => {
     const engine = engineRef.current
     if (!engine) return
-    try { engine.source.stop() } catch {}
-    try { engine.drift.stop() } catch {}
-    engine.context.close().catch(() => {})
+    if (engine.fadeTimer) window.clearTimeout(engine.fadeTimer)
+    // Avoid an abrupt Web Audio shutdown, which can sound like a tiny chime
+    // on some mobile browsers when leaving or closing the app.
+    try {
+      const now = engine.context.currentTime
+      engine.masterGain.gain.cancelScheduledValues(now)
+      engine.masterGain.gain.setValueAtTime(engine.masterGain.gain.value, now)
+      engine.masterGain.gain.linearRampToValueAtTime(0, now + 0.12)
+    } catch {}
+    window.setTimeout(() => {
+      try { engine.source.stop() } catch {}
+      try { engine.drift.stop() } catch {}
+      if (engine.context.state !== 'closed') engine.context.close().catch(() => {})
+    }, 160)
   }, [])
 
   return null
