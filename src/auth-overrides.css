@@ -1158,3 +1158,51 @@
     line-height: 1.75 !important;
   }
 }
+
+
+/* Signup page: remove the remaining lime hover and email focus styling. */
+.auth-page .auth-signup-banner,
+.auth-page .auth-email-choice {
+  border-color: rgba(255, 255, 255, .18);
+  background: #111111;
+  color: #f4f4f4;
+}
+
+.auth-page .auth-signup-banner:hover,
+.auth-page .auth-email-choice:hover {
+  border-color: rgba(255, 255, 255, .32);
+  background: #1a1a1a;
+  color: #ffffff;
+}
+
+.auth-page .auth-quick-form input:focus,
+.auth-page .auth-form input:focus,
+.auth-page input[type="email"]:focus {
+  border-color: #666666 !important;
+  outline: none !important;
+  background: #101010;
+  box-shadow: none !important;
+}
+
+.auth-page .auth-continue-button,
+.auth-page .auth-submit {
+  border-color: #2563eb;
+  background: #2563eb;
+  color: #ffffff;
+}
+
+.auth-page .auth-continue-button:hover:not(:disabled),
+.auth-page .auth-submit:hover:not(:disabled) {
+  border-color: #1d4ed8;
+  background: #1d4ed8;
+  color: #ffffff;
+  filter: none;
+}
+
+.auth-page .auth-continue-button:focus-visible,
+.auth-page .auth-submit:focus-visible,
+.auth-page .auth-signup-banner:focus-visible,
+.auth-page .auth-email-choice:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, .7);
+  outline-offset: 3px;
+}
