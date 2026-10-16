@@ -130,3 +130,40 @@ body {
   isolation: isolate;
 }
 
+/* Blue accent controls always need white foregrounds for contrast.
+   Keep this shared rule after component styles so icons inherit white too. */
+:root {
+  --accent-foreground: #ffffff;
+}
+.bottom-nav .bottom-active,
+.bottom-active,
+button.send-button,
+button.ai-send-button,
+button.ai-input-send,
+button.chat-send-button,
+.ai-send-button,
+.ai-input-send,
+.chat-send-button,
+[aria-label="Send message"],
+[aria-label="Send"],
+[title="Send message"],
+[title="Send"] {
+  color: #ffffff !important;
+}
+.bottom-nav .bottom-active svg,
+.bottom-active svg,
+button.send-button svg,
+button.ai-send-button svg,
+button.ai-input-send svg,
+button.chat-send-button svg,
+.ai-send-button svg,
+.ai-input-send svg,
+.chat-send-button svg,
+[aria-label="Send message"] svg,
+[aria-label="Send"] svg,
+[title="Send message"] svg,
+[title="Send"] svg {
+  color: #ffffff !important;
+  stroke: currentColor;
+}
+
