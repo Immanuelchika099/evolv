@@ -187,34 +187,56 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     }, 80)
   }, [])
 
-  // Keep the AI workspace matched to the actually visible viewport on short phones.
+  // Keep the app at the full layout height; move only the composer above the keyboard.
+  // Shrinking the whole app and lifting the composer at the same time makes the input
+  // disappear on some iOS standalone/PWA sessions.
+  const layoutViewportHeightRef = useRef(typeof window !== 'undefined' ? window.innerHeight : 0)
   useEffect(() => {
     const root = document.documentElement
-    const updateViewportHeight = () => {
-      const visualViewport = window.visualViewport
-      const height = visualViewport?.height || window.innerHeight
-      if (height > 0) root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(height)}px`)
+    const isTextEntry = () => {
+      const active = document.activeElement
+      return Boolean(active && (
+        active.tagName === 'TEXTAREA' ||
+        active.isContentEditable ||
+        (active.tagName === 'INPUT' && !['button', 'submit', 'reset', 'checkbox', 'radio', 'file', 'range', 'color'].includes((active.type || 'text').toLowerCase()))
+      ))
+    }
 
-      // On iOS, the on-screen keyboard can shrink the visual viewport while
-      // fixed elements remain anchored to the layout viewport. Lift the composer
-      // by exactly the covered portion so the typing field stays visible.
-      const keyboardInset = visualViewport
-        ? Math.max(0, window.innerHeight - (visualViewport.height + visualViewport.offsetTop))
-        : 0
+    const updateViewportHeight = () => {
+      const viewport = window.visualViewport
+      const currentLayoutHeight = window.innerHeight || document.documentElement.clientHeight
+      if (!layoutViewportHeightRef.current) layoutViewportHeightRef.current = currentLayoutHeight
+      const visibleHeight = viewport?.height || currentLayoutHeight
+      const visibleTop = viewport?.offsetTop || 0
+      const covered = Math.max(0, layoutViewportHeightRef.current - visibleHeight - visibleTop)
+      const keyboardOpen = Boolean(viewport && isTextEntry() && covered > 100)
+
+      if (!keyboardOpen && currentLayoutHeight > 0) {
+        layoutViewportHeightRef.current = currentLayoutHeight
+      }
+
+      const layoutHeight = layoutViewportHeightRef.current || currentLayoutHeight
+      const keyboardInset = keyboardOpen ? Math.max(0, layoutHeight - visibleHeight - visibleTop) : 0
+      root.style.setProperty('--evolv-ai-viewport-height', `${Math.round(layoutHeight)}px`)
       root.style.setProperty('--evolv-ai-keyboard-inset', `${Math.round(keyboardInset)}px`)
     }
 
+    const onFocusOut = () => window.setTimeout(updateViewportHeight, 0)
     updateViewportHeight()
     window.addEventListener('resize', updateViewportHeight)
     window.addEventListener('orientationchange', updateViewportHeight)
     window.visualViewport?.addEventListener('resize', updateViewportHeight)
     window.visualViewport?.addEventListener('scroll', updateViewportHeight)
+    document.addEventListener('focusin', updateViewportHeight)
+    document.addEventListener('focusout', onFocusOut)
 
     return () => {
       window.removeEventListener('resize', updateViewportHeight)
       window.removeEventListener('orientationchange', updateViewportHeight)
       window.visualViewport?.removeEventListener('resize', updateViewportHeight)
       window.visualViewport?.removeEventListener('scroll', updateViewportHeight)
+      document.removeEventListener('focusin', updateViewportHeight)
+      document.removeEventListener('focusout', onFocusOut)
       root.style.removeProperty('--evolv-ai-viewport-height')
       root.style.removeProperty('--evolv-ai-keyboard-inset')
     }
