@@ -17,7 +17,7 @@
   left:50%;
   transform:translateX(-50%);
   border-radius:50%;
-  background:radial-gradient(circle,rgba(116,170,255,.095) 0%,rgba(116,170,255,.025) 34%,transparent 68%);
+  background:radial-gradient(circle,rgba(37, 99, 235,.095) 0%,rgba(37, 99, 235,.025) 34%,transparent 68%);
   pointer-events:none;
 }
 .auth-direct-page .onboard-head{
@@ -46,7 +46,7 @@
   align-items:center;
   gap:.8rem;
   margin-bottom:2rem;
-  color:#74AAFF;
+  color:#2563eb;
   font:600 1.05rem/1.4 'DM Mono',monospace;
   letter-spacing:.12em;
 }
@@ -96,7 +96,7 @@
   font-size:1.45rem;
 }
 .auth-direct-page .auth-email-choice:hover{
-  border-color:rgba(116,170,255,.5);
+  border-color:rgba(37, 99, 235,.5);
   background:#1c1c1c;
 }
 .auth-direct-page .auth-switch{
