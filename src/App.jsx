@@ -1053,7 +1053,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
           <div className="ev-marquee-slanted-track" aria-hidden="true">
             {[0, 1].map(copy => (
               <div className="ev-marquee-slanted-content" key={copy} aria-hidden={copy === 1}>
-                <span>DESIGN</span><i>✳</i><span>TECHNOLOGY</span><i>✳</i><span>INTELLIGENCE</span><i>✳</i><span>DESIGN</span><i>✳</i><span>TECHNOLOGY</span><i>✳</i><span>INTELLIGENCE</span><i>✳</i>
+                <span>DESIGN</span><i className="ev-marquee-separator" aria-hidden="true" /><span>TECHNOLOGY</span><i className="ev-marquee-separator" aria-hidden="true" /><span>INTELLIGENCE</span><i className="ev-marquee-separator" aria-hidden="true" /><span>DESIGN</span><i className="ev-marquee-separator" aria-hidden="true" /><span>TECHNOLOGY</span><i className="ev-marquee-separator" aria-hidden="true" /><span>INTELLIGENCE</span><i className="ev-marquee-separator" aria-hidden="true" />
               </div>
             ))}
           </div>

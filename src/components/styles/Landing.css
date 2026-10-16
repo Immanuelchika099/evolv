@@ -2285,3 +2285,52 @@ html body #root .landing{background:#000!important;background-color:#000!importa
     gap: 3px;
   }
 }
+
+
+/* FAQ typography: make questions and expanded answers comfortably readable. */
+.landing-v2 .ev-faq-item summary {
+  font-size: clamp(1.8rem, 1.6vw, 2.1rem) !important;
+  line-height: 1.45 !important;
+  gap: 2.4rem !important;
+}
+.landing-v2 .ev-faq-item summary span {
+  flex: 0 0 auto;
+  font-size: 2.4rem !important;
+  line-height: 1 !important;
+}
+.landing-v2 .ev-faq-item p {
+  max-width: 64rem;
+  padding: 0 3.2rem 2.8rem 0 !important;
+  font-size: clamp(1.65rem, 1.25vw, 1.8rem) !important;
+  line-height: 1.85 !important;
+}
+
+/* Use a restrained typographic dash instead of a colorful emoji-like marker. */
+.landing-v2 .ev-marquee-slanted-content .ev-marquee-separator {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: clamp(22px, 2.8vw, 42px);
+  height: 1px;
+  margin-inline: 2px;
+  background: rgba(116, 170, 255, .8);
+  color: transparent !important;
+  font-size: 0 !important;
+  vertical-align: middle;
+}
+@media (max-width: 800px) {
+  .landing-v2 .ev-faq-item summary {
+    font-size: 1.8rem !important;
+    padding: 2.2rem 0 !important;
+  }
+  .landing-v2 .ev-faq-item summary span {
+    font-size: 2.2rem !important;
+  }
+  .landing-v2 .ev-faq-item p {
+    font-size: 1.6rem !important;
+    line-height: 1.8 !important;
+    padding-right: 1.2rem !important;
+  }
+  .landing-v2 .ev-marquee-slanted-content .ev-marquee-separator {
+    width: 22px;
+  }
+}
