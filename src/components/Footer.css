@@ -137,3 +137,118 @@
   .footer-links { gap: 18px; }
   .footer-brand p { font-size: 1.8rem; }
 }
+
+
+/* EVOLV newsletter — compact, quiet, and consistent with the textured footer. */
+.footer-newsletter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 440px);
+  align-items: end;
+  gap: 32px;
+  padding: 28px 0 38px;
+  margin-bottom: 36px;
+  border-top: 1px solid rgba(25, 25, 25, .16);
+  border-bottom: 1px solid rgba(25, 25, 25, .16);
+}
+.footer-newsletter-copy { min-width: 0; }
+.footer-newsletter-eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: #5c5b55;
+  font: 1rem 'DM Mono', monospace;
+  letter-spacing: .12em;
+}
+.footer-newsletter-copy h2 {
+  max-width: 42rem;
+  margin: 0;
+  color: #171715;
+  font: 500 clamp(2rem, 2.5vw, 2.6rem)/1.35 Manrope, sans-serif;
+  letter-spacing: -.035em;
+}
+.footer-newsletter-form { min-width: 0; }
+.footer-newsletter-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #45453f;
+  font: 1.2rem/1.5 Manrope, sans-serif;
+}
+.footer-newsletter-controls {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+.footer-newsletter-controls input {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  padding: 0 13px;
+  border: 1px solid rgba(25, 25, 25, .22);
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, .42);
+  color: #171715;
+  font: 1.35rem/1.4 Manrope, sans-serif;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.footer-newsletter-controls input::placeholder { color: #77766f; }
+.footer-newsletter-controls input:focus {
+  border-color: #2563eb;
+  background: rgba(255, 255, 255, .72);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+}
+.footer-newsletter-submit {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 15px;
+  border: 1px solid #2563eb;
+  border-radius: 10px;
+  background: #2563eb;
+  color: #fff;
+  font: 600 1.3rem/1.4 Manrope, sans-serif;
+  white-space: nowrap;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+.footer-newsletter-submit:hover {
+  border-color: #1d4ed8;
+  background: #1d4ed8;
+  box-shadow: 0 4px 14px rgba(37, 99, 235, .2);
+  transform: translateY(-1px);
+}
+.footer-newsletter-submit:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 3px;
+}
+.footer-newsletter-message {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  margin: 10px 0 0;
+  color: #30302b;
+  font: 1.2rem/1.5 Manrope, sans-serif;
+}
+.footer-newsletter-message svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: #2563eb;
+}
+@media (max-width: 700px) {
+  .footer-newsletter {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+    padding: 25px 0 30px;
+    margin-bottom: 32px;
+  }
+  .footer-newsletter-copy h2 { max-width: 34rem; font-size: 2.2rem; }
+  .footer-newsletter-controls { gap: 7px; }
+  .footer-newsletter-controls input { min-height: 50px; font-size: 1.4rem; }
+  .footer-newsletter-submit { min-height: 50px; padding-inline: 13px; font-size: 1.3rem; }
+}
+@media (max-width: 360px) {
+  .footer-newsletter-controls { flex-direction: column; }
+  .footer-newsletter-submit { width: 100%; }
+}
