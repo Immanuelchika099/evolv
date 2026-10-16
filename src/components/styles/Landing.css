@@ -1989,3 +1989,10 @@ html body #root .landing{background:#000!important;background-color:#000!importa
     animation: none !important;
   }
 }
+
+.landing-v2 .ev-system-step-icon {
+  display: block;
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--ev-accent, #74AAFF);
+}
