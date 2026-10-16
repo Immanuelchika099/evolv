@@ -963,7 +963,6 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
             intro
             className="ev-hero-pattern"
           />
-          <div className="ev-hero-vignette" />
         </div>
 
         <div className="ev-hero-content">
