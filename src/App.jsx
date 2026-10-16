@@ -948,7 +948,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
       <section className="ev-hero">
         <div className="ev-hero-grid" aria-hidden="true" />
         <div className="ev-hero-glow" aria-hidden="true" />
-        <div className="ev-hero-watermark" aria-hidden="true">EVOLV</div>
+        
 
         <div className="ev-hero-content">
           <div className="ev-hero-eyebrow"><span>A LITTLE SPACE TO GROW</span></div>
