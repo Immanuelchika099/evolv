@@ -3,20 +3,20 @@
 .routine-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin:0 0 2.6rem; }
 .routine-eyebrow,.routine-label { display:block; color:#999b94; font-size:1.1rem; font-weight:650; letter-spacing:.13em; }
 .routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:600; }
-.routine-heading h1 span { color:#74AAFF; }
+.routine-heading h1 span { color:#2563eb; }
 .routine-heading p,.routine-section-heading p { margin:0; color:#a0a19b; font-size:1.45rem; line-height:1.65; }
 .routine-date { padding:.9rem 1.2rem; border:1px solid #292a2e; border-radius:999px; color:#d5d6ce; font-size:1.2rem; white-space:nowrap; }
 .routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid #292a2e; border-radius:1.8rem; background:linear-gradient(120deg,#101114,#08090b 75%); }
 .routine-progress-top { display:flex; align-items:center; justify-content:space-between; gap:1.4rem; }
 .routine-progress-top h2 { margin:.8rem 0 0; font-size:2rem; font-weight:550; letter-spacing:-.035em; }
-.routine-progress-top>strong { font-size:2.8rem; font-weight:600; letter-spacing:-.05em; color:#74AAFF; }
+.routine-progress-top>strong { font-size:2.8rem; font-weight:600; letter-spacing:-.05em; color:#2563eb; }
 .routine-progress-track { height:.6rem; margin:1.8rem 0 1.2rem; overflow:hidden; border-radius:99px; background:#292a25; }
-.routine-progress-track span { display:block; height:100%; border-radius:inherit; background:#74AAFF; transition:width .25s ease; }
+.routine-progress-track span { display:block; height:100%; border-radius:inherit; background:#2563eb; transition:width .25s ease; }
 .routine-progress-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; color:#9b9d96; font-size:1.2rem; }
-.routine-progress-bottom button,.routine-insight-card>button,.routine-reminder-note>button { display:inline-flex; align-items:center; gap:.5rem; color:#a9ccff; background:none; border:0; font:inherit; cursor:pointer; }
+.routine-progress-bottom button,.routine-insight-card>button,.routine-reminder-note>button { display:inline-flex; align-items:center; gap:.5rem; color:#60a5fa; background:none; border:0; font:inherit; cursor:pointer; }
 .routine-insight-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.4rem; margin:1.5rem 0 3.4rem; }
 .routine-insight-card { min-width:0; padding:2rem; border:1px solid #282a30; border-radius:1.6rem; background:#0b0c0a; }
-.routine-insight-icon { display:grid; place-items:center; width:3.8rem; height:3.8rem; margin-bottom:1.8rem; border:1px solid rgba(116,170,255,.24); border-radius:1.1rem; color:#74AAFF; }
+.routine-insight-icon { display:grid; place-items:center; width:3.8rem; height:3.8rem; margin-bottom:1.8rem; border:1px solid rgba(37, 99, 235,.24); border-radius:1.1rem; color:#2563eb; }
 .routine-insight-icon.meal-icon { color:#e5d2a1; border-color:#383329; }
 .routine-insight-card>strong { display:block; margin:.9rem 0 .4rem; font-size:2.8rem; font-weight:600; letter-spacing:-.05em; }
 .routine-insight-card>strong small { color:#a0a19b; font-size:1.35rem; font-weight:450; letter-spacing:0; }
@@ -31,23 +31,23 @@
 .routine-row { display:flex; align-items:center; gap:1.2rem; min-height:7rem; padding:1rem .2rem; border-top:1px solid #1f201d; transition:opacity .2s ease; }
 .routine-row-disabled { opacity:.48; }
 .routine-row-complete .routine-row-copy strong { color:#aeb0a8; text-decoration:line-through; text-decoration-color:#77796f; }
-.routine-check { flex:0 0 2.5rem; display:grid; place-items:center; width:2.5rem; height:2.5rem; border:1px solid rgba(116,170,255,.48); border-radius:50%; background:transparent; color:#10120b; cursor:pointer; }
-.routine-row-complete .routine-check { border-color:#74AAFF; background:#74AAFF; }
-.routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:#151612; color:#74AAFF; }
+.routine-check { flex:0 0 2.5rem; display:grid; place-items:center; width:2.5rem; height:2.5rem; border:1px solid rgba(37, 99, 235,.48); border-radius:50%; background:transparent; color:#10120b; cursor:pointer; }
+.routine-row-complete .routine-check { border-color:#2563eb; background:#2563eb; }
+.routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:#151612; color:#2563eb; }
 .routine-row-copy { display:flex; flex:1 1 auto; flex-direction:column; gap:.45rem; min-width:0; }
 .routine-row-copy strong { font-size:1.45rem; font-weight:550; }
 .routine-row-copy small { color:#8e9088; font-size:1.15rem; line-height:1.4; }
 .routine-time input { width:10.5rem; padding:.8rem .7rem; color:#e9eae3; color-scheme:dark; border:1px solid #2e3029; border-radius:.8rem; background:#101114; font:inherit; font-size:1.2rem; }
 .routine-toggle { flex:0 0 4.1rem; width:4.1rem; height:2.4rem; padding:.25rem; border:1px solid #41423b; border-radius:99px; background:#20211d; cursor:pointer; }
 .routine-toggle span { display:block; width:1.6rem; height:1.6rem; border-radius:50%; background:#8d8f86; transition:transform .2s ease,background .2s ease; }
-.routine-toggle.is-on { border-color:#74AAFF; background:rgba(116,170,255,.22); }
-.routine-toggle.is-on span { transform:translateX(1.55rem); background:#74AAFF; }
+.routine-toggle.is-on { border-color:#2563eb; background:rgba(37, 99, 235,.22); }
+.routine-toggle.is-on span { transform:translateX(1.55rem); background:#2563eb; }
 .routine-next-step { display:flex; align-items:center; gap:1.5rem; margin-top:1.6rem; padding:1.8rem; border:1px solid #282a30; border-radius:1.4rem; background:#0b0c0a; }
-.routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:#181a13; color:#74AAFF; }
+.routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:#181a13; color:#2563eb; }
 .routine-next-step h2 { margin:.6rem 0 .35rem; font-size:1.8rem; font-weight:550; }
 .routine-next-step p { margin:0; color:#999b94; font-size:1.25rem; line-height:1.55; }
 .routine-reminder-note { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.7rem; border:1px solid #272823; border-radius:1.4rem; }
-.routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:#151612; color:#74AAFF; }
+.routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:#151612; color:#2563eb; }
 .routine-reminder-note>div:nth-child(2) { flex:1; min-width:0; }
 .routine-reminder-note strong { font-size:1.3rem; font-weight:550; }
 .routine-reminder-note p { margin:.5rem 0 0; color:#92948d; font-size:1.15rem; line-height:1.55; }
@@ -105,7 +105,7 @@
 .routine-row-copy strong { font-size:1.55rem; }
 .routine-row-copy small { display:none; }
 .routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid #272823; border-radius:1.4rem; background:#0b0c0a; }
-.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:#151612; color:#74AAFF; }
+.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:#151612; color:#2563eb; }
 .routine-reminder-control>div { display:flex; flex:1; min-width:0; flex-direction:column; gap:.35rem; }
 .routine-reminder-control strong { font-size:1.45rem; font-weight:600; }
 .routine-reminder-control small { color:#999b94; font-size:1.25rem; }
@@ -188,7 +188,7 @@
 /* Adjustable lead time for routine reminders. */
 .routine-lead-time { display:flex; align-items:center; gap:.7rem; color:#a4a69e; font-size:1.15rem; white-space:nowrap; }
 .routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid #34362f; border-radius:.9rem; background:#101114; color:#f5f6f1; font:inherit; font-size:1.35rem; text-align:center; }
-.routine-lead-time input:focus { outline:1px solid #74AAFF; border-color:#74AAFF; }
+.routine-lead-time input:focus { outline:1px solid #2563eb; border-color:#2563eb; }
 @media(max-width:700px) {
   .routine-reminder-control { flex-wrap:wrap; }
   .routine-lead-time { width:100%; justify-content:space-between; padding:.6rem 0 0 5rem; }
@@ -203,37 +203,37 @@
 .daily-routine-page .routine-row-icon,
 .daily-routine-page .routine-next-icon,
 .daily-routine-page .routine-reminder-icon,
-.daily-routine-page .routine-reminder-control-icon { color: #74AAFF !important; }
-.daily-routine-page .routine-progress-track span { background: #74AAFF !important; }
+.daily-routine-page .routine-reminder-control-icon { color: #2563eb !important; }
+.daily-routine-page .routine-progress-track span { background: #2563eb !important; }
 .daily-routine-page .routine-progress-bottom button,
 .daily-routine-page .routine-insight-card > button,
-.daily-routine-page .routine-reminder-note > button { color: #74AAFF !important; }
-.daily-routine-page .routine-insight-icon { border-color: rgba(116,170,255,.24) !important; background: rgba(116,170,255,.08) !important; }
+.daily-routine-page .routine-reminder-note > button { color: #2563eb !important; }
+.daily-routine-page .routine-insight-icon { border-color: rgba(37, 99, 235,.24) !important; background: rgba(37, 99, 235,.08) !important; }
 .daily-routine-page .routine-row-icon,
 .daily-routine-page .routine-next-icon,
 .daily-routine-page .routine-reminder-icon,
-.daily-routine-page .routine-reminder-control-icon { background: rgba(116,170,255,.09) !important; }
-.daily-routine-page .routine-row-complete .routine-check { border-color: #74AAFF !important; background: #74AAFF !important; color: #fff !important; }
-.daily-routine-page .routine-toggle.is-on { border-color: rgba(116,170,255,.75) !important; background: rgba(116,170,255,.22) !important; }
-.daily-routine-page .routine-toggle.is-on span { background: #74AAFF !important; }
-.daily-routine-page .routine-lead-time input:focus { outline-color: #74AAFF !important; border-color: #74AAFF !important; }
+.daily-routine-page .routine-reminder-control-icon { background: rgba(37, 99, 235,.09) !important; }
+.daily-routine-page .routine-row-complete .routine-check { border-color: #2563eb !important; background: #2563eb !important; color: #fff !important; }
+.daily-routine-page .routine-toggle.is-on { border-color: rgba(37, 99, 235,.75) !important; background: rgba(37, 99, 235,.22) !important; }
+.daily-routine-page .routine-toggle.is-on span { background: #2563eb !important; }
+.daily-routine-page .routine-lead-time input:focus { outline-color: #2563eb !important; border-color: #2563eb !important; }
 .daily-routine-page .routine-toggle.is-on span { transform: translateX(1.55rem); }
 @media (max-width:700px) { .daily-routine-page .routine-toggle.is-on span { transform: translateX(1.1rem); } }
 
 
 /* Final routine-page accent enforcement: no lime remnants. */
-html body #root .daily-routine-page { --color-accent-lime:#74AAFF !important; --accent:#74AAFF !important; --routine-accent:#74AAFF !important; }
+html body #root .daily-routine-page { --color-accent-lime:#2563eb !important; --accent:#2563eb !important; --routine-accent:#2563eb !important; }
 html body #root .daily-routine-page .routine-heading h1 span,
 html body #root .daily-routine-page .routine-progress-top>strong,
 html body #root .daily-routine-page .routine-insight-icon,
 html body #root .daily-routine-page .routine-row-icon,
 html body #root .daily-routine-page .routine-next-icon,
 html body #root .daily-routine-page .routine-reminder-icon,
-html body #root .daily-routine-page .routine-reminder-control-icon { color:#74AAFF !important; }
+html body #root .daily-routine-page .routine-reminder-control-icon { color:#2563eb !important; }
 html body #root .daily-routine-page .routine-progress-track span,
 html body #root .daily-routine-page .routine-row-complete .routine-check,
-html body #root .daily-routine-page .routine-toggle.is-on span { background:#74AAFF !important; }
+html body #root .daily-routine-page .routine-toggle.is-on span { background:#2563eb !important; }
 html body #root .daily-routine-page .routine-row-complete .routine-check,
-html body #root .daily-routine-page .routine-toggle.is-on { border-color:#74AAFF !important; }
-html body #root .daily-routine-page .routine-toggle.is-on { background:rgba(116,170,255,.2) !important; }
-html body #root .daily-routine-page .routine-lead-time input:focus { outline-color:#74AAFF !important; border-color:#74AAFF !important; }
+html body #root .daily-routine-page .routine-toggle.is-on { border-color:#2563eb !important; }
+html body #root .daily-routine-page .routine-toggle.is-on { background:rgba(37, 99, 235,.2) !important; }
+html body #root .daily-routine-page .routine-lead-time input:focus { outline-color:#2563eb !important; border-color:#2563eb !important; }
