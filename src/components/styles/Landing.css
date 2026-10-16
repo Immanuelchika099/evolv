@@ -1996,3 +1996,292 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   margin: 0;
   color: var(--ev-accent, #74AAFF);
 }
+
+
+/* System cards: remove the numbered labels and align icon + copy consistently. */
+.landing-v2 .ev-system-steps > div {
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  gap: var(--ev-space-3, 24px) !important;
+}
+.landing-v2 .ev-system-steps .ev-system-step-icon {
+  width: 22px;
+  height: 22px;
+  flex: 0 0 22px;
+  margin: 0 !important;
+  color: var(--ev-accent, #74AAFF) !important;
+}
+.landing-v2 .ev-system-step-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: auto;
+}
+.landing-v2 .ev-system-steps .ev-system-step-copy strong {
+  margin: 0 !important;
+}
+.landing-v2 .ev-system-steps .ev-system-step-copy small {
+  display: block;
+  max-width: 22ch;
+}
+
+/* Weekly overview card: clear hierarchy, useful progress visual, no row numbers. */
+.landing-v2 .ev-device {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(22px, 3vw, 34px) !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 26px !important;
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(116,170,255,.095), transparent 42%),
+    linear-gradient(145deg, #121416 0%, #0b0c0e 100%) !important;
+  box-shadow: 0 32px 90px rgba(0,0,0,.3) !important;
+}
+.landing-v2 .ev-device-top {
+  align-items: center;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  color: rgba(244,244,239,.48) !important;
+  font-size: 10px !important;
+  line-height: 1.4;
+  letter-spacing: .13em !important;
+}
+.landing-v2 .ev-device-brand {
+  color: rgba(244,244,239,.9);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.landing-v2 .ev-device-brand i {
+  color: rgba(244,244,239,.35);
+  font-style: normal;
+  margin: 0 4px;
+}
+.landing-v2 .ev-device-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+  padding: 8px 10px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  background: rgba(255,255,255,.035);
+  color: rgba(244,244,239,.72);
+  font-size: 9px;
+  letter-spacing: .1em;
+  white-space: nowrap;
+}
+.landing-v2 .ev-device-live-dot,
+.landing-v2 .ev-device-track-status > span {
+  width: 6px;
+  height: 6px;
+  flex: 0 0 6px;
+  border-radius: 50%;
+  background: #74AAFF;
+  box-shadow: 0 0 12px rgba(116,170,255,.45);
+}
+.landing-v2 .ev-device-body {
+  grid-template-columns: minmax(145px, .72fr) minmax(0, 1.28fr) !important;
+  gap: clamp(22px, 3vw, 36px) !important;
+  align-items: center !important;
+  padding: clamp(28px, 4vw, 46px) 0 !important;
+}
+.landing-v2 .ev-device-progress {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.landing-v2 .ev-device-kicker {
+  color: rgba(244,244,239,.48);
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: .13em;
+  line-height: 1.4;
+}
+.landing-v2 .ev-device-progress-value {
+  display: flex;
+  align-items: flex-start;
+  gap: 3px;
+  margin: 17px 0 18px;
+}
+.landing-v2 .ev-device-progress-value strong {
+  color: #f4f4ef;
+  font-size: clamp(54px, 6vw, 76px);
+  font-weight: 500;
+  line-height: .88;
+  letter-spacing: -.09em;
+}
+.landing-v2 .ev-device-progress-value > span {
+  margin-top: 4px;
+  color: #74AAFF;
+  font-size: 22px;
+  line-height: 1;
+}
+.landing-v2 .ev-device-progress-track {
+  width: 100%;
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+}
+.landing-v2 .ev-device-progress-track > span {
+  display: block;
+  width: 72%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #568fe8, #9bc4ff);
+  box-shadow: 0 0 16px rgba(116,170,255,.22);
+}
+.landing-v2 .ev-device-progress > small {
+  margin-top: 13px;
+  color: rgba(244,244,239,.43);
+  font-size: 11px;
+  line-height: 1.55;
+}
+.landing-v2 .ev-device-list {
+  min-width: 0;
+  border-top: 1px solid rgba(255,255,255,.09) !important;
+}
+.landing-v2 .ev-device-list > div {
+  grid-template-columns: 18px minmax(0,1fr) auto !important;
+  gap: 10px !important;
+  min-height: 55px !important;
+  border-bottom: 1px solid rgba(255,255,255,.085) !important;
+}
+.landing-v2 .ev-device-list > div:last-child {
+  border-bottom: 0 !important;
+}
+.landing-v2 .ev-device-list .ev-device-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 17px;
+  height: 17px;
+  color: #91bbff !important;
+  border: 1px solid rgba(116,170,255,.38);
+  border-radius: 50%;
+  font-size: 9px !important;
+}
+.landing-v2 .ev-device-list .ev-device-status.is-active {
+  border-color: rgba(116,170,255,.65);
+  background: rgba(116,170,255,.12);
+}
+.landing-v2 .ev-device-list .ev-device-status.is-progress {
+  border-color: rgba(244,244,239,.25);
+}
+.landing-v2 .ev-device-list .ev-device-status.is-progress > span {
+  display: block;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #74AAFF;
+}
+.landing-v2 .ev-device-list .ev-device-status.is-upcoming {
+  color: rgba(244,244,239,.5) !important;
+  border-color: rgba(255,255,255,.15);
+}
+.landing-v2 .ev-device-list > div b {
+  min-width: 0;
+  color: #f4f4ef !important;
+  font-size: clamp(11px, 1.15vw, 13px) !important;
+  font-weight: 450 !important;
+  line-height: 1.4;
+}
+.landing-v2 .ev-device-list > div i {
+  color: rgba(244,244,239,.42) !important;
+  font-size: 8px !important;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: .08em;
+  white-space: nowrap;
+}
+.landing-v2 .ev-device-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255,255,255,.09);
+  color: rgba(244,244,239,.42) !important;
+  font-size: 9px !important;
+  letter-spacing: .1em !important;
+}
+.landing-v2 .ev-device-change {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.landing-v2 .ev-device-change strong {
+  color: #91bbff;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -.04em;
+}
+.landing-v2 .ev-device-change > span {
+  font-size: 8px;
+  line-height: 1.4;
+}
+.landing-v2 .ev-device-track-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: rgba(244,244,239,.78);
+  font-size: 9px;
+  white-space: nowrap;
+}
+@media (max-width: 800px) {
+  .landing-v2 .ev-device-body {
+    grid-template-columns: 1fr !important;
+    gap: 25px !important;
+    padding: 28px 0 !important;
+  }
+  .landing-v2 .ev-device-progress-value {
+    margin: 12px 0 14px;
+  }
+  .landing-v2 .ev-device-progress-track {
+    max-width: 100%;
+  }
+  .landing-v2 .ev-device-list > div {
+    grid-template-columns: 18px minmax(0,1fr) auto !important;
+    min-height: 52px !important;
+  }
+  .landing-v2 .ev-device-list > div i {
+    display: block !important;
+  }
+}
+@media (max-width: 430px) {
+  .landing-v2 .ev-device {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+  }
+  .landing-v2 .ev-device-top {
+    padding-bottom: 16px;
+    font-size: 9px !important;
+  }
+  .landing-v2 .ev-device-period {
+    padding: 7px 8px;
+    gap: 6px;
+    font-size: 8px;
+  }
+  .landing-v2 .ev-device-list > div {
+    grid-template-columns: 17px minmax(0,1fr) !important;
+    gap: 9px !important;
+  }
+  .landing-v2 .ev-device-list > div i {
+    display: none !important;
+  }
+  .landing-v2 .ev-device-list > div b {
+    font-size: 12px !important;
+  }
+  .landing-v2 .ev-device-bottom {
+    align-items: flex-start;
+  }
+  .landing-v2 .ev-device-change {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+}
