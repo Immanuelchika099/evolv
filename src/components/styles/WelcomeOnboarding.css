@@ -384,9 +384,13 @@
   width: 3.8rem;
   height: 3.8rem;
   border-radius: 1.2rem;
-  background: rgba(116, 170, 255,.08);
-  color: #74AAFF;
-  font-size: 2rem;
+  background: var(--goal-icon-tint, rgba(116, 170, 255,.08));
+  color: var(--goal-icon-color, #74AAFF);
+}
+.evolv-onboarding-goal-symbol svg {
+  display: block;
+  color: inherit;
+  stroke: currentColor;
 }
 .evolv-onboarding-goal-text {
   display: flex;
