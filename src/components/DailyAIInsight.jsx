@@ -52,7 +52,6 @@ function buildFallbackInsight(reply) {
 export default function DailyAIInsight({ dataLoading = false, name, defs = [], logs = [], meals = [], goals = [], valueText, goTo }) {
   const [insight, setInsight] = useState(null)
   const [insights, setInsights] = useState([])
-  const [activeIndex, setActiveIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [status, setStatus] = useState('')
@@ -78,7 +77,6 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
           const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null')
           if (Array.isArray(cached) && cached.length) {
             setInsights(cached)
-            setActiveIndex(0)
             setInsight(cached[0])
             return
           }
@@ -223,7 +221,6 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       const stack = [saved, ...generatedInsights.slice(1)]
       try { localStorage.setItem(cacheKey, JSON.stringify(stack)) } catch {}
       setInsights(stack)
-      setActiveIndex(0)
       setInsight(saved)
     } catch (error) {
       console.error('Daily AI insight failed:', error)
@@ -280,7 +277,6 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
           showControls={false}
           showIndicators
           onChange={(index, item) => {
-            setActiveIndex(index)
             setInsight(item)
           }}
           className="daily-ai-depth-carousel"
