@@ -1904,7 +1904,7 @@ html:has(.dashboard.dashboard-ai-active) {
   /* WebKit can under-report the viewport in an installed iOS web app.
      Extend the app shell through the bottom safe area, but keep the composer
      padding inside its own shell so the field doesn't appear to float. */
-  .dashboard.dashboard-ai-active {
+  .dashboard.dashboard-ai-active:not(:has(.prompt-bar__input:focus)) {
     height: calc(var(--evolv-ai-viewport-height, 100vh) + env(safe-area-inset-bottom, 0px));
   }
 }
