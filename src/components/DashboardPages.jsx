@@ -95,11 +95,14 @@ function HomePage({ pageProps }) {
 
   return (
     <div className="dashboard-home calm-home">
-      <section className="calm-home-welcome">
+      <section className="calm-home-welcome calm-home-welcome-avatar">
         <div className="calm-home-welcome-copy">
           <span className="calm-home-greeting">{greeting}</span>
           <h1>{firstName}</h1>
-          
+        </div>
+        <div className="evolv-mascot-wrap" aria-hidden="true">
+          <span className="evolv-mascot-halo" />
+          <Avatar3D className="evolv-mascot" label={`EVOLV companion for ${firstName}`} />
         </div>
       </section>
 
