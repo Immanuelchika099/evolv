@@ -228,7 +228,17 @@ export default function Avatar3D({ className = '', label = '3D avatar', interact
       }).catch(() => {
         if (aliveRef.current) setModelState('error')
       })
-    }, aliveRef).then(cleanup => { stop = cleanup || (() => {}) })
+    }, aliveRef)
+      .then(cleanup => { stop = cleanup || (() => {}) })
+      .catch(() => {
+        if (!aliveRef.current) return
+        setModelState('fallback')
+        ensureModelViewer().then(() => {
+          if (aliveRef.current) setFallbackReady(true)
+        }).catch(() => {
+          if (aliveRef.current) setModelState('error')
+        })
+      })
     return () => {
       aliveRef.current = false
       stop()
