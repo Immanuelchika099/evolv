@@ -1916,3 +1916,37 @@ html:has(.dashboard.dashboard-ai-active) {
     animation-duration: .01ms;
   }
 }
+
+
+/* EVOLV AI finishing polish: primary blue messages, neutral focus, flush input. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  background: #2563eb;
+  border-color: #2563eb;
+  color: #ffffff;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
+  background: #121212;
+  border-color: rgba(255, 255, 255, .09);
+  box-shadow: none;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field::before {
+  opacity: 0;
+  background: none;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__tool:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__tool:active,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__pick:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__pick:active {
+  background: transparent;
+  box-shadow: none;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
