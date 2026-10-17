@@ -965,8 +965,8 @@ ${progressContext}${researchContext}`
                 `[[EVOLV_IMAGE|${encodeURIComponent(String(image.title || "Image").slice(0, 120))}|${image.url}|${image.sourceUrl}|${encodeURIComponent(String(image.license || "").slice(0, 80))}]]`
               )
               replyWithImages = `${baseReply.trim()}\n\n${imageMarkers.join("\n")}`
-            } else if (!baseReply.trim()) {
-              replyWithImages = "I couldn’t find a sufficiently relevant image for that request, so I’m not going to show you a random one."
+            } else {
+              replyWithImages = `I couldn’t find a sufficiently relevant image for “${imageQuery}”, so I won’t show a random one.\\n\\n${baseReply.trim()}`.trim()
             }
           }
           const sourceMarkdown = webResearch.links.length
