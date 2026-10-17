@@ -2,6 +2,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowRight, Asterisk, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import LegalPage from './components/LegalPage'
 import BottomNav from './components/BottomNav'
 import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
@@ -199,6 +200,7 @@ function App() {
     }
   })
   const [article, setArticle] = useState(null)
+  const [legalDocument, setLegalDocument] = useState('terms')
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [contactSent, setContactSent] = useState(false)
@@ -327,6 +329,19 @@ function App() {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
     })
   }, [view, article])
+
+  function openLegal(documentType) {
+    setLegalDocument(documentType)
+    localStorage.setItem('evolv-view', 'legal')
+    setView('legal')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
+
+  function closeLegal() {
+    localStorage.setItem('evolv-view', 'landing')
+    setView('landing')
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }
 
   function openContact() {
     setContactSent(false)
@@ -531,9 +546,10 @@ function App() {
       {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
         <Navbar onStart={enterApp} onSignIn={() => { setMenuOpen(false); setAuthMode('login'); localStorage.setItem('evolv-view', 'auth'); setView('auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
-      {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} />}
+      {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} onLegal={openLegal} />}
       {view === 'pricing' && <PricingPage onStart={enterApp} onBack={returnHome} />}
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
+      {view === 'legal' && <LegalPage documentType={legalDocument} onBack={closeLegal} />}
       {view === 'welcome' && <WelcomeScreen onGetStarted={() => { if (window.location.pathname === '/onboarding' || window.location.pathname === '/onboarding/') window.history.replaceState({}, '', '/'); setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
       {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} />}
       {view === 'onboarding' && (
@@ -854,7 +870,7 @@ function Brand() {
 }
 
 
-function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
+function Landing({onStart, onExplore, onArticle, onPricing, onContact, onLegal}) {
   const page = useRef(null)
 
   useLayoutEffect(() => {
@@ -1087,7 +1103,7 @@ function Landing({ onStart, onExplore, onArticle, onPricing, onContact }) {
         <button className="ev-btn ev-btn-solid" type="button" onClick={onStart}>Start evolving <ArrowRight size={17} /></button>
       </section>
 
-      <Footer onContact={onContact} />
+      <Footer onContact={onContact} onLegal={onLegal} />
     </div>
   )
 }
