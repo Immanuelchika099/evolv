@@ -210,7 +210,20 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   const firstName = String(profile?.first_name || profile?.full_name || profile?.name || '').trim().split(/\s+/)[0] || 'there'
   const [chatId, setChatId] = useState(() => {
     try {
-      return localStorage.getItem('evolv-ai-chat-id') || crypto.randomUUID()
+      const startNewChat = localStorage.getItem('evolv-ai-start-new-chat') === 'true'
+      if (startNewChat) {
+        localStorage.removeItem('evolv-ai-start-new-chat')
+        const freshChatId = typeof crypto !== 'undefined' && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+        localStorage.setItem('evolv-ai-chat-id', freshChatId)
+        return freshChatId
+      }
+      return localStorage.getItem('evolv-ai-chat-id') || (
+        typeof crypto !== 'undefined' && crypto.randomUUID
+          ? crypto.randomUUID()
+          : `${Date.now()}-${Math.random().toString(36).slice(2)}`
+      )
     } catch {
       return `${Date.now()}-${Math.random().toString(36).slice(2)}`
     }
