@@ -508,3 +508,37 @@ html body #root .daily-routine-page .routine-reminder-note > button {
     font-size: 1.4rem !important;
   }
 }
+
+
+/* Final switch geometry fix: keep the knob inset evenly and move it fully to the right. */
+html body #root .daily-routine-page .routine-toggle {
+  position: relative !important;
+  box-sizing: border-box !important;
+  overflow: hidden;
+}
+html body #root .daily-routine-page .routine-toggle span {
+  position: absolute !important;
+  left: .2rem !important;
+  top: 50% !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 1.5rem !important;
+  min-width: 1.5rem !important;
+  height: 1.5rem !important;
+  min-height: 1.5rem !important;
+  margin: 0 !important;
+  transform: translateY(-50%) !important;
+  transition: left .2s ease, transform .2s ease, background-color .2s ease !important;
+}
+html body #root .daily-routine-page .routine-toggle.is-on span {
+  left: calc(100% - 1.7rem) !important;
+  transform: translateY(-50%) !important;
+}
+@media (max-width: 700px) {
+  html body #root .daily-routine-page .routine-toggle span {
+    left: .2rem !important;
+  }
+  html body #root .daily-routine-page .routine-toggle.is-on span {
+    left: calc(100% - 1.7rem) !important;
+  }
+}
