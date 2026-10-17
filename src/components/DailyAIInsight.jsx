@@ -12,20 +12,26 @@ function localDateKey(date = new Date()) {
 function parseInsight(reply) {
   const text = String(reply || '').trim()
   const match = text.match(/\{[\s\S]*\}/)
-  if (match) {
-    try {
-      const parsed = JSON.parse(match[0])
-      if (parsed.insufficient_data) return { insufficient: true, message: String(parsed.message || '').slice(0, 250) }
-      if (parsed.title && parsed.observation && parsed.suggestion) return {
-        category: String(parsed.category || 'personal').slice(0, 40),
-        title: String(parsed.title).trim().slice(0, 100),
-        observation: String(parsed.observation).trim().slice(0, 700),
-        suggestion: String(parsed.suggestion).trim().slice(0, 350),
-        evidence: Array.isArray(parsed.evidence) ? parsed.evidence.slice(0, 3).map(item => String(item).slice(0, 180)) : [],
+  if (!match) return null
+  try {
+    const parsed = JSON.parse(match[0])
+    if (parsed.insufficient_data) return { insufficient: true, message: String(parsed.message || '').slice(0, 250) }
+    const normalize = item => {
+      if (!item?.title || !item?.observation || !item?.suggestion) return null
+      return {
+        category: String(item.category || 'personal').slice(0, 40),
+        title: String(item.title).trim().slice(0, 70),
+        observation: String(item.observation).trim().slice(0, 220),
+        suggestion: String(item.suggestion).trim().slice(0, 160),
+        evidence: Array.isArray(item.evidence) ? item.evidence.slice(0, 2).map(value => String(value).slice(0, 100)) : [],
       }
-    } catch {}
-  }
-  return null
+    }
+    if (Array.isArray(parsed.insights)) {
+      const insights = parsed.insights.map(normalize).filter(Boolean).slice(0, 3)
+      return insights.length ? { insights } : null
+    }
+    return normalize(parsed)
+  } catch { return null }
 }
 
 function buildFallbackInsight(reply) {
@@ -44,6 +50,8 @@ function buildFallbackInsight(reply) {
 
 export default function DailyAIInsight({ dataLoading = false, name, defs = [], logs = [], meals = [], goals = [], valueText, goTo }) {
   const [insight, setInsight] = useState(null)
+  const [insights, setInsights] = useState([])
+  const [activeIndex, setActiveIndex] = useState(0)
   const [loading, setLoading] = useState(true)
   const [refreshing, setRefreshing] = useState(false)
   const [status, setStatus] = useState('')
@@ -63,6 +71,18 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       }
 
       const today = localDateKey()
+      const cacheKey = 'evolv-ai-insight-stack:' + userId + ':' + today
+      if (!force) {
+        try {
+          const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null')
+          if (Array.isArray(cached) && cached.length) {
+            setInsights(cached)
+            setActiveIndex(0)
+            setInsight(cached[0])
+            return
+          }
+        } catch {}
+      }
 
       // Keep the insight genuinely empty until the user has logged something.
       // Conversations can add context, but must not manufacture an insight on their own.
@@ -79,10 +99,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
           .eq('user_id', userId)
           .eq('insight_date', today)
           .maybeSingle()
-        if (!savedError && saved) {
-          setInsight(saved)
-          return
-        }
+        if (!savedError && saved) setInsight(saved)
       }
 
       const since = new Date()
@@ -139,11 +156,11 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       }
 
       const promptParts = [
-        'Create ONE short, evidence-based daily insight for this EVOLV user, with one useful suggestion for today.',
-        'Use only the context below or real data returned by get_user_insights; call that tool when enough context exists. Never invent details, infer missing habits, or claim a trend from one entry.',
-        'Prefer a meaningful pattern, change, recurring theme, or progress. Avoid generic encouragement and the previous insight. Reflect feelings carefully; never diagnose mental health or quote sensitive details unsolicited. State uncertainty when needed.',
-        'Keep observation to 1–3 short sentences and suggestion to one simple action.',
-        'Return ONLY JSON: {"category":"sleep|mood|nutrition|money|career|routine|personal","title":"short title","observation":"grounded observation","suggestion":"one small action","evidence":["short factual signal"]}. If evidence is insufficient return {"insufficient_data":true,"message":"one kind sentence inviting more check-ins"}.',
+        'Create THREE distinct, short, evidence-based EVOLV insight cards for this user from the data below. They will rotate in a small dashboard carousel.',
+        'Use only supplied context or real data returned by get_user_insights; call that tool when enough context exists. Never invent details, infer missing habits, or claim a trend from one entry.',
+        'Make each insight meaningfully different, grounded in available records or conversation, and avoid generic encouragement. Reflect feelings carefully; never diagnose mental health or quote sensitive details unsolicited. State uncertainty when needed.',
+        'Each title should be 2–5 words. Each observation must be one concise sentence (ideally under 16 words). Each suggestion must be one short action (ideally under 10 words). Keep evidence optional and very short.',
+        'Return ONLY JSON: {"insights":[{"category":"sleep|mood|nutrition|money|career|routine|personal","title":"short title","observation":"one grounded sentence","suggestion":"one small action","evidence":["short factual signal"]}, ... exactly 3 distinct items]}. If evidence is insufficient return {"insufficient_data":true,"message":"one kind sentence inviting more check-ins"}.',
         'First name: ' + (String(name || '').trim().split(/\s+/)[0] || 'there'),
         'Local date: ' + today,
         'Recent conversations: ' + (conversations.length ? conversations.map(item => item.role + ': ' + item.content).join('\n') : 'No recent AI conversations.'),
@@ -173,16 +190,18 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       const parsed = parseInsight(result.reply)
       if (parsed && parsed.insufficient) {
         setInsight(null)
+        setInsights([])
         setStatus(parsed.message || 'Keep checking in, and I’ll look for a useful pattern when there is enough to go on.')
         return
       }
-      const generated = parsed || buildFallbackInsight(result.reply)
-      if (!generated) {
+      const generatedInsights = parsed?.insights || (parsed && parsed.title ? [parsed] : [buildFallbackInsight(result.reply)].filter(Boolean))
+      if (!generatedInsights.length) {
         setInsight(null)
+        setInsights([])
         setStatus('I need a little more to go on. Keep checking in or chatting, and I’ll look for a useful pattern.')
         return
       }
-
+      const generated = generatedInsights[0]
       const row = {
         user_id: userId,
         insight_date: today,
@@ -200,6 +219,10 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
         .select('id,insight_date,category,title,observation,suggestion,evidence,generated_at')
         .single()
       if (saveError) throw saveError
+      const stack = [saved, ...generatedInsights.slice(1)]
+      try { localStorage.setItem(cacheKey, JSON.stringify(stack)) } catch {}
+      setInsights(stack)
+      setActiveIndex(0)
       setInsight(saved)
     } catch (error) {
       console.error('Daily AI insight failed:', error)
@@ -219,6 +242,16 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
     generateInsightRef.current()
   }, [dataLoading])
 
+  useEffect(() => {
+    if (loading || insights.length < 2) return
+    const timer = window.setInterval(() => setActiveIndex(index => (index + 1) % insights.length), 10000)
+    return () => window.clearInterval(timer)
+  }, [loading, insights.length])
+
+  useEffect(() => {
+    if (insights.length) setInsight(insights[activeIndex] || insights[0])
+  }, [activeIndex, insights])
+
   function openConversation() {
     try {
       localStorage.setItem('evolv-ai-pending-prompt',
@@ -236,20 +269,24 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
         </div>
         {insight && <button type="button" onClick={openConversation} aria-label="Talk through today's insight"><ArrowRight size={18} /></button>}
       </div>
-      <article key={insight?.id || insight?.insight_date || (status ? "empty-status" : "empty")} className="daily-ai-insight-card" aria-live="polite">
+      <div className={`daily-ai-insight-stack${insights.length > 1 ? ' has-stack' : ''}`}>
+      {insights.length > 1 && <><span className="daily-ai-insight-back daily-ai-insight-back-two" aria-hidden="true" /><span className="daily-ai-insight-back daily-ai-insight-back-one" aria-hidden="true" /></>}
+      <article key={insight?.title || insight?.id || insight?.insight_date || (status ? "empty-status" : "empty")} className="daily-ai-insight-card" aria-live="polite">
         {loading ? (
           <div className="daily-ai-insight-state"><span className="daily-ai-insight-shimmer" /><span className="daily-ai-insight-shimmer short" /><small>Finding a useful pattern from your recent days…</small></div>
         ) : insight ? (
           <>
             <div className="daily-ai-insight-topline">
-              <span className="daily-ai-insight-category">{insight.category || 'personal'} · TODAY</span>
-              <span className="daily-ai-insight-spark"><Sparkles size={16} /></span>
+              <span className="daily-ai-insight-category">{insight.category || 'personal'} <span aria-hidden="true">/</span> REFLECTION</span>
+              <span className="daily-ai-insight-index">{String(activeIndex + 1).padStart(2, '0')} <span>/</span> {String(insights.length || 1).padStart(2, '0')}</span>
             </div>
             <h3>{insight.title}</h3>
             <p className="daily-ai-insight-observation">{insight.observation}</p>
-            {Array.isArray(insight.evidence) && insight.evidence.length > 0 && <p className="daily-ai-insight-evidence">{insight.evidence.slice(0, 2).join(' · ')}</p>}
-            <div className="daily-ai-insight-suggestion"><span>TRY TODAY</span><p>{insight.suggestion}</p></div>
-            <button type="button" className="daily-ai-insight-action" onClick={openConversation}>Talk it through <ArrowUpRight size={15} /></button>
+            <div className="daily-ai-insight-suggestion"><span>A SMALL NEXT STEP</span><p>{insight.suggestion}</p></div>
+            <div className="daily-ai-insight-footer">
+              <button type="button" className="daily-ai-insight-action" onClick={openConversation}>Explore insight <ArrowUpRight size={15} /></button>
+              {insights.length > 1 && <div className="daily-ai-insight-dots" aria-label={`Insight ${activeIndex + 1} of ${insights.length}`}>{insights.map((item, index) => <span key={item.title + index} className={index === activeIndex ? 'is-active' : ''} />)}</div>}
+            </div>
           </>
         ) : (
           <div className="daily-ai-insight-state">
@@ -264,6 +301,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
           </div>
         )}
       </article>
+      </div>
     </section>
   )
 }
