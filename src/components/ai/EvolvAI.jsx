@@ -25,7 +25,6 @@ function renderInlineMarkdown(text, keyPrefix = 'inline') {
 }
 
 function AssistantMessageContent({ content, typing = false }) {
-  const [openedImage, setOpenedImage] = useState(null)
   const lines = String(content || '').replace(/\r\n?/g, '\n').split('\n')
   const blocks = []
   let paragraph = []
@@ -33,7 +32,6 @@ function AssistantMessageContent({ content, typing = false }) {
   let listType = ''
   let quote = []
   let code = []
-  let imageGallery = []
   let inCode = false
 
   const flushParagraph = () => {
@@ -58,20 +56,6 @@ function AssistantMessageContent({ content, typing = false }) {
     code = []
   }
 
-  const flushImageGallery = () => {
-    if (!imageGallery.length) return
-    blocks.push(
-      <div className="ai-image-carousel" role="list" aria-label="Suggested images" key={`images-${blocks.length}`}>
-        {imageGallery.map((image, index) => (
-          <button type="button" className="ai-image-card" key={`image-${index}`} role="listitem" aria-label={`Open image: ${image.alt}`} onClick={() => setOpenedImage(image)}>
-            <img src={image.url} alt={image.alt} loading="lazy" />
-          </button>
-        ))}
-      </div>
-    )
-    imageGallery = []
-  }
-
   lines.forEach((line, index) => {
     const trimmed = line.trim()
     if (trimmed.startsWith('```')) {
@@ -81,15 +65,8 @@ function AssistantMessageContent({ content, typing = false }) {
       return
     }
     if (inCode) { code.push(line); return }
-    if (trimmed.startsWith('![')) {
-      const imageMatch = trimmed.match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/)
-      if (imageMatch) {
-        flushParagraph(); flushList(); flushQuote()
-        imageGallery.push({ alt: imageMatch[1] || 'Suggested image', url: imageMatch[2] })
-      }
-      return
-    }
-    flushImageGallery()
+    // Ignore legacy generated-image markdown; image suggestions are temporarily disabled.
+    if (trimmed.startsWith('![')) return
     if (!trimmed) { flushParagraph(); flushList(); flushQuote(); return }
     if (/^#{1,4}\s+/.test(trimmed)) {
       flushParagraph(); flushList(); flushQuote()
@@ -121,25 +98,14 @@ function AssistantMessageContent({ content, typing = false }) {
     flushList(); flushQuote()
     paragraph.push(line)
   })
-  flushParagraph(); flushList(); flushQuote(); flushImageGallery()
+  flushParagraph(); flushList(); flushQuote()
   if (inCode) flushCode()
 
   return (
     <div className="ai-response-content">
       {blocks}
       {typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}
-      {openedImage ? (
-        <div className="ai-image-lightbox" role="dialog" aria-modal="true" aria-label="Image preview" onClick={() => setOpenedImage(null)}>
-          <div className="ai-image-lightbox-panel" onClick={event => event.stopPropagation()}>
-            <button type="button" className="ai-image-lightbox-close" onClick={() => setOpenedImage(null)} aria-label="Close image preview">×</button>
-            <img src={openedImage.url} alt={openedImage.alt} />
-            <div className="ai-image-source">
-              <span>{openedImage.alt}</span>
-              <a href={openedImage.url} target="_blank" rel="noreferrer noopener">Open image source ↗</a>
-            </div>
-          </div>
-        </div>
-      ) : null}
+
     </div>
   )
 }
