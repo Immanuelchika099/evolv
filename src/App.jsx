@@ -201,6 +201,7 @@ function App() {
   })
   const [article, setArticle] = useState(null)
   const [legalDocument, setLegalDocument] = useState('terms')
+  const [legalReturnView, setLegalReturnView] = useState('landing')
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
   const [contactSent, setContactSent] = useState(false)
@@ -331,6 +332,7 @@ function App() {
   }, [view, article])
 
   function openLegal(documentType) {
+    setLegalReturnView(view === 'auth' ? 'auth' : 'landing')
     setLegalDocument(documentType)
     localStorage.setItem('evolv-view', 'legal')
     setView('legal')
@@ -338,8 +340,8 @@ function App() {
   }
 
   function closeLegal() {
-    localStorage.setItem('evolv-view', 'landing')
-    setView('landing')
+    localStorage.setItem('evolv-view', legalReturnView)
+    setView(legalReturnView)
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
@@ -551,7 +553,7 @@ function App() {
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'legal' && <LegalPage documentType={legalDocument} onBack={closeLegal} />}
       {view === 'welcome' && <WelcomeScreen onGetStarted={() => { if (window.location.pathname === '/onboarding' || window.location.pathname === '/onboarding/') window.history.replaceState({}, '', '/'); setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
-      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} />}
+      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} onLegal={openLegal} />}
       {view === 'onboarding' && (
         <Onboarding
           step={step}
@@ -579,7 +581,7 @@ function EvolvLoader() {
   )
 }
 
-function AuthPage({ mode, setMode, onSuccess, directSignup = false }) {
+function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [sending, setSending] = useState(false)
@@ -852,7 +854,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false }) {
             {mode === 'signup' ? 'Log in' : 'Create account'}
           </button>
         </div>
-        <p className="auth-legal">By continuing, you agree to EVOLV&apos;s <span>Terms</span> and <span>Privacy Policy</span></p>
+        <p className="auth-legal">By continuing, you agree to EVOLV&apos;s <button type="button" onClick={() => onLegal?.('terms')}>Terms of Service</button> and <button type="button" onClick={() => onLegal?.('privacy')}>Privacy Policy</button>.</p>
       </main>
     </div>
   )
