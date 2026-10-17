@@ -8017,3 +8017,32 @@ html body #root .dashboard .goals-page .goal-item-actions .goal-checkin-button:f
   background-image: none !important;
   box-shadow: none !important;
 }
+
+
+/* Apply the requested white switch hardware consistently wherever dashboard
+   routine/reminder toggles appear, not just inside Profile settings. */
+html body #root .dashboard button.settings-toggle,
+html body #root .dashboard button.settings-toggle:hover,
+html body #root .dashboard button.settings-toggle:focus,
+html body #root .dashboard button.settings-toggle:active {
+  border: 1px solid #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard button.settings-toggle > span {
+  background: #ffffff !important;
+}
+html body #root .dashboard button.settings-toggle.active,
+html body #root .dashboard button.settings-toggle.active:hover,
+html body #root .dashboard button.settings-toggle.active:focus,
+html body #root .dashboard button.settings-toggle.active:active {
+  border-color: #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+}
+html body #root .dashboard button.settings-toggle.active > span {
+  background: #ffffff !important;
+}
