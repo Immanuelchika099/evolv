@@ -640,6 +640,66 @@ async function searchWebPageImagesWithGemini(geminiKey: string, query: string) {
   }
 }
 
+
+async function verifyImageCandidatesWithGemini(geminiKey: string, query: string, candidates: any[]) {
+  const usable: any[] = []
+  const parts: any[] = [{
+    text: `Visually verify images for this user's exact request: "${query}". Inspect the actual pixels, not just titles or captions. Keep an image only if it visibly depicts the requested subject. For a named building or organization, the image must plausibly show that specific place or its signage, not a generic logo or unrelated building. Reject generic stock imagery, ambiguous results, and anything unrelated. Return ONLY a JSON array of 1-based image numbers that truly match, e.g. [1] or [1,2]. If none match or you are uncertain, return [].`
+  }]
+  for (const candidate of (candidates || []).slice(0, 3)) {
+    try {
+      const parsed = new URL(candidate.url)
+      if (parsed.protocol !== "https:" || /^(localhost|127\\.|10\\.|192\\.168\\.|172\\.(?:1[6-9]|2\\d|3[01])\\.|\\[::1\\])/i.test(parsed.hostname)) continue
+      const response = await fetch(parsed.href, { signal: AbortSignal.timeout(4500) })
+      if (!response.ok) continue
+      const contentType = (response.headers.get("content-type") || "").split(";")[0].trim().toLowerCase()
+      if (!["image/jpeg", "image/png", "image/webp", "image/gif"].includes(contentType)) continue
+      const declaredLength = Number(response.headers.get("content-length") || 0)
+      if (declaredLength > 1200000) continue
+      const bytes = new Uint8Array(await response.arrayBuffer())
+      if (!bytes.length || bytes.length > 1200000) continue
+      let binary = ""
+      for (let offset = 0; offset < bytes.length; offset += 0x8000) {
+        binary += String.fromCharCode(...bytes.subarray(offset, offset + 0x8000))
+      }
+      usable.push(candidate)
+      parts.push({ text: `Image ${usable.length}: title="${String(candidate.title || "").slice(0, 140)}"; source description="${String(candidate.description || "").slice(0, 350)}"` })
+      parts.push({ inlineData: { mimeType: contentType, data: btoa(binary) } })
+    } catch {
+      // A result that cannot be safely retrieved and inspected is not displayed.
+    }
+  }
+  if (!usable.length) return []
+  const models = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
+  for (const model of models) {
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": geminiKey },
+        body: JSON.stringify({
+          contents: [{ role: "user", parts }],
+          generationConfig: { maxOutputTokens: 80, temperature: 0 },
+        }),
+      })
+      const result = await response.json().catch(() => ({}))
+      if (!response.ok) continue
+      const raw = extractText(result).replace(/^```(?:json)?/i, "").replace(/```$/i, "").trim()
+      const match = raw.match(/\[[\s\d,]*\]/)
+      if (!match) return []
+      const indexes = JSON.parse(match[0])
+      if (!Array.isArray(indexes)) return []
+      const verified = [...new Set(indexes)]
+        .filter((index: any) => Number.isInteger(index) && index >= 1 && index <= usable.length)
+        .map((index: number) => usable[index - 1])
+      return verified.slice(0, 2)
+    } catch (error) {
+      console.error("EVOLV image relevance verification failed", error)
+    }
+  }
+  // If the verifier cannot run, fail closed rather than showing a possibly unrelated image.
+  return []
+}
+
 async function generateChatTitle(geminiKey: string, messages: any[]) {
   const safe = messages.filter((m: any) =>
     m && ["user", "assistant"].includes(m.role) &&
@@ -1003,7 +1063,7 @@ ${progressContext}${researchContext}`
             if (!candidates.length) candidates = await searchWebPageImagesWithGemini(geminiKey, imageQuery)
             // Keep only results whose title/description meaningfully overlaps the user's actual subject.
             // If there are no convincing matches, show no image rather than guessing.
-            relevantImages = candidates.slice(0, 2)
+            relevantImages = await verifyImageCandidatesWithGemini(geminiKey, imageQuery, candidates)
             if (relevantImages.length) {
               const imageMarkers = relevantImages.map((image: any) =>
                 `[[EVOLV_IMAGE|${encodeURIComponent(String(image.title || "Image").slice(0, 120))}|${image.url}|${image.sourceUrl}|${encodeURIComponent(String(image.license || "").slice(0, 80))}]]`
