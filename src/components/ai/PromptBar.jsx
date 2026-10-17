@@ -550,19 +550,9 @@ export default function PromptBar({
     dictationBaseRef.current = draft.trim();
     setListening(true);
     startVoiceVisualizer(seq);
-    const updateTranscript = transcript => {
-      if (seq !== dictation.current) return;
-      const spoken = String(transcript || '').trim();
-      const base = dictationBaseRef.current;
-      const content = spoken ? (base ? `${base} ${spoken}` : spoken) : base;
-      setDraft(content);
-      latest.current.onInputChange?.(content);
-    };
-
-    Promise.resolve(latest.current.onDictate?.({
-      stop: false,
-      onTranscript: updateTranscript,
-    })).then(
+    // Keep interim speech results out of the composer while the user is speaking.
+    // The final transcript is applied only after the microphone is tapped again.
+    Promise.resolve(latest.current.onDictate?.({ stop: false })).then(
       text => {
         if (seq !== dictation.current) return;
         setListening(false);
