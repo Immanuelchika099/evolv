@@ -1450,17 +1450,44 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
+/* Prevent image galleries from contributing their intrinsic width to the assistant
+   message. This keeps the response column and its typography stable when images load. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  min-width: 0 !important;
+  max-width: min(72rem, calc(100% - 2.4rem)) !important;
+  box-sizing: border-box !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > p,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > ul,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > ol,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > h2,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > h3,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > blockquote {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
 /* Image suggestions stay inline with the item they illustrate. Keep thumbnails quiet and compact. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-carousel {
   display:flex;
+  flex:0 1 auto;
   flex-wrap:nowrap;
   align-items:stretch;
   justify-content:flex-start;
-  touch-action:pan-x pan-y;
-  -webkit-overflow-scrolling:touch;
   gap:.9rem;
   width:100%;
+  min-width:0;
   max-width:100%;
+  box-sizing:border-box;
   overflow-x:auto;
   overflow-y:hidden;
   overscroll-behavior-x:contain;
@@ -1470,9 +1497,9 @@ html:has(.dashboard.dashboard-ai-active) {
   -webkit-overflow-scrolling:touch;
   padding:.3rem .1rem .7rem;
   margin:.7rem 0 1.15rem;
-  -webkit-overflow-scrolling:touch;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card {
+  flex-shrink:0;
   appearance:none;
   -webkit-appearance:none;
   flex:0 0 13.8rem;
