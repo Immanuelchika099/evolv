@@ -942,3 +942,105 @@ html body #root .article-page .article-orb {
   filter: none !important;
   border-color: rgba(255,255,255,.12) !important;
 }
+
+
+/* FINAL OVERRIDES — placed in Polish.css because main.jsx imports this stylesheet
+   after App.jsx and its component styles. These rules intentionally win cascade. */
+
+/* Bottom navigation: retain the outer liquid-glass dock, but remove the
+   active button's white label/icon and its separate inner glass pill. */
+html body #root .evolv-bottom-nav button.bottom-active,
+html body #root .evolv-bottom-nav button.bottom-active:hover,
+html body #root .evolv-bottom-nav button.bottom-active:focus,
+html body #root .evolv-bottom-nav button.bottom-active:active {
+  color: rgba(255,255,255,.42) !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline: none !important;
+}
+html body #root .evolv-bottom-nav button.bottom-active > span,
+html body #root .evolv-bottom-nav button.bottom-active > span svg,
+html body #root .evolv-bottom-nav button.bottom-active small {
+  color: rgba(255,255,255,.42) !important;
+  -webkit-text-fill-color: currentColor !important;
+  fill: none !important;
+  stroke: currentColor !important;
+}
+html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  border-color: rgba(255,255,255,.12) !important;
+}
+
+/* Manage Goals: no lime on the Log a step / goal check-in hover state. */
+html body #root .dashboard .goal-checkin-button:hover:not(:disabled),
+html body #root .dashboard .goal-item-actions .goal-checkin-button:hover:not(:disabled),
+html body #root .dashboard .goal-checkin-button:focus-visible,
+html body #root .dashboard .goal-item-actions .goal-checkin-button:focus-visible {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: rgba(37,99,235,.5) !important;
+  background: rgba(37,99,235,.12) !important;
+  background-color: rgba(37,99,235,.12) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard .goal-checkin-button:hover:not(:disabled) *,
+html body #root .dashboard .goal-item-actions .goal-checkin-button:hover:not(:disabled) * {
+  color: #ffffff !important;
+  fill: none !important;
+  stroke: currentColor !important;
+}
+
+/* Profile switches: white pill outline and white thumb; dark track in both states. */
+html body #root .dashboard .settings-page button.settings-toggle,
+html body #root .dashboard .settings-page button.settings-toggle:hover,
+html body #root .dashboard .settings-page button.settings-toggle:focus,
+html body #root .dashboard .settings-page button.settings-toggle:active,
+html body #root .dashboard .profile-settings-column button.settings-toggle,
+html body #root .dashboard .profile-settings-column button.settings-toggle:hover {
+  border: 1px solid #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+html body #root .dashboard .settings-page button.settings-toggle > span,
+html body #root .dashboard .profile-settings-column button.settings-toggle > span {
+  background: #ffffff !important;
+}
+html body #root .dashboard .settings-page button.settings-toggle.active,
+html body #root .dashboard .profile-settings-column button.settings-toggle.active {
+  border-color: #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+}
+html body #root .dashboard .settings-page button.settings-toggle.active > span,
+html body #root .dashboard .profile-settings-column button.settings-toggle.active > span {
+  background: #ffffff !important;
+}
+
+/* Routine page uses its own .routine-toggle class (not .settings-toggle). */
+html body #root .dashboard .daily-routine-page button.routine-toggle,
+html body #root .dashboard .daily-routine-page button.routine-toggle:hover,
+html body #root .dashboard .daily-routine-page button.routine-toggle:focus,
+html body #root .dashboard .daily-routine-page button.routine-toggle:active,
+html body #root .dashboard .daily-routine-page button.routine-toggle.is-on,
+html body #root .dashboard .daily-routine-page button.routine-toggle.is-on:hover {
+  border: 1px solid #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+html body #root .dashboard .daily-routine-page button.routine-toggle > span,
+html body #root .dashboard .daily-routine-page button.routine-toggle.is-on > span {
+  background: #ffffff !important;
+}
