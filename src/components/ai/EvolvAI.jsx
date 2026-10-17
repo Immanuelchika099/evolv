@@ -1080,43 +1080,73 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
 
   const recognitionRef = useRef(null)
 
-  async function transcribe({ stop = false } = {}) {
+  async function transcribe({ stop = false, onTranscript } = {}) {
     if (stop) {
       const recognition = recognitionRef.current
       if (!recognition) return ''
       return new Promise(resolve => {
         recognition.__resolveStop = resolve
-        recognition.stop?.()
+        try {
+          recognition.stop?.()
+        } catch {
+          resolve(recognition.__transcript || '')
+        }
       })
     }
 
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     if (!SpeechRecognition) {
-      setError('Voice dictation is not supported on this device/browser.')
-      return ''
+      setError('Voice dictation is not supported on this device/browser. Try opening EVOLV in Safari or Chrome.')
+      throw new Error('Speech recognition unavailable')
     }
 
-    return new Promise(resolve => {
+    setError('')
+    return new Promise((resolve, reject) => {
       const recognition = new SpeechRecognition()
       recognitionRef.current = recognition
       recognition.lang = navigator.language || 'en-US'
-      recognition.interimResults = false
+      recognition.interimResults = true
+      recognition.continuous = true
       recognition.maxAlternatives = 1
       recognition.__transcript = ''
+      recognition.__onTranscript = onTranscript
+
       recognition.onresult = event => {
-        recognition.__transcript = event.results?.[0]?.[0]?.transcript || ''
+        const transcript = Array.from(event.results || [])
+          .map(result => result?.[0]?.transcript || '')
+          .join('')
+          .trim()
+        recognition.__transcript = transcript
+        recognition.__onTranscript?.(transcript)
       }
-      recognition.onerror = () => {
-        recognitionRef.current = null
-        resolve('')
-      }
-      recognition.onend = () => {
-        recognitionRef.current = null
+
+      recognition.onerror = event => {
+        const message = event?.error === 'not-allowed' || event?.error === 'service-not-allowed'
+          ? 'Allow microphone access in your browser settings to use voice dictation.'
+          : event?.error === 'no-speech'
+            ? ''
+            : 'Voice dictation stopped unexpectedly. Please try again.'
+        if (message) setError(message)
+        if (recognitionRef.current === recognition) recognitionRef.current = null
         const transcript = recognition.__transcript || ''
         resolve(transcript)
         recognition.__resolveStop?.(transcript)
       }
-      recognition.start()
+
+      recognition.onend = () => {
+        if (recognitionRef.current === recognition) recognitionRef.current = null
+        const transcript = recognition.__transcript || ''
+        resolve(transcript)
+        recognition.__resolveStop?.(transcript)
+      }
+
+      try {
+        recognition.start()
+      } catch (recognitionError) {
+        if (recognitionRef.current === recognition) recognitionRef.current = null
+        setError('Could not start voice dictation. Please try the microphone again.')
+        reject(recognitionError)
+      }
     })
   }
 
@@ -1175,6 +1205,12 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
             </select>
           </div>
         </div>
+      </div>
+      <div className="ai-top-progressive-blur" aria-hidden="true">
+        <span className="ai-top-blur-layer ai-top-blur-layer-1" />
+        <span className="ai-top-blur-layer ai-top-blur-layer-2" />
+        <span className="ai-top-blur-layer ai-top-blur-layer-3" />
+        <span className="ai-top-blur-layer ai-top-blur-layer-4" />
       </div>
       {findInChat && (<form className="ai-chat-find-panel" onSubmit={event => { event.preventDefault(); findMatchingMessage(); }}><input autoFocus value={chatSearch} onChange={event => setChatSearch(event.target.value)} placeholder="Find in this chat…" aria-label="Find in this chat" /><button type="submit" aria-label="Find next"><Search size={15} /></button><button type="button" aria-label="Close find in chat" onClick={() => { setFindInChat(false); setChatSearch(""); }}><X size={15} /></button></form>)}
       {uploadedFilesOpen && (
