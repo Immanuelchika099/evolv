@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 
 function renderInlineMarkdown(text, keyPrefix = 'inline') {
-  const parts = String(text || '').split(/(\*\*[^*]+\*\*|\*[^*]+\*|\`[^\`]+\`|\[[^\]]+\]\(https?:\/\/[^\s)]+\))/g)
+  const parts = String(text || '').split(/(\*\*[^*]+\*\*|\*[^*]+\*|\`[^\`]+\`|\[[^\]]+\]\(https?:\/\/[^\s)]+\)|https?:\/\/[^\s<]+)/g)
   return parts.map((part, index) => {
     if (!part) return null
     const key = `${keyPrefix}-${index}`
@@ -10,6 +10,11 @@ function renderInlineMarkdown(text, keyPrefix = 'inline') {
     if (part.startsWith('`') && part.endsWith('`')) return <code key={key}>{part.slice(1, -1)}</code>
     const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/)
     if (link) return <a key={key} href={link[2]} target="_blank" rel="noreferrer noopener">{link[1]}</a>
+    if (/^https?:\/\//i.test(part)) {
+      const cleanUrl = part.replace(/[),.!?]+$/, '')
+      const trailing = part.slice(cleanUrl.length)
+      return <React.Fragment key={key}><a href={cleanUrl} target="_blank" rel="noreferrer noopener">{cleanUrl.replace(/^https?:\/\//, '').replace(/\/$/, '')}</a>{trailing}</React.Fragment>
+    }
     return part
   })
 }
@@ -22,6 +27,7 @@ function AssistantMessageContent({ content, typing = false }) {
   let listType = ''
   let quote = []
   let code = []
+  let imageGallery = []
   let inCode = false
 
   const flushParagraph = () => {
@@ -46,6 +52,21 @@ function AssistantMessageContent({ content, typing = false }) {
     code = []
   }
 
+  const flushImageGallery = () => {
+    if (!imageGallery.length) return
+    blocks.push(
+      <div className="ai-image-carousel" role="list" aria-label="Suggested images" key={`images-${blocks.length}`}>
+        {imageGallery.map((image, index) => (
+          <a className="ai-image-card" href={image.url} target="_blank" rel="noreferrer noopener" key={`image-${index}`} role="listitem">
+            <img src={image.url} alt={image.alt} loading="lazy" />
+            <span>{image.alt}</span>
+          </a>
+        ))}
+      </div>
+    )
+    imageGallery = []
+  }
+
   lines.forEach((line, index) => {
     const trimmed = line.trim()
     if (trimmed.startsWith('```')) {
@@ -55,6 +76,13 @@ function AssistantMessageContent({ content, typing = false }) {
       return
     }
     if (inCode) { code.push(line); return }
+    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/)
+    if (imageMatch) {
+      flushParagraph(); flushList(); flushQuote()
+      imageGallery.push({ alt: imageMatch[1] || 'Suggested image', url: imageMatch[2] })
+      return
+    }
+    flushImageGallery()
     if (!trimmed) { flushParagraph(); flushList(); flushQuote(); return }
     if (/^#{1,4}\s+/.test(trimmed)) {
       flushParagraph(); flushList(); flushQuote()
@@ -86,7 +114,7 @@ function AssistantMessageContent({ content, typing = false }) {
     flushList(); flushQuote()
     paragraph.push(line)
   })
-  flushParagraph(); flushList(); flushQuote()
+  flushParagraph(); flushList(); flushQuote(); flushImageGallery()
   if (inCode) flushCode()
 
   return <div className="ai-response-content">{blocks}{typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</div>
