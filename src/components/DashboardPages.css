@@ -8108,3 +8108,83 @@ html body #root .dashboard button.settings-toggle.active > span {
 @media (prefers-reduced-motion: reduce) {
   .daily-ai-insight-card, .daily-ai-insight-back, .daily-ai-insight-dots span { animation:none !important; transition:none !important; }
 }
+
+
+/* React Bits-inspired depth carousel, tuned for EVOLV's quiet monochrome UI. */
+.calm-insights-section .daily-ai-depth-carousel {
+  height: 35rem;
+  min-height: 35rem;
+  margin: 1.5rem 0 1.2rem;
+  overflow: visible;
+}
+.daily-ai-depth-carousel .depth-carousel__card {
+  border-color: rgba(255,255,255,.1);
+  background: linear-gradient(145deg, #191919 0%, #111111 62%, #0c0c0c 100%);
+}
+.daily-ai-insight-panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2rem;
+  color: #f4f3f0;
+  background: linear-gradient(145deg, rgba(25,25,25,.96), rgba(13,13,13,.98));
+}
+.daily-ai-insight-panel .daily-ai-insight-topline { margin-bottom: 1.5rem; }
+.daily-ai-insight-panel h3 {
+  max-width: 26rem;
+  margin: 0 0 1rem;
+  color: #f4f3f0;
+  font: 500 clamp(2rem, 4vw, 2.65rem)/1.15 'Space Grotesk', sans-serif;
+  letter-spacing: -.045em;
+}
+.daily-ai-insight-panel .daily-ai-insight-observation {
+  margin: 0;
+  color: rgba(255,255,255,.7);
+  font-size: 1.35rem;
+  line-height: 1.55;
+}
+.daily-ai-insight-panel .daily-ai-insight-suggestion {
+  margin-top: auto;
+  padding: 1.15rem 0 0;
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,.09);
+  border-radius: 0;
+  background: transparent;
+}
+.daily-ai-insight-panel .daily-ai-insight-suggestion > span {
+  display: block;
+  margin-bottom: .45rem;
+  color: rgba(255,255,255,.38);
+  font: 500 .95rem/1.3 'DM Mono', monospace;
+  letter-spacing: .1em;
+}
+.daily-ai-insight-panel .daily-ai-insight-suggestion p {
+  margin: 0;
+  color: rgba(255,255,255,.9);
+  font-size: 1.3rem;
+  line-height: 1.45;
+}
+.daily-ai-insight-panel .daily-ai-insight-action {
+  align-self: flex-start;
+  margin-top: 1.1rem;
+  min-height: 3.3rem;
+  padding: .7rem 1rem;
+  font-size: 1.15rem;
+}
+.daily-ai-depth-carousel .depth-carousel__dots {
+  bottom: -.1rem;
+  background: rgba(10,10,10,.86);
+  border-color: rgba(255,255,255,.07);
+}
+@media (max-width: 640px) {
+  .calm-insights-section .daily-ai-depth-carousel {
+    height: 34rem;
+    min-height: 34rem;
+    margin-top: 1.3rem;
+  }
+  .daily-ai-insight-panel { padding: 1.7rem; }
+  .daily-ai-insight-panel h3 { font-size: 2.15rem; }
+  .daily-ai-insight-panel .daily-ai-insight-observation { font-size: 1.25rem; }
+  .daily-ai-insight-panel .daily-ai-insight-suggestion p { font-size: 1.2rem; }
+}
