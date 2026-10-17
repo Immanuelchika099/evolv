@@ -237,3 +237,51 @@ html body #root .daily-routine-page .routine-row-complete .routine-check,
 html body #root .daily-routine-page .routine-toggle.is-on { border-color:#2563eb !important; }
 html body #root .daily-routine-page .routine-toggle.is-on { background:rgba(37, 99, 235,.2) !important; }
 html body #root .daily-routine-page .routine-lead-time input:focus { outline-color:#2563eb !important; border-color:#2563eb !important; }
+
+
+/* Readability pass — routine cards and schedule rows */
+.daily-routine-page .routine-insight-card {
+  padding: 2.2rem;
+  border-radius: 1.8rem;
+}
+.daily-routine-page .routine-insight-card > strong {
+  margin: 1rem 0 .6rem;
+  font-size: 2.9rem;
+  line-height: 1.15;
+}
+.daily-routine-page .routine-insight-card > strong small {
+  font-size: 1.5rem;
+  line-height: 1.4;
+}
+.daily-routine-page .routine-insight-card > p {
+  min-height: 0;
+  margin: 0 0 1.7rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+.daily-routine-page .routine-insight-card > button {
+  min-height: 3.8rem;
+  font-size: 1.4rem;
+  line-height: 1.4;
+}
+.daily-routine-page .routine-row-copy strong {
+  font-size: 1.6rem;
+  line-height: 1.4;
+}
+.daily-routine-page .routine-row-copy small {
+  font-size: 1.3rem;
+  line-height: 1.55;
+}
+.daily-routine-page .routine-group > h3,
+.daily-routine-page .routine-label,
+.daily-routine-page .routine-eyebrow {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .daily-routine-page .routine-insight-grid { gap: 1.2rem; }
+  .daily-routine-page .routine-insight-card { padding: 1.7rem; }
+  .daily-routine-page .routine-insight-card > p { font-size: 1.4rem; line-height: 1.55; }
+  .daily-routine-page .routine-row-copy strong { font-size: 1.5rem; }
+  .daily-routine-page .routine-row-copy small { font-size: 1.25rem; }
+}
