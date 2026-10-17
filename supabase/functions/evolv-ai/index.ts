@@ -598,6 +598,48 @@ async function searchWebWithGemini(geminiKey: string, query: string) {
   return { summary: "", links: [] }
 }
 
+
+async function searchWebPageImagesWithGemini(geminiKey: string, query: string) {
+  try {
+    const research = await searchWebWithGemini(
+      geminiKey,
+      `Find public webpages containing a real photograph of this exact subject: ${query}. Prefer official pages or reliable news/reporting for specific buildings, organizations, and locations. Return relevant source pages, not generated images or generic stock-photo pages.`
+    )
+    const links = (research.links || []).slice(0, 5)
+    const candidates = await Promise.all(links.map(async (link: any) => {
+      try {
+        const sourceUrl = new URL(link.url)
+        if (sourceUrl.protocol !== "https:") return null
+        const response = await fetch(sourceUrl.href, { signal: AbortSignal.timeout(4500), headers: { "Accept": "text/html" } })
+        if (!response.ok) return null
+        const html = (await response.text()).slice(0, 900000)
+        const readMeta = (name: string) => {
+          const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+          const regex = new RegExp(`<meta\\b(?=[^>]*(?:property|name)=["'](?:${escaped})["'])(?=[^>]*content=["']([^"']+)["'])[^>]*>`, "i")
+          return html.match(regex)?.[1]?.replace(/&amp;/gi, "&").replace(/&quot;/gi, '"').trim() || ""
+        }
+        const rawImage = readMeta("og:image") || readMeta("twitter:image")
+        if (!rawImage) return null
+        const imageUrl = new URL(rawImage, sourceUrl.href)
+        if (imageUrl.protocol !== "https:") return null
+        const title = readMeta("og:title") || String(link.title || query).slice(0, 160)
+        const description = readMeta("og:description") || readMeta("description")
+        const score = imageRelevanceScore(query, `${link.title || ""} ${title}`, description)
+        const tokens = query.toLowerCase().split(/[^a-z0-9]+/).filter((word) => word.length > 2)
+        if (score < Math.max(3, tokens.length * 1.2)) return null
+        return { title, description, url: imageUrl.href, sourceUrl: sourceUrl.href, license: "", score }
+      } catch {
+        return null
+      }
+    }))
+    return candidates.filter(Boolean).sort((a: any, b: any) => b.score - a.score).slice(0, 2)
+      .map(({ title, description, url, sourceUrl, license }: any) => ({ title, description, url, sourceUrl, license }))
+  } catch (error) {
+    console.error("EVOLV web image fallback failed", error)
+    return []
+  }
+}
+
 async function generateChatTitle(geminiKey: string, messages: any[]) {
   const safe = messages.filter((m: any) =>
     m && ["user", "assistant"].includes(m.role) &&
@@ -956,7 +998,9 @@ ${progressContext}${researchContext}`
           let relevantImages: any[] = []
           if (wantsImages) {
             const imageQuery = cleanImageSearchQuery(latestUserText)
-            const candidates = await searchCommonsImages(imageQuery)
+            let candidates = await searchCommonsImages(imageQuery)
+            // Broaden to relevant, Google-grounded source pages if Commons has no convincing matches.
+            if (!candidates.length) candidates = await searchWebPageImagesWithGemini(geminiKey, imageQuery)
             // Keep only results whose title/description meaningfully overlaps the user's actual subject.
             // If there are no convincing matches, show no image rather than guessing.
             relevantImages = candidates.slice(0, 2)
