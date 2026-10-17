@@ -8355,3 +8355,89 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
   text-shadow: 0 0 2.5rem rgba(95,145,255,.08);
 }
+
+ 
+/* Readability pass — AI insight cards */
+html body #root .dashboard .daily-ai-insight-card,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
+  box-sizing: border-box;
+  padding: 2.2rem !important;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-category,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-category {
+  font-size: 1.2rem !important;
+  line-height: 1.45 !important;
+  letter-spacing: .09em !important;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-index,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-index {
+  font-size: 1.3rem !important;
+  line-height: 1.4 !important;
+  white-space: nowrap;
+}
+html body #root .dashboard .daily-ai-insight-card h3,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+  margin: 0 0 1.2rem !important;
+  font-size: clamp(2.4rem, 4.8vw, 2.8rem) !important;
+  line-height: 1.2 !important;
+  letter-spacing: -.035em !important;
+  overflow-wrap: anywhere;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-observation,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
+  margin: 0 !important;
+  font-size: 1.55rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0 !important;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion {
+  margin-top: auto !important;
+  padding-top: 1.5rem !important;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion > span,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion > span {
+  display: block;
+  margin-bottom: .7rem !important;
+  font-size: 1.2rem !important;
+  line-height: 1.4 !important;
+  letter-spacing: .1em !important;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion p,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
+  margin: 0 !important;
+  font-size: 1.6rem !important;
+  line-height: 1.5 !important;
+  overflow-wrap: anywhere;
+}
+html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-action,
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
+  min-height: 3.8rem !important;
+  margin-top: 1.3rem !important;
+  padding: .9rem 1.2rem !important;
+  gap: .7rem !important;
+  font-size: 1.4rem !important;
+  line-height: 1.35 !important;
+}
+@media (max-width: 640px) {
+  html body #root .dashboard .daily-ai-insight-card,
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
+    padding: 2rem !important;
+  }
+  html body #root .dashboard .daily-ai-insight-card h3,
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+    font-size: 2.45rem !important;
+    line-height: 1.2 !important;
+    margin-bottom: 1.1rem !important;
+  }
+  html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-observation,
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
+    font-size: 1.5rem !important;
+    line-height: 1.55 !important;
+  }
+  html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion p,
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
+    font-size: 1.55rem !important;
+    line-height: 1.5 !important;
+  }
+}
