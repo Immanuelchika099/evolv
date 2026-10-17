@@ -62,13 +62,13 @@ export default function DepthCarousel({
       const x = config.spread * distance
       const z = -config.depth * distance
       const rotateY = config.tilt * clamp(distance, 0, 1)
-      const opacity = !visible ? 0 : distance < 0 ? Math.max(0, 1 + distance) : 1
+      const opacity = !visible || distance < -0.08 ? 0 : 1
       const brightness = Math.max(0.3, 1 - behind * config.falloff)
       const blurAmount = Math.min(config.blur, behind / Math.max(1, config.visibleCards) * config.blur)
       card.style.transform = `translate(-50%, -50%) scale(${scaleRef.current}) translateX(${x.toFixed(2)}px) translateZ(${z.toFixed(2)}px) rotateY(${rotateY.toFixed(2)}deg)`
       card.style.opacity = String(opacity)
-      card.style.filter = `brightness(${brightness.toFixed(2)}) blur(${blurAmount.toFixed(2)}px)`
-      card.style.zIndex = String(1000 - Math.round(distance * 10))
+      card.style.filter = `brightness(${brightness.toFixed(2)}) blur(${distance < 0 ? 0 : blurAmount.toFixed(2)}px)`
+      card.style.zIndex = String(1000 - Math.round(absoluteDistance * 10))
       card.style.pointerEvents = visible && opacity > 0.05 ? 'auto' : 'none'
       card.setAttribute('aria-hidden', String(index !== active))
     }
