@@ -2073,3 +2073,169 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-top-progressive-blur {
   z-index: 100499;
 }
+
+
+/* EVOLV AI conversation polish — broad, readable ChatGPT-like response canvas. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  display: block;
+  width: 95%;
+  max-width: 86rem;
+  margin: 1.8rem auto 2.2rem;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+  color: #f3f3f3;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-role {
+  display: none;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+  width: 100%;
+  max-width: 100%;
+  color: #f1f1f1;
+  font-size: 1.7rem;
+  line-height: 1.72;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > p {
+  margin: 0 0 1.45em;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > p:last-child {
+  margin-bottom: .35em;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
+  margin: 1.65em 0 .65em;
+  color: #fff;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: -.025em;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2 {
+  font-size: 2.25rem;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
+  font-size: 1.9rem;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ul,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ol {
+  margin: .45em 0 1.45em;
+  padding-left: 1.55em;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li {
+  padding-left: .2em;
+  margin: .48em 0;
+  line-height: 1.68;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li::marker {
+  color: #9ca3af;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong {
+  color: #fff;
+  font-weight: 650;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote {
+  margin: 1.15em 0 1.45em;
+  padding: .15em 0 .15em 1.2em;
+  border-left: .25rem solid rgba(255,255,255,.25);
+  color: #d4d4d4;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote p {
+  margin: .4em 0;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content a {
+  color: #8ab4ff;
+  text-decoration: underline;
+  text-decoration-color: rgba(138,180,255,.45);
+  text-underline-offset: .2em;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content code {
+  padding: .12em .35em;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: .45rem;
+  background: rgba(255,255,255,.07);
+  font-size: .9em;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 1em 0 1.4em;
+  padding: 1.2rem;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 1rem;
+  background: #101010;
+  line-height: 1.55;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content pre code {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  white-space: pre;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content hr {
+  display: none;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions {
+  margin-top: .9rem;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  width: fit-content;
+  max-width: min(86%, 62rem);
+  margin: 1.5rem 2.5% 2rem auto;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
+  max-width: 100%;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+    width: 95%;
+    max-width: none;
+    margin: 1.55rem auto 2rem;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+    font-size: 1.65rem;
+    line-height: 1.75;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2 {
+    font-size: 2.05rem;
+    margin-top: 1.5em;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
+    font-size: 1.8rem;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user {
+    max-width: 88%;
+    margin-right: 2.5%;
+  }
+}
