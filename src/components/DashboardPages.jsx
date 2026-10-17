@@ -85,7 +85,7 @@ function HomePage({ pageProps }) {
       stressed: "I checked in on EVOLV and I'm feeling stressed today. Help me slow down and understand what's putting pressure on me. Ask one gentle question at a time, then help me find one manageable next step. Don't diagnose me or assume the cause. Only save a mood record after confirming the details with me."
     }
     if (mood && moodPrompts[mood]) {
-      localStorage.setItem('evolv-ai-pending-prompt', moodPrompts[mood])
+      localStorage.setItem('evolv-ai-auto-prompt', moodPrompts[mood])
       goTo('ai')
       return
     }
