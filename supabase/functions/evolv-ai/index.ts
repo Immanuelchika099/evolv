@@ -689,7 +689,8 @@ Recent meals: ${JSON.stringify(progress.recentMeals || []).slice(0,8000)}`
 
     const latestUserText = [...safeMessages].reverse().find((message: any) => message.role === "user")?.content || ""
     const designResourceRequest = /\b(ui|ux|web design|website design|design inspiration|inspiration sites?|portfolio inspiration|animation sites?|animate|animations|motion design|scroll animation|lottie|gsap|framer motion|behance|dribbble|awwwards|mobbin|static (?:look|design|page|website))\b/i.test(latestUserText)
-    const wantsImages = !designResourceRequest && /\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|examples of|what does .* look like|ideas for .* (room|outfit|meal|workout|hairstyle)|meal ideas|recipes?|workouts?|fitness|exercises?|outfits?|hairstyles?|skincare|interior design|room design|desk setup|visuali[sz]e)\b/i.test(latestUserText)
+    // Image retrieval is intentionally disabled until relevance and preview UX are reliable.
+    const wantsImages = false
     const wantsWebSearch = /\b(search (the )?web|look (it )?up|find (me )?(some )?(resources|articles|courses|tutorials|websites|tools|sources|sites)|(?:suggest|recommend|show|give|find|get) me (?:some )?(?:good )?(?:websites?|sites?|apps?|tools?|resources?|platforms?)|where can i (?:find|learn|study|read|watch|build|create|animate)|(?:websites?|sites?|apps?|tools?|platforms?|resources?) (?:for|to help|that can|where)|latest|current(ly)?|recent news|compare (the )?latest|recommend|resources|tutorials?|courses?|websites?|tools?|apps?|platforms?|research|how to learn|learn .* online|roadmap|best .* (apps|tools|websites|courses|resources|books)|which .* (apps|tools|websites))\b/i.test(latestUserText)
     const webResearch = wantsWebSearch
       ? await searchWebWithGemini(geminiKey, designResourceRequest
