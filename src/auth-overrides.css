@@ -1207,3 +1207,25 @@
   outline: 2px solid rgba(37, 99, 235, .85);
   outline-offset: 3px;
 }
+
+
+/* Auth legal links open the full in-app policy pages. */
+.auth-page .auth-legal button{
+  display:inline;
+  padding:0;
+  border:0;
+  background:transparent;
+  color:#8ab4ff;
+  font:inherit;
+  text-decoration:underline;
+  text-underline-offset:.25em;
+  cursor:pointer;
+}
+.auth-page .auth-legal button:hover{
+  color:#c3d8ff;
+}
+.auth-page .auth-legal button:focus-visible{
+  outline:2px solid #2563eb;
+  outline-offset:3px;
+  border-radius:2px;
+}
