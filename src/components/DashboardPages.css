@@ -8583,3 +8583,17 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
   color: #2563eb !important;
   stroke: #2563eb !important;
 }
+
+
+/* Keep Progress heading copy white and make the homepage goal-card link white. */
+.dashboard .progress-page .progress-heading .section-label,
+.dashboard .progress-page .progress-heading h2,
+.dashboard .progress-page .progress-heading > p {
+  color: #fff !important;
+}
+
+.dashboard .calm-home .calm-home-focus .calm-goal-view-all,
+.dashboard .calm-home .calm-home-focus .calm-goal-view-all svg {
+  color: #fff !important;
+  stroke: currentColor !important;
+}
