@@ -8247,3 +8247,53 @@ html body #root .dashboard button.settings-toggle.active > span {
   .daily-ai-depth-carousel .daily-ai-insight-panel .daily-ai-insight-observation { font-size: 1.35rem; }
   .daily-ai-depth-carousel .daily-ai-insight-suggestion p { font-size: 1.25rem; }
 }
+
+
+/* Final AI carousel override: near-black cards and truly tiny pagination dots.
+   Explicit button resets prevent shared button styles inflating the indicators. */
+html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
+  background: #050505 !important;
+  background-color: #050505 !important;
+  background-image: none !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
+  background: #050505 !important;
+  background-color: #050505 !important;
+  background-image: none !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__dots {
+  height: 5px !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 4px !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot {
+  box-sizing: border-box !important;
+  display: block !important;
+  width: 3px !important;
+  min-width: 3px !important;
+  max-width: 3px !important;
+  height: 3px !important;
+  min-height: 3px !important;
+  max-height: 3px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  line-height: 0 !important;
+  font-size: 0 !important;
+  background: rgba(255,255,255,.28) !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot.is-active {
+  width: 8px !important;
+  min-width: 8px !important;
+  max-width: 8px !important;
+  height: 3px !important;
+  min-height: 3px !important;
+  max-height: 3px !important;
+  background: rgba(255,255,255,.82) !important;
+}
