@@ -1225,7 +1225,7 @@ html:has(.dashboard.dashboard-ai-active) {
   overflow-y: auto !important;
   -webkit-overflow-scrolling: touch !important;
   overscroll-behavior-y: contain !important;
-  touch-action: pan-y !important;
+  touch-action: pan-x pan-y !important;
   box-sizing: border-box !important;
   scroll-padding-bottom: 18rem !important;
 }
@@ -1453,13 +1453,21 @@ html:has(.dashboard.dashboard-ai-active) {
 /* Image suggestions stay inline with the item they illustrate. Keep thumbnails quiet and compact. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-carousel {
   display:flex;
+  flex-wrap:nowrap;
+  align-items:stretch;
+  justify-content:flex-start;
+  touch-action:pan-x pan-y;
+  -webkit-overflow-scrolling:touch;
   gap:.9rem;
   width:100%;
   max-width:100%;
   overflow-x:auto;
+  overflow-y:hidden;
   overscroll-behavior-x:contain;
-  scroll-snap-type:x mandatory;
+  scroll-snap-type:x proximity;
   scrollbar-width:thin;
+  touch-action:pan-x pan-y;
+  -webkit-overflow-scrolling:touch;
   padding:.3rem .1rem .7rem;
   margin:.7rem 0 1.15rem;
   -webkit-overflow-scrolling:touch;
