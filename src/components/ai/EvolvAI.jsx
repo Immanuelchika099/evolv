@@ -345,6 +345,13 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   async function ensureChatTitle(conversation) {
     if (!chatId || !Array.isArray(conversation) || !conversation.length) return
 
+    // Internal handoff prompts guide the assistant, but should never become chat titles.
+    const visibleConversation = conversation.filter(message =>
+      !message.hidden &&
+      !String(message.content || '').startsWith('[[EVOLV_HIDDEN_PROMPT]]')
+    )
+    if (!visibleConversation.length) return
+
     const { data: existing, error: existingError } = await supabase
       .from('ai_chat_titles')
       .select('chat_id,title')
@@ -373,7 +380,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
         },
         body: JSON.stringify({
           action: 'generate_chat_title',
-          messages: conversation,
+          messages: visibleConversation,
         }),
       })
 
@@ -417,7 +424,12 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   }
 
   async function shareCurrentChat() {
-    const transcript = messages.map(message => `${message.role === 'user' ? 'You' : 'Evolv'}: ${message.content || ''}`).join('\n\n').trim()
+    // Keep silent logging instructions out of anything the user shares.
+    const transcript = messages
+      .filter(message => !message.hidden && !String(message.content || '').startsWith('[[EVOLV_HIDDEN_PROMPT]]'))
+      .map(message => `${message.role === 'user' ? 'You' : 'Evolv'}: ${message.content || ''}`)
+      .join('\n\n')
+      .trim()
     if (!transcript) {
       setError('Send a message before sharing this chat.')
       return
