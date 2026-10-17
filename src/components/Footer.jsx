@@ -74,7 +74,7 @@ function NewsletterSignup() {
   )
 }
 
-export default function Footer({ onContact }) {
+export default function Footer({ onContact, onLegal }) {
   return (
     <footer className="site-footer">
       <div className="footer-brand">
@@ -86,8 +86,8 @@ export default function Footer({ onContact }) {
         <div>
           <span>EXPLORE</span>
           <a href="#story">About EVOLV</a>
-          <a href="#faq">Terms of Service</a>
-          <a href="#faq">Privacy Policy</a>
+          <button type="button" className="footer-legal-link" onClick={() => onLegal?.("terms")}>Terms of Service</button>
+          <button type="button" className="footer-legal-link" onClick={() => onLegal?.("privacy")}>Privacy Policy</button>
         </div>
         <div>
           <span>CONNECT</span>
