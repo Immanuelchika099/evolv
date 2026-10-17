@@ -123,7 +123,6 @@ async function loadThreeAvatar(canvas, interactive, onReady, onError, aliveRef) 
   canvas.addEventListener('pointercancel', onPointerUp)
 
   const cleanup = () => {
-    aliveRef.current = false
     cancelAnimationFrame(animationFrame)
     resizeObserver?.disconnect()
     canvas.removeEventListener('pointerdown', onPointerDown)
