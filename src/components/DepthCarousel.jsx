@@ -25,6 +25,7 @@ export default function DepthCarousel({
   showControls = false,
   showIndicators = true,
   onChange,
+  onCardClick,
   className = '',
 }) {
   const data = useMemo(() => (Array.isArray(items) ? items : []), [items])
@@ -210,7 +211,8 @@ export default function DepthCarousel({
             aria-hidden={active !== index}
             onClick={() => {
               if (dragRef.current?.moved) return
-              moveTo(index)
+              if (onCardClick) onCardClick(item, index)
+              else moveTo(index)
             }}
           >
             {renderItem ? renderItem(item, index, active === index) : <div className="depth-carousel__content"><h3>{item.title}</h3><p>{item.observation}</p></div>}
