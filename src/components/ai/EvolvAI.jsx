@@ -225,6 +225,8 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     }
   })
   const [messages, setMessages] = useState([])
+  const [messagesLoaded, setMessagesLoaded] = useState(false)
+  const autoPromptStartedRef = useRef(false)
   const [showScrollToBottom, setShowScrollToBottom] = useState(false)
   const [findInChat, setFindInChat] = useState(false)
   const [chatSearch, setChatSearch] = useState('')
@@ -252,6 +254,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
 
   useEffect(() => {
     localStorage.setItem('evolv-ai-chat-id', chatId)
+    setMessagesLoaded(false)
     let mounted = true
     async function loadMessages() {
       const userId = (await supabase.auth.getUser()).data.user?.id
@@ -265,7 +268,13 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
         .limit(100)
       if (mounted) {
         shouldAutoScrollRef.current = true
-        setMessages(data?.length ? data : [])
+        setMessages(data?.length ? data.map(message => {
+          const hiddenPrefix = '[[EVOLV_HIDDEN_PROMPT]]'
+          return String(message.content || '').startsWith(hiddenPrefix)
+            ? { ...message, content: String(message.content).slice(hiddenPrefix.length), hidden: true }
+            : message
+        }) : [])
+        setMessagesLoaded(true)
         setHasStartedTyping(false)
       }
     }
@@ -756,7 +765,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     }
   }
 
-  async function sendMessage(text, { attachments = [], model, effort } = {}) {
+  async function sendMessage(text, { attachments = [], model, effort, hiddenPrompt = false } = {}) {
     const cleanText = String(text || '').trim()
     const safeAttachments = Array.isArray(attachments) ? attachments : []
     if (!cleanText && safeAttachments.length === 0 || sending) return
@@ -764,9 +773,10 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     const attachmentSummary = safeAttachments.length
       ? safeAttachments.map(file => `[Attached: ${file.name || 'file'}]`).join(' ')
       : ''
-    const storedUserContent = [cleanText, attachmentSummary].filter(Boolean).join(' ')
+    const visibleUserContent = [cleanText, attachmentSummary].filter(Boolean).join(' ')
+    const storedUserContent = hiddenPrompt ? `[[EVOLV_HIDDEN_PROMPT]]${visibleUserContent}` : visibleUserContent
     shouldAutoScrollRef.current = true
-    const nextMessages = [...messages, { role: 'user', content: storedUserContent, attachments: safeAttachments }]
+    const nextMessages = [...messages, { role: 'user', content: visibleUserContent, attachments: safeAttachments, ...(hiddenPrompt ? { hidden: true } : {}) }]
     setMessages(nextMessages)
     setSending(true)
     setTyping(false)
@@ -910,6 +920,18 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     await supabase.from('ai_messages').insert({ user_id: userId, chat_id: chatId, role: 'assistant', content: reply })
     void ensureChatTitle([...nextMessages, { role: 'assistant', content: reply }])
   }
+
+  useEffect(() => {
+    if (!messagesLoaded || autoPromptStartedRef.current) return
+    const pending = localStorage.getItem('evolv-ai-auto-prompt')
+    if (!pending) return
+    localStorage.removeItem('evolv-ai-auto-prompt')
+    autoPromptStartedRef.current = true
+    const timer = window.setTimeout(() => {
+      void sendMessage(pending, { hiddenPrompt: true })
+    }, 180)
+    return () => window.clearTimeout(timer)
+  }, [messagesLoaded, chatId])
 
   async function pickFiles() {
     if (typeof document === 'undefined') return []
@@ -1149,9 +1171,9 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
           </div>
         )}
         <div className="ai-messages" ref={messagesRef} tabIndex="-1">
-          {messages.map((message, index) => {
+          {messages.filter(message => !message.hidden).map((message, index, visibleMessages) => {
             const messageKey = String(message.id || index)
-            const isTypingMessage = message.role === 'assistant' && typing && index === messages.length - 1
+            const isTypingMessage = message.role === 'assistant' && typing && index === visibleMessages.length - 1
             return (
               <div
                 className={`ai-message ${message.role}`}
