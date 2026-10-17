@@ -8542,3 +8542,44 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
   color: #2563eb !important;
   stroke: #2563eb !important;
 }
+
+
+/* Progress page — Previous logs tile: use Evolv blue, never purple. */
+.dashboard .progress-page .manage-logs-button {
+  background: #080808 !important;
+  border-color: rgba(255,255,255,.09) !important;
+  color: #f5f5f5 !important;
+  transition: background .2s ease, border-color .2s ease, box-shadow .2s ease !important;
+}
+.dashboard .progress-page .manage-logs-button .manage-logs-button-icon {
+  color: #2563eb !important;
+  background: rgba(37,99,235,.13) !important;
+  border: 1px solid rgba(37,99,235,.28) !important;
+}
+.dashboard .progress-page .manage-logs-button .manage-logs-button-icon svg {
+  color: #2563eb !important;
+  stroke: #2563eb !important;
+}
+.dashboard .progress-page .manage-logs-button:hover,
+.dashboard .progress-page .manage-logs-button:focus-visible,
+.dashboard .progress-page .manage-logs-button:active {
+  background: rgba(37,99,235,.09) !important;
+  border-color: rgba(37,99,235,.42) !important;
+  box-shadow: 0 0 0 1px rgba(37,99,235,.08) !important;
+}
+.dashboard .progress-page .manage-logs-button:hover .manage-logs-button-icon,
+.dashboard .progress-page .manage-logs-button:focus-visible .manage-logs-button-icon,
+.dashboard .progress-page .manage-logs-button:active .manage-logs-button-icon {
+  background: rgba(37,99,235,.2) !important;
+  border-color: rgba(37,99,235,.42) !important;
+}
+.dashboard .progress-page .manage-logs-button .manage-logs-button-arrow,
+.dashboard .progress-page .manage-logs-button .manage-logs-button-arrow svg {
+  color: rgba(255,255,255,.55) !important;
+  stroke: currentColor !important;
+}
+.dashboard .progress-page .manage-logs-button:hover .manage-logs-button-arrow,
+.dashboard .progress-page .manage-logs-button:hover .manage-logs-button-arrow svg {
+  color: #2563eb !important;
+  stroke: #2563eb !important;
+}
