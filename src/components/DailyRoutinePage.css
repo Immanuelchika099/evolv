@@ -285,3 +285,136 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   .daily-routine-page .routine-row-copy strong { font-size: 1.5rem; }
   .daily-routine-page .routine-row-copy small { font-size: 1.25rem; }
 }
+
+
+/* Routine life-coach carousel: quiet charcoal cards with restrained, category-specific color. */
+.daily-routine-page .routine-coach-section {
+  margin: 0 0 3.6rem;
+  min-width: 0;
+}
+.daily-routine-page .routine-coach-heading {
+  margin-bottom: .4rem;
+}
+.daily-routine-page .routine-coach-heading h2 {
+  margin: .7rem 0 .5rem;
+  font-size: 2.5rem;
+  font-weight: 550;
+  letter-spacing: -.05em;
+}
+.daily-routine-page .routine-coach-heading p {
+  margin: 0;
+  max-width: 42rem;
+  color: #92949d;
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+.daily-routine-page .routine-coach-carousel {
+  height: 25rem;
+  min-height: 25rem;
+  margin-top: 1.1rem;
+  margin-bottom: .7rem;
+}
+.daily-routine-page .routine-coach-carousel .depth-carousel__stage {
+  overflow: visible;
+}
+.daily-routine-page .routine-coach-carousel .depth-carousel__card {
+  background: #0b0c0f;
+  border-color: rgba(255,255,255,.11);
+  box-shadow: 0 22px 54px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.035);
+  user-select: none;
+  -webkit-user-select: none;
+}
+.daily-routine-page .routine-coach-carousel .depth-carousel__card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--routine-coach-accent, #fff) 10%, transparent), transparent 62%),
+    linear-gradient(145deg, rgba(255,255,255,.025), transparent 58%);
+}
+.daily-routine-page .routine-coach-carousel .depth-carousel__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: .07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+}
+.daily-routine-page .routine-coach-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  padding: 1.9rem;
+  box-sizing: border-box;
+  color: #f5f5f6;
+  overflow: hidden;
+}
+.daily-routine-page .routine-coach-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.daily-routine-page .routine-coach-icon {
+  display: grid;
+  place-items: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  color: var(--routine-coach-accent, #dbeafe);
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--routine-coach-accent, #dbeafe) 16%, transparent));
+}
+.daily-routine-page .routine-coach-arrow {
+  display: grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  color: #c4c5cc;
+  background: rgba(255,255,255,.025);
+}
+.daily-routine-page .routine-coach-card-copy h3 {
+  margin: 0 0 .5rem;
+  font-size: 2.25rem;
+  font-weight: 570;
+  letter-spacing: -.045em;
+}
+.daily-routine-page .routine-coach-card-copy p {
+  margin: 0;
+  color: #a1a3ac;
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+.daily-routine-page .routine-coach-card-hint {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  align-self: flex-start;
+  color: #d1d3db;
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+.daily-routine-page .routine-coach-carousel .depth-carousel__dots {
+  bottom: -.05rem !important;
+}
+@media (max-width: 640px) {
+  .daily-routine-page .routine-coach-carousel {
+    height: 24rem;
+    min-height: 24rem;
+    margin-top: .8rem;
+  }
+  .daily-routine-page .routine-coach-carousel .depth-carousel__card {
+    max-width: calc(100vw - 4.4rem);
+  }
+  .daily-routine-page .routine-coach-card {
+    padding: 1.7rem;
+  }
+  .daily-routine-page .routine-coach-card-copy h3 {
+    font-size: 2.1rem;
+  }
+}
