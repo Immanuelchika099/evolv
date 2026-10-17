@@ -4,6 +4,7 @@ import { Camera, Upload, Pencil, ChevronRight, Check, X, Trash2, Download, Arrow
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
+import './styles/ProfileFixes.css'
 
 const DEFAULT_SETTINGS = {weeklyGoalTarget:3,weekStart:'monday',streakAlerts:true,weeklySummary:true,units:'metric',animations:true,language:'English'}
 
