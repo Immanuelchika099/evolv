@@ -649,7 +649,16 @@ async function verifyImageCandidatesWithGemini(geminiKey: string, query: string,
   for (const candidate of (candidates || []).slice(0, 3)) {
     try {
       const parsed = new URL(candidate.url)
-      if (parsed.protocol !== "https:" || /^(localhost|127\\.|10\\.|192\\.168\\.|172\\.(?:1[6-9]|2\\d|3[01])\\.|\\[::1\\])/i.test(parsed.hostname)) continue
+      const hostname = parsed.hostname.toLowerCase()
+      if (
+        parsed.protocol !== "https:" ||
+        hostname === "localhost" ||
+        hostname === "[::1]" ||
+        hostname.startsWith("127.") ||
+        hostname.startsWith("10.") ||
+        hostname.startsWith("192.168.") ||
+        /^172\.(1[6-9]|2\d|3[01])\./.test(hostname)
+      ) continue
       const response = await fetch(parsed.href, { signal: AbortSignal.timeout(4500) })
       if (!response.ok) continue
       const contentType = (response.headers.get("content-type") || "").split(";")[0].trim().toLowerCase()
@@ -1059,11 +1068,16 @@ ${progressContext}${researchContext}`
           if (wantsImages) {
             const imageQuery = cleanImageSearchQuery(latestUserText)
             let candidates = await searchCommonsImages(imageQuery)
-            // Broaden to relevant, Google-grounded source pages if Commons has no convincing matches.
-            if (!candidates.length) candidates = await searchWebPageImagesWithGemini(geminiKey, imageQuery)
-            // Keep only results whose title/description meaningfully overlaps the user's actual subject.
-            // If there are no convincing matches, show no image rather than guessing.
-            relevantImages = await verifyImageCandidatesWithGemini(geminiKey, imageQuery, candidates)
+            // Inspect the actual image pixels with Gemini vision, not only titles or captions.
+            relevantImages = candidates.length
+              ? await verifyImageCandidatesWithGemini(geminiKey, imageQuery, candidates)
+              : []
+            // If Commons results fail visual verification, try relevant Google-grounded source pages.
+            if (!relevantImages.length) {
+              candidates = await searchWebPageImagesWithGemini(geminiKey, imageQuery)
+              relevantImages = await verifyImageCandidatesWithGemini(geminiKey, imageQuery, candidates)
+            }
+            // If neither source produces a verified match, show no image rather than guessing.
             if (relevantImages.length) {
               const imageMarkers = relevantImages.map((image: any) =>
                 `[[EVOLV_IMAGE|${encodeURIComponent(String(image.title || "Image").slice(0, 120))}|${image.url}|${image.sourceUrl}|${encodeURIComponent(String(image.license || "").slice(0, 80))}]]`
