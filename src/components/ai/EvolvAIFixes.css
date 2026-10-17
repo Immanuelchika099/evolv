@@ -1950,3 +1950,11 @@ html:has(.dashboard.dashboard-ai-active) {
   padding-bottom: 0;
   margin-bottom: 0;
 }
+
+
+/* On iOS Home Screen web apps, remove the extra space below the composer while typing.
+   Keep the system keyboard accessory controls untouched. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus) {
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
