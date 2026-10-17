@@ -8597,3 +8597,48 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
   color: #fff !important;
   stroke: currentColor !important;
 }
+
+
+/* Profile settings switches — align the thumb to both ends of the pill. */
+html body #root .dashboard .settings-page button.settings-toggle {
+  position: relative !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  padding: .25rem !important;
+  border: 1px solid #fff !important;
+  border-radius: 999px !important;
+  background: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard .settings-page button.settings-toggle > span {
+  position: absolute !important;
+  display: block !important;
+  left: .25rem !important;
+  top: 50% !important;
+  width: 2.2rem !important;
+  min-width: 2.2rem !important;
+  height: 2.2rem !important;
+  min-height: 2.2rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 50% !important;
+  background: #fff !important;
+  transform: translateY(-50%) !important;
+  transition: left .2s ease, transform .2s ease, background-color .2s ease !important;
+}
+html body #root .dashboard .settings-page button.settings-toggle.active,
+html body #root .dashboard .settings-page button.settings-toggle.active:hover,
+html body #root .dashboard .settings-page button.settings-toggle.active:focus,
+html body #root .dashboard .settings-page button.settings-toggle.active:active {
+  border-color: #fff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+}
+html body #root .dashboard .settings-page button.settings-toggle.active > span {
+  left: calc(100% - 2.45rem) !important;
+  background: #fff !important;
+  transform: translateY(-50%) !important;
+}
