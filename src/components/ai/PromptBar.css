@@ -212,14 +212,11 @@
   stroke: currentColor;
 }
 
-/* Keep the Ask anything / Listening text area transparent; remove its extra dark fill. */
-.dashboard.dashboard-ai-active .ai-page .prompt-bar__field {
+/* Remove only the small fill behind the Ask anything / Listening text, not the composer shell. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input:focus,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input:focus-visible {
   background: transparent !important;
   background-color: transparent !important;
-  box-shadow: none;
-}
-
-.dashboard.dashboard-ai-active .ai-page .prompt-bar__field::before {
-  background: none !important;
-  opacity: 0 !important;
+  box-shadow: none !important;
 }
