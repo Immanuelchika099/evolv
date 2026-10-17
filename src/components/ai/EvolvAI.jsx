@@ -270,8 +270,18 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
         shouldAutoScrollRef.current = true
         setMessages(data?.length ? data.map(message => {
           const hiddenPrefix = '[[EVOLV_HIDDEN_PROMPT]]'
-          return String(message.content || '').startsWith(hiddenPrefix)
-            ? { ...message, content: String(message.content).slice(hiddenPrefix.length), hidden: true }
+          const rawContent = String(message.content || '')
+          const hasStoredHiddenMarker = rawContent.startsWith(hiddenPrefix)
+          const content = hasStoredHiddenMarker ? rawContent.slice(hiddenPrefix.length) : rawContent
+
+          // Older deployments saved mood check-in prompts as ordinary user messages.
+          // Recognize those legacy rows too, so they never appear as chat bubbles.
+          const isLegacyAutomaticMoodPrompt =
+            message.role === 'user' &&
+            /^I checked in on EVOLV and I'm feeling (good|okay|low|stressed) today\./i.test(content)
+
+          return hasStoredHiddenMarker || isLegacyAutomaticMoodPrompt
+            ? { ...message, content, hidden: true }
             : message
         }) : [])
         setMessagesLoaded(true)
