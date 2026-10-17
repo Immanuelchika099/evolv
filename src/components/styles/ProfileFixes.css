@@ -1,0 +1,89 @@
+/* EVOLV profile — remove legacy green accents and lift the photo control above the avatar. */
+.dashboard .settings-page .profile-edit-button,
+.dashboard .settings-page .profile-photo-actions button:first-child,
+.dashboard .settings-page .settings-inline-action,
+.dashboard .settings-page .profile-avatar-studio-button {
+  border-color: rgba(72, 133, 255, .24) !important;
+  background: rgba(59, 130, 246, .09) !important;
+  color: #f4f7ff !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
+}
+.dashboard .settings-page .profile-edit-button:hover,
+.dashboard .settings-page .profile-photo-actions button:hover,
+.dashboard .settings-page .settings-inline-action:hover,
+.dashboard .settings-page .profile-avatar-studio-button:hover {
+  border-color: rgba(96, 165, 250, .52) !important;
+  background: rgba(59, 130, 246, .18) !important;
+  color: #fff !important;
+}
+.dashboard .settings-page .settings-danger-button {
+  border-color: rgba(248, 113, 113, .24) !important;
+  background: rgba(185, 28, 28, .09) !important;
+  color: #ffb4b4 !important;
+}
+.dashboard .settings-page .settings-danger-button:hover:not(:disabled) {
+  border-color: rgba(248, 113, 113, .5) !important;
+  background: rgba(185, 28, 28, .18) !important;
+  color: #ffe0e0 !important;
+}
+.dashboard .settings-page .settings-danger-button:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
+/* The photo action is a floating badge, not a second nested avatar. */
+.dashboard .settings-page .profile-avatar-wrap,
+.dashboard .settings-page .profile-avatar-button {
+  position: relative;
+  overflow: visible !important;
+}
+.dashboard .settings-page .profile-avatar-button {
+  isolation: isolate;
+  z-index: 1;
+}
+.dashboard .settings-page .profile-avatar,
+.dashboard .settings-page .profile-avatar-image {
+  position: relative;
+  z-index: 1;
+}
+.dashboard .settings-page .profile-avatar-camera {
+  z-index: 5 !important;
+  right: -5px !important;
+  bottom: -3px !important;
+  width: 35px !important;
+  height: 35px !important;
+  border: 2px solid #080a0d !important;
+  border-radius: 50% !important;
+  background: #3b82f6 !important;
+  color: #fff !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.48) !important;
+  pointer-events: none;
+}
+.dashboard .settings-page .profile-avatar-camera svg {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+.dashboard .settings-page .profile-photo-actions {
+  position: relative;
+  z-index: 2;
+}
+.dashboard .settings-page .profile-photo-actions button:first-child {
+  border-color: rgba(72, 133, 255, .24) !important;
+  background: rgba(59, 130, 246, .09) !important;
+  color: #f4f7ff !important;
+}
+.dashboard .settings-page .profile-photo-actions button:first-child:hover {
+  border-color: rgba(96, 165, 250, .52) !important;
+  background: rgba(59, 130, 246, .18) !important;
+}
+
+/* Keep destructive actions red rather than inheriting the old green theme. */
+.dashboard .settings-page .profile-modal .settings-danger-button {
+  border-color: rgba(248, 113, 113, .28) !important;
+  background: rgba(185, 28, 28, .12) !important;
+  color: #ffb4b4 !important;
+}
+.dashboard .settings-page .profile-modal .settings-danger-button:hover:not(:disabled) {
+  background: rgba(185, 28, 28, .2) !important;
+}
