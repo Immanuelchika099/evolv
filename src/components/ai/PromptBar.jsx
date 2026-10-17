@@ -156,6 +156,7 @@ export default function PromptBar({
   const rowRefs = useRef([]);
   const lastOpen = useRef(null);
   const dictation = useRef(0);
+  const dictationBaseRef = useRef('');
   const audioRef = useRef({ stream: null, context: null, analyser: null, raf: 0 });
   const eqRefs = useRef([]);
   const latest = useRef({});
@@ -523,17 +524,22 @@ export default function PromptBar({
           if (seq !== dictation.current) return;
           setListening(false);
           stopVoiceVisualizer();
-          if (text) {
-            const content = draft.trim() ? draft.trimEnd() + ' ' + text : text;
-            send(content);
-          } else {
-            focusInput();
+          const transcript = String(text || '').trim();
+          if (transcript) {
+            const base = dictationBaseRef.current;
+            const content = base ? `${base} ${transcript}` : transcript;
+            setDraft(content);
+            latest.current.onInputChange?.(content);
           }
+          dictationBaseRef.current = '';
+          focusInput();
         },
         () => {
           if (seq === dictation.current) {
             setListening(false);
             stopVoiceVisualizer();
+            dictationBaseRef.current = '';
+            focusInput();
           }
         }
       );
@@ -541,17 +547,43 @@ export default function PromptBar({
     }
 
     const seq = ++dictation.current;
+    dictationBaseRef.current = draft.trim();
     setListening(true);
     startVoiceVisualizer(seq);
-    Promise.resolve(latest.current.onDictate?.({ stop: false })).then(
+    const updateTranscript = transcript => {
+      if (seq !== dictation.current) return;
+      const spoken = String(transcript || '').trim();
+      const base = dictationBaseRef.current;
+      const content = spoken ? (base ? `${base} ${spoken}` : spoken) : base;
+      setDraft(content);
+      latest.current.onInputChange?.(content);
+    };
+
+    Promise.resolve(latest.current.onDictate?.({
+      stop: false,
+      onTranscript: updateTranscript,
+    })).then(
       text => {
         if (seq !== dictation.current) return;
         setListening(false);
-        if (text) setDraft(d => (d.trim() ? d.trimEnd() + ' ' + text : text));
+        stopVoiceVisualizer();
+        const transcript = String(text || '').trim();
+        if (transcript) {
+          const base = dictationBaseRef.current;
+          const content = base ? `${base} ${transcript}` : transcript;
+          setDraft(content);
+          latest.current.onInputChange?.(content);
+        }
+        dictationBaseRef.current = '';
         focusInput();
       },
       () => {
-        if (seq === dictation.current) setListening(false);
+        if (seq === dictation.current) {
+          setListening(false);
+          stopVoiceVisualizer();
+          dictationBaseRef.current = '';
+          focusInput();
+        }
       }
     );
   };
