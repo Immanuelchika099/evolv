@@ -32,7 +32,21 @@ function AssistantMessageContent({ content, typing = false }) {
     window.addEventListener('keydown', onKeyDown)
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [openedImage])
-  const lines = String(content || '').replace(/\r\n?/g, '\n').split('\n')
+  const rawContent = String(content || '').replace(/\r\n?/g, '\n')
+  // Some model replies arrive as one long plain-text line despite formatting guidance.
+  // Add natural paragraph breaks to long prose only; preserve Markdown, lists, and explicit line breaks.
+  const hasExplicitLineBreaks = rawContent.includes('\n')
+  const looksStructured = /^\s*(#{1,4}\s|[-*+]\s|\d+[.)]\s|>\s|\x60\x60\x60)/m.test(rawContent)
+  const formattedContent = !hasExplicitLineBreaks && !looksStructured && rawContent.trim().length > 360
+    ? (() => {
+        const sentences = rawContent.trim().split(/(?<=[.!?])\s+(?=[A-Z0-9“"'(])/)
+        if (sentences.length < 4) return rawContent
+        const paragraphs = []
+        for (let i = 0; i < sentences.length; i += 2) paragraphs.push(sentences.slice(i, i + 2).join(' '))
+        return paragraphs.join('\n\n')
+      })()
+    : rawContent
+  const lines = formattedContent.split('\n')
   const blocks = []
   let paragraph = []
   let list = []
