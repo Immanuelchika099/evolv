@@ -179,16 +179,21 @@ function App() {
     return path === '/signup' ? 'onboarding' : (initialView || 'landing')
   })
   // Android's installed PWA already shows the app icon during its native
-  // launch splash. Do not stack our React preload over that splash.
-  // In a normal browser there is no native PWA splash, so keep the EVOLV
-  // preload there for the intended first-load experience.
+  // launch splash, so skip our React loader there to avoid a duplicate intro.
+  // iOS home-screen web apps do not reliably show our branded intro, so show
+  // the EVOLV loader on iPhone/iPad even when running in standalone mode.
+  // Regular browser launches keep the same branded loader on both platforms.
   const [isBooting, setIsBooting] = useState(() => {
     try {
       const standalone = window.matchMedia?.('(display-mode: standalone)').matches
       const fullscreen = window.matchMedia?.('(display-mode: fullscreen)').matches
       const minimalUi = window.matchMedia?.('(display-mode: minimal-ui)').matches
       const iosStandalone = window.navigator?.standalone === true
-      return !(standalone || fullscreen || minimalUi || iosStandalone)
+      const android = /Android/i.test(window.navigator?.userAgent || '')
+      const installedPwa = standalone || fullscreen || minimalUi || iosStandalone
+
+      // Only Android installed PWAs should rely exclusively on the native splash.
+      return !(android && installedPwa)
     } catch {
       return true
     }
