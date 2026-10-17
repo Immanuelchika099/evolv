@@ -382,3 +382,31 @@ html body #root .auth-direct-page .auth-flow-content {
   background-color: #000000 !important;
   background-image: none !important;
 }
+
+
+/* FINAL NAV OVERRIDE: keep the dock's outer liquid glass, but no white active
+   label/icon treatment and no separate active-tab pill. */
+html body #root .dashboard .evolv-bottom-nav button.bottom-active,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active:hover,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active:focus,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
+  color: rgba(255,255,255,.38) !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline-color: transparent !important;
+}
+html body #root .dashboard .evolv-bottom-nav button.bottom-active > span,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
+  color: rgba(255,255,255,.38) !important;
+  -webkit-text-fill-color: currentColor !important;
+  fill: none !important;
+  stroke: currentColor !important;
+}
+html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  border-color: rgba(255,255,255,.12) !important;
+}
