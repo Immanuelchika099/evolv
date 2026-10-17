@@ -212,3 +212,14 @@
   stroke: currentColor;
 }
 
+/* Keep the Ask anything / Listening text area transparent; remove its extra dark fill. */
+.dashboard.dashboard-ai-active .ai-page .prompt-bar__field {
+  background: transparent !important;
+  background-color: transparent !important;
+  box-shadow: none;
+}
+
+.dashboard.dashboard-ai-active .ai-page .prompt-bar__field::before {
+  background: none !important;
+  opacity: 0 !important;
+}
