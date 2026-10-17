@@ -201,7 +201,7 @@
 
 /* EVOLV accent: when Send is active, use the blue surface with a white glyph. */
 .prompt-bar__send[data-armed] {
-  background: #74AAFF !important;
+  background: #2563eb !important;
   color: #ffffff !important;
 }
 .prompt-bar__send[data-armed] .prompt-bar__glyph,
