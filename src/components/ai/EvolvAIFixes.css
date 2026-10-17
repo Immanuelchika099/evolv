@@ -1958,3 +1958,17 @@ html:has(.dashboard.dashboard-ai-active) {
   padding-bottom: 0;
   margin-bottom: 0;
 }
+
+
+/* Flush the EVOLV AI composer to the bottom edge; let the live visual viewport
+   place it immediately above the iOS keyboard when the textarea is focused. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  bottom: 0 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus),
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus-visible) {
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+}
