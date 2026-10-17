@@ -272,7 +272,10 @@ export default function DailyRoutinePage({ pageProps }) {
           showIndicators={true}
           className="routine-coach-carousel"
           onCardClick={(coach) => {
-            try { localStorage.setItem('evolv-ai-auto-prompt', coach.prompt) } catch {}
+            try {
+              localStorage.setItem('evolv-ai-start-new-chat', 'true')
+              localStorage.setItem('evolv-ai-auto-prompt', coach.prompt)
+            } catch {}
             goTo('ai')
           }}
           renderItem={(coach) => {
