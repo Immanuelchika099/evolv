@@ -2241,37 +2241,39 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Sent-message styling: preserve the original right alignment and change only the bubble color. */
+/* Only color the actual sent-message bubble. Keep the original full-width row
+   and right alignment so the layout does not shift. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user {
-  width: fit-content !important;
-  max-width: min(86%, 62rem) !important;
-  margin-left: auto !important;
-  margin-right: 2.5% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-end !important;
+  width: calc(100% - 2.4rem) !important;
+  max-width: calc(100% - 2.4rem) !important;
+  margin: 1rem 1.2rem 1.4rem auto !important;
+  padding: 0 !important;
   background: transparent !important;
   background-color: transparent !important;
   border: 0 !important;
-  color: #ffffff;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
-  display: block;
-  width: fit-content;
-  max-width: 100%;
-  box-sizing: border-box;
-  padding: 1rem 1.35rem;
+  display: block !important;
+  width: fit-content !important;
+  max-width: min(100%, 32rem) !important;
+  margin: 0 !important;
+  padding: 1rem 1.35rem !important;
+  box-sizing: border-box !important;
   border: 1px solid #1d4ed8 !important;
-  border-radius: 1.8rem;
+  border-radius: 1.8rem !important;
   background: #1d4ed8 !important;
   background-color: #1d4ed8 !important;
   color: #ffffff !important;
 }
 
-.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
-  background-color: #1d4ed8 !important;
-  color: #ffffff !important;
-}
-
-.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-response-content {
+/* If the message contains other paragraph/content wrappers, they must not
+   inherit the bubble fill. The direct paragraph above is the bubble itself. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-response-content,
+.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-response-content p {
   background: transparent !important;
   background-color: transparent !important;
   color: #ffffff !important;
