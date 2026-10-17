@@ -76,10 +76,12 @@ function AssistantMessageContent({ content, typing = false }) {
       return
     }
     if (inCode) { code.push(line); return }
-    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/)
-    if (imageMatch) {
-      flushParagraph(); flushList(); flushQuote()
-      imageGallery.push({ alt: imageMatch[1] || 'Suggested image', url: imageMatch[2] })
+    if (trimmed.startsWith('![')) {
+      const imageMatch = trimmed.match(/^!\[([^\]]*)\]\((https?:\/\/[^\s)]+)\)$/)
+      if (imageMatch) {
+        flushParagraph(); flushList(); flushQuote()
+        imageGallery.push({ alt: imageMatch[1] || 'Suggested image', url: imageMatch[2] })
+      }
       return
     }
     flushImageGallery()
