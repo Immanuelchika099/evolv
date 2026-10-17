@@ -689,7 +689,7 @@ Recent meals: ${JSON.stringify(progress.recentMeals || []).slice(0,8000)}`
 
     const latestUserText = [...safeMessages].reverse().find((message: any) => message.role === "user")?.content || ""
     const wantsImages = /\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|examples of|what does .* look like|ideas for .* (room|outfit|meal|workout|hairstyle))\b/i.test(latestUserText)
-    const wantsWebSearch = /\b(search (the )?web|look (it )?up|find (me )?(some )?(resources|articles|courses|tutorials|websites|tools|sources)|latest|current(ly)?|recent news|compare (the )?latest|recommend (some )?(websites|courses|tools|articles)|sources for)\b/i.test(latestUserText)
+    const wantsWebSearch = /\b(search (the )?web|look (it )?up|find (me )?(some )?(resources|articles|courses|tutorials|websites|tools|sources)|latest|current(ly)?|recent news|compare (the )?latest|recommend|resources|tutorials?|courses?|websites?|tools?|research|how to learn|learn .* online|roadmap)\b/i.test(latestUserText)
     const [visualResults, webResearch] = await Promise.all([
       wantsImages ? searchCommonsImages(latestUserText.replace(/\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|please|can you|could you)\b/gi, "").trim() || latestUserText) : Promise.resolve([]),
       wantsWebSearch ? searchWebWithGemini(geminiKey, latestUserText) : Promise.resolve({ summary: "", links: [] }),
