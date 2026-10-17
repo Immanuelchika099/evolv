@@ -418,3 +418,55 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
     font-size: 2.1rem;
   }
 }
+
+
+/* Routine coach cards: clearer type and more breathing room above the section. */
+.daily-routine-page .routine-coach-section {
+  padding-top: 1.8rem;
+}
+.daily-routine-page .routine-coach-heading {
+  margin-bottom: 1.2rem;
+}
+.daily-routine-page .routine-coach-heading h2 {
+  margin-top: 0;
+  font-size: 2.8rem;
+  line-height: 1.2;
+}
+.daily-routine-page .routine-coach-heading p {
+  margin-top: .8rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+}
+.daily-routine-page .routine-coach-card-copy h3 {
+  font-size: 2.6rem;
+  line-height: 1.2;
+  margin-bottom: .8rem;
+}
+.daily-routine-page .routine-coach-card-copy p {
+  font-size: 1.6rem;
+  line-height: 1.5;
+}
+.daily-routine-page .routine-coach-card-hint {
+  font-size: 1.4rem;
+  gap: .5rem;
+}
+@media (max-width: 640px) {
+  .daily-routine-page .routine-coach-section {
+    padding-top: 2.4rem;
+  }
+  .daily-routine-page .routine-coach-heading h2 {
+    font-size: 2.7rem;
+  }
+  .daily-routine-page .routine-coach-heading p {
+    font-size: 1.5rem;
+  }
+  .daily-routine-page .routine-coach-card-copy h3 {
+    font-size: 2.5rem;
+  }
+  .daily-routine-page .routine-coach-card-copy p {
+    font-size: 1.6rem;
+  }
+  .daily-routine-page .routine-coach-card-hint {
+    font-size: 1.4rem;
+  }
+}
