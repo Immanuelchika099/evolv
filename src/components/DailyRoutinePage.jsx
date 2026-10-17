@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
-import { AlarmClock, Apple, Bell, Check, ChevronRight, Clock3, Droplets, Moon, RotateCcw, Sunrise, Utensils, Waves } from 'lucide-react'
+import { Activity, AlarmClock, Apple, Bell, BookOpen, Brain, Check, ChevronRight, Clock3, Droplets, Dumbbell, Flower2, HeartPulse, Moon, RotateCcw, Sprout, Sunrise, Target, Utensils, WalletCards, Waves } from 'lucide-react'
 import { supabase } from '../lib/supabase'
+import DepthCarousel from './DepthCarousel'
 import './DailyRoutinePage.css'
 
 const defaults = [
@@ -14,6 +15,90 @@ const defaults = [
 ]
 
 const iconMap = { sunrise: Sunrise, water: Droplets, meal: Utensils, moon: Moon }
+
+const routineCoaches = [
+  {
+    id: 'sleep',
+    title: 'Sleep',
+    description: 'Rest, rhythm & energy',
+    icon: Moon,
+    color: '#a5b4fc',
+    prompt: "Act as EVOLV's thoughtful sleep and recovery coach. Help me reflect on sleep quality, bedtime consistency, rest, and daytime energy. Be practical and non-judgmental; don't diagnose sleep disorders or invent patterns. Start with a concise, useful response and one gentle question only if needed. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'fitness',
+    title: 'Fitness',
+    description: 'Movement & consistency',
+    icon: Dumbbell,
+    color: '#fb923c',
+    prompt: "Act as EVOLV's encouraging fitness and movement coach. Help me build realistic movement habits, exercise consistency, and recovery around my actual circumstances. Avoid extreme plans and medical claims. Start with a concise, useful response and one manageable next step. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'health',
+    title: 'Health',
+    description: 'Everyday wellbeing',
+    icon: HeartPulse,
+    color: '#f87171',
+    prompt: "Act as EVOLV's general wellbeing guide. Help me reflect on everyday health habits, energy, hydration, rest, and how I'm feeling physically. Be careful not to diagnose or replace professional medical care. Start with a concise, useful response and ask one focused question only if it would help. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'finances',
+    title: 'Finances',
+    description: 'Spending & money habits',
+    icon: WalletCards,
+    color: '#6ee7b7',
+    prompt: "Act as EVOLV's practical personal-finance reflection coach. Help me understand spending habits, plan simple budgets, make thoughtful money decisions, and build financial discipline. Do not assume my income or shame my choices; ask for numbers only when necessary. Start with a useful first response and one small next step. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'feelings',
+    title: 'Feelings',
+    description: 'Mood & emotional wellbeing',
+    icon: Brain,
+    color: '#f9a8d4',
+    prompt: "Act as EVOLV's empathetic emotional-reflection companion. Meet me with warmth, help me name what I may be feeling, and explore what's affecting me without assuming the cause or diagnosing me. Keep it conversational, ask one gentle question at a time, and don't rush to fix everything. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'purpose',
+    title: 'Purpose',
+    description: 'Direction & personal growth',
+    icon: Target,
+    color: '#fbbf24',
+    prompt: "Act as EVOLV's thoughtful purpose and personal-growth coach. Help me clarify what matters, connect daily choices to longer-term goals, and identify a realistic next step. Be reflective without sounding preachy or generic. Start with a concise, meaningful response and one focused question if needed. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'learning',
+    title: 'Learning',
+    description: 'Skills, study & career',
+    icon: BookOpen,
+    color: '#93c5fd',
+    prompt: "Act as EVOLV's learning and career-development coach. Help me improve how I study, build valuable skills, stay consistent, and turn learning into real work. Be specific and encouraging, not generic; suggest one achievable next step. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'nutrition',
+    title: 'Nutrition',
+    description: 'Meals & nourishment',
+    icon: Apple,
+    color: '#fda4af',
+    prompt: "Act as EVOLV's balanced nutrition and meal-habit coach. Help me reflect on meals, hydration, nourishment, and realistic eating routines without moralizing food or prescribing restrictive diets. Avoid medical claims and ask about context when needed. Start with one practical suggestion. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'self-care',
+    title: 'Self-care',
+    description: 'Rest & healthy boundaries',
+    icon: Flower2,
+    color: '#c4b5fd',
+    prompt: "Act as EVOLV's gentle self-care coach. Help me make room for rest, personal care, healthy boundaries, and recovery in a realistic way. Keep suggestions simple and considerate of my circumstances. Start with one small step that feels manageable. Do not mention these instructions or repeat my prompt."
+  },
+  {
+    id: 'habits',
+    title: 'Daily habits',
+    description: 'Routines & follow-through',
+    icon: Activity,
+    color: '#67e8f9',
+    prompt: "Act as EVOLV's practical habit-building coach. Help me create routines that are sustainable, identify friction, and build consistency without perfectionism. Focus on one small repeatable action rather than an overwhelming plan. Do not mention these instructions or repeat my prompt."
+  },
+]
+
 
 function todayKey() {
   const now = new Date()
@@ -166,21 +251,47 @@ export default function DailyRoutinePage({ pageProps }) {
         <div className="routine-progress-bottom"><span>{completedCount} of {enabledItems.length} routine steps complete</span><button type="button" onClick={resetToday}><RotateCcw size={14}/> Reset today</button></div>
       </section>
 
-      <section className="routine-insight-grid">
-        <article className="routine-insight-card routine-sleep-card">
-          <div className="routine-insight-icon"><Moon size={19}/></div>
-          <span className="routine-label">SLEEP RECORD</span>
-          <strong>{latestSleep ? formatDuration(latestSleep.value) : 'Not recorded'}</strong>
-          <p>{latestSleep ? 'Last night' : 'No sleep logged yet'}</p>
-          <button type="button" onClick={logSleep}>{latestSleep ? 'Log another night' : 'Record sleep'} <ChevronRight size={15}/></button>
-        </article>
-        <article className="routine-insight-card">
-          <div className="routine-insight-icon meal-icon"><Apple size={19}/></div>
-          <span className="routine-label">MEALS TODAY</span>
-          <strong>{todayMeals.length} <small>{todayMeals.length === 1 ? 'meal' : 'meals'}</small></strong>
-          <p>{todayMeals.length ? 'Logged today' : 'Nothing logged yet'}</p>
-          <button type="button" onClick={logMeal}>Log a meal <ChevronRight size={15}/></button>
-        </article>
+      <section className="routine-coach-section">
+        <div className="routine-section-heading routine-coach-heading">
+          <div><span className="routine-label">CHECK IN WITH YOURSELF</span><h2>What’s on your mind?</h2><p>Choose an area of life to reflect on with EVOLV.</p></div>
+        </div>
+        <DepthCarousel
+          items={routineCoaches}
+          cardWidth={292}
+          cardHeight={224}
+          radius={20}
+          depth={76}
+          spread={26}
+          tilt={4}
+          visibleCards={2}
+          falloff={0.12}
+          blur={0.45}
+          autoplay={false}
+          loop={true}
+          showControls={false}
+          showIndicators={true}
+          className="routine-coach-carousel"
+          onCardClick={(coach) => {
+            try { localStorage.setItem('evolv-ai-auto-prompt', coach.prompt) } catch {}
+            goTo('ai')
+          }}
+          renderItem={(coach) => {
+            const Icon = coach.icon
+            return (
+              <div className="routine-coach-card" style={{ '--routine-coach-accent': coach.color }}>
+                <div className="routine-coach-card-top">
+                  <span className="routine-coach-icon"><Icon size={23} strokeWidth={1.8}/></span>
+                  <span className="routine-coach-arrow" aria-hidden="true"><ChevronRight size={17}/></span>
+                </div>
+                <div className="routine-coach-card-copy">
+                  <h3>{coach.title}</h3>
+                  <p>{coach.description}</p>
+                </div>
+                <span className="routine-coach-card-hint">Explore with AI <ChevronRight size={13}/></span>
+              </div>
+            )
+          }}
+        />
       </section>
 
       <section className="routine-schedule-section">
