@@ -113,7 +113,7 @@ export default function DepthCarousel({
     if (!root) return
     const resize = new ResizeObserver(entries => {
       const width = entries[0]?.contentRect.width || root.clientWidth
-      const requiredWidth = cardWidth + Math.abs(spread) * 2 + 70
+      const requiredWidth = cardWidth + Math.abs(spread) * 1.15 + 18
       scaleRef.current = clamp(width / requiredWidth, 0.56, 1)
       layout(positionRef.current)
     })
