@@ -20,6 +20,7 @@ function renderInlineMarkdown(text, keyPrefix = 'inline') {
 }
 
 function AssistantMessageContent({ content, typing = false }) {
+  const [openedImage, setOpenedImage] = useState(null)
   const lines = String(content || '').replace(/\r\n?/g, '\n').split('\n')
   const blocks = []
   let paragraph = []
@@ -57,10 +58,9 @@ function AssistantMessageContent({ content, typing = false }) {
     blocks.push(
       <div className="ai-image-carousel" role="list" aria-label="Suggested images" key={`images-${blocks.length}`}>
         {imageGallery.map((image, index) => (
-          <a className="ai-image-card" href={image.url} target="_blank" rel="noreferrer noopener" key={`image-${index}`} role="listitem">
+          <button type="button" className="ai-image-card" key={`image-${index}`} role="listitem" aria-label={`Open image: ${image.alt}`} onClick={() => setOpenedImage(image)}>
             <img src={image.url} alt={image.alt} loading="lazy" />
-            <span>{image.alt}</span>
-          </a>
+          </button>
         ))}
       </div>
     )
@@ -119,7 +119,24 @@ function AssistantMessageContent({ content, typing = false }) {
   flushParagraph(); flushList(); flushQuote(); flushImageGallery()
   if (inCode) flushCode()
 
-  return <div className="ai-response-content">{blocks}{typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}</div>
+  return (
+    <div className="ai-response-content">
+      {blocks}
+      {typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}
+      {openedImage ? (
+        <div className="ai-image-lightbox" role="dialog" aria-modal="true" aria-label="Image preview" onClick={() => setOpenedImage(null)}>
+          <div className="ai-image-lightbox-panel" onClick={event => event.stopPropagation()}>
+            <button type="button" className="ai-image-lightbox-close" onClick={() => setOpenedImage(null)} aria-label="Close image preview">×</button>
+            <img src={openedImage.url} alt={openedImage.alt} />
+            <div className="ai-image-source">
+              <span>{openedImage.alt}</span>
+              <a href={openedImage.url} target="_blank" rel="noreferrer noopener">Open image source ↗</a>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  )
 }
 
 import {
