@@ -25,6 +25,13 @@ function renderInlineMarkdown(text, keyPrefix = 'inline') {
 }
 
 function AssistantMessageContent({ content, typing = false }) {
+  const [openedImage, setOpenedImage] = useState(null)
+  useEffect(() => {
+    if (!openedImage) return
+    const onKeyDown = event => { if (event.key === 'Escape') setOpenedImage(null) }
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [openedImage])
   const lines = String(content || '').replace(/\r\n?/g, '\n').split('\n')
   const blocks = []
   let paragraph = []
@@ -65,7 +72,25 @@ function AssistantMessageContent({ content, typing = false }) {
       return
     }
     if (inCode) { code.push(line); return }
-    // Ignore legacy generated-image markdown; image suggestions are temporarily disabled.
+    if (trimmed.startsWith('[[EVOLV_IMAGE|')) {
+      flushParagraph(); flushList(); flushQuote()
+      const parts = trimmed.slice(2, -2).split('|')
+      if (parts.length >= 5 && parts[0] === 'EVOLV_IMAGE') {
+        try {
+          const image = { title: decodeURIComponent(parts[1]), url: parts[2], sourceUrl: parts[3], license: decodeURIComponent(parts[4] || '') }
+          if (/^https:\/\//i.test(image.url) && /^https:\/\//i.test(image.sourceUrl)) {
+            blocks.push(
+              <button type="button" className="ai-image-card" key={`image-${blocks.length}`}
+                aria-label={`Open image preview: ${image.title}`} onClick={() => setOpenedImage(image)}>
+                <img src={image.url} alt={image.title} loading="lazy"
+                  onError={event => { event.currentTarget.style.visibility = 'hidden' }} />
+              </button>
+            )
+          }
+        } catch { /* Ignore malformed image markers. */ }
+      }
+      return
+    }
     if (trimmed.startsWith('![')) return
     if (!trimmed) { flushParagraph(); flushList(); flushQuote(); return }
     if (/^#{1,4}\s+/.test(trimmed)) {
@@ -102,11 +127,27 @@ function AssistantMessageContent({ content, typing = false }) {
   if (inCode) flushCode()
 
   return (
-    <div className="ai-response-content">
-      {blocks}
-      {typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}
-
-    </div>
+    <>
+      <div className="ai-response-content">
+        {blocks}
+        {typing ? <span className="ai-cursor" aria-hidden="true">▍</span> : null}
+      </div>
+      {openedImage ? (
+        <div className="ai-image-lightbox" role="dialog" aria-modal="true"
+          aria-label={`Image preview: ${openedImage.title}`}
+          onMouseDown={event => { if (event.target === event.currentTarget) setOpenedImage(null) }}>
+          <button type="button" className="ai-image-lightbox-close" aria-label="Close image preview"
+            onClick={() => setOpenedImage(null)}><X size={22} /></button>
+          <div className="ai-image-lightbox-panel">
+            <img src={openedImage.url} alt={openedImage.title} />
+            <div className="ai-image-source">
+              <span>{openedImage.title}{openedImage.license ? ` · ${openedImage.license}` : ''}</span>
+              <a href={openedImage.sourceUrl} target="_blank" rel="noreferrer noopener">Open source ↗</a>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </>
   )
 }
 
