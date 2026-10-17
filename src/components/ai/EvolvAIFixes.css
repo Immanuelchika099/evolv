@@ -2241,11 +2241,12 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Sent-message styling: keep the wrapper transparent and apply blue ONLY to the
-   content bubble, so the conversation row never becomes a full-width blue strip. */
+/* Sent-message styling: preserve the original right alignment and change only the bubble color. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user {
   width: fit-content !important;
   max-width: min(86%, 62rem) !important;
+  margin-left: auto !important;
+  margin-right: 2.5% !important;
   background: transparent !important;
   background-color: transparent !important;
   border: 0 !important;
