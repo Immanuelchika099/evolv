@@ -2241,19 +2241,37 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* FINAL FIX: ensure the sent user-message bubble itself uses Evolv's main blue,
-   including nested text surfaces that may otherwise retain the old light-blue style. */
-.dashboard.dashboard-ai-active .ai-page .ai-message.user,
-.dashboard.dashboard-ai-active .ai-page .ai-message.user > p,
-.dashboard.dashboard-ai-active .ai-page .ai-message.user p,
-.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-response-content {
-  background: #2563eb !important;
-  background-color: #2563eb !important;
-  border-color: #2563eb !important;
-  color: #ffffff !important;
+/* Sent-message styling: keep the wrapper transparent and apply blue ONLY to the
+   content bubble, so the conversation row never becomes a full-width blue strip. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  width: fit-content !important;
+  max-width: min(86%, 62rem) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  color: #ffffff;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
+  display: block;
+  width: fit-content;
+  max-width: 100%;
+  box-sizing: border-box;
   padding: 1rem 1.35rem;
+  border: 1px solid #1d4ed8 !important;
   border-radius: 1.8rem;
+  background: #1d4ed8 !important;
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  background-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-response-content {
+  background: transparent !important;
+  background-color: transparent !important;
+  color: #ffffff !important;
 }
