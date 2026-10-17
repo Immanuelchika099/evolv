@@ -7981,3 +7981,39 @@ body,
 .dashboard .progress-page .progress-heading h2,.dashboard .progress-page .progress-heading p,.dashboard .progress-page .progress-focus-value,.dashboard .progress-page .progress-stats strong,.dashboard .progress-page .secondary-head button,.dashboard .progress-page .progress-insight-head svg,.dashboard .progress-page .progress-chart-top svg{color:#2563eb!important;fill:#2563eb!important;stroke:#2563eb!important}
 .dashboard .progress-page .progress-range-switch button.active,.dashboard .progress-page .progress-range-switch button.is-active,.dashboard .progress-page .progress-range-switch button[aria-pressed="true"],.dashboard .progress-page .goal-heatmap-range button.is-active{background:#2563eb!important;background-color:#2563eb!important;background-image:none!important;color:#fff!important;border-color:#2563eb!important}
 .dashboard .progress-page .progress-range-switch button.active *, .dashboard .progress-page .progress-range-switch button.is-active *, .dashboard .progress-page .progress-range-switch button[aria-pressed="true"] *, .dashboard .progress-page .goal-heatmap-range button.is-active *{color:#fff!important;fill:#fff!important;stroke:#fff!important;-webkit-text-fill-color:#fff!important}
+
+
+/* Profile + routine switches: white outline and white thumb; track stays dark. */
+html body #root .dashboard .settings-page .settings-toggle,
+html body #root .dashboard .routine-page .settings-toggle,
+html body #root .dashboard .routine-page button.settings-toggle {
+  border: 1px solid #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard .settings-page .settings-toggle span,
+html body #root .dashboard .routine-page .settings-toggle span,
+html body #root .dashboard .routine-page button.settings-toggle span {
+  background: #ffffff !important;
+}
+html body #root .dashboard .settings-page .settings-toggle.active,
+html body #root .dashboard .routine-page .settings-toggle.active,
+html body #root .dashboard .routine-page button.settings-toggle.active {
+  border-color: #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+}
+html body #root .dashboard .settings-page .settings-toggle.active span,
+html body #root .dashboard .routine-page .settings-toggle.active span,
+html body #root .dashboard .routine-page button.settings-toggle.active span {
+  background: #ffffff !important;
+}
+html body #root .dashboard .goals-page .goal-item-actions .goal-checkin-button:hover,
+html body #root .dashboard .goals-page .goal-item-actions .goal-checkin-button:focus-visible {
+  color: #ffffff !important;
+  border-color: rgba(37,99,235,.55) !important;
+  background: rgba(37,99,235,.12) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
