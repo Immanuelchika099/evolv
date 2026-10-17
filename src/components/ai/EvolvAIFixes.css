@@ -1391,3 +1391,60 @@ html:has(.dashboard.dashboard-ai-active) {
   margin: 0 !important;
   text-align: center !important;
 }
+
+
+/* Compact, swipeable visual suggestions in EVOLV AI — matching the chat's small rounded media style. */
+.ai-response-content .ai-image-carousel {
+  display: flex;
+  gap: 1rem;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  padding: .35rem .1rem .8rem;
+  margin: .8rem 0 1.1rem;
+  -webkit-overflow-scrolling: touch;
+}
+.ai-response-content .ai-image-card {
+  flex: 0 0 clamp(13.5rem, 42vw, 18rem);
+  width: clamp(13.5rem, 42vw, 18rem);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: .55rem;
+  color: inherit;
+  text-decoration: none;
+  border-radius: 1.2rem;
+  scroll-snap-align: start;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.09);
+}
+.ai-response-content .ai-image-card img {
+  display: block;
+  width: 100%;
+  height: 12rem;
+  object-fit: cover;
+  border-radius: 1.05rem;
+  background: #111;
+}
+.ai-response-content .ai-image-card span {
+  font-size: 1.2rem;
+  line-height: 1.35;
+  padding: 0 .8rem .8rem;
+  opacity: .78;
+}
+.ai-response-content a:not(.ai-image-card) {
+  color: #8ab4ff;
+  text-decoration: underline;
+  text-decoration-color: rgba(138,180,255,.45);
+  text-underline-offset: .2em;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 600px) {
+  .ai-response-content .ai-image-card {
+    flex-basis: 15.5rem;
+    width: 15.5rem;
+  }
+  .ai-response-content .ai-image-card img { height: 11rem; }
+}
