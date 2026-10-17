@@ -366,3 +366,36 @@ html body #root .evolv-bottom-nav button.bottom-active > span,
 html body #root .evolv-bottom-nav button.bottom-active > span svg,
 html body #root .evolv-bottom-nav button.bottom-active small { color:#fff !important; fill:none !important; stroke:currentColor !important; }
 html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon { border-color:rgba(255,255,255,.72) !important; }
+
+
+/* Active navigation fix: only the dock keeps its liquid-glass surface.
+   The selected item itself must not turn white or gain its own pill. */
+html body #root nav.evolv-bottom-nav button.bottom-active,
+html body #root nav.evolv-bottom-nav button.bottom-active:hover,
+html body #root nav.evolv-bottom-nav button.bottom-active:focus,
+html body #root nav.evolv-bottom-nav button.bottom-active:active {
+  color: rgba(255,255,255,.42) !important;
+  -webkit-text-fill-color: rgba(255,255,255,.42) !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  outline: none !important;
+}
+html body #root nav.evolv-bottom-nav button.bottom-active > span,
+html body #root nav.evolv-bottom-nav button.bottom-active > span svg,
+html body #root nav.evolv-bottom-nav button.bottom-active small,
+html body #root nav.evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  color: rgba(255,255,255,.42) !important;
+  -webkit-text-fill-color: rgba(255,255,255,.42) !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  border-color: rgba(255,255,255,.12) !important;
+}
+html body #root nav.evolv-bottom-nav button.bottom-active > span svg * {
+  stroke: currentColor !important;
+  fill: none !important;
+}
