@@ -8188,3 +8188,62 @@ html body #root .dashboard button.settings-toggle.active > span {
   .daily-ai-insight-panel .daily-ai-insight-observation { font-size: 1.25rem; }
   .daily-ai-insight-panel .daily-ai-insight-suggestion p { font-size: 1.2rem; }
 }
+
+
+/* Cinematic AI insight carousel polish: wider, taller, fully opaque cards. */
+.calm-insights-section .daily-ai-depth-carousel {
+  height: 43rem;
+  min-height: 43rem;
+  margin: 1.1rem 0 .1rem;
+  overflow: visible;
+}
+.daily-ai-depth-carousel .depth-carousel__stage { overflow: visible; }
+.daily-ai-depth-carousel .depth-carousel__card {
+  background: #111111 !important;
+  border-color: rgba(255,255,255,.14) !important;
+  box-shadow: 0 2.8rem 7rem rgba(0,0,0,.78), 0 1rem 2.6rem rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+.daily-ai-depth-carousel .daily-ai-insight-panel {
+  background: #111111 !important;
+  background-image: linear-gradient(155deg, #191919 0%, #121212 48%, #0e0e0e 100%) !important;
+  padding: 2.3rem;
+}
+.daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+  font-size: clamp(2.25rem, 4.5vw, 2.9rem);
+  line-height: 1.12;
+}
+.daily-ai-depth-carousel .daily-ai-insight-panel .daily-ai-insight-observation {
+  font-size: 1.4rem;
+  line-height: 1.6;
+  color: rgba(255,255,255,.76);
+}
+.daily-ai-depth-carousel .daily-ai-insight-suggestion p { font-size: 1.35rem; }
+.daily-ai-depth-carousel .depth-carousel__dots {
+  bottom: -.1rem;
+  gap: 5px;
+  padding: 2px 4px;
+  background: transparent !important;
+  border: 0 !important;
+}
+.daily-ai-depth-carousel .depth-carousel__dot {
+  width: 3px;
+  height: 3px;
+  min-width: 3px;
+  background: rgba(255,255,255,.28);
+}
+.daily-ai-depth-carousel .depth-carousel__dot.is-active {
+  width: 11px;
+  background: rgba(255,255,255,.85);
+}
+@media (max-width: 640px) {
+  .calm-insights-section .daily-ai-depth-carousel {
+    height: 42rem;
+    min-height: 42rem;
+    margin-top: .9rem;
+    margin-bottom: 0;
+  }
+  .daily-ai-depth-carousel .daily-ai-insight-panel { padding: 1.9rem; }
+  .daily-ai-depth-carousel .daily-ai-insight-panel h3 { font-size: 2.25rem; }
+  .daily-ai-depth-carousel .daily-ai-insight-panel .daily-ai-insight-observation { font-size: 1.35rem; }
+  .daily-ai-depth-carousel .daily-ai-insight-suggestion p { font-size: 1.25rem; }
+}
