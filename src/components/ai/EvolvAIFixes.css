@@ -1598,3 +1598,52 @@ html:has(.dashboard.dashboard-ai-active) {
   .ai-image-lightbox { padding:1rem; }
   .ai-image-source { align-items:flex-start; flex-direction:column; }
 }
+
+
+/* Compact image cards and centered, dismissible preview for Evolv AI. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card {
+  display: block; width: 13.2rem; height: 10.2rem; max-width: min(13.2rem, 72vw);
+  padding: 0; margin: 1rem 0 1.2rem; overflow: hidden;
+  border: 1px solid rgba(255,255,255,.12); border-radius: 1.2rem;
+  background: #101114; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card img {
+  display: block; width: 100%; height: 100%; object-fit: cover; background: #101114;
+}
+.ai-image-lightbox {
+  position: fixed; inset: 0; z-index: 2147483000;
+  display: flex; align-items: center; justify-content: center; padding: 2rem;
+  background: rgba(0,0,0,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+}
+.ai-image-lightbox-panel {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  width: min(100%, 54rem); max-height: 84dvh; overflow: visible;
+  border: 0; border-radius: 0; background: transparent; padding: 0; box-shadow: none;
+}
+.ai-image-lightbox-panel > img {
+  display: block; width: auto; height: auto; max-width: min(100%, 82vw);
+  max-height: 70dvh; object-fit: contain; border-radius: .6rem; background: #0b0c0f;
+}
+.ai-image-lightbox-close {
+  position: absolute; top: max(1.5rem, env(safe-area-inset-top, 0px));
+  right: max(1.5rem, env(safe-area-inset-right, 0px)); z-index: 2;
+  display: grid; place-items: center; width: 4rem; height: 4rem; padding: 0;
+  border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
+  background: rgba(32,32,34,.92); color: #fff; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.ai-image-lightbox-close:hover, .ai-image-lightbox-close:focus-visible {
+  background: #303034; outline: 2px solid rgba(255,255,255,.35); outline-offset: 2px;
+}
+.ai-image-source {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
+  width: 100%; max-width: 100%; padding: 1.2rem .2rem 0;
+  color: rgba(255,255,255,.82); font-size: 1.25rem; line-height: 1.4;
+}
+.ai-image-source a { flex: 0 0 auto; color: #9cc2ff; text-decoration: none; }
+@media (max-width: 600px) {
+  .ai-image-lightbox { padding: 1.2rem; }
+  .ai-image-lightbox-panel { max-height: 82dvh; }
+  .ai-image-lightbox-panel > img { max-width: 88vw; max-height: 68dvh; }
+  .ai-image-source { font-size: 1.2rem; gap: .8rem; }
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card { width: 12.6rem; height: 9.6rem; }
+}
