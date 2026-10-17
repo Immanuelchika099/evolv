@@ -8332,3 +8332,26 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel::bef
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
   text-shadow: 0 0 2.5rem rgba(95, 145, 255, .08);
 }
+
+
+/* AI insight cards: subtle color and glow, while keeping each visible card opaque. */
+html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
+  background: #080a0e !important;
+  background-color: #080a0e !important;
+  background-image: none !important;
+  border-color: rgba(130,170,255,.2) !important;
+  box-shadow: 0 2.8rem 7rem rgba(0,0,0,.72), 0 0 2.4rem rgba(44,105,220,.075), inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: #080a0e !important;
+  background-image:
+    radial-gradient(ellipse at 100% 0%, rgba(45,105,235,.20), transparent 48%),
+    radial-gradient(ellipse at 0% 100%, rgba(25,155,190,.105), transparent 42%),
+    linear-gradient(145deg, #10141d 0%, #090b10 58%, #08090c 100%) !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+  text-shadow: 0 0 2.5rem rgba(95,145,255,.08);
+}
