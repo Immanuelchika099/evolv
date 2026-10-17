@@ -316,14 +316,15 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     ;(data || []).forEach(message => {
       if (!message.chat_id) return
       const current = grouped.get(message.chat_id)
+      const isHiddenPrompt = String(message.content || '').startsWith('[[EVOLV_HIDDEN_PROMPT]]')
       if (!current) {
         grouped.set(message.chat_id, {
           chatId: message.chat_id,
           updatedAt: message.created_at,
-          preview: message.role === 'user' ? message.content : '',
+          preview: message.role === 'user' && !isHiddenPrompt ? message.content : '',
           title: titleMap.get(message.chat_id) || '',
         })
-      } else if (!current.preview && message.role === 'user') {
+      } else if (!current.preview && message.role === 'user' && !isHiddenPrompt) {
         current.preview = message.content
       }
     })
