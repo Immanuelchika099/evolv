@@ -33,18 +33,36 @@ function AssistantMessageContent({ content, typing = false }) {
     return () => window.removeEventListener('keydown', onKeyDown)
   }, [openedImage])
   const rawContent = String(content || '').replace(/\r\n?/g, '\n')
-  // Some model replies arrive as one long plain-text line despite formatting guidance.
-  // Add natural paragraph breaks to long prose only; preserve Markdown, lists, and explicit line breaks.
-  const hasExplicitLineBreaks = rawContent.includes('\n')
+  // Some model replies contain single newlines rather than real paragraph breaks.
+  // Normalize plain prose and reflow long sections into readable paragraphs, while
+  // leaving intentional Markdown headings, lists, quotes, and code untouched.
   const looksStructured = /^\s*(#{1,4}\s|[-*+]\s|\d+[.)]\s|>\s|\x60\x60\x60)/m.test(rawContent)
-  const formattedContent = !hasExplicitLineBreaks && !looksStructured && rawContent.trim().length > 360
-    ? (() => {
-        const sentences = rawContent.trim().split(/(?<=[.!?])\s+(?=[A-Z0-9“"'(])/)
-        if (sentences.length < 4) return rawContent
-        const paragraphs = []
-        for (let i = 0; i < sentences.length; i += 2) paragraphs.push(sentences.slice(i, i + 2).join(' '))
-        return paragraphs.join('\n\n')
-      })()
+  const formattedContent = !looksStructured
+    ? rawContent
+        .trim()
+        .split(/\n\s*\n/)
+        .map(section => {
+          const prose = section.replace(/\n+/g, ' ').replace(/[ \t]+/g, ' ').trim()
+          if (prose.length <= 320) return prose
+          const sentences = prose.split(/(?<=[.!?])\s+(?=[A-Z0-9“"'(])/)
+          if (sentences.length < 3) return prose
+          const paragraphs = []
+          let current = []
+          let currentLength = 0
+          for (const sentence of sentences) {
+            const nextLength = currentLength + sentence.length + (current.length ? 1 : 0)
+            if (current.length >= 2 || (current.length && nextLength > 360)) {
+              paragraphs.push(current.join(' '))
+              current = []
+              currentLength = 0
+            }
+            current.push(sentence)
+            currentLength += sentence.length + (current.length > 1 ? 1 : 0)
+          }
+          if (current.length) paragraphs.push(current.join(' '))
+          return paragraphs.join('\n\n')
+        })
+        .join('\n\n')
     : rawContent
   const lines = formattedContent.split('\n')
   const blocks = []
