@@ -1176,6 +1176,12 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
           </div>
         </div>
       </div>
+      <div className="ai-top-progressive-blur" aria-hidden="true">
+        <span className="ai-top-blur-layer ai-top-blur-layer-1" />
+        <span className="ai-top-blur-layer ai-top-blur-layer-2" />
+        <span className="ai-top-blur-layer ai-top-blur-layer-3" />
+        <span className="ai-top-blur-layer ai-top-blur-layer-4" />
+      </div>
       {findInChat && (<form className="ai-chat-find-panel" onSubmit={event => { event.preventDefault(); findMatchingMessage(); }}><input autoFocus value={chatSearch} onChange={event => setChatSearch(event.target.value)} placeholder="Find in this chat…" aria-label="Find in this chat" /><button type="submit" aria-label="Find next"><Search size={15} /></button><button type="button" aria-label="Close find in chat" onClick={() => { setFindInChat(false); setChatSearch(""); }}><X size={15} /></button></form>)}
       {uploadedFilesOpen && (
         <div className="ai-uploaded-files-overlay" role="dialog" aria-modal="true" aria-label="Uploaded files" onMouseDown={event => { if (event.target === event.currentTarget) setUploadedFilesOpen(false) }}>
