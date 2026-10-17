@@ -2057,3 +2057,19 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-messages {
   padding-top: 3.8rem;
 }
+
+
+/* Progressive fade replaces the old solid/translucent topbar material.
+   Keep controls in their own higher layer so they remain crisp and tappable. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  z-index: 100500 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  border-bottom: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-top-progressive-blur {
+  z-index: 100499;
+}
