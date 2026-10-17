@@ -6431,3 +6431,164 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
 
 /* Final Progress-page accent cleanup: black surfaces, blue accents, white active labels. */
 .dashboard .progress-page,.dashboard .progress-page *{--progress-accent:#74AAFF}.dashboard .progress-page .progress-range-switch button.active,.dashboard .progress-page .progress-range-switch button[aria-pressed="true"],.dashboard .progress-page .progress-range-switch button.is-active{background:#74AAFF!important;color:#fff!important;border-color:#74AAFF!important}.dashboard .progress-page .progress-range-switch button.active *, .dashboard .progress-page .progress-range-switch button[aria-pressed="true"] *,.dashboard .progress-page .progress-range-switch button.is-active *{color:#fff!important;fill:#fff!important;stroke:#fff!important}.dashboard .progress-page .progress-chart-bar,.dashboard .progress-page .progress-chart-fill,.dashboard .progress-page .progress-line i{background:#74AAFF!important;stroke:#74AAFF!important}.dashboard .progress-page .progress-heading,.dashboard .progress-page .progress-heading h2,.dashboard .progress-page .progress-focus-value,.dashboard .progress-page .secondary-head button{color:#74AAFF!important}
+
+
+/* Reflection polish: readable type, custom avatar moods, and consistent Evolv blue actions. */
+.reflection-sheet .section-label {
+  font-size: 1.25rem !important;
+  letter-spacing: .14em !important;
+  line-height: 1.5 !important;
+}
+.reflection-sheet .reflection-step-label {
+  font-size: 1.3rem !important;
+  letter-spacing: .04em !important;
+}
+.reflection-sheet .reflection-kicker {
+  display: inline-block;
+  font-size: 1.25rem !important;
+  letter-spacing: .14em !important;
+  line-height: 1.5 !important;
+}
+.reflection-sheet .reflection-step h2 {
+  font-size: clamp(3rem, 5vw, 4.2rem) !important;
+  line-height: 1.14 !important;
+  letter-spacing: -.035em !important;
+  margin: 1.5rem 0 1.2rem !important;
+}
+.reflection-sheet .reflection-step p {
+  font-size: 1.6rem !important;
+  line-height: 1.75 !important;
+  color: rgba(255,255,255,.68) !important;
+  margin-bottom: 2.4rem !important;
+}
+.reflection-sheet .reflection-feeling-grid {
+  gap: 1.2rem !important;
+  margin: 2.4rem 0 3rem !important;
+}
+.reflection-sheet .reflection-feeling-grid button {
+  min-height: 5.6rem;
+  padding: 1.6rem 1.8rem !important;
+  border-radius: 1.6rem !important;
+  font-size: 1.6rem !important;
+  font-weight: 600 !important;
+  line-height: 1.4 !important;
+  text-align: left;
+  background: rgba(255,255,255,.045) !important;
+  border-color: rgba(255,255,255,.11) !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease !important;
+}
+.reflection-sheet .reflection-feeling-grid button:hover {
+  background: rgba(37,99,235,.13) !important;
+  border-color: rgba(37,99,235,.5) !important;
+  transform: translateY(-1px);
+}
+.reflection-sheet .reflection-feeling-grid button.selected {
+  color: #fff !important;
+  background: rgba(37,99,235,.2) !important;
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 1px rgba(37,99,235,.2) inset;
+}
+.reflection-sheet .reflection-mood-grid button {
+  min-width: 0;
+  min-height: 10rem;
+  padding: 1.2rem .5rem !important;
+  border-radius: 1.6rem !important;
+}
+.reflection-sheet .reflection-mood-avatar {
+  display: block;
+  width: 5.2rem;
+  height: 5.8rem;
+  overflow: visible;
+}
+.reflection-sheet .reflection-mood-grid button small {
+  font-size: 1.25rem !important;
+  line-height: 1.4;
+  color: rgba(255,255,255,.72) !important;
+}
+.reflection-sheet .reflection-mood-grid button:hover {
+  background: rgba(37,99,235,.12) !important;
+  border-color: rgba(37,99,235,.42) !important;
+}
+.reflection-sheet .reflection-mood-grid button.selected {
+  background: rgba(37,99,235,.18) !important;
+  border-color: #2563eb !important;
+}
+.reflection-sheet .reflection-next,
+.reflection-sheet .reflection-next:visited {
+  min-height: 5.2rem;
+  padding: 1.35rem 2rem !important;
+  gap: .9rem !important;
+  border: 1px solid #2563eb !important;
+  border-radius: 1.6rem !important;
+  background: #2563eb !important;
+  background-image: none !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-size: 1.55rem !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  box-shadow: 0 8px 24px rgba(37,99,235,.22) !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease !important;
+}
+.reflection-sheet .reflection-next:hover:not(:disabled),
+.reflection-sheet .reflection-next:focus-visible:not(:disabled) {
+  background: #1d4ed8 !important;
+  background-image: none !important;
+  border-color: #1d4ed8 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  transform: translateY(-1px);
+  box-shadow: 0 10px 26px rgba(37,99,235,.3) !important;
+}
+.reflection-sheet .reflection-next:disabled {
+  background: #2563eb !important;
+  background-image: none !important;
+  border-color: #2563eb !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  opacity: .45;
+  box-shadow: none !important;
+}
+.reflection-sheet .reflection-next svg {
+  color: #fff !important;
+  stroke: currentColor !important;
+}
+.reflection-sheet .reflection-back {
+  padding: 1.2rem .2rem !important;
+  font-size: 1.45rem !important;
+  gap: .6rem !important;
+}
+.reflection-sheet .reflection-note {
+  font-size: 1.6rem !important;
+  line-height: 1.75 !important;
+}
+@media (max-width: 640px) {
+  .reflection-sheet .reflection-step h2 {
+    font-size: 3.2rem !important;
+  }
+  .reflection-sheet .reflection-step p {
+    font-size: 1.55rem !important;
+  }
+  .reflection-sheet .reflection-feeling-grid {
+    gap: 1rem !important;
+  }
+  .reflection-sheet .reflection-feeling-grid button {
+    min-height: 5.4rem;
+    padding: 1.4rem 1.5rem !important;
+    font-size: 1.55rem !important;
+  }
+  .reflection-sheet .reflection-mood-grid {
+    gap: .6rem !important;
+  }
+  .reflection-sheet .reflection-mood-avatar {
+    width: 4.7rem;
+    height: 5.3rem;
+  }
+  .reflection-sheet .reflection-mood-grid button small {
+    font-size: 1.15rem !important;
+  }
+  .reflection-sheet .reflection-next {
+    min-height: 5rem;
+    padding: 1.3rem 1.7rem !important;
+  }
+}
