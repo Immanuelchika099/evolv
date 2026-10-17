@@ -882,6 +882,7 @@ VISUALS AND LINKS:
 - If live research returns no useful sources, say so briefly rather than fabricating links.
 - Do not append a generic "Useful links" dump when the links can be woven into the relevant recommendations; keep the answer readable and conversational.
 - When images are included in the response payload, do not describe them as if you personally created them.
+- Never claim a picture has been attached or shown. The app adds an image card only after retrieval and visual verification succeeds.
 - Avoid adding pictures when they do not help. For UI/design resource requests, prioritize real website links over unrelated generic images.
 CONVERSATION STYLE:
 - Talk like a real person. Match the user's energy and casualness. Don't sound corporate, scripted, overly polished, or like a wellness-app template.
@@ -1084,7 +1085,7 @@ ${progressContext}${researchContext}`
               )
               replyWithImages = `${baseReply.trim()}\n\n${imageMarkers.join("\n")}`
             } else {
-              replyWithImages = `I couldn’t find a sufficiently relevant image for “${imageQuery}”, so I won’t show a random one.\\n\\n${baseReply.trim()}`.trim()
+              replyWithImages = `I couldn’t find a sufficiently relevant image for “${imageQuery}”, so I won’t show a random one.${baseReply.trim() ? `\\n\\n${baseReply.trim()}` : ""}`.trim()
             }
           }
           const sourceMarkdown = webResearch.links.length
