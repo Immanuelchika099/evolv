@@ -253,7 +253,7 @@ export default function DailyRoutinePage({ pageProps }) {
 
       <section className="routine-coach-section">
         <div className="routine-section-heading routine-coach-heading">
-          <div><span className="routine-label">CHECK IN WITH YOURSELF</span><h2>What’s on your mind?</h2><p>Choose an area of life to reflect on with EVOLV.</p></div>
+          <div><h2>What’s on your mind?</h2><p>Choose an area of life to reflect on with EVOLV.</p></div>
         </div>
         <DepthCarousel
           items={routineCoaches}
