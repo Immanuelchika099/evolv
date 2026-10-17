@@ -470,3 +470,9 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
     font-size: 1.4rem;
   }
 }
+
+
+/* Daily Routine — keep the Today progress percentage white. */
+html body #root .daily-routine-page .routine-progress-top > strong {
+  color: #fff !important;
+}
