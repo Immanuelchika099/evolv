@@ -8500,3 +8500,45 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
     font-size: 1.5rem !important;
   }
 }
+
+
+/* Final Evolv blue pass — Previous logs icon and log-card hover states. */
+.dashboard .logs-page .logs-page-icon,
+.dashboard-pages .logs-page-icon,
+.dashboard .log-choice-icon,
+.dashboard .progress-heading .manage-logs-button svg,
+.dashboard .manage-logs-button svg {
+  color: #2563eb !important;
+  stroke: #2563eb !important;
+  border-color: rgba(37, 99, 235, .28) !important;
+  background: rgba(37, 99, 235, .12) !important;
+}
+
+.dashboard .logs-page .logs-page-row,
+.dashboard .logs-page .logs-page-row:hover,
+.dashboard .logs-page .logs-page-row:focus-visible,
+.dashboard .logs-page .logs-page-row:active {
+  background: #000 !important;
+  border-color: rgba(255, 255, 255, .07) !important;
+  box-shadow: none !important;
+}
+
+.dashboard .logs-page .logs-page-row:hover,
+.dashboard .logs-page .logs-page-row:focus-visible,
+.dashboard .logs-page .logs-page-row:active {
+  background: rgba(37, 99, 235, .09) !important;
+  border-color: rgba(37, 99, 235, .38) !important;
+}
+
+.dashboard .progress-heading .manage-logs-button:hover,
+.dashboard .manage-logs-button:hover {
+  color: #fff !important;
+  border-color: rgba(37, 99, 235, .42) !important;
+  background: rgba(37, 99, 235, .09) !important;
+}
+
+.dashboard .progress-heading .manage-logs-button:hover svg,
+.dashboard .manage-logs-button:hover svg {
+  color: #2563eb !important;
+  stroke: #2563eb !important;
+}
