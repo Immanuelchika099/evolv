@@ -56,18 +56,19 @@ export default function DepthCarousel({
         distance = ((distance % count) + count) % count
         if (distance > count / 2) distance -= count
       }
+      const behind = Math.max(0, distance)
       const absoluteDistance = Math.abs(distance)
       const visible = absoluteDistance <= config.visibleCards + 0.5
       const x = config.spread * distance
-      const z = -config.depth * absoluteDistance
-      const rotateY = config.tilt * Math.sign(distance) * Math.min(1, absoluteDistance)
-      const opacity = visible ? Math.max(0.68, 1 - absoluteDistance * 0.08) : 0
-      const brightness = Math.max(0.48, 1 - absoluteDistance * config.falloff)
-      const blurAmount = Math.min(config.blur, absoluteDistance / Math.max(1, config.visibleCards) * config.blur)
+      const z = -config.depth * distance
+      const rotateY = config.tilt * clamp(distance, 0, 1)
+      const opacity = !visible ? 0 : distance < 0 ? Math.max(0, 1 + distance) : 1
+      const brightness = Math.max(0.3, 1 - behind * config.falloff)
+      const blurAmount = Math.min(config.blur, behind / Math.max(1, config.visibleCards) * config.blur)
       card.style.transform = `translate(-50%, -50%) scale(${scaleRef.current}) translateX(${x.toFixed(2)}px) translateZ(${z.toFixed(2)}px) rotateY(${rotateY.toFixed(2)}deg)`
       card.style.opacity = String(opacity)
       card.style.filter = `brightness(${brightness.toFixed(2)}) blur(${blurAmount.toFixed(2)}px)`
-      card.style.zIndex = String(1000 - Math.round(absoluteDistance * 10))
+      card.style.zIndex = String(1000 - Math.round(distance * 10))
       card.style.pointerEvents = visible && opacity > 0.05 ? 'auto' : 'none'
       card.setAttribute('aria-hidden', String(index !== active))
     }
