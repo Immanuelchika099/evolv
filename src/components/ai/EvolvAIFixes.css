@@ -2263,10 +2263,10 @@ html:has(.dashboard.dashboard-ai-active) {
   margin: 0 !important;
   padding: 1rem 1.35rem !important;
   box-sizing: border-box !important;
-  border: 1px solid #1d4ed8 !important;
+  border: 1px solid #133362 !important;
   border-radius: 1.8rem !important;
-  background: #1d4ed8 !important;
-  background-color: #1d4ed8 !important;
+  background: #133362 !important;
+  background-color: #133362 !important;
   color: #ffffff !important;
 }
 
