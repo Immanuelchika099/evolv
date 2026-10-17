@@ -688,8 +688,8 @@ Recent meals: ${JSON.stringify(progress.recentMeals || []).slice(0,8000)}`
       : "No live dashboard context is available."
 
     const latestUserText = [...safeMessages].reverse().find((message: any) => message.role === "user")?.content || ""
-    const wantsImages = /\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|examples of|what does .* look like|ideas for .* (room|outfit|meal|workout|hairstyle))\b/i.test(latestUserText)
-    const wantsWebSearch = /\b(search (the )?web|look (it )?up|find (me )?(some )?(resources|articles|courses|tutorials|websites|tools|sources)|latest|current(ly)?|recent news|compare (the )?latest|recommend|resources|tutorials?|courses?|websites?|tools?|research|how to learn|learn .* online|roadmap)\b/i.test(latestUserText)
+    const wantsImages = /\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|examples of|what does .* look like|ideas for .* (room|outfit|meal|workout|hairstyle)|meal ideas|recipes?|workouts?|fitness|exercises?|outfits?|hairstyles?|skincare|interior design|room design|desk setup|visuali[sz]e)\b/i.test(latestUserText)
+    const wantsWebSearch = /\b(search (the )?web|look (it )?up|find (me )?(some )?(resources|articles|courses|tutorials|websites|tools|sources)|latest|current(ly)?|recent news|compare (the )?latest|recommend|resources|tutorials?|courses?|websites?|tools?|apps?|research|how to learn|learn .* online|roadmap|best .* (apps|tools|websites|courses|resources|books)|which .* (apps|tools|websites))\b/i.test(latestUserText)
     const [visualResults, webResearch] = await Promise.all([
       wantsImages ? searchCommonsImages(latestUserText.replace(/\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|please|can you|could you)\b/gi, "").trim() || latestUserText) : Promise.resolve([]),
       wantsWebSearch ? searchWebWithGemini(geminiKey, latestUserText) : Promise.resolve({ summary: "", links: [] }),
@@ -888,7 +888,7 @@ ${progressContext}${researchContext}`
         if (!functionCalls.length) {
           const baseReply = extractText(result) || `I'm here, ${firstName}. What would you like to talk through?`
           const imageMarkdown = visualResults.length
-            ? `\n\n${visualResults.map((image: any) => `![${image.title.replace(/[\[\]()] /g, "").slice(0, 80)}](${image.url})`).join("\n")}\n`
+            ? `\n\n${visualResults.map((image: any) => `![${image.title.replace(/[\[\]()]/g, "").slice(0, 80)}](${image.url})`).join("\n")}\n`
             : ""
           const sourceMarkdown = webResearch.links.length
             ? `\n\n**Useful links**\n${webResearch.links.map((link: any) => `- [${String(link.title || link.url).replace(/[\[\]]/g, "").slice(0, 100)}](${link.url})`).join("\n")}`
