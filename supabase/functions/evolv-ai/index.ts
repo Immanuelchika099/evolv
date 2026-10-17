@@ -476,34 +476,93 @@ async function executeTool(
 }
 
 
+function cleanImageSearchQuery(text: string) {
+  return String(text || "")
+    .replace(/\b(?:please|can you|could you|would you|kindly)\b/gi, " ")
+    .replace(/\b(?:send|show|find|get|pull up|search for|look for)\b/gi, " ")
+    .replace(/\b(?:me|us)\b/gi, " ")
+    .replace(/\b(?:a|an|some|the)\s+(?:picture|pictures|photo|photos|image|images|photograph|photographs)\s+(?:of|for)\b/gi, " ")
+    .replace(/\b(?:picture|pictures|photo|photos|image|images|photograph|photographs)\s+(?:of|showing|for)\b/gi, " ")
+    .replace(/\b(?:picture|pictures|photo|photos|image|images|photograph|photographs)\b/gi, " ")
+    .replace(/[?!.,]+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 180)
+}
+
+function imageRelevanceScore(query: string, title: string, description: string) {
+  const stopWords = new Set(["show", "send", "find", "picture", "pictures", "photo", "photos", "image", "images", "please", "the", "for", "with", "from", "and", "that", "this", "what", "does", "look", "like"])
+  const tokens = (value: string) => value.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, " ")
+    .split(/\s+/)
+    .map((word) => word.trim())
+    .filter((word) => word.length > 2 && !stopWords.has(word))
+  const queryTokens = [...new Set(tokens(query))]
+  if (!queryTokens.length) return 0
+  const titleTokens = tokens(title)
+  const descriptionTokens = tokens(description)
+  let score = 0
+  for (const token of queryTokens) {
+    if (titleTokens.includes(token)) score += 3
+    else if (descriptionTokens.includes(token)) score += 1
+  }
+  const coverage = queryTokens.filter((token) => titleTokens.includes(token) || descriptionTokens.includes(token)).length / queryTokens.length
+  return score + coverage
+}
+
 async function searchCommonsImages(query: string) {
   try {
+    const cleanQuery = cleanImageSearchQuery(query)
+    if (!cleanQuery || cleanQuery.length < 2) return []
     const params = new URLSearchParams({
       action: "query",
       generator: "search",
-      gsrsearch: query.slice(0, 180),
+      gsrsearch: cleanQuery.slice(0, 180),
       gsrnamespace: "6",
-      gsrlimit: "5",
+      gsrlimit: "12",
       prop: "imageinfo",
-      iiprop: "url",
-      iiurlwidth: "520",
+      iiprop: "url|extmetadata",
+      iiurlwidth: "640",
       format: "json",
       origin: "*",
     })
     const response = await fetch(`https://commons.wikimedia.org/w/api.php?${params.toString()}`, {
-      headers: { "Accept": "application/json", "User-Agent": "EvolvAI/1.0 (image suggestions)" },
+      headers: { "Accept": "application/json", "User-Agent": "EvolvAI/1.0 (relevant image search)" },
     })
     if (!response.ok) return []
     const data = await response.json()
+    const queryTokens = cleanQuery.toLowerCase().split(/[^a-z0-9]+/).filter((word) => word.length > 2)
     return Object.values(data?.query?.pages || {})
       .map((page: any) => {
         const info = page?.imageinfo?.[0]
-        const url = info?.thumburl || info?.url
+        const metadata = info?.extmetadata || {}
         const title = String(page?.title || "Image").replace(/^File:/, "").replace(/\.[^.]+$/, "").replace(/_/g, " ")
-        return { title, url }
+        const description = String(metadata?.ImageDescription?.value || "")
+          .replace(/<[^>]*>/g, " ")
+          .replace(/&nbsp;|&#160;/gi, " ")
+          .replace(/&amp;/gi, "&")
+          .replace(/&quot;/gi, '"')
+          .replace(/\s+/g, " ")
+          .trim()
+          .slice(0, 700)
+        const url = info?.thumburl || info?.url
+        const sourceUrl = page?.canonicalurl || page?.fullurl || `https://commons.wikimedia.org/wiki/${encodeURIComponent(String(page?.title || "").replace(/ /g, "_"))}`
+        return {
+          title, description, url, sourceUrl,
+          license: String(metadata?.LicenseShortName?.value || "").replace(/<[^>]*>/g, "").trim(),
+          score: imageRelevanceScore(cleanQuery, title, description),
+        }
       })
-      .filter((item: any) => typeof item.url === "string" && /^https:\/\//i.test(item.url))
-      .slice(0, 5)
+      .filter((item: any) =>
+        typeof item.url === "string" &&
+        /^https:\/\//i.test(item.url) &&
+        typeof item.sourceUrl === "string" &&
+        /^https:\/\//i.test(item.sourceUrl) &&
+        item.score >= Math.max(3, queryTokens.length * 1.35)
+      )
+      .sort((a: any, b: any) => b.score - a.score)
+      .slice(0, 2)
+      .map(({ title, description, url, sourceUrl, license }: any) => ({ title, description, url, sourceUrl, license }))
   } catch (error) {
     console.error("EVOLV image search failed", error)
     return []
@@ -689,9 +748,8 @@ Recent meals: ${JSON.stringify(progress.recentMeals || []).slice(0,8000)}`
 
     const latestUserText = [...safeMessages].reverse().find((message: any) => message.role === "user")?.content || ""
     const designResourceRequest = /\b(ui|ux|web design|website design|design inspiration|inspiration sites?|portfolio inspiration|animation sites?|animate|animations|motion design|scroll animation|lottie|gsap|framer motion|behance|dribbble|awwwards|mobbin|static (?:look|design|page|website))\b/i.test(latestUserText)
-    // Image retrieval is intentionally disabled until relevance and preview UX are reliable.
-    // Image retrieval is intentionally disabled until relevance and preview UX are reliable.
-    const wantsImages = false
+    // Retrieve real images only when the user explicitly asks to see one; never generate artwork.
+    const wantsImages = /\b(?:show|send|find|get|pull up|search for|look for)\s+(?:(?:me|us)\s+)?(?:(?:a|an|some|the)\s+)?(?:picture|pictures|photo|photos|image|images|photograph|photographs)\b|\b(?:picture|pictures|photo|photos|image|images|photograph|photographs)\s+(?:of|showing)\b|\bwhat does .{2,100} look like\b/i.test(latestUserText)
     const wantsWebSearch = /\b(search (the )?web|look (it )?up|find (me )?(some )?(resources|articles|courses|tutorials|websites|tools|sources|sites)|(?:suggest|recommend|show|give|find|get) me (?:some )?(?:good )?(?:websites?|sites?|apps?|tools?|resources?|platforms?)|where can i (?:find|learn|study|read|watch|build|create|animate)|(?:websites?|sites?|apps?|tools?|platforms?|resources?) (?:for|to help|that can|where)|latest|current(ly)?|recent news|compare (the )?latest|recommend|resources|tutorials?|courses?|websites?|tools?|apps?|platforms?|research|how to learn|learn .* online|roadmap|best .* (apps|tools|websites|courses|resources|books)|which .* (apps|tools|websites))\b/i.test(latestUserText)
     const webResearch = wantsWebSearch
       ? await searchWebWithGemini(geminiKey, designResourceRequest
@@ -895,30 +953,28 @@ ${progressContext}${researchContext}`
         if (!functionCalls.length) {
           const baseReply = extractText(result) || `I'm here, ${firstName}. What would you like to talk through?`
           let replyWithImages = baseReply
+          let relevantImages: any[] = []
           if (wantsImages) {
-            const lines = baseReply.split("\n")
-            const itemLines = lines
-              .map((line: string, index: number) => ({ line, index, clean: line.replace(/^\s*(?:[-*+]|\d+[.)])\s+/, "").replace(/^#{1,4}\s+/, "").replace(/\*\*/g, "").replace(/\([^)]*\)/g, "").replace(/[:—–-].*$/, "").trim() }))
-              .filter((item: any) => /^(?:[-*+]|\d+[.)]|#{1,4})\s+/.test(item.line.trim()) && item.clean.length >= 3 && item.clean.length <= 90)
-              .slice(0, 4)
-            const imageTargets = itemLines.length
-              ? itemLines
-              : [{ index: Math.max(0, lines.length - 1), clean: latestUserText.replace(/\b(show me|find me|pictures?|photos?|images?|visuals?|inspiration|please|can you|could you)\b/gi, "").trim() || latestUserText }]
-            const imageInsertions = await Promise.all(imageTargets.map(async (target: any) => ({
-              index: target.index,
-              images: await searchCommonsImages(target.clean),
-            })))
-            for (const insertion of imageInsertions.sort((a: any, b: any) => b.index - a.index)) {
-              const markdown = insertion.images.map((image: any) => `![${image.title.replace(/[\[\]()]/g, "").slice(0, 80)}](${image.url})`)
-              if (markdown.length) lines.splice(insertion.index + 1, 0, ...markdown)
+            const imageQuery = cleanImageSearchQuery(latestUserText)
+            const candidates = await searchCommonsImages(imageQuery)
+            // Keep only results whose title/description meaningfully overlaps the user's actual subject.
+            // If there are no convincing matches, show no image rather than guessing.
+            relevantImages = candidates.slice(0, 2)
+            if (relevantImages.length) {
+              const imageMarkers = relevantImages.map((image: any) =>
+                `[[EVOLV_IMAGE|${encodeURIComponent(String(image.title || "Image").slice(0, 120))}|${image.url}|${image.sourceUrl}|${encodeURIComponent(String(image.license || "").slice(0, 80))}]]`
+              )
+              replyWithImages = `${baseReply.trim()}\n\n${imageMarkers.join("\n")}`
+            } else if (!baseReply.trim()) {
+              replyWithImages = "I couldn’t find a sufficiently relevant image for that request, so I’m not going to show you a random one."
             }
-            replyWithImages = lines.join("\n")
           }
           const sourceMarkdown = webResearch.links.length
             ? `\n\n**Useful websites and sources**\n${webResearch.links.map((link: any) => `- **[${String(link.title || link.url).replace(/[\[\]]/g, "").slice(0, 100)}](${link.url})**`).join("\n")}`
             : ""
           return json({
             reply: `${replyWithImages}${sourceMarkdown}`,
+            images: relevantImages.map((image: any) => ({ title: image.title, url: image.url, sourceUrl: image.sourceUrl, license: image.license })),
             logged: performedActions.length > 0,
             actions: performedActions.map((item:any)=>({action:item.action,log:item.log||null,meal:item.meal||null,goal:item.goal||null,memory:item.memory||null})),
           })
