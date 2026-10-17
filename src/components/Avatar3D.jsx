@@ -1,3 +1,4 @@
+import './Avatar3D.css'
 import { useEffect, useRef, useState } from 'react'
 
 const FALLBACK_MODEL_URL = 'https://readyplayerme.github.io/visage/male.glb'
