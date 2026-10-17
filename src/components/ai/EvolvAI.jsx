@@ -83,7 +83,7 @@ function AssistantMessageContent({ content, typing = false }) {
               <button type="button" className="ai-image-card" key={`image-${blocks.length}`}
                 aria-label={`Open image preview: ${image.title}`} onClick={() => setOpenedImage(image)}>
                 <img src={image.url} alt={image.title} loading="lazy"
-                  onError={event => { event.currentTarget.style.visibility = 'hidden' }} />
+                  onError={event => { const card = event.currentTarget.closest('button'); if (card) card.style.display = 'none' }} />
               </button>
             )
           }
@@ -135,7 +135,8 @@ function AssistantMessageContent({ content, typing = false }) {
       {openedImage ? (
         <div className="ai-image-lightbox" role="dialog" aria-modal="true"
           aria-label={`Image preview: ${openedImage.title}`}
-          onMouseDown={event => { if (event.target === event.currentTarget) setOpenedImage(null) }}>
+          onMouseDown={event => { if (event.target === event.currentTarget) setOpenedImage(null) }}
+          onClick={event => { if (event.target === event.currentTarget) setOpenedImage(null) }}>
           <button type="button" className="ai-image-lightbox-close" aria-label="Close image preview"
             onClick={() => setOpenedImage(null)}><X size={22} /></button>
           <div className="ai-image-lightbox-panel">
