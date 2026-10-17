@@ -8441,3 +8441,62 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
     line-height: 1.5 !important;
   }
 }
+
+
+/* Readability pass — goal and progress cards */
+.dashboard .goals-page .goal-list > .goal-item .goal-accordion-trigger,
+.dashboard .goals-page .goal-list > .goal-item .goal-accordion-trigger strong {
+  font-size: 1.65rem !important;
+  line-height: 1.4 !important;
+}
+.dashboard .goals-page .goal-list > .goal-item .goal-item-top p {
+  font-size: 1.5rem !important;
+  line-height: 1.6 !important;
+}
+.dashboard .goals-page .goal-list > .goal-item .goal-due-copy,
+.dashboard .goals-page .goal-list > .goal-item .goal-item-top small {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+}
+.dashboard .goals-page .goal-list > .goal-item .goal-item-actions button,
+.dashboard .goals-page .goal-list > .goal-item .goal-item-actions select,
+.dashboard .goals-page .goal-list > .goal-item .goal-checkin-button {
+  font-size: 1.4rem !important;
+  line-height: 1.4 !important;
+}
+.dashboard .progress-page .progress-section-head h3 {
+  font-size: 2.5rem !important;
+  line-height: 1.25 !important;
+}
+.dashboard .progress-page .progress-goal-row-top strong {
+  font-size: 1.6rem !important;
+  line-height: 1.4 !important;
+}
+.dashboard .progress-page .progress-goal-row-top span {
+  font-size: 1.25rem !important;
+  line-height: 1.5 !important;
+}
+.dashboard .progress-page .progress-goal-row-top b {
+  font-size: 1.9rem !important;
+  line-height: 1.25 !important;
+}
+.dashboard .progress-page .progress-section-head button,
+.dashboard .progress-page .progress-goal-row button {
+  font-size: 1.4rem !important;
+  line-height: 1.4 !important;
+}
+@media (max-width: 640px) {
+  .dashboard .goals-page .goal-list > .goal-item .goal-accordion-trigger,
+  .dashboard .goals-page .goal-list > .goal-item .goal-accordion-trigger strong {
+    font-size: 1.55rem !important;
+  }
+  .dashboard .goals-page .goal-list > .goal-item .goal-item-top p {
+    font-size: 1.4rem !important;
+  }
+  .dashboard .progress-page .progress-section-head h3 {
+    font-size: 2.3rem !important;
+  }
+  .dashboard .progress-page .progress-goal-row-top strong {
+    font-size: 1.5rem !important;
+  }
+}
