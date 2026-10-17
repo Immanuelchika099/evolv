@@ -476,3 +476,35 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
 html body #root .daily-routine-page .routine-progress-top > strong {
   color: #fff !important;
 }
+
+
+/* Notification status card — match the other routine cards and improve readability. */
+html body #root .daily-routine-page .routine-reminder-note {
+  background: #0b0c0f !important;
+  border-color: rgba(255,255,255,.11) !important;
+}
+html body #root .daily-routine-page .routine-reminder-note strong {
+  font-size: 1.6rem !important;
+  line-height: 1.4 !important;
+  color: #f5f5f6 !important;
+}
+html body #root .daily-routine-page .routine-reminder-note p {
+  font-size: 1.5rem !important;
+  line-height: 1.65 !important;
+  color: #b2b4bd !important;
+}
+html body #root .daily-routine-page .routine-reminder-note > button {
+  font-size: 1.45rem !important;
+  line-height: 1.4 !important;
+}
+@media (max-width: 640px) {
+  html body #root .daily-routine-page .routine-reminder-note strong {
+    font-size: 1.55rem !important;
+  }
+  html body #root .daily-routine-page .routine-reminder-note p {
+    font-size: 1.45rem !important;
+  }
+  html body #root .daily-routine-page .routine-reminder-note > button {
+    font-size: 1.4rem !important;
+  }
+}
