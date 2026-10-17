@@ -255,3 +255,6 @@
   transform: none;
   box-shadow: none;
 }
+
+.footer-links .footer-legal-link{display:block;width:fit-content;margin:0;padding:0;border:0;background:transparent;color:inherit;font:inherit;text-align:left;cursor:pointer}
+.footer-links .footer-legal-link:hover{color:#fff}
