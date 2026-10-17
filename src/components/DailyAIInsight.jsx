@@ -260,16 +260,16 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       {insights.length > 1 ? (
         <DepthCarousel
           items={insights}
-          cardWidth={330}
-          cardHeight={340}
+          cardWidth={360}
+          cardHeight={390}
           radius={20}
-          depth={118}
-          spread={22}
+          depth={58}
+          spread={280}
           tilt={6}
           perspective={1300}
-          visibleCards={2}
-          falloff={0.2}
-          blur={1.2}
+          visibleCards={1.5}
+          falloff={0.12}
+          blur={0.25}
           duration={850}
           autoplay={!loading}
           autoplayDelay={10000}
