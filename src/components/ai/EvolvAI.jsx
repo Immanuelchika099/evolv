@@ -178,15 +178,6 @@ function EvolvCalendarBridge({ event, onCancel, onAdded }) {
 }
 
 function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentum = 0, logs = [], meals = [], definitions = [] }) {
-  useEffect(() => {
-    const pending = localStorage.getItem('evolv-ai-pending-prompt')
-    if (!pending) return
-    localStorage.removeItem('evolv-ai-pending-prompt')
-    window.setTimeout(() => {
-      window.dispatchEvent(new CustomEvent('evolv:edit-prompt', { detail: { text: pending } }))
-    }, 80)
-  }, [])
-
   // Match the app canvas to the *visible* viewport. On phones, the visual viewport
   // shrinks when the keyboard opens. Keep one source of truth for that height and
   // position the composer inside this canvas instead of adding a second keyboard offset.
@@ -934,10 +925,18 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
 
   useEffect(() => {
     if (!messagesLoaded || autoPromptStartedRef.current) return
-    const pending = localStorage.getItem('evolv-ai-auto-prompt')
+
+    // Routine actions should guide Evolv silently, not paste internal instructions
+    // into the user's composer. The assistant's natural reply is what the user sees.
+    const pendingAutoPrompt = localStorage.getItem('evolv-ai-auto-prompt')
+    const pendingRoutinePrompt = localStorage.getItem('evolv-ai-pending-prompt')
+    const pending = pendingAutoPrompt || pendingRoutinePrompt
     if (!pending) return
-    localStorage.removeItem('evolv-ai-auto-prompt')
+
+    if (pendingAutoPrompt) localStorage.removeItem('evolv-ai-auto-prompt')
+    if (pendingRoutinePrompt) localStorage.removeItem('evolv-ai-pending-prompt')
     autoPromptStartedRef.current = true
+
     const timer = window.setTimeout(() => {
       void sendMessage(pending, { hiddenPrompt: true })
     }, 180)
