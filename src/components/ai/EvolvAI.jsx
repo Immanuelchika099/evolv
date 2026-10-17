@@ -5,7 +5,12 @@ function renderInlineMarkdown(text, keyPrefix = 'inline') {
   return parts.map((part, index) => {
     if (!part) return null
     const key = `${keyPrefix}-${index}`
-    if (part.startsWith('**') && part.endsWith('**')) return <strong key={key}>{part.slice(2, -2)}</strong>
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const inner = part.slice(2, -2)
+      const boldLink = inner.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/)
+      if (boldLink) return <strong key={key}><a href={boldLink[2]} target="_blank" rel="noreferrer noopener">{boldLink[1]}</a></strong>
+      return <strong key={key}>{inner}</strong>
+    }
     if (part.startsWith('*') && part.endsWith('*')) return <em key={key}>{part.slice(1, -1)}</em>
     if (part.startsWith('`') && part.endsWith('`')) return <code key={key}>{part.slice(1, -1)}</code>
     const link = part.match(/^\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)$/)
