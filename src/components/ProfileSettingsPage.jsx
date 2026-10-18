@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, LogOut } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
@@ -152,7 +152,9 @@ export default function ProfileSettingsPage({pageProps}){
         <div className="profile-summary-focus"><span className="section-label">GROWTH AREAS</span><strong>{(profile?.growth_areas||data?.areas||[]).length||0} selected</strong></div>
       </aside>
       <div className="profile-settings-column">
-        <section className="profile-stat-grid" aria-label="Your EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
+        <ProfileSettingsSection label="YOUR JOURNEY" title="Streak & stats" icon={Activity}>
+          <section className="profile-stat-grid" aria-label="Your EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
+        </ProfileSettingsSection>
         <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
           <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
           <div className="profile-setting-row"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
