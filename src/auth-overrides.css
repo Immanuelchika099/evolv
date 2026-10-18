@@ -1235,6 +1235,7 @@ html body #root .auth-page p.auth-legal {
   padding: 0 !important;
   line-height: normal !important;
   text-align: center !important;
+  white-space: nowrap !important;
 }
 
 html body #root .auth-page p.auth-legal button {
