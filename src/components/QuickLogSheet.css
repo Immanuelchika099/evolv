@@ -326,3 +326,155 @@
 @media (max-width: 390px) {
   .quick-log-overlay-page .quick-log-content { padding-left: 1.4rem; padding-right: 1.4rem; }
 }
+
+
+/* Workout tracker: treat it as a destination page, not a stack of floating cards. */
+.quick-log-overlay-page {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  display: flex !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #050608 !important;
+}
+.quick-log-overlay-page .quick-log-sheet {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #050608 !important;
+}
+.quick-log-overlay-page .quick-log-header {
+  min-height: 7.2rem;
+  align-items: center !important;
+  padding: calc(1rem + env(safe-area-inset-top, 0px)) 2rem 1.2rem !important;
+  border-bottom: 1px solid rgba(255,255,255,.075) !important;
+  background: #050608 !important;
+}
+.quick-log-overlay-page .quick-log-content {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  min-height: 0 !important;
+  padding: 1.8rem 2rem calc(2rem + env(safe-area-inset-bottom, 0px)) !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  background: transparent !important;
+}
+.quick-log-overlay-page .quick-log-history {
+  gap: 0 !important;
+}
+.quick-log-overlay-page .quick-log-history-row {
+  grid-template-columns: 4.2rem minmax(0,1fr) 2rem !important;
+  min-height: 7.4rem !important;
+  padding: 1.2rem .2rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.quick-log-overlay-page .quick-log-history-icon {
+  width: 3.8rem !important;
+  height: 3.8rem !important;
+  border-radius: 1.2rem !important;
+}
+.quick-log-overlay-page .quick-log-empty {
+  align-items: center !important;
+  padding: 5rem 1rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.quick-log-overlay-page .quick-log-editor {
+  padding-bottom: 0 !important;
+}
+.quick-log-overlay-page .quick-log-workout-fields {
+  gap: 1.4rem;
+}
+.quick-log-overlay-page .quick-log-field > span {
+  color: rgba(255,255,255,.72) !important;
+  font-size: 1.35rem !important;
+}
+.quick-log-overlay-page .quick-log-exercises-heading {
+  margin: 2.4rem 0 .8rem !important;
+}
+.quick-log-overlay-page .quick-log-exercises-heading > span {
+  display: none !important;
+}
+.quick-log-overlay-page .quick-log-exercises {
+  gap: 0 !important;
+}
+.quick-log-overlay-page .quick-log-exercise {
+  padding: 1.6rem 0 1.8rem !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.quick-log-overlay-page .quick-log-exercise-heading {
+  grid-template-columns: 2.4rem minmax(0,1fr) 3.6rem !important;
+  margin-bottom: 1.4rem !important;
+}
+.quick-log-overlay-page .quick-log-exercise-name input {
+  min-height: 4.8rem !important;
+  padding-inline: 1.2rem !important;
+  border-color: rgba(255,255,255,.12) !important;
+  border-radius: 1.1rem !important;
+  background: #111318 !important;
+  font-size: 1.55rem !important;
+}
+.quick-log-overlay-page .quick-log-set-head {
+  font-size: 1.2rem !important;
+  letter-spacing: .01em;
+}
+.quick-log-overlay-page .quick-log-set-list {
+  gap: .7rem !important;
+}
+.quick-log-overlay-page .quick-log-set-row {
+  grid-template-columns: 2.6rem minmax(0,1fr) minmax(0,1fr) 3.4rem !important;
+  gap: .6rem !important;
+  min-height: 5rem;
+  padding: .45rem !important;
+  border: 0 !important;
+  border-radius: 1rem !important;
+  background: #101115 !important;
+}
+.quick-log-overlay-page .quick-log-set-row.is-complete {
+  background: rgba(37,99,235,.12) !important;
+}
+.quick-log-overlay-page .quick-log-number-field input {
+  min-height: 4.4rem !important;
+  border: 1px solid rgba(255,255,255,.055) !important;
+  border-radius: .8rem !important;
+  background: #181a20 !important;
+  font-size: 1.5rem !important;
+}
+.quick-log-overlay-page .quick-log-editor-footer {
+  margin-inline: -2rem !important;
+  padding: 1.2rem 2rem calc(1.2rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: rgba(5,6,8,.98) !important;
+}
+.quick-log-overlay-page .quick-log-notes-field {
+  margin: 2rem 0 1.4rem !important;
+}
+@media (max-width: 390px) {
+  .quick-log-overlay-page .quick-log-header { padding-inline: 1.5rem !important; }
+  .quick-log-overlay-page .quick-log-content { padding-inline: 1.5rem !important; }
+  .quick-log-overlay-page .quick-log-editor-footer { margin-inline: -1.5rem !important; padding-inline: 1.5rem !important; }
+  .quick-log-overlay-page .quick-log-field-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important; }
+}
