@@ -204,3 +204,8 @@ $$;
 
 revoke all on function public.save_workout_log(uuid, text, date, text, jsonb) from public, anon;
 grant execute on function public.save_workout_log(uuid, text, date, text, jsonb) to authenticated;
+
+-- Explicit API grants: table creation does not guarantee Data API exposure.
+revoke all on table public.workout_logs, public.workout_exercises, public.workout_sets from anon;
+grant select, insert, update, delete on table public.workout_logs, public.workout_exercises, public.workout_sets to authenticated;
+grant usage on schema public to authenticated;
