@@ -77,6 +77,35 @@ export default function MoneyPage({ defs = [], logs = [] }) {
 
   useEffect(() => setLocalEntries(logs), [logs])
 
+  useEffect(() => {
+    if (!formOpen) return
+    const body = document.body
+    const scrollY = window.scrollY
+    const previous = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    }
+    body.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.left = '0'
+    body.style.right = '0'
+    body.style.width = '100%'
+    return () => {
+      body.style.overflow = previous.overflow
+      body.style.position = previous.position
+      body.style.top = previous.top
+      body.style.left = previous.left
+      body.style.right = previous.right
+      body.style.width = previous.width
+      window.scrollTo(0, scrollY)
+    }
+  }, [formOpen])
+
   const financeDefs = useMemo(() => defs.filter(def => ['income', 'spending', 'savings', 'bills'].includes(def.slug)), [defs])
   const financeIds = useMemo(() => new Set(financeDefs.map(def => String(def.id))), [financeDefs])
   const metricById = useMemo(() => Object.fromEntries(defs.map(def => [String(def.id), def])), [defs])
@@ -223,7 +252,6 @@ export default function MoneyPage({ defs = [], logs = [] }) {
     <section className="money-page">
       <header className="money-heading">
         <div><h1>Money</h1></div>
-        <button type="button" className="money-top-add" onClick={openNew} aria-label="Add transaction"><Plus size={19}/></button>
       </header>
 
       <section className="money-summary" aria-label="Money overview">
