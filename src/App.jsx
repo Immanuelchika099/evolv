@@ -2585,7 +2585,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
-    {!isBooting&&active!=='ai'&&!reflectionOpen&&createPortal(<button type="button" className="evolv-floating-log evolv-floating-log-intro" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
+    {!isBooting&&active!=='ai'&&!reflectionOpen&&!quickLogOpen&&!logOpen&&createPortal(<button type="button" className="evolv-floating-log evolv-floating-log-intro" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
     {quickLogOpen&&createPortal(<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />, document.body)}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
@@ -3214,7 +3214,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   return (
     <div
-      className="log-overlay"
+      className="log-overlay log-page-mode"
       role="dialog"
       aria-modal="true"
       aria-labelledby="log-sheet-title"
@@ -3440,7 +3440,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
               <small>{editing?'Changes update this existing entry.':'Saved to your Evolv history.'}</small>
             </div>
             <button className="button button-primary log-save" type="button" onClick={save} disabled={saving}>
-              {saving?'Saving…':editing?'Save changes':metric.value_type==='meal'?'Save meal':'Save log'}
+              {saving?'Saving…':editing?'Save changes':'Save '+metric.name}
               <Check size={15}/>
             </button>
           </footer>
