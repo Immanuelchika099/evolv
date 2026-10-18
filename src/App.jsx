@@ -1642,14 +1642,16 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [editingEntry,setEditingEntry]=useState(null)
   const [manageLogsOpen,setManageLogsOpen]=useState(false)
   const dashboardMainRef=useRef(null)
-  const goTo=(requestedPage)=>{
+  const goTo=(requestedPage, requestedArea=null)=>{
     let page=requestedPage
     if(page==='logs' || page==='log-detail'){
       localStorage.setItem('evolv-ai-pending-prompt', 'Help me review my recent progress conversationally. Ask what I want to understand or update, use the context you already have, and help me make a useful next step. Do not open a generic log list or form.')
       page='ai'
     }
     setActive(page)
-    setArea(null)
+    // Area detail screens are rendered by DashboardPages under the shared
+    // "area" route; keep the selected area when navigating into that page.
+    setArea(page==='area' && ['health','nutrition','career','mind','life'].includes(requestedArea) ? requestedArea : null)
     setMetric(null)
 
     // Use a real URL fragment for dashboard navigation. Android's PWA
@@ -1836,7 +1838,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     if(['health','nutrition','career','mind','life'].includes(choice)){
       // Open the real area page directly. Its trackers are presented as simple
       // options, rather than opening another nested set of logging cards.
-      goTo(choice)
+      goTo('area',choice)
       return
     }
     const selected=choice==='meal'
