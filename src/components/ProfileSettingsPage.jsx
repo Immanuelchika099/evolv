@@ -145,7 +145,7 @@ export default function ProfileSettingsPage({pageProps}){
             <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleAvatar} aria-label="Upload profile photo"/>
             <div className="profile-photo-actions"><button type="button" onClick={()=>document.getElementById('profile-avatar-input')?.click()} disabled={avatarBusy}><Upload size={14}/>{avatarBusy?'Uploading…':'Edit photo'}</button>{localAvatar&&<button type="button" onClick={removeAvatar} disabled={avatarBusy}>Remove</button>}</div>
           </div>
-          <div className="profile-summary-copy"><span className="section-label">EVOLV MEMBER</span><h3>{profileName||'Your name'}.</h3><p>{draft.bio||'Build a life you can recognise as your own.'}</p><small>{user?.email||profile?.email||'Account email'}</small></div>
+          <div className="profile-summary-copy"><h3>{profileName||'Your name'}.</h3><p>{draft.bio||'Build a life you can recognise as your own.'}</p><small>{user?.email||profile?.email||'Account email'}</small></div>
         </div>
         <button type="button" className="profile-edit-button" onClick={beginEdit}><Pencil size={15}/> Edit profile</button>
         <div className="profile-summary-focus"><span className="section-label">FOCUS</span><strong>{profile?.focus||data?.focus||'Choose your direction'}</strong></div>
