@@ -3810,3 +3810,97 @@
 .dashboard .log-overlay.log-page-mode .log-metric-card .log-card-count small {
   display: none !important;
 }
+
+
+/* Cinematic logging surfaces: restrained blue light, crisp type, and strict containment. */
+.dashboard .log-overlay.log-page-mode {
+  isolation: isolate;
+  overflow: hidden !important;
+  background:
+    radial-gradient(ellipse at 92% 0%, rgba(54, 104, 190, .13), transparent 34rem),
+    radial-gradient(ellipse at 0% 48%, rgba(35, 67, 120, .07), transparent 28rem),
+    #050608 !important;
+  color: #f5f7fb;
+}
+.dashboard .log-overlay.log-page-mode .log-page-header,
+.dashboard .log-overlay.log-page-mode .log-header {
+  background: linear-gradient(180deg, rgba(5,6,8,.98), rgba(5,6,8,.82)) !important;
+  border-bottom: 1px solid rgba(255,255,255,.065);
+}
+.dashboard .log-overlay.log-page-mode .log-page-content,
+.dashboard .log-overlay.log-page-mode .log-content,
+.dashboard .log-overlay.log-page-mode .log-page-body {
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.dashboard .log-overlay.log-page-mode *,
+.dashboard .quick-log-overlay * {
+  box-sizing: border-box;
+}
+.dashboard .log-overlay.log-page-mode .log-metric-card,
+.dashboard .log-overlay.log-page-mode .log-choice-card,
+.dashboard .log-overlay.log-page-mode .log-card,
+.dashboard .log-overlay.log-page-mode .log-form-card {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  border-color: rgba(255,255,255,.09) !important;
+  box-shadow: 0 1.6rem 4rem rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.025);
+}
+.dashboard .log-overlay.log-page-mode .log-metric-card {
+  background: linear-gradient(145deg, rgba(22,25,31,.96), rgba(12,13,16,.98)) !important;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.dashboard .log-overlay.log-page-mode .log-metric-card:active {
+  transform: scale(.985);
+  border-color: rgba(115,165,255,.38) !important;
+}
+.dashboard .log-overlay.log-page-mode h1,
+.dashboard .log-overlay.log-page-mode h2,
+.dashboard .log-overlay.log-page-mode h3 {
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+.dashboard .log-overlay.log-page-mode h1 { font-size: clamp(2.5rem, 6vw, 3.3rem) !important; line-height: 1.12 !important; }
+.dashboard .log-overlay.log-page-mode h2 { font-size: clamp(1.9rem, 4.5vw, 2.3rem) !important; line-height: 1.2 !important; }
+.dashboard .log-overlay.log-page-mode p,
+.dashboard .log-overlay.log-page-mode .log-description,
+.dashboard .log-overlay.log-page-mode .log-helper-text {
+  max-width: 42rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.dashboard .log-overlay.log-page-mode input,
+.dashboard .log-overlay.log-page-mode select,
+.dashboard .log-overlay.log-page-mode textarea {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  border-color: rgba(255,255,255,.13);
+}
+.dashboard .log-overlay.log-page-mode button,
+.dashboard .log-overlay.log-page-mode input,
+.dashboard .log-overlay.log-page-mode select,
+.dashboard .log-overlay.log-page-mode textarea {
+  font-size: max(1.4rem, 14px);
+}
+.dashboard .log-overlay.log-page-mode .log-page-footer,
+.dashboard .log-overlay.log-page-mode .log-save-footer {
+  background: linear-gradient(180deg, rgba(5,6,8,.78), rgba(5,6,8,.98)) !important;
+  border-top: 1px solid rgba(255,255,255,.08);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+.dashboard .log-overlay.log-page-mode .log-save-button,
+.dashboard .log-overlay.log-page-mode .log-submit-button {
+  min-height: 4.8rem;
+  border-radius: 1.45rem;
+  box-shadow: 0 .8rem 2.4rem rgba(51,113,220,.18);
+}
+@media (max-width: 390px) {
+  .dashboard .log-overlay.log-page-mode .log-metric-card,
+  .dashboard .log-overlay.log-page-mode .log-choice-card,
+  .dashboard .log-overlay.log-page-mode .log-card,
+  .dashboard .log-overlay.log-page-mode .log-form-card {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+  }
+}
