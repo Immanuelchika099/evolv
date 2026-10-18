@@ -65,7 +65,19 @@ function HomePage({ pageProps }) {
   const recentActivity = [
     ...todayLogs.map((log, index) => {
       const def = defs.find(item => String(item.id) === String(log.metric_id))
-      return def ? { key: `log-${log.id || index}`, title: def.name, detail: valueText(log, def), icon: icons[def.slug] || Activity, onClick: () => openLog(metricArea[def.slug], def) } : null
+      if(!def)return null
+      const workoutRows=Array.isArray(log.metadata?.exerciseRows)?log.metadata.exerciseRows:[]
+      const workoutDetail=workoutRows.slice(0,2).map(row=>{
+        const sets=Array.isArray(row.setsDetail)?row.setsDetail.length:(Number(row.sets)||0)
+        return (row.exercise||'Exercise')+' · '+sets+' '+(sets===1?'set':'sets')
+      }).join(' · ')
+      return {
+        key:'log-'+(log.id||index),
+        title:def.slug==='exercise'?(log.metadata?.workoutName||'Workout'):def.name,
+        detail:def.slug==='exercise'?(workoutDetail||log.note||valueText(log,def)):valueText(log,def),
+        icon:icons[def.slug]||Activity,
+        onClick:()=>openLog(metricArea[def.slug],def)
+      }
     }).filter(Boolean),
     ...todayMeals.map((meal, index) => ({
       key: `meal-${meal.id || index}`,
