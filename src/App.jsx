@@ -1645,7 +1645,9 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const goTo=(requestedPage, requestedArea=null)=>{
     let page=requestedPage
     if(page==='logs' || page==='log-detail'){
+      localStorage.setItem('evolv-ai-start-new-chat','true')
       localStorage.setItem('evolv-ai-pending-prompt', 'Help me review my recent progress conversationally. Ask what I want to understand or update, use the context you already have, and help me make a useful next step. Do not open a generic log list or form.')
+      window.dispatchEvent(new CustomEvent('evolv:start-new-chat'))
       page='ai'
     }
     setActive(page)
@@ -1867,6 +1869,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     // Every Ask AI logging handoff starts a separate conversation.
     // Existing conversations remain available in AI chat history.
     localStorage.setItem('evolv-ai-start-new-chat','true')
+    window.dispatchEvent(new CustomEvent('evolv:start-new-chat'))
     if(prompt) localStorage.setItem('evolv-ai-pending-prompt',prompt)
     setQuickLogOpen(false)
     setQuickLogInitialScreen('menu')
