@@ -2586,7 +2586,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
     {!isBooting&&active!=='ai'&&!reflectionOpen&&createPortal(<button type="button" className="evolv-floating-log evolv-floating-log-intro" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
-    {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />}
+    {quickLogOpen&&createPortal(<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />, document.body)}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
     
