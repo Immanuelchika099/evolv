@@ -359,32 +359,33 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
                         <div className="quick-log-options">
-              {loggingOptions.filter(option => option.id !== 'more').map(option => {
+              {loggingOptions.map(option => {
+                if (option.id === 'more') {
+                  if (showMoreOptions) {
+                    return [
+                      { id: 'health', title: 'Health', icon: HeartPulse },
+                      { id: 'nutrition', title: 'Nutrition', icon: Apple },
+                      { id: 'career', title: 'Career', icon: BriefcaseBusiness },
+                      { id: 'mind', title: 'Mind', icon: Brain },
+                      { id: 'life', title: 'Life', icon: Sprout },
+                    ].map(extra => {
+                      const Icon = extra.icon
+                      return <button type="button" className={"quick-log-option quick-log-option-" + extra.id} key={extra.id} onClick={() => onLogManual?.(extra.id)}>
+                        <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                        <span className="quick-log-option-copy"><strong>{extra.title}</strong></span>
+                        <ChevronRight size={18} className="quick-log-chevron" />
+                      </button>
+                    })
+                  }
+                  const Icon = option.icon
+                  return <button type="button" className="quick-log-option quick-log-option-more" key={option.id} onClick={() => openCategory(option)}>
+                    <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                    <span className="quick-log-option-copy"><strong>More</strong></span>
+                    <ChevronRight size={18} className="quick-log-chevron" />
+                  </button>
+                }
                 const Icon = option.icon
                 return <button type="button" className={"quick-log-option quick-log-option-" + option.id} key={option.id} onClick={() => openCategory(option)}>
-                  <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
-                  <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
-                  <ChevronRight size={18} className="quick-log-chevron" />
-                </button>
-              })}
-              {!showMoreOptions && (() => {
-                const option = loggingOptions.find(item => item.id === 'more')
-                const Icon = option.icon
-                return <button type="button" className="quick-log-option quick-log-option-more" key="more" onClick={() => openCategory(option)}>
-                  <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
-                  <span className="quick-log-option-copy"><strong>More</strong></span>
-                  <ChevronRight size={18} className="quick-log-chevron" />
-                </button>
-              })()}
-              {showMoreOptions && [
-                { id: 'health', title: 'Health', icon: HeartPulse },
-                { id: 'nutrition', title: 'Nutrition', icon: Apple },
-                { id: 'career', title: 'Career', icon: BriefcaseBusiness },
-                { id: 'mind', title: 'Mind', icon: Brain },
-                { id: 'life', title: 'Life', icon: Sprout },
-              ].map(option => {
-                const Icon = option.icon
-                return <button type="button" className={"quick-log-option quick-log-option-" + option.id} key={option.id} onClick={() => onLogManual?.(option.id)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
                   <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
                   <ChevronRight size={18} className="quick-log-chevron" />
