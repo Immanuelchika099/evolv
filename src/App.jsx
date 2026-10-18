@@ -854,7 +854,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
             {mode === 'signup' ? 'Log in' : 'Create account'}
           </button>
         </div>
-        <p className="auth-legal">By continuing, you agree to EVOLV&apos;s <button type="button" onClick={() => onLegal?.('terms')}>Terms of Service</button> and <button type="button" onClick={() => onLegal?.('privacy')}>Privacy Policy</button>.</p>
+        <p className="auth-legal"><button type="button" onClick={() => onLegal?.('terms')}>Terms of Service</button><span aria-hidden="true"> · </span><button type="button" onClick={() => onLegal?.('privacy')}>Privacy Policy</button></p>
       </main>
     </div>
   )
