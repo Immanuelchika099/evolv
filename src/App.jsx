@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LegalPage from './components/LegalPage'
 import BottomNav from './components/BottomNav'
+import QuickLogSheet from './components/QuickLogSheet'
 import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
@@ -1584,6 +1585,17 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
 function Dashboard({ data, onLogout, onArticle }) {
   const [active,setActive]=useState('overview')
   const [logOpen,setLogOpen]=useState(false)
+  const [quickLogOpen,setQuickLogOpen]=useState(false)
+  const [quickLogInitialScreen,setQuickLogInitialScreen]=useState('menu')
+
+  useEffect(()=>{
+    const openWorkoutTracker=()=>{
+      setQuickLogInitialScreen('workouts')
+      setQuickLogOpen(true)
+    }
+    window.addEventListener('evolv-open-workout-tracker',openWorkoutTracker)
+    return()=>window.removeEventListener('evolv-open-workout-tracker',openWorkoutTracker)
+  },[])
   const [area,setArea]=useState(null)
   const [metric,setMetric]=useState(null)
   const [defs,setDefs]=useState([])
@@ -1810,6 +1822,16 @@ function Dashboard({ data, onLogout, onArticle }) {
     setSelectedEntry(null)
     goTo('ai')
     setError('')
+  }
+  function openQuickLogAI(prompt){
+    if(prompt) localStorage.setItem('evolv-ai-pending-prompt',prompt)
+    setQuickLogOpen(false)
+    setQuickLogInitialScreen('menu')
+    setLogOpen(false)
+    setEditingEntry(null)
+    setSelectedEntry(null)
+    setError('')
+    goTo('ai')
   }
   function openEntry(item){
     const entry=item.entry
@@ -2524,6 +2546,8 @@ function Dashboard({ data, onLogout, onArticle }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&!reflectionOpen&&<button type="button" className="evolv-floating-log" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={19} strokeWidth={2.2}/><span>Log</span></button>}
+    {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} />}
     <PWAInstallPrompt />
     
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
