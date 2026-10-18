@@ -4,14 +4,16 @@ import { supabase } from '../lib/supabase'
 import DepthCarousel from './DepthCarousel'
 import './DailyRoutinePage.css'
 
+const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+
 const defaults = [
-  { id: 'wake', label: 'Wake up', time: '06:30', group: 'Morning', enabled: true, icon: 'sunrise' },
-  { id: 'water', label: 'Drink water', time: '07:00', group: 'Morning', enabled: true, icon: 'water' },
-  { id: 'breakfast', label: 'Breakfast', time: '08:00', group: 'Meals', enabled: true, icon: 'meal' },
-  { id: 'lunch', label: 'Lunch', time: '13:00', group: 'Meals', enabled: true, icon: 'meal' },
-  { id: 'dinner', label: 'Dinner', time: '19:00', group: 'Meals', enabled: true, icon: 'meal' },
-  { id: 'winddown', label: 'Wind down', time: '21:30', group: 'Evening', enabled: true, icon: 'moon' },
-  { id: 'bedtime', label: 'Bedtime', time: '22:30', group: 'Evening', enabled: true, icon: 'moon' },
+  { id: 'wake', label: 'Wake up', time: '06:30', group: 'Morning', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'sunrise' },
+  { id: 'water', label: 'Drink water', time: '07:00', group: 'Morning', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'water' },
+  { id: 'breakfast', label: 'Breakfast', time: '08:00', group: 'Meals', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'meal' },
+  { id: 'lunch', label: 'Lunch', time: '13:00', group: 'Meals', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'meal' },
+  { id: 'dinner', label: 'Dinner', time: '19:00', group: 'Meals', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'meal' },
+  { id: 'winddown', label: 'Wind down', time: '21:30', group: 'Evening', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'moon' },
+  { id: 'bedtime', label: 'Bedtime', time: '22:30', group: 'Evening', enabled: true, days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'], icon: 'moon' },
 ]
 
 const iconMap = { sunrise: Sunrise, water: Droplets, meal: Utensils, moon: Moon }
@@ -156,7 +158,7 @@ export default function DailyRoutinePage({ pageProps }) {
       const stored = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}')
       const savedLeadMinutes = Math.min(720, Math.max(0, Number(stored.routineReminderLeadMinutes ?? leadMinutes ?? 10)))
       const routineReminders = enabled ? nextItems.filter(item => item.enabled).map(item => ({
-        id: item.id, label: item.label, time: item.time, enabled: true, leadMinutes: savedLeadMinutes
+        id: item.id, label: item.label, time: item.time, enabled: true, days: Array.isArray(item.days) ? item.days : WEEKDAYS, leadMinutes: savedLeadMinutes
       })) : []
       const preferences = { ...stored, routineReminderLeadMinutes: savedLeadMinutes, routineReminders }
       localStorage.setItem('evolv-notification-times', JSON.stringify(preferences))
@@ -309,7 +311,7 @@ export default function DailyRoutinePage({ pageProps }) {
                 return <article className={'routine-row' + (!item.enabled ? ' routine-row-disabled' : '') + (completed[item.id] ? ' routine-row-complete' : '')} key={item.id}>
                   <button type="button" className="routine-check" aria-label={(completed[item.id] ? 'Mark ' + item.label + ' incomplete' : 'Complete ' + item.label)} onClick={() => toggleCompleted(item.id)} disabled={!item.enabled}>{completed[item.id] ? <Check size={15}/> : <span/>}</button>
                   <span className="routine-row-icon"><Icon size={17}/></span>
-                  <div className="routine-row-copy"><strong>{item.label}</strong></div>
+                  <div className="routine-row-copy"><strong>{item.label}</strong><div className="routine-day-picker" aria-label={item.label + ' scheduled days'}>{WEEKDAYS.map(day => <button key={day} type="button" className={(item.days || WEEKDAYS).includes(day) ? 'is-selected' : ''} aria-pressed={(item.days || WEEKDAYS).includes(day)} onClick={() => { const current = item.days || WEEKDAYS; const nextDays = current.includes(day) ? current.filter(value => value !== day) : [...current, day]; updateItem(item.id, { days: nextDays }) }}>{day}</button>)}</div></div>
                   <label className="routine-time"><span className="sr-only">{item.label} time</span><input type="time" value={item.time} onChange={event => updateItem(item.id, { time: event.target.value })} /></label>
                   <button type="button" className={'routine-toggle' + (item.enabled ? ' is-on' : '')} aria-pressed={item.enabled} aria-label={(item.enabled ? 'Disable ' : 'Enable ') + item.label} onClick={() => updateItem(item.id, { enabled: !item.enabled })}><span/></button>
                 </article>
