@@ -2386,7 +2386,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     const {error:reflectionError}=await supabase.from('daily_reflections').upsert({
       user_id:u.id,
       reflection_date:reflectionDate,
-      mood:reflectionMood,
+      mood:({depressed:1,sad:1,numb:2,overwhelmed:2,anxious:2,mixed:3,normal:3,calm:4,hopeful:4,happy:5})[reflectionMood] ?? 3,
       day_feeling:reflectionFeeling||null,
       note:reflectionNote.trim()||null,
       updated_at:new Date().toISOString()
@@ -2605,9 +2605,11 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
 function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,onSave,onClose}){
   const moods=[
-    {value:1,label:'Depressed',expression:'low'},{value:2,label:'Sad',expression:'low'},
-    {value:3,label:'Mixed feelings',expression:'okay'},{value:4,label:'Feeling normal',expression:'okay'},
-    {value:5,label:'Happy',expression:'good'}
+    {value:'happy',label:'Happy',expression:'good'},{value:'normal',label:'Feeling normal',expression:'okay'},
+    {value:'mixed',label:'Mixed feelings',expression:'okay'},{value:'hopeful',label:'Hopeful',expression:'good'},
+    {value:'calm',label:'Calm',expression:'okay'},{value:'anxious',label:'Anxious',expression:'low'},
+    {value:'overwhelmed',label:'Overwhelmed',expression:'low'},{value:'sad',label:'Sad',expression:'low'},
+    {value:'depressed',label:'Depressed',expression:'low'},{value:'numb',label:'Numb',expression:'low'}
   ]
   const feelings=['Calm','Okay','Stressful','Energised','Heavy','Productive']
   return <div className="reflection-overlay" role="dialog" aria-modal="true" aria-label="Daily reflection">
@@ -3188,8 +3190,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
       ? sleepMinutes/60
       : Number(values.value)
 
-    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(sleepMinutes)||sleepMinutes<=0))||(metric.value_type==='scale'&&(value<1||value>5))){
-      setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'?'Choose 1 to 5.':'Enter a valid value.')
+    if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(sleepMinutes)||sleepMinutes<=0))||(metric.value_type==='scale'&&metric.slug!=='sleep'&&(value<1||value>5))){
+      setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'&&metric.slug!=='sleep'?'Choose a valid option.'::'Enter a valid value.')
       setSaving(false)
       return
     }
