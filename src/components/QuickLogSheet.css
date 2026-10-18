@@ -166,3 +166,30 @@
 .quick-log-options .quick-log-option-career .quick-log-option-icon { color:#63c8ff; background:rgba(99,200,255,.14); }
 .quick-log-options .quick-log-option-mind .quick-log-option-icon { color:#b6a2ff; background:rgba(155,124,255,.14); }
 .quick-log-options .quick-log-option-life .quick-log-option-icon { color:#9dd6b0; background:rgba(157,214,176,.12); }
+
+
+/* The main chooser stays a sheet; opened logging sections become app pages. */
+.quick-log-overlay-page {
+  align-items: stretch;
+  padding: 0;
+}
+.quick-log-overlay-page .quick-log-sheet {
+  width: 100%;
+  max-width: none;
+  height: 100vh;
+  height: 100dvh;
+  max-height: none;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: #050505;
+}
+.quick-log-overlay-page .quick-log-handle {
+  display: none;
+}
+.quick-log-overlay-page .quick-log-header {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 2.2rem);
+}
+.quick-log-overlay-page .quick-log-content {
+  padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+}
