@@ -1834,9 +1834,9 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       return
     }
     if(['health','nutrition','career','mind','life'].includes(choice)){
-      setArea(choice)
-      setMetric(null)
-      setLogOpen(true)
+      // Open the real area page directly. Its trackers are presented as simple
+      // options, rather than opening another nested set of logging cards.
+      goTo(choice)
       return
     }
     const selected=choice==='meal'
