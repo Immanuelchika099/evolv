@@ -309,11 +309,14 @@ export default function DailyRoutinePage({ pageProps }) {
               {groupItems.map(item => {
                 const Icon = iconMap[item.icon] || Clock3
                 return <article className={'routine-row' + (!item.enabled ? ' routine-row-disabled' : '') + (completed[item.id] ? ' routine-row-complete' : '')} key={item.id}>
-                  <button type="button" className="routine-check" aria-label={(completed[item.id] ? 'Mark ' + item.label + ' incomplete' : 'Complete ' + item.label)} onClick={() => toggleCompleted(item.id)} disabled={!item.enabled}>{completed[item.id] ? <Check size={15}/> : <span/>}</button>
-                  <span className="routine-row-icon"><Icon size={17}/></span>
-                  <div className="routine-row-copy"><strong>{item.label}</strong><div className="routine-day-picker" aria-label={item.label + ' scheduled days'}>{WEEKDAYS.map(day => <button key={day} type="button" className={(item.days || WEEKDAYS).includes(day) ? 'is-selected' : ''} aria-pressed={(item.days || WEEKDAYS).includes(day)} onClick={() => { const current = item.days || WEEKDAYS; const nextDays = current.includes(day) ? current.filter(value => value !== day) : [...current, day]; updateItem(item.id, { days: nextDays }) }}>{day}</button>)}</div></div>
-                  <label className="routine-time"><span className="sr-only">{item.label} time</span><input type="time" value={item.time} onChange={event => updateItem(item.id, { time: event.target.value })} /></label>
-                  <button type="button" className={'routine-toggle' + (item.enabled ? ' is-on' : '')} aria-pressed={item.enabled} aria-label={(item.enabled ? 'Disable ' : 'Enable ') + item.label} onClick={() => updateItem(item.id, { enabled: !item.enabled })}><span/></button>
+                  <div className="routine-row-main">
+                    <button type="button" className="routine-check" aria-label={(completed[item.id] ? 'Mark ' + item.label + ' incomplete' : 'Complete ' + item.label)} onClick={() => toggleCompleted(item.id)} disabled={!item.enabled}>{completed[item.id] ? <Check size={15}/> : <span/>}</button>
+                    <span className="routine-row-icon"><Icon size={17}/></span>
+                    <div className="routine-row-copy"><strong>{item.label}</strong></div>
+                    <label className="routine-time"><span className="sr-only">{item.label} time</span><input type="time" value={item.time} onChange={event => updateItem(item.id, { time: event.target.value })} /></label>
+                    <button type="button" className={'routine-toggle' + (item.enabled ? ' is-on' : '')} aria-pressed={item.enabled} aria-label={(item.enabled ? 'Disable ' : 'Enable ') + item.label} onClick={() => updateItem(item.id, { enabled: !item.enabled })}><span/></button>
+                  </div>
+                  <div className="routine-day-picker" aria-label={item.label + ' scheduled days'}>{WEEKDAYS.map(day => <button key={day} type="button" className={(item.days || WEEKDAYS).includes(day) ? 'is-selected' : ''} aria-pressed={(item.days || WEEKDAYS).includes(day)} onClick={() => { const current = item.days || WEEKDAYS; const nextDays = current.includes(day) ? current.filter(value => value !== day) : [...current, day]; updateItem(item.id, { days: nextDays }) }}>{day}</button>)}</div>
                 </article>
               })}
             </div>
