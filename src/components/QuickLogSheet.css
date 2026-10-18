@@ -203,3 +203,61 @@
 .quick-log-overlay-page .quick-log-content {
   padding-bottom: calc(2.4rem + env(safe-area-inset-bottom, 0px));
 }
+
+
+/* Opened workout tracker is a real full-height page, not a floating modal card. */
+.quick-log-overlay-page {
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.quick-log-overlay-page .quick-log-sheet {
+  width: 100% !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: none !important;
+  min-height: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #000 !important;
+}
+.quick-log-overlay-page .quick-log-header {
+  flex: 0 0 auto;
+  padding-top: calc(1.6rem + env(safe-area-inset-top, 0px));
+  background: #000;
+}
+.quick-log-overlay-page .quick-log-content {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-bottom: calc(1.8rem + env(safe-area-inset-bottom, 0px));
+}
+.quick-log-overlay-page .quick-log-workout-bottom-action {
+  position: sticky;
+  bottom: calc(-1.8rem - env(safe-area-inset-bottom, 0px));
+  z-index: 3;
+  margin: 1.6rem -1.8rem calc(-1.8rem - env(safe-area-inset-bottom, 0px));
+  padding: 1.2rem 1.8rem calc(1.2rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid rgba(255,255,255,.09);
+  background: rgba(0,0,0,.97);
+}
+.quick-log-workout-bottom-action .quick-log-primary {
+  width: 100%;
+  min-height: 5rem;
+  border-radius: 1.3rem;
+}
+.quick-log-overlay-page .quick-log-empty .quick-log-primary {
+  display: none;
+}
+@media (max-width: 390px) {
+  .quick-log-overlay-page .quick-log-workout-bottom-action {
+    margin-left: -1.4rem;
+    margin-right: -1.4rem;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+  }
+}
