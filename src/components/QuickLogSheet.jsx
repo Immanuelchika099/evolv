@@ -22,12 +22,12 @@ function blankExercise(order = 0, unit = 'kg') {
 }
 
 const loggingOptions = [
-  { id: 'workout', title: 'Workout', detail: 'Exercises, sets, reps & weight', icon: Dumbbell },
-  { id: 'meal', title: 'Meal', detail: 'Record what you ate', icon: Utensils },
-  { id: 'sleep', title: 'Sleep', detail: 'Bedtime, wake-up & duration', icon: Moon },
-  { id: 'water', title: 'Water', detail: 'Track your hydration', icon: Droplets },
-  { id: 'more', title: 'More activities', detail: 'Mood, focus, spending and more', icon: MoreHorizontal },
-  { id: 'ai', title: 'Ask AI instead', detail: 'Describe it naturally to Evolv', icon: Sparkles },
+  { id: 'workout', title: 'Workout', icon: Dumbbell },
+  { id: 'meal', title: 'Meal', icon: Utensils },
+  { id: 'sleep', title: 'Sleep', icon: Moon },
+  { id: 'water', title: 'Water', icon: Droplets },
+  { id: 'more', title: 'More', icon: MoreHorizontal },
+  { id: 'ai', title: 'Ask AI', icon: Sparkles },
 ]
 
 export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSaved, initialScreen = 'menu' }) {
@@ -319,7 +319,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
           <div className="quick-log-header-copy">
             {screen !== 'menu' && <button type="button" className="quick-log-back" onClick={() => screen === 'editor' ? closeEditor() : screen === 'detail' ? setScreen('workouts') : setScreen('menu')} aria-label="Go back"><ArrowLeft size={18} /></button>}
             <div>
-              <span className="quick-log-eyebrow">EVOLV · QUICK LOG</span>
+              
               <h2 id="quick-log-title">{screen === 'menu' ? 'Log something' : screen === 'workouts' ? 'Your workouts' : screen === 'editor' ? (selectedWorkoutId ? 'Edit workout' : 'New workout') : 'Workout details'}</h2>
             </div>
           </div>
@@ -328,13 +328,12 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
-            <p className="quick-log-intro">Choose what you want to record. You can also tell Evolv in your own words.</p>
-            <div className="quick-log-options">
+                        <div className="quick-log-options">
               {loggingOptions.map(option => {
                 const Icon = option.icon
                 return <button type="button" className="quick-log-option" key={option.id} onClick={() => openCategory(option)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
-                  <span className="quick-log-option-copy"><strong>{option.title}</strong><small>{option.detail}</small></span>
+                  <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
                   <ChevronRight size={18} className="quick-log-chevron" />
                 </button>
               })}
@@ -345,7 +344,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         {screen === 'workouts' && (
           <div className="quick-log-content">
             <div className="quick-log-workout-toolbar">
-              <p>Record each exercise, then add the sets and reps you completed.</p>
               <button type="button" className="quick-log-primary" onClick={startNewWorkout}><Plus size={17} /> New workout</button>
             </div>
             {notice && <p className="quick-log-notice" role="status"><CheckCircle2 size={15} />{notice}</p>}
@@ -361,7 +359,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                     <ChevronRight size={18} />
                   </button>
                 })}
-              </div> : <div className="quick-log-empty"><Dumbbell size={25} /><strong>No workouts logged yet.</strong><p>Your saved workouts will appear here. Start with one exercise, like Bench Press.</p><button type="button" className="quick-log-primary" onClick={startNewWorkout}><Plus size={17} /> Log your first workout</button></div>}
+              </div> : <div className="quick-log-empty"><Dumbbell size={25} /><strong>No workouts yet</strong><button type="button" className="quick-log-primary" onClick={startNewWorkout}><Plus size={17} /> New workout</button></div>}
           </div>
         )}
 
@@ -430,7 +428,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
           </div>
         )}
 
-        <p className="quick-log-footer-note">Your logs stay yours. AI and manual logging use the same saved activity records.</p>
       </section>
     </div>
   )
