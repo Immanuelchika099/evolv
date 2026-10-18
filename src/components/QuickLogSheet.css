@@ -168,28 +168,31 @@
 .quick-log-options .quick-log-option-life .quick-log-option-icon { color:#9dd6b0; background:rgba(157,214,176,.12); }
 
 
-/* The main chooser stays a sheet; opened logging sections become app pages. */
+/* Opened logging sections sit centrally over a full-screen blurred backdrop. */
 .quick-log-overlay-page {
-  align-items: stretch;
-  padding: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.6rem;
+  background: rgba(0, 0, 0, .62);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
 }
 .quick-log-overlay-page .quick-log-sheet {
-  width: 100%;
-  max-width: none;
-  height: 100vh;
-  height: 100dvh;
-  max-height: none;
-  border: 0;
-  border-radius: 0;
-  box-shadow: none;
-  background: #050505;
+  width: min(100%, 56rem);
+  height: auto;
+  max-height: calc(100vh - 4rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  max-height: calc(100dvh - 4rem - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px));
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 2.4rem;
+  box-shadow: 0 2rem 8rem rgba(0, 0, 0, .58);
+  background: rgba(10, 10, 10, .96);
 }
 .quick-log-overlay-page .quick-log-handle {
   display: none;
 }
 .quick-log-overlay-page .quick-log-header {
-  padding-top: calc(env(safe-area-inset-top, 0px) + 2.2rem);
+  padding-top: 2rem;
 }
 .quick-log-overlay-page .quick-log-content {
-  padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px));
+  padding-bottom: calc(2.4rem + env(safe-area-inset-bottom, 0px));
 }
