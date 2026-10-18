@@ -1229,3 +1229,27 @@
   outline-offset:3px;
   border-radius:2px;
 }
+
+
+/* Auth legal footer: compact inline paragraph with normal line spacing. */
+.auth-page .auth-legal {
+  display: block;
+  margin: 20px 0 0 !important;
+  padding: 0 !important;
+  line-height: 1.45 !important;
+  text-align: center !important;
+}
+
+.auth-page .auth-legal button {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: baseline;
+}
+
+@media (max-width: 800px) {
+  .auth-page .auth-legal {
+    margin-top: 16px !important;
+    line-height: 1.45 !important;
+  }
+}
