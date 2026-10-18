@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronRight, Check, X, Trash2, Download, ArrowUpRight } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, LogOut } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
@@ -19,7 +19,19 @@ function streaksFor(items){
   dates.forEach(key=>{const d=new Date(key+'T12:00:00');run=previous&&Math.round((d-previous)/86400000)===1?run+1:1;best=Math.max(best,run);previous=d})
   return {current,best}
 }
-function ProfileSettingsSection({label,title,children,danger=false}){return <section className={'profile-settings-section '+(danger?'danger-section':'')}><div className="profile-settings-section-head"><span className="section-label">{label}</span><h3>{title}</h3></div><div className="profile-settings-list">{children}</div></section>}
+function ProfileSettingsSection({label,title,children,danger=false,icon:Icon=ShieldCheck}) {
+  const [open,setOpen]=useState(false)
+  return <section className={'profile-settings-section profile-accordion '+(danger?'danger-section':'')}>
+    <button type="button" className="profile-settings-section-head" aria-expanded={open} onClick={()=>setOpen(value=>!value)}>
+      <span className={'profile-settings-section-icon '+(danger?'icon-danger':'')}><Icon size={19} strokeWidth={1.9}/></span>
+      <span className="profile-settings-section-heading"><span className="section-label">{label}</span><strong>{title}</strong></span>
+      <ChevronDown className={'profile-settings-chevron '+(open?'is-open':'')} size={19} aria-hidden="true"/>
+    </button>
+    <div className={'profile-settings-accordion-content '+(open?'is-open':'')} aria-hidden={!open} inert={!open}>
+      <div className="profile-settings-list">{children}</div>
+    </div>
+  </section>
+}
 function SettingToggle({label,description,checked,onChange}){return <div className="profile-setting-row"><div><strong>{label}</strong><span>{description}</span></div><button type="button" className={checked?'settings-toggle active':'settings-toggle'} onClick={()=>onChange(!checked)} aria-pressed={checked} aria-label={label+(checked?' on':' off')}><span/></button></div>}
 function SettingSelect({label,description,value,onChange,options}){return <label className="profile-setting-row profile-setting-control-row"><span className="profile-setting-copy"><strong>{label}</strong><small>{description}</small></span><select value={value} onChange={e=>onChange(e.target.value)} aria-label={label}>{options.map(option=><option key={option.value} value={option.value}>{option.label}</option>)}</select></label>}
 
@@ -145,37 +157,42 @@ export default function ProfileSettingsPage({pageProps}){
           <div className="profile-avatar-studio-copy"><span className="section-label">MAKE IT YOURS</span><h3 id="profile-avatar-studio-title">Your avatar</h3><p>Give your EVOLV companion a look that feels like you. Change your face, hair, colours and more.</p><button type="button" className="profile-avatar-studio-button" onClick={()=>setAvatarStudioOpen(true)}><Pencil size={15}/> Open Avatar Studio <ArrowUpRight size={15}/></button></div>
         </section>
         <section className="profile-stat-grid" aria-label="Your EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
-        <ProfileSettingsSection label="ACCOUNT" title="Account">
+        <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
           <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
           <div className="profile-setting-row"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
           <div className="profile-setting-row"><div><strong>Bio</strong><span>A short line shown on your profile.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{draft.bio?'Edit bio':'Add bio'} <ChevronRight size={15}/></button></div>
           <div className="profile-setting-row"><div><strong>Avatar</strong><span>Use a clear image or keep your initials.</span></div><button type="button" className="settings-inline-action" onClick={()=>document.getElementById('profile-avatar-input')?.click()}>Edit photo <ChevronRight size={15}/></button></div>
         </ProfileSettingsSection>
-        <ProfileSettingsSection label="GOALS & HABITS" title="Goals and habits">
+        <ProfileSettingsSection label="YOUR ROUTINE" title="Goals & habits" icon={Target}>
           <SettingSelect label="Weekly goal target" description="How many focused check-ins you want each week." value={settings.weeklyGoalTarget} onChange={v=>updateSetting('weeklyGoalTarget',Number(v))} options={[1,2,3,4,5,6,7].map(v=>({value:v,label:v+' '+(v===1?'check-in':'check-ins')}))}/>
           <label className="profile-setting-row profile-setting-control-row"><span className="profile-setting-copy"><strong>Default reminder time</strong><small>Used as the starting time for your daily reminder.</small></span><input type="time" value={notificationTimes.morningTime||'08:00'} onChange={e=>saveNotificationTime('morningTime',e)} aria-label="Default reminder time"/></label>
           <SettingSelect label="Week starts" description="Choose how weekly progress is grouped." value={settings.weekStart} onChange={v=>updateSetting('weekStart',v)} options={[{value:'monday',label:'Monday'},{value:'sunday',label:'Sunday'}]}/>
         </ProfileSettingsSection>
-        <ProfileSettingsSection label="NOTIFICATIONS" title="Notifications">
+        <ProfileSettingsSection label="STAY IN THE LOOP" title="Notifications" icon={Bell}>
           <SettingToggle label="Daily reminders" description="Your existing morning, midday and evening reminders." checked={notificationsEnabled} onChange={toggleNotifications}/>
           <SettingToggle label="Streak alerts" description="Keep a quiet nudge when a streak is at risk." checked={settings.streakAlerts} onChange={v=>updateSetting('streakAlerts',v)}/>
           <SettingToggle label="Weekly summary" description="Keep a weekly view of how consistently you showed up." checked={settings.weeklySummary} onChange={v=>updateSetting('weeklySummary',v)}/>
           <div className="profile-setting-row profile-setting-row-nested"><div><strong>Reminder schedule</strong><span>Existing EVOLV reminder times.</span></div><span className="settings-value">{notificationTimes.morningTime} · {notificationTimes.hydrationTime} · {notificationTimes.reflectionTime}</span></div>
           <div className="profile-setting-row profile-setting-row-nested"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
         </ProfileSettingsSection>
-        <ProfileSettingsSection label="PREFERENCES" title="Preferences">
-          <SettingSelect label="Units" description="Default measurement preference for supported metrics." value={settings.units} onChange={v=>updateSetting('units',v)} options={[{value:'metric',label:'Metric'},{value:'imperial',label:'Imperial'}]}/>
-          <SettingToggle label="Animations" description="Turn visual motion off for a reduced-motion experience." checked={settings.animations} onChange={v=>updateSetting('animations',v)}/>
-          <div className="profile-setting-row"><div><strong>Language</strong><span>Interface language available in this build.</span></div><span className="settings-value">English</span></div>
-        </ProfileSettingsSection>
-        <ProfileSettingsSection label="DATA & PRIVACY" title="Data and privacy">
+
+        <ProfileSettingsSection label="YOUR INFORMATION" title="Privacy & data" icon={ShieldCheck}>
           <div className="profile-setting-row"><div><strong>Export my data</strong><span>Download your tracked EVOLV data as JSON.</span></div><button type="button" className="settings-inline-action" onClick={exportData}><Download size={15}/> Export</button></div>
           <div className="profile-setting-row danger-row"><div><strong>Reset all habit data</strong><span>Remove logs, meals, goals and reflections without deleting your account.</span></div><button type="button" className="settings-danger-button" onClick={()=>setConfirmAction('reset')}>Reset data</button></div>
         </ProfileSettingsSection>
-        <ProfileSettingsSection label="DANGER ZONE" title="Account actions" danger>
-          <div className="profile-setting-row danger-row"><div><strong>Log out</strong><span>Sign out on this device. Your data stays saved.</span></div><button type="button" className="settings-danger-button" onClick={()=>setConfirmAction('logout')}>Log out</button></div>
-          <div className="profile-setting-row danger-row"><div><strong>Delete account</strong><span>Permanently remove your account and saved information.</span></div><button type="button" className="settings-danger-button" onClick={()=>setConfirmAction('delete')}>Delete account</button></div>
-        </ProfileSettingsSection>
+        <section className="profile-account-actions" aria-labelledby="profile-account-actions-title">
+          <div className="profile-account-actions-heading"><span className="section-label">ACCOUNT</span><h3 id="profile-account-actions-title">Account actions</h3></div>
+          <button type="button" className="profile-account-action" onClick={()=>setConfirmAction('logout')}>
+            <span className="profile-action-icon logout-icon"><LogOut size={18}/></span>
+            <span className="profile-account-action-copy"><strong>Log out</strong><small>Sign out on this device. Your data stays saved.</small></span>
+            <ChevronRight size={18} className="profile-account-action-arrow"/>
+          </button>
+          <button type="button" className="profile-account-action delete-account-action" onClick={()=>setConfirmAction('delete')}>
+            <span className="profile-action-icon delete-icon"><Trash2 size={18}/></span>
+            <span className="profile-account-action-copy"><strong>Delete account</strong><small>Permanently remove your account and saved information.</small></span>
+            <ChevronRight size={18} className="profile-account-action-arrow"/>
+          </button>
+        </section>
       </div>
     </div>
     {avatarStudioOpen&&createPortal(<div className="profile-avatar-studio-portal"><AvatarStudio preferences={avatarStyle} onChange={updateAvatarStyle} onClose={()=>setAvatarStudioOpen(false)}/></div>,document.body)}
