@@ -9081,3 +9081,61 @@ html body #root .dashboard .settings-page button.settings-toggle.active > span {
   .area-option-row { min-height: 6.2rem; padding: 1.05rem 1.1rem; grid-template-columns: 3.8rem minmax(0,1fr) 2rem; gap: .9rem; }
   .area-option-icon { width: 3.8rem; height: 3.8rem; border-radius: 1.2rem; }
 }
+
+
+/* Cinematic finish for tracker option pages: restrained blue atmosphere, no overflow. */
+.area-options-page {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  background:
+    radial-gradient(ellipse at 92% 0%, rgba(54,104,190,.14), transparent 34rem),
+    #050608 !important;
+}
+.area-options-page > * { min-width: 0; max-width: 100%; }
+.area-options-heading {
+  margin-top: 1.2rem;
+  margin-bottom: 2.2rem;
+}
+.area-options-heading h1 {
+  font-size: clamp(2.8rem, 6vw, 3.4rem) !important;
+  line-height: 1.12;
+  letter-spacing: -.045em;
+  font-weight: 680;
+}
+.area-options-list {
+  width: 100%;
+  min-width: 0;
+  overflow: hidden;
+  border-color: rgba(255,255,255,.09) !important;
+  background: linear-gradient(145deg, rgba(22,25,31,.96), rgba(10,11,14,.98)) !important;
+  box-shadow: 0 2rem 5rem rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.025);
+}
+.area-option-row {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  transition: background .18s ease;
+}
+.area-option-row:active { background: rgba(112,158,235,.08); }
+.area-option-copy { min-width: 0; overflow: hidden; }
+.area-option-copy strong {
+  font-size: 1.55rem !important;
+  line-height: 1.3;
+  font-weight: 560;
+  overflow-wrap: anywhere;
+}
+.area-option-copy small {
+  font-size: 1.3rem !important;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+.area-options-meal-row,
+.area-options-history { min-width: 0; max-width: 100%; }
+.area-options-meal-row strong,
+.area-options-meal-row small { overflow-wrap: anywhere; }
+@media (max-width: 390px) {
+  .area-options-page { padding-left: 1.4rem; padding-right: 1.4rem; }
+  .area-options-list { border-radius: 1.7rem; }
+  .area-option-row { grid-template-columns: 3.6rem minmax(0,1fr) 1.8rem; gap: .8rem; padding-left: 1rem; padding-right: 1rem; }
+}
