@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save } from 'lucide-react'
+import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, MoreHorizontal } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './QuickLogSheet.css'
 
@@ -26,10 +26,11 @@ const loggingOptions = [
   { id: 'meal', title: 'Meal', detail: 'Record what you ate', icon: Utensils },
   { id: 'sleep', title: 'Sleep', detail: 'Bedtime, wake-up & duration', icon: Moon },
   { id: 'water', title: 'Water', detail: 'Track your hydration', icon: Droplets },
+  { id: 'more', title: 'More activities', detail: 'Mood, focus, spending and more', icon: MoreHorizontal },
   { id: 'ai', title: 'Ask AI instead', detail: 'Describe it naturally to Evolv', icon: Sparkles },
 ]
 
-export default function QuickLogSheet({ onClose, onLogWithAI, onSaved, initialScreen = 'menu' }) {
+export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSaved, initialScreen = 'menu' }) {
   const [screen, setScreen] = useState(initialScreen)
   const [workouts, setWorkouts] = useState([])
   const [selectedWorkoutId, setSelectedWorkoutId] = useState(null)
@@ -267,12 +268,9 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onSaved, initialSc
       onLogWithAI('Help me log something in Evolv. Ask what I want to record, one question at a time, and save it only when you have enough information. Keep the conversation simple and do not show me a generic form.')
       return
     }
-    const prompts = {
-      meal: 'Help me record a meal in Evolv. Ask me what I ate and roughly when, then save it. Do not guess calories or nutrition details.',
-      sleep: 'Help me record my sleep in Evolv. Ask when I went to bed and when I woke up, calculate the duration, and save it. Do not guess missing times.',
-      water: 'Help me record my water intake in Evolv. Ask how much I drank, normalize it to litres, and save it. Do not guess the amount.',
+    if (['meal', 'sleep', 'water', 'more'].includes(option.id)) {
+      onLogManual?.(option.id)
     }
-    onLogWithAI(prompts[option.id] || prompts.meal)
   }
 
   async function deleteWorkout(workout) {
