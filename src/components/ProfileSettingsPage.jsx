@@ -23,7 +23,7 @@ function ProfileSettingsSection({label,title,children,danger=false,icon:Icon=Shi
   const [open,setOpen]=useState(false)
   return <section className={'profile-settings-section profile-accordion '+(danger?'danger-section':'')}>
     <button type="button" className="profile-settings-section-head" aria-expanded={open} onClick={()=>setOpen(value=>!value)}>
-      <span className={'profile-settings-section-icon '+(danger?'icon-danger':'')}><Icon size={19} strokeWidth={1.9}/></span>
+      <span className={'profile-settings-section-icon icon-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-')+(danger?' icon-danger':'')}><Icon size={19} strokeWidth={1.9}/></span>
       <span className="profile-settings-section-heading"><span className="section-label">{label}</span><strong>{title}</strong></span>
       <ChevronDown className={'profile-settings-chevron '+(open?'is-open':'')} size={19} aria-hidden="true"/>
     </button>
