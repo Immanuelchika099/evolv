@@ -2604,7 +2604,11 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 }
 
 function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,onSave,onClose}){
-  const moods=[{value:1,label:'Rough',expression:'low'},{value:2,label:'Low',expression:'low'},{value:3,label:'Okay',expression:'okay'},{value:4,label:'Good',expression:'good'},{value:5,label:'Great',expression:'good'}]
+  const moods=[
+    {value:1,label:'Depressed',expression:'low'},{value:2,label:'Sad',expression:'low'},
+    {value:3,label:'Mixed feelings',expression:'okay'},{value:4,label:'Feeling normal',expression:'okay'},
+    {value:5,label:'Happy',expression:'good'}
+  ]
   const feelings=['Calm','Okay','Stressful','Energised','Heavy','Productive']
   return <div className="reflection-overlay" role="dialog" aria-modal="true" aria-label="Daily reflection">
     <div className="reflection-sheet">
@@ -2793,11 +2797,17 @@ function SpecialMetricFields({metric,values,setValues}){
   </div>
 
   if(slug==='mood') return <div className="special-metric-fields">
-    <div className="special-log-intro"><strong>How are you feeling?</strong><span>Choose the mood that best describes you right now, then capture what may be influencing it.</span></div>
-    {choices('Mood','level',[{value:1,label:'Very low'},{value:2,label:'Low'},{value:3,label:'Okay'},{value:4,label:'Good'},{value:5,label:'Great'}])}
-    {choices('Mood label','moodLabel',[{value:'calm',label:'Calm'},{value:'happy',label:'Happy'},{value:'sad',label:'Sad'},{value:'anxious',label:'Anxious'},{value:'frustrated',label:'Frustrated'},{value:'excited',label:'Excited'},{value:'tired',label:'Tired'}])}
-    {input('What influenced your mood?','context','text','e.g. Work went well')}
-    {input('Energy','energyLabel','text','e.g. Low, steady, high')}
+    <div className="special-log-intro"><strong>How are you feeling?</strong><span>No ratings. Choose the words that feel closest to your actual experience.</span></div>
+    {choices('Your mood','moodLabel',[
+      {value:'happy',label:'Happy'},{value:'normal',label:'Feeling normal'},{value:'mixed',label:'Mixed feelings'},
+      {value:'hopeful',label:'Hopeful'},{value:'calm',label:'Calm'},{value:'anxious',label:'Anxious'},
+      {value:'overwhelmed',label:'Overwhelmed'},{value:'frustrated',label:'Frustrated'},
+      {value:'sad',label:'Sad'},{value:'depressed',label:'Depressed'},{value:'numb',label:'Numb'},{value:'tired',label:'Tired'}
+    ])}
+    {input('What might be affecting how you feel?','context','text','e.g. Sleep, work, relationships, or nothing specific')}
+    {choices('Energy right now','energyLabel',[
+      {value:'low',label:'Low'},{value:'steady',label:'Steady'},{value:'high',label:'High'}
+    ])}
   </div>
 
   if(slug==='focus') return <div className="special-metric-fields">
@@ -3056,7 +3066,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     if(slug==='habits') return Number(values.statusValue)
     if(slug==='social') return Number(values.quality)
     if(['applications','outreach'].includes(slug)) return 1
-    if(['mood','stress'].includes(slug)) return Number(values.level)
+    if(slug==='mood') {
+      const moodScores={depressed:1,sad:1.5,numb:2,overwhelmed:2,anxious:2.5,frustrated:2.5,tired:2.5,mixed:3,normal:3,calm:3.5,hopeful:4,happy:5}
+      return moodScores[values.moodLabel] ?? 3
+    }
+    if(slug==='stress') return Number(values.level)
     return Number(values.value)
   }
 
@@ -3332,7 +3346,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
               {specialMetric?(
                 <>{metric.slug==='exercise'?<ExerciseFields values={values} setValues={setValues}/>:<SpecialMetricFields metric={metric} values={values} setValues={setValues}/>}</>
-              ):metric.value_type==='scale'?(
+              ):metric.value_type==='scale'&&metric.slug!=='sleep'?(
                 <div className="log-field-group">
                   <div className="log-field-title"><span>{metric.slug==='mood'?'How are you feeling?':'How would you rate it?'}</span><small>{metric.slug==='mood'?'Choose what feels closest':'1–5'}</small></div>
                   {metric.slug==='mood'?(
