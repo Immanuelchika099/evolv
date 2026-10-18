@@ -62,9 +62,6 @@ export default function LegalPage({ documentType = 'terms', onBack }) {
             </section>
           ))}
         </div>
-        <button type="button" className="legal-back-button legal-back-bottom" onClick={onBack}>
-          <ChevronLeft size={18} aria-hidden="true" /><span>Back to EVOLV</span>
-        </button>
       </div>
     </section>
   )
