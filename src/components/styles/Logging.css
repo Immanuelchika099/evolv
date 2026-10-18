@@ -3784,3 +3784,29 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
   font-style: normal !important;
 }
+
+
+/* Metric picker cards: keep the useful subheading, remove status copy, and never truncate it. */
+.dashboard .log-overlay.log-page-mode .log-metric-card .log-card-count {
+  display: block !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.dashboard .log-overlay.log-page-mode .log-metric-card .log-card-count strong {
+  display: block !important;
+  color: rgba(245,245,247,.62) !important;
+  font-size: 1.35rem !important;
+  font-weight: 400 !important;
+  line-height: 1.45 !important;
+  letter-spacing: 0 !important;
+  white-space: normal !important;
+  overflow: visible !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+  text-overflow: clip !important;
+  -webkit-line-clamp: unset !important;
+  -webkit-box-orient: initial !important;
+}
+.dashboard .log-overlay.log-page-mode .log-metric-card .log-card-count small {
+  display: none !important;
+}
