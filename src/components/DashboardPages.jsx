@@ -184,52 +184,54 @@ function HomePage({ pageProps }) {
 }
 
 function AreaPage({ pageProps }) {
-  const { area, areas, defs, logs, meals, metricArea, latest, icons, valueText, openLog, goTo, onArticle } = pageProps
-  return (()=>{
-        const currentArea=areas[area]?area:'health'
-        const m=areas[currentArea],I=m.icon
-        const rs=defs.filter(d=>metricArea[d.slug]===currentArea)
-        const areaLogs=logs.filter(l=>rs.some(d=>d.id===l.metric_id))
-        const nutritionMeals=meals.slice(0,20)
-        const mealDays=new Set(meals.map(x=>x.logged_at?.slice(0,10)).filter(Boolean)).size
-        const mealTypes=['breakfast','lunch','dinner','snack']
-        const mealCount=meals.length
-        return <section className="panel-page dashboard-panel area-detail-page">
-          <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
-          <div className="area-detail-head">
-            <span className="life-area-icon large" style={{'--area-color':m.color}}><I size={20}/></span>
-            <span className="section-label">YOUR {m.title.toUpperCase()}</span>
-            <h2>{m.title}</h2>
-            <p>{currentArea==='health'?'Understand your body, emotions and everyday wellbeing.':currentArea==='nutrition'?'See what you are actually eating, without turning food into a score.':'Only the things you choose to track.'}</p>
-          </div>
+  const { area, areas, defs = [], logs = [], meals = [], metricArea = {}, latest = {}, icons = {}, valueText, openLog, goTo } = pageProps
+  const currentArea = areas[area] ? area : 'health'
+  const current = areas[currentArea]
+  const AreaIcon = current?.icon || Activity
+  const trackers = defs.filter(def => metricArea[def.slug] === currentArea)
+  const recentMeals = meals.length
 
-          {currentArea==='nutrition'&&<>
-            <div className="nutrition-overview">
-              <div><span className="section-label">YOUR FOOD LOG</span><h3>Eat with awareness, not pressure.</h3><p>Record meals simply. Add nutrition details only when they are useful to you.</p></div>
-              <button className="button button-primary" onClick={()=>openLog('nutrition',{slug:'meals',name:'Meal',value_type:'meal'})}><Plus size={16}/> Log a meal</button>
-            </div>
-            <div className="nutrition-stats">
-              <div><strong>{mealCount}</strong><span>meals logged</span></div>
-              <div><strong>{mealDays}</strong><span>days recorded</span></div>
-              <div><strong>{meals.filter(x=>x.water_ml).length}</strong><span>meals with water logged</span></div>
-            </div>
-            <div className="nutrition-meal-types">
-              {mealTypes.map(type=><div key={type}><span>{type}</span><strong>{meals.filter(x=>x.meal_type===type).length}</strong></div>)}
-            </div>
-            <section className="meal-history">
-              <div className="health-subsection-head"><div><span className="section-label">RECENT MEALS</span><h3>What you’ve eaten.</h3></div><p>{mealCount?'Your latest entries, newest first.':'Your meal history will appear here.'}</p></div>
-              {nutritionMeals.length?<div className="meal-history-list">{nutritionMeals.map(meal=><article className="meal-history-row" key={meal.id}>
-                <span className="meal-type-dot">{(meal.meal_type||'meal').slice(0,1).toUpperCase()}</span>
-                <div><strong>{meal.description}</strong><small>{meal.meal_type||'Meal'} · {new Date(meal.logged_at).toLocaleDateString(undefined,{month:'short',day:'numeric'})}</small></div>
-                <span className="meal-nutrition">{meal.calories?meal.calories+' kcal':''}{meal.protein_g?' · '+meal.protein_g+'g protein':''}</span>
-              </article>)}</div>:<div className="nutrition-empty"><Utensils size={22}/><p>Nothing logged yet. Start with your next meal.</p></div>}
-            </section>
-            <section className="nutrition-note"><span className="section-label">A GENTLER APPROACH</span><h3>Food is part of your life, not a grade.</h3><p>Calories and macros are optional details. A simple meal description is enough to begin noticing your routine.</p></section>
-          </>}
+  return (
+    <section className="panel-page dashboard-panel area-detail-page area-options-page">
+      <button className="area-back" onClick={() => goTo('overview')}><ChevronLeft size={16} /> Home</button>
+      <header className="area-options-heading">
+        <span className="life-area-icon large" style={{ '--area-color': current?.color || '#8ab4ff' }}><AreaIcon size={20} /></span>
+        <h1>{current?.title || 'Health'}</h1>
+      </header>
 
-          {currentArea!=='nutrition'&&<><div className="metric-detail-list">{rs.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="metric-detail-row" key={d.id} onClick={()=>openLog(currentArea,d)}><span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span><span><strong>{d.name}</strong><small>{latest[d.slug]?valueText(latest[d.slug],d):'Log '+d.name.toLowerCase()}</small></span><ChevronRight size={16}/></button>})}</div><div className="area-note"><span>ONE STEP AT A TIME</span><p>You do not need to measure everything. Track what helps you understand your life.</p></div></>}
-        </section>
-      })()
+      <div className="area-options-list">
+        {currentArea === 'nutrition' && (
+          <button type="button" className="area-option-row" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
+            <span className="metric-row-icon area-option-icon" style={{ '--metric-color': '#ffb86b' }}><Utensils size={18} /></span>
+            <span className="area-option-copy"><strong>Meals</strong><small>{recentMeals ? `${recentMeals} ${recentMeals === 1 ? 'meal' : 'meals'} logged` : 'Add a meal'}</small></span>
+            <Plus size={17} className="area-option-action" />
+          </button>
+        )}
+        {trackers.map(def => {
+          const Icon = icons[def.slug] || Activity
+          const entry = latest[def.slug]
+          return (
+            <button type="button" className="area-option-row" key={def.id} onClick={() => openLog(currentArea, def)}>
+              <span className="metric-row-icon area-option-icon" style={{ '--metric-color': def.color || current?.color || '#8ab4ff' }}><Icon size={18} /></span>
+              <span className="area-option-copy"><strong>{def.name}</strong><small>{entry ? valueText(entry, def) : 'Not logged yet'}</small></span>
+              <ChevronRight size={17} className="area-option-action" />
+            </button>
+          )
+        })}
+      </div>
+      {currentArea === 'nutrition' && meals.length > 0 && (
+        <div className="area-options-history">
+          <div className="area-options-section-heading"><h2>Recent meals</h2><span>{meals.length}</span></div>
+          {meals.slice(0, 5).map(meal => (
+            <div className="area-options-meal-row" key={meal.id}>
+              <span className="area-options-meal-dot"><Utensils size={15} /></span>
+              <span><strong>{meal.description || 'Meal'}</strong><small>{meal.meal_type || 'Meal'} · {meal.logged_at ? new Date(meal.logged_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' }) : ''}</small></span>
+            </div>
+          ))}
+        </div>
+      )}
+    </section>
+  )
 }
 
 function LogsPage({ pageProps }) {
