@@ -259,3 +259,9 @@
   .dashboard .settings-page .profile-settings-accordion-content,
   .dashboard .settings-page .profile-settings-chevron { transition: none !important; }
 }
+
+/* Distinct, tasteful icon colours for each expandable settings category. */
+.dashboard .settings-page .profile-settings-section-icon.icon-account { color: #60a5fa !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color: #a78bfa !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-notifications { color: #fbbf24 !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color: #34d399 !important; }
