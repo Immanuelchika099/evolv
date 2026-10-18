@@ -3191,7 +3191,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
       : Number(values.value)
 
     if(!Number.isFinite(value)||(metric.slug==='sleep'&&(!Number.isFinite(sleepMinutes)||sleepMinutes<=0))||(metric.value_type==='scale'&&metric.slug!=='sleep'&&(value<1||value>5))){
-      setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'&&metric.slug!=='sleep'?'Choose a valid option.'::'Enter a valid value.')
+      setError(metric.slug==='sleep'?'Choose a bedtime and wake-up time.':metric.value_type==='scale'&&metric.slug!=='sleep'?'Choose a valid option.':'Enter a valid value.')
       setSaving(false)
       return
     }
