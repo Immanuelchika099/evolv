@@ -141,8 +141,8 @@ export default function ProfileSettingsPage({pageProps}){
       <aside className="profile-summary-card">
         <div className="profile-summary-top">
           <div className="profile-avatar-wrap">
-            <button type="button" className="profile-avatar-button" onClick={()=>setPhotoMenuOpen(true)} disabled={avatarBusy} aria-label="Change profile photo">{displayAvatar?<img src={displayAvatar} alt={firstName+' profile'} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={16}/></span></button>
-            <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/*" onChange={handleAvatar} aria-label="Choose profile photo"/><input id="profile-avatar-camera-input" className="profile-avatar-input" type="file" accept="image/*" capture="user" onChange={handleAvatar} aria-label="Take a profile photo"/>
+            <button type="button" className="profile-avatar-button" onClick={()=>document.getElementById("profile-avatar-input")?.click()} disabled={avatarBusy} aria-label="Change profile photo">{displayAvatar?<img src={displayAvatar} alt={firstName+' profile'} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={16}/></span></button>
+            <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/*" onChange={handleAvatar} aria-label="Choose profile photo"/>
             <div className="profile-photo-actions"><button type="button" onClick={()=>document.getElementById('profile-avatar-input')?.click()} disabled={avatarBusy}><Upload size={14}/>{avatarBusy?'Uploading…':'Edit photo'}</button>{localAvatar&&<button type="button" onClick={removeAvatar} disabled={avatarBusy}>Remove</button>}</div>
           </div>
           <div className="profile-summary-copy"><h3>{profileName||'Your name'}.</h3><p>{draft.bio||'Build a life you can recognise as your own.'}</p><small>{user?.email||profile?.email||'Account email'}</small></div>
