@@ -194,3 +194,46 @@
  .auth-page .google-auth-button-primary{gap:1.1rem}
  .auth-page .google-auth-copy strong{font-size:1.3rem}.auth-page .google-auth-copy small{font-size:1rem}
 }
+
+/* Auth legal consent: crisp white links and compact, grounded typography. */
+.auth-page .auth-legal {
+  width: min(100%, 62rem);
+  margin: 1.8rem 0 0;
+  color: #8a8a8a;
+  font: 400 1.2rem/1.35 'Manrope', sans-serif;
+  letter-spacing: 0;
+  text-align: left;
+  overflow-wrap: normal;
+}
+.auth-page .auth-legal button {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font: 600 1.2rem/1.35 'Manrope', sans-serif;
+  letter-spacing: 0;
+  text-decoration: underline;
+  text-decoration-color: rgba(255,255,255,.55);
+  text-underline-offset: .2em;
+  cursor: pointer;
+  vertical-align: baseline;
+}
+.auth-page .auth-legal button:hover {
+  color: #fff !important;
+  text-decoration-color: #fff;
+}
+@media (max-width: 800px) {
+  .auth-page .auth-legal {
+    margin-top: 1.5rem;
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
+  .auth-page .auth-legal button {
+    font-size: 1.15rem;
+    line-height: 1.35;
+  }
+}
