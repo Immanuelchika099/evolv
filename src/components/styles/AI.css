@@ -4332,3 +4332,13 @@ body:has(.dashboard.dashboard-ai-active) {
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
 }
+
+
+/* Mobile AI conversation spacing: keep assistant text comfortably inset like ChatGPT. */
+@media (max-width: 600px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    padding-left: 2rem !important;
+    padding-right: 2rem !important;
+    box-sizing: border-box !important;
+  }
+}
