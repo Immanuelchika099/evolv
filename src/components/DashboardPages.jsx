@@ -190,17 +190,10 @@ function AreaPage({ pageProps }) {
         const m=areas[currentArea],I=m.icon
         const rs=defs.filter(d=>metricArea[d.slug]===currentArea)
         const areaLogs=logs.filter(l=>rs.some(d=>d.id===l.metric_id))
-        const healthSections=[
-          {title:'Body',slugs:['sleep','water','steps','exercise','energy','weight'],text:'The physical signals that help you understand how your body is doing.'},
-          {title:'Emotional wellbeing',slugs:['mood','stress'],text:'Notice how you feel without judging it. Mood is information, not a verdict.'},
-          {title:'Mind',slugs:['focus','reflection'],text:'Track focus and reflection when they help you understand your mental load.'}
-        ]
         const nutritionMeals=meals.slice(0,20)
         const mealDays=new Set(meals.map(x=>x.logged_at?.slice(0,10)).filter(Boolean)).size
         const mealTypes=['breakfast','lunch','dinner','snack']
         const mealCount=meals.length
-        const healthMetric=slug=>defs.find(d=>d.slug===slug)
-        const healthLatest=slug=>{const d=healthMetric(slug);return d?latest[slug]:null}
         return <section className="panel-page dashboard-panel area-detail-page">
           <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
           <div className="area-detail-head">
@@ -209,45 +202,6 @@ function AreaPage({ pageProps }) {
             <h2>{m.title}</h2>
             <p>{currentArea==='health'?'Understand your body, emotions and everyday wellbeing.':currentArea==='nutrition'?'See what you are actually eating, without turning food into a score.':'Only the things you choose to track.'}</p>
           </div>
-
-          {currentArea==='health'&&<>
-            <div className="health-command-row">
-              <div><span className="section-label">TODAY</span><h3>Your wellbeing, one signal at a time.</h3><p>There is no perfect day. Start by noticing what is real.</p></div>
-              <button className="button button-primary" onClick={()=>openLog('health')}><Plus size={16}/> Log health</button>
-            </div>
-            <div className="health-section-list">
-              {healthSections.map(section=>{
-                const available=section.slugs.map(healthMetric).filter(Boolean)
-                return <section className="health-subsection" key={section.title}>
-                  <div className="health-subsection-head"><div><span className="section-label">{section.title.toUpperCase()}</span><h3>{section.title}</h3></div><p>{section.text}</p></div>
-                  <div className="metric-detail-list">
-                    {available.map(d=>{const M=icons[d.slug]||Sparkles;const l=healthLatest(d.slug);return <div className={d.slug==='mood'?'health-metric-wrap mood-metric-wrap':'health-metric-wrap'} key={d.id}>
-                      <button className="metric-detail-row health-metric-row" onClick={()=>openLog('health',d)}>
-                        <span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span>
-                        <span><strong>{d.name}</strong><small>{l?valueText(l,d):'Not logged yet'}</small></span>
-                        <span className="health-row-action">{l?'View history':'Log'}</span><ChevronRight size={16}/>
-                      </button>
-                      {d.slug==='mood'&&<button className="mood-reading-button" onClick={()=>openArticle('mood','health')}><BookOpen size={15}/> Read something uplifting <ArrowRight size={14}/></button>}
-                    </div>})}
-                  </div>
-                </section>
-              })}
-            </div>
-            <section className="health-reading-strip">
-              <div><span className="section-label">EXPLORE HEALTH</span><h3>Understand the signals, not just the numbers.</h3><p>Short, friendly explainers grounded in trusted health guidance.</p></div>
-              <button className="health-reading-link" onClick={()=>onArticle?.('area','health')}>Read health guide <ArrowRight size={15}/></button>
-            </section>
-            <section className="wellbeing-guide">
-              <span className="section-label">UNDERSTANDING YOUR WELLBEING</span>
-              <h3>Your feelings are worth noticing.</h3>
-              <p>Mood, stress, sleep, movement and connection can all be useful pieces of the picture. Evolv records what you choose to notice; it does not diagnose you or turn one difficult day into a definition of who you are.</p>
-              <div className="wellbeing-guide-grid">
-                <div><strong>Notice</strong><span>How do you feel?</span></div>
-                <div><strong>Understand</strong><span>What might be influencing today?</span></div>
-                <div><strong>Respond</strong><span>What small thing could support you?</span></div>
-              </div>
-            </section>
-          </>}
 
           {currentArea==='nutrition'&&<>
             <div className="nutrition-overview">
@@ -273,7 +227,7 @@ function AreaPage({ pageProps }) {
             <section className="nutrition-note"><span className="section-label">A GENTLER APPROACH</span><h3>Food is part of your life, not a grade.</h3><p>Calories and macros are optional details. A simple meal description is enough to begin noticing your routine.</p></section>
           </>}
 
-          {!['health','nutrition'].includes(currentArea)&&<><div className="metric-detail-list">{rs.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="metric-detail-row" key={d.id} onClick={()=>openLog(currentArea,d)}><span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span><span><strong>{d.name}</strong><small>{latest[d.slug]?valueText(latest[d.slug],d):'Log '+d.name.toLowerCase()}</small></span><ChevronRight size={16}/></button>})}</div><div className="area-note"><span>ONE STEP AT A TIME</span><p>You do not need to measure everything. Track what helps you understand your life.</p></div></>}
+          {currentArea!=='nutrition'&&<><div className="metric-detail-list">{rs.map(d=>{const M=icons[d.slug]||Sparkles;return <button className="metric-detail-row" key={d.id} onClick={()=>openLog(currentArea,d)}><span className="metric-row-icon" style={{'--metric-color':d.color||m.color}}><M size={17}/></span><span><strong>{d.name}</strong><small>{latest[d.slug]?valueText(latest[d.slug],d):'Log '+d.name.toLowerCase()}</small></span><ChevronRight size={16}/></button>})}</div><div className="area-note"><span>ONE STEP AT A TIME</span><p>You do not need to measure everything. Track what helps you understand your life.</p></div></>}
         </section>
       })()
 }
