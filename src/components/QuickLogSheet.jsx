@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Activity, Apple, ChevronRight, Droplets, Dumbbell, Moon, MoreHorizontal, Sparkles, X } from 'lucide-react'
+import { Apple, ChevronRight, Droplets, Dumbbell, Moon, MoreHorizontal, Sparkles, X } from 'lucide-react'
 import './BottomNav.css'
 
 const options = [
