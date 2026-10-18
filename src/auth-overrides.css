@@ -1231,47 +1231,20 @@
 }
 
 
-/* Auth legal footer: compact inline paragraph with normal line spacing. */
-.auth-page .auth-legal {
-  display: block;
-  margin: 20px 0 0 !important;
-  padding: 0 !important;
-  line-height: 1.45 !important;
-  text-align: center !important;
-}
-
-.auth-page .auth-legal button {
-  display: inline !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  vertical-align: baseline;
-}
-
-@media (max-width: 800px) {
-  .auth-page .auth-legal {
-    margin-top: 16px !important;
-    line-height: 1.45 !important;
-  }
-}
-
-
-/* Final auth footer fix: force compact legal copy and remove excess page-bottom space. */
-html body #root .auth-page .auth-legal {
+/* Consent sentence only: tightly control the gap between wrapped lines. */
+html body #root .auth-page p.auth-legal {
   display: block !important;
   margin: 16px 0 0 !important;
   padding: 0 !important;
-  line-height: 1.4 !important;
+  line-height: 1.15 !important;
   text-align: center !important;
 }
 
-html body #root .auth-page .auth-legal button {
+html body #root .auth-page p.auth-legal button {
   display: inline !important;
   margin: 0 !important;
   padding: 0 !important;
   line-height: inherit !important;
+  font: inherit !important;
   vertical-align: baseline;
-}
-
-html body #root .auth-page {
-  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
 }
