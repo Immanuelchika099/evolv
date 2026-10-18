@@ -542,3 +542,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
     left: calc(100% - 1.7rem) !important;
   }
 }
+
+/* Weekly routine scheduling */
+.routine-day-picker{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.routine-day-picker button{min-width:2.7rem;padding:.35rem .5rem;border:1px solid #30323a;border-radius:999px;background:#101114;color:#858995;font:inherit;font-size:1rem;line-height:1.2;cursor:pointer}.routine-day-picker button.is-selected{border-color:rgba(59,130,246,.65);background:rgba(37,99,235,.2);color:#bfdbfe}
+@media(max-width:560px){.routine-row{flex-wrap:wrap;gap:.8rem}.routine-row-copy{flex:1 1 calc(100% - 8rem);order:2}.routine-row-icon{order:1}.routine-check{order:0}.routine-time{margin-left:auto;order:3}.routine-toggle{order:4}.routine-day-picker button{min-width:2.5rem;padding:.35rem .4rem}}
