@@ -360,3 +360,24 @@
   line-height: 1.25;
   letter-spacing: -.02em;
 }
+
+/* Explicitly normalize both logout and destructive confirmation dialogs. */
+.confirmation-backdrop .confirmation-modal .section-label,
+.confirmation-backdrop .confirmation-modal #profile-confirm-title,
+.confirmation-backdrop .confirmation-modal #profile-confirm-copy,
+.confirmation-backdrop .confirmation-modal .profile-modal-actions,
+.confirmation-backdrop .confirmation-modal .profile-modal-actions * {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-style: normal !important;
+}
+.confirmation-backdrop .confirmation-modal .section-label {
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+}
+.confirmation-backdrop .confirmation-modal #profile-confirm-title {
+  font-weight: 600 !important;
+  transform: none !important;
+}
