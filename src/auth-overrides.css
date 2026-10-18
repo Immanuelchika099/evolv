@@ -639,22 +639,22 @@
 }
 
 .auth-page .auth-welcome-mark {
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   margin: 0 auto;
   display: grid;
   place-items: center;
-  overflow: hidden;
-  border-radius: 10px;
-  background: var(--accent);
+  overflow: visible;
+  border-radius: 0;
+  background: transparent;
 }
 
 .auth-page .auth-welcome-mark img {
   display: block;
-  width: 21px;
-  height: 21px;
+  width: 34px;
+  height: 34px;
   object-fit: contain;
-  filter: brightness(0) saturate(100%);
+  filter: none;
 }
 
 .auth-page .auth-intro {
@@ -1235,6 +1235,7 @@ html body #root .auth-page p.auth-legal {
   padding: 0 !important;
   line-height: normal !important;
   text-align: center !important;
+  white-space: nowrap !important;
 }
 
 html body #root .auth-page p.auth-legal button {
