@@ -545,7 +545,7 @@ function App() {
       <AmbientSound active={view === 'welcome' || view === 'onboarding' || view === 'auth' || view === 'dashboard'} />
       {isBooting && <EvolvLoader />}
       <div className="noise" />
-      {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && (
+      {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && view !== 'legal' && (
         <Navbar onStart={enterApp} onSignIn={() => { setMenuOpen(false); setAuthMode('login'); localStorage.setItem('evolv-view', 'auth'); setView('auth'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onFeatures={() => openArticle('features')} onAreas={() => openArticle('areas')} onPricing={openPricing} onContact={openContact} onHome={returnHome} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       )}
       {view === 'landing' && <Landing onStart={enterApp} onExplore={exploreLanding} onArticle={openArticle} onPricing={openPricing} onContact={openContact} onLegal={openLegal} />}
