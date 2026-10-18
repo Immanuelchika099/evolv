@@ -790,6 +790,17 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     setHasStartedTyping(false)
   }
 
+  // Logging and check-in actions can request a fresh AI conversation while this
+  // component is already mounted. Consume the same handoff flag used on mount.
+  useEffect(() => {
+    function handleFreshLoggingChat() {
+      localStorage.removeItem('evolv-ai-start-new-chat')
+      startNewChat()
+    }
+    window.addEventListener('evolv:start-new-chat', handleFreshLoggingChat)
+    return () => window.removeEventListener('evolv:start-new-chat', handleFreshLoggingChat)
+  }, [])
+
   function openPromptMenu(event, message, index) {
     event.preventDefault()
     const trigger = event.currentTarget?.getBoundingClientRect
