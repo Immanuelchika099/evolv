@@ -261,3 +261,68 @@
     padding-right: 1.4rem;
   }
 }
+
+
+/* Cinematic full-screen workout tracker with safe, contained cards. */
+.quick-log-overlay-page {
+  background:
+    radial-gradient(ellipse at 90% 0%, rgba(54,104,190,.14), transparent 34rem),
+    #050608 !important;
+  color: #f5f7fb;
+}
+.quick-log-overlay-page .quick-log-header {
+  border-bottom: 1px solid rgba(255,255,255,.065);
+  background: linear-gradient(180deg, rgba(5,6,8,.98), rgba(5,6,8,.84)) !important;
+}
+.quick-log-overlay-page .quick-log-content {
+  min-width: 0;
+  overflow-x: hidden;
+  background: transparent;
+}
+.quick-log-overlay-page .quick-log-content *,
+.quick-log-overlay-page .quick-log-sheet * {
+  box-sizing: border-box;
+  min-width: 0;
+}
+.quick-log-overlay-page .quick-log-content > *,
+.quick-log-overlay-page .quick-log-exercise,
+.quick-log-overlay-page .quick-log-exercise-card,
+.quick-log-overlay-page .quick-log-history-card,
+.quick-log-overlay-page .quick-log-empty {
+  max-width: 100%;
+}
+.quick-log-overlay-page .quick-log-exercise,
+.quick-log-overlay-page .quick-log-exercise-card,
+.quick-log-overlay-page .quick-log-history-card {
+  border-color: rgba(255,255,255,.09) !important;
+  background: linear-gradient(145deg, rgba(22,25,31,.96), rgba(11,12,15,.98)) !important;
+  box-shadow: 0 1.6rem 4rem rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.025);
+}
+.quick-log-overlay-page h1,
+.quick-log-overlay-page h2,
+.quick-log-overlay-page h3 {
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+.quick-log-overlay-page input,
+.quick-log-overlay-page select,
+.quick-log-overlay-page textarea {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  font-size: max(1.4rem, 14px);
+}
+.quick-log-overlay-page .quick-log-workout-bottom-action {
+  background: linear-gradient(180deg, rgba(5,6,8,.78), rgba(5,6,8,.98)) !important;
+  border-top-color: rgba(255,255,255,.08);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+.quick-log-overlay-page .quick-log-primary {
+  min-height: 4.8rem;
+  border-radius: 1.45rem;
+  box-shadow: 0 .8rem 2.4rem rgba(51,113,220,.18);
+}
+@media (max-width: 390px) {
+  .quick-log-overlay-page .quick-log-content { padding-left: 1.4rem; padding-right: 1.4rem; }
+}
