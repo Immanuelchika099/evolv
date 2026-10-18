@@ -384,7 +384,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                 { id: 'life', title: 'Life', icon: Sprout },
               ].map(option => {
                 const Icon = option.icon
-                return <button type="button" className="quick-log-option quick-log-option-extra" key={option.id} onClick={() => onLogManual?.(option.id)}>
+                return <button type="button" className={"quick-log-option quick-log-option-" + option.id} key={option.id} onClick={() => onLogManual?.(option.id)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
                   <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
                   <ChevronRight size={18} className="quick-log-chevron" />
