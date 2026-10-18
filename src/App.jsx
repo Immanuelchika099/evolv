@@ -61,8 +61,8 @@ function getProviderFirstName(user) {
 function AmbientSound({ active }) {
   const audioRef = useRef(null)
   const fadeTimerRef = useRef(null)
-  const interactionHandlerRef = useRef(null)
-  const targetVolume = 0.24
+  const startingRef = useRef(false)
+  const targetVolume = 0.38
 
   function clearFadeTimer() {
     if (fadeTimerRef.current) {
@@ -77,11 +77,10 @@ function AmbientSound({ active }) {
     clearFadeTimer()
 
     const startVolume = audio.volume
-    const steps = 11
+    const steps = 14
     const stepDuration = Math.max(16, duration / steps)
     let step = 0
 
-    if (target > 0) audio.play().catch(() => {})
     fadeTimerRef.current = window.setInterval(() => {
       step += 1
       const progress = Math.min(step / steps, 1)
@@ -98,13 +97,23 @@ function AmbientSound({ active }) {
     const audio = audioRef.current
     if (!active || !audio || document.visibilityState === 'hidden') return
 
+    // A tap/scroll must never restart or reset audio that is already playing.
+    if (!audio.paused) {
+      if (audio.volume < targetVolume && !fadeTimerRef.current) fadeTo(targetVolume, 900)
+      return
+    }
+    if (startingRef.current) return
+
+    startingRef.current = true
     clearFadeTimer()
     audio.volume = 0
     try {
       await audio.play()
-      fadeTo(targetVolume, 700)
+      fadeTo(targetVolume, 900)
     } catch {
       // Browsers may block autoplay until the user's first natural interaction.
+    } finally {
+      startingRef.current = false
     }
   }
 
@@ -115,7 +124,7 @@ function AmbientSound({ active }) {
       clearFadeTimer()
       return
     }
-    fadeTo(0, 220, true)
+    fadeTo(0, 320, true)
   }
 
   useEffect(() => {
@@ -128,10 +137,10 @@ function AmbientSound({ active }) {
     const resumeAfterInteraction = () => {
       if (active && document.visibilityState !== 'hidden') startAmbient()
     }
-    interactionHandlerRef.current = resumeAfterInteraction
 
     if (active) {
       startAmbient()
+      // pointerdown covers modern Android browsers; touchstart is kept as fallback.
       document.addEventListener('pointerdown', resumeAfterInteraction, { passive: true })
       document.addEventListener('touchstart', resumeAfterInteraction, { passive: true })
       document.addEventListener('keydown', resumeAfterInteraction)
