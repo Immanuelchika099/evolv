@@ -87,3 +87,175 @@
 .dashboard .settings-page .profile-modal .settings-danger-button:hover:not(:disabled) {
   background: rgba(185, 28, 28, .2) !important;
 }
+
+
+/* Profile settings accordion: retain the dark surface and use quiet ash dividers. */
+.dashboard .settings-page .profile-settings-section {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(214, 219, 228, .12) !important;
+  background: transparent !important;
+}
+.dashboard .settings-page .profile-settings-section:first-of-type {
+  border-top: 1px solid rgba(214, 219, 228, .12) !important;
+}
+.dashboard .settings-page .profile-settings-section-head {
+  width: 100%;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 !important;
+  padding: 14px 2px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.dashboard .settings-page .profile-settings-section-head:focus-visible {
+  outline: 2px solid rgba(96, 165, 250, .8);
+  outline-offset: 3px;
+  border-radius: 8px !important;
+}
+.dashboard .settings-page .profile-settings-section-icon,
+.dashboard .settings-page .profile-action-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: transparent;
+}
+.dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color: #60a5fa; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color: #a78bfa; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color: #fbbf24; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color: #34d399; }
+.dashboard .settings-page .profile-settings-section-heading {
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  flex: 1;
+}
+.dashboard .settings-page .profile-settings-section-heading .section-label {
+  color: rgba(226, 232, 240, .42) !important;
+  font: 500 1.05rem/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  letter-spacing: .1em;
+}
+.dashboard .settings-page .profile-settings-section-heading strong {
+  color: #f3f4f6;
+  font: 600 1.65rem/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  letter-spacing: -.015em;
+}
+.dashboard .settings-page .profile-settings-chevron {
+  flex: 0 0 auto;
+  color: rgba(226, 232, 240, .56);
+  transition: transform .22s ease, color .22s ease;
+}
+.dashboard .settings-page .profile-settings-chevron.is-open {
+  transform: rotate(180deg);
+  color: #93c5fd;
+}
+.dashboard .settings-page .profile-settings-accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .25s ease, opacity .2s ease;
+}
+.dashboard .settings-page .profile-settings-accordion-content.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+.dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 0 0 56px;
+}
+.dashboard .settings-page .profile-settings-accordion-content.is-open > .profile-settings-list {
+  padding-bottom: 18px;
+}
+.dashboard .settings-page .profile-settings-list .profile-setting-row {
+  border-bottom: 1px solid rgba(214, 219, 228, .09) !important;
+  background: transparent !important;
+}
+.dashboard .settings-page .profile-settings-list .profile-setting-row:last-child {
+  border-bottom: 0 !important;
+}
+.dashboard .settings-page .profile-settings-list .profile-setting-row strong {
+  color: rgba(245, 247, 250, .94);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+.dashboard .settings-page .profile-settings-list .profile-setting-row span,
+.dashboard .settings-page .profile-settings-list .profile-setting-row small {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+.dashboard .settings-page .profile-account-actions {
+  margin-top: 34px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(214, 219, 228, .12);
+}
+.dashboard .settings-page .profile-account-actions-heading {
+  padding: 22px 2px 12px;
+}
+.dashboard .settings-page .profile-account-actions-heading .section-label {
+  color: rgba(226, 232, 240, .42);
+}
+.dashboard .settings-page .profile-account-actions-heading h3 {
+  margin: 7px 0 0;
+  color: #f3f4f6;
+  font: 600 1.9rem/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.dashboard .settings-page .profile-account-action {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 2px;
+  border: 0;
+  border-bottom: 1px solid rgba(214, 219, 228, .09);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.dashboard .settings-page .profile-account-action:last-child { border-bottom: 0; }
+.dashboard .settings-page .profile-account-action .logout-icon { color: #60a5fa; }
+.dashboard .settings-page .profile-account-action .delete-icon { color: #f87171; }
+.dashboard .settings-page .profile-account-action-copy {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
+}
+.dashboard .settings-page .profile-account-action-copy strong {
+  color: #f3f4f6;
+  font: 600 1.55rem/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.dashboard .settings-page .profile-account-action-copy small {
+  color: rgba(226, 232, 240, .48);
+  font: 400 1.3rem/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+.dashboard .settings-page .profile-account-action-arrow {
+  flex: 0 0 auto;
+  color: rgba(226, 232, 240, .42);
+}
+.dashboard .settings-page .profile-account-action:hover .profile-account-action-arrow {
+  color: rgba(147, 197, 253, .9);
+}
+.dashboard .settings-page .profile-account-action.delete-account-action:hover .profile-account-action-arrow {
+  color: #f87171;
+}
+@media (max-width: 650px) {
+  .dashboard .settings-page .profile-settings-section-head { min-height: 72px; gap: 11px; }
+  .dashboard .settings-page .profile-settings-section-icon { width: 38px; height: 38px; flex-basis: 38px; }
+  .dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list { padding-left: 4px; }
+  .dashboard .settings-page .profile-settings-section-heading strong { font-size: 1.6rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .settings-page .profile-settings-accordion-content,
+  .dashboard .settings-page .profile-settings-chevron { transition: none !important; }
+}
