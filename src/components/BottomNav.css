@@ -686,3 +686,12 @@ html body #root nav.evolv-bottom-nav button.bottom-active > span svg * {
 @media (prefers-reduced-motion: reduce) {
   .quick-log-overlay, .quick-log-sheet { animation: none !important; }
 }
+
+@media (hover: none) {
+  .exercise-set-remove { display: grid; }
+}
+.log-sheet-scroll {
+  min-height: 0;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
