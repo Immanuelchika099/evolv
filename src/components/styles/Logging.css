@@ -3757,3 +3757,17 @@
     padding-right: max(2.4rem, calc((100vw - 62rem) / 2)) !important;
   }
 }
+
+
+/* Logging areas and metric icons use their own calm, colorful area accents. */
+.dashboard .log-overlay.log-page-mode .log-choice-icon {
+  color: var(--area-color, #60a5fa) !important;
+  background: color-mix(in srgb, var(--area-color, #60a5fa) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--area-color, #60a5fa) 24%, transparent) !important;
+}
+.dashboard .log-overlay.log-page-mode .log-card-title strong {
+  color: #f1efe9 !important;
+}
+.dashboard .log-overlay.log-page-mode .log-card-title strong[style*="--card-color"] {
+  color: var(--card-color) !important;
+}
