@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Activity, Apple, ChevronRight, Droplets, Dumbbell, Moon, MoreHorizontal, Sparkles, X } from 'lucide-react'
 import './BottomNav.css'
 
@@ -12,19 +12,21 @@ const options = [
 ]
 
 function QuickLogSheet({ open, onClose, onChoose }) {
+  const closeRef = useRef(onClose)
+  closeRef.current = onClose
   useEffect(() => {
     if (!open) return undefined
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
     function onKeyDown(event) {
-      if (event.key === 'Escape') onClose()
+      if (event.key === 'Escape') closeRef.current?.()
     }
     window.addEventListener('keydown', onKeyDown)
     return () => {
       document.body.style.overflow = previousOverflow
       window.removeEventListener('keydown', onKeyDown)
     }
-  }, [open, onClose])
+  }, [open])
 
   if (!open) return null
 
