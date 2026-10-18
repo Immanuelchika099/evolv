@@ -359,7 +359,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
                         <div className="quick-log-options">
-              {loggingOptions.filter(option => option.id !== 'more' && (!showMoreOptions || option.id !== 'ai')).map(option => {
+              {loggingOptions.filter(option => option.id !== 'more').map(option => {
                 const Icon = option.icon
                 return <button type="button" className="quick-log-option" key={option.id} onClick={() => openCategory(option)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
