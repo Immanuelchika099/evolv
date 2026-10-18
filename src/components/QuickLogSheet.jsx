@@ -350,7 +350,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
             {screen !== 'menu' && <button type="button" className="quick-log-back" onClick={() => screen === 'editor' ? closeEditor() : screen === 'detail' ? setScreen('workouts') : setScreen('menu')} aria-label="Go back"><ArrowLeft size={18} /></button>}
             <div>
               
-              <h2 id="quick-log-title">{screen === 'menu' ? 'Log something' : screen === 'workouts' ? 'Your workouts' : screen === 'editor' ? (selectedWorkoutId ? 'Edit workout' : 'New workout') : 'Workout details'}</h2>
+              <h2 id="quick-log-title">{screen === 'menu' ? 'Log something' : screen === 'workouts' ? 'Workouts' : screen === 'editor' ? (selectedWorkoutId ? 'Edit workout' : 'New workout') : 'Workout details'}</h2>
             </div>
           </div>
           <button type="button" className="quick-log-close" onClick={onClose} aria-label="Close log sheet"><X size={19} /></button>
@@ -427,7 +427,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
               </div>
             </div>
 
-            <div className="quick-log-exercises-heading"><h3>Exercises</h3><span>{totals.exercisesCount} exercises · {totals.setsCount} sets</span></div>
+            <div className="quick-log-exercises-heading"><h3>Exercises</h3></div>
             <div className="quick-log-exercises">
               {exercises.map((exercise, exerciseIndex) => (
                 <section className="quick-log-exercise" key={exercise.id}>
@@ -454,10 +454,10 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
             </div>
 
             <button type="button" className="quick-log-add-exercise" onClick={addExercise}><Plus size={17} /> Add exercise</button>
-            <label className="quick-log-field quick-log-notes-field"><span>Workout notes <small>Optional</small></span><textarea maxLength={1500} rows={2} value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="How did the workout feel?" /></label>
+            <label className="quick-log-field quick-log-notes-field"><span>Notes <small>Optional</small></span><textarea maxLength={1500} rows={2} value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="Add a note" /></label>
             {error && <p className="quick-log-error" role="alert">{error}</p>}
             <footer className="quick-log-editor-footer">
-              <div><strong>{totals.setsCount}</strong><span>sets planned</span></div>
+              <div><strong>{totals.setsCount}</strong><span>sets</span></div>
               <button type="submit" className="quick-log-primary" disabled={saving}>{saving ? <span className="quick-log-spinner" /> : <Save size={17} />}{saving ? 'Saving…' : 'Save workout'}</button>
             </footer>
           </form>
