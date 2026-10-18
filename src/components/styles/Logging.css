@@ -3771,3 +3771,16 @@
 .dashboard .log-overlay.log-page-mode .log-card-title strong[style*="--card-color"] {
   color: var(--card-color) !important;
 }
+
+
+/* Use the device's native system UI typography across every logging surface.
+   This also neutralizes browser-default italic styling on emphasis elements. */
+.dashboard .log-overlay.log-page-mode,
+.dashboard .log-overlay.log-page-mode *,
+.dashboard .quick-log-overlay,
+.dashboard .quick-log-overlay *,
+.quick-log-overlay,
+.quick-log-overlay * {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif !important;
+  font-style: normal !important;
+}
