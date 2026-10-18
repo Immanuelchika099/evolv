@@ -3105,8 +3105,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
         setSaving(false)
         return
       }
-      if(!Number.isFinite(value)||(value<0)){
-        setError('Complete the main detail before saving.')
+      if(!Number.isFinite(value)||(value<0)||(metric.slug==='water'&&value<=0)){
+        setError(metric.slug==='water'?'Enter an amount of water greater than zero.':'Complete the main detail before saving.')
         setSaving(false)
         return
       }
