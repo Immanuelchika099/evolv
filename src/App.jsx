@@ -3024,9 +3024,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   useEffect(()=>{
     const previousOverflow=document.body.style.overflow
-    const previousTouchAction=document.body.style.touchAction
     document.body.style.overflow='hidden'
-    document.body.style.touchAction='none'
 
     function handleKey(event){
       if(event.key==='Escape'&&!saving) onClose()
@@ -3037,7 +3035,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
     return ()=>{
       document.body.style.overflow=previousOverflow
-      document.body.style.touchAction=previousTouchAction
       window.removeEventListener('keydown',handleKey)
     }
   },[onClose,saving])
