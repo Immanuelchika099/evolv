@@ -323,3 +323,20 @@
 .dashboard .settings-page .profile-photo-menu-option.profile-photo-remove-option {
   color: #f87171;
 }
+
+
+/* Keep the profile account actions and confirmation dialog on the app's shared UI font. */
+.dashboard .settings-page .profile-account-actions,
+.dashboard .settings-page .profile-account-actions *,
+.dashboard .settings-page .confirmation-modal,
+.dashboard .settings-page .confirmation-modal *,
+.dashboard .settings-page .profile-modal,
+.dashboard .settings-page .profile-modal * {
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
+.dashboard .settings-page .confirmation-modal h3,
+.dashboard .settings-page .confirmation-modal .section-label,
+.dashboard .settings-page .confirmation-modal p,
+.dashboard .settings-page .confirmation-modal button {
+  font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+}
