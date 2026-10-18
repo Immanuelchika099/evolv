@@ -222,7 +222,7 @@ export default function MoneyPage({ defs = [], logs = [] }) {
   return (
     <section className="money-page">
       <header className="money-heading">
-        <div><span className="money-eyebrow">YOUR FINANCES</span><h1>Money</h1></div>
+        <div><h1>Money</h1></div>
         <button type="button" className="money-top-add" onClick={openNew} aria-label="Add transaction"><Plus size={19}/></button>
       </header>
 
@@ -255,7 +255,7 @@ export default function MoneyPage({ defs = [], logs = [] }) {
               <button type="button" className="money-row-more" onClick={() => openEdit(entry)} aria-label={`Edit ${label}`}><Pencil size={14}/></button>
             </article>
           })}
-        </div> : <div className="money-empty"><span className="money-empty-icon"><WalletCards size={23}/></span><strong>No transactions yet</strong><p>Your income and expenses will show up here.</p><button type="button" onClick={openNew}><Plus size={16}/> Add transaction</button></div>}
+        </div> : <div className="money-empty"><span className="money-empty-icon"><WalletCards size={23}/></span><strong>No transactions yet</strong><button type="button" onClick={openNew}><Plus size={16}/> Add transaction</button></div>}
       </section>
 
       <button type="button" className="money-add-transaction" onClick={openNew}><Plus size={18}/> Add transaction</button>
@@ -264,7 +264,7 @@ export default function MoneyPage({ defs = [], logs = [] }) {
 
       {formOpen && <div className="money-form-overlay" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) resetForm() }}>
         <section className="money-form-sheet" role="dialog" aria-modal="true" aria-labelledby="money-form-title">
-          <header className="money-form-heading"><div><span className="money-eyebrow">{editing ? 'UPDATE ENTRY' : 'NEW ENTRY'}</span><h2 id="money-form-title">{editing ? 'Edit transaction' : 'Add transaction'}</h2></div><button type="button" onClick={resetForm} aria-label="Close form"><X size={20}/></button></header>
+          <header className="money-form-heading"><div><h2 id="money-form-title">{editing ? 'Edit transaction' : 'Add transaction'}</h2></div><button type="button" onClick={resetForm} aria-label="Close form"><X size={20}/></button></header>
           <form onSubmit={saveTransaction} className="money-form">
             <div className="money-kind-tabs" aria-label="Transaction type">
               {[['expense', 'Expense'], ['income', 'Income'], ['savings', 'Savings'], ['bill', 'Bill']].map(([value, label]) => <button key={value} type="button" className={kind === value ? 'is-active' : ''} onClick={() => changeKind(value)}>{label}</button>)}
