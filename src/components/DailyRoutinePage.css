@@ -546,3 +546,81 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 /* Weekly routine scheduling */
 .routine-day-picker{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.routine-day-picker button{min-width:2.7rem;padding:.35rem .5rem;border:1px solid #30323a;border-radius:999px;background:#101114;color:#858995;font:inherit;font-size:1rem;line-height:1.2;cursor:pointer}.routine-day-picker button.is-selected{border-color:rgba(59,130,246,.65);background:rgba(37,99,235,.2);color:#bfdbfe}
 @media(max-width:560px){.routine-row{flex-wrap:wrap;gap:.8rem}.routine-row-copy{flex:1 1 calc(100% - 8rem);order:2}.routine-row-icon{order:1}.routine-check{order:0}.routine-time{margin-left:auto;order:3}.routine-toggle{order:4}.routine-day-picker button{min-width:2.5rem;padding:.35rem .4rem}}
+
+
+/* Weekly routine editor — consistent two-level layout across phone and desktop. */
+.daily-routine-page .routine-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: .6rem;
+  min-height: 0;
+  padding: 1.35rem .2rem 1.5rem;
+}
+.daily-routine-page .routine-row-main {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  min-width: 0;
+  width: 100%;
+}
+.daily-routine-page .routine-row-main .routine-row-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.daily-routine-page .routine-row-main .routine-row-copy strong {
+  font-size: 1.5rem;
+  line-height: 1.35;
+}
+.daily-routine-page .routine-day-picker {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: center;
+  gap: .55rem;
+  width: 100%;
+  min-width: 0;
+  margin: .45rem 0 0;
+}
+.daily-routine-page .routine-day-picker button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 0;
+  min-height: 3.6rem;
+  padding: .5rem .15rem;
+  box-sizing: border-box;
+  border: 1px solid #30323a;
+  border-radius: .95rem;
+  background: #101114;
+  color: #9296a2;
+  font-size: 1.15rem;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+.daily-routine-page .routine-day-picker button.is-selected {
+  border-color: rgba(59,130,246,.72);
+  background: rgba(37,99,235,.18);
+  color: #bfdbfe;
+}
+.daily-routine-page .routine-day-picker button:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+@media(max-width:700px) {
+  .daily-routine-page .routine-row { gap: .7rem; padding: 1.25rem 0 1.4rem; }
+  .daily-routine-page .routine-row-main { gap: .75rem; }
+  .daily-routine-page .routine-row-main .routine-row-copy strong { font-size: 1.35rem; }
+  .daily-routine-page .routine-day-picker { gap: .4rem; margin-top: .35rem; }
+  .daily-routine-page .routine-day-picker button { min-height: 3.5rem; border-radius: .85rem; font-size: 1.05rem; }
+  .daily-routine-page .routine-time input { width: 8rem; padding: .7rem .35rem; }
+}
+@media(max-width:390px) {
+  .daily-routine-page .routine-row-main { gap: .55rem; }
+  .daily-routine-page .routine-row-main .routine-row-icon { display: none; }
+  .daily-routine-page .routine-time input { width: 7.2rem; }
+  .daily-routine-page .routine-day-picker { gap: .3rem; }
+  .daily-routine-page .routine-day-picker button { min-height: 3.3rem; font-size: 1rem; }
+}
