@@ -1,6 +1,6 @@
 {
   "id": "/",
-  "name": "EVOLV — Personal Growth Tracker",
+  "name": "Evolv — AI Productivity & Personal Growth",
   "short_name": "EVOLV",
   "start_url": "/dashboard",
   "scope": "/",
@@ -8,7 +8,7 @@
   "display_override": ["window-controls-overlay", "standalone"],
   "background_color": "#000000",
   "theme_color": "#000000",
-  "description": "EVOLV — Track your growth. Become your next self.",
+  "description": "Your AI-powered productivity and personal growth companion. Build better routines, plan your day, track goals, and understand your progress.",
   "icons": [
     {
       "src": "/evolv-mark.svg?v=8",
