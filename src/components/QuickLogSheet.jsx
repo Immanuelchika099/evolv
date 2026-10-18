@@ -397,9 +397,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
         {screen === 'workouts' && (
           <div className="quick-log-content">
-            <div className="quick-log-workout-toolbar">
-              <button type="button" className="quick-log-primary" onClick={startNewWorkout}><Plus size={17} /> New workout</button>
-            </div>
             {notice && <p className="quick-log-notice" role="status"><CheckCircle2 size={15} />{notice}</p>}
             {error && <p className="quick-log-error" role="alert">{error}</p>}
             {loading ? <div className="quick-log-loading"><span className="quick-log-spinner" /> Loading your workouts…</div> :
@@ -414,6 +411,9 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                   </button>
                 })}
               </div> : <div className="quick-log-empty"><Dumbbell size={25} /><strong>No workouts yet</strong><button type="button" className="quick-log-primary" onClick={startNewWorkout}><Plus size={17} /> New workout</button></div>}
+            <div className="quick-log-workout-bottom-action">
+              <button type="button" className="quick-log-primary" onClick={startNewWorkout}><Plus size={17} /> Add workout</button>
+            </div>
           </div>
         )}
 
