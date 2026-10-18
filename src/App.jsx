@@ -575,7 +575,7 @@ function App() {
           onExit={() => openAuth('login')}
         />
       )}
-      {view === 'dashboard' && <Dashboard data={data} onLogout={logout} onArticle={openArticle} />}
+      {view === 'dashboard' && <Dashboard data={data} onLogout={logout} onArticle={openArticle} isBooting={isBooting} />}
       {contactOpen && <ContactModal contactSent={contactSent} setContactSent={setContactSent} onClose={closeContact} />}
     </main>
   )
@@ -1583,7 +1583,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
   )
 }
 
-function Dashboard({ data, onLogout, onArticle }) {
+function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [active,setActive]=useState('overview')
   const [logOpen,setLogOpen]=useState(false)
   const [quickLogOpen,setQuickLogOpen]=useState(false)
@@ -2582,7 +2582,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
-    {active!=='ai'&&!reflectionOpen&&createPortal(<button type="button" className="evolv-floating-log" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
+    {!isBooting&&active!=='ai'&&!reflectionOpen&&createPortal(<button type="button" className="evolv-floating-log evolv-floating-log-intro" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
     {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
