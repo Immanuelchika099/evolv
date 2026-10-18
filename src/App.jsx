@@ -3020,7 +3020,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     }else{
       setValues({logged_at:loggedAt})
     }
-  },[metric,editEntry])
+  },[metric,editEntry,values])
 
   useEffect(()=>{
     const previousOverflow=document.body.style.overflow
@@ -3072,7 +3072,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
         .filter(row=>String(row.exercise||'').trim() && ((Array.isArray(row.setsDetail)&&row.setsDetail.some(set=>Number(set.reps)>0)) || ((Number(row.sets)||0)>0&&(Number(row.reps)||0)>0)))
         .map(row=>{
           const sets=Array.isArray(row.setsDetail)&&row.setsDetail.length?row.setsDetail:Array.from({length:Math.min(20,Math.max(1,Number(row.sets)||1))},()=>({reps:row.reps,weight:row.weight}))
-          const details=sets.map(set=>String(Number(set.reps)||0)+(Number(set.weight)>0?' @ '+Number(set.weight)+'kg':'')).join(', ')
+          const details=sets.map(set=>String(Number(set.reps)||0)+(Number(set.weight)>0?' @ '+Number(set.weight)+'kg':'')+(set.completed?' ✓':'')).join(', ')
           return String(row.exercise).trim()+': '+details
         })
       return ['Workout: '+workoutName,...exercises].filter(Boolean).join(' · ') || null
