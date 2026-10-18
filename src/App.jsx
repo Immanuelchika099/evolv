@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ArrowRight, Asterisk, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
@@ -2581,7 +2582,7 @@ function Dashboard({ data, onLogout, onArticle }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
-    {active!=='ai'&&!reflectionOpen&&<button type="button" className="evolv-floating-log" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={19} strokeWidth={2.2}/><span>Log</span></button>}
+    {active!=='ai'&&!reflectionOpen&&createPortal(<button type="button" className="evolv-floating-log" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
     {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
