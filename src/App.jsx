@@ -1857,6 +1857,16 @@ function Dashboard({ data, onLogout, onArticle }) {
     setError('')
   }
 
+  function openWorkoutLog(entry,definition){
+    if(!entry||!definition)return
+    setQuickLogOpen(false)
+    setEditingEntry({type:'log',entry,definition,returnToActive:active})
+    setArea('health')
+    setMetric(definition)
+    setLogOpen(true)
+    setError('')
+  }
+
   function openEntry(item){
     const entry=item.entry
     const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
@@ -1903,13 +1913,14 @@ function Dashboard({ data, onLogout, onArticle }) {
   }
   function handleLogSaved(kind,entry){
     const wasEditing=!!editingEntry
+    const returnToActive=editingEntry?.returnToActive||'logs'
     if(kind==='meal') setMeals(current=>[entry,...current.filter(x=>x.id!==entry.id)])
     else setLogs(current=>[entry,...current.filter(x=>x.id!==entry.id)])
     setLogOpen(false)
     setMetric(null)
     setArea(null)
     setEditingEntry(null)
-    if(wasEditing) setActive('logs')
+    if(wasEditing) setActive(returnToActive)
   }
   async function checkInGoal(goal){
     const {data:a}=await supabase.auth.getUser()
@@ -2552,7 +2563,7 @@ function Dashboard({ data, onLogout, onArticle }) {
     avatarInputRef, deleting, error, progressRange, setProgressRange, progressMetric,
     setProgressMetric, selectedEntry, editingEntry, manageLogsOpen, setManageLogsOpen, dashboardMainRef,
     goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, dailyReflections, valueText, openLog,
-    openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
+    openEntry, openWorkoutLog, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
     updateGoal, deleteGoal, checkInGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, saveProfile,
     toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour, deleteNotification,
     openReflection, setReflectionOpen, deleteAccount, onLogout, onArticle, data,
