@@ -3281,7 +3281,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                         <ChevronRight className="log-card-chevron" size={22}/>
                       </span>
                       <span className="log-card-bottom">
-                        <span className="log-card-count"><strong>{hint}</strong><small>ready to record</small></span>
+                        <span className="log-card-count"><strong>{hint}</strong></span>
                       </span>
                     </button>
                   )
@@ -3298,7 +3298,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                       <ChevronRight className="log-card-chevron" size={22}/>
                     </span>
                     <span className="log-card-bottom">
-                      <span className="log-card-count"><strong>Meal entry</strong><small>ready to record</small></span>
+                      <span className="log-card-count"><strong>Meal entry</strong></span>
                     </span>
                   </button>
                 )}
