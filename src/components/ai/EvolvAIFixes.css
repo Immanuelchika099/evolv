@@ -2360,3 +2360,27 @@ html:has(.dashboard.dashboard-ai-active) {
   font-weight: 650;
 }
 .ai-workout-card-open:active { background: rgba(37,99,235,.28); }
+
+
+/* AI top controls: neutral glass outlines, with no blue-filled button surfaces. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button {
+  background: transparent !important;
+  background-color: transparent !important;
+  border: 1px solid rgba(156, 163, 175, 0.38) !important;
+  box-shadow: none !important;
+  color: rgba(245, 245, 247, 0.88) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button:hover {
+  background: rgba(156, 163, 175, 0.08) !important;
+  background-color: rgba(156, 163, 175, 0.08) !important;
+  border-color: rgba(156, 163, 175, 0.58) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat:active,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button:active {
+  background: rgba(156, 163, 175, 0.12) !important;
+  background-color: rgba(156, 163, 175, 0.12) !important;
+}
