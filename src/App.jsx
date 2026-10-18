@@ -1815,7 +1815,11 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     const selected = m || (a ? defs.find(item => item.area === a) : null)
     let prompt = 'Help me check in on my day. Ask me one question at a time, understand what I tell you, and update my Evolv progress only when you have enough information. Do not give me a generic form.'
     if(selected?.slug === 'sleep'){
-      prompt = 'I want to record my sleep in Evolv. Ask me conversationally when I went to bed and when I woke up, work out the duration, and save the sleep record using the available tracking tool. Ask one question at a time and do not guess missing details.'
+      prompt = 'Help me log my sleep in Evolv through conversation. Ask when I went to bed and when I woke up, one question at a time. Calculate the total sleep duration, confirm it with me, then save the sleep duration and bedtime/wake-up details using the available tracking tools. If I do not know an exact time, help me estimate only when I explicitly agree; never invent details. After saving, briefly interpret the duration against a healthy sleep routine.'
+    }else if(selected?.slug === 'steps'){
+      prompt = 'Help me log my daily steps in Evolv. Ask how many steps I have taken today, and whether the number comes from my phone, smartwatch, or fitness tracker. Do not invent or automatically claim access to device step data. Once I provide the count, confirm it and save the actual step count using the available tracking tool. If I do not know the count, help me find it on my device instead of showing a generic form.'
+    }else if(selected?.slug === 'water'){
+      prompt = 'Help me track my water intake in Evolv conversationally. Ask how much water I have had today using familiar amounts such as cups, bottles, millilitres, or litres. Convert the amount consistently, confirm the total, and save it using the available tracking tool. Ask one question at a time, and do not show a generic form or guess an amount.'
     }else if(selected?.slug === 'meals' || selected?.value_type === 'meal' || a === 'nutrition'){
       prompt = 'Help me record a meal in Evolv. Ask me naturally what I ate and roughly when, then save the meal using the available tool. Keep it conversational and do not show me a generic form.'
     }else if(selected){
@@ -1850,6 +1854,10 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       : defs.find(item=>item.slug===choice)
     if(!selected){
       setError('That tracker is not available yet. Please refresh and try again.')
+      return
+    }
+    if(['sleep','steps','water'].includes(selected.slug)){
+      openLog(selected.area || 'health', selected)
       return
     }
     setArea(choice==='meal'?'nutrition':'health')
@@ -2950,11 +2958,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   const areaMeta={
     health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
-    nutrition:{title:'Nutrition',icon:Apple,color:'#ffb84d',description:'Meals, nourishment and the details you want to remember.'},
-    money:{title:'Money',icon:WalletCards,color:'#5145c8',description:'Income, spending, savings and the bills you need to stay on top of.'},
-    career:{title:'Career',icon:BriefcaseBusiness,color:'#63c8ff',description:'Applications, learning, projects, skills and outreach.'},
-    mind:{title:'Mind',icon:Brain,color:'#9b7cff',description:'Mood, focus, reflection and the moments that shape your inner life.'},
-    life:{title:'Life',icon:Sprout,color:'#5145c8',description:'Habits, reading, people and time spent on yourself.'}
+    nutrition:{title:'Nutrition',icon:Apple,color:'#F5B84B',description:'Meals, nourishment and the details you want to remember.'},
+    money:{title:'Money',icon:WalletCards,color:'#34D399',description:'Income, spending, savings and the bills you need to stay on top of.'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'#38BDF8',description:'Applications, learning, projects, skills and outreach.'},
+    mind:{title:'Mind',icon:Brain,color:'#A78BFA',description:'Mood, focus, reflection and the moments that shape your inner life.'},
+    life:{title:'Life',icon:Sprout,color:'#4ADE80',description:'Habits, reading, people and time spent on yourself.'}
   }
 
   const metricArea={
