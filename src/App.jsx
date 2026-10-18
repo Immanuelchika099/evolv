@@ -1823,6 +1823,37 @@ function Dashboard({ data, onLogout, onArticle }) {
     goTo('ai')
     setError('')
   }
+  function openQuickLogManual(choice){
+    setQuickLogOpen(false)
+    setQuickLogInitialScreen('menu')
+    setError('')
+    setEditingEntry(null)
+    if(choice==='more'){
+      setArea(null)
+      setMetric(null)
+      setLogOpen(true)
+      return
+    }
+    const selected=choice==='meal'
+      ? {slug:'meals',name:'Meal',value_type:'meal'}
+      : defs.find(item=>item.slug===choice)
+    if(!selected){
+      setError('That tracker is not available yet. Please refresh and try again.')
+      return
+    }
+    setArea(choice==='meal'?'nutrition':'health')
+    setMetric(selected)
+    setLogOpen(true)
+  }
+
+  function closeLogSheet(){
+    setLogOpen(false)
+    setArea(null)
+    setMetric(null)
+    setEditingEntry(null)
+    setError('')
+  }
+
   function openQuickLogAI(prompt){
     if(prompt) localStorage.setItem('evolv-ai-pending-prompt',prompt)
     setQuickLogOpen(false)
@@ -2547,7 +2578,8 @@ function Dashboard({ data, onLogout, onArticle }) {
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
     {active!=='ai'&&!reflectionOpen&&<button type="button" className="evolv-floating-log" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={19} strokeWidth={2.2}/><span>Log</span></button>}
-    {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} />}
+    {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />}
+    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
     
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
