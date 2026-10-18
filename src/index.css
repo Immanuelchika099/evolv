@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Mono&family=Manrope:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
+500;600;700&family=Space+Grotesk:wght@400;500;600&display=swap');
 
 :root{
   /* 4px-based spacing scale */
@@ -38,7 +38,7 @@
   --type-body: 1.5rem;
   --type-caption: 1.2rem;
 
-  font-family:Manrope,sans-serif;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color:#f4f1ea;
   background:#000;
   --muted:#85837f;
@@ -69,7 +69,7 @@ body{
   margin:0;
   background:#000;
   color:inherit;
-  font-family:Manrope,sans-serif;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 
 a{
@@ -422,4 +422,37 @@ html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
 }
 html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
   border-color: rgba(255,255,255,.12) !important;
+}
+
+
+/* GLOBAL TYPOGRAPHY: use native system UI fonts everywhere in EVOLV.
+   This deliberately overrides old component-level imported font declarations. */
+html body #root,
+html body #root *,
+html body #root *::before,
+html body #root *::after,
+html body #root button,
+html body #root input,
+html body #root textarea,
+html body #root select {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif !important;
+}
+
+/* A clear typographic hierarchy while keeping the native system typeface. */
+html body #root h1,
+html body #root h2,
+html body #root h3,
+html body #root h4,
+html body #root h5,
+html body #root h6 {
+  font-weight: 650;
+}
+
+html body #root .calm-home-welcome h1 {
+  font-weight: 750 !important;
+  letter-spacing: -0.045em;
+}
+
+html body #root .calm-home-greeting {
+  font-weight: 500;
 }
