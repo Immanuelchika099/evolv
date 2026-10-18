@@ -1112,7 +1112,6 @@
 }
 .auth-page .auth-legal {
   font-size: 12px !important;
-  line-height: 1.65 !important;
 }
 .auth-page .auth-email-summary,
 .auth-page .auth-step-copy,
@@ -1142,7 +1141,6 @@
 
 .auth-page .auth-legal {
   font-size: 1.4rem !important;
-  line-height: 1.75 !important;
 }
 
 @media (max-width: 800px) {
@@ -1155,7 +1153,6 @@
 
   .auth-page .auth-legal {
     font-size: 1.35rem !important;
-    line-height: 1.75 !important;
   }
 }
 
@@ -1231,12 +1228,12 @@
 }
 
 
-/* Consent sentence only: tightly control the gap between wrapped lines. */
+/* Consent sentence: use natural line height and keep links inline. */
 html body #root .auth-page p.auth-legal {
   display: block !important;
   margin: 16px 0 0 !important;
   padding: 0 !important;
-  line-height: 1.15 !important;
+  line-height: normal !important;
   text-align: center !important;
 }
 
@@ -1244,7 +1241,7 @@ html body #root .auth-page p.auth-legal button {
   display: inline !important;
   margin: 0 !important;
   padding: 0 !important;
-  line-height: inherit !important;
+  line-height: normal !important;
   font: inherit !important;
   vertical-align: baseline;
 }
