@@ -145,3 +145,17 @@
   .quick-log-spinner { animation: none; }
   .quick-log-option { transition: none; }
 }
+
+
+/* Keep each icon's identity independent of its current row position. */
+.quick-log-option-workout .quick-log-option-icon { color:#79aaff; background:rgba(59,130,246,.17); }
+.quick-log-option-meal .quick-log-option-icon { color:#ffb36b; background:rgba(249,115,22,.16); }
+.quick-log-option-sleep .quick-log-option-icon { color:#a5c7ff; background:rgba(96,165,250,.15); }
+.quick-log-option-water .quick-log-option-icon { color:#62d7f4; background:rgba(6,182,212,.15); }
+.quick-log-option-money .quick-log-option-icon { color:#f5ca75; background:rgba(234,179,8,.14); }
+.quick-log-option-ai .quick-log-option-icon { color:#8bbcff; background:rgba(37,99,235,.18); }
+.quick-log-option-health .quick-log-option-icon { color:#ff8f9d; background:rgba(255,107,114,.14); }
+.quick-log-option-nutrition .quick-log-option-icon { color:#ffb84d; background:rgba(255,184,77,.14); }
+.quick-log-option-career .quick-log-option-icon { color:#63c8ff; background:rgba(99,200,255,.14); }
+.quick-log-option-mind .quick-log-option-icon { color:#b6a2ff; background:rgba(155,124,255,.14); }
+.quick-log-option-life .quick-log-option-icon { color:#9dd6b0; background:rgba(157,214,176,.12); }
