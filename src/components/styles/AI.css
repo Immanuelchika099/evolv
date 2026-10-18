@@ -4318,3 +4318,17 @@ body:has(.dashboard.dashboard-ai-active) {
   box-sizing: border-box !important;
   transform: none !important;
 }
+
+
+/* EVOLV AI response typography: use true white for all assistant body content.
+   Keep heading styling and the user's blue message bubble unchanged. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content p,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote p,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content em {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
