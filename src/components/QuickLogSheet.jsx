@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, MoreHorizontal, WalletCards } from 'lucide-react'
+import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, MoreHorizontal, WalletCards, HeartPulse, Apple, BriefcaseBusiness, Brain, Sprout } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './QuickLogSheet.css'
 
@@ -45,6 +45,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   const [weightUnit, setWeightUnit] = useState('kg')
   const [exercises, setExercises] = useState([])
   const [deleteBusy, setDeleteBusy] = useState(false)
+  const [showMoreOptions, setShowMoreOptions] = useState(false)
 
   useEffect(() => {
     // Lock the page behind the sheet, including iOS Safari/PWA where
@@ -293,7 +294,11 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
       onLogWithAI('Help me log something in Evolv. Ask what I want to record, one question at a time, and save it only when you have enough information. Keep the conversation simple and do not show me a generic form.')
       return
     }
-    if (['meal', 'sleep', 'water', 'money', 'more'].includes(option.id)) {
+    if (option.id === 'more') {
+      setShowMoreOptions(true)
+      return
+    }
+    if (['meal', 'sleep', 'water', 'money'].includes(option.id)) {
       onLogManual?.(option.id)
     }
   }
@@ -354,9 +359,32 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
                         <div className="quick-log-options">
-              {loggingOptions.map(option => {
+              {loggingOptions.filter(option => option.id !== 'more' && (!showMoreOptions || option.id !== 'ai')).map(option => {
                 const Icon = option.icon
                 return <button type="button" className="quick-log-option" key={option.id} onClick={() => openCategory(option)}>
+                  <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                  <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
+                  <ChevronRight size={18} className="quick-log-chevron" />
+                </button>
+              })}
+              {!showMoreOptions && (() => {
+                const option = loggingOptions.find(item => item.id === 'more')
+                const Icon = option.icon
+                return <button type="button" className="quick-log-option" key="more" onClick={() => openCategory(option)}>
+                  <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                  <span className="quick-log-option-copy"><strong>More</strong></span>
+                  <ChevronRight size={18} className="quick-log-chevron" />
+                </button>
+              })()}
+              {showMoreOptions && [
+                { id: 'health', title: 'Health', icon: HeartPulse },
+                { id: 'nutrition', title: 'Nutrition', icon: Apple },
+                { id: 'career', title: 'Career', icon: BriefcaseBusiness },
+                { id: 'mind', title: 'Mind', icon: Brain },
+                { id: 'life', title: 'Life', icon: Sprout },
+              ].map(option => {
+                const Icon = option.icon
+                return <button type="button" className="quick-log-option quick-log-option-extra" key={option.id} onClick={() => onLogManual?.(option.id)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
                   <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
                   <ChevronRight size={18} className="quick-log-chevron" />
