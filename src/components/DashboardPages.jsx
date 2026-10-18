@@ -33,7 +33,7 @@ export function DashboardPages({ active, pageProps }) {
 function HomePage({ pageProps }) {
   const {
     name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
-    valueText, openLog, goTo, setArea, areas = {}, loading, logs = [], meals = [],
+    valueText, openLog, openWorkoutLog, goTo, setArea, areas = {}, loading, logs = [], meals = [],
     goals = []
   } = pageProps
 
@@ -76,7 +76,7 @@ function HomePage({ pageProps }) {
         title:def.slug==='exercise'?(log.metadata?.workoutName||'Workout'):def.name,
         detail:def.slug==='exercise'?(workoutDetail||log.note||valueText(log,def)):valueText(log,def),
         icon:icons[def.slug]||Activity,
-        onClick:()=>openLog(metricArea[def.slug],def)
+        onClick:()=>def.slug==='exercise'&&openWorkoutLog?openWorkoutLog(log,def):openLog(metricArea[def.slug],def)
       }
     }).filter(Boolean),
     ...todayMeals.map((meal, index) => ({
