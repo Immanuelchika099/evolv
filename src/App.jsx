@@ -1828,6 +1828,10 @@ function Dashboard({ data, onLogout, onArticle }) {
     setQuickLogInitialScreen('menu')
     setError('')
     setEditingEntry(null)
+    if(choice==='money'){
+      goTo('money')
+      return
+    }
     if(choice==='more'){
       setArea(null)
       setMetric(null)

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, MoreHorizontal } from 'lucide-react'
+import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, MoreHorizontal, WalletCards } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './QuickLogSheet.css'
 
@@ -26,6 +26,7 @@ const loggingOptions = [
   { id: 'meal', title: 'Meal', icon: Utensils },
   { id: 'sleep', title: 'Sleep', icon: Moon },
   { id: 'water', title: 'Water', icon: Droplets },
+  { id: 'money', title: 'Money', icon: WalletCards },
   { id: 'more', title: 'More', icon: MoreHorizontal },
   { id: 'ai', title: 'Ask AI', icon: Sparkles },
 ]
@@ -268,7 +269,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
       onLogWithAI('Help me log something in Evolv. Ask what I want to record, one question at a time, and save it only when you have enough information. Keep the conversation simple and do not show me a generic form.')
       return
     }
-    if (['meal', 'sleep', 'water', 'more'].includes(option.id)) {
+    if (['meal', 'sleep', 'water', 'money', 'more'].includes(option.id)) {
       onLogManual?.(option.id)
     }
   }
