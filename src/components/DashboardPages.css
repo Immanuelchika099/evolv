@@ -9139,3 +9139,17 @@ html body #root .dashboard .settings-page button.settings-toggle.active > span {
   .area-options-list { border-radius: 1.7rem; }
   .area-option-row { grid-template-columns: 3.6rem minmax(0,1fr) 1.8rem; gap: .8rem; padding-left: 1rem; padding-right: 1rem; }
 }
+
+
+/* Keep every growth-area and tracker icon on its own category colour. */
+.dashboard .area-options-page .area-option-icon {
+  color: var(--metric-color) !important;
+  background: color-mix(in srgb, var(--metric-color) 14%, #101114) !important;
+  border: 1px solid color-mix(in srgb, var(--metric-color) 28%, transparent) !important;
+}
+.dashboard .area-options-page .area-detail-head .life-area-icon,
+.dashboard .area-options-page .area-options-heading .life-area-icon {
+  color: var(--area-color, #FF6B72) !important;
+  background: color-mix(in srgb, var(--area-color, #FF6B72) 13%, #101114) !important;
+  border-color: color-mix(in srgb, var(--area-color, #FF6B72) 28%, transparent) !important;
+}
