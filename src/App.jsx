@@ -3275,7 +3275,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                     <button className="log-health-card log-metric-card" type="button" key={d.id} onClick={()=>selectMetric(d)}>
                       <span className="log-card-top">
                         <span className="log-card-title">
-                          <span className="log-choice-icon" style={{'--area-color':d.color||areaMeta[area].color}}><M size={22}/></span>
+                          <span className="log-choice-icon" style={{'--area-color':areaMeta[area].color}}><M size={22}/></span>
                           <strong style={{'--card-color':d.color||areaMeta[area].color}}>{d.name}</strong>
                         </span>
                         <ChevronRight className="log-card-chevron" size={22}/>
