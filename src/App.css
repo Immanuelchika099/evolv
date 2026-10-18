@@ -2658,53 +2658,70 @@ html,body,#root{background:#000 !important;}
 }
 
 
-/* Floating quick-log action: centered over the Profile destination, above the dock. */
+/* Floating quick-log action: a true circular blue FAB aligned above Profile. */
 .dashboard .evolv-floating-log {
-  position: fixed;
-  z-index: 100001;
-  right: max(-.4rem, calc(10vw - 4.5rem));
-  bottom: calc(6.8rem + 1rem);
-  display: inline-flex;
+  position: fixed !important;
+  z-index: 100100 !important;
+  right: calc(12.5vw - 3.1rem);
+  bottom: calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1.15rem);
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: .65rem;
-  width: 9rem;
-  min-width: 9rem;
-  min-height: 4.6rem;
-  padding: 0 1rem;
-  border: 1px solid rgba(255,255,255,.18);
-  border-radius: 999px;
-  background: #2563eb;
+  gap: .15rem;
+  width: 6.2rem;
+  height: 6.2rem;
+  min-width: 6.2rem;
+  min-height: 6.2rem;
+  padding: .55rem 0;
+  box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,.24);
+  border-radius: 50%;
+  background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%);
   color: #ffffff;
-  box-shadow: 0 .8rem 2.2rem rgba(0,0,0,.34), 0 .35rem 1.1rem rgba(37,99,235,.22);
-  font: 650 1.45rem/1 'Manrope', sans-serif;
+  box-shadow: 0 .8rem 2.4rem rgba(0,0,0,.42), 0 .35rem 1.3rem rgba(37,99,235,.38), inset 0 1px 0 rgba(255,255,255,.22);
+  font: 700 1.1rem/1 'Manrope', sans-serif;
   -webkit-tap-highlight-color: transparent;
-  transition: transform .16s ease, background .16s ease;
+  appearance: none;
+  cursor: pointer;
+  transition: transform .16s ease, filter .16s ease, box-shadow .16s ease;
 }
 .dashboard .evolv-floating-log svg {
+  display: block;
   flex: 0 0 auto;
+  width: 2.2rem;
+  height: 2.2rem;
   color: #ffffff;
   stroke: #ffffff;
 }
-.dashboard .evolv-floating-log span { color: #ffffff; }
-.dashboard .evolv-floating-log:active { transform: scale(.96); background: #1d4ed8; }
+.dashboard .evolv-floating-log span {
+  display: block;
+  color: #ffffff;
+  font-size: 1.05rem;
+  line-height: 1;
+  letter-spacing: .01em;
+}
+.dashboard .evolv-floating-log:active {
+  transform: scale(.94);
+  filter: brightness(.92);
+}
 .dashboard .evolv-floating-log:focus-visible {
   outline: 2px solid #ffffff;
   outline-offset: 3px;
 }
 @media (max-width: 390px) {
   .dashboard .evolv-floating-log {
-    width: 8.4rem;
-    min-width: 8.4rem;
-    min-height: 4.4rem;
-    right: max(-.4rem, calc(10vw - 4.2rem));
-    gap: .55rem;
+    right: calc(12.5vw - 3.1rem);
+    bottom: calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1.05rem);
+    width: 5.8rem;
+    height: 5.8rem;
+    min-width: 5.8rem;
+    min-height: 5.8rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
   .dashboard .evolv-floating-log { transition: none; }
 }
-
 
 /* Keep the floating action clear of the on-screen keyboard while editing fields. */
 .dashboard:has(input:focus) .evolv-floating-log,
