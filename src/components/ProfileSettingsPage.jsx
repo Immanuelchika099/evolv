@@ -152,10 +152,6 @@ export default function ProfileSettingsPage({pageProps}){
         <div className="profile-summary-focus"><span className="section-label">GROWTH AREAS</span><strong>{(profile?.growth_areas||data?.areas||[]).length||0} selected</strong></div>
       </aside>
       <div className="profile-settings-column">
-        <section className="profile-avatar-studio-card" aria-labelledby="profile-avatar-studio-title">
-          <div className="profile-avatar-studio-art"><span className="profile-avatar-studio-orbit"/><AvatarPortrait preferences={avatarStyle} expression="wave" className="profile-avatar-studio-portrait"/></div>
-          <div className="profile-avatar-studio-copy"><span className="section-label">MAKE IT YOURS</span><h3 id="profile-avatar-studio-title">Your avatar</h3><p>Give your EVOLV companion a look that feels like you. Change your face, hair, colours and more.</p><button type="button" className="profile-avatar-studio-button" onClick={()=>setAvatarStudioOpen(true)}><Pencil size={15}/> Open Avatar Studio <ArrowUpRight size={15}/></button></div>
-        </section>
         <section className="profile-stat-grid" aria-label="Your EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
         <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
           <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
