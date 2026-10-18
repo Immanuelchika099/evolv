@@ -188,6 +188,13 @@ function AreaPage({ pageProps }) {
   const currentArea = areas[area] ? area : 'health'
   const current = areas[currentArea]
   const AreaIcon = current?.icon || Activity
+  const metricIconColors = {
+    sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
+    mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
+    learning:'#38BDF8',building:'#60A5FA',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
+    income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
+    habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+  }
   const trackers = defs.filter(def => metricArea[def.slug] === currentArea)
   const recentMeals = meals.length
 
@@ -212,7 +219,7 @@ function AreaPage({ pageProps }) {
           const entry = latest[def.slug]
           return (
             <button type="button" className="area-option-row" key={def.id} onClick={() => openLog(currentArea, def)}>
-              <span className="metric-row-icon area-option-icon" style={{ '--metric-color': def.color || current?.color || '#8ab4ff' }}><Icon size={18} /></span>
+              <span className="metric-row-icon area-option-icon" style={{ '--metric-color': metricIconColors[def.slug] || def.color || current?.color || '#8ab4ff' }}><Icon size={18} /></span>
               <span className="area-option-copy"><strong>{def.name}</strong><small>{entry ? valueText(entry, def) : 'Not logged yet'}</small></span>
               <ChevronRight size={17} className="area-option-action" />
             </button>
