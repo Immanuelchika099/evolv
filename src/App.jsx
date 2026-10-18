@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LegalPage from './components/LegalPage'
 import BottomNav from './components/BottomNav'
+import QuickLogSheet from './components/QuickLogSheet'
 import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
@@ -1584,6 +1585,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
 function Dashboard({ data, onLogout, onArticle }) {
   const [active,setActive]=useState('overview')
   const [logOpen,setLogOpen]=useState(false)
+  const [quickLogOpen,setQuickLogOpen]=useState(false)
   const [area,setArea]=useState(null)
   const [metric,setMetric]=useState(null)
   const [defs,setDefs]=useState([])
@@ -1811,6 +1813,50 @@ function Dashboard({ data, onLogout, onArticle }) {
     goTo('ai')
     setError('')
   }
+  function handleQuickLogChoice(choice){
+    setQuickLogOpen(false)
+    setError('')
+
+    if(choice==='ai'){
+      setLogOpen(false)
+      setArea(null)
+      setMetric(null)
+      localStorage.setItem('evolv-ai-pending-prompt','Help me log an activity in Evolv. Ask me one clear question at a time, understand what I describe, and save the details using the available tracking tools. Do not invent missing details or make me fill out a generic form.')
+      goTo('ai')
+      return
+    }
+
+    if(choice==='more'){
+      setEditingEntry(null)
+      setArea(null)
+      setMetric(null)
+      setLogOpen(true)
+      return
+    }
+
+    const selected = choice==='meal'
+      ? {slug:'meals',name:'Meal',value_type:'meal'}
+      : defs.find(item=>item.slug===choice)
+
+    if(!selected){
+      setError(choice==='workout' ? 'Workout logging is not available yet. Please refresh and try again.' : 'That tracker is not available yet. Please refresh and try again.')
+      return
+    }
+
+    setEditingEntry(null)
+    setArea(choice==='meal'?'nutrition':'health')
+    setMetric(selected)
+    setLogOpen(true)
+  }
+
+  function closeLogSheet(){
+    setLogOpen(false)
+    setArea(null)
+    setMetric(null)
+    setEditingEntry(null)
+    setError('')
+  }
+
   function openEntry(item){
     const entry=item.entry
     const definition=item.type==='log'?defs.find(d=>d.id===entry.metric_id):null
@@ -2523,7 +2569,9 @@ function Dashboard({ data, onLogout, onArticle }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl} onLogClick={()=>setQuickLogOpen(true)}/>}
+    {active!=='ai'&&<QuickLogSheet open={quickLogOpen} onClose={()=>setQuickLogOpen(false)} onChoose={handleQuickLogChoice}/>}
+    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
     
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
@@ -2766,29 +2814,85 @@ function ExerciseFields({values,setValues}){
     core:{label:'Core',exercises:['Plank','Hanging knee raises','Leg raises','Cable crunches','Russian twists','Bicycle crunches','Ab wheel rollout']},
     full:{label:'Full body',exercises:['Squats','Deadlift','Bench press','Pull-ups','Overhead press','Dumbbell row','Walking lunges']}
   }
-  const rows=values.exerciseRows||[]
+  function setsFor(row){
+    if(Array.isArray(row.setsDetail)&&row.setsDetail.length)return row.setsDetail
+    const count=Math.min(20,Math.max(1,Number(row.sets)||3))
+    return Array.from({length:count},()=>({reps:Number(row.reps)||8,weight:row.weight??'',completed:false}))
+  }
+  const rows=(values.exerciseRows||[]).map(row=>({...row,setsDetail:setsFor(row)}))
   const workoutType=values.workoutType||'chest'
   const availableExercises=workoutSections[workoutType]?.exercises||workoutSections.chest.exercises
-  function updateRow(index,key,value){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>i===index?{...row,[key]:value}:row)}))}
-  function changeNumber(index,key,delta){const row=rows[index];const next=Math.max(0,(Number(row?.[key])||0)+delta);updateRow(index,key,next)}
-  function changeWorkoutType(type){const firstExercise=workoutSections[type]?.exercises?.[0]||'Barbell bench press';setValues(v=>({...v,workoutType:type,exerciseRows:(v.exerciseRows||[]).map((row,index)=>index===0?{...row,exercise:workoutSections[type].exercises.includes(row.exercise)?row.exercise:firstExercise}:row)}))}
-  function addRow(){setValues(v=>({...v,exerciseRows:[...(v.exerciseRows||[]),{exercise:availableExercises[0],sets:3,reps:8,weight:''}]}))}
-  function removeRow(index){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).filter((_,i)=>i!==index)}))}
-  const totalReps=rows.reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
+  function updateRow(index,key,value){
+    setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>{
+      if(i!==index)return row
+      const next={...row,[key]:value}
+      if(key==='exercise')next.exercise=String(value)
+      return next
+    })}))
+  }
+  function updateSet(index,setIndex,key,value){
+    setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>{
+      if(i!==index)return row
+      const current=setsFor(row)
+      const next=current.map((set,j)=>j===setIndex?{...set,[key]:value}:set)
+      return {...row,setsDetail:next,sets:next.length,reps:next[0]?.reps??'',weight:next[0]?.weight??''}
+    })}))
+  }
+  function addSet(index){
+    setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>{
+      if(i!==index)return row
+      const current=setsFor(row)
+      const previous=current[current.length-1]||{reps:8,weight:''}
+      const next=[...current,{reps:previous.reps||8,weight:previous.weight??'',completed:false}]
+      return {...row,setsDetail:next,sets:next.length,reps:next[0]?.reps??8,weight:next[0]?.weight??''}
+    })}))
+  }
+  function removeSet(index,setIndex){
+    setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).map((row,i)=>{
+      if(i!==index)return row
+      const current=setsFor(row)
+      if(current.length<=1)return row
+      const next=current.filter((set,j)=>j!==setIndex)
+      return {...row,setsDetail:next,sets:next.length,reps:next[0]?.reps??'',weight:next[0]?.weight??''}
+    })}))
+  }
+  function changeWorkoutType(type){
+    const firstExercise=workoutSections[type]?.exercises?.[0]||'Bench press'
+    setValues(v=>({...v,workoutType:type,workoutName:v.workoutName||workoutSections[type].label,exerciseRows:(v.exerciseRows||[]).map((row,index)=>index===0?{...row,exercise:workoutSections[type].exercises.includes(row.exercise)?row.exercise:firstExercise}:row)}))
+  }
+  function addRow(){
+    const first=availableExercises[0]||'New exercise'
+    setValues(v=>({...v,exerciseRows:[...(v.exerciseRows||[]),{exercise:first,sets:3,reps:8,weight:'',setsDetail:[{reps:8,weight:'',completed:false},{reps:8,weight:'',completed:false},{reps:8,weight:'',completed:false}]}]}))
+  }
+  function removeRow(index){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).filter((row,i)=>i!==index)}))}
+  const totalSets=rows.reduce((sum,row)=>sum+row.setsDetail.length,0)
+  const totalReps=rows.reduce((sum,row)=>sum+row.setsDetail.reduce((setSum,set)=>setSum+(Number(set.reps)||0),0),0)
   return <div className="exercise-log-fields">
-    <div className="special-log-intro"><strong>Build your workout.</strong><span>Choose the part of your body you're training, then log the exercises that belong to that session.</span></div>
-    <div className="log-field-group workout-section-picker"><div className="log-field-title"><span>What are you training today?</span><small>Pick a workout section</small></div><div className="workout-section-grid">{Object.entries(workoutSections).map(([key,section])=><button type="button" key={key} className={workoutType===key?'active':''} onClick={()=>changeWorkoutType(key)}>{section.label}</button>)}</div></div>
-    <div className="exercise-session-label"><span>{workoutSections[workoutType].label}</span><small>{availableExercises.length} exercises available</small></div>
+    <div className="special-log-intro"><strong>Build your workout.</strong><span>Name your session, add exercises, then enter each set exactly as you performed it.</span></div>
+    <label className="log-input-label exercise-workout-name"><span>Workout name</span><input type="text" maxLength="80" value={values.workoutName||''} onChange={e=>setValues(v=>({...v,workoutName:e.target.value}))} placeholder="e.g. Chest Day, Push Day, Full Body"/></label>
+    <div className="log-field-group workout-section-picker"><div className="log-field-title"><span>Training focus</span><small>Optional shortcut for exercise suggestions</small></div><div className="workout-section-grid">{Object.entries(workoutSections).map(([key,section])=><button type="button" key={key} className={workoutType===key?'active':''} onClick={()=>changeWorkoutType(key)}>{section.label}</button>)}</div></div>
+    <div className="exercise-session-label"><span>{String(values.workoutName||'').trim()||workoutSections[workoutType].label}</span><small>{rows.length} {rows.length===1?'exercise':'exercises'} · {totalSets} sets</small></div>
     <div className="exercise-row-list">{rows.map((row,index)=><div className="exercise-entry" key={index}>
       <div className="exercise-entry-head"><span>EXERCISE {index+1}</span>{rows.length>1&&<button type="button" onClick={()=>removeRow(index)} aria-label="Remove exercise"><X size={15}/></button>}</div>
-      <label className="log-input-label"><span>Exercise</span><select value={row.exercise} onChange={e=>updateRow(index,'exercise',e.target.value)}>{availableExercises.map(name=><option key={name}>{name}</option>)}</select></label>
-      <div className="exercise-number-grid">{[['sets','Sets'],['reps','Reps']].map(([key,label])=><div className="exercise-picker" key={key}><span>{label}</span><div><button type="button" onClick={()=>changeNumber(index,key,-1)} aria-label={'Decrease '+label}>−</button><strong>{row[key]||0}</strong><button type="button" onClick={()=>changeNumber(index,key,1)} aria-label={'Increase '+label}>+</button></div></div>)}</div>
-      <label className="log-input-label"><span>Weight <small>optional · kg</small></span><input type="number" min="0" step="0.5" value={row.weight??''} onChange={e=>updateRow(index,'weight',e.target.value)} placeholder="Bodyweight / 0"/></label>
+      <label className="log-input-label"><span>Exercise name</span><input type="text" list={'evolv-exercise-list-'+workoutType} maxLength="100" value={row.exercise||''} onChange={e=>updateRow(index,'exercise',e.target.value)} placeholder="e.g. Bench press"/></label>
+      <datalist id={'evolv-exercise-list-'+workoutType}>{availableExercises.map(name=><option key={name} value={name}/>)}</datalist>
+      <div className="exercise-set-list">
+        <div className="exercise-set-heading"><span>SET</span><span>WEIGHT · KG <small>OPTIONAL</small></span><span>REPS</span><span>DONE</span></div>
+        {row.setsDetail.map((set,setIndex)=><div className={'exercise-set-row'+(set.completed?' is-complete':'')} key={setIndex}>
+          <strong className="exercise-set-number">{setIndex+1}</strong>
+          <input aria-label={'Set '+(setIndex+1)+' weight in kilograms'} type="number" inputMode="decimal" min="0" step="0.5" value={set.weight??''} onChange={e=>updateSet(index,setIndex,'weight',e.target.value)} placeholder="—"/>
+          <input aria-label={'Set '+(setIndex+1)+' repetitions'} type="number" inputMode="numeric" min="0" max="1000" step="1" value={set.reps??''} onChange={e=>updateSet(index,setIndex,'reps',e.target.value)} placeholder="10"/>
+          <button type="button" className="exercise-set-complete" aria-label={(set.completed?'Unmark':'Mark')+' set '+(setIndex+1)+' complete'} aria-pressed={!!set.completed} onClick={()=>updateSet(index,setIndex,'completed',!set.completed)}>{set.completed?<Check size={15}/>:<span/>}</button>
+          {row.setsDetail.length>1&&<button type="button" className="exercise-set-remove" onClick={()=>removeSet(index,setIndex)} aria-label={'Remove set '+(setIndex+1)}><X size={13}/></button>}
+        </div>)}
+        <button type="button" className="exercise-add-set-button" onClick={()=>addSet(index)}><Plus size={14}/> Add set</button>
+      </div>
     </div>)}</div>
-    <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add another exercise</button>
-    <div className="exercise-total"><span>Total reps</span><strong>{totalReps}</strong></div>
+    <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add exercise</button>
+    <div className="exercise-total"><span>{totalSets} sets · Total reps</span><strong>{totalReps}</strong></div>
   </div>
 }
+
 function LogHistoryModal({logs=[],meals=[],definitions=[],onClose,onOpenEntry}){
   const metricById=Object.fromEntries(definitions.map(d=>[d.id,d]))
   const items=[...logs.map(entry=>({type:'log',entry,date:new Date(entry.logged_at)})),...meals.map(entry=>({type:'meal',entry,date:new Date(entry.logged_at)}))].sort((a,b)=>b.date-a.date)
@@ -2903,6 +3007,22 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   },[editEntry])
 
   useEffect(()=>{
+    if(editEntry || !metric || Object.keys(values).length) return
+    const loggedAt=toLocalDateTime(new Date())
+    if(metric.value_type==='meal'){
+      setValues({meal_type:'breakfast',description:'',calories:'',protein_g:'',carbs_g:'',fat_g:'',water_ml:'',note:'',logged_at:loggedAt})
+    }else if(metric.slug==='sleep'){
+      setValues({bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)})
+    }else if(metric.slug==='exercise'){
+      setValues({logged_at:loggedAt,workoutType:'chest',workoutName:'Chest Day',exerciseRows:[{exercise:'Bench press',sets:3,reps:8,weight:'',setsDetail:[{reps:8,weight:'',completed:false},{reps:8,weight:'',completed:false},{reps:8,weight:'',completed:false}]}]})
+    }else if(metric.slug==='water'){
+      setValues({logged_at:loggedAt,waterAmount:'',waterMeasure:'cup'})
+    }else{
+      setValues({logged_at:loggedAt})
+    }
+  },[metric,editEntry])
+
+  useEffect(()=>{
     const previousOverflow=document.body.style.overflow
     const previousTouchAction=document.body.style.touchAction
     document.body.style.overflow='hidden'
@@ -2926,7 +3046,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   function specialValue(){
     const slug=metric?.slug
-    if(slug==='exercise') return (values.exerciseRows||[]).reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
+    if(slug==='exercise') return (values.exerciseRows||[]).reduce((sum,row)=>sum+(Array.isArray(row.setsDetail)?row.setsDetail.reduce((rowSum,set)=>rowSum+(Number(set.reps)||0),0):(Number(row.sets)||0)*(Number(row.reps)||0)),0)
     if(slug==='energy') return Number(values.energy)
     if(slug==='steps') return Number(values.steps)
     if(slug==='water'){
@@ -2949,11 +3069,16 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   function specialNote(){
     const slug=metric?.slug
     if(slug==='exercise'){
-      const workoutLabels={chest:'Chest day',back:'Back day',legs:'Leg day',shoulders:'Shoulders',arms:'Arms',core:'Core',full:'Full body'}
+      const workoutLabels={chest:'Chest Day',back:'Back Day',legs:'Leg Day',shoulders:'Shoulders',arms:'Arms',core:'Core',full:'Full Body'}
+      const workoutName=String(values.workoutName||'').trim()||(workoutLabels[values.workoutType]||'Workout')
       const exercises=(values.exerciseRows||[])
-        .filter(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0)
-        .map(row=>row.exercise+': '+row.sets+'×'+row.reps+(Number(row.weight)>0?' @ '+row.weight+'kg':''))
-      return [values.workoutType&&'Workout: '+(workoutLabels[values.workoutType]||values.workoutType),...exercises].filter(Boolean).join(' · ') || null
+        .filter(row=>String(row.exercise||'').trim() && ((Array.isArray(row.setsDetail)&&row.setsDetail.some(set=>Number(set.reps)>0)) || ((Number(row.sets)||0)>0&&(Number(row.reps)||0)>0)))
+        .map(row=>{
+          const sets=Array.isArray(row.setsDetail)&&row.setsDetail.length?row.setsDetail:Array.from({length:Math.min(20,Math.max(1,Number(row.sets)||1))},()=>({reps:row.reps,weight:row.weight}))
+          const details=sets.map(set=>String(Number(set.reps)||0)+(Number(set.weight)>0?' @ '+Number(set.weight)+'kg':'')).join(', ')
+          return String(row.exercise).trim()+': '+details
+        })
+      return ['Workout: '+workoutName,...exercises].filter(Boolean).join(' · ') || null
     }
     if(slug==='energy') return values.energy ? `Energy: ${values.energy}/5` : null
     if(slug==='steps') return values.steps ? `Steps: ${Number(values.steps).toLocaleString()}` : null
@@ -3032,7 +3157,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     if(specialMetric){
       const value=specialValue()
       const loggedAt=values.logged_at?new Date(values.logged_at):new Date()
-      if(metric.slug==='exercise' && !(values.exerciseRows||[]).some(row=>(Number(row.sets)||0)>0&&(Number(row.reps)||0)>0)){
+      if(metric.slug==='exercise' && !(values.exerciseRows||[]).some(row=>Array.isArray(row.setsDetail)?row.setsDetail.some(set=>Number(set.reps)>0):((Number(row.sets)||0)>0&&(Number(row.reps)||0)>0))){
         setError('Add at least one exercise with sets and reps.')
         setSaving(false)
         return
@@ -3108,7 +3233,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     onMetric(nextMetric)
     setValues(nextMetric.slug==='sleep'
       ? {bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)}
-      : nextMetric.slug==='exercise' ? {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16),workoutType:'chest',exerciseRows:[{exercise:'Barbell bench press',sets:3,reps:8,weight:''}]}
+      : nextMetric.slug==='exercise' ? {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16),workoutType:'chest',workoutName:'Chest Day',exerciseRows:[{exercise:'Bench press',sets:3,reps:8,weight:'',setsDetail:[{reps:8,weight:'',completed:false},{reps:8,weight:'',completed:false},{reps:8,weight:'',completed:false}]}]}
          : {logged_at:new Date(Date.now()-new Date().getTimezoneOffset()*60000).toISOString().slice(0,16)})
     setError('')
   }
