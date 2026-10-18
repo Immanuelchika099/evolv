@@ -361,7 +361,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                         <div className="quick-log-options">
               {loggingOptions.filter(option => option.id !== 'more').map(option => {
                 const Icon = option.icon
-                return <button type="button" className="quick-log-option" key={option.id} onClick={() => openCategory(option)}>
+                return <button type="button" className={"quick-log-option quick-log-option-" + option.id} key={option.id} onClick={() => openCategory(option)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
                   <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
                   <ChevronRight size={18} className="quick-log-chevron" />
@@ -370,7 +370,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
               {!showMoreOptions && (() => {
                 const option = loggingOptions.find(item => item.id === 'more')
                 const Icon = option.icon
-                return <button type="button" className="quick-log-option" key="more" onClick={() => openCategory(option)}>
+                return <button type="button" className="quick-log-option quick-log-option-more" key="more" onClick={() => openCategory(option)}>
                   <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
                   <span className="quick-log-option-copy"><strong>More</strong></span>
                   <ChevronRight size={18} className="quick-log-chevron" />
