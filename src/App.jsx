@@ -2923,7 +2923,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout
   }
 
-  const rows=definitions.filter(d=>metricArea[d.slug]===area)
+  const rows=definitions.filter(d=>metricArea[d.slug]===area && d.slug!=='exercise')
 
   function toLocalDateTime(value){
     const date=new Date(value||Date.now())
@@ -2959,10 +2959,23 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   },[editEntry])
 
   useEffect(()=>{
+    if(editEntry || !metric || Object.keys(values).length) return
+    const now=new Date()
+    const loggedAt=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16)
+    if(metric.value_type==='meal' || metric.slug==='meals'){
+      setValues({meal_type:'breakfast',description:'',calories:'',protein_g:'',carbs_g:'',fat_g:'',water_ml:'',note:'',logged_at:loggedAt})
+    }else if(metric.slug==='sleep'){
+      setValues({bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)})
+    }else if(metric.slug==='water'){
+      setValues({logged_at:loggedAt,waterAmount:'',waterMeasure:'cup'})
+    }else{
+      setValues({logged_at:loggedAt})
+    }
+  },[metric,editEntry,values])
+
+  useEffect(()=>{
     const previousOverflow=document.body.style.overflow
-    const previousTouchAction=document.body.style.touchAction
     document.body.style.overflow='hidden'
-    document.body.style.touchAction='none'
 
     function handleKey(event){
       if(event.key==='Escape'&&!saving) onClose()
@@ -2973,7 +2986,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
     return ()=>{
       document.body.style.overflow=previousOverflow
-      document.body.style.touchAction=previousTouchAction
       window.removeEventListener('keydown',handleKey)
     }
   },[onClose,saving])
