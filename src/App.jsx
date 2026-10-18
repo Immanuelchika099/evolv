@@ -1833,8 +1833,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       goTo('money')
       return
     }
-    if(choice==='more'){
-      setArea(null)
+    if(['health','nutrition','career','mind','life'].includes(choice)){
+      setArea(choice)
       setMetric(null)
       setLogOpen(true)
       return
@@ -2905,6 +2905,27 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   const [error,setError]=useState('')
   const sheetRef=useRef(null)
   const editing=Boolean(editEntry)
+
+  useEffect(()=>{
+    const body=document.body
+    const scrollY=window.scrollY
+    const previous={overflow:body.style.overflow,position:body.style.position,top:body.style.top,left:body.style.left,right:body.style.right,width:body.style.width}
+    body.style.overflow='hidden'
+    body.style.position='fixed'
+    body.style.top=`-${scrollY}px`
+    body.style.left='0'
+    body.style.right='0'
+    body.style.width='100%'
+    return()=>{
+      body.style.overflow=previous.overflow
+      body.style.position=previous.position
+      body.style.top=previous.top
+      body.style.left=previous.left
+      body.style.right=previous.right
+      body.style.width=previous.width
+      window.scrollTo(0,scrollY)
+    }
+  },[])
 
   const areaMeta={
     health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
