@@ -399,3 +399,290 @@ html body #root nav.evolv-bottom-nav button.bottom-active > span svg * {
   stroke: currentColor !important;
   fill: none !important;
 }
+
+
+/* Floating quick-log action: positioned over the Profile end of the dock. */
+.evolv-floating-log-button {
+  position: fixed !important;
+  z-index: 100002 !important;
+  right: .8rem !important;
+  bottom: calc(7.8rem + env(safe-area-inset-bottom, 0px) * 0) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .7rem !important;
+  min-width: 7.8rem !important;
+  min-height: 4.4rem !important;
+  padding: 0 1.45rem !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  border-radius: 999px !important;
+  background: #2563eb !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  box-shadow: 0 .7rem 2.2rem rgba(0,0,0,.32), inset 0 1px 0 rgba(255,255,255,.16) !important;
+  font: 600 1.4rem/1 'Manrope', sans-serif !important;
+  letter-spacing: -.015em !important;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+.evolv-floating-log-button svg {
+  flex: 0 0 auto;
+  color: #ffffff !important;
+  stroke: currentColor !important;
+}
+.evolv-floating-log-button span { color: #ffffff !important; }
+.evolv-floating-log-button:active { transform: scale(.96); }
+.evolv-floating-log-button:focus-visible {
+  outline: 2px solid rgba(255,255,255,.9);
+  outline-offset: 3px;
+}
+@media (min-width: 48rem) {
+  .evolv-floating-log-button {
+    right: max(1.6rem, calc(10vw - 5.6rem)) !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-floating-log-button { transition: none !important; }
+}
+
+/* Quick-log sheet surfaces */
+.quick-log-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100010;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+  background: rgba(0,0,0,.62);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  animation: quick-log-fade-in .16s ease-out both;
+}
+.quick-log-sheet {
+  width: 100%;
+  max-width: 56rem;
+  max-height: calc(100dvh - 4rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 1.1rem 1.8rem calc(1.7rem + env(safe-area-inset-bottom, 0px));
+  border: 1px solid rgba(255,255,255,.11);
+  border-bottom: 0;
+  border-radius: 2.4rem 2.4rem 0 0;
+  background: #0b0c0e;
+  color: #f4f4f1;
+  box-shadow: 0 -1.8rem 5rem rgba(0,0,0,.42);
+  animation: quick-log-sheet-in .22s cubic-bezier(.2,.8,.2,1) both;
+}
+.quick-log-handle {
+  width: 3.8rem;
+  height: .4rem;
+  margin: .2rem auto 1.8rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,.24);
+}
+.quick-log-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+.quick-log-header-copy { min-width: 0; }
+.quick-log-eyebrow {
+  display: block;
+  margin-bottom: .5rem;
+  color: rgba(255,255,255,.48);
+  font: 600 1.1rem/1.3 'DM Mono', monospace;
+  letter-spacing: .09em;
+}
+.quick-log-header h2 {
+  margin: 0;
+  color: #f7f7f5;
+  font: 600 2.4rem/1.18 'Manrope', sans-serif;
+  letter-spacing: -.045em;
+}
+.quick-log-header p {
+  margin: .7rem 0 0;
+  color: rgba(255,255,255,.58);
+  font: 400 1.4rem/1.55 'Manrope', sans-serif;
+}
+.quick-log-close {
+  display: grid;
+  flex: 0 0 4rem;
+  width: 4rem;
+  height: 4rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 50%;
+  background: rgba(255,255,255,.045);
+  color: #f4f4f1;
+}
+.quick-log-options { display: grid; }
+.quick-log-option {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0,1fr) 2rem;
+  align-items: center;
+  gap: 1.2rem;
+  width: 100%;
+  min-height: 6.7rem;
+  padding: 1rem .2rem;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.075);
+  border-radius: 0;
+  background: transparent;
+  color: #f4f4f1;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+.quick-log-option:last-child { border-bottom: 0; }
+.quick-log-option:active { background: rgba(255,255,255,.035); }
+.quick-log-option-icon {
+  display: grid;
+  width: 4.2rem;
+  height: 4.2rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.085);
+  border-radius: 1.4rem;
+  background: rgba(255,255,255,.045);
+  color: #e7e9ee;
+}
+.quick-log-option-icon.is-blue {
+  border-color: rgba(37,99,235,.3);
+  background: rgba(37,99,235,.15);
+  color: #8ab4ff;
+}
+.quick-log-option-copy { display: grid; min-width: 0; gap: .35rem; }
+.quick-log-option-copy strong {
+  color: #f5f5f3;
+  font: 600 1.5rem/1.25 'Manrope', sans-serif;
+}
+.quick-log-option-copy small {
+  color: rgba(255,255,255,.52);
+  font: 400 1.25rem/1.4 'Manrope', sans-serif;
+}
+.quick-log-option-arrow { color: rgba(255,255,255,.32); }
+.quick-log-option:focus-visible,
+.quick-log-close:focus-visible {
+  outline: 2px solid rgba(37,99,235,.95);
+  outline-offset: 3px;
+}
+@keyframes quick-log-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes quick-log-sheet-in { from { opacity: .7; transform: translateY(1.4rem); } to { opacity: 1; transform: translateY(0); } }
+
+/* Set-by-set workout editor, scoped to the existing exercise logger. */
+.exercise-workout-name { margin-bottom: 1.5rem; }
+.exercise-set-list {
+  display: grid;
+  gap: .55rem;
+  margin-top: 1.1rem;
+}
+.exercise-set-heading,
+.exercise-set-row {
+  display: grid;
+  grid-template-columns: 2.7rem minmax(0,1fr) minmax(0,.82fr) 3.4rem;
+  align-items: center;
+  gap: .65rem;
+}
+.exercise-set-heading {
+  padding: 0 .4rem .35rem;
+  color: rgba(255,255,255,.46);
+  font: 600 1rem/1.2 'DM Mono', monospace;
+  letter-spacing: .035em;
+}
+.exercise-set-heading small { display: block; font: inherit; opacity: .68; }
+.exercise-set-row {
+  position: relative;
+  min-height: 4.8rem;
+  padding: .4rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.2rem;
+  background: #101113;
+}
+.exercise-set-row.is-complete {
+  border-color: rgba(37,99,235,.4);
+  background: rgba(37,99,235,.075);
+}
+.exercise-set-number {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: .8rem;
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.8);
+  font-size: 1.25rem;
+}
+.exercise-set-row input {
+  width: 100%;
+  min-width: 0;
+  min-height: 3.8rem;
+  padding: .6rem .65rem;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: .85rem;
+  outline: none;
+  background: #08090a;
+  color: #f4f4f1;
+  font-size: 1.4rem;
+}
+.exercise-set-row input:focus { border-color: rgba(37,99,235,.75); }
+.exercise-set-complete {
+  display: grid;
+  width: 3.4rem;
+  height: 3.4rem;
+  place-items: center;
+  justify-self: center;
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+}
+.exercise-set-complete > span {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,.1);
+}
+.exercise-set-complete[aria-pressed="true"] {
+  border-color: #2563eb;
+  background: #2563eb;
+}
+.exercise-add-set-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6rem;
+  min-height: 4.1rem;
+  margin-top: .35rem;
+  padding: .8rem 1rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.1rem;
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.84);
+  font-size: 1.3rem;
+}
+.exercise-set-remove {
+  position: absolute;
+  top: -.6rem;
+  right: -.4rem;
+  display: none;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 50%;
+  background: #202124;
+  color: #fff;
+}
+.exercise-set-row:hover .exercise-set-remove,
+.exercise-set-remove:focus-visible { display: grid; }
+@media (max-width: 360px) {
+  .quick-log-sheet { padding-inline: 1.4rem; }
+  .quick-log-option { grid-template-columns: 4rem minmax(0,1fr) 1.6rem; gap: .9rem; }
+  .exercise-set-heading, .exercise-set-row { grid-template-columns: 2.4rem minmax(0,1fr) minmax(0,.78fr) 3rem; gap: .4rem; }
+  .exercise-set-complete { width: 3rem; height: 3rem; }
+  .exercise-set-row input { padding-inline: .45rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quick-log-overlay, .quick-log-sheet { animation: none !important; }
+}
