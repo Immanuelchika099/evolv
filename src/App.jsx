@@ -2858,7 +2858,11 @@ function ExerciseFields({values,setValues}){
   }
   function changeWorkoutType(type){
     const firstExercise=workoutSections[type]?.exercises?.[0]||'Bench press'
-    setValues(v=>({...v,workoutType:type,workoutName:v.workoutName||workoutSections[type].label,exerciseRows:(v.exerciseRows||[]).map((row,index)=>index===0?{...row,exercise:workoutSections[type].exercises.includes(row.exercise)?row.exercise:firstExercise}:row)}))
+    setValues(v=>{
+      const previousLabel=workoutSections[v.workoutType||'chest']?.label||'Chest day'
+      const nameIsDefault=!String(v.workoutName||'').trim()||String(v.workoutName).trim().toLowerCase()===previousLabel.toLowerCase()
+      return {...v,workoutType:type,workoutName:nameIsDefault?workoutSections[type].label:v.workoutName,exerciseRows:(v.exerciseRows||[]).map((row,index)=>index===0?{...row,exercise:workoutSections[type].exercises.includes(row.exercise)?row.exercise:firstExercise}:row)}
+    })
   }
   function addRow(){
     const first=availableExercises[0]||'New exercise'
