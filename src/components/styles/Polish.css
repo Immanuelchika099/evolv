@@ -1044,3 +1044,85 @@ html body #root .dashboard .daily-routine-page button.routine-toggle > span,
 html body #root .dashboard .daily-routine-page button.routine-toggle.is-on > span {
   background: #ffffff !important;
 }
+
+/* Floating Log action — this file is imported by src/main.jsx.
+   Keep the control outside transformed dashboard stacking contexts via its React portal. */
+html body button.evolv-floating-log,
+html body button.evolv-floating-log:hover,
+html body button.evolv-floating-log:focus,
+html body button.evolv-floating-log:active {
+  position: fixed !important;
+  inset: auto max(.8rem, calc(10vw - 2.9rem)) calc(7.5rem + env(safe-area-inset-bottom, 0px)) auto !important;
+  z-index: 2147483000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .2rem !important;
+  width: 5.8rem !important;
+  height: 5.8rem !important;
+  min-width: 5.8rem !important;
+  min-height: 5.8rem !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: .45rem 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  border: 1px solid rgba(255,255,255,.26) !important;
+  border-radius: 50% !important;
+  background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  background-color: #2563eb !important;
+  background-image: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 .8rem 2.4rem rgba(0,0,0,.45), 0 .35rem 1.3rem rgba(37,99,235,.4), inset 0 1px 0 rgba(255,255,255,.22) !important;
+  font: 700 1.1rem/1 'Manrope', sans-serif !important;
+  text-align: center !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  cursor: pointer !important;
+  transform: none;
+  transition: transform .16s ease, filter .16s ease;
+}
+html body button.evolv-floating-log svg {
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+  max-width: none !important;
+  color: #fff !important;
+  stroke: #fff !important;
+}
+html body button.evolv-floating-log span {
+  display: block !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
+  letter-spacing: .01em !important;
+}
+html body button.evolv-floating-log:active {
+  transform: scale(.94) !important;
+  filter: brightness(.92) !important;
+}
+html body button.evolv-floating-log:focus-visible {
+  outline: 2px solid #fff !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 390px) {
+  html body button.evolv-floating-log,
+  html body button.evolv-floating-log:hover,
+  html body button.evolv-floating-log:focus,
+  html body button.evolv-floating-log:active {
+    inset: auto max(.8rem, calc(10vw - 2.8rem)) calc(7.5rem + env(safe-area-inset-bottom, 0px)) auto !important;
+    width: 5.6rem !important;
+    height: 5.6rem !important;
+    min-width: 5.6rem !important;
+    min-height: 5.6rem !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body button.evolv-floating-log { transition: none !important; }
+}
