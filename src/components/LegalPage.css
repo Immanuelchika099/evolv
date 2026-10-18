@@ -1,4 +1,4 @@
-.legal-page{min-height:100vh;padding:clamp(2.4rem,5vw,5.6rem) 2rem 7rem;background:#000;color:#f4f4f1}
+.legal-page{min-height:100vh;padding:clamp(4.8rem,8vw,8rem) 2rem 7rem;background:#000;color:#f4f4f1}
 .legal-page-inner{width:min(100%,820px);margin:0 auto}
 .legal-back-button{display:inline-flex;align-items:center;gap:.8rem;min-height:4.4rem;padding:.8rem 1.2rem .8rem .7rem;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.045);color:#f4f4f1;font-size:1.4rem;font-weight:600;transition:background .18s ease,border-color .18s ease}
 .legal-back-button:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.24)}
@@ -12,4 +12,4 @@
 .legal-section h2{margin:0 0 1.2rem;color:#fff;font-size:1.9rem;line-height:1.45;font-weight:600;letter-spacing:-.015em}
 .legal-section p{margin:0;color:rgba(255,255,255,.72);font-size:1.55rem;line-height:1.95;overflow-wrap:anywhere}
 .legal-back-bottom{margin-top:3rem}
-@media(max-width:600px){.legal-page{padding:1.8rem 2rem 5rem}.legal-page-header{padding-top:4rem}.legal-page-header h1{font-size:clamp(3.2rem,10vw,4.4rem)}.legal-intro{font-size:1.55rem;line-height:1.85}.legal-section{padding:2rem 0 2.2rem}.legal-section h2{font-size:1.8rem}.legal-section p{font-size:1.5rem;line-height:1.9}}
+@media(max-width:600px){.legal-page{padding:3.2rem 2rem 5rem}.legal-page-header{padding-top:4rem}.legal-page-header h1{font-size:clamp(3.2rem,10vw,4.4rem)}.legal-intro{font-size:1.55rem;line-height:1.85}.legal-section{padding:2rem 0 2.2rem}.legal-section h2{font-size:1.8rem}.legal-section p{font-size:1.5rem;line-height:1.9}}
