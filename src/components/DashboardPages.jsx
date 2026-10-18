@@ -81,9 +81,13 @@ function HomePage({ pageProps }) {
   function startCheckIn(selectedMood = '') {
     const mood = String(selectedMood || '').trim().toLowerCase()
     const moodPrompts = {
-      good: "I checked in on EVOLV and I'm feeling good today. Start a gentle, conversational check-in. Ask one question at a time about what's helping me feel this way, without turning it into a long questionnaire. Only save a mood record after confirming the details with me.",
-      okay: "I checked in on EVOLV and I'm feeling okay today. Help me understand how I'm doing with one gentle question at a time. Don't assume I'm happy or sad, and don't turn this into a long questionnaire. Only save a mood record after confirming the details with me.",
-      low: "I checked in on EVOLV and I'm feeling low today. Respond with warmth, without diagnosing me or trying to fix everything at once. Ask one gentle question at a time about what might be weighing on me. Don't assume the cause, and only save a mood record after confirming the details with me.",
+      happy: "I checked in on EVOLV and I'm feeling happy today. Start a gentle conversation about what's been going well. Ask one question at a time and only save a mood record after confirming the details with me.",
+      normal: "I checked in on EVOLV and I'm feeling pretty normal today. Help me check in without assuming anything is wrong or unusually good. Ask one gentle question at a time and only save a mood record after confirming the details with me.",
+      mixed: "I checked in on EVOLV and have mixed feelings today. Help me unpack them gently, one question at a time, without rushing to label the day as good or bad. Only save a mood record after confirming the details with me.",
+      sad: "I checked in on EVOLV and I'm feeling sad today. Respond with warmth, without diagnosing me or trying to fix everything at once. Ask one gentle question at a time about what might be weighing on me. Only save a mood record after confirming the details with me.",
+      depressed: "I checked in on EVOLV and I'm feeling depressed today. Respond gently and without judgement or diagnosing me. Ask one question at a time about what support I need right now. Don't minimise how I feel. Only save a mood record after confirming the details with me.",
+      anxious: "I checked in on EVOLV and I'm feeling anxious today. Help me slow down and understand what's happening, one gentle question at a time. Don't assume the cause. Only save a mood record after confirming the details with me.",
+      overwhelmed: "I checked in on EVOLV and I'm feeling overwhelmed today. Help me slow things down and find one manageable next step. Ask one gentle question at a time and don't assume the cause.",
       stressed: "I checked in on EVOLV and I'm feeling stressed today. Help me slow down and understand what's putting pressure on me. Ask one gentle question at a time, then help me find one manageable next step. Don't diagnose me or assume the cause. Only save a mood record after confirming the details with me."
     }
     if (mood && moodPrompts[mood]) {
@@ -108,10 +112,12 @@ function HomePage({ pageProps }) {
         <p>Choose what feels closest.</p>
         <div className="calm-mood-options">
           {[
-            { label: 'Good', mood: 'good', note: 'Feeling good' },
-            { label: 'Okay', mood: 'okay', note: 'Taking it as it comes' },
-            { label: 'Low', mood: 'low', note: 'A little heavy' },
-            { label: 'Stressed', mood: 'stressed', note: 'A lot on my mind' }
+            { label: 'Happy', mood: 'happy', note: 'Feeling good' },
+            { label: 'Normal', mood: 'normal', note: 'Just a usual day' },
+            { label: 'Mixed feelings', mood: 'mixed', note: 'A bit of everything' },
+            { label: 'Sad', mood: 'sad', note: 'Feeling down' },
+            { label: 'Depressed', mood: 'depressed', note: 'Feeling really low' },
+            { label: 'Anxious', mood: 'anxious', note: 'A lot on my mind' }
           ].map(option => (
             <button type="button" key={option.mood} onClick={() => startCheckIn(option.label)} className={'calm-mood-option mood-' + option.mood} aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
               <span className="calm-mood-avatar-wrap" aria-hidden="true">
