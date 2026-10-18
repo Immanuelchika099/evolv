@@ -304,6 +304,19 @@ html body #root .onboarding .btn-primary * {
 }
 
 
+/* Floating Log action: only mounts after the boot loader and gently enters once. */
+@keyframes evolv-log-scale-in {
+  from { opacity: 0; transform: scale(.88) translateY(5px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.evolv-floating-log-intro {
+  animation: evolv-log-scale-in 420ms cubic-bezier(.2,.75,.25,1) both;
+  transform-origin: center;
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-floating-log-intro { animation: none; }
+}
+
 /* EVOLV — public and standalone pages use a true black canvas.
    Keep the landing hero's silk-line canvas and the ash footer intact. */
 .auth-shell,
