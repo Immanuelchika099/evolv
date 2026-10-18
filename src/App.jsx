@@ -1836,7 +1836,7 @@ function Dashboard({ data, onLogout, onArticle }) {
 
     const selected = choice==='meal'
       ? {slug:'meals',name:'Meal',value_type:'meal'}
-      : defs.find(item=>item.slug===choice)
+      : defs.find(item=>item.slug===(choice==='workout'?'exercise':choice))
 
     if(!selected){
       setError(choice==='workout' ? 'Workout logging is not available yet. Please refresh and try again.' : 'That tracker is not available yet. Please refresh and try again.')
@@ -3154,10 +3154,17 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     if(specialMetric){
       const value=specialValue()
       const loggedAt=values.logged_at?new Date(values.logged_at):new Date()
-      if(metric.slug==='exercise' && !(values.exerciseRows||[]).some(row=>Array.isArray(row.setsDetail)?row.setsDetail.some(set=>Number(set.reps)>0):((Number(row.sets)||0)>0&&(Number(row.reps)||0)>0))){
-        setError('Add at least one exercise with sets and reps.')
-        setSaving(false)
-        return
+      if(metric.slug==='exercise'){
+        const workoutRows=values.exerciseRows||[]
+        const validWorkout=workoutRows.length>0&&workoutRows.every(row=>{
+          const sets=Array.isArray(row.setsDetail)?row.setsDetail:[]
+          return String(row.exercise||'').trim() && (sets.length ? sets.every(set=>Number(set.reps)>0) : (Number(row.sets)>0&&Number(row.reps)>0))
+        })
+        if(!validWorkout){
+          setError('Give each exercise a name and enter reps for every set.')
+          setSaving(false)
+          return
+        }
       }
       if(!Number.isFinite(value)||(value<0)){
         setError('Complete the main detail before saving.')
