@@ -2656,3 +2656,52 @@ html,body,#root{background:#000 !important;}
   .landing-v2 .ev-system-steps strong { font-size:2rem; }
   .landing-v2 .ev-system-steps small { font-size:1.35rem; }
 }
+
+
+/* Floating quick-log action: aligned over the rightmost Profile item in the dock. */
+.dashboard .evolv-floating-log {
+  position: fixed;
+  z-index: 100001;
+  right: .8rem;
+  bottom: calc(6.8rem + 1.2rem);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  min-width: 8.8rem;
+  min-height: 4.6rem;
+  padding: 0 1.55rem;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 .8rem 2.2rem rgba(0,0,0,.34), 0 .35rem 1.1rem rgba(37,99,235,.22);
+  font: 650 1.45rem/1 'Manrope', sans-serif;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .16s ease, background .16s ease;
+}
+.dashboard .evolv-floating-log svg {
+  flex: 0 0 auto;
+  color: #ffffff;
+  stroke: #ffffff;
+}
+.dashboard .evolv-floating-log span { color: #ffffff; }
+.dashboard .evolv-floating-log:active { transform: scale(.96); background: #1d4ed8; }
+.dashboard .evolv-floating-log:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+@media (min-width: 701px) {
+  .dashboard .evolv-floating-log { right: 2rem; }
+}
+@media (max-width: 390px) {
+  .dashboard .evolv-floating-log {
+    right: .65rem;
+    min-width: 8.2rem;
+    min-height: 4.4rem;
+    padding-inline: 1.25rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .evolv-floating-log { transition: none; }
+}
