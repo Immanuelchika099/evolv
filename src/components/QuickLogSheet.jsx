@@ -47,15 +47,39 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   const [deleteBusy, setDeleteBusy] = useState(false)
 
   useEffect(() => {
-    const oldOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    // Lock the page behind the sheet, including iOS Safari/PWA where
+    // body overflow:hidden alone can still allow the background to move.
+    const body = document.body
+    const scrollY = window.scrollY
+    const previous = {
+      overflow: body.style.overflow,
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    }
+
+    body.style.overflow = 'hidden'
+    body.style.position = 'fixed'
+    body.style.top = `-${scrollY}px`
+    body.style.left = '0'
+    body.style.right = '0'
+    body.style.width = '100%'
+
     function onKeyDown(event) {
       if (event.key === 'Escape') onClose()
     }
     document.addEventListener('keydown', onKeyDown)
     loadWorkouts()
     return () => {
-      document.body.style.overflow = oldOverflow
+      body.style.overflow = previous.overflow
+      body.style.position = previous.position
+      body.style.top = previous.top
+      body.style.left = previous.left
+      body.style.right = previous.right
+      body.style.width = previous.width
+      window.scrollTo(0, scrollY)
       document.removeEventListener('keydown', onKeyDown)
     }
   }, [])
