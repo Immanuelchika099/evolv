@@ -26,21 +26,18 @@
 .quick-log-handle { flex: 0 0 auto; width: 4.2rem; height: .4rem; margin: 1rem auto .5rem; border-radius: 999px; background: rgba(255,255,255,.24); }
 .quick-log-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.2rem; padding: 1.4rem 1.8rem 1.6rem; border-bottom: 1px solid rgba(255,255,255,.08); }
 .quick-log-header-copy { display: flex; align-items: center; gap: 1.1rem; min-width: 0; }
-.quick-log-eyebrow { display: block; margin-bottom: .6rem; color: rgba(255,255,255,.42); font-size: 1.05rem; font-weight: 650; letter-spacing: .13em; }
 .quick-log-header h2 { margin: 0; color: #f5f5f3; font-size: 2.4rem; font-weight: 600; letter-spacing: -.055em; line-height: 1.15; }
 .quick-log-close, .quick-log-back { display: grid; flex: 0 0 4rem; width: 4rem; height: 4rem; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.1); border-radius: 50%; background: #141414; color: rgba(255,255,255,.86); }
 .quick-log-back { flex-basis: 3.8rem; width: 3.8rem; height: 3.8rem; }
 .quick-log-content { min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 1.6rem 1.8rem 2rem; -webkit-overflow-scrolling: touch; }
-.quick-log-intro, .quick-log-workout-toolbar p { margin: 0 0 1.5rem; color: rgba(255,255,255,.6); font-size: 1.45rem; line-height: 1.65; }
 .quick-log-options { display: grid; gap: .7rem; }
 .quick-log-option { display: grid; grid-template-columns: 4.4rem minmax(0,1fr) 2rem; align-items: center; gap: 1.2rem; width: 100%; min-height: 7.2rem; padding: 1.1rem 1.2rem; text-align: left; border: 1px solid rgba(255,255,255,.08); border-radius: 1.6rem; background: #111; color: #f5f5f3; transition: background .16s ease, border-color .16s ease; }
 .quick-log-option:active { background: #171717; border-color: rgba(37,99,235,.55); }
 .quick-log-option-icon, .quick-log-history-icon { display: grid; width: 4.4rem; height: 4.4rem; place-items: center; border-radius: 1.25rem; background: rgba(37,99,235,.14); color: #8db5ff; }
-.quick-log-option-copy { display: grid; min-width: 0; gap: .4rem; }
+.quick-log-option-copy { display: grid; min-width: 0; }
 .quick-log-option-copy strong { font-size: 1.55rem; font-weight: 600; }
-.quick-log-option-copy small { color: rgba(255,255,255,.52); font-size: 1.25rem; line-height: 1.45; }
 .quick-log-chevron { color: rgba(255,255,255,.38); }
-.quick-log-workout-toolbar { display: grid; gap: 1.2rem; margin-bottom: 1.5rem; }
+.quick-log-workout-toolbar { display: grid; margin-bottom: 1.5rem; }
 .quick-log-workout-toolbar p { margin: 0; }
 .quick-log-primary, .quick-log-add-exercise { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 4.6rem; padding: 0 1.6rem; border: 1px solid #2563eb; border-radius: 1.35rem; background: #2563eb; color: #fff; font-size: 1.45rem; font-weight: 650; white-space: nowrap; }
 .quick-log-primary svg, .quick-log-add-exercise svg { color: #fff; stroke: #fff; }
@@ -61,7 +58,6 @@
 .quick-log-empty { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; padding: 2.2rem 1.6rem; border: 1px solid rgba(255,255,255,.08); border-radius: 1.8rem; background: #101010; }
 .quick-log-empty > svg { color: #8db5ff; }
 .quick-log-empty strong { font-size: 1.6rem; }
-.quick-log-empty p { margin: 0 0 .5rem; color: rgba(255,255,255,.54); font-size: 1.35rem; line-height: 1.6; }
 .quick-log-editor { padding-bottom: 0; }
 .quick-log-workout-fields { display: grid; gap: 1.2rem; }
 .quick-log-field { display: grid; gap: .7rem; min-width: 0; }
@@ -119,7 +115,6 @@
 .quick-log-detail-actions { display: flex; gap: 1rem; margin-top: 2rem; }
 .quick-log-secondary-danger { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 4.6rem; padding: 0 1.4rem; border: 1px solid rgba(248,113,113,.3); border-radius: 1.2rem; background: transparent; color: #fca5a5; font-size: 1.4rem; }
 .quick-log-detail-actions .quick-log-primary { flex: 1; }
-.quick-log-footer-note { flex: 0 0 auto; margin: 0; padding: .9rem 1.8rem 1.2rem; border-top: 1px solid rgba(255,255,255,.06); color: rgba(255,255,255,.32); font-size: 1.1rem; line-height: 1.45; text-align: center; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
 @media (max-width: 390px) {
   .quick-log-overlay { padding-inline: .8rem; }
