@@ -1253,3 +1253,25 @@
     line-height: 1.45 !important;
   }
 }
+
+
+/* Final auth footer fix: force compact legal copy and remove excess page-bottom space. */
+html body #root .auth-page .auth-legal {
+  display: block !important;
+  margin: 16px 0 0 !important;
+  padding: 0 !important;
+  line-height: 1.4 !important;
+  text-align: center !important;
+}
+
+html body #root .auth-page .auth-legal button {
+  display: inline !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: inherit !important;
+  vertical-align: baseline;
+}
+
+html body #root .auth-page {
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+}
