@@ -1819,7 +1819,9 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     }else if(selected){
       prompt = 'Help me update my Evolv ' + selected.name + ' record through conversation. Ask me what you need in plain language, one question at a time, then save it using the available tracking tool. Do not show me a generic form or ask me to enter a random value without context.'
     }
+    localStorage.setItem('evolv-ai-start-new-chat','true')
     localStorage.setItem('evolv-ai-pending-prompt', prompt)
+    window.dispatchEvent(new CustomEvent('evolv:start-new-chat'))
     setLogOpen(false)
     setEditingEntry(null)
     setSelectedEntry(null)
@@ -1889,7 +1891,9 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     if(item.type==='log' && !definition)return
 
     const entryLabel = item.type === 'meal' ? 'meal' : (definition?.name || 'progress')
+    localStorage.setItem('evolv-ai-start-new-chat','true')
     localStorage.setItem('evolv-ai-pending-prompt', 'I want to update or correct my existing ' + entryLabel + ' record in Evolv. Help me do it conversationally. Ask what needs changing, confirm the details, and use the available tools if you can update it safely. Do not open a generic form.')
+    window.dispatchEvent(new CustomEvent('evolv:start-new-chat'))
     setSelectedEntry(null)
     setEditingEntry(null)
 
@@ -2954,6 +2958,14 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout
   }
 
+  const metricIconColors={
+    sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
+    mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
+    learning:'#38BDF8',building:'#60A5FA',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
+    income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
+    habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+  }
+
   const rows=definitions.filter(d=>metricArea[d.slug]===area && d.slug!=='exercise')
 
   function toLocalDateTime(value){
@@ -3277,7 +3289,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                     <button className="log-health-card log-metric-card" type="button" key={d.id} onClick={()=>selectMetric(d)}>
                       <span className="log-card-top">
                         <span className="log-card-title">
-                          <span className="log-choice-icon" style={{'--area-color':areaMeta[area].color}}><M size={22}/></span>
+                          <span className="log-choice-icon" style={{'--area-color':metricIconColors[d.slug]||d.color||areaMeta[area].color}}><M size={22}/></span>
                           <strong style={{'--card-color':d.color||areaMeta[area].color}}>{d.name}</strong>
                         </span>
                         <ChevronRight className="log-card-chevron" size={22}/>
