@@ -2278,3 +2278,85 @@ html:has(.dashboard.dashboard-ai-active) {
   background-color: transparent !important;
   color: #ffffff !important;
 }
+
+
+/* Structured workout receipt inside the AI conversation. */
+.ai-workout-logged-card {
+  width: min(100%, 44rem);
+  margin: 1.6rem 0 1.2rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(116,170,255,.22);
+  border-radius: 1.8rem;
+  background: linear-gradient(145deg, rgba(20,29,45,.78), rgba(13,13,13,.96) 62%);
+  color: #f5f7fb;
+}
+.ai-workout-card-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  color: #a9c8ff;
+  font-size: 1.08rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+}
+.ai-workout-card-eyebrow > span {
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border-radius: .9rem;
+  background: rgba(37,99,235,.18);
+}
+.ai-workout-logged-card h3 {
+  margin: 1.1rem 0 .4rem;
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: 650;
+  letter-spacing: -.035em;
+}
+.ai-workout-card-summary {
+  margin: 0 0 1.2rem;
+  color: rgba(255,255,255,.53);
+  font-size: 1.3rem;
+}
+.ai-workout-card-exercises {
+  display: grid;
+  gap: .8rem;
+}
+.ai-workout-card-exercise {
+  display: grid;
+  gap: .3rem;
+  padding: .9rem 0;
+  border-top: 1px solid rgba(255,255,255,.075);
+}
+.ai-workout-card-exercise strong {
+  color: rgba(255,255,255,.92);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.ai-workout-card-exercise small {
+  color: rgba(255,255,255,.54);
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+.ai-workout-card-more {
+  margin: 0;
+  color: rgba(255,255,255,.48);
+  font-size: 1.2rem;
+}
+.ai-workout-card-open {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  min-height: 4rem;
+  margin-top: 1.2rem;
+  padding: 0 1.3rem;
+  border: 1px solid rgba(116,170,255,.25);
+  border-radius: 1.1rem;
+  background: rgba(37,99,235,.16);
+  color: #c5d9ff;
+  font-size: 1.35rem;
+  font-weight: 650;
+}
+.ai-workout-card-open:active { background: rgba(37,99,235,.28); }

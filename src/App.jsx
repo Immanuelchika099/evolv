@@ -4,6 +4,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LegalPage from './components/LegalPage'
 import BottomNav from './components/BottomNav'
+import QuickLogSheet from './components/QuickLogSheet'
 import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
@@ -1584,6 +1585,17 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
 function Dashboard({ data, onLogout, onArticle }) {
   const [active,setActive]=useState('overview')
   const [logOpen,setLogOpen]=useState(false)
+  const [quickLogOpen,setQuickLogOpen]=useState(false)
+  const [quickLogInitialScreen,setQuickLogInitialScreen]=useState('menu')
+
+  useEffect(()=>{
+    const openWorkoutTracker=()=>{
+      setQuickLogInitialScreen('workouts')
+      setQuickLogOpen(true)
+    }
+    window.addEventListener('evolv-open-workout-tracker',openWorkoutTracker)
+    return()=>window.removeEventListener('evolv-open-workout-tracker',openWorkoutTracker)
+  },[])
   const [area,setArea]=useState(null)
   const [metric,setMetric]=useState(null)
   const [defs,setDefs]=useState([])
@@ -1810,6 +1822,47 @@ function Dashboard({ data, onLogout, onArticle }) {
     setSelectedEntry(null)
     goTo('ai')
     setError('')
+  }
+  function openQuickLogManual(choice){
+    setQuickLogOpen(false)
+    setQuickLogInitialScreen('menu')
+    setError('')
+    setEditingEntry(null)
+    if(choice==='more'){
+      setArea(null)
+      setMetric(null)
+      setLogOpen(true)
+      return
+    }
+    const selected=choice==='meal'
+      ? {slug:'meals',name:'Meal',value_type:'meal'}
+      : defs.find(item=>item.slug===choice)
+    if(!selected){
+      setError('That tracker is not available yet. Please refresh and try again.')
+      return
+    }
+    setArea(choice==='meal'?'nutrition':'health')
+    setMetric(selected)
+    setLogOpen(true)
+  }
+
+  function closeLogSheet(){
+    setLogOpen(false)
+    setArea(null)
+    setMetric(null)
+    setEditingEntry(null)
+    setError('')
+  }
+
+  function openQuickLogAI(prompt){
+    if(prompt) localStorage.setItem('evolv-ai-pending-prompt',prompt)
+    setQuickLogOpen(false)
+    setQuickLogInitialScreen('menu')
+    setLogOpen(false)
+    setEditingEntry(null)
+    setSelectedEntry(null)
+    setError('')
+    goTo('ai')
   }
   function openEntry(item){
     const entry=item.entry
@@ -2524,6 +2577,9 @@ function Dashboard({ data, onLogout, onArticle }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&!reflectionOpen&&<button type="button" className="evolv-floating-log" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={19} strokeWidth={2.2}/><span>Log</span></button>}
+    {quickLogOpen&&<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />}
+    {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
     
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
@@ -2867,7 +2923,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout
   }
 
-  const rows=definitions.filter(d=>metricArea[d.slug]===area)
+  const rows=definitions.filter(d=>metricArea[d.slug]===area && d.slug!=='exercise')
 
   function toLocalDateTime(value){
     const date=new Date(value||Date.now())
@@ -2903,10 +2959,23 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   },[editEntry])
 
   useEffect(()=>{
+    if(editEntry || !metric || Object.keys(values).length) return
+    const now=new Date()
+    const loggedAt=new Date(now.getTime()-now.getTimezoneOffset()*60000).toISOString().slice(0,16)
+    if(metric.value_type==='meal' || metric.slug==='meals'){
+      setValues({meal_type:'breakfast',description:'',calories:'',protein_g:'',carbs_g:'',fat_g:'',water_ml:'',note:'',logged_at:loggedAt})
+    }else if(metric.slug==='sleep'){
+      setValues({bedtime:'23:00',wake_up:'07:00',wake_up_date:new Date().toISOString().slice(0,10)})
+    }else if(metric.slug==='water'){
+      setValues({logged_at:loggedAt,waterAmount:'',waterMeasure:'cup'})
+    }else{
+      setValues({logged_at:loggedAt})
+    }
+  },[metric,editEntry,values])
+
+  useEffect(()=>{
     const previousOverflow=document.body.style.overflow
-    const previousTouchAction=document.body.style.touchAction
     document.body.style.overflow='hidden'
-    document.body.style.touchAction='none'
 
     function handleKey(event){
       if(event.key==='Escape'&&!saving) onClose()
@@ -2917,7 +2986,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
     return ()=>{
       document.body.style.overflow=previousOverflow
-      document.body.style.touchAction=previousTouchAction
       window.removeEventListener('keydown',handleKey)
     }
   },[onClose,saving])
@@ -3037,8 +3105,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
         setSaving(false)
         return
       }
-      if(!Number.isFinite(value)||(value<0)){
-        setError('Complete the main detail before saving.')
+      if(!Number.isFinite(value)||(value<0)||(metric.slug==='water'&&value<=0)){
+        setError(metric.slug==='water'?'Enter an amount of water greater than zero.':'Complete the main detail before saving.')
         setSaving(false)
         return
       }

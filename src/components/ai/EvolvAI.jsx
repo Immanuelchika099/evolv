@@ -186,7 +186,7 @@ function AssistantMessageContent({ content, typing = false }) {
 
 import {
   History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown, Pencil,
-  Check, Search, Files
+  Check, Search, Files, Dumbbell, ArrowRight
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import PromptBar from './PromptBar'
@@ -266,6 +266,37 @@ function EvolvCalendarBridge({ event, onCancel, onAdded }) {
         <button type="button" className="ai-calendar-add" onClick={addEvent}>Add to Calendar</button>
       </div>
     </div>
+  )
+}
+
+function WorkoutLoggedCard({ workout }) {
+  const exercises = Array.isArray(workout?.exercises) ? workout.exercises : []
+  const totalSets = exercises.reduce((sum, exercise) => sum + (exercise.sets?.length || 0), 0)
+  if (!workout || !exercises.length) return null
+
+  return (
+    <section className="ai-workout-logged-card" aria-label="Workout saved">
+      <div className="ai-workout-card-eyebrow"><span><Dumbbell size={15} /></span> WORKOUT LOGGED</div>
+      <h3>{workout.name || 'Workout'}</h3>
+      <p className="ai-workout-card-summary">{exercises.length} {exercises.length === 1 ? 'exercise' : 'exercises'} · {totalSets} {totalSets === 1 ? 'set' : 'sets'}</p>
+      <div className="ai-workout-card-exercises">
+        {exercises.slice(0, 4).map((exercise, index) => {
+          const sets = Array.isArray(exercise.sets) ? exercise.sets : []
+          const details = sets.map(set => {
+            const weight = set.weight == null ? '' : String(set.weight) + ' ' + (set.weight_unit || 'kg') + ' × '
+            return weight + set.reps + ' reps'
+          }).join(' · ')
+          return <div className="ai-workout-card-exercise" key={exercise.id || exercise.name + index}>
+            <strong>{exercise.name}</strong>
+            <small>{details || (sets.length + ' sets')}</small>
+          </div>
+        })}
+        {exercises.length > 4 && <p className="ai-workout-card-more">+{exercises.length - 4} more exercises</p>}
+      </div>
+      <button type="button" className="ai-workout-card-open" onClick={() => window.dispatchEvent(new CustomEvent('evolv-open-workout-tracker'))}>
+        View workout <ArrowRight size={15} />
+      </button>
+    </section>
   )
 }
 
@@ -1003,10 +1034,11 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
 
     if (result.calendarEvent) setPendingCalendarEvent(result.calendarEvent)
     if (result.logged) window.dispatchEvent(new Event('evolv-tracking-updated'))
+    const workoutAction = Array.isArray(result.actions) ? result.actions.find(action => action.action === 'workout_logged')?.workout : null
 
     const reply = result.reply || `I’m here, ${firstName}. We can take it one step at a time.`
     setTyping(true)
-    setMessages(current => [...current, { role: 'assistant', content: '' }])
+    setMessages(current => [...current, { role: 'assistant', content: '', ...(workoutAction ? { workout: workoutAction } : {}) }])
 
     for (let index = 0; index < reply.length; index += 2) {
       if (controller.current?.signal.aborted) {
@@ -1353,6 +1385,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
                   </div>
                 ) : null}
                 {message.content ? (message.role === 'assistant' ? <AssistantMessageContent content={message.content} typing={isTypingMessage} /> : <p>{message.content}</p>) : null}
+                {message.role === 'assistant' && message.workout && <WorkoutLoggedCard workout={message.workout} />}
                 {message.role === 'user' && message.content && (
                   <button
                     type="button"
