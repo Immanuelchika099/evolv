@@ -1860,6 +1860,9 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   }
 
   function openQuickLogAI(prompt){
+    // Every Ask AI logging handoff starts a separate conversation.
+    // Existing conversations remain available in AI chat history.
+    localStorage.setItem('evolv-ai-start-new-chat','true')
     if(prompt) localStorage.setItem('evolv-ai-pending-prompt',prompt)
     setQuickLogOpen(false)
     setQuickLogInitialScreen('menu')
