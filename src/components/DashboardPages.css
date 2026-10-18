@@ -8919,3 +8919,43 @@ html body #root .dashboard .settings-page button.settings-toggle.active > span {
     transition: none !important;
   }
 }
+
+
+/* Full-page logging destinations should feel like app pages, not nested cards. */
+.dashboard .log-overlay {
+  align-items: stretch !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+.dashboard .log-sheet {
+  width: 100% !important;
+  max-width: none !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: none !important;
+  border-radius: 0 !important;
+  border: 0 !important;
+  border-top: 1px solid rgba(255,255,255,.08) !important;
+  background: #050505 !important;
+  box-shadow: none !important;
+}
+.dashboard .log-sheet-handle {
+  display: none !important;
+}
+.dashboard .log-sheet-head {
+  flex: 0 0 auto !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 2.2rem) 2.4rem 2rem !important;
+}
+.dashboard .log-sheet-scroll {
+  padding-bottom: calc(3rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+@media (max-width: 600px) {
+  .dashboard .log-sheet-head {
+    padding-left: 1.8rem !important;
+    padding-right: 1.8rem !important;
+  }
+  .dashboard .log-sheet-scroll {
+    padding-left: 1.8rem !important;
+    padding-right: 1.8rem !important;
+  }
+}
