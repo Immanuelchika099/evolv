@@ -342,7 +342,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   }, [exercises])
 
   return (
-    <div className="quick-log-overlay" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
+    <div className={"quick-log-overlay" + (screen !== 'menu' ? ' quick-log-overlay-page' : '')} role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
       <section className="quick-log-sheet" role="dialog" aria-modal="true" aria-labelledby="quick-log-title">
         <div className="quick-log-handle" />
         <header className="quick-log-header">
