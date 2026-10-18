@@ -325,18 +325,38 @@
 }
 
 
-/* Keep the profile account actions and confirmation dialog on the app's shared UI font. */
+/* Account actions stay native-system-font; portal dialogs render under document.body,
+   so target the dialog classes directly rather than relying on .dashboard ancestors. */
 .dashboard .settings-page .profile-account-actions,
 .dashboard .settings-page .profile-account-actions *,
-.dashboard .settings-page .confirmation-modal,
-.dashboard .settings-page .confirmation-modal *,
-.dashboard .settings-page .profile-modal,
-.dashboard .settings-page .profile-modal * {
+.confirmation-modal,
+.confirmation-modal *,
+.profile-modal,
+.profile-modal * {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
-.dashboard .settings-page .confirmation-modal h3,
-.dashboard .settings-page .confirmation-modal .section-label,
-.dashboard .settings-page .confirmation-modal p,
-.dashboard .settings-page .confirmation-modal button {
+.confirmation-modal,
+.confirmation-modal * {
+  font-style: normal !important;
+}
+.confirmation-modal .section-label {
+  display: inline-block;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  letter-spacing: .1em;
+  line-height: 1.2;
+}
+.confirmation-modal h3 {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
+  font-size: 2rem;
+  font-weight: 600;
+  font-style: normal !important;
+  line-height: 1.25;
+  letter-spacing: -.02em;
 }
