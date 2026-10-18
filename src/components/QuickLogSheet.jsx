@@ -363,15 +363,15 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                 if (option.id === 'more') {
                   if (showMoreOptions) {
                     return [
-                      { id: 'health', title: 'Health', icon: HeartPulse },
-                      { id: 'nutrition', title: 'Nutrition', icon: Apple },
-                      { id: 'career', title: 'Career', icon: BriefcaseBusiness },
-                      { id: 'mind', title: 'Mind', icon: Brain },
-                      { id: 'life', title: 'Life', icon: Sprout },
+                      { id: 'health', title: 'Health', icon: HeartPulse, color: '#ff8f9d' },
+                      { id: 'nutrition', title: 'Nutrition', icon: Apple, color: '#ffb84d' },
+                      { id: 'career', title: 'Career', icon: BriefcaseBusiness, color: '#63c8ff' },
+                      { id: 'mind', title: 'Mind', icon: Brain, color: '#b6a2ff' },
+                      { id: 'life', title: 'Life', icon: Sprout, color: '#9dd6b0' },
                     ].map(extra => {
                       const Icon = extra.icon
                       return <button type="button" className={"quick-log-option quick-log-option-" + extra.id} key={extra.id} onClick={() => onLogManual?.(extra.id)}>
-                        <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
+                        <span className="quick-log-option-icon" style={{ color: extra.color, backgroundColor: extra.color + '24' }}><Icon size={20} stroke={extra.color} color={extra.color} strokeWidth={1.8} /></span>
                         <span className="quick-log-option-copy"><strong>{extra.title}</strong></span>
                         <ChevronRight size={18} className="quick-log-chevron" />
                       </button>
