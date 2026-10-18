@@ -33,6 +33,8 @@ AUTO-LOGGING:
 - Do NOT log hypothetical plans, questions, advice, or vague conversation.
 - Do NOT infer sensitive or uncertain measurements. If the amount/date/type is genuinely unclear, ask a short clarification.
 - When several distinct things are stated in one message, log each clearly supported item.
+- If the user clearly describes a completed strength-training workout, use log_workout to save the workout name (use "Workout" if none was given), exercise names, sets, reps, and only the weights actually stated. Never invent sets, reps, or weights; ask a concise clarification when essential details are missing.
+- When the user asks about gym progress or prior workouts, call get_workout_history and base the answer on saved workout records.
 - After logging, briefly tell the user what you recorded. Never claim a log was saved unless the tool succeeded.
 - Normalize values to Evolv's stored units: sleep hours; water litres; steps steps; exercise/focus/learning/building/reading/social/personal/reflection minutes; mood/energy/stress 1-5; money metrics NGN.
 - Use today's date unless the user explicitly gives another date.
@@ -73,6 +75,47 @@ const toolDeclarations = [
     }
   },
 
+  {
+    name: "log_workout",
+    description: "Records a completed strength-training workout in the user's structured workout history. Use only details supported by the user's message. Do not invent sets, reps, or weights.",
+    parameters: {
+      type: "object",
+      properties: {
+        workout_name: { type: "string", description: "Workout session name, or 'Workout' if the user did not name the session." },
+        workout_date: { type: "string", description: "Optional workout date in YYYY-MM-DD format." },
+        notes: { type: "string", description: "Optional notes explicitly stated by the user." },
+        exercises: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              name: { type: "string", description: "Exercise name such as Bench Press." },
+              sets: {
+                type: "array",
+                items: {
+                  type: "object",
+                  properties: {
+                    reps: { type: "integer", description: "Number of reps completed for this set." },
+                    weight: { type: "number", description: "Optional weight used for this set." },
+                    weight_unit: { type: "string", description: "kg or lb; default to kg only when the unit is not stated." },
+                    completed: { type: "boolean", description: "Whether the set was completed; default true for completed-workout logs." }
+                  },
+                  required: ["reps"]
+                }
+              }
+            },
+            required: ["name", "sets"]
+          }
+        }
+      },
+      required: ["workout_name", "exercises"]
+    }
+  },
+  {
+    name: "get_workout_history",
+    description: "Reads the signed-in user's saved workouts, exercises, sets, reps, weights, and completion states. Use for questions about workout history, exercise progress, volume, or consistency.",
+    parameters: { type: "object", properties: {} }
+  },
   {
     name: "get_ai_memory",
     description: "Gets the user's saved Evolv AI memory. Use it to personalize responses when relevant. Never invent memories.",
@@ -202,6 +245,88 @@ async function executeTool(
 
     if (error) throw error
     return { success: true, action: "meal_logged", meal: data }
+  }
+
+  if (name === "log_workout") {
+    const workoutName = typeof args.workout_name === "string" ? args.workout_name.trim().slice(0, 120) : ""
+    if (!workoutName) throw new Error("A workout name is required.")
+    const rawExercises = Array.isArray(args.exercises) ? args.exercises : []
+    if (!rawExercises.length || rawExercises.length > 30) throw new Error("A workout needs between 1 and 30 exercises.")
+
+    const requestedDate = typeof args.workout_date === "string" && /^\\d{4}-\\d{2}-\\d{2}$/.test(args.workout_date)
+      ? args.workout_date : new Date().toISOString().slice(0, 10)
+    const { data: workout, error: workoutError } = await supabase.from("workout_logs").insert({
+      user_id: userId,
+      name: workoutName,
+      workout_date: requestedDate,
+      notes: typeof args.notes === "string" ? args.notes.trim().slice(0, 1500) || null : null,
+    }).select("id,name,workout_date,notes,created_at").single()
+    if (workoutError) throw workoutError
+
+    const savedExercises: any[] = []
+    try {
+      for (let exerciseIndex = 0; exerciseIndex < rawExercises.length; exerciseIndex += 1) {
+        const rawExercise = rawExercises[exerciseIndex]
+        const exerciseName = typeof rawExercise?.name === "string" ? rawExercise.name.trim().slice(0, 120) : ""
+        const rawSets = Array.isArray(rawExercise?.sets) ? rawExercise.sets : []
+        if (!exerciseName || !rawSets.length || rawSets.length > 30) throw new Error("Each workout exercise needs a name and between 1 and 30 sets.")
+
+        const { data: exercise, error: exerciseError } = await supabase.from("workout_exercises").insert({
+          workout_id: workout.id,
+          user_id: userId,
+          name: exerciseName,
+          sort_order: exerciseIndex,
+        }).select("id,name,sort_order").single()
+        if (exerciseError) throw exerciseError
+
+        const sets = rawSets.map((rawSet: any, setIndex: number) => {
+          const reps = Number(rawSet?.reps)
+          const weight = rawSet?.weight === undefined || rawSet?.weight === null || rawSet?.weight === "" ? null : Number(rawSet.weight)
+          const weightUnit = String(rawSet?.weight_unit || "kg").toLowerCase()
+          if (!Number.isInteger(reps) || reps < 1) throw new Error("Every logged workout set needs a positive rep count.")
+          if (weight !== null && (!Number.isFinite(weight) || weight < 0)) throw new Error("Workout weights must be zero or greater.")
+          if (!["kg", "lb"].includes(weightUnit)) throw new Error("Workout weight unit must be kg or lb.")
+          return {
+            workout_id: workout.id,
+            exercise_id: exercise.id,
+            user_id: userId,
+            set_number: setIndex + 1,
+            reps,
+            weight,
+            weight_unit: weightUnit,
+            completed: typeof rawSet?.completed === "boolean" ? rawSet.completed : true,
+          }
+        })
+        const { data: savedSets, error: setsError } = await supabase.from("workout_sets").insert(sets).select("set_number,reps,weight,weight_unit,completed")
+        if (setsError) throw setsError
+        savedExercises.push({ ...exercise, sets: savedSets || [] })
+      }
+    } catch (error) {
+      await supabase.from("workout_logs").delete().eq("id", workout.id).eq("user_id", userId)
+      throw error
+    }
+
+    return { success: true, action: "workout_logged", workout: { ...workout, exercises: savedExercises } }
+  }
+
+  if (name === "get_workout_history") {
+    const { data, error } = await supabase
+      .from("workout_logs")
+      .select("id,name,workout_date,notes,workout_exercises(id,name,sort_order,workout_sets(id,set_number,reps,weight,weight_unit,completed))")
+      .eq("user_id", userId)
+      .order("workout_date", { ascending: false })
+      .limit(30)
+    if (error) throw error
+    const workouts = (data || []).map((workout: any) => ({
+      ...workout,
+      workout_exercises: [...(workout.workout_exercises || [])]
+        .sort((a: any, b: any) => a.sort_order - b.sort_order)
+        .map((exercise: any) => ({
+          ...exercise,
+          workout_sets: [...(exercise.workout_sets || [])].sort((a: any, b: any) => a.set_number - b.set_number),
+        })),
+    }))
+    return { workouts }
   }
 
   if (name === "get_ai_memory") {
@@ -1118,7 +1243,7 @@ ${progressContext}${researchContext}`
             reply: `${replyWithImages}${sourceMarkdown}`,
             images: relevantImages.map((image: any) => ({ title: image.title, url: image.url, sourceUrl: image.sourceUrl, license: image.license })),
             logged: performedActions.length > 0,
-            actions: performedActions.map((item:any)=>({action:item.action,log:item.log||null,meal:item.meal||null,goal:item.goal||null,memory:item.memory||null})),
+            actions: performedActions.map((item:any)=>({action:item.action,log:item.log||null,meal:item.meal||null,goal:item.goal||null,memory:item.memory||null,workout:item.workout||null})),
           })
         }
 
