@@ -2705,3 +2705,11 @@ html,body,#root{background:#000 !important;}
 @media (prefers-reduced-motion: reduce) {
   .dashboard .evolv-floating-log { transition: none; }
 }
+
+
+/* Keep the floating action clear of the on-screen keyboard while editing fields. */
+.dashboard:has(input:focus) .evolv-floating-log,
+.dashboard:has(textarea:focus) .evolv-floating-log,
+.dashboard:has(select:focus) .evolv-floating-log {
+  display: none !important;
+}
