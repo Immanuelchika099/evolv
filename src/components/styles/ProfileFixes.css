@@ -381,3 +381,17 @@
   font-weight: 600 !important;
   transform: none !important;
 }
+
+
+/* Logout confirmation: replace the legacy lime tick badge with Evolv blue. */
+.confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) {
+  border: 1px solid rgba(96, 165, 250, .42) !important;
+  outline: none !important;
+  background: rgba(59, 130, 246, .12) !important;
+  color: #93c5fd !important;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, .08) !important;
+}
+.confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) svg {
+  color: #93c5fd !important;
+  stroke: #93c5fd !important;
+}
