@@ -2658,20 +2658,21 @@ html,body,#root{background:#000 !important;}
 }
 
 
-/* Floating quick-log action: aligned over the rightmost Profile item in the dock. */
+/* Floating quick-log action: centered over the Profile destination, above the dock. */
 .dashboard .evolv-floating-log {
   position: fixed;
   z-index: 100001;
-  right: .8rem;
-  bottom: calc(6.8rem + 1.2rem);
+  right: max(-.4rem, calc(10vw - 4.5rem));
+  bottom: calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1rem);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: .75rem;
-  min-width: 8.8rem;
+  gap: .65rem;
+  width: 9rem;
+  min-width: 9rem;
   min-height: 4.6rem;
-  padding: 0 1.55rem;
-  border: 1px solid rgba(255,255,255,.16);
+  padding: 0 1rem;
+  border: 1px solid rgba(255,255,255,.18);
   border-radius: 999px;
   background: #2563eb;
   color: #ffffff;
@@ -2691,15 +2692,13 @@ html,body,#root{background:#000 !important;}
   outline: 2px solid #ffffff;
   outline-offset: 3px;
 }
-@media (min-width: 701px) {
-  .dashboard .evolv-floating-log { right: 2rem; }
-}
 @media (max-width: 390px) {
   .dashboard .evolv-floating-log {
-    right: .65rem;
-    min-width: 8.2rem;
+    width: 8.4rem;
+    min-width: 8.4rem;
     min-height: 4.4rem;
-    padding-inline: 1.25rem;
+    right: max(-.4rem, calc(10vw - 4.2rem));
+    gap: .55rem;
   }
 }
 @media (prefers-reduced-motion: reduce) {
