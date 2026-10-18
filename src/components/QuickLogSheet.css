@@ -32,8 +32,23 @@
 .quick-log-content { min-height: 0; overflow: auto; overscroll-behavior: contain; padding: 1.6rem 1.8rem 2rem; -webkit-overflow-scrolling: touch; }
 .quick-log-options { display: grid; gap: .7rem; }
 .quick-log-option { display: grid; grid-template-columns: 4.4rem minmax(0,1fr) 2rem; align-items: center; gap: 1.2rem; width: 100%; min-height: 7.2rem; padding: 1.1rem 1.2rem; text-align: left; border: 1px solid rgba(255,255,255,.08); border-radius: 1.6rem; background: #111; color: #f5f5f3; transition: background .16s ease, border-color .16s ease; }
-.quick-log-option:active { background: #171717; border-color: rgba(37,99,235,.55); }
+.quick-log-option:active { background: #171717; border-color: rgba(255,255,255,.18); }
 .quick-log-option-icon, .quick-log-history-icon { display: grid; width: 4.4rem; height: 4.4rem; place-items: center; border-radius: 1.25rem; background: rgba(37,99,235,.14); color: #8db5ff; }
+
+/* Give each logging action its own clear visual identity. */
+.quick-log-option:nth-child(1) .quick-log-option-icon { color: #79aaff; background: rgba(59,130,246,.17); }
+.quick-log-option:nth-child(2) .quick-log-option-icon { color: #ffb36b; background: rgba(249,115,22,.16); }
+.quick-log-option:nth-child(3) .quick-log-option-icon { color: #a5c7ff; background: rgba(96,165,250,.15); }
+.quick-log-option:nth-child(4) .quick-log-option-icon { color: #62d7f4; background: rgba(6,182,212,.15); }
+.quick-log-option:nth-child(5) .quick-log-option-icon { color: #f5ca75; background: rgba(234,179,8,.14); }
+.quick-log-option:nth-child(6) .quick-log-option-icon { color: #d1d5db; background: rgba(156,163,175,.12); }
+.quick-log-option:nth-child(7) .quick-log-option-icon { color: #8bbcff; background: rgba(37,99,235,.18); }
+.quick-log-option:nth-child(1):active { border-color: rgba(59,130,246,.45); }
+.quick-log-option:nth-child(2):active { border-color: rgba(249,115,22,.4); }
+.quick-log-option:nth-child(3):active { border-color: rgba(96,165,250,.4); }
+.quick-log-option:nth-child(4):active { border-color: rgba(6,182,212,.4); }
+.quick-log-option:nth-child(5):active { border-color: rgba(234,179,8,.38); }
+.quick-log-option:nth-child(7):active { border-color: rgba(37,99,235,.5); }
 .quick-log-option-copy { display: grid; min-width: 0; }
 .quick-log-option-copy strong { font-size: 1.55rem; font-weight: 600; }
 .quick-log-chevron { color: rgba(255,255,255,.38); }
