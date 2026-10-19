@@ -21,6 +21,36 @@ function blankExercise(order = 0, unit = 'kg') {
   return { id: makeId(), name: '', sort_order: order, sets: [blankSet(1, unit)] }
 }
 
+const workoutTypeOptions = [
+  { id: 'chest', label: 'Chest Day' },
+  { id: 'back', label: 'Back Day' },
+  { id: 'legs', label: 'Leg Day' },
+  { id: 'shoulders', label: 'Shoulder Day' },
+  { id: 'arms', label: 'Arm Day' },
+  { id: 'core', label: 'Core Day' },
+  { id: 'full', label: 'Full Body' },
+  { id: 'custom', label: 'Custom Workout' },
+]
+
+const exercisesByWorkoutType = {
+  chest: ['Barbell Bench Press', 'Incline Dumbbell Press', 'Dumbbell Press', 'Chest Fly', 'Cable Crossover', 'Push-ups', 'Dips'],
+  back: ['Lat Pulldown', 'Pull-ups', 'Barbell Row', 'Seated Cable Row', 'Single-arm Dumbbell Row', 'Face Pulls', 'Deadlift'],
+  legs: ['Back Squat', 'Front Squat', 'Romanian Deadlift', 'Leg Press', 'Walking Lunges', 'Bulgarian Split Squat', 'Leg Extension', 'Leg Curl', 'Calf Raises'],
+  shoulders: ['Shoulder Press', 'Dumbbell Shoulder Press', 'Arnold Press', 'Lateral Raises', 'Front Raises', 'Rear Delt Fly', 'Upright Row'],
+  arms: ['Barbell Curl', 'Dumbbell Curls', 'Hammer Curls', 'Tricep Pushdown', 'Skull Crushers', 'Overhead Tricep Extension', 'Dips'],
+  core: ['Plank', 'Hanging Knee Raises', 'Leg Raises', 'Cable Crunches', 'Russian Twists', 'Bicycle Crunches', 'Ab Wheel Rollout'],
+  full: ['Squats', 'Deadlift', 'Bench Press', 'Pull-ups', 'Overhead Press', 'Dumbbell Row', 'Walking Lunges'],
+  custom: [],
+}
+
+const workoutTypeFromName = (name = '') => {
+  const normalized = name.trim().toLowerCase()
+  const match = workoutTypeOptions.find(option => option.id !== 'custom' && option.label.toLowerCase() === normalized)
+  if (match) return match.id
+  const aliases = { chest: 'chest', 'chest workout': 'chest', back: 'back', 'back workout': 'back', legs: 'legs', 'leg day': 'legs', shoulders: 'shoulders', arms: 'arms', 'full body': 'full' }
+  return aliases[normalized] || 'custom'
+}
+
 const loggingOptions = [
   { id: 'workout', title: 'Workout', icon: Dumbbell },
   { id: 'meal', title: 'Meal', icon: Utensils },
@@ -40,6 +70,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   const [error, setError] = useState('')
   const [notice, setNotice] = useState('')
   const [workoutName, setWorkoutName] = useState('')
+  const [workoutType, setWorkoutType] = useState('chest')
   const [workoutDate, setWorkoutDate] = useState(localDateKey())
   const [workoutNotes, setWorkoutNotes] = useState('')
   const [weightUnit, setWeightUnit] = useState('kg')
@@ -122,7 +153,8 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
   function startNewWorkout() {
     setSelectedWorkoutId(null)
-    setWorkoutName('')
+    setWorkoutType('chest')
+    setWorkoutName('Chest Day')
     setWorkoutDate(localDateKey())
     setWorkoutNotes('')
     setWeightUnit('kg')
@@ -134,6 +166,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
   function editWorkout(workout) {
     setSelectedWorkoutId(workout.id)
+    setWorkoutType(workoutTypeFromName(workout.name || ''))
     setWorkoutName(workout.name || '')
     setWorkoutDate(workout.workout_date || localDateKey())
     setWorkoutNotes(workout.notes || '')
@@ -336,10 +369,15 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
   const selectedWorkout = workouts.find(workout => workout.id === selectedWorkoutId)
   const totals = useMemo(() => {
-    const exercisesCount = exercises.filter(exercise => exercise.name.trim()).length
-    const setsCount = exercises.filter(exercise => exercise.name.trim()).reduce((sum, exercise) => sum + exercise.sets.length, 0)
-    return { exercisesCount, setsCount }
+    const activeExercises = exercises.filter(exercise => exercise.name.trim())
+    const populatedSets = activeExercises.flatMap(exercise => exercise.sets.filter(set =>
+      String(set.reps).trim() !== '' || String(set.weight).trim() !== '' || set.completed
+    ))
+    const repsDone = populatedSets.reduce((sum, set) => sum + (Number(set.reps) || 0), 0)
+    const volume = populatedSets.reduce((sum, set) => sum + ((Number(set.weight) || 0) * (Number(set.reps) || 0)), 0)
+    return { exercisesCount: activeExercises.length, setsCount: populatedSets.length, repsDone, volume }
   }, [exercises])
+  const suggestedExercises = exercisesByWorkoutType[workoutType] || []
 
   return (
     <div className={"quick-log-overlay" + (screen !== 'menu' ? ' quick-log-overlay-page' : '')} role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
@@ -420,20 +458,34 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         {screen === 'editor' && (
           <form className="quick-log-content quick-log-editor" onSubmit={saveWorkout}>
             <div className="quick-log-workout-fields">
-              <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Chest day" required /></label>
+              <label className="quick-log-field quick-log-workout-type"><span>Workout type</span><select value={workoutType} onChange={event => {
+                const nextType = event.target.value
+                setWorkoutType(nextType)
+                if (nextType !== 'custom') setWorkoutName(workoutTypeOptions.find(option => option.id === nextType)?.label || 'Workout')
+                else setWorkoutName('')
+              }}>{workoutTypeOptions.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
+              {workoutType === 'custom' && <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Upper body session" required /></label>}
               <div className="quick-log-field-row">
                 <label className="quick-log-field"><span>Date</span><input type="date" value={workoutDate} onChange={event => setWorkoutDate(event.target.value)} required /></label>
                 <label className="quick-log-field quick-log-unit-field"><span>Weight unit</span><select value={weightUnit} onChange={event => changeWeightUnit(event.target.value)}><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></label>
               </div>
             </div>
 
-            <div className="quick-log-exercises-heading"><h3>Exercises</h3></div>
+            <section className="quick-log-workout-totals" aria-label="Workout totals">
+              <div className="quick-log-workout-totals-heading"><span>YOUR TOTALS</span><small>{totals.exercisesCount} {totals.exercisesCount === 1 ? 'exercise' : 'exercises'}</small></div>
+              <div className="quick-log-workout-totals-card">
+                <div><Dumbbell size={19} aria-hidden="true" /><span>VOLUME</span><strong>{Math.round(totals.volume * 10) / 10} {weightUnit === 'lb' ? 'lb' : 'Kg'}</strong></div>
+                <div><Sparkles size={19} aria-hidden="true" /><span>REPS DONE</span><strong>{totals.repsDone}</strong></div>
+                <div><CheckCircle2 size={19} aria-hidden="true" /><span>SETS</span><strong>{totals.setsCount}</strong></div>
+              </div>
+            </section>
+            <div className="quick-log-exercises-heading"><h3>Recorded Exercises</h3></div>
             <div className="quick-log-exercises">
               {exercises.map((exercise, exerciseIndex) => (
                 <section className="quick-log-exercise" key={exercise.id}>
                   <div className="quick-log-exercise-heading">
                     <span className="quick-log-exercise-number">{String(exerciseIndex + 1).padStart(2, '0')}</span>
-                    <label className="quick-log-exercise-name"><span className="sr-only">Exercise name</span><input autoComplete="off" maxLength={120} value={exercise.name} onChange={event => updateExercise(exercise.id, { name: event.target.value })} placeholder="Exercise name · e.g. Bench Press" /></label>
+                    <label className="quick-log-exercise-name"><span className="sr-only">Exercise name</span><input autoComplete="off" list={`quick-log-exercise-options-${workoutType}`} maxLength={120} value={exercise.name} onChange={event => updateExercise(exercise.id, { name: event.target.value })} placeholder={workoutType === 'custom' ? 'Enter exercise name' : 'Choose or type an exercise'} /><datalist id={`quick-log-exercise-options-${workoutType}`}>{suggestedExercises.map(name => <option key={name} value={name} />)}</datalist></label>
                     <button type="button" className="quick-log-icon-button" onClick={() => removeExercise(exercise.id)} disabled={exercises.length === 1} aria-label="Remove exercise"><Trash2 size={16} /></button>
                   </div>
                   <div className="quick-log-set-head"><span>Set</span><span>Weight ({weightUnit})</span><span>Reps</span><span>Done</span></div>

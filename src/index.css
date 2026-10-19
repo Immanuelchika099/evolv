@@ -19,6 +19,7 @@
   --color-border-subtle: rgba(255,255,255,.085);
   --color-border: rgba(255,255,255,.12);
   --color-accent-blue: #2563eb;
+  --evolv-blue: var(--color-accent-blue);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
   --color-accent-lime: var(--color-accent-blue);
 
