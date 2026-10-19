@@ -291,13 +291,10 @@ export default function PromptBar({
 
   const focusInput = () => inputRef.current?.focus({ preventScroll: true });
 
-  // Put the cursor in the composer as soon as the AI page opens.
-  // Mobile browsers may require a user gesture before showing the keyboard,
-  // but the input itself is focused and ready immediately.
-  useEffect(() => {
-    const frame = window.requestAnimationFrame(() => focusInput());
-    return () => window.cancelAnimationFrame(frame);
-  }, []);
+  // Do not auto-focus on mount. On iOS Safari/PWA, programmatic focus can
+  // leave the textarea focused without opening the software keyboard. A later
+  // tap may then fail to summon the keyboard because the field is already focused.
+  // Let the user's tap focus the textarea inside the native user gesture.
   const closeMenus = useCallback(() => {
     setPlusOpen(false);
     setModelOpen(false);
