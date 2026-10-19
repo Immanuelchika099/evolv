@@ -14,6 +14,25 @@ function json(data: unknown, status = 200) {
   })
 }
 
+function formatEmotionalReplySpacing(reply: string, userText: string) {
+  const emotionalContext = /\b(sad|sadness|cry|crying|tears|depressed|depression|lonely|alone|hurt|heartbroken|overwhelmed|anxious|scared|afraid|can't explain|cannot explain|feel empty|feeling empty|so so sad|not okay|miss them|miss him|miss her|breakup|broke up|suicidal|self.?harm)\b/i.test(userText)
+  const text = reply.trim()
+
+  // Only normalize short, emotionally supportive chat replies. Leave long answers,
+  // lists, code, and replies that already have intentional paragraph breaks alone.
+  if (!emotionalContext || text.length > 700 || /\n\s*\n/.test(text) || /^\s*(#{1,6}\s|[-*]\s|\d+\.\s)/m.test(text)) {
+    return text
+  }
+
+  const sentences = text.match(/[^.!?]+[.!?]+(?:\s*[\p{Extended_Pictographic}\uFE0F]+)*/gu)
+  if (!sentences || sentences.length < 2) return text
+
+  const remainder = text.slice(sentences.join("").length).trim()
+  const paragraphs = sentences.map((sentence) => sentence.trim()).filter(Boolean)
+  if (remainder) paragraphs.push(remainder)
+  return paragraphs.join("\n\n")
+}
+
 function extractText(result: any) {
   const parts = result?.candidates?.[0]?.content?.parts
   return Array.isArray(parts)
@@ -1237,7 +1256,8 @@ ${progressContext}${researchContext}`
         )
 
         if (!functionCalls.length) {
-          const baseReply = extractText(result) || `I'm here, ${firstName}. What would you like to talk through?`
+          const rawReply = extractText(result) || `I'm here, ${firstName}. What would you like to talk through?`
+          const baseReply = formatEmotionalReplySpacing(rawReply, latestUserText)
           let replyWithImages = baseReply
           let relevantImages: any[] = []
           if (wantsImages) {
