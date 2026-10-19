@@ -843,3 +843,32 @@
   .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card span { font-size: 1rem; }
   .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card strong { font-size: 1.45rem; }
 }
+
+
+.quick-log-workout-character-hint {
+  flex: 0 0 auto;
+  margin: -.5rem 1.8rem 1.2rem;
+  color: #8e8e93;
+  font-size: 1.25rem;
+  line-height: 1.4;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-description {
+  margin-top: .2rem;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-description input {
+  width: 100%;
+  min-width: 0;
+  min-height: 4.8rem;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.4rem;
+  background: #1c1c1e;
+  color: #f5f5f7;
+  font-size: 1.5rem;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-description input::placeholder {
+  color: #8e8e93;
+}
+@media (max-width: 420px) {
+  .quick-log-workout-character-hint { margin-inline: 1.5rem; }
+}
