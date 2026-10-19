@@ -319,6 +319,12 @@ function App() {
           return
         }
 
+        if (oauthIntent === 'signup') {
+          await finishAuth(user, 'signup')
+          sessionStorage.removeItem('evolv-oauth-intent')
+          return
+        }
+
         await finishAuth(user, 'restore')
       }
     }
@@ -478,15 +484,16 @@ function App() {
   }
 
   async function finishAuth(user, authMode = 'login') {
-    // Notify the founder only for a newly created account's first authenticated app opening.
-    // The server validates account age and records a unique event, so returning users never alert.
-    void supabase.functions.invoke('founder-user-notifications', {
-      body: { action: 'first_open' },
-    }).then(({ error }) => {
-      if (error) console.warn('EVOLV founder signup notification was not processed:', error.message)
-    }).catch((error) => {
-      console.warn('EVOLV founder signup notification request failed:', error)
-    })
+    // Only notify on an actual successful signup, never on routine app openings or logins.
+    if (authMode === 'signup') {
+      void supabase.functions.invoke('founder-user-notifications', {
+        body: { action: 'auth_signup', user_id: user.id },
+      }).then(({ error }) => {
+        if (error) console.warn('EVOLV founder signup notification failed:', error.message)
+      }).catch((error) => {
+        console.warn('EVOLV founder signup notification request failed:', error)
+      })
+    }
 
     if (window.location.pathname.replace(/\/+$/, '') === '/signup') {
       window.history.replaceState({}, '', '/')
@@ -663,7 +670,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
     if (mode === 'login') {
       sessionStorage.setItem('evolv-oauth-intent', 'login')
     } else {
-      sessionStorage.removeItem('evolv-oauth-intent')
+      sessionStorage.setItem('evolv-oauth-intent', 'signup')
     }
 
     const { error: oauthError } = await supabase.auth.signInWithOAuth({
@@ -755,6 +762,15 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
       }
 
       if (mode === 'signup' && !result.data.session) {
+        if (result.data.user) {
+          void supabase.functions.invoke('founder-user-notifications', {
+            body: { action: 'auth_signup', user_id: result.data.user.id },
+          }).then(({ error }) => {
+            if (error) console.warn('EVOLV founder signup notification failed:', error.message)
+          }).catch((error) => {
+            console.warn('EVOLV founder signup notification request failed:', error)
+          })
+        }
         setMessage('Your account was created. Check your email to confirm it, then come back and sign in.')
         return
       }
