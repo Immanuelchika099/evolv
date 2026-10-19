@@ -2437,3 +2437,46 @@ html:has(.dashboard.dashboard-ai-active) {
   max-width: min(85%, 48rem) !important;
   overflow-wrap: anywhere !important;
 }
+
+
+/* Final AI chat polish: tighter sent bubble, white response actions, and dark glass composer. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
+  max-width: min(76%, 42rem) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+  font-size: 1.9rem !important;
+  line-height: 1.72 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button svg {
+  color: #fff !important;
+  stroke: #fff !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button:focus-visible,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button:active {
+  background: rgba(255,255,255,.08) !important;
+  background-color: rgba(255,255,255,.08) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  box-shadow: none !important;
+  color: #fff !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
+  background: rgba(18,18,18,.68) !important;
+  background-color: rgba(18,18,18,.68) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
+  backdrop-filter: blur(22px) saturate(135%) !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:hover,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
+  border-color: rgba(255,255,255,.16) !important;
+}
