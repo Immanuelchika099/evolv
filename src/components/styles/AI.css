@@ -4334,11 +4334,11 @@ body:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Mobile AI conversation spacing: keep assistant text comfortably inset like ChatGPT. */
+/* Mobile AI conversation spacing: 10px on both sides. */
 @media (max-width: 600px) {
   .dashboard.dashboard-ai-active .ai-page .ai-messages {
-    padding-left: 2rem !important;
-    padding-right: 2rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
     box-sizing: border-box !important;
   }
 }
