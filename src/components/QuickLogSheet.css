@@ -872,3 +872,56 @@
 @media (max-width: 420px) {
   .quick-log-workout-character-hint { margin-inline: 1.5rem; }
 }
+
+
+/* Compact intensity selector: tucked beneath the exercise title to avoid crowding. */
+.quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .8rem 1.5rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,.055);
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-row > span {
+  color: #969ba5;
+  font-size: 1.3rem;
+  font-weight: 550;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-control {
+  display: inline-flex;
+  align-items: center;
+  gap: .2rem;
+  min-height: 3.3rem;
+  padding: 0 .8rem 0 1rem;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 999px;
+  background: #15171b;
+  color: #e8edf5;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-control select {
+  max-width: 10rem;
+  padding: .45rem 0;
+  border: 0;
+  outline: 0;
+  appearance: none;
+  background: transparent;
+  color: inherit;
+  font-size: 1.3rem;
+  font-weight: 650;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-control option {
+  background: #202124;
+  color: #fff;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-control svg {
+  color: #8db8ff;
+  transform: rotate(90deg);
+  pointer-events: none;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-detail-intensity {
+  display: inline-block;
+  margin-top: .4rem;
+  color: #aab0ba;
+  font-size: 1.25rem;
+}
