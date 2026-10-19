@@ -459,6 +459,16 @@ function App() {
   }
 
   async function finishAuth(user, authMode = 'login') {
+    // Notify the founder only for a newly created account's first authenticated app opening.
+    // The server validates account age and records a unique event, so returning users never alert.
+    void supabase.functions.invoke('founder-user-notifications', {
+      body: { action: 'first_open' },
+    }).then(({ error }) => {
+      if (error) console.warn('EVOLV founder signup notification was not processed:', error.message)
+    }).catch((error) => {
+      console.warn('EVOLV founder signup notification request failed:', error)
+    })
+
     if (window.location.pathname.replace(/\/+$/, '') === '/signup') {
       window.history.replaceState({}, '', '/')
     }
