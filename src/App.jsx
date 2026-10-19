@@ -260,6 +260,25 @@ function App() {
 
       if (sessionData?.session?.user) {
         const user = sessionData.session.user
+
+        // Founder-only, one-shot push test triggered by the explicit test URL.
+        // The Edge Function independently verifies the authenticated founder ID.
+        const urlParams = new URLSearchParams(window.location.search)
+        if (urlParams.get('founder-notification-test') === '1') {
+          urlParams.delete('founder-notification-test')
+          const remainingQuery = urlParams.toString()
+          window.history.replaceState(
+            {},
+            '',
+            window.location.pathname + (remainingQuery ? '?' + remainingQuery : '') + window.location.hash
+          )
+          const { data: testResult, error: testError } = await supabase.functions.invoke('founder-user-notifications', {
+            body: { action: 'founder_current_count_test' },
+          })
+          if (testError) console.error('EVOLV founder notification test failed:', testError.message)
+          else console.info('EVOLV founder notification test result:', testResult)
+        }
+
         const oauthIntent = sessionStorage.getItem('evolv-oauth-intent')
 
         if (oauthIntent === 'login') {
