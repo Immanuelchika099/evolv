@@ -478,3 +478,223 @@
   .quick-log-overlay-page .quick-log-editor-footer { margin-inline: -1.5rem !important; padding-inline: 1.5rem !important; }
   .quick-log-overlay-page .quick-log-field-row { grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important; }
 }
+
+
+/* Workout editor — reference-matched charcoal exercise cards and Evolv-blue accents. */
+.quick-log-overlay:has(.quick-log-editor){
+  align-items:stretch!important;
+  justify-content:center!important;
+  padding:env(safe-area-inset-top, 0px) 0 0!important;
+  background:#050607!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  overflow:hidden!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-sheet{
+  width:100%!important;
+  max-width:76rem!important;
+  height:100dvh!important;
+  max-height:100dvh!important;
+  min-height:0!important;
+  border:0!important;
+  border-radius:0!important;
+  background:#050607!important;
+  box-shadow:none!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-handle{display:none!important}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-header{
+  flex:0 0 auto!important;
+  align-items:center!important;
+  padding:2.1rem 2rem 1.8rem!important;
+  border-bottom:1px solid rgba(255,255,255,.1)!important;
+  background:#08090b!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-header h2{
+  font-size:clamp(2.5rem,6vw,3.2rem)!important;
+  line-height:1.1!important;
+  font-weight:750!important;
+  letter-spacing:-.04em!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-back,
+.quick-log-overlay:has(.quick-log-editor) .quick-log-close{
+  width:4.8rem!important;height:4.8rem!important;min-width:4.8rem!important;
+  display:grid!important;place-items:center!important;
+  border-radius:50%!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  background:#17191c!important;color:#f5f6f8!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-content{
+  min-height:0!important;
+  overflow-y:auto!important;
+  overscroll-behavior:contain!important;
+  padding:2rem 2rem 1.8rem!important;
+  gap:0!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-fields{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  gap:1.6rem!important;
+  min-width:0!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-field{
+  min-width:0!important;width:100%!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-field>span{
+  display:block!important;
+  margin-bottom:.8rem!important;
+  color:#c3c6cc!important;
+  font-size:1.6rem!important;
+  font-weight:600!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-field input,
+.quick-log-overlay:has(.quick-log-editor) .quick-log-field select,
+.quick-log-overlay:has(.quick-log-editor) .quick-log-field textarea{
+  box-sizing:border-box!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;
+  min-height:5.2rem!important;
+  padding:1.2rem 1.4rem!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:1.5rem!important;
+  background:#202124!important;
+  color:#f5f6f8!important;
+  font-size:1.7rem!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-field-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  gap:1rem!important;
+  width:100%!important;min-width:0!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercises-heading{
+  margin:2.4rem 0 1.2rem!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercises-heading h3{
+  margin:0!important;
+  font-size:2.2rem!important;
+  font-weight:700!important;
+  letter-spacing:-.025em!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercises{
+  display:flex!important;flex-direction:column!important;gap:1.4rem!important;
+  min-width:0!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise{
+  box-sizing:border-box!important;
+  width:100%!important;min-width:0!important;
+  padding:1.5rem!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  border-radius:1.8rem!important;
+  background:#202124!important;
+  overflow:hidden!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-heading{
+  display:grid!important;
+  grid-template-columns:2.8rem minmax(0,1fr) 4rem!important;
+  align-items:center!important;gap:.9rem!important;
+  min-width:0!important;margin-bottom:1.3rem!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-number{
+  color:#75aaff!important;font-size:1.7rem!important;font-weight:750!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name{
+  min-width:0!important;width:100%!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name input{
+  box-sizing:border-box!important;display:block!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  height:4.8rem!important;padding:1rem 1.2rem!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+  border-radius:1.2rem!important;background:#111317!important;
+  color:#f5f6f8!important;font-size:1.6rem!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-icon-button{
+  width:4rem!important;height:4rem!important;min-width:4rem!important;
+  border-radius:1.1rem!important;background:#17191d!important;
+  color:#aeb4be!important;border:1px solid rgba(255,255,255,.06)!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-head,
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-row{
+  display:grid!important;
+  grid-template-columns:3rem minmax(0,1.15fr) minmax(0,1.15fr) 3.8rem!important;
+  align-items:center!important;gap:.8rem!important;
+  width:100%!important;min-width:0!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-head{
+  padding:.6rem 0 .9rem!important;
+  color:#b8bbc2!important;font-size:1.35rem!important;font-weight:650!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-head span{
+  min-width:0!important;text-align:center!important;white-space:normal!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-row{
+  margin-bottom:.7rem!important;padding:.6rem!important;
+  border-radius:1.3rem!important;background:#15171b!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-number{
+  text-align:center!important;font-size:1.55rem!important;font-weight:650!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-number-field{
+  display:block!important;min-width:0!important;width:100%!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-number-field input{
+  box-sizing:border-box!important;display:block!important;
+  width:100%!important;min-width:0!important;max-width:100%!important;
+  height:4.7rem!important;padding:.6rem!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  border-radius:1.2rem!important;background:#202228!important;
+  color:#f5f6f8!important;text-align:center!important;
+  font-size:1.65rem!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-done{
+  width:3.6rem!important;height:3.6rem!important;min-width:3.6rem!important;
+  justify-self:center!important;border:1.5px solid #454a54!important;
+  border-radius:50%!important;background:transparent!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-done.is-complete{
+  background:#287df0!important;border-color:#287df0!important;color:#fff!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-row.is-complete{
+  background:rgba(40,125,240,.12)!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-add-set{
+  display:inline-flex!important;align-items:center!important;gap:.7rem!important;
+  min-height:4.2rem!important;margin:.4rem 0 0!important;padding:.7rem .5rem!important;
+  background:transparent!important;border:0!important;color:#8db8ff!important;
+  font-size:1.55rem!important;font-weight:650!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-add-exercise{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:.8rem!important;
+  width:100%!important;min-height:5.6rem!important;margin:1.6rem 0!important;
+  border:1px solid #287df0!important;border-radius:1.6rem!important;
+  background:transparent!important;color:#8db8ff!important;font-size:1.7rem!important;font-weight:700!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-notes-field{margin-top:.5rem!important}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer{
+  position:sticky!important;bottom:0!important;z-index:5!important;
+  display:flex!important;align-items:center!important;justify-content:space-between!important;gap:1rem!important;
+  flex:0 0 auto!important;margin:1.2rem -2rem -1.8rem!important;
+  padding:1.2rem 2rem calc(1.2rem + env(safe-area-inset-bottom, 0px))!important;
+  border-top:1px solid rgba(255,255,255,.1)!important;
+  background:#050607!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer>div{
+  display:flex!important;flex-direction:column!important;gap:.1rem!important;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer>div strong{font-size:2.1rem!important;color:#f5f6f8!important}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer>div span{font-size:1.4rem!important;color:#858b95!important}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer .quick-log-primary{
+  display:flex!important;align-items:center!important;justify-content:center!important;gap:.9rem!important;
+  min-height:5.6rem!important;padding:0 2rem!important;
+  border:0!important;border-radius:1.6rem!important;
+  background:#2864f0!important;color:#fff!important;
+  font-size:1.7rem!important;font-weight:700!important;
+}
+@media(max-width:420px){
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-content{padding:1.6rem 1.5rem 1.5rem!important}
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-header{padding:1.6rem 1.5rem!important}
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-field-row{grid-template-columns:minmax(0,1fr)!important}
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer{margin-left:-1.5rem!important;margin-right:-1.5rem!important;padding-left:1.5rem!important;padding-right:1.5rem!important}
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-set-head,
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-set-row{grid-template-columns:2.5rem minmax(0,1fr) minmax(0,1fr) 3.4rem!important;gap:.5rem!important}
+ .quick-log-overlay:has(.quick-log-editor) .quick-log-set-done{width:3.2rem!important;height:3.2rem!important;min-width:3.2rem!important}
+}
