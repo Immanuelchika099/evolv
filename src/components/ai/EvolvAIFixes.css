@@ -2373,6 +2373,23 @@ html:has(.dashboard.dashboard-ai-active) {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+/* Keep top controls clearly above any page fade: opaque dark surfaces, never see-through. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
+  position: relative !important;
+  z-index: 50 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button {
+  position: relative !important;
+  z-index: 51 !important;
+  background: rgba(18,18,18,.96) !important;
+  background-color: rgba(18,18,18,.96) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,.035) inset !important;
+}
+
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat:hover,
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button:hover {
   background: rgba(156, 163, 175, 0.08) !important;
