@@ -9396,3 +9396,42 @@ html body #root .dashboard .settings-page button.settings-toggle.active > span {
   top:0!important;
   padding-top:env(safe-area-inset-top, 0px)!important;
 }
+
+
+/* Meal and other full-page log forms: keep the save action flush to the bottom and remove leftover footer copy. */
+.log-overlay.log-page-mode {
+  align-items: stretch !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+.log-overlay.log-page-mode .log-sheet {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100vh !important;
+  max-height: 100dvh !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.log-overlay.log-page-mode .log-sheet-scroll {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  padding-bottom: 1.2rem !important;
+}
+.log-overlay.log-page-mode .log-sheet-footer {
+  position: relative !important;
+  inset: auto !important;
+  flex: 0 0 auto !important;
+  margin-top: 0 !important;
+  padding: 1rem 1.6rem calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+.log-overlay.log-page-mode .log-sheet-footer > div {
+  display: none !important;
+}
+.log-overlay.log-page-mode .log-sheet-footer .log-save {
+  width: 100% !important;
+  min-height: 5rem !important;
+  margin: 0 !important;
+}
