@@ -2367,7 +2367,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button {
   background: transparent !important;
   background-color: transparent !important;
-  border: 1px solid rgba(156, 163, 175, 0.38) !important;
+  border: 0 !important;
   box-shadow: none !important;
   color: rgba(245, 245, 247, 0.88) !important;
   -webkit-backdrop-filter: none !important;
