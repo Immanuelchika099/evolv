@@ -2428,3 +2428,12 @@ html:has(.dashboard.dashboard-ai-active) {
   }
 }
 
+
+
+/* Match ChatGPT's restrained sent-message bubble width: keep long prompts
+   comfortably narrower than the conversation while short prompts stay content-sized. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
+  width: fit-content !important;
+  max-width: min(85%, 48rem) !important;
+  overflow-wrap: anywhere !important;
+}
