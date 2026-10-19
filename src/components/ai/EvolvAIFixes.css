@@ -2373,36 +2373,22 @@ html:has(.dashboard.dashboard-ai-active) {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
-/* A gentle top fade extends a little farther down into the conversation,
-   while the controls themselves remain crisp and opaque above it. */
+/* Keep the top-control wrapper completely clear. Blur belongs only to
+   the New Chat and three-dot button surfaces, not the area behind them. */
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
   position: relative !important;
   z-index: 50 !important;
-  isolation: isolate !important;
+  isolation: auto !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions::before {
-  content: "" !important;
-  position: absolute !important;
-  z-index: -1 !important;
-  top: -2rem !important;
-  right: -1.6rem !important;
-  bottom: -5rem !important;
-  left: -1.6rem !important;
-  pointer-events: none !important;
-  background: linear-gradient(
-    to bottom,
-    rgba(0,0,0,.88) 0%,
-    rgba(0,0,0,.62) 38%,
-    rgba(0,0,0,.22) 72%,
-    rgba(0,0,0,0) 100%
-  ) !important;
-}
-
-/* Keep top controls clearly above the fade: opaque dark surfaces, never see-through. */
-.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
-  position: relative !important;
-  z-index: 50 !important;
+  content: none !important;
+  display: none !important;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat,
@@ -2413,7 +2399,8 @@ html:has(.dashboard.dashboard-ai-active) {
   background-color: rgba(18,18,18,.58) !important;
   -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
   backdrop-filter: blur(22px) saturate(135%) !important;
-  box-shadow: 0 1px 0 rgba(255,255,255,.045) inset !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat:hover,
