@@ -774,3 +774,72 @@
     padding-right: 1.5rem !important;
   }
 }
+
+
+/* Workout overview: category-led logging and live, data-derived totals. */
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-type,
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-type select {
+  width: 100%;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-type select {
+  min-height: 4.8rem;
+  padding: 0 1.4rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.4rem;
+  background: #1c1c1e;
+  color: #f5f5f7;
+  font-size: 1.55rem;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals { margin: .6rem 0 2.2rem; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-heading {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 1rem;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-heading > span {
+  color: #8e8e93; font-size: 1.2rem; font-weight: 650; letter-spacing: .12em;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-heading small { color: #8e8e93; font-size: 1.25rem; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card {
+  display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); overflow: hidden;
+  border: 1px solid rgba(255,255,255,.045); border-radius: 2rem; background: #1c1c1e;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card > div {
+  display: flex; min-width: 0; min-height: 10.5rem; flex-direction: column; align-items: center;
+  justify-content: center; gap: .7rem; padding: 1.2rem .5rem; text-align: center;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card > div + div { border-left: 1px solid rgba(255,255,255,.08); }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card svg { color: #d4d4d8; stroke-width: 1.8; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card span {
+  color: #a1a1a6; font-size: 1.1rem; font-weight: 650; letter-spacing: .045em;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card strong {
+  color: #fff; font-size: clamp(1.55rem,4vw,2rem); font-weight: 750; line-height: 1.1; white-space: nowrap;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercises-heading h3 {
+  text-transform: uppercase; color: #8e8e93; font-size: 1.2rem; font-weight: 650; letter-spacing: .12em;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise {
+  overflow: hidden; border: 1px solid rgba(255,255,255,.045); border-radius: 2rem; background: #1c1c1e;
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-heading {
+  position: relative; padding: 1.8rem 1.4rem 1.5rem 2rem; border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-heading::before {
+  position: absolute; top: 1.7rem; bottom: 1.7rem; left: .7rem; width: .5rem; border-radius: 999px;
+  background: var(--evolv-blue, var(--color-accent-blue, #2563eb)); content: "";
+}
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name input { color: #fff; font-size: 2rem; font-weight: 600; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name input::placeholder { color: #8e8e93; font-weight: 450; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-head,
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-row { grid-template-columns: 2.8rem minmax(0,1fr) minmax(0,1fr) 3.6rem; gap: .6rem; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-head { color: #f5f5f7; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-row { min-height: 5.6rem; border-bottom: 1px solid rgba(255,255,255,.035); }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-add-set { color: var(--evolv-blue, #2563eb); }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-add-exercise { border-color: var(--evolv-blue, #2563eb); color: #fff; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-set-done.is-complete {
+  background: var(--evolv-blue, #2563eb) !important; border-color: var(--evolv-blue, #2563eb) !important;
+}
+@media (max-width: 420px) {
+  .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card > div { min-height: 9.5rem; padding-inline: .25rem; }
+  .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card span { font-size: 1rem; }
+  .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card strong { font-size: 1.45rem; }
+}
