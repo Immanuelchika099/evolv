@@ -2558,3 +2558,16 @@ html:has(.dashboard.dashboard-ai-active) {
   margin-block: 1.25em .55em !important;
   line-height: 1.3 !important;
 }
+
+
+/* Slightly larger AI response text for easier reading on mobile. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+  font-size: 2rem !important;
+  line-height: 1.75 !important;
+}
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+    font-size: 2rem !important;
+    line-height: 1.75 !important;
+  }
+}
