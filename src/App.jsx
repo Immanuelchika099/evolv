@@ -2449,8 +2449,24 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       setProfileMessage('Your reflection could not be saved. Please try again.')
       return
     }
+    const moodLabels = {
+      happy: 'happy', normal: 'normal', mixed: 'mixed', hopeful: 'hopeful',
+      calm: 'calm', anxious: 'anxious', overwhelmed: 'overwhelmed',
+      sad: 'sad', depressed: 'very low', numb: 'numb'
+    }
+    const moodContext = moodLabels[reflectionMood] || reflectionMood || 'uncertain'
+    const reflectionContext = [
+      reflectionFeeling ? `How today felt: ${reflectionFeeling}.` : '',
+      reflectionNote.trim() ? `What the user shared: “${reflectionNote.trim().slice(0, 1200)}”` : ''
+    ].filter(Boolean).join(' ')
+    localStorage.setItem('evolv-ai-start-new-chat', 'true')
+    localStorage.setItem(
+      'evolv-ai-pending-prompt',
+      `The user just completed a mood check-in and selected “${moodContext}”. ${reflectionContext}\n\nStart by responding naturally and compassionately to this mood, without saying that the user sent a message they did not type. Use their reflection context if provided. Do not diagnose, over-assume why they feel this way, or immediately turn this into productivity advice. Offer a gentle, relevant opening and ask at most one easy question. If they selected happy or hopeful, acknowledge that positively; if calm or normal, keep it relaxed; if mixed or numb, make room for uncertainty; if anxious or overwhelmed, help them slow things down; if sad or very low, prioritize empathy and connection. Keep the response concise and human. Do not claim to have saved or remembered anything beyond the completed check-in.`
+    )
     closeReflection()
-    setProfileMessage('Reflection saved. You showed up for yourself today.')
+    setProfileMessage('')
+    goTo('ai')
   }
   async function handleAvatarChange(event){
     const file=event.target.files?.[0]
@@ -2659,10 +2675,10 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,onSave,onClose}){
   const moods=[
     {value:'happy',label:'Happy',expression:'good'},{value:'normal',label:'Feeling normal',expression:'okay'},
-    {value:'mixed',label:'Mixed feelings',expression:'okay'},{value:'hopeful',label:'Hopeful',expression:'good'},
-    {value:'calm',label:'Calm',expression:'okay'},{value:'anxious',label:'Anxious',expression:'low'},
-    {value:'overwhelmed',label:'Overwhelmed',expression:'low'},{value:'sad',label:'Sad',expression:'low'},
-    {value:'depressed',label:'Depressed',expression:'low'},{value:'numb',label:'Numb',expression:'low'}
+    {value:'mixed',label:'Mixed feelings',expression:'neutral'},{value:'hopeful',label:'Hopeful',expression:'good'},
+    {value:'calm',label:'Calm',expression:'okay'},{value:'anxious',label:'Anxious',expression:'stressed'},
+    {value:'overwhelmed',label:'Overwhelmed',expression:'stressed'},{value:'sad',label:'Sad',expression:'low'},
+    {value:'depressed',label:'Depressed',expression:'low'},{value:'numb',label:'Numb',expression:'neutral'}
   ]
   const feelings=['Calm','Okay','Stressful','Energised','Heavy','Productive']
   return <div className="reflection-overlay" role="dialog" aria-modal="true" aria-label="Daily reflection">
