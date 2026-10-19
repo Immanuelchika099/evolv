@@ -449,20 +449,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
         {screen === 'editor' && (
           <form className="quick-log-content quick-log-editor" onSubmit={saveWorkout}>
-            <div className="quick-log-workout-fields">
-              <label className="quick-log-field quick-log-workout-type"><span>Workout type</span><select value={workoutType} onChange={event => {
-                const nextType = event.target.value
-                setWorkoutType(nextType)
-                if (nextType !== 'custom') setWorkoutName(workoutTypeOptions.find(option => option.id === nextType)?.label || 'Workout')
-                else setWorkoutName('')
-              }}>{workoutTypeOptions.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
-              {workoutType === 'custom' && <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Upper body session" required /></label>}
-              <label className="quick-log-field quick-log-workout-description"><span>Description <small>optional</small></span><input autoComplete="off" value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="Add a short note about this workout" /></label>
-              <div className="quick-log-field-row">
-                <label className="quick-log-field quick-log-unit-field"><span>Weight unit</span><select value={weightUnit} onChange={event => changeWeightUnit(event.target.value)}><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></label>
-              </div>
-            </div>
-
             <section className="quick-log-workout-totals" aria-label="Workout totals">
               <div className="quick-log-workout-totals-heading"><span>YOUR TOTALS</span><small>{totals.exercisesCount} {totals.exercisesCount === 1 ? 'exercise' : 'exercises'}</small></div>
               <div className="quick-log-workout-totals-card">
@@ -471,6 +457,19 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                 <div><CheckCircle2 size={19} aria-hidden="true" /><span>SETS</span><strong>{totals.setsCount}</strong></div>
               </div>
             </section>
+            <div className="quick-log-workout-fields">
+              <label className="quick-log-field quick-log-workout-type"><span>Workout type</span><select value={workoutType} onChange={event => {
+                const nextType = event.target.value
+                setWorkoutType(nextType)
+                if (nextType !== 'custom') setWorkoutName(workoutTypeOptions.find(option => option.id === nextType)?.label || 'Workout')
+                else setWorkoutName('')
+              }}>{workoutTypeOptions.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
+              {workoutType === 'custom' && <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Upper body session" required /></label>}
+              <div className="quick-log-field-row">
+                <label className="quick-log-field quick-log-unit-field"><span>Weight unit</span><select value={weightUnit} onChange={event => changeWeightUnit(event.target.value)}><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></label>
+              </div>
+            </div>
+
             <div className="quick-log-exercises-heading"><h3>Recorded Exercises</h3></div>
             <div className="quick-log-exercises">
               {exercises.map((exercise, exerciseIndex) => (
