@@ -18,7 +18,7 @@ function blankSet(number = 1, unit = 'kg') {
 }
 
 function blankExercise(order = 0, unit = 'kg') {
-  return { id: makeId(), name: '', sort_order: order, sets: [blankSet(1, unit)] }
+  return { id: makeId(), name: '', intensity: 'Moderate', sort_order: order, sets: [blankSet(1, unit)] }
 }
 
 const workoutTypeOptions = [
@@ -127,7 +127,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
     }
     const { data, error: queryError } = await supabase
       .from('workout_logs')
-      .select('id,name,workout_date,notes,created_at,workout_exercises(id,name,sort_order,workout_sets(id,set_number,reps,weight,weight_unit,completed))')
+      .select('id,name,workout_date,notes,created_at,workout_exercises(id,name,sort_order,intensity,workout_sets(id,set_number,reps,weight,weight_unit,completed))')
       .eq('user_id', user.id)
       .order('workout_date', { ascending: false })
       .order('created_at', { ascending: false })
@@ -173,6 +173,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
     setExercises((workout.workout_exercises || []).map((exercise, index) => ({
       id: makeId(),
       name: exercise.name || '',
+      intensity: ['Light', 'Moderate', 'Heavy'].includes(exercise.intensity) ? exercise.intensity : 'Moderate',
       sort_order: index,
       sets: (exercise.workout_sets || []).map((set, setIndex) => ({
         id: makeId(),
@@ -256,6 +257,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         const enteredSets = exercise.sets.filter(set => String(set.reps).trim() !== '' || String(set.weight).trim() !== '' || set.completed)
         return {
           name: exercise.name.trim(),
+          intensity: exercise.intensity || 'Moderate',
           sets: enteredSets.map(set => ({
             reps: Number(set.reps),
             weight: String(set.weight).trim() === '' ? null : Number(set.weight),
@@ -479,6 +481,16 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                     <label className="quick-log-exercise-name"><span className="sr-only">Exercise name</span><input autoComplete="off" list={`quick-log-exercise-options-${workoutType}`} maxLength={120} value={exercise.name} onChange={event => updateExercise(exercise.id, { name: event.target.value })} placeholder={workoutType === 'custom' ? 'Enter exercise name' : 'Choose or type an exercise'} /><datalist id={`quick-log-exercise-options-${workoutType}`}>{suggestedExercises.map(name => <option key={name} value={name} />)}</datalist></label>
                     <button type="button" className="quick-log-icon-button" onClick={() => removeExercise(exercise.id)} disabled={exercises.length === 1} aria-label="Remove exercise"><Trash2 size={16} /></button>
                   </div>
+                  <div className="quick-log-intensity-row">
+                    <span>Intensity</span>
+                    <label className="quick-log-intensity-control">
+                      <span className="sr-only">Exercise intensity</span>
+                      <select value={exercise.intensity || 'Moderate'} onChange={event => updateExercise(exercise.id, { intensity: event.target.value })} aria-label={`Intensity for ${exercise.name || 'exercise ' + (exerciseIndex + 1)}`}>
+                        <option value="Light">Light</option><option value="Moderate">Moderate</option><option value="Heavy">Heavy</option>
+                      </select>
+                      <ChevronRight size={13} aria-hidden="true" />
+                    </label>
+                  </div>
                   <div className="quick-log-set-head"><span>Set</span><span>Weight ({weightUnit})</span><span>Reps</span><span>Done</span></div>
                   <div className="quick-log-set-list">
                     {exercise.sets.map((set, setIndex) => (
@@ -512,7 +524,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
             {selectedWorkout.notes && <p className="quick-log-detail-notes">{selectedWorkout.notes}</p>}
             {(selectedWorkout.workout_exercises || []).map((exercise, index) => (
               <section className="quick-log-detail-exercise" key={exercise.id}>
-                <div><span>EXERCISE {String(index + 1).padStart(2, '0')}</span><h3>{exercise.name}</h3></div>
+                <div><span>EXERCISE {String(index + 1).padStart(2, '0')}</span><h3>{exercise.name}</h3><small className={'quick-log-detail-intensity intensity-' + (exercise.intensity || 'Moderate').toLowerCase()}>{exercise.intensity || 'Moderate'} intensity</small></div>
                 <div className="quick-log-detail-sets">
                   {(exercise.workout_sets || []).map(set => <div key={set.id} className={'quick-log-detail-set' + (set.completed ? ' is-complete' : '')}><span>{set.completed ? <Check size={14} /> : set.set_number}</span><strong>{set.weight == null ? 'Bodyweight' : set.weight + ' ' + set.weight_unit}</strong><small>{set.reps} reps</small></div>)}
                 </div>
