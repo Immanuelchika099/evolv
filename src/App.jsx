@@ -3255,7 +3255,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
   return (
     <div
-      className="log-overlay log-page-mode"
+      className={`log-overlay log-page-mode ${metric?.slug==='exercise'?'workout-log-active':''}`}
       role="dialog"
       aria-modal="true"
       aria-labelledby="log-sheet-title"
