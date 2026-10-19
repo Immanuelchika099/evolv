@@ -463,13 +463,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                 setWorkoutType(nextType)
                 if (nextType !== 'custom') setWorkoutName(workoutTypeOptions.find(option => option.id === nextType)?.label || 'Workout')
                 else setWorkoutName('')
-                if (nextType !== 'custom') {
-                  const available = exercisesByWorkoutType[nextType] || []
-                  setExercises(current => current.map(exercise => ({
-                    ...exercise,
-                    name: exercise.name && available.some(name => name.toLowerCase() === exercise.name.toLowerCase()) ? exercise.name : '',
-                  })))
-                }
               }}>{workoutTypeOptions.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
               {workoutType === 'custom' && <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Upper body session" required /></label>}
               <div className="quick-log-field-row">
