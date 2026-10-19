@@ -43,7 +43,7 @@ function AssistantMessageContent({ content, typing = false }) {
         .split(/\n\s*\n/)
         .map(section => {
           const prose = section.replace(/\n+/g, ' ').replace(/[ \t]+/g, ' ').trim()
-          if (prose.length <= 320) return prose
+          if (prose.length <= 180) return prose
           const sentences = prose.split(/(?<=[.!?])\s+(?=[A-Z0-9“"'(])/)
           if (sentences.length < 3) return prose
           const paragraphs = []
