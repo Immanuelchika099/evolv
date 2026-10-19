@@ -3476,10 +3476,6 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
 
         {metric&&(
           <footer className="log-sheet-footer">
-            <div>
-              <span>{editing?'EDITING ENTRY':'PRIVATE ENTRY'}</span>
-              <small>{editing?'Changes update this existing entry.':'Saved to your Evolv history.'}</small>
-            </div>
             <button className="button button-primary log-save" type="button" onClick={save} disabled={saving}>
               {saving?'Saving…':editing?'Save changes':'Save '+metric.name}
               <Check size={15}/>
