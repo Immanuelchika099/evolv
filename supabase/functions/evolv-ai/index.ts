@@ -90,6 +90,7 @@ const toolDeclarations = [
             type: "object",
             properties: {
               name: { type: "string", description: "Exercise name such as Bench Press." },
+              intensity: { type: "string", description: "Optional exercise intensity: Light, Moderate, or Heavy. Use only if explicitly stated; otherwise Moderate." },
               sets: {
                 type: "array",
                 items: {
@@ -276,7 +277,8 @@ async function executeTool(
           user_id: userId,
           name: exerciseName,
           sort_order: exerciseIndex,
-        }).select("id,name,sort_order").single()
+          intensity: ["Light", "Moderate", "Heavy"].includes(rawExercise?.intensity) ? rawExercise.intensity : "Moderate",
+        }).select("id,name,sort_order,intensity").single()
         if (exerciseError) throw exerciseError
 
         const sets = rawSets.map((rawSet: any, setIndex: number) => {
@@ -312,7 +314,7 @@ async function executeTool(
   if (name === "get_workout_history") {
     const { data, error } = await supabase
       .from("workout_logs")
-      .select("id,name,workout_date,notes,workout_exercises(id,name,sort_order,workout_sets(id,set_number,reps,weight,weight_unit,completed))")
+      .select("id,name,workout_date,notes,workout_exercises(id,name,sort_order,intensity,workout_sets(id,set_number,reps,weight,weight_unit,completed))")
       .eq("user_id", userId)
       .order("workout_date", { ascending: false })
       .limit(30)
