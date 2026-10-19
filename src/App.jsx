@@ -2869,14 +2869,14 @@ function ExerciseFields({values,setValues}){
   function removeRow(index){setValues(v=>({...v,exerciseRows:(v.exerciseRows||[]).filter((_,i)=>i!==index)}))}
   const totalReps=rows.reduce((sum,row)=>sum+(Number(row.sets)||0)*(Number(row.reps)||0),0)
   return <div className="exercise-log-fields">
-    <div className="special-log-intro"><strong>Build your workout.</strong><span>Choose the part of your body you're training, then log the exercises that belong to that session.</span></div>
-    <div className="log-field-group workout-section-picker"><div className="log-field-title"><span>What are you training today?</span><small>Pick a workout section</small></div><div className="workout-section-grid">{Object.entries(workoutSections).map(([key,section])=><button type="button" key={key} className={workoutType===key?'active':''} onClick={()=>changeWorkoutType(key)}>{section.label}</button>)}</div></div>
-    <div className="exercise-session-label"><span>{workoutSections[workoutType].label}</span><small>{availableExercises.length} exercises available</small></div>
+    <div className="workout-compact-heading"><strong>Workout</strong><span>Choose a focus and record your sets.</span></div>
+    <div className="log-field-group workout-section-picker"><div className="log-field-title"><span>Training focus</span></div><div className="workout-section-grid">{Object.entries(workoutSections).map(([key,section])=><button type="button" key={key} className={workoutType===key?'active':''} onClick={()=>changeWorkoutType(key)}>{section.label}</button>)}</div></div>
+    <div className="exercise-session-label"><span>{workoutSections[workoutType].label}</span></div>
     <div className="exercise-row-list">{rows.map((row,index)=><div className="exercise-entry" key={index}>
-      <div className="exercise-entry-head"><span>EXERCISE {index+1}</span>{rows.length>1&&<button type="button" onClick={()=>removeRow(index)} aria-label="Remove exercise"><X size={15}/></button>}</div>
+      <div className="exercise-entry-head"><span>Exercise {index+1}</span>{rows.length>1&&<button type="button" onClick={()=>removeRow(index)} aria-label="Remove exercise"><X size={15}/></button>}</div>
       <label className="log-input-label"><span>Exercise</span><select value={row.exercise} onChange={e=>updateRow(index,'exercise',e.target.value)}>{availableExercises.map(name=><option key={name}>{name}</option>)}</select></label>
       <div className="exercise-number-grid">{[['sets','Sets'],['reps','Reps']].map(([key,label])=><div className="exercise-picker" key={key}><span>{label}</span><div><button type="button" onClick={()=>changeNumber(index,key,-1)} aria-label={'Decrease '+label}>−</button><strong>{row[key]||0}</strong><button type="button" onClick={()=>changeNumber(index,key,1)} aria-label={'Increase '+label}>+</button></div></div>)}</div>
-      <label className="log-input-label"><span>Weight <small>optional · kg</small></span><input type="number" min="0" step="0.5" value={row.weight??''} onChange={e=>updateRow(index,'weight',e.target.value)} placeholder="Bodyweight / 0"/></label>
+      <label className="log-input-label"><span>Weight <small>optional · kg</small></span><input type="number" min="0" step="0.5" value={row.weight??''} onChange={e=>updateRow(index,'weight',e.target.value)} placeholder="0"/></label>
     </div>)}</div>
     <button type="button" className="exercise-add-button" onClick={addRow}><Plus size={16}/> Add another exercise</button>
     <div className="exercise-total"><span>Total reps</span><strong>{totalReps}</strong></div>
