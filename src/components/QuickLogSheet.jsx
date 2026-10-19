@@ -71,7 +71,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   const [notice, setNotice] = useState('')
   const [workoutName, setWorkoutName] = useState('')
   const [workoutType, setWorkoutType] = useState('chest')
-  const [workoutDate, setWorkoutDate] = useState(localDateKey())
   const [workoutNotes, setWorkoutNotes] = useState('')
   const [weightUnit, setWeightUnit] = useState('kg')
   const [exercises, setExercises] = useState([])
@@ -155,7 +154,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
     setSelectedWorkoutId(null)
     setWorkoutType('chest')
     setWorkoutName('Chest Day')
-    setWorkoutDate(localDateKey())
     setWorkoutNotes('')
     setWeightUnit('kg')
     setExercises([blankExercise(0, 'kg')])
@@ -168,7 +166,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
     setSelectedWorkoutId(workout.id)
     setWorkoutType(workoutTypeFromName(workout.name || ''))
     setWorkoutName(workout.name || '')
-    setWorkoutDate(workout.workout_date || localDateKey())
     setWorkoutNotes(workout.notes || '')
     const firstSet = workout.workout_exercises?.[0]?.workout_sets?.[0]
     const unit = firstSet?.weight_unit === 'lb' ? 'lb' : 'kg'
@@ -253,11 +250,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
       setError('Give this workout a name first.')
       return
     }
-    if (!workoutDate) {
-      setError('Choose the date of this workout.')
-      return
-    }
-
     const normalizedExercises = exercises
       .filter(exercise => exercise.name.trim())
       .map(exercise => {
@@ -298,7 +290,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
     const { data, error: saveError } = await supabase.rpc('save_workout_log', {
       p_workout_id: selectedWorkoutId,
       p_name: name,
-      p_workout_date: workoutDate,
+      p_workout_date: selectedWorkoutId ? (selectedWorkout?.workout_date || localDateKey()) : localDateKey(),
       p_notes: workoutNotes.trim() || null,
       p_exercises: normalizedExercises,
     })
@@ -393,7 +385,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
           </div>
           <button type="button" className="quick-log-close" onClick={onClose} aria-label="Close log sheet"><X size={19} /></button>
         </header>
-        {screen === 'editor' && <p className="quick-log-workout-character-hint">Max. 100 characters</p>}
 
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
@@ -466,9 +457,8 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                 else setWorkoutName('')
               }}>{workoutTypeOptions.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
               {workoutType === 'custom' && <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Upper body session" required /></label>}
-              <label className="quick-log-field quick-log-workout-description"><span>Description <small>optional</small></span><input autoComplete="off" maxLength={100} value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="Add a short note about this workout" /></label>
+              <label className="quick-log-field quick-log-workout-description"><span>Description <small>optional</small></span><input autoComplete="off" value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="Add a short note about this workout" /></label>
               <div className="quick-log-field-row">
-                <label className="quick-log-field"><span>Date</span><input type="date" value={workoutDate} onChange={event => setWorkoutDate(event.target.value)} required /></label>
                 <label className="quick-log-field quick-log-unit-field"><span>Weight unit</span><select value={weightUnit} onChange={event => changeWeightUnit(event.target.value)}><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></label>
               </div>
             </div>
