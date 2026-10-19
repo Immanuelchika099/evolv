@@ -9435,3 +9435,23 @@ html body #root .dashboard .settings-page button.settings-toggle.active > span {
   min-height: 5rem !important;
   margin: 0 !important;
 }
+
+
+/* Meal logger: account for the top safe area so the full-height sheet reaches the physical bottom. */
+@media(max-width:600px){
+  .dashboard .log-overlay.log-page-mode:not(.workout-log-active){
+    top:0!important;
+    padding-top:env(safe-area-inset-top, 0px)!important;
+    padding-bottom:0!important;
+  }
+  .dashboard .log-overlay.log-page-mode:not(.workout-log-active) .log-sheet{
+    height:calc(100dvh - env(safe-area-inset-top, 0px))!important;
+    max-height:calc(100dvh - env(safe-area-inset-top, 0px))!important;
+    min-height:0!important;
+    margin-bottom:0!important;
+  }
+  .dashboard .log-overlay.log-page-mode:not(.workout-log-active) .log-sheet-footer{
+    margin-bottom:0!important;
+    padding-bottom:calc(.65rem + env(safe-area-inset-bottom, 0px))!important;
+  }
+}
