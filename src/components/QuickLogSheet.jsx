@@ -388,11 +388,12 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
             {screen !== 'menu' && <button type="button" className="quick-log-back" onClick={() => screen === 'editor' ? closeEditor() : screen === 'detail' ? setScreen('workouts') : setScreen('menu')} aria-label="Go back"><ArrowLeft size={18} /></button>}
             <div>
               
-              <h2 id="quick-log-title">{screen === 'menu' ? 'Log something' : screen === 'workouts' ? 'Workouts' : screen === 'editor' ? (selectedWorkoutId ? 'Edit workout' : 'New workout') : 'Workout details'}</h2>
+              <h2 id="quick-log-title">{screen === 'menu' ? 'Log something' : screen === 'workouts' ? 'Workouts' : screen === 'editor' ? 'Workout Overview' : 'Workout details'}</h2>
             </div>
           </div>
           <button type="button" className="quick-log-close" onClick={onClose} aria-label="Close log sheet"><X size={19} /></button>
         </header>
+        {screen === 'editor' && <p className="quick-log-workout-character-hint">Max. 100 characters</p>}
 
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
@@ -465,6 +466,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                 else setWorkoutName('')
               }}>{workoutTypeOptions.map(option => <option key={option.id} value={option.id}>{option.label}</option>)}</select></label>
               {workoutType === 'custom' && <label className="quick-log-field quick-log-workout-name"><span>Workout name</span><input autoComplete="off" maxLength={120} value={workoutName} onChange={event => setWorkoutName(event.target.value)} placeholder="e.g. Upper body session" required /></label>}
+              <label className="quick-log-field quick-log-workout-description"><span>Description <small>optional</small></span><input autoComplete="off" maxLength={100} value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="Add a short note about this workout" /></label>
               <div className="quick-log-field-row">
                 <label className="quick-log-field"><span>Date</span><input type="date" value={workoutDate} onChange={event => setWorkoutDate(event.target.value)} required /></label>
                 <label className="quick-log-field quick-log-unit-field"><span>Weight unit</span><select value={weightUnit} onChange={event => changeWeightUnit(event.target.value)}><option value="kg">Kilograms (kg)</option><option value="lb">Pounds (lb)</option></select></label>
