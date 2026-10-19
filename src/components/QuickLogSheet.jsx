@@ -454,11 +454,11 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
             </div>
 
             <button type="button" className="quick-log-add-exercise" onClick={addExercise}><Plus size={17} /> Add exercise</button>
-            <label className="quick-log-field quick-log-notes-field"><span>Notes <small>Optional</small></span><textarea maxLength={1500} rows={2} value={workoutNotes} onChange={event => setWorkoutNotes(event.target.value)} placeholder="Add a note" /></label>
+
             {error && <p className="quick-log-error" role="alert">{error}</p>}
             <footer className="quick-log-editor-footer">
               <div><strong>{totals.setsCount}</strong><span>sets</span></div>
-              <button type="submit" className="quick-log-primary" disabled={saving}>{saving ? <span className="quick-log-spinner" /> : <Save size={17} />}{saving ? 'Saving…' : 'Save workout'}</button>
+              <button type="submit" className="quick-log-primary" disabled={saving}>{saving ? <span className="quick-log-spinner" /> : <Save size={17} />}{saving ? 'Saving…' : 'Finish'}</button>
             </footer>
           </form>
         )}
