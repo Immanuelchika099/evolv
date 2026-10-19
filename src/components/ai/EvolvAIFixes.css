@@ -2373,7 +2373,33 @@ html:has(.dashboard.dashboard-ai-active) {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
-/* Keep top controls clearly above any page fade: opaque dark surfaces, never see-through. */
+/* A gentle top fade extends a little farther down into the conversation,
+   while the controls themselves remain crisp and opaque above it. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
+  position: relative !important;
+  z-index: 50 !important;
+  isolation: isolate !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-topbar-actions::before {
+  content: "" !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  top: -2rem !important;
+  right: -1.6rem !important;
+  bottom: -5rem !important;
+  left: -1.6rem !important;
+  pointer-events: none !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,.88) 0%,
+    rgba(0,0,0,.62) 38%,
+    rgba(0,0,0,.22) 72%,
+    rgba(0,0,0,0) 100%
+  ) !important;
+}
+
+/* Keep top controls clearly above the fade: opaque dark surfaces, never see-through. */
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
   position: relative !important;
   z-index: 50 !important;
