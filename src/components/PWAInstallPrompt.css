@@ -1,19 +1,19 @@
 .pwa-install-wrap {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 2147483647;
   display: grid;
   place-items: center;
   overflow-y: auto;
   padding: max(2.4rem, env(safe-area-inset-top)) 2rem max(2.4rem, env(safe-area-inset-bottom));
-  background: #fff;
-  color: #111827;
+  background: #000;
+  color: #fff;
   animation: pwa-install-in .28s ease both;
 }
 .pwa-install-card {
   width: min(100%, 42rem);
   margin: auto;
-  background: #fff;
+  background: #000;
 }
 .pwa-install-copy {
   display: flex;
@@ -23,7 +23,7 @@
 }
 .pwa-install-copy h1 {
   margin: 0 0 1.4rem;
-  color: #101828;
+  color: #fff;
   font-size: clamp(2.8rem, 7vw, 3.5rem);
   font-weight: 750;
   letter-spacing: -.055em;
@@ -31,7 +31,7 @@
 }
 .pwa-install-copy > p {
   margin: 0 0 2.8rem;
-  color: #475467;
+  color: rgba(255, 255, 255, .72);
   font-size: 1.6rem;
   line-height: 1.65;
 }
@@ -44,7 +44,7 @@
   display: flex;
   align-items: flex-start;
   gap: 1rem;
-  color: #202939;
+  color: rgba(255, 255, 255, .88);
   font-size: 1.55rem;
   line-height: 1.55;
 }
@@ -60,7 +60,7 @@
   gap: .6rem;
 }
 .pwa-install-step-content strong {
-  color: #101828;
+  color: #fff;
   font-weight: 650;
 }
 .pwa-share-symbol {
@@ -68,14 +68,14 @@
   place-items: center;
   width: 3.2rem;
   height: 3.2rem;
-  border: 1px solid #e4e7ec;
+  border: 1px solid rgba(255, 255, 255, .18);
   border-radius: .9rem;
-  color: #1769e0;
-  background: #f8fafc;
+  color: #fff;
+  background: rgba(255, 255, 255, .08);
 }
 .pwa-install-hint {
   margin: .2rem 0 0;
-  color: #667085;
+  color: rgba(255, 255, 255, .58);
   font-size: 1.3rem;
   line-height: 1.55;
 }
@@ -88,7 +88,7 @@
   padding: 0 2rem;
   border: 0;
   border-radius: 1.2rem;
-  background: #1769e0;
+  background: #2f6fed;
   color: #fff;
   font: inherit;
   font-size: 1.6rem;
@@ -97,7 +97,7 @@
   transition: background .18s ease, transform .18s ease;
 }
 .pwa-install-button:hover {
-  background: #1259c3;
+  background: #2459c7;
 }
 .pwa-install-button:active {
   transform: scale(.99);
@@ -118,7 +118,7 @@
   cursor: pointer;
 }
 .pwa-install-later:hover {
-  color: #344054;
+  color: #fff;
 }
 @keyframes pwa-install-in {
   from { opacity: 0; }
