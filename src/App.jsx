@@ -12,7 +12,6 @@ import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import PatternWaves from './components/PatternWaves/PatternWaves'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
-import Avatar3D from './components/Avatar3D'
 import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
@@ -1530,7 +1529,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
 function Onboarding({ step, setStep, data, setData, onFinish }) {
   const stages = [
     { eyebrow: 'FIRST THINGS FIRST', title: <>What should we<br /><em>call you?</em></>, copy: 'We want EVOLV to feel like your space, from the very first hello.', type: 'name' },
-    { eyebrow: 'MEET YOUR COMPANION', title: <>Let’s make your<br /><em>avatar yours.</em></>, copy: 'Choose a starting style. You can personalize the details or change it later in your profile.', type: 'avatar' },
+    { eyebrow: 'A SPACE THAT WORKS FOR YOU', title: <>Small steps.<br /><em>Real progress.</em></>, copy: 'EVOLV helps you notice your patterns, build steadier routines, and make thoughtful changes without pressure.', type: 'approach' },
     { eyebrow: 'YOUR NEXT CHAPTER', title: <>What matters to<br /><em>you right now?</em></>, copy: 'Pick a few things you would like EVOLV to help you pay attention to. You can skip this.', type: 'goals' },
     { eyebrow: 'READY WHEN YOU ARE', title: <>You’re all set{data.name ? `, ${getFirstName(data.name)}` : ''}.<br /><em>Let’s begin.</em></>, copy: 'Your journey to becoming your next self starts here.', type: 'ready' },
   ]
@@ -1586,13 +1585,28 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
               <input autoFocus value={data.name} onChange={event => setData({ ...data, name: event.target.value })} onKeyDown={event => { if (event.key === 'Enter' && canContinue) next() }} placeholder="What should we call you?" autoComplete="given-name" maxLength={40} />
             </label>
           )}
-          {current.type === 'avatar' && (
-            <div className="evolv-onboarding-avatar-preview">
-              <div className="evolv-onboarding-avatar-stage">
-                <span className="evolv-onboarding-avatar-halo" aria-hidden="true" />
-                <Avatar3D interactive label="EVOLV 3D companion preview" />
+          {current.type === 'approach' && (
+            <div className="evolv-onboarding-approach">
+              <div className="evolv-onboarding-approach-orbit" aria-hidden="true">
+                <span className="evolv-onboarding-orbit-ring evolv-onboarding-orbit-ring-one" />
+                <span className="evolv-onboarding-orbit-ring evolv-onboarding-orbit-ring-two" />
+                <span className="evolv-onboarding-orbit-core"><Sparkles size={29} strokeWidth={1.5} /></span>
+                <span className="evolv-onboarding-orbit-dot" />
               </div>
-              <p className="evolv-onboarding-avatar-caption">A more personal space starts with a companion. You can revisit your avatar in your profile.</p>
+              <div className="evolv-onboarding-approach-list">
+                <div className="evolv-onboarding-approach-item">
+                  <span className="evolv-onboarding-approach-icon"><HeartPulse size={20} /></span>
+                  <span><strong>Understand your patterns</strong><small>Check in with your energy, mood, and everyday life.</small></span>
+                </div>
+                <div className="evolv-onboarding-approach-item">
+                  <span className="evolv-onboarding-approach-icon"><TrendingUp size={20} /></span>
+                  <span><strong>Build consistency</strong><small>Turn small, realistic actions into routines that last.</small></span>
+                </div>
+                <div className="evolv-onboarding-approach-item">
+                  <span className="evolv-onboarding-approach-icon"><Sparkles size={20} /></span>
+                  <span><strong>Adjust as you grow</strong><small>Use what you learn to decide what comes next.</small></span>
+                </div>
+              </div>
             </div>
           )}
           {current.type === 'goals' && (
@@ -1611,7 +1625,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           )}
           {current.type === 'ready' && (
             <div className="evolv-onboarding-ready">
-              <div className="evolv-onboarding-ready-avatar"><Avatar3D label="Your EVOLV companion" /></div>
+              <div className="evolv-onboarding-ready-mark" aria-hidden="true"><span><Check size={30} strokeWidth={1.8} /></span></div>
               <strong>{getFirstName(data.name) || 'Your next self'}</strong>
               <span>{(data.areas || []).length ? `${data.areas.length} focus areas chosen` : 'Your journey, your pace'}</span>
             </div>
@@ -1620,7 +1634,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
         <footer className="evolv-onboarding-footer">
           {current.type === 'goals' ? <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Skip for now</button> : <span className="evolv-onboarding-footer-note">A SMALL STEP, JUST FOR YOU</span>}
           <button className="evolv-onboarding-continue" type="button" disabled={!canContinue} onClick={next}>
-            {current.type === 'ready' ? 'Enter EVOLV' : current.type === 'name' ? 'Continue' : current.type === 'avatar' ? 'Continue' : 'Choose goals'} <ArrowRight size={17} />
+            {current.type === 'ready' ? 'Enter EVOLV' : current.type === 'name' ? 'Continue' : current.type === 'approach' ? 'Continue' : 'Choose goals'} <ArrowRight size={17} />
           </button>
         </footer>
       </main>
