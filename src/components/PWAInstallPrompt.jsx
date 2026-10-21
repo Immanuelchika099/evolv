@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Share } from 'lucide-react'
 import './PWAInstallPrompt.css'
 
@@ -82,6 +83,16 @@ export default function PWAInstallPrompt() {
     }
   }, [])
 
+  useEffect(() => {
+    if (!visible) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [visible])
+
   if (!visible) return null
 
   function dismiss() {
@@ -122,7 +133,7 @@ export default function PWAInstallPrompt() {
     setShowInstructions(true)
   }
 
-  return (
+  return createPortal(
     <div className="pwa-install-wrap" role="dialog" aria-modal="true" aria-labelledby="pwa-install-title">
       <section className="pwa-install-card">
         <div className="pwa-install-copy">
@@ -168,6 +179,7 @@ export default function PWAInstallPrompt() {
           <button className="pwa-install-later" type="button" onClick={dismiss}>Maybe later</button>
         </div>
       </section>
-    </div>
+    </div>,
+    document.body
   )
 }
