@@ -300,7 +300,7 @@ export default function DailyRoutinePage({ pageProps }) {
       </section>
 
       <section className="routine-schedule-section">
-        <div className="routine-section-heading"><div><span className="routine-label">YOUR SCHEDULE</span><h2>Set your rhythm.</h2></div><span className="routine-saved-state">{saved ? <><Check size={13}/> Saved</> : null}</span></div>
+        <div className="routine-section-heading"><div><span className="routine-label">YOUR SCHEDULE</span><h2>Daily routine.</h2></div><span className="routine-saved-state">{saved ? <><Check size={13}/> Saved</> : null}</span></div>
         <div className="routine-schedule-list">
           {['Morning', 'Meals', 'Evening'].map(group => {
             const groupItems = items.filter(item => item.group === group).sort((a, b) => a.time.localeCompare(b.time))
