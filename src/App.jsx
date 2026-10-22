@@ -2676,7 +2676,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {active!=='ai'&&createPortal(<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>, document.body)}
     {!isBooting&&active!=='ai'&&!reflectionOpen&&!quickLogOpen&&!logOpen&&createPortal(<button type="button" className="evolv-floating-log evolv-floating-log-intro" onClick={()=>{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}} aria-label="Log an activity"><Plus size={22} strokeWidth={2.4}/><span>Log</span></button>, document.body)}
     {quickLogOpen&&createPortal(<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />, document.body)}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}

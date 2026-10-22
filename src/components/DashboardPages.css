@@ -9931,3 +9931,86 @@ html body #root .dashboard-home.calm-home .ins-skeleton i:nth-child(3) { width:4
  html body #root .dashboard-home.calm-home .ins-card h3 { font-size:2.4rem; }
  html body #root .dashboard-home.calm-home .ins-card-observation { font-size:1.4rem; }
 }
+
+
+/* EVOLV page-system polish: log, finance, workout and profile controls share one rhythm. */
+.dashboard .dash-main {
+  min-width: 0;
+}
+.dashboard .dashboard-pages,
+.dashboard .panel-page,
+.dashboard .settings-page {
+  box-sizing: border-box;
+}
+.dashboard .panel-page,
+.dashboard .settings-page {
+  padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+}
+.dashboard .panel-page h1,
+.dashboard .settings-page h1,
+.dashboard .dashboard-pages h1 {
+  font-weight: 450;
+  letter-spacing: -.045em;
+  line-height: 1.12;
+}
+.dashboard .panel-page h2,
+.dashboard .settings-page h2,
+.dashboard .dashboard-pages h2 {
+  font-weight: 500;
+  letter-spacing: -.03em;
+}
+.dashboard .panel-page button,
+.dashboard .settings-page button,
+.dashboard .dashboard-pages button,
+.dashboard .log-sheet button {
+  -webkit-tap-highlight-color: transparent;
+}
+.dashboard .panel-page input,
+.dashboard .panel-page select,
+.dashboard .panel-page textarea,
+.dashboard .settings-page input,
+.dashboard .settings-page select,
+.dashboard .settings-page textarea,
+.dashboard .log-sheet input,
+.dashboard .log-sheet select,
+.dashboard .log-sheet textarea {
+  min-height: 4.4rem;
+  border-radius: 1.2rem;
+  font-size: 1.45rem;
+}
+.dashboard .log-overlay {
+  z-index: 100200 !important;
+  padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+}
+.dashboard .log-sheet {
+  width: min(58rem, 100%) !important;
+  max-height: min(90dvh, 86rem) !important;
+  border-radius: 2.2rem 2.2rem 0 0 !important;
+  background: linear-gradient(155deg, #171819 0%, #0b0c0d 72%) !important;
+}
+.dashboard .log-sheet-head {
+  padding: 1.8rem 1.6rem 1.2rem !important;
+}
+.dashboard .log-sheet-scroll {
+  padding-inline: 1.6rem !important;
+  padding-bottom: calc(2rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+.dashboard .log-sheet-heading h2 {
+  font-weight: 500 !important;
+  letter-spacing: -.035em !important;
+}
+@media (max-width: 800px) {
+  .dashboard .panel-page,
+  .dashboard .settings-page {
+    padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+  }
+  .dashboard .log-sheet {
+    max-height: 92dvh !important;
+  }
+  .dashboard .log-sheet-head {
+    padding-inline: 1.4rem !important;
+  }
+  .dashboard .log-sheet-scroll {
+    padding-inline: 1.4rem !important;
+  }
+}

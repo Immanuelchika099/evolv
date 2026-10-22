@@ -623,3 +623,64 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   .daily-routine-page .routine-day-picker { gap:.3rem; }
   .daily-routine-page .routine-day-picker button { min-height:3.3rem; font-size:1rem; }
 }
+
+
+/* EVOLV routine refinement: calm hierarchy, consistent spacing, no cramped rows. */
+.daily-routine-page {
+  width: 100%;
+  max-width: 76rem;
+  padding: 1.6rem 1.6rem calc(10rem + env(safe-area-inset-bottom, 0px));
+  margin-inline: auto;
+}
+.daily-routine-page .routine-heading {
+  align-items: flex-start;
+  gap: 1.2rem;
+  margin-bottom: 2rem;
+}
+.daily-routine-page .routine-heading h1 {
+  font-size: clamp(2.8rem, 7vw, 4rem);
+  font-weight: 450;
+  letter-spacing: -.055em;
+  line-height: 1.08;
+}
+.daily-routine-page .routine-heading p,
+.daily-routine-page .routine-section-heading p {
+  max-width: 38rem;
+  font-size: 1.4rem;
+  line-height: 1.6;
+}
+.daily-routine-page .routine-progress-panel,
+.daily-routine-page .routine-section,
+.daily-routine-page .routine-insight,
+.daily-routine-page .routine-row,
+.daily-routine-page .routine-next-card,
+.daily-routine-page .routine-reminder-note {
+  border-color: rgba(255,255,255,.09) !important;
+  box-shadow: none !important;
+}
+.daily-routine-page .routine-progress-panel {
+  padding: 1.8rem;
+  border-radius: 1.8rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.012)) !important;
+}
+.daily-routine-page .routine-row {
+  gap: 1.2rem;
+  padding: 1.35rem 1.2rem;
+  border-radius: 1.4rem;
+}
+.daily-routine-page .routine-row-title,
+.daily-routine-page .routine-row strong {
+  font-weight: 500;
+  letter-spacing: -.015em;
+}
+.daily-routine-page button,
+.daily-routine-page input,
+.daily-routine-page select {
+  min-height: 4.2rem;
+}
+@media (max-width: 700px) {
+  .daily-routine-page { padding: 1.2rem 1.2rem calc(10rem + env(safe-area-inset-bottom, 0px)); }
+  .daily-routine-page .routine-heading { flex-direction: column; align-items: flex-start; }
+  .daily-routine-page .routine-heading h1 { font-size: 3.2rem; }
+  .daily-routine-page .routine-progress-panel { padding: 1.4rem; }
+}
