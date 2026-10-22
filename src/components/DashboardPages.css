@@ -9704,8 +9704,8 @@ html body #root .dashboard .goals-page .goal-ai-plan .goal-apply-plan {
   overflow: visible;
 }
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
-  background: var(--surface, #080808) !important;
-  background-color: var(--surface, #080808) !important;
+  background: var(--color-surface, #101010) !important;
+  background-color: var(--color-surface, #101010) !important;
   background-image: none !important;
   border: 1px solid rgba(255,255,255,.12) !important;
   border-radius: 3.2rem !important;
@@ -9722,8 +9722,8 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
   padding: 2.6rem !important;
   overflow: hidden;
   border-radius: inherit;
-  background: var(--surface, #080808) !important;
-  background-color: var(--surface, #080808) !important;
+  background: var(--color-surface, #101010) !important;
+  background-color: var(--color-surface, #101010) !important;
   background-image: none !important;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel::before {
@@ -9732,14 +9732,14 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel::bef
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
   margin: 0 0 1.2rem !important;
-  color: var(--text-primary, #f4f3f0) !important;
+  color: var(--color-text-primary, #f4f4f1) !important;
   text-shadow: none !important;
   font-weight: 400 !important;
   line-height: 1.2 !important;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
   max-width: none;
-  color: var(--text-secondary, rgba(255,255,255,.72)) !important;
+  color: var(--color-text-secondary, rgba(255,255,255,.66)) !important;
   font-size: 1.5rem !important;
   line-height: 1.6 !important;
 }
@@ -9753,7 +9753,7 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion
   color: rgba(255,255,255,.43) !important;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
-  color: var(--text-primary, rgba(255,255,255,.92)) !important;
+  color: var(--color-text-primary, rgba(255,255,255,.92)) !important;
   font-size: 1.5rem !important;
   line-height: 1.5 !important;
 }
@@ -9764,7 +9764,7 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
   border-color: rgba(255,255,255,.13) !important;
   border-radius: 999px !important;
   background: rgba(255,255,255,.045) !important;
-  color: var(--text-primary, #f4f3f0) !important;
+  color: var(--color-text-primary, #f4f4f1) !important;
 }
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__dots {
   bottom: -.15rem !important;
