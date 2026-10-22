@@ -26,7 +26,7 @@
   --graph-blue-bright: color-mix(in srgb, var(--color-accent-blue) 88%, white);
   --graph-blue-light: color-mix(in srgb, var(--color-accent-blue) 70%, white);
   --graph-blue-pale: color-mix(in srgb, var(--color-accent-blue) 48%, white);
-  --graph-blue-cyan: #63d9ff;
+  --graph-blue-cyan: color-mix(in srgb, var(--color-accent-blue) 48%, white);
   --graph-blue-violet: #9b7cff;
   --evolv-blue: var(--color-accent-blue);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
