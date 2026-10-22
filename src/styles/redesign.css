@@ -792,7 +792,7 @@ body::after { opacity:.12!important; }
 .evolv-onboarding-continue,.evolv-floating-log,.goal-save-plan,.save-plan-button) {
   background:#8ab4ff!important;
   border-color:#8ab4ff!important;
-  color:#08111f!important;
+  color:#fff!important;
 }
 :where(.button-primary,.quick-log-primary,.routine-primary-action,.auth-primary-button,
 .evolv-onboarding-continue,.goal-save-plan,.save-plan-button) svg {
@@ -801,7 +801,7 @@ body::after { opacity:.12!important; }
 .evolv-floating-log {
   background:#8ab4ff!important;
   border-color:#8ab4ff!important;
-  color:#08111f!important;
+  color:#fff!important;
   box-shadow:0 .7rem 2rem rgba(0,0,0,.24)!important;
 }
 :where(.toggle-track.is-on,.settings-toggle-track.is-on,.switch-track.is-on,[aria-checked=true] .toggle-track) {
