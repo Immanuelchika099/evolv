@@ -9690,3 +9690,118 @@ html body #root .dashboard .goals-page .goal-ai-plan .goal-apply-plan {
   background: #2563eb !important;
   border-color: #2563eb !important;
 }
+
+
+/* AI Insights — reference-inspired stacked cards, without any background glow. */
+.calm-insights-section .daily-ai-depth-carousel {
+  height: 39rem;
+  min-height: 39rem;
+  margin: 1.4rem 0 .4rem;
+  overflow: visible;
+  perspective: 1400px;
+}
+.calm-insights-section .daily-ai-depth-carousel .depth-carousel__stage {
+  overflow: visible;
+}
+html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
+  background: var(--surface, #080808) !important;
+  background-color: var(--surface, #080808) !important;
+  background-image: none !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 3.2rem !important;
+  box-shadow:
+    0 2.4rem 4.8rem -2.6rem rgba(0,0,0,.92),
+    inset 0 1px 0 rgba(255,255,255,.055) !important;
+  backface-visibility: hidden;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 2.6rem !important;
+  overflow: hidden;
+  border-radius: inherit;
+  background: var(--surface, #080808) !important;
+  background-color: var(--surface, #080808) !important;
+  background-image: none !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel::before {
+  content: none !important;
+  display: none !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+  margin: 0 0 1.2rem !important;
+  color: var(--text-primary, #f4f3f0) !important;
+  text-shadow: none !important;
+  font-weight: 400 !important;
+  line-height: 1.2 !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
+  max-width: none;
+  color: var(--text-secondary, rgba(255,255,255,.72)) !important;
+  font-size: 1.5rem !important;
+  line-height: 1.6 !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion {
+  margin-top: auto !important;
+  padding: 1.6rem 0 0 !important;
+  border-top: 1px solid rgba(255,255,255,.11) !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion > span {
+  margin-bottom: .7rem !important;
+  color: rgba(255,255,255,.43) !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
+  color: var(--text-primary, rgba(255,255,255,.92)) !important;
+  font-size: 1.5rem !important;
+  line-height: 1.5 !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
+  align-self: flex-start;
+  min-height: 4rem !important;
+  margin-top: 1.6rem !important;
+  border-color: rgba(255,255,255,.13) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.045) !important;
+  color: var(--text-primary, #f4f3f0) !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__dots {
+  bottom: -.15rem !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot {
+  width: .5rem !important;
+  min-width: .5rem !important;
+  max-width: .5rem !important;
+  height: .5rem !important;
+  min-height: .5rem !important;
+  max-height: .5rem !important;
+  border: 0 !important;
+  background: rgba(255,255,255,.24) !important;
+}
+html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot.is-active {
+  width: 2.2rem !important;
+  min-width: 2.2rem !important;
+  max-width: 2.2rem !important;
+  background: var(--color-accent-blue, #2563eb) !important;
+}
+@media (max-width: 640px) {
+  .calm-insights-section .daily-ai-depth-carousel {
+    height: 39rem;
+    min-height: 39rem;
+    margin-top: 1.1rem;
+  }
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
+    padding: 2.2rem !important;
+  }
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+    font-size: 2.35rem !important;
+  }
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation,
+  html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
+    font-size: 1.45rem !important;
+  }
+}
