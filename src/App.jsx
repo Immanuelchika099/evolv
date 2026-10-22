@@ -2351,9 +2351,15 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       return
     }
 
-    let vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
-
     try{
+      // Request permission immediately while the initiating tap is still active.
+      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
+      if(permission!=='granted'){
+        setProfileMessage('Allow notifications in your browser settings to turn this on.')
+        return
+      }
+
+      let vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
       if(!vapidPublicKey){
         const {data:pushConfig,error:configError}=await supabase.functions.invoke('save-push-subscription',{body:{action:'config'}})
         if(configError) throw configError
@@ -2362,12 +2368,6 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
       if(!vapidPublicKey){
         setProfileMessage('Push notifications are not configured on EVOLV yet. Please try again after the push setup is completed.')
-        return
-      }
-
-      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
-      if(permission!=='granted'){
-        setProfileMessage('Allow notifications in your browser settings to turn this on.')
         return
       }
 
