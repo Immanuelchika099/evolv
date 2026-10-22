@@ -1681,6 +1681,29 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
+
+  // Ask first-time users about push notifications as they enter the app,
+  // rather than making them discover the setting inside Profile.
+  useEffect(() => {
+    const promptKey = 'evolv-notification-permission-prompted'
+    if (localStorage.getItem(promptKey)) return
+    if (!('Notification' in window)) {
+      localStorage.setItem(promptKey, 'true')
+      return
+    }
+    if (Notification.permission !== 'default') {
+      localStorage.setItem(promptKey, 'true')
+      return
+    }
+
+    // The browser owns this permission dialog. Mark the attempt first so a
+    // denied/dismissed prompt is never repeatedly shown on later launches.
+    localStorage.setItem(promptKey, 'true')
+    const timer = window.setTimeout(() => {
+      toggleNotifications()
+    }, 900)
+    return () => window.clearTimeout(timer)
+  }, [])
   const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
   const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
