@@ -1496,7 +1496,7 @@ html.evolv-android .goals-page .goal-item {
 
 .dashboard .area-back:hover,
 .dashboard-panel .area-back:hover{
-  color:#93c5fd;
+  color:var(--graph-blue-pale);
 }
 
 
