@@ -9807,15 +9807,16 @@ html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot.i
 }
 
 
-/* Home dashboard AI Insights spacing: separate heading, card stack, and pagination. */
+/* Home dashboard AI Insights spacing: give the heading a clear visual break
+   before the card stack while keeping pagination comfortably below the cards. */
 html body #root .dashboard .calm-insights-section .calm-focus-heading {
-  margin-bottom: 1.8rem !important;
+  margin-bottom: 2.8rem !important;
 }
 html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel {
   box-sizing: border-box;
   height: 41.5rem !important;
   min-height: 41.5rem !important;
-  margin-top: 1.8rem !important;
+  margin-top: 2.4rem !important;
   margin-bottom: 1.2rem !important;
   padding-bottom: 1.8rem;
 }
@@ -9824,12 +9825,12 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
 }
 @media (max-width: 640px) {
   html body #root .dashboard .calm-insights-section .calm-focus-heading {
-    margin-bottom: 1.6rem !important;
+    margin-bottom: 2.4rem !important;
   }
   html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel {
     height: 41rem !important;
     min-height: 41rem !important;
-    margin-top: 1.6rem !important;
+    margin-top: 2rem !important;
     margin-bottom: 1.4rem !important;
     padding-bottom: 1.8rem;
   }
