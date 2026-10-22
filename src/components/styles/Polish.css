@@ -3,66 +3,66 @@
 html,
 body,
 #root {
-  width:100%;
-  max-width:100%;
-  min-width:320px;
-  overflow-x:clip;
+  width: 100%;
+  max-width: 100%;
+  min-width: 320px;
+  overflow-x: clip;
 }
 
 .dashboard,
 .dashboard * {
-  min-width:0;
+  min-width: 0;
 }
 
 .dashboard .dash-main {
-  width:100%;
-  max-width:none;
-  padding-left:var(--page-gutter);
-  padding-right:var(--page-gutter);
+  width: 100%;
+  max-width: none;
+  padding-left: var(--page-gutter);
+  padding-right: var(--page-gutter);
 }
 
 .dashboard .dashboard-pages,
 .dashboard .dashboard-home,
 .dashboard .panel-page,
 .dashboard .settings-page {
-  width:min(100%, var(--layout-max));
-  max-width:var(--layout-max);
-  margin-inline:auto;
+  width: min(100%, var(--layout-max));
+  max-width: var(--layout-max);
+  margin-inline: auto;
 }
 
 .dashboard .dashboard-home {
-  display:flex;
-  flex-direction:column;
-  gap:var(--space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
 }
 
 .dashboard .dashboard-home .today-snapshot,
 .dashboard .dashboard-home .evolv-life-overview {
-  margin-top:0;
+  margin-top: 0;
 }
 
 .dashboard .panel-page {
-  padding-top:var(--space-8);
+  padding-top: var(--space-8);
 }
 
 .dashboard .panel-page .area-back {
-  margin-bottom:var(--space-8);
+  margin-bottom: var(--space-8);
 }
 
 .dashboard .goals-page {
-  display:flex;
-  flex-direction:column;
-  gap:var(--space-6);
-  padding-bottom:var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding-bottom: var(--space-8);
 }
 
 .dashboard .goals-page .goal-create-form,
 .dashboard .goals-page .goal-list {
-  margin-top:0;
+  margin-top: 0;
 }
 
 .dashboard .goals-page .goal-list {
-  gap:var(--space-4);
+  gap: var(--space-4);
 }
 
 .dashboard .goal-create-form,
@@ -79,9 +79,9 @@ body,
 .dashboard .settings-page .profile-hero-card,
 .dashboard .settings-page .settings-card,
 .dashboard .settings-page .settings-section {
-  box-sizing:border-box;
-  border-radius:var(--radius-card);
-  border-color:var(--color-border-subtle);
+  box-sizing: border-box;
+  border-radius: var(--radius-card);
+  border-color: var(--color-border-subtle);
 }
 
 .dashboard .goal-create-form,
@@ -95,12 +95,12 @@ body,
 .dashboard .settings-page .profile-hero-card,
 .dashboard .settings-page .settings-card,
 .dashboard .settings-page .settings-section {
-  padding:var(--space-6);
+  padding: var(--space-6);
 }
 
 .dashboard .today-metric,
 .dashboard .today-empty {
-  padding:var(--space-6);
+  padding: var(--space-6);
 }
 
 .dashboard .goal-item,
@@ -116,7 +116,8 @@ body,
 .dashboard .settings-page .profile-hero-card,
 .dashboard .settings-page .settings-card,
 .dashboard .settings-page .settings-section {
-  transition:transform 180ms ease-out,
+  transition:
+    transform 180ms ease-out,
     border-color 180ms ease-out,
     background-color 180ms ease-out,
     box-shadow 180ms ease-out;
@@ -136,10 +137,10 @@ body,
   .dashboard .settings-page .profile-hero-card:hover,
   .dashboard .settings-page .settings-card:hover,
   .dashboard .settings-page .settings-section:hover {
-    transform:translateY(-2px);
-    border-color:rgba(127,196,189,.5);
-    background-color:rgba(127,196,189,.10);
-    box-shadow:0 10px 28px rgba(0, 0, 0, .2), 0 0 0 1px rgba(127,196,189,.14);
+    transform: translateY(-2px);
+    border-color: rgba(37, 99, 235, .24);
+    background-color: rgba(37, 99, 235, .025);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .2), 0 0 0 1px rgba(37, 99, 235, .025);
   }
 }
 
@@ -156,56 +157,57 @@ body,
 .dashboard .settings-page .profile-hero-card:focus-visible,
 .dashboard .settings-page .settings-card:focus-visible,
 .dashboard .settings-page .settings-section:focus-visible {
-  outline:2px solid rgba(127,196,189,.10);
-  outline-offset:3px;
+  outline: 2px solid rgba(37, 99, 235, .6);
+  outline-offset: 3px;
 }
 
 .dashboard .goal-item,
 .dashboard .today-metric,
 .dashboard .today-empty {
-  overflow-wrap:anywhere;
+  overflow-wrap: anywhere;
 }
 
 .dashboard .glass-task {
-  border-radius:var(--radius-card);
-  background-color:var(--color-surface);
-  background-image:linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
-  transition:transform 180ms ease-out,
+  border-radius: var(--radius-card);
+  background-color: var(--color-surface);
+  background-image: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  transition:
+    transform 180ms ease-out,
     border-color 180ms ease-out,
     background-color 180ms ease-out,
     box-shadow 180ms ease-out;
 }
 
 .dashboard .glass-task:hover {
-  background-color:var(--color-surface-raised);
-  background-image:linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.018));
+  background-color: var(--color-surface-raised);
+  background-image: linear-gradient(145deg, rgba(37, 99, 235,.035), rgba(255,255,255,.018));
 }
 
 .dashboard .life-area-row,
 .dashboard .logs-page .logs-page-row {
-  transition:background-color 180ms ease-out, border-color 180ms ease-out;
+  transition: background-color 180ms ease-out, border-color 180ms ease-out;
 }
 
 /* Focus must never make the AI composer wider than its resting state. */
 .dashboard .ai-page .ai-composer,
 .dashboard .ai-page .ai-composer:focus-within {
-  width:min(100%, 76rem);
-  max-width:76rem;
-  transform:none;
-  transition:border-color 180ms ease-out, background-color 180ms ease-out, box-shadow 180ms ease-out;
-  will-change:auto;
+  width: min(100%, 76rem);
+  max-width: 76rem;
+  transform: none;
+  transition: border-color 180ms ease-out, background-color 180ms ease-out, box-shadow 180ms ease-out;
+  will-change: auto;
 }
 
 @media (max-width: 800px) {
   .dashboard .dash-main {
-    padding-left:var(--page-gutter);
-    padding-right:var(--page-gutter);
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
   }
 
   .dashboard .ai-page .ai-composer,
   .dashboard .ai-page .ai-composer:focus-within {
-    width:100%;
-    max-width:none;
+    width: 100%;
+    max-width: none;
   }
 
   .dashboard .goal-create-form,
@@ -219,18 +221,18 @@ body,
   .dashboard .settings-page .profile-hero-card,
   .dashboard .settings-page .settings-card,
   .dashboard .settings-page .settings-section {
-    padding:20px;
+    padding: 20px;
   }
 }
 
 @media (max-width: 430px) {
   :root {
-    --page-gutter:16px;
+    --page-gutter: 16px;
   }
 
   .dashboard .today-metric,
   .dashboard .today-empty {
-    padding:var(--space-4);
+    padding: var(--space-4);
   }
 }
 
@@ -264,8 +266,8 @@ body,
   .dashboard .settings-page .profile-hero-card:hover,
   .dashboard .settings-page .settings-card:hover,
   .dashboard .settings-page .settings-section:hover {
-    transform:none;
-    transition:none;
+    transform: none;
+    transition: none;
   }
 }
 
@@ -273,204 +275,205 @@ body,
 /* Progress tracking stats: separate each metric into its own card instead of
    letting the three columns touch like one continuous strip. */
 .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats {
-  display:grid;
-  grid-template-columns:repeat(3, minmax(0, 1fr));
-  align-items:stretch;
-  gap:16px;
-  margin:0;
-  padding:0;
-  border:0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card {
-  min-width:0;
-  min-height:16rem;
-  margin:0;
-  padding:24px;
-  border:1px solid var(--color-border-subtle);
-  border-radius:var(--radius-card) !important;
-  background:var(--color-surface) !important;
-  box-shadow:inset 0 1px 0 rgba(255, 255, 255, .025);
+  min-width: 0;
+  min-height: 16rem;
+  margin: 0;
+  padding: 24px;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card) !important;
+  background: var(--color-surface) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card:last-child {
-  border-right:1px solid var(--color-border-subtle);
+  border-right: 1px solid var(--color-border-subtle);
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card strong {
-  margin-top:28px;
+  margin-top: 28px;
 }
 
 @media (max-width: 800px) {
   .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats {
-    grid-template-columns:repeat(2, minmax(0, 1fr));
-    gap:12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
   }
 
   .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card {
-    min-height:14rem;
-    padding:20px;
+    min-height: 14rem;
+    padding: 20px;
   }
 
   .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card strong {
-    margin-top:22px;
+    margin-top: 22px;
   }
 }
 
 @media (max-width: 520px) {
   .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats {
-    grid-template-columns:minmax(0, 1fr);
-    gap:12px;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
 
   .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card {
-    min-height:12rem;
-    padding:20px;
+    min-height: 12rem;
+    padding: 20px;
   }
 
   .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-simple-stats > .progress-overview-card strong {
-    margin-top:16px;
+    margin-top: 16px;
   }
 }
 
 
 /* Cinematic exclusive accordion for the Progress page's tracking cards. */
 .dashboard .dashboard-panel.progress-page > .progress-overview-grid.progress-accordion {
-  display:grid;
-  grid-template-columns:minmax(0, 1fr);
-  gap:12px;
-  margin:0;
-  padding:0;
-  border:0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-accordion > .progress-accordion-card {
-  display:block;
-  width:100%;
-  min-height:0;
-  margin:0;
-  padding:0;
-  overflow:hidden;
-  border:1px solid var(--color-border-subtle);
-  border-radius:var(--radius-card) !important;
-  background:linear-gradient(110deg, rgba(255,255,255,.035), rgba(255,255,255,.012)) !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
-  transition:border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
+  display: block;
+  width: 100%;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-card) !important;
+  background: linear-gradient(110deg, rgba(255,255,255,.035), rgba(255,255,255,.012)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+  transition: border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-accordion > .progress-accordion-card.is-open {
-  border-color:rgba(127,196,189,.5);
-  background:linear-gradient(110deg, rgba(127,196,189,.10), rgba(255,255,255,.012)) !important;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.035), 0 12px 34px rgba(0,0,0,.16);
+  border-color: rgba(37, 99, 235,.22);
+  background: linear-gradient(110deg, rgba(37, 99, 235,.045), rgba(255,255,255,.012)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035), 0 12px 34px rgba(0,0,0,.16);
 }
 
 .dashboard .dashboard-panel.progress-page > .progress-accordion > .progress-accordion-card:hover {
-  transform:none;
+  transform: none;
 }
 
 .dashboard .progress-accordion-trigger {
-  display:flex;
-  width:100%;
-  min-height:68px;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:20px 24px;
-  border:0;
-  border-radius:0;
-  background:transparent;
-  color:var(--color-text-primary);
-  text-align:left;
-  cursor:pointer;
+  display: flex;
+  width: 100%;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text-primary);
+  text-align: left;
+  cursor: pointer;
 }
 
 .dashboard .progress-accordion-trigger .section-label {
-  margin:0;
-  color:var(--color-text-secondary);
-  font-size:1.2rem;
-  letter-spacing:.11em;
-  line-height:1.4;
-  transition:color 200ms ease;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.2rem;
+  letter-spacing: .11em;
+  line-height: 1.4;
+  transition: color 200ms ease;
 }
 
 .dashboard .progress-accordion-trigger svg {
-  flex:0 0 auto;
-  color:var(--color-text-muted);
-  transition:transform 260ms cubic-bezier(.2,.75,.25,1), color 200ms ease;
+  flex: 0 0 auto;
+  color: var(--color-text-muted);
+  transition: transform 260ms cubic-bezier(.2,.75,.25,1), color 200ms ease;
 }
 
 .dashboard .progress-accordion-card.is-open .progress-accordion-trigger .section-label,
 .dashboard .progress-accordion-card.is-open .progress-accordion-trigger svg {
-  color:var(--color-accent-lime);
+  color: var(--color-accent-lime);
 }
 
 .dashboard .progress-accordion-card.is-open .progress-accordion-trigger svg {
-  transform:rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .dashboard .progress-accordion-trigger:focus-visible {
-  outline:2px solid rgba(127,196,189,.10);
-  outline-offset:-4px;
+  outline: 2px solid rgba(37, 99, 235,.62);
+  outline-offset: -4px;
 }
 
 .dashboard .progress-accordion-panel {
-  display:grid;
-  grid-template-rows:0fr;
-  opacity:0;
-  transform:translateY(-5px);
-  transition:grid-template-rows 300ms cubic-bezier(.2,.75,.25,1),
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transform: translateY(-5px);
+  transition:
+    grid-template-rows 300ms cubic-bezier(.2,.75,.25,1),
     opacity 200ms ease,
     transform 260ms cubic-bezier(.2,.75,.25,1);
 }
 
 .dashboard .progress-accordion-card.is-open .progress-accordion-panel {
-  grid-template-rows:1fr;
-  opacity:1;
-  transform:translateY(0);
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .dashboard .progress-accordion-panel-inner {
-  min-height:0;
-  overflow:hidden;
-  padding:0 24px;
-  transition:padding 260ms cubic-bezier(.2,.75,.25,1);
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  transition: padding 260ms cubic-bezier(.2,.75,.25,1);
 }
 
 .dashboard .progress-accordion-card.is-open .progress-accordion-panel-inner {
-  padding:0 24px 24px;
+  padding: 0 24px 24px;
 }
 
 .dashboard .progress-accordion-panel-inner strong {
-  display:block;
-  margin:0 0 10px;
-  color:var(--color-text-primary);
+  display: block;
+  margin: 0 0 10px;
+  color: var(--color-text-primary);
   font-family: 'Space Grotesk', sans-serif;
-  font-size:clamp(3.6rem, 6vw, 5.6rem);
-  font-weight:400;
-  letter-spacing:-.075em;
-  line-height:1;
+  font-size: clamp(3.6rem, 6vw, 5.6rem);
+  font-weight: 400;
+  letter-spacing: -.075em;
+  line-height: 1;
 }
 
 .dashboard .progress-accordion-panel-inner p {
-  margin:0;
-  color:var(--color-text-secondary);
-  font-size:1.4rem;
-  line-height:1.6;
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-size: 1.4rem;
+  line-height: 1.6;
 }
 
 @media (max-width: 520px) {
   .dashboard .progress-accordion-trigger {
-    min-height:62px;
-    padding:18px 20px;
+    min-height: 62px;
+    padding: 18px 20px;
   }
 
   .dashboard .progress-accordion-panel-inner {
-    padding-right:20px;
-    padding-left:20px;
+    padding-right: 20px;
+    padding-left: 20px;
   }
 
   .dashboard .progress-accordion-card.is-open .progress-accordion-panel-inner {
-    padding:0 20px 20px;
+    padding: 0 20px 20px;
   }
 }
 
@@ -480,140 +483,140 @@ body,
   .dashboard .progress-accordion-trigger svg,
   .dashboard .progress-accordion-panel,
   .dashboard .progress-accordion-panel-inner {
-    transition:none;
+    transition: none;
   }
 
   .dashboard .progress-accordion-panel {
-    transform:none;
+    transform: none;
   }
 }
 
 
 /* Goals: calm hierarchy, readable type, and no redundant introductory copy. */
 .dashboard .goals-page {
-  gap:24px;
+  gap: 24px;
 }
 
 .dashboard .goals-page > .section-label {
-  margin:0 0 -16px;
-  font-size:1.15rem;
-  letter-spacing:.12em;
+  margin: 0 0 -16px;
+  font-size: 1.15rem;
+  letter-spacing: .12em;
 }
 
 .dashboard .goals-page > h2 {
-  margin:0;
-  font-size:clamp(3.2rem, 4vw, 4rem);
-  font-weight:500;
-  line-height:1.12;
-  letter-spacing:-.045em;
+  margin: 0;
+  font-size: clamp(3.2rem, 4vw, 4rem);
+  font-weight: 500;
+  line-height: 1.12;
+  letter-spacing: -.045em;
 }
 
 .dashboard .goals-page .goal-create-form {
-  display:grid;
-  gap:16px;
-  padding:24px;
+  display: grid;
+  gap: 16px;
+  padding: 24px;
 }
 
 .dashboard .goals-page .goal-type-choice {
-  gap:10px;
+  gap: 10px;
 }
 
 .dashboard .goals-page .goal-type-choice button {
-  min-height:54px;
-  padding:12px 14px;
-  gap:10px;
+  min-height: 54px;
+  padding: 12px 14px;
+  gap: 10px;
 }
 
 .dashboard .goals-page .goal-type-choice button strong {
-  font-size:1.5rem;
-  font-weight:500;
-  line-height:1.35;
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.35;
 }
 
 .dashboard .goals-page .goal-create-form input,
 .dashboard .goals-page .goal-create-form textarea,
 .dashboard .goals-page .goal-create-form select {
-  font-size:1.5rem;
-  line-height:1.5;
+  font-size: 1.5rem;
+  line-height: 1.5;
 }
 
 .dashboard .goals-page .goal-create-form input,
 .dashboard .goals-page .goal-create-form textarea {
-  padding:13px 15px;
+  padding: 13px 15px;
 }
 
 .dashboard .goals-page .goal-create-form textarea {
-  min-height:8rem;
-  resize:vertical;
+  min-height: 8rem;
+  resize: vertical;
 }
 
 .dashboard .goals-page .goal-next-action-field > span,
 .dashboard .goals-page .goal-date-field > span {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  font-size:1.4rem;
-  font-weight:500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.4rem;
+  font-weight: 500;
 }
 
 .dashboard .goals-page .goal-next-action-field small,
 .dashboard .goals-page .goal-date-field small {
-  font-size:1.2rem;
-  font-weight:400;
+  font-size: 1.2rem;
+  font-weight: 400;
 }
 
 .dashboard .goals-page .goal-list {
-  gap:16px;
+  gap: 16px;
 }
 
 .dashboard .goals-page .goal-item {
-  padding:24px !important;
+  padding: 24px !important;
 }
 
 .dashboard .goals-page .goal-status-copy,
 .dashboard .goals-page .goal-next-action > span,
 .dashboard .goals-page .goal-milestone-heading > span {
-  font-size:1.15rem;
-  letter-spacing:.09em;
-  line-height:1.4;
+  font-size: 1.15rem;
+  letter-spacing: .09em;
+  line-height: 1.4;
 }
 
 .dashboard .goals-page .goal-item h3 {
-  font-size:clamp(2rem, 2.5vw, 2.3rem);
-  line-height:1.25;
-  font-weight:500;
-  letter-spacing:-.025em;
+  font-size: clamp(2rem, 2.5vw, 2.3rem);
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -.025em;
 }
 
 .dashboard .goals-page .goal-item-top > strong {
-  font-size:2rem;
-  line-height:1.2;
-  font-weight:500;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 500;
 }
 
 .dashboard .goals-page .goal-item p,
 .dashboard .goals-page .goal-milestone-row label > span,
 .dashboard .goals-page .goal-ai-plan li {
-  font-size:1.4rem;
-  line-height:1.6;
+  font-size: 1.4rem;
+  line-height: 1.6;
 }
 
 .dashboard .goals-page .goal-due-copy,
 .dashboard .goals-page .goal-milestone-heading small,
 .dashboard .goals-page .goal-habit-week small {
-  font-size:1.2rem;
-  line-height:1.5;
+  font-size: 1.2rem;
+  line-height: 1.5;
 }
 
 .dashboard .goals-page .goal-next-action {
-  margin-top:18px;
-  padding:16px;
-  border-radius:12px;
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 12px;
 }
 
 .dashboard .goals-page .goal-next-action p {
-  margin-top:6px;
-  font-size:1.4rem;
+  margin-top: 6px;
+  font-size: 1.4rem;
 }
 
 .dashboard .goals-page .goal-item-actions select,
@@ -621,262 +624,262 @@ body,
 .dashboard .goals-page .goal-coach-row button,
 .dashboard .goals-page .goal-checkin-button,
 .dashboard .goals-page .goal-add-milestone button {
-  min-height:40px;
-  font-size:1.3rem;
+  min-height: 40px;
+  font-size: 1.3rem;
 }
 
 .dashboard .goals-page .goal-empty p {
-  font-size:1.5rem;
-  line-height:1.5;
+  font-size: 1.5rem;
+  line-height: 1.5;
 }
 
 @media (max-width: 600px) {
   .dashboard .goals-page {
-    gap:20px;
+    gap: 20px;
   }
 
   .dashboard .goals-page .goal-create-form,
   .dashboard .goals-page .goal-item {
-    padding:18px !important;
+    padding: 18px !important;
   }
 
   .dashboard .goals-page .goal-type-choice button {
-    padding:10px;
+    padding: 10px;
   }
 
   .dashboard .goals-page .goal-item h3 {
-    font-size:2rem;
+    font-size: 2rem;
   }
 
   .dashboard .goals-page .goal-item-top > strong {
-    font-size:1.8rem;
+    font-size: 1.8rem;
   }
 }
 
 
 /* Logged goals: cinematic single-open accordion with calm typography and clear spacing. */
 .dashboard .goals-page .goal-list {
-  display:flex;
-  flex-direction:column;
-  gap:16px;
-  margin-top:24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 24px;
 }
 
 .dashboard .goals-page .goal-item.goal-accordion-item {
-  min-width:0;
-  padding:0 !important;
-  overflow:hidden;
-  border:1px solid rgba(255, 255, 255, .09) !important;
-  border-radius:18px !important;
-  background:#101010 !important;
-  box-shadow:inset 0 1px 0 rgba(255, 255, 255, .025);
-  transition:border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+  min-width: 0;
+  padding: 0 !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .09) !important;
+  border-radius: 18px !important;
+  background: #101010 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .025);
+  transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
 }
 
 .dashboard .goals-page .goal-accordion-trigger {
-  display:flex;
-  width:100%;
-  min-height:68px;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:18px 22px;
-  border:0;
-  background:transparent;
-  color:#f3f3ef;
-  text-align:left;
-  cursor:pointer;
-  -webkit-tap-highlight-color:transparent;
+  display: flex;
+  width: 100%;
+  min-height: 68px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  border: 0;
+  background: transparent;
+  color: #f3f3ef;
+  text-align: left;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .dashboard .goals-page .goal-accordion-heading {
-  display:flex;
-  min-width:0;
-  flex:1;
-  flex-direction:column;
-  gap:5px;
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .dashboard .goals-page .goal-accordion-heading > strong {
-  overflow-wrap:anywhere;
-  color:#f2f2ed;
-  font-size:1.65rem;
-  font-weight:550;
-  line-height:1.35;
-  letter-spacing:-.025em;
+  overflow-wrap: anywhere;
+  color: #f2f2ed;
+  font-size: 1.65rem;
+  font-weight: 550;
+  line-height: 1.35;
+  letter-spacing: -.025em;
 }
 
 .dashboard .goals-page .goal-accordion-status {
-  color:rgba(255, 255, 255, .42);
-  font-size:1.1rem;
-  line-height:1.3;
-  letter-spacing:.025em;
+  color: rgba(255, 255, 255, .42);
+  font-size: 1.1rem;
+  line-height: 1.3;
+  letter-spacing: .025em;
 }
 
 .dashboard .goals-page .goal-accordion-chevron {
-  flex:0 0 auto;
-  color:rgba(255, 255, 255, .54);
-  transition:transform 300ms cubic-bezier(.2, .75, .25, 1), color 180ms ease;
+  flex: 0 0 auto;
+  color: rgba(255, 255, 255, .54);
+  transition: transform 300ms cubic-bezier(.2, .75, .25, 1), color 180ms ease;
 }
 
 .dashboard .goals-page .goal-item-content {
-  display:grid;
-  grid-template-rows:0fr;
-  opacity:0;
-  transition:grid-template-rows 340ms cubic-bezier(.2, .75, .25, 1), opacity 220ms ease;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 340ms cubic-bezier(.2, .75, .25, 1), opacity 220ms ease;
 }
 
 .dashboard .goals-page .goal-item-content-inner {
-  min-height:0;
-  overflow:hidden;
-  padding:0 22px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 22px;
 }
 
 .dashboard .goals-page .goal-item.is-expanded .goal-item-content {
-  grid-template-rows:1fr;
-  opacity:1;
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 .dashboard .goals-page .goal-item.is-expanded .goal-item-content-inner {
-  padding-bottom:22px;
+  padding-bottom: 22px;
 }
 
 .dashboard .goals-page .goal-item.is-expanded .goal-accordion-trigger {
-  padding-bottom:16px;
+  padding-bottom: 16px;
 }
 
 .dashboard .goals-page .goal-item.is-expanded .goal-accordion-chevron {
-  transform:rotate(180deg);
-  color:var(--color-accent-lime, var(--t2));
+  transform: rotate(180deg);
+  color: var(--color-accent-lime, #2563eb);
 }
 
 .dashboard .goals-page .goal-item.is-collapsed .goal-accordion-status {
-  display:none;
+  display: none;
 }
 
 .dashboard .goals-page .goal-item-top {
-  align-items:center;
-  gap:16px;
-  margin:0;
-  padding:16px 0 4px;
+  align-items: center;
+  gap: 16px;
+  margin: 0;
+  padding: 16px 0 4px;
 }
 
 .dashboard .goals-page .goal-item-top > div {
-  min-width:0;
+  min-width: 0;
 }
 
 .dashboard .goals-page .goal-item-top p {
-  margin:0;
-  color:rgba(255, 255, 255, .68);
-  font-size:1.4rem;
-  line-height:1.6;
-  overflow-wrap:anywhere;
+  margin: 0;
+  color: rgba(255, 255, 255, .68);
+  font-size: 1.4rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
 }
 
 .dashboard .goals-page .goal-item-top > strong {
-  flex:0 0 auto;
-  font-size:2.1rem;
-  font-weight:550;
-  line-height:1.1;
+  flex: 0 0 auto;
+  font-size: 2.1rem;
+  font-weight: 550;
+  line-height: 1.1;
 }
 
 .dashboard .goals-page .goal-item .mini-progress {
-  margin-top:12px;
+  margin-top: 12px;
 }
 
 .dashboard .goals-page .goal-next-action {
-  margin-top:16px;
-  padding:14px 16px;
+  margin-top: 16px;
+  padding: 14px 16px;
 }
 
 .dashboard .goals-page .goal-milestone-section,
 .dashboard .goals-page .goal-habit-week {
-  margin-top:18px;
-  padding-top:16px;
+  margin-top: 18px;
+  padding-top: 16px;
 }
 
 .dashboard .goals-page .goal-milestone-heading > span,
 .dashboard .goals-page .goal-next-action > span {
-  font-size:1.05rem;
+  font-size: 1.05rem;
 }
 
 .dashboard .goals-page .goal-milestone-heading small {
-  font-size:1.2rem;
+  font-size: 1.2rem;
 }
 
 .dashboard .goals-page .goal-milestone-row label {
-  font-size:1.35rem;
-  line-height:1.45;
+  font-size: 1.35rem;
+  line-height: 1.45;
 }
 
 .dashboard .goals-page .goal-coach-row {
-  gap:10px;
-  margin-top:18px;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .dashboard .goals-page .goal-coach-row button,
 .dashboard .goals-page .goal-item-actions button,
 .dashboard .goals-page .goal-item-actions select {
-  min-height:40px;
-  font-size:1.3rem;
+  min-height: 40px;
+  font-size: 1.3rem;
 }
 
 .dashboard .goals-page .goal-item-actions {
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:18px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
 }
 
 .dashboard .goals-page .goal-accordion-trigger:focus-visible {
-  outline:2px solid rgba(255,255,255,.04);
-  outline-offset:-4px;
-  border-radius:16px;
+  outline: 2px solid rgba(37, 99, 235, .7);
+  outline-offset: -4px;
+  border-radius: 16px;
 }
 
 @media (hover: hover) {
   .dashboard .goals-page .goal-item.goal-accordion-item:hover {
-    border-color:var(--edge) !important;
-    background:#111 !important;
-    box-shadow:0 10px 28px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .035);
+    border-color: rgba(37, 99, 235, .2) !important;
+    background: #111 !important;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .2), inset 0 1px 0 rgba(255, 255, 255, .035);
   }
 
   .dashboard .goals-page .goal-accordion-trigger:hover .goal-accordion-chevron {
-    color:var(--color-accent-lime, var(--t2));
+    color: var(--color-accent-lime, #2563eb);
   }
 }
 
 @media (max-width: 520px) {
   .dashboard .goals-page .goal-list {
-    gap:12px;
-    margin-top:20px;
+    gap: 12px;
+    margin-top: 20px;
   }
 
   .dashboard .goals-page .goal-accordion-trigger {
-    min-height:62px;
-    gap:12px;
-    padding:16px 17px;
+    min-height: 62px;
+    gap: 12px;
+    padding: 16px 17px;
   }
 
   .dashboard .goals-page .goal-accordion-heading > strong {
-    font-size:1.55rem;
+    font-size: 1.55rem;
   }
 
   .dashboard .goals-page .goal-item-content-inner {
-    padding-right:17px;
-    padding-left:17px;
+    padding-right: 17px;
+    padding-left: 17px;
   }
 
   .dashboard .goals-page .goal-item.is-expanded .goal-item-content-inner {
-    padding-bottom:18px;
+    padding-bottom: 18px;
   }
 
   .dashboard .goals-page .goal-item-top > strong {
-    font-size:1.9rem;
+    font-size: 1.9rem;
   }
 
   .dashboard .goals-page .goal-item-actions {
-    gap:8px;
+    gap: 8px;
   }
 }
 
@@ -884,7 +887,7 @@ body,
   .dashboard .goals-page .goal-item.goal-accordion-item,
   .dashboard .goals-page .goal-accordion-chevron,
   .dashboard .goals-page .goal-item-content {
-    transition:none;
+    transition: none;
   }
 }
 
@@ -893,21 +896,21 @@ body,
    The previous auth-only fix missed these separate page components. */
 html body #root .pricing-page,
 html body #root .article-page {
-  background:#000000 !important;
-  background-color:#000000 !important;
-  background-image:none !important;
-  color:#f4f4f1;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  color: #f4f4f1;
 }
 html body #root .pricing-page::before,
 html body #root .pricing-page::after,
 html body #root .article-page::before,
 html body #root .article-page::after {
   content: none !important;
-  display:none !important;
-  background:none !important;
-  background-image:none !important;
-  box-shadow:none !important;
-  filter:none !important;
+  display: none !important;
+  background: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
 }
 html body #root .pricing-page .pricing-hero,
 html body #root .pricing-page .pricing-content,
@@ -921,23 +924,23 @@ html body #root .article-page .article-end,
 html body #root .article-page .article-grid,
 html body #root .article-page .article-example,
 html body #root .article-page .article-resources {
-  background-color:#000000 !important;
-  background-image:none !important;
+  background-color: #000000 !important;
+  background-image: none !important;
 }
 html body #root .article-page .article-nav {
-  background:rgba(0, 0, 0, .94) !important;
-  border-color:rgba(255,255,255,.12) !important;
+  background: rgba(0, 0, 0, .94) !important;
+  border-color: rgba(255,255,255,.12) !important;
 }
 html body #root .article-page .article-visual {
-  background:#050505 !important;
-  box-shadow:none !important;
+  background: #050505 !important;
+  box-shadow: none !important;
 }
 html body #root .article-page .article-visual::before,
 html body #root .article-page .article-orb {
-  background:none !important;
-  box-shadow:none !important;
-  filter:none !important;
-  border-color:rgba(255,255,255,.12) !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  border-color: rgba(255,255,255,.12) !important;
 }
 
 
@@ -950,27 +953,27 @@ html body #root .evolv-bottom-nav button.bottom-active,
 html body #root .evolv-bottom-nav button.bottom-active:hover,
 html body #root .evolv-bottom-nav button.bottom-active:focus,
 html body #root .evolv-bottom-nav button.bottom-active:active {
-  color:rgba(255,255,255,.42) !important;
-  -webkit-text-fill-color:currentColor !important;
-  background:transparent !important;
-  background-color:transparent !important;
-  background-image:none !important;
-  border-color:transparent !important;
-  box-shadow:none !important;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-  outline:none !important;
+  color: rgba(255,255,255,.42) !important;
+  -webkit-text-fill-color: currentColor !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  outline: none !important;
 }
 html body #root .evolv-bottom-nav button.bottom-active > span,
 html body #root .evolv-bottom-nav button.bottom-active > span svg,
 html body #root .evolv-bottom-nav button.bottom-active small {
-  color:rgba(255,255,255,.42) !important;
-  -webkit-text-fill-color:currentColor !important;
-  fill:none !important;
-  stroke:currentColor !important;
+  color: rgba(255,255,255,.42) !important;
+  -webkit-text-fill-color: currentColor !important;
+  fill: none !important;
+  stroke: currentColor !important;
 }
 html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color:rgba(255,255,255,.12) !important;
+  border-color: rgba(255,255,255,.12) !important;
 }
 
 /* Manage Goals: no lime on the Log a step / goal check-in hover state. */
@@ -978,19 +981,19 @@ html body #root .dashboard .goal-checkin-button:hover:not(:disabled),
 html body #root .dashboard .goal-item-actions .goal-checkin-button:hover:not(:disabled),
 html body #root .dashboard .goal-checkin-button:focus-visible,
 html body #root .dashboard .goal-item-actions .goal-checkin-button:focus-visible {
-  color:#ffffff !important;
-  -webkit-text-fill-color:#ffffff !important;
-  border-color:var(--edge) !important;
-  background:rgba(255,255,255,.04) !important;
-  background-color:rgba(255,255,255,.04) !important;
-  background-image:none !important;
-  box-shadow:none !important;
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  border-color: rgba(37,99,235,.5) !important;
+  background: rgba(37,99,235,.12) !important;
+  background-color: rgba(37,99,235,.12) !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 html body #root .dashboard .goal-checkin-button:hover:not(:disabled) *,
 html body #root .dashboard .goal-item-actions .goal-checkin-button:hover:not(:disabled) * {
-  color:#ffffff !important;
-  fill:none !important;
-  stroke:currentColor !important;
+  color: #ffffff !important;
+  fill: none !important;
+  stroke: currentColor !important;
 }
 
 /* Profile switches: white pill outline and white thumb; dark track in both states. */
@@ -1000,27 +1003,27 @@ html body #root .dashboard .settings-page button.settings-toggle:focus,
 html body #root .dashboard .settings-page button.settings-toggle:active,
 html body #root .dashboard .profile-settings-column button.settings-toggle,
 html body #root .dashboard .profile-settings-column button.settings-toggle:hover {
-  border:1px solid #ffffff !important;
-  background:rgba(0,0,0,.35) !important;
-  background-color:rgba(0,0,0,.35) !important;
-  background-image:none !important;
-  box-shadow:none !important;
-  outline:none !important;
+  border: 1px solid #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 html body #root .dashboard .settings-page button.settings-toggle > span,
 html body #root .dashboard .profile-settings-column button.settings-toggle > span {
-  background:#ffffff !important;
+  background: #ffffff !important;
 }
 html body #root .dashboard .settings-page button.settings-toggle.active,
 html body #root .dashboard .profile-settings-column button.settings-toggle.active {
-  border-color:#ffffff !important;
-  background:rgba(0,0,0,.35) !important;
-  background-color:rgba(0,0,0,.35) !important;
-  background-image:none !important;
+  border-color: #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
 }
 html body #root .dashboard .settings-page button.settings-toggle.active > span,
 html body #root .dashboard .profile-settings-column button.settings-toggle.active > span {
-  background:#ffffff !important;
+  background: #ffffff !important;
 }
 
 /* Routine page uses its own .routine-toggle class (not .settings-toggle). */
@@ -1030,16 +1033,16 @@ html body #root .dashboard .daily-routine-page button.routine-toggle:focus,
 html body #root .dashboard .daily-routine-page button.routine-toggle:active,
 html body #root .dashboard .daily-routine-page button.routine-toggle.is-on,
 html body #root .dashboard .daily-routine-page button.routine-toggle.is-on:hover {
-  border:1px solid #ffffff !important;
-  background:rgba(0,0,0,.35) !important;
-  background-color:rgba(0,0,0,.35) !important;
-  background-image:none !important;
-  box-shadow:none !important;
-  outline:none !important;
+  border: 1px solid #ffffff !important;
+  background: rgba(0,0,0,.35) !important;
+  background-color: rgba(0,0,0,.35) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 html body #root .dashboard .daily-routine-page button.routine-toggle > span,
 html body #root .dashboard .daily-routine-page button.routine-toggle.is-on > span {
-  background:#ffffff !important;
+  background: #ffffff !important;
 }
 
 /* Floating Log action — this file is imported by src/main.jsx.
@@ -1048,78 +1051,78 @@ html body button.evolv-floating-log,
 html body button.evolv-floating-log:hover,
 html body button.evolv-floating-log:focus,
 html body button.evolv-floating-log:active {
-  position:fixed !important;
-  inset:auto max(.8rem, calc(10vw - 2.9rem)) calc(7.5rem + env(safe-area-inset-bottom, 0px)) auto !important;
-  z-index:2147483000 !important;
-  display:flex !important;
-  flex-direction:column !important;
-  align-items:center !important;
-  justify-content:center !important;
-  gap:.2rem !important;
-  width:5.8rem !important;
-  height:5.8rem !important;
-  min-width:5.8rem !important;
-  min-height:5.8rem !important;
-  max-width:none !important;
-  max-height:none !important;
-  margin:0 !important;
-  padding:.45rem 0 !important;
-  box-sizing:border-box !important;
-  overflow:visible !important;
-  border:1px solid rgba(255,255,255,.26) !important;
-  border-radius:50% !important;
-  background:linear-gradient(145deg, rgba(127,196,189,.10) 0%, rgba(127,196,189,.10) 100%) !important;
-  background-color:rgba(127,196,189,.10) !important;
-  background-image:linear-gradient(145deg, rgba(127,196,189,.10) 0%, rgba(127,196,189,.10) 100%) !important;
-  color:#fff !important;
-  -webkit-text-fill-color:#fff !important;
-  box-shadow:0 .8rem 2.4rem rgba(0,0,0,.45), 0 .35rem 1.3rem rgba(127,196,189,.14), inset 0 1px 0 rgba(255,255,255,.22) !important;
+  position: fixed !important;
+  inset: auto max(.8rem, calc(10vw - 2.9rem)) calc(7.5rem + env(safe-area-inset-bottom, 0px)) auto !important;
+  z-index: 2147483000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: .2rem !important;
+  width: 5.8rem !important;
+  height: 5.8rem !important;
+  min-width: 5.8rem !important;
+  min-height: 5.8rem !important;
+  max-width: none !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: .45rem 0 !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  border: 1px solid rgba(255,255,255,.26) !important;
+  border-radius: 50% !important;
+  background: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  background-color: #2563eb !important;
+  background-image: linear-gradient(145deg, #3b82f6 0%, #1d4ed8 100%) !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 .8rem 2.4rem rgba(0,0,0,.45), 0 .35rem 1.3rem rgba(37,99,235,.4), inset 0 1px 0 rgba(255,255,255,.22) !important;
   font: 700 1.1rem/1 'Manrope', sans-serif !important;
-  text-align:center !important;
-  -webkit-tap-highlight-color:transparent !important;
-  -webkit-appearance:none !important;
-  appearance:none !important;
-  cursor:pointer !important;
-  transform:none;
-  transition:transform .16s ease, filter .16s ease;
+  text-align: center !important;
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  cursor: pointer !important;
+  transform: none;
+  transition: transform .16s ease, filter .16s ease;
 }
 html body button.evolv-floating-log svg {
-  display:block !important;
-  flex:0 0 auto !important;
-  width:2.2rem !important;
-  height:2.2rem !important;
-  max-width:none !important;
-  color:#fff !important;
-  stroke:#fff !important;
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 2.2rem !important;
+  height: 2.2rem !important;
+  max-width: none !important;
+  color: #fff !important;
+  stroke: #fff !important;
 }
 html body button.evolv-floating-log span {
-  display:block !important;
-  color:#fff !important;
-  -webkit-text-fill-color:#fff !important;
-  font-size:1.05rem !important;
-  line-height:1 !important;
-  letter-spacing:.01em !important;
+  display: block !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  font-size: 1.05rem !important;
+  line-height: 1 !important;
+  letter-spacing: .01em !important;
 }
 html body button.evolv-floating-log:active {
-  transform:scale(.94) !important;
-  filter:brightness(.92) !important;
+  transform: scale(.94) !important;
+  filter: brightness(.92) !important;
 }
 html body button.evolv-floating-log:focus-visible {
-  outline:2px solid #fff !important;
-  outline-offset:3px !important;
+  outline: 2px solid #fff !important;
+  outline-offset: 3px !important;
 }
 @media (max-width: 390px) {
   html body button.evolv-floating-log,
   html body button.evolv-floating-log:hover,
   html body button.evolv-floating-log:focus,
   html body button.evolv-floating-log:active {
-    inset:auto max(.8rem, calc(10vw - 2.8rem)) calc(7.5rem + env(safe-area-inset-bottom, 0px)) auto !important;
-    width:5.6rem !important;
-    height:5.6rem !important;
-    min-width:5.6rem !important;
-    min-height:5.6rem !important;
+    inset: auto max(.8rem, calc(10vw - 2.8rem)) calc(7.5rem + env(safe-area-inset-bottom, 0px)) auto !important;
+    width: 5.6rem !important;
+    height: 5.6rem !important;
+    min-width: 5.6rem !important;
+    min-height: 5.6rem !important;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  html body button.evolv-floating-log { transition:none !important; }
+  html body button.evolv-floating-log { transition: none !important; }
 }
