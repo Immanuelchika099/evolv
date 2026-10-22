@@ -9655,3 +9655,19 @@ html body #root .dashboard .goals-page .goal-coach-row > button:not(.goal-checki
   min-width: 0;
   justify-content: center;
 }
+
+
+/* iOS Safari zooms focused inputs below 16px. Keep milestone entry comfortable
+   on iPhone without changing the typography of the rest of the goal card. */
+@media (max-width: 700px) {
+  html body #root .dashboard .goals-page .goal-list > .goal-item.is-expanded .goal-add-milestone input {
+    box-sizing: border-box !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    min-height: 4.8rem !important;
+    font-size: 16px !important;
+    line-height: 1.4 !important;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+}
