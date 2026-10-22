@@ -49,6 +49,16 @@ export default function DepthCarousel({
     const config = configRef.current
     const count = config.count
     if (!count) return
+
+    // Compact layered stack: one card in front, with the next two peeking out.
+    // Keep the surfaces opaque and avoid the blur/glow treatment from the demo.
+    const poses = [
+      [0, 0, 0, 1],
+      [24, -14, 2.4, 1.02],
+      [-12, 10, -1.6, 1.05],
+    ]
+    const interpolate = (from, to, amount) => from.map((value, i) => value + (to[i] - value) * amount)
+
     for (let index = 0; index < count; index += 1) {
       const card = cardRefs.current[index]
       if (!card) continue
@@ -57,20 +67,38 @@ export default function DepthCarousel({
         distance = ((distance % count) + count) % count
         if (distance > count / 2) distance -= count
       }
-      const behind = Math.max(0, distance)
+
       const absoluteDistance = Math.abs(distance)
-      const visible = absoluteDistance <= config.visibleCards + 0.5
-      const x = config.spread * distance
-      const z = -config.depth * distance
-      const rotateY = config.tilt * clamp(distance, 0, 1)
-      const opacity = !visible || distance < -0.08 ? 0 : 1
-      const brightness = Math.max(0.3, 1 - behind * config.falloff)
-      const blurAmount = Math.min(config.blur, behind / Math.max(1, config.visibleCards) * config.blur)
-      card.style.transform = `translate(-50%, -50%) scale(${scaleRef.current}) translateX(${x.toFixed(2)}px) translateZ(${z.toFixed(2)}px) rotateY(${rotateY.toFixed(2)}deg)`
+      let x = 0
+      let y = 0
+      let rotate = 0
+      let scale = 1
+      let opacity = 1
+
+      if (distance < -0.08) {
+        const progress = Math.min(1, Math.abs(distance))
+        x = -config.cardWidth * progress
+        y = 16 * progress
+        rotate = -9 * progress
+        scale = 1 - 0.04 * progress
+        opacity = 1 - progress
+      } else if (distance <= 1) {
+        ;[x, y, rotate, scale] = interpolate(poses[0], poses[1], Math.max(0, distance))
+      } else if (distance <= 2) {
+        ;[x, y, rotate, scale] = interpolate(poses[1], poses[2], distance - 1)
+      } else {
+        opacity = 0
+        x = -12
+        y = 10
+        rotate = -1.6
+        scale = 1.05
+      }
+
+      card.style.transform = `translate(-50%, -50%) translate3d(${x.toFixed(2)}px, ${y.toFixed(2)}px, 0) rotate(${rotate.toFixed(2)}deg) scale(${scale.toFixed(3)})`
       card.style.opacity = String(opacity)
-      card.style.filter = `brightness(${brightness.toFixed(2)}) blur(${distance < 0 ? 0 : blurAmount.toFixed(2)}px)`
+      card.style.filter = 'none'
       card.style.zIndex = String(1000 - Math.round(absoluteDistance * 10))
-      card.style.pointerEvents = visible && opacity > 0.05 ? 'auto' : 'none'
+      card.style.pointerEvents = opacity > 0.5 && distance >= -0.08 ? 'auto' : 'none'
       card.setAttribute('aria-hidden', String(index !== active))
     }
   }, [active])
