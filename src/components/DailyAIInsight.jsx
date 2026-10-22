@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowRight, ArrowUpRight, RefreshCw, Sparkles } from 'lucide-react'
 import { supabase } from '../lib/supabase'
-import DepthCarousel from './DepthCarousel'
 
 function localDateKey(date = new Date()) {
   const year = date.getFullYear()
@@ -248,78 +247,62 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
     goTo?.('ai')
   }
 
+
   return (
-    <section className="calm-insights-section" aria-labelledby="calm-insights-title">
-      <div className="calm-focus-heading">
+    <section className="calm-insights-section ins-root" aria-labelledby="calm-insights-title">
+      <div className="calm-focus-heading ins-heading">
         <div>
           <span className="calm-insights-eyebrow"><Sparkles size={13} /> PERSONALIZED REFLECTIONS</span>
           <h2 id="calm-insights-title">AI insights</h2>
         </div>
-        {insight && <button type="button" onClick={openConversation} aria-label="Talk through today's insight"><ArrowRight size={18} /></button>}
+        <div className="ins-heading-actions">
+          {insight && <button type="button" onClick={openConversation} aria-label="Talk through today's insight"><ArrowRight size={18} /></button>}
+          <button type="button" onClick={() => generateInsight({ force: true })} disabled={refreshing} aria-label="Refresh AI insights">
+            <RefreshCw size={16} className={refreshing ? 'daily-ai-spin' : ''} />
+          </button>
+        </div>
       </div>
-      {insights.length > 1 ? (
-        <DepthCarousel
-          items={insights}
-          cardWidth={360}
-          cardHeight={390}
-          radius={20}
-          depth={92}
-          spread={68}
-          tilt={6}
-          perspective={1300}
-          visibleCards={2}
-          falloff={0.22}
-          blur={0.4}
-          duration={850}
-          autoplay={!loading}
-          autoplayDelay={10000}
-          loop
-          showControls={false}
-          showIndicators
-          onChange={(index, item) => {
-            setInsight(item)
-          }}
-          className="daily-ai-depth-carousel"
-          renderItem={(item, index, isActive) => (
-            <div className="daily-ai-insight-panel" aria-live={isActive ? 'polite' : 'off'}>
-              <div className="daily-ai-insight-topline">
-                <span className="daily-ai-insight-category">{item.category || 'personal'} <span aria-hidden="true">/</span> REFLECTION</span>
+      {loading ? (
+        <div className="ins-empty ins-loading" aria-live="polite">
+          <span className="ins-loading-mark"><Sparkles size={19} /></span>
+          <div className="ins-skeleton"><i /><i /><i /></div>
+          <p>Finding a useful pattern from your recent days…</p>
+        </div>
+      ) : insights.length ? (
+        <div className="ins-stack" aria-label="Personalized AI insight cards">
+          {insights.slice(0, 3).map((item, index) => (
+            <article className={`ins-card ins-card-${index + 1}`} key={item.id || item.title || index}>
+              <div className="ins-card-top">
+                <span className="ins-card-index">0{index + 1} <span aria-hidden="true">/</span> 0{Math.min(insights.length, 3)}</span>
+                <span className="ins-card-category">{String(item.category || 'personal').replace(/-/g, ' ')}</span>
               </div>
               <h3>{item.title}</h3>
-              <p className="daily-ai-insight-observation">{item.observation}</p>
-              <div className="daily-ai-insight-suggestion"><span>A SMALL NEXT STEP</span><p>{item.suggestion}</p></div>
-              <button type="button" className="daily-ai-insight-action" onClick={openConversation}>Explore insight <ArrowUpRight size={15} /></button>
-            </div>
-          )}
-        />
+              <p className="ins-card-observation">{item.observation}</p>
+              {Array.isArray(item.evidence) && item.evidence.length > 0 && (
+                <div className="ins-evidence">{item.evidence.slice(0, 2).map((signal, signalIndex) => <span key={signalIndex}>{signal}</span>)}</div>
+              )}
+              <div className="ins-next-step">
+                <span className="ins-next-label"><Sparkles size={12} /> A SMALL NEXT STEP</span>
+                <p>{item.suggestion}</p>
+              </div>
+              <button type="button" className="ins-explore" onClick={openConversation}>Explore insight <ArrowUpRight size={15} /></button>
+            </article>
+          ))}
+        </div>
       ) : (
-        <article key={insight?.title || insight?.id || insight?.insight_date || (status ? 'empty-status' : 'empty')} className="daily-ai-insight-card" aria-live="polite">
-          {loading ? (
-            <div className="daily-ai-insight-state"><span className="daily-ai-insight-shimmer" /><span className="daily-ai-insight-shimmer short" /><small>Finding a useful pattern from your recent days…</small></div>
-          ) : insight ? (
-            <>
-              <div className="daily-ai-insight-topline">
-                <span className="daily-ai-insight-category">{insight.category || 'personal'} <span aria-hidden="true">/</span> REFLECTION</span>
-              </div>
-              <h3>{insight.title}</h3>
-              <p className="daily-ai-insight-observation">{insight.observation}</p>
-              <div className="daily-ai-insight-suggestion"><span>A SMALL NEXT STEP</span><p>{insight.suggestion}</p></div>
-              <button type="button" className="daily-ai-insight-action" onClick={openConversation}>Explore insight <ArrowUpRight size={15} /></button>
-            </>
-          ) : (
-            <div className="daily-ai-insight-state">
-              <Sparkles size={20} />
-              <p>{status || 'Your insight will appear when there is something useful to notice.'}</p>
-              <div className="daily-ai-insight-state-actions">
-                <button type="button" className="daily-ai-insight-action" onClick={() => generateInsight({ force: true })} disabled={refreshing}>
-                  <RefreshCw size={14} className={refreshing ? 'daily-ai-spin' : ''} /> Try again
-                </button>
-                <button type="button" className="daily-ai-insight-text-action" onClick={openConversation}>Chat with Evolv <ArrowRight size={14} /></button>
-              </div>
-            </div>
-          )}
-        </article>
+        <div className="ins-empty" aria-live="polite">
+          <span className="ins-loading-mark"><Sparkles size={19} /></span>
+          <h3>Room for a little reflection</h3>
+          <p>{status || 'Your insight will appear when there is something useful to notice.'}</p>
+          <div className="ins-empty-actions">
+            <button type="button" className="ins-explore" onClick={() => generateInsight({ force: true })} disabled={refreshing}>
+              <RefreshCw size={14} className={refreshing ? 'daily-ai-spin' : ''} /> Try again
+            </button>
+            <button type="button" className="ins-chat-link" onClick={openConversation}>Chat with Evolv <ArrowRight size={14} /></button>
+          </div>
+        </div>
       )}
     </section>
   )
+}
 }
