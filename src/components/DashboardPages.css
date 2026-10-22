@@ -9553,3 +9553,91 @@ html body #root .dashboard .settings-page button.settings-toggle.active > span {
     backdrop-filter: none !important;
   }
 }
+
+
+/* Evolv goal check-in polish — scoped to Log a Step and goal details only.
+   Keep the existing hover rules untouched. */
+html body #root .dashboard .goals-page .goal-coach-row > .goal-checkin-button,
+html body #root .dashboard .goals-page .goal-habit-week > .goal-checkin-button {
+  color: #ffffff;
+  background: #2563eb;
+  border: 1px solid rgba(116, 170, 255, .72);
+  border-radius: 1.15rem;
+  box-shadow: 0 0 0 1px rgba(37, 99, 235, .12), 0 0 16px rgba(37, 99, 235, .14);
+  font-weight: 600;
+}
+
+/* Expanded goal content should arrive together, without staggered copy. */
+html body #root .dashboard .goals-page .goal-item.is-expanded .goal-item-content-inner,
+html body #root .dashboard .goals-page .goal-item.is-expanded .goal-item-content-inner > *,
+html body #root .dashboard .goals-page .goal-item.is-expanded .goal-item-content-inner * {
+  animation-delay: 0s !important;
+  transition-delay: 0s !important;
+}
+
+/* Individual milestone / step options: quiet blue outline on the dark surface. */
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row {
+  min-height: 4.6rem;
+  margin: .7rem 0;
+  padding: .65rem .9rem;
+  border: 1px solid rgba(116, 170, 255, .24);
+  border-radius: 1.1rem;
+  background: linear-gradient(110deg, rgba(37, 99, 235, .085), rgba(37, 99, 235, .025));
+  box-shadow: 0 0 14px rgba(37, 99, 235, .055);
+  transition: border-color .18s ease, background-color .18s ease, box-shadow .18s ease;
+}
+
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row:focus-within {
+  border-color: rgba(116, 170, 255, .55);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, .12), 0 0 15px rgba(37, 99, 235, .1);
+}
+
+/* Custom accessible checkbox: dark when idle, Evolv blue with a white tick when checked. */
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-grid;
+  place-content: center;
+  flex: 0 0 1.8rem;
+  width: 1.8rem;
+  height: 1.8rem;
+  margin: 0;
+  border: 1.5px solid rgba(116, 170, 255, .52);
+  border-radius: .55rem;
+  background: #090d16;
+  cursor: pointer;
+  transition: background-color .16s ease, border-color .16s ease, box-shadow .16s ease;
+}
+
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row input[type="checkbox"]::before {
+  content: "";
+  width: .48rem;
+  height: .85rem;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transform-origin: center;
+  transition: transform .12s ease;
+}
+
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row input[type="checkbox"]:checked {
+  border-color: #2563eb;
+  background: #2563eb;
+  box-shadow: 0 0 10px rgba(37, 99, 235, .2);
+}
+
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row input[type="checkbox"]:checked::before {
+  transform: rotate(45deg) scale(1);
+}
+
+html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row input[type="checkbox"]:focus-visible {
+  outline: 2px solid #74AAFF;
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-row {
+    gap: .7rem;
+    padding: .65rem .75rem;
+  }
+}
