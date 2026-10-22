@@ -395,3 +395,43 @@
   color:var(--t2) !important;
   stroke:var(--t2) !important;
 }
+
+
+/* Profile typography refinement: lighter, quieter weights throughout the page. */
+.dashboard .settings-page .settings-heading h2,
+.dashboard .settings-page .profile-summary-copy h3,
+.dashboard .settings-page .profile-account-actions-heading h3 {
+  font-weight: 500 !important;
+  letter-spacing: -0.025em;
+}
+.dashboard .settings-page .profile-settings-section-heading strong,
+.dashboard .settings-page .profile-account-action-copy strong,
+.dashboard .settings-page .profile-settings-list .profile-setting-row strong,
+.dashboard .settings-page .profile-summary-focus strong,
+.dashboard .settings-page .profile-edit-button,
+.dashboard .settings-page .profile-photo-actions button,
+.dashboard .settings-page .settings-inline-action {
+  font-weight: 400 !important;
+}
+.dashboard .settings-page .profile-settings-section-heading .section-label,
+.dashboard .settings-page .profile-account-actions-heading .section-label,
+.dashboard .settings-page .profile-summary-focus .section-label {
+  font-weight: 400 !important;
+}
+.dashboard .settings-page .profile-summary-copy p,
+.dashboard .settings-page .profile-summary-copy small,
+.dashboard .settings-page .profile-settings-list .profile-setting-row span,
+.dashboard .settings-page .profile-settings-list .profile-setting-row small,
+.dashboard .settings-page .profile-account-action-copy small,
+.dashboard .settings-page .settings-heading p {
+  font-weight: 400 !important;
+}
+.dashboard .settings-page .profile-settings-section-heading strong {
+  font-size: 1.6rem;
+}
+.dashboard .settings-page .profile-account-action-copy strong {
+  font-size: 1.5rem;
+}
+.dashboard .settings-page .profile-summary-copy h3 {
+  font-weight: 500 !important;
+}
