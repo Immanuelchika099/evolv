@@ -1,18 +1,18 @@
-/* EVOLV calm premium design tokens — one soft teal accent. */
+/* EVOLV calm premium design tokens — one calm blue accent. */
 :root {
-  --bg:#090b0c; --accent:#7fc4bd; --accent-soft:rgba(127,196,189,.14);
+  --bg:#090b0c; --accent:#8ab4ff; --accent-soft:rgba(138,180,255,.14);
   --glow-a:rgba(34,96,108,.55); --glow-b:rgba(22,52,84,.5);
   --t1:rgba(238,243,243,.94); --t2:rgba(238,243,243,.62); --t3:rgba(238,243,243,.38);
   --edge:rgba(255,255,255,.10); --danger:#e5484d;
   --color-bg:var(--bg); --color-surface-start:rgba(255,255,255,.07); --color-surface-end:rgba(255,255,255,.02);
   --color-border:var(--edge); --color-text:var(--t1); --color-muted:var(--t2); --color-disabled:var(--t3);
-  --color-accent-start:var(--accent); --color-accent-end:var(--accent); --color-accent-dim:rgba(127,196,189,.3);
+  --color-accent-start:var(--accent); --color-accent-end:var(--accent); --color-accent-dim:rgba(138,180,255,.3);
   --color-chart-orange:var(--accent); --color-chart-amber:var(--accent); --color-danger:var(--danger);
   --color-canvas:var(--bg); --color-surface:rgba(255,255,255,.035); --color-surface-raised:rgba(255,255,255,.06);
   --color-text-primary:var(--t1); --color-text-secondary:var(--t2); --color-text-muted:var(--t3);
   --color-border-subtle:var(--edge); --color-accent-blue:var(--accent); --evolv-blue:var(--accent);
-  --color-accent-lime:var(--accent); --accent-foreground:#0a0d0e; --color-accent-foreground:#0a0d0e;
-  --button-primary-foreground:#0a0d0e; --accent-gradient:linear-gradient(135deg,var(--accent),var(--accent));
+  --color-accent-lime:var(--accent); --accent-foreground:#ffffff; --color-accent-foreground:#ffffff;
+  --button-primary-foreground:#ffffff; --accent-gradient:linear-gradient(135deg,var(--accent),var(--accent));
   --surface-gradient:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
   --card-shadow:0 2rem 5rem rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.07);
   --font-ui:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
