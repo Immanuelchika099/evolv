@@ -1029,7 +1029,7 @@ function Landing({onStart, onExplore, onArticle, onPricing, onContact, onLegal})
             preset="silk"
             pattern="line"
             wave="silk"
-            color="#2563eb"
+            color="#7fc4bd"
             backgroundColor="#050505"
             opacity={0.12}
             fade="center"
@@ -1469,7 +1469,7 @@ function ArticlePage({ article, onStart, onBack }) {
 const onboardingGoals = [
   { id: 'sleep', title: 'Sleep & energy', detail: 'Feel more rested and steady', icon: Moon, color: '#F5B84B', tint: 'rgba(245,184,75,.13)' },
   { id: 'mood', title: 'Mood & wellbeing', detail: 'Understand how I feel', icon: HeartPulse, color: '#FF7896', tint: 'rgba(255,120,150,.13)' },
-  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#2563eb', tint: 'rgba(37, 99, 235,.13)' },
+  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#b8c2c1', tint: 'rgba(255,255,255,.06)' },
   { id: 'self-care', title: 'Self-care', detail: 'Make more room for myself', icon: Sparkles, color: '#F2A6D8', tint: 'rgba(242,166,216,.13)' },
   { id: 'career', title: 'Learning & career', detail: 'Keep growing my skills', icon: BookOpen, color: '#55D6C2', tint: 'rgba(85,214,194,.13)' },
   { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', icon: WalletCards, color: '#65CDA5', tint: 'rgba(101,205,165,.13)' },
@@ -1493,7 +1493,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#5145c8"
+          color="#7fc4bd"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1554,7 +1554,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#5145c8"
+          color="#7fc4bd"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1766,12 +1766,12 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   },[])
 
   const areas={
-    health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
-    nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
-    money:{title:'Money',icon:WalletCards,color:'#5145c8'},
-    career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},
-    mind:{title:'Mind',icon:Brain,color:'#9b7cff'},
-    life:{title:'Life',icon:Sprout,color:'#5145c8'}
+    health:{title:'Health',icon:HeartPulse,color:'#b8c2c1'},
+    nutrition:{title:'Nutrition',icon:Apple,color:'#b8c2c1'},
+    money:{title:'Money',icon:WalletCards,color:'#b8c2c1'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'#b8c2c1'},
+    mind:{title:'Mind',icon:Brain,color:'#b8c2c1'},
+    life:{title:'Life',icon:Sprout,color:'#b8c2c1'}
   }
   const metricArea={sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',mood:'mind',focus:'mind',reflection:'mind',stress:'mind',learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',income:'money',spending:'money',savings:'money',bills:'money',habits:'life',reading:'life',social:'life',personal:'life',meals:'nutrition'}
   const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout,meals:Utensils}
@@ -3057,11 +3057,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   }
 
   const metricIconColors={
-    sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
-    mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
-    learning:'#38BDF8',building:'#60A5FA',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
-    income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
-    habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+    sleep:'#b8c2c1',water:'#b8c2c1',steps:'#b8c2c1',exercise:'#b8c2c1',energy:'#b8c2c1',weight:'#b8c2c1',
+    mood:'#b8c2c1',focus:'#b8c2c1',reflection:'#b8c2c1',stress:'#b8c2c1',
+    learning:'#b8c2c1',building:'#b8c2c1',outreach:'#b8c2c1',applications:'#b8c2c1',skills:'#b8c2c1',
+    income:'#b8c2c1',spending:'#b8c2c1',savings:'#b8c2c1',bills:'#b8c2c1',
+    habits:'#b8c2c1',reading:'#b8c2c1',social:'#b8c2c1',personal:'#b8c2c1',meals:'#b8c2c1'
   }
 
   const rows=definitions.filter(d=>metricArea[d.slug]===area && d.slug!=='exercise')
@@ -3425,7 +3425,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
           {metric&&metric.value_type!=='meal'&&(
             <div className="log-form">
               <div className="log-selected-metric">
-                <span className="log-choice-icon" style={{'--metric-color':metric.color||'#5145c8'}}><I size={19}/></span>
+                <span className="log-choice-icon" style={{'--metric-color':metric.color||'#b8c2c1'}}><I size={19}/></span>
                 <div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div>
               </div>
 

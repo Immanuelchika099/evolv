@@ -667,3 +667,94 @@ body::after { width:110vw; height:110vw; bottom:-35vw; left:-40vw; background:ra
  .ai-promptbar-shell{left:1rem!important;right:1rem!important;width:calc(100% - 2rem)!important;bottom:calc(7.4rem + env(safe-area-inset-bottom))!important}
  .ai-messages{padding-left:1.6rem!important;padding-right:1.6rem!important}
 }
+
+/* Phase 6 — restrained motion, progressive header blur, contrast and final interaction polish. */
+.app-topbar {
+  position:sticky!important; top:0; z-index:80!important; isolation:isolate;
+  display:flex!important; align-items:center!important; justify-content:space-between!important;
+  padding:calc(.9rem + env(safe-area-inset-top)) var(--page-gutter) 1.1rem!important;
+  border:0!important; background:transparent!important; box-shadow:none!important;
+  -webkit-backdrop-filter:none!important; backdrop-filter:none!important;
+}
+.app-topbar::before {
+  content:""; position:absolute; z-index:-1; pointer-events:none;
+  inset:calc(-1 * env(safe-area-inset-top)) -1rem -2.4rem;
+  background:linear-gradient(180deg,rgba(9,11,12,.72),rgba(9,11,12,.34) 56%,transparent);
+  -webkit-backdrop-filter:blur(22px) saturate(1.05);
+  backdrop-filter:blur(22px) saturate(1.05);
+  -webkit-mask-image:linear-gradient(#000 60%,transparent);
+  mask-image:linear-gradient(#000 60%,transparent);
+}
+.app-logo-button { min-width:4.4rem!important; min-height:4.4rem!important; background:transparent!important; }
+.app-topbar-actions { display:flex!important; align-items:center!important; gap:.7rem!important; }
+.app-topbar-actions button {
+  min-width:4.4rem!important; min-height:4.4rem!important; padding:0 1.2rem!important;
+  border:1px solid var(--edge)!important; border-radius:999px!important;
+  background:rgba(255,255,255,.035)!important; color:var(--t2)!important;
+  font-size:1.2rem!important; font-weight:400!important; box-shadow:none!important;
+}
+.app-topbar-actions button svg { stroke-width:1.4!important; }
+.app-topbar-actions .notification-button { width:4.4rem!important; padding:0!important; }
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) > :is(section,article,header,form) {
+  animation:evolv-rise .42s cubic-bezier(.2,.8,.2,1) backwards;
+}
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) > :is(section,article,header,form):nth-child(2) { animation-delay:.06s; }
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) > :is(section,article,header,form):nth-child(3) { animation-delay:.12s; }
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) > :is(section,article,header,form):nth-child(4) { animation-delay:.18s; }
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) > :is(section,article,header,form):nth-child(5) { animation-delay:.24s; }
+@keyframes evolv-rise { from { opacity:0; transform:translateY(1.4rem); } to { opacity:1; transform:translateY(0); } }
+:where(button,.card,.goal-item,.routine-group,.daily-ai-insight-card,.depth-carousel__card) { transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease,color .2s ease,transform .2s ease; }
+:where(button,.card,.goal-item,.routine-group,.daily-ai-insight-card):active { transform:scale(.985); }
+:where(button,a) { text-decoration-thickness:1px; }
+:where(.section-label,.routine-label,.routine-eyebrow,.calm-insights-eyebrow,.daily-ai-insight-category,.profile-account-actions-heading) {
+  font-weight:400!important; letter-spacing:.16em!important;
+}
+:where(.calm-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(h1,h2,h3,h4) {
+  font-weight:300!important; letter-spacing:-.01em!important;
+}
+:where(.calm-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(button,a) {
+  font-weight:400;
+}
+:where(.calm-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(p,li,small) {
+  color:var(--t2);
+}
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page,.quick-log-sheet) {
+  scroll-padding-bottom:calc(16rem + env(safe-area-inset-bottom));
+}
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(input,textarea,select) {
+  min-height:5.2rem; border-radius:1.8rem; border-color:var(--edge);
+  background-color:rgba(255,255,255,.04); color:var(--t1);
+}
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(input,textarea,select):focus {
+  border-color:rgba(127,196,189,.5)!important; box-shadow:0 0 0 3px var(--accent-soft)!important;
+}
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(button,a) svg {
+  flex-shrink:0; stroke-width:1.4;
+}
+:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) :where(.is-empty,.empty-state,.calm-activity-note) {
+  color:var(--t2)!important; font-size:1.4rem!important; line-height:1.7!important;
+}
+@media(prefers-reduced-motion:reduce) {
+  .page-enter,:where(.dashboard-home,.daily-routine-page,.goals-page,.progress-page,.logs-page,.notifications-page,.settings-page,.ai-page) > :is(section,article,header,form) { animation:none!important; }
+  :where(button,.card,.goal-item,.routine-group,.daily-ai-insight-card,.depth-carousel__card) { transition:none!important; }
+  :where(button,.card,.goal-item,.routine-group,.daily-ai-insight-card):active { transform:none!important; }
+}
+@media(max-width:640px) {
+  .app-topbar { padding-left:1.6rem!important; padding-right:1.6rem!important; }
+  .app-topbar-actions { gap:.5rem!important; }
+  .app-topbar-actions button { min-width:4.4rem!important; padding:0 .9rem!important; }
+  .app-topbar-actions .routine-nav-button span { display:none!important; }
+}
+
+/* Neutralize remaining inline metric icon colours without changing their actions. */
+:where(.log-choice-icon,.metric-icon,.metric-icon-tile,.metric-area-icon) {
+  color:rgba(238,243,243,.72)!important;
+  border:1px solid var(--edge)!important;
+  background:rgba(255,255,255,.06)!important;
+}
+:where(.log-choice-icon,.metric-icon,.metric-icon-tile,.metric-area-icon) svg { stroke-width:1.4!important; }
+
+/* Visually join routine reminder preferences and notification status. */
+.routine-reminder-control{border-radius:2.2rem 2.2rem 0 0!important;border-bottom:0!important}
+.routine-reminder-note{margin-top:-2.2rem!important;padding:1.4rem 1.7rem!important;border:1px solid var(--edge)!important;border-radius:0 0 2.2rem 2.2rem!important;background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.015))!important}
+.routine-heading h1::after,.routine-heading h2::after{content:".";color:var(--accent)}

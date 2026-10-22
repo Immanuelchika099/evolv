@@ -14,8 +14,8 @@
   gap:24px;
   border:1px solid #ffffff28;
   border-radius:999px;
-  background:#050806 !important;
-  background-color:#050806 !important;
+  background:rgba(255,255,255,.04) !important;
+  background-color:rgba(255,255,255,.04) !important;
   opacity:1 !important;
   box-shadow:0 18px 55px #000b;
   backdrop-filter:blur(22px);
@@ -113,7 +113,7 @@
   transform:translateX(-50%);
   border:1px solid #ffffff22;
   border-radius:24px;
-  background:#050806 !important;
+  background:rgba(255,255,255,.04) !important;
   opacity:1 !important;
   box-shadow:0 28px 90px #000c;
 }
@@ -214,7 +214,7 @@
     border:0;
     border-left:1px solid rgba(255,255,255,.09);
     border-radius:0;
-    background:rgba(5,8,6,.98) !important;
+    background:rgba(255,255,255,.04) !important;
     box-shadow:-30px 0 90px rgba(0,0,0,.45), inset 1px 0 0 rgba(255,255,255,.025);
     backdrop-filter:blur(30px);
     -webkit-backdrop-filter:blur(30px);
@@ -267,7 +267,7 @@
     border-radius:999px !important;
     background:#f3f1ea !important;
     color:#090909 !important;
-    font-weight:600;
+    font-weight:500;
   }
 
   .evolv-mobile-menu .evolv-mobile-start:hover,
@@ -298,8 +298,8 @@
     padding:0 8px 0 22px;
     border:1px solid rgba(255,255,255,.14);
     border-radius:999px;
-    background:#050806 !important;
-    background-color:#050806 !important;
+    background:rgba(255,255,255,.04) !important;
+    background-color:rgba(255,255,255,.04) !important;
     box-shadow:0 18px 55px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.035);
     backdrop-filter:blur(22px);
     -webkit-backdrop-filter:blur(22px);
@@ -345,8 +345,8 @@
   }
 
   .evolv-menu-toggle:hover{
-    background:rgba(174,189,120,.055)!important;
-    border-color:rgba(174,189,120,.16);
+    background:rgba(255,255,255,.04)!important;
+    border-color:var(--edge);
     transform:translateY(-1px);
   }
 
@@ -365,17 +365,17 @@
 
 /* New EVOLV mark: preserve the intricate circle artwork without distortion. */
 .evolv-brand-svg {
-  display: block;
-  width: 3.2rem !important;
-  height: 3.2rem !important;
-  max-height: none;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
+  display:block;
+  width:3.2rem !important;
+  height:3.2rem !important;
+  max-height:none;
+  aspect-ratio:1 / 1;
+  object-fit:contain;
 }
 @media (max-width: 800px) {
   .evolv-brand-svg {
-    width: 2.8rem !important;
-    height: 2.8rem !important;
+    width:2.8rem !important;
+    height:2.8rem !important;
   }
 }
 
