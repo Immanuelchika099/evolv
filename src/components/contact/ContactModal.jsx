@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { ArrowRight, Check } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
 import './ContactModal.css'
 
