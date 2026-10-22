@@ -6532,9 +6532,9 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
 }
 .reflection-sheet .reflection-next:hover:not(:disabled),
 .reflection-sheet .reflection-next:focus-visible:not(:disabled) {
-  background: #1d4ed8 !important;
+  background: var(--graph-blue-deep) !important;
   background-image: none !important;
-  border-color: #1d4ed8 !important;
+  border-color: var(--graph-blue-deep) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   transform: translateY(-1px);
