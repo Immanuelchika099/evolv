@@ -305,10 +305,10 @@ html body #root .article-page .article-end .button.button-primary {
   gap: 1rem !important;
   min-height: 5.4rem !important;
   padding: 0 2.4rem !important;
-  border: 1px solid #74AAFF !important;
+  border: 1px solid var(--color-accent-blue) !important;
   border-radius: 999px !important;
-  background: #74AAFF !important;
-  background-color: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
+  background-color: var(--color-accent-blue) !important;
   background-image: none !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
@@ -333,7 +333,7 @@ html body #root .article-page .article-end .button.button-primary:hover {
   transform: translateY(-2px);
 }
 html body #root .article-page .article-end .button.button-primary:focus-visible {
-  outline: 2px solid rgba(116, 170, 255, .8) !important;
+  outline: 2px solid color-mix(in srgb, var(--color-accent-blue) 80%, transparent) !important;
   outline-offset: 4px !important;
 }
 @media (max-width: 760px) {
