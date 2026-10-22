@@ -1325,7 +1325,7 @@
   position:absolute;
   inset:0;
   pointer-events:none;
-  background:radial-gradient(circle at 0% 0%, var(--evolv-glass-rgba(127,196,189,.10)), transparent 32%),
+  background:radial-gradient(circle at 0% 0%, var(--evolv-glass-green), transparent 32%),
     linear-gradient(115deg, transparent 38%, rgba(255,255,255,.018) 50%, transparent 64%);
   opacity:.9;
 }
@@ -1353,7 +1353,7 @@
 .dashboard-home .today-action-strip,
 .area-detail-page .health-command-row,
 .logs-page .logs-page-toolbar {
-  background:linear-gradient(135deg, var(--evolv-glass-rgba(255,255,255,.04)), rgba(255,255,255,.025));
+  background:linear-gradient(135deg, var(--evolv-glass-green), rgba(255,255,255,.025));
 }
 
 .dashboard-home .button.button-primary,
