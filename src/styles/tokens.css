@@ -1,56 +1,84 @@
-/* EVOLV — restrained global design tokens */
-:root{
-  --font-ui:Inter,Manrope,system-ui,sans-serif;
-  --font-display:"Instrument Serif","Playfair Display",Georgia,serif;
+/* EVOLV calm premium design tokens — single accent, quiet glass. */
+:root {
+  --bg: #090b0c;
+  --accent: #7fc4bd;
+  --accent-soft: rgba(127,196,189,.14);
+  --glow-a: rgba(34,96,108,.55);
+  --glow-b: rgba(22,52,84,.5);
+  --t1: rgba(238,243,243,.94);
+  --t2: rgba(238,243,243,.62);
+  --t3: rgba(238,243,243,.38);
+  --edge: rgba(255,255,255,.10);
+  --danger: #e5484d;
 
-  --color-bg:#000;
-  --color-surface-start:#000;
-  --color-surface-end:#000;
-  --color-border:rgba(255,255,255,.06);
-  --color-text:rgba(255,255,255,.92);
-  --color-muted:rgba(255,255,255,.55);
-  --color-disabled:rgba(255,255,255,.35);
-  --color-accent-start:#B6F04F;
-  --color-accent-end:#8BC34A;
-  --color-accent-dim:#4A6A1F;
-  --color-chart-orange:#F2763A;
-  --color-chart-amber:#F5C04A;
-  --color-danger:#E5484D;
+  /* Backwards-compatible aliases for existing components during migration. */
+  --color-bg: var(--bg);
+  --color-surface-start: rgba(255,255,255,.07);
+  --color-surface-end: rgba(255,255,255,.02);
+  --color-border: var(--edge);
+  --color-text: var(--t1);
+  --color-muted: var(--t2);
+  --color-disabled: var(--t3);
+  --color-accent-start: var(--accent);
+  --color-accent-end: var(--accent);
+  --color-accent-dim: rgba(127,196,189,.3);
+  --color-chart-orange: var(--accent);
+  --color-chart-amber: var(--accent);
+  --color-danger: var(--danger);
+  --color-canvas: var(--bg);
+  --color-surface: rgba(255,255,255,.035);
+  --color-surface-raised: rgba(255,255,255,.06);
+  --color-text-primary: var(--t1);
+  --color-text-secondary: var(--t2);
+  --color-text-muted: var(--t3);
+  --color-border-subtle: var(--edge);
+  --color-border: var(--edge);
+  --color-accent-blue: var(--accent);
+  --evolv-blue: var(--accent);
+  --color-accent-lime: var(--accent);
+  --accent-foreground: #0a0d0e;
+  --color-accent-foreground: #0a0d0e;
+  --button-primary-foreground: #0a0d0e;
+  --accent-gradient: linear-gradient(135deg,var(--accent),var(--accent));
+  --surface-gradient: linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
+  --card-shadow: 0 2rem 5rem rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.07);
 
-  --type-display:clamp(4rem,3.2vw + 2rem,5.6rem);
-  --type-h1:clamp(3.2rem,2.1vw + 2rem,4rem);
-  --type-h2:clamp(2.4rem,1.2vw + 2rem,2.8rem);
-  --type-h3:2rem;
-  --type-body:1.6rem;
-  --type-small:1.4rem;
-  --type-caption:1.2rem;
-  --lh-heading:1.15;
-  --lh-body:1.55;
+  --font-ui: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --type-display: clamp(3.4rem,3vw + 2rem,5.4rem);
+  --type-h1: clamp(2.8rem,2vw + 1.8rem,3.6rem);
+  --type-h2: clamp(2.2rem,1.2vw + 1.8rem,2.7rem);
+  --type-h3: 1.9rem;
+  --type-body: 1.5rem;
+  --type-small: 1.4rem;
+  --type-caption: 1.2rem;
+  --lh-heading: 1.2;
+  --lh-body: 1.65;
 
-  --space-1:.4rem;
-  --space-2:.8rem;
-  --space-3:1.2rem;
-  --space-4:1.6rem;
-  --space-6:2.4rem;
-  --space-8:3.2rem;
-  --space-12:4.8rem;
-  --space-16:6.4rem;
-  --space-24:9.6rem;
+  --space-1: .4rem;
+  --space-2: .8rem;
+  --space-3: 1.2rem;
+  --space-4: 1.6rem;
+  --space-6: 2.4rem;
+  --space-8: 3.2rem;
+  --space-12: 4.8rem;
+  --space-16: 6.4rem;
+  --space-24: 9.6rem;
+  --page-gutter: 2rem;
+  --content-max: 120rem;
+  --layout-max: 112rem;
+  --card-padding: 2.4rem;
+  --control-height: 5.2rem;
+  --row-min-height: 5.6rem;
+  --radius-control: 1.8rem;
+  --radius-card: 2.8rem;
+  --radius-panel: 2.8rem;
+  --radius-pill: 999px;
 
-  --page-gutter:2rem;
-  --content-max:120rem;
-  --card-padding:2.4rem;
-  --control-height:4.8rem;
-  --row-min-height:5.6rem;
-  --radius-control:1.2rem;
-  --radius-card:3.2rem;
-  --surface-gradient:linear-gradient(145deg,var(--color-surface-start),var(--color-surface-end));
-  --accent-gradient:linear-gradient(135deg,var(--color-accent-start),var(--color-accent-end));
-  --card-shadow:0 2rem 5rem rgba(0,0,0,.28),inset 0 1px 0 rgba(255,255,255,.035);
+  font-family: var(--font-ui);
+  color: var(--t1);
+  color-scheme: dark;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
-@media(min-width:768px){:root{--page-gutter:3.2rem}}
-@media(min-width:1280px){:root{--page-gutter:4.8rem}}
-
-
-/* FINAL CANVAS TOKENS */
-:root{--color-bg:#000;--color-surface-start:#000;--color-surface-end:#000;}
+@media (min-width: 768px) { :root { --page-gutter: 3.2rem; } }
+@media (min-width: 1280px) { :root { --page-gutter: 4.8rem; } }

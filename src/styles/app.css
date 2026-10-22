@@ -1,3 +1,4 @@
+@import './tokens.css';
 /* Feature style manifest. Component/page styles live in src/components/styles/. */
 @import '../components/styles/Dashboard.css';
 @import '../components/styles/Landing.css';
@@ -11,109 +12,84 @@
 @import '../components/styles/Notifications.css';
 
 
-/* FINAL logged-in canvas override — keep backgrounds on the root, not page wrappers. */
+
+
+/* EVOLV Phase 1 — global calm-glass foundation. */
 :root {
-  --app-bg: #000000;
-  color-scheme: dark;
-  background: #000000 !important;
-  background-color: #000000 !important;
+  --app-bg: var(--bg);
+  --accent: #7fc4bd;
+  --color-accent-blue: var(--accent);
+  --color-accent-lime: var(--accent);
+  --evolv-blue: var(--accent);
+  --muted: var(--t2);
+  --line: var(--edge);
 }
-html,
-body,
-#root {
-  width: 100% !important;
-  max-width: none !important;
-  background: #000000 !important;
-  background-color: #000000 !important;
-  background-image: none !important;
-}
-body {
-  margin: 0 !important;
-  min-height: 0 !important;
-}
-#root {
-  min-height: 100dvh !important;
-}
-.dashboard,
-.dashboard .dash-main,
-.dashboard .dashboard-pages,
-.dashboard .panel-page.settings-page,
-.dashboard .settings-page > .settings-heading,
-.dashboard .settings-page > .profile-layout,
-.dashboard .profile-layout,
-.dashboard .profile-settings-column {
-  box-sizing: border-box !important;
-  width: 100% !important;
-  max-width: none !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  background: transparent !important;
+html, body, #root {
   background-color: transparent !important;
   background-image: none !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  box-shadow: none !important;
 }
-.dashboard:not(.dashboard-ai-active) {
-  min-height: 0 !important;
-  height: auto !important;
-  /* Safe-area clearance belongs to normal dashboard pages, never the full-screen AI canvas. */
-  padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
+html { background: var(--bg) !important; }
+body {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: var(--bg) !important;
+  color: var(--t1);
+  font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
-.dashboard:not(.dashboard-ai-active) .dash-main {
-  min-height: 0 !important;
-  height: auto !important;
-  padding-top: 0 !important;
-  padding-bottom: calc(6.8rem + env(safe-area-inset-bottom, 0px) + 1.6rem) !important;
+#root {
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  background: transparent !important;
 }
-.dashboard .panel-page.settings-page {
-  min-height: 0 !important;
-  height: auto !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-  padding-bottom: 0 !important;
+body::before, body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vw;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow-a), transparent);
 }
-.dashboard .profile-layout,
-.dashboard .profile-settings-column,
-.dashboard .profile-stat-grid {
-  min-width: 0 !important;
-  overflow: visible !important;
+body::before { top: -30vw; right: -35vw; }
+body::after {
+  width: 110vw;
+  height: 110vw;
+  bottom: -35vw;
+  left: -40vw;
+  background: radial-gradient(closest-side, var(--glow-b), transparent);
 }
-.dashboard .profile-stat-grid > article {
-  min-width: 0 !important;
-  box-sizing: border-box !important;
+:where(h1,h2,h3,h4,h5,h6,.page-title,.section-title,.card-title) {
+  letter-spacing: -.01em !important;
+  font-weight: 300;
+  text-wrap: pretty;
 }
-.dashboard::before,
-.dashboard::after,
-.dashboard .dash-main::before,
-.dashboard .dash-main::after,
-.dashboard .panel-page.settings-page::before,
-.dashboard .panel-page.settings-page::after,
-.dashboard .settings-heading::before,
-.dashboard .settings-heading::after,
-.dashboard .profile-layout::before,
-.dashboard .profile-layout::after {
-  display: none !important;
-  content: none !important;
-  background: none !important;
-  background-image: none !important;
-  filter: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+:where(h1,h2,h3,h4,h5,h6) { line-height: 1.2; }
+:where(p,li,label,.body-copy) { line-height: 1.6; }
+:where(button,input,textarea,select) { font-family: inherit; }
+:where(button,a,input,textarea,select,[tabindex]):focus-visible {
+  outline: 2px solid rgba(127,196,189,.75);
+  outline-offset: 3px;
 }
-
-
-/* Progress page: explicit spacing between the Activity graph and Goal Progress.
-   This file is loaded by main.jsx; src/App.css is not part of the app's import chain. */
-.dashboard .progress-page > .progress-heatmap-card {
-  margin-bottom: 3.2rem !important;
+:where(input,textarea,select) {
+  min-height: 5.2rem;
+  border-radius: 1.8rem;
 }
-.dashboard .progress-page > .progress-section-card.progress-goals-card {
-  margin-top: 0 !important;
+:where(input,textarea,select):focus {
+  border-color: rgba(127,196,189,.5);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
-@media (max-width: 700px) {
-  .dashboard .progress-page > .progress-heatmap-card {
-    margin-bottom: 2.8rem !important;
+:where(button,a) { -webkit-tap-highlight-color: transparent; }
+:where(.card,.panel,.glass-panel,.glass-card) {
+  border-color: var(--edge);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
