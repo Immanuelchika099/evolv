@@ -1681,23 +1681,27 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
-  const [firstNotificationPromptOpen,setFirstNotificationPromptOpen]=useState(false)
   useEffect(() => {
-    // Only ask when EVOLV is running as an installed PWA/web app.
-    // Regular browser-tab visits must not consume the one-time prompt.
+    // iOS only presents its native notification dialog from a user gesture.
+    // On the first interaction in an installed PWA, request the native prompt.
     const isStandalone =
       window.matchMedia?.('(display-mode: standalone)').matches ||
       window.matchMedia?.('(display-mode: fullscreen)').matches ||
       window.navigator.standalone === true
-    if (!isStandalone) return
+    if (!isStandalone || !('Notification' in window)) return
 
     const promptKey = 'evolv-notification-permission-prompted'
-    if (localStorage.getItem(promptKey)) return
-    if (typeof Notification === 'undefined' || Notification.permission !== 'default') {
+    if (localStorage.getItem(promptKey) || Notification.permission !== 'default') return
+
+    const requestOnFirstInteraction = () => {
+      if (localStorage.getItem(promptKey)) return
       localStorage.setItem(promptKey, 'true')
-      return
+      window.removeEventListener('pointerdown', requestOnFirstInteraction, true)
+      toggleNotifications()
     }
-    setFirstNotificationPromptOpen(true)
+
+    window.addEventListener('pointerdown', requestOnFirstInteraction, true)
+    return () => window.removeEventListener('pointerdown', requestOnFirstInteraction, true)
   }, [])
   const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
@@ -2347,9 +2351,15 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       return
     }
 
-    let vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
-
     try{
+      // Request permission immediately while the initiating tap is still active.
+      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
+      if(permission!=='granted'){
+        setProfileMessage('Allow notifications in your browser settings to turn this on.')
+        return
+      }
+
+      let vapidPublicKey=import.meta.env.VITE_VAPID_PUBLIC_KEY
       if(!vapidPublicKey){
         const {data:pushConfig,error:configError}=await supabase.functions.invoke('save-push-subscription',{body:{action:'config'}})
         if(configError) throw configError
@@ -2358,12 +2368,6 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
       if(!vapidPublicKey){
         setProfileMessage('Push notifications are not configured on EVOLV yet. Please try again after the push setup is completed.')
-        return
-      }
-
-      const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission()
-      if(permission!=='granted'){
-        setProfileMessage('Allow notifications in your browser settings to turn this on.')
         return
       }
 
@@ -2686,24 +2690,6 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   }
 
   return <>
-    {firstNotificationPromptOpen && (
-      <div className="evolv-notification-first-prompt" role="dialog" aria-modal="true" aria-labelledby="evolv-notification-prompt-title">
-        <div className="evolv-notification-first-card">
-          <span className="evolv-notification-first-icon"><Bell size={23} strokeWidth={1.7} /></span>
-          <h2 id="evolv-notification-prompt-title">Allow EVOLV to send notifications?</h2>
-          <p>Get gentle reminders for your daily goals and check-ins, even when you’re away from the app.</p>
-          <button type="button" className="evolv-notification-first-allow" onClick={() => {
-            localStorage.setItem('evolv-notification-permission-prompted', 'true')
-            setFirstNotificationPromptOpen(false)
-            toggleNotifications()
-          }}>Allow notifications</button>
-          <button type="button" className="evolv-notification-first-later" onClick={() => {
-            localStorage.setItem('evolv-notification-permission-prompted', 'true')
-            setFirstNotificationPromptOpen(false)
-          }}>Maybe later</button>
-        </div>
-      </div>
-    )}
     <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
     {active !== 'ai' && <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>}
     <main className="dash-main">
