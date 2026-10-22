@@ -1683,6 +1683,14 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
   const [firstNotificationPromptOpen,setFirstNotificationPromptOpen]=useState(false)
   useEffect(() => {
+    // Only ask when EVOLV is running as an installed PWA/web app.
+    // Regular browser-tab visits must not consume the one-time prompt.
+    const isStandalone =
+      window.matchMedia?.('(display-mode: standalone)').matches ||
+      window.matchMedia?.('(display-mode: fullscreen)').matches ||
+      window.navigator.standalone === true
+    if (!isStandalone) return
+
     const promptKey = 'evolv-notification-permission-prompted'
     if (localStorage.getItem(promptKey)) return
     if (typeof Notification === 'undefined' || Notification.permission !== 'default') {
