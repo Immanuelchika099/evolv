@@ -16,93 +16,93 @@
 
 /* EVOLV Phase 1 — global calm-glass foundation. */
 :root {
-  --app-bg:var(--bg);
-  --accent:#8ab4ff;
-  --color-accent-blue:var(--accent);
-  --color-accent-lime:var(--accent);
-  --evolv-blue:var(--accent);
-  --muted:var(--t2);
-  --line:var(--edge);
+  --app-bg: var(--bg);
+  --accent: #7fc4bd;
+  --color-accent-blue: var(--accent);
+  --color-accent-lime: var(--accent);
+  --evolv-blue: var(--accent);
+  --muted: var(--t2);
+  --line: var(--edge);
 }
 html, body, #root {
-  background-color:transparent !important;
-  background-image:none !important;
+  background-color: transparent !important;
+  background-image: none !important;
 }
-html { background:var(--bg) !important; }
+html { background: var(--bg) !important; }
 body {
-  position:relative;
-  isolation:isolate;
-  min-height:100dvh;
-  background:var(--bg) !important;
-  color:var(--t1);
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  background: var(--bg) !important;
+  color: var(--t1);
   font-family: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 #root {
-  position:relative;
-  z-index:1;
-  min-height:100dvh;
-  background:transparent !important;
+  position: relative;
+  z-index: 1;
+  min-height: 100dvh;
+  background: transparent !important;
 }
 body::before, body::after {
   content: "";
-  position:fixed;
-  z-index:-1;
-  pointer-events:none;
-  width:100vw;
-  height:100vw;
-  border-radius:50%;
-  background:radial-gradient(closest-side, var(--glow-a), transparent);
+  position: fixed;
+  z-index: -1;
+  pointer-events: none;
+  width: 100vw;
+  height: 100vw;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--glow-a), transparent);
 }
-body::before { top:-30vw; right:-35vw; }
+body::before { top: -30vw; right: -35vw; }
 body::after {
-  width:110vw;
-  height:110vw;
-  bottom:-35vw;
-  left:-40vw;
-  background:radial-gradient(closest-side, var(--glow-b), transparent);
+  width: 110vw;
+  height: 110vw;
+  bottom: -35vw;
+  left: -40vw;
+  background: radial-gradient(closest-side, var(--glow-b), transparent);
 }
 :where(h1,h2,h3,h4,h5,h6,.page-title,.section-title,.card-title) {
-  letter-spacing:-.01em !important;
-  font-weight:300;
-  text-wrap:pretty;
+  letter-spacing: -.01em !important;
+  font-weight: 300;
+  text-wrap: pretty;
 }
-:where(h1,h2,h3,h4,h5,h6) { line-height:1.2; }
-:where(p,li,label,.body-copy) { line-height:1.6; }
+:where(h1,h2,h3,h4,h5,h6) { line-height: 1.2; }
+:where(p,li,label,.body-copy) { line-height: 1.6; }
 :where(button,input,textarea,select) { font-family: inherit; }
 :where(button,a,input,textarea,select,[tabindex]):focus-visible {
-  outline:2px solid rgba(138,180,255,.75);
-  outline-offset:3px;
+  outline: 2px solid rgba(127,196,189,.75);
+  outline-offset: 3px;
 }
 :where(input,textarea,select) {
-  min-height:5.2rem;
-  border-radius:1.8rem;
+  min-height: 5.2rem;
+  border-radius: 1.8rem;
 }
 :where(input,textarea,select):focus {
-  border-color:rgba(138,180,255,.5);
-  box-shadow:0 0 0 3px var(--accent-soft);
+  border-color: rgba(127,196,189,.5);
+  box-shadow: 0 0 0 3px var(--accent-soft);
 }
-:where(button,a) { -webkit-tap-highlight-color:transparent; }
+:where(button,a) { -webkit-tap-highlight-color: transparent; }
 :where(.card,.panel,.glass-panel,.glass-card) {
-  border-color:var(--edge);
+  border-color: var(--edge);
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    scroll-behavior:auto !important;
-    animation-duration:.01ms !important;
-    animation-iteration-count:1 !important;
-    transition-duration:.01ms !important;
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
   }
 }
 
 
 /* EVOLV Phase 2 — shared components: calm glass, clear controls, stable mobile dock. */
 :root {
-  --glass-bg:rgba(255,255,255,.04);
-  --glass-bg-raised:rgba(255,255,255,.04);
-  --glass-edge:rgba(255, 255, 255, .105);
-  --glass-highlight:rgba(255, 255, 255, .055);
-  --glass-shadow:0 1.6rem 4.4rem rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255,255,255,.035);
-  --control-edge:rgba(255,255,255,.14);
+  --glass-bg: rgba(17, 21, 22, .72);
+  --glass-bg-raised: rgba(22, 27, 28, .82);
+  --glass-edge: rgba(255, 255, 255, .105);
+  --glass-highlight: rgba(255, 255, 255, .055);
+  --glass-shadow: 0 1.6rem 4.4rem rgba(0, 0, 0, .22), inset 0 1px 0 rgba(255,255,255,.035);
+  --control-edge: rgba(255,255,255,.14);
 }
 
 /* Shared surfaces: one quiet material instead of stacked decorative boxes. */
@@ -124,10 +124,10 @@ body::after {
 .quick-log-option,
 .quick-log-history-row,
 .quick-log-empty {
-  border:1px solid var(--glass-edge);
-  background-color:var(--glass-bg);
-  background-image:linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
-  box-shadow:var(--glass-shadow);
+  border: 1px solid var(--glass-edge);
+  background-color: var(--glass-bg);
+  background-image: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  box-shadow: var(--glass-shadow);
 }
 
 .dashboard .goal-item,
@@ -145,7 +145,7 @@ body::after {
 .dashboard .settings-page .settings-section,
 .quick-log-option,
 .quick-log-history-row {
-  transition:border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
+  transition: border-color 180ms ease, background-color 180ms ease, transform 180ms ease;
 }
 
 @media (hover: hover) {
@@ -161,9 +161,9 @@ body::after {
   .dashboard .settings-page .settings-card:hover,
   .quick-log-option:hover,
   .quick-log-history-row:hover {
-    border-color:rgba(138,180,255,.24);
-    background-color:var(--glass-bg-raised);
-    transform:translateY(-1px);
+    border-color: rgba(127,196,189,.24);
+    background-color: var(--glass-bg-raised);
+    transform: translateY(-1px);
   }
 }
 
@@ -174,7 +174,7 @@ body::after {
 .dashboard .notification-preference,
 .dashboard .notification-master-row,
 .dashboard .notification-quiet-row {
-  border-color:rgba(255,255,255,.075);
+  border-color: rgba(255,255,255,.075);
 }
 
 /* Consistent mobile-friendly controls without changing form behavior. */
@@ -184,15 +184,15 @@ body::after {
 .quick-log-sheet input:not([type="checkbox"]):not([type="radio"]),
 .quick-log-sheet textarea,
 .quick-log-sheet select {
-  min-height:5.2rem;
-  border:1px solid var(--control-edge);
-  border-radius:1.4rem;
-  background-color:rgba(255,255,255,.035);
-  color:var(--t1);
+  min-height: 5.2rem;
+  border: 1px solid var(--control-edge);
+  border-radius: 1.4rem;
+  background-color: rgba(255,255,255,.035);
+  color: var(--t1);
   font: inherit;
-  font-size:1.5rem;
-  box-shadow:none;
-  transition:border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  font-size: 1.5rem;
+  box-shadow: none;
+  transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
 }
 
 .dashboard input:not([type="checkbox"]):not([type="radio"]):focus,
@@ -201,109 +201,109 @@ body::after {
 .quick-log-sheet input:not([type="checkbox"]):not([type="radio"]):focus,
 .quick-log-sheet textarea:focus,
 .quick-log-sheet select:focus {
-  border-color:rgba(138,180,255,.72);
-  background-color:rgba(255,255,255,.05);
-  box-shadow:0 0 0 3px var(--accent-soft);
-  outline:none;
+  border-color: rgba(127,196,189,.72);
+  background-color: rgba(255,255,255,.05);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+  outline: none;
 }
 
 .dashboard input::placeholder,
 .dashboard textarea::placeholder,
 .quick-log-sheet input::placeholder,
 .quick-log-sheet textarea::placeholder {
-  color:var(--t3);
-  opacity:1;
+  color: var(--t3);
+  opacity: 1;
 }
 
 /* Toggle controls have a clear 52 × 32 track and a distinct thumb. */
 .settings-toggle {
-  position:relative;
-  flex:0 0 5.2rem;
-  width:5.2rem;
-  min-width:5.2rem;
-  height:3.2rem;
-  min-height:3.2rem;
-  padding:.3rem;
-  border:1px solid rgba(255,255,255,.16);
-  border-radius:999px;
-  background:rgba(255,255,255,.12);
-  box-shadow:inset 0 1px 2px rgba(0,0,0,.18);
-  transition:background-color 180ms ease, border-color 180ms ease;
+  position: relative;
+  flex: 0 0 5.2rem;
+  width: 5.2rem;
+  min-width: 5.2rem;
+  height: 3.2rem;
+  min-height: 3.2rem;
+  padding: .3rem;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.18);
+  transition: background-color 180ms ease, border-color 180ms ease;
 }
 .settings-toggle > span {
-  display:block;
-  width:2.4rem;
-  height:2.4rem;
-  border-radius:50%;
-  background:rgba(238,243,243,.94);
-  box-shadow:0 1px 3px rgba(0,0,0,.24);
-  transform:translateX(0);
-  transition:transform 180ms ease;
+  display: block;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background: rgba(238,243,243,.94);
+  box-shadow: 0 1px 3px rgba(0,0,0,.24);
+  transform: translateX(0);
+  transition: transform 180ms ease;
 }
 .settings-toggle.active {
-  border-color:rgba(138,180,255,.8);
-  background:var(--accent);
+  border-color: rgba(127,196,189,.8);
+  background: var(--accent);
 }
 .settings-toggle.active > span {
-  background:rgba(138,180,255,.10);
-  transform:translateX(2rem);
+  background: #091011;
+  transform: translateX(2rem);
 }
-.settings-toggle:disabled { opacity:.42; }
+.settings-toggle:disabled { opacity: .42; }
 
 /* Keep accordions content-driven; no fixed-height clipping while expanding. */
 .goal-accordion-item,
 .progress-accordion-card {
-  height:auto;
-  min-height:0;
+  height: auto;
+  min-height: 0;
 }
 .goal-accordion-item .goal-accordion-trigger,
 .progress-accordion-trigger {
-  min-height:5.6rem;
+  min-height: 5.6rem;
 }
 .goal-accordion-item .goal-accordion-chevron,
 .progress-accordion-trigger svg {
-  flex:0 0 auto;
+  flex: 0 0 auto;
 }
 
 /* The floating Log action remains a true 54px circle, clear of the dock/safe area. */
 .evolv-floating-log {
-  position:fixed;
-  z-index:100001;
-  right:max(1.8rem, env(safe-area-inset-right, 0px));
-  bottom:calc(8.4rem + env(safe-area-inset-bottom, 0px));
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:0;
-  width:5.4rem;
-  min-width:5.4rem;
-  height:5.4rem;
-  min-height:5.4rem;
-  padding:0;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.22);
-  border-radius:50%;
-  background:var(--accent);
-  color:var(--t2);
-  box-shadow:0 .8rem 2.4rem rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.24);
-  -webkit-tap-highlight-color:transparent;
-  transition:transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+  position: fixed;
+  z-index: 100001;
+  right: max(1.8rem, env(safe-area-inset-right, 0px));
+  bottom: calc(8.4rem + env(safe-area-inset-bottom, 0px));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  width: 5.4rem;
+  min-width: 5.4rem;
+  height: 5.4rem;
+  min-height: 5.4rem;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.22);
+  border-radius: 50%;
+  background: var(--accent);
+  color: #081011;
+  box-shadow: 0 .8rem 2.4rem rgba(0,0,0,.34), inset 0 1px 0 rgba(255,255,255,.24);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
 }
-.evolv-floating-log svg { flex:0 0 auto; color:currentColor; }
+.evolv-floating-log svg { flex: 0 0 auto; color: currentColor; }
 .evolv-floating-log > span {
-  position:absolute;
-  width:1px;
-  height:1px;
-  padding:0;
-  margin:-1px;
-  overflow:hidden;
-  clip:rect(0,0,0,0);
-  white-space:nowrap;
-  border:0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 .evolv-floating-log:active {
-  transform:scale(.96);
-  box-shadow:0 .4rem 1.4rem rgba(0,0,0,.28);
+  transform: scale(.96);
+  box-shadow: 0 .4rem 1.4rem rgba(0,0,0,.28);
 }
 
 /* Accessible focus treatment stays visible over glass. */
@@ -311,14 +311,14 @@ body::after {
 .evolv-floating-log:focus-visible,
 .settings-toggle:focus-visible,
 .quick-log-sheet button:focus-visible {
-  outline:2px solid rgba(138,180,255,.9);
-  outline-offset:3px;
+  outline: 2px solid rgba(127,196,189,.9);
+  outline-offset: 3px;
 }
 
 @media (max-width: 700px) {
   .evolv-floating-log {
-    right:1.8rem;
-    bottom:calc(8.2rem + env(safe-area-inset-bottom, 0px));
+    right: 1.8rem;
+    bottom: calc(8.2rem + env(safe-area-inset-bottom, 0px));
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -337,6 +337,6 @@ body::after {
   .dashboard .settings-page .settings-card,
   .quick-log-option,
   .quick-log-history-row {
-    transition:none !important;
+    transition: none !important;
   }
 }

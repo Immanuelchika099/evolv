@@ -3,189 +3,189 @@
 .dashboard .settings-page .profile-photo-actions button:first-child,
 .dashboard .settings-page .settings-inline-action,
 .dashboard .settings-page .profile-avatar-studio-button {
-  border-color:rgba(138,180,255,.5) !important;
-  background:rgba(138,180,255,.10) !important;
-  color:#f4f7ff !important;
-  transition:background .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
+  border-color: rgba(72, 133, 255, .24) !important;
+  background: rgba(59, 130, 246, .09) !important;
+  color: #f4f7ff !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
 }
 .dashboard .settings-page .profile-edit-button:hover,
 .dashboard .settings-page .profile-photo-actions button:hover,
 .dashboard .settings-page .settings-inline-action:hover,
 .dashboard .settings-page .profile-avatar-studio-button:hover {
-  border-color:var(--edge) !important;
-  background:rgba(255,255,255,.04) !important;
-  color:#fff !important;
+  border-color: rgba(96, 165, 250, .52) !important;
+  background: rgba(59, 130, 246, .18) !important;
+  color: #fff !important;
 }
 .dashboard .settings-page .settings-danger-button {
-  border-color:rgba(248, 113, 113, .24) !important;
-  background:rgba(185, 28, 28, .09) !important;
-  color:var(--t2) !important;
+  border-color: rgba(248, 113, 113, .24) !important;
+  background: rgba(185, 28, 28, .09) !important;
+  color: #ffb4b4 !important;
 }
 .dashboard .settings-page .settings-danger-button:hover:not(:disabled) {
-  border-color:rgba(248, 113, 113, .5) !important;
-  background:rgba(185, 28, 28, .18) !important;
-  color:#ffe0e0 !important;
+  border-color: rgba(248, 113, 113, .5) !important;
+  background: rgba(185, 28, 28, .18) !important;
+  color: #ffe0e0 !important;
 }
 .dashboard .settings-page .settings-danger-button:disabled {
-  opacity:.55;
-  cursor:wait;
+  opacity: .55;
+  cursor: wait;
 }
 
 /* The photo action is a floating badge, not a second nested avatar. */
 .dashboard .settings-page .profile-avatar-wrap,
 .dashboard .settings-page .profile-avatar-button {
-  position:relative;
-  overflow:visible !important;
+  position: relative;
+  overflow: visible !important;
 }
 .dashboard .settings-page .profile-avatar-button {
-  isolation:isolate;
-  z-index:1;
+  isolation: isolate;
+  z-index: 1;
 }
 .dashboard .settings-page .profile-avatar,
 .dashboard .settings-page .profile-avatar-image {
-  position:relative;
-  z-index:1;
+  position: relative;
+  z-index: 1;
 }
 .dashboard .settings-page .profile-avatar-camera {
-  z-index:5 !important;
-  right:-5px !important;
-  bottom:-3px !important;
-  width:35px !important;
-  height:35px !important;
-  border:2px solid var(--edge) !important;
-  border-radius:50% !important;
-  background:rgba(255,255,255,.04) !important;
-  color:#fff !important;
-  box-shadow:0 5px 18px rgba(0,0,0,.48) !important;
-  pointer-events:none;
+  z-index: 5 !important;
+  right: -5px !important;
+  bottom: -3px !important;
+  width: 35px !important;
+  height: 35px !important;
+  border: 2px solid #080a0d !important;
+  border-radius: 50% !important;
+  background: #3b82f6 !important;
+  color: #fff !important;
+  box-shadow: 0 5px 18px rgba(0,0,0,.48) !important;
+  pointer-events: none;
 }
 .dashboard .settings-page .profile-avatar-camera svg {
-  display:block;
-  position:relative;
-  z-index:1;
+  display: block;
+  position: relative;
+  z-index: 1;
 }
 .dashboard .settings-page .profile-photo-actions {
-  position:relative;
-  z-index:2;
+  position: relative;
+  z-index: 2;
 }
 .dashboard .settings-page .profile-photo-actions button:first-child {
-  border-color:var(--edge) !important;
-  background:rgba(255,255,255,.04) !important;
-  color:#f4f7ff !important;
+  border-color: rgba(72, 133, 255, .24) !important;
+  background: rgba(59, 130, 246, .09) !important;
+  color: #f4f7ff !important;
 }
 .dashboard .settings-page .profile-photo-actions button:first-child:hover {
-  border-color:var(--edge) !important;
-  background:rgba(255,255,255,.04) !important;
+  border-color: rgba(96, 165, 250, .52) !important;
+  background: rgba(59, 130, 246, .18) !important;
 }
 
 /* Keep destructive actions red rather than inheriting the old green theme. */
 .dashboard .settings-page .profile-modal .settings-danger-button {
-  border-color:rgba(248, 113, 113, .28) !important;
-  background:rgba(185, 28, 28, .12) !important;
-  color:var(--t2) !important;
+  border-color: rgba(248, 113, 113, .28) !important;
+  background: rgba(185, 28, 28, .12) !important;
+  color: #ffb4b4 !important;
 }
 .dashboard .settings-page .profile-modal .settings-danger-button:hover:not(:disabled) {
-  background:rgba(185, 28, 28, .2) !important;
+  background: rgba(185, 28, 28, .2) !important;
 }
 
 
 /* Profile settings accordion: retain the dark surface and use quiet ash dividers. */
 .dashboard .settings-page .profile-settings-section {
-  margin:0 !important;
-  padding:0 !important;
-  border:0 !important;
-  border-bottom:1px solid rgba(214, 219, 228, .12) !important;
-  background:transparent !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-bottom: 1px solid rgba(214, 219, 228, .12) !important;
+  background: transparent !important;
 }
 .dashboard .settings-page .profile-settings-section:first-of-type {
-  border-top:1px solid rgba(214, 219, 228, .12) !important;
+  border-top: 1px solid rgba(214, 219, 228, .12) !important;
 }
 .dashboard .settings-page .profile-settings-section-head {
-  width:100%;
-  min-height:76px;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  margin:0 !important;
-  padding:14px 2px !important;
-  border:0 !important;
-  border-radius:0 !important;
-  background:transparent !important;
-  color:inherit;
-  text-align:left;
-  cursor:pointer;
+  width: 100%;
+  min-height: 76px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 !important;
+  padding: 14px 2px !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 .dashboard .settings-page .profile-settings-section-head:focus-visible {
-  outline:2px solid rgba(255,255,255,.04);
-  outline-offset:3px;
-  border-radius:8px !important;
+  outline: 2px solid rgba(96, 165, 250, .8);
+  outline-offset: 3px;
+  border-radius: 8px !important;
 }
 .dashboard .settings-page .profile-settings-section-icon,
 .dashboard .settings-page .profile-action-icon {
-  width:42px;
-  height:42px;
-  flex:0 0 42px;
-  display:grid;
-  place-items:center;
-  border-radius:13px;
-  background:transparent;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 13px;
+  background: transparent;
 }
-.dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color:var(--t2); }
-.dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color:var(--t2); }
-.dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color:var(--t2); }
-.dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color:var(--t2); }
+.dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color: #60a5fa; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color: #a78bfa; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color: #fbbf24; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color: #34d399; }
 .dashboard .settings-page .profile-settings-section-heading {
-  display:grid;
-  gap:5px;
-  min-width:0;
-  flex:1;
+  display: grid;
+  gap: 5px;
+  min-width: 0;
+  flex: 1;
 }
 .dashboard .settings-page .profile-settings-section-heading .section-label {
-  color:rgba(226, 232, 240, .42) !important;
+  color: rgba(226, 232, 240, .42) !important;
   font: 500 1.05rem/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  letter-spacing:.1em;
+  letter-spacing: .1em;
 }
 .dashboard .settings-page .profile-settings-section-heading strong {
-  color:#f3f4f6;
+  color: #f3f4f6;
   font: 600 1.65rem/1.25 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  letter-spacing:-.015em;
+  letter-spacing: -.015em;
 }
 .dashboard .settings-page .profile-settings-chevron {
-  flex:0 0 auto;
-  color:rgba(226, 232, 240, .56);
-  transition:transform .22s ease, color .22s ease;
+  flex: 0 0 auto;
+  color: rgba(226, 232, 240, .56);
+  transition: transform .22s ease, color .22s ease;
 }
 .dashboard .settings-page .profile-settings-chevron.is-open {
-  transform:rotate(180deg);
-  color:var(--t2);
+  transform: rotate(180deg);
+  color: #93c5fd;
 }
 .dashboard .settings-page .profile-settings-accordion-content {
-  display:grid;
-  grid-template-rows:0fr;
-  opacity:0;
-  transition:grid-template-rows .25s ease, opacity .2s ease;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .25s ease, opacity .2s ease;
 }
 .dashboard .settings-page .profile-settings-accordion-content.is-open {
-  grid-template-rows:1fr;
-  opacity:1;
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 .dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list {
-  min-height:0;
-  overflow:hidden;
-  padding:0 0 0 56px;
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 0 0 56px;
 }
 .dashboard .settings-page .profile-settings-accordion-content.is-open > .profile-settings-list {
-  padding-bottom:18px;
+  padding-bottom: 18px;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row {
-  border-bottom:1px solid rgba(214, 219, 228, .09) !important;
-  background:transparent !important;
+  border-bottom: 1px solid rgba(214, 219, 228, .09) !important;
+  background: transparent !important;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row:last-child {
-  border-bottom:0 !important;
+  border-bottom: 0 !important;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row strong {
-  color:rgba(245, 247, 250, .94);
+  color: rgba(245, 247, 250, .94);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row span,
@@ -193,135 +193,135 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 .dashboard .settings-page .profile-account-actions {
-  margin-top:34px;
-  padding-top:4px;
-  border-top:1px solid rgba(214, 219, 228, .12);
+  margin-top: 34px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(214, 219, 228, .12);
 }
 .dashboard .settings-page .profile-account-actions-heading {
-  padding:22px 2px 12px;
+  padding: 22px 2px 12px;
 }
 .dashboard .settings-page .profile-account-actions-heading .section-label {
-  color:rgba(226, 232, 240, .42);
+  color: rgba(226, 232, 240, .42);
 }
 .dashboard .settings-page .profile-account-actions-heading h3 {
-  margin:7px 0 0;
-  color:#f3f4f6;
+  margin: 7px 0 0;
+  color: #f3f4f6;
   font: 600 1.9rem/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-account-action {
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:17px 2px;
-  border:0;
-  border-bottom:1px solid rgba(214, 219, 228, .09);
-  border-radius:0;
-  background:transparent;
-  color:inherit;
-  text-align:left;
-  cursor:pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 17px 2px;
+  border: 0;
+  border-bottom: 1px solid rgba(214, 219, 228, .09);
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
-.dashboard .settings-page .profile-account-action:last-child { border-bottom:0; }
-.dashboard .settings-page .profile-account-action .logout-icon { color:var(--t2); }
-.dashboard .settings-page .profile-account-action .delete-icon { color:#f87171; }
+.dashboard .settings-page .profile-account-action:last-child { border-bottom: 0; }
+.dashboard .settings-page .profile-account-action .logout-icon { color: #60a5fa; }
+.dashboard .settings-page .profile-account-action .delete-icon { color: #f87171; }
 .dashboard .settings-page .profile-account-action-copy {
-  flex:1;
-  min-width:0;
-  display:grid;
-  gap:5px;
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 5px;
 }
 .dashboard .settings-page .profile-account-action-copy strong {
-  color:#f3f4f6;
+  color: #f3f4f6;
   font: 600 1.55rem/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-account-action-copy small {
-  color:rgba(226, 232, 240, .48);
+  color: rgba(226, 232, 240, .48);
   font: 400 1.3rem/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-account-action-arrow {
-  flex:0 0 auto;
-  color:rgba(226, 232, 240, .42);
+  flex: 0 0 auto;
+  color: rgba(226, 232, 240, .42);
 }
 .dashboard .settings-page .profile-account-action:hover .profile-account-action-arrow {
-  color:var(--t2);
+  color: rgba(147, 197, 253, .9);
 }
 .dashboard .settings-page .profile-account-action.delete-account-action:hover .profile-account-action-arrow {
-  color:#f87171;
+  color: #f87171;
 }
 @media (max-width: 650px) {
-  .dashboard .settings-page .profile-settings-section-head { min-height:72px; gap:11px; }
-  .dashboard .settings-page .profile-settings-section-icon { width:38px; height:38px; flex-basis:38px; }
-  .dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list { padding-left:4px; }
-  .dashboard .settings-page .profile-settings-section-heading strong { font-size:1.6rem; }
+  .dashboard .settings-page .profile-settings-section-head { min-height: 72px; gap: 11px; }
+  .dashboard .settings-page .profile-settings-section-icon { width: 38px; height: 38px; flex-basis: 38px; }
+  .dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list { padding-left: 4px; }
+  .dashboard .settings-page .profile-settings-section-heading strong { font-size: 1.6rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .dashboard .settings-page .profile-settings-accordion-content,
-  .dashboard .settings-page .profile-settings-chevron { transition:none !important; }
+  .dashboard .settings-page .profile-settings-chevron { transition: none !important; }
 }
 
 /* Distinct, tasteful icon colours for each expandable settings category. */
-.dashboard .settings-page .profile-settings-section-icon.icon-account { color:var(--t2) !important; }
-.dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color:var(--t2) !important; }
-.dashboard .settings-page .profile-settings-section-icon.icon-notifications { color:var(--t2) !important; }
-.dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color:var(--t2) !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-account { color: #60a5fa !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color: #a78bfa !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-notifications { color: #fbbf24 !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color: #34d399 !important; }
 
 
 /* Profile photo picker action sheet */
 .dashboard .settings-page .profile-photo-menu-backdrop {
-  z-index:1200;
+  z-index: 1200;
 }
 .dashboard .settings-page .profile-photo-menu {
-  width:min(100% - 32px, 390px);
-  padding:22px;
-  border:1px solid rgba(226,232,240,.12);
-  border-radius:22px;
-  background:rgba(255,255,255,.04);
-  box-shadow:0 24px 80px rgba(0,0,0,.65);
+  width: min(100% - 32px, 390px);
+  padding: 22px;
+  border: 1px solid rgba(226,232,240,.12);
+  border-radius: 22px;
+  background: #0b0d11;
+  box-shadow: 0 24px 80px rgba(0,0,0,.65);
 }
 .dashboard .settings-page .profile-photo-menu .profile-modal-head {
-  margin-bottom:14px;
+  margin-bottom: 14px;
 }
 .dashboard .settings-page .profile-photo-menu .profile-modal-head h3 {
-  margin:7px 0 0;
-  color:#f7f8fa;
+  margin: 7px 0 0;
+  color: #f7f8fa;
   font: 600 2rem/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-photo-menu-option {
-  width:100%;
-  display:flex;
-  align-items:center;
-  gap:14px;
-  padding:15px 2px;
-  border:0;
-  border-top:1px solid rgba(226,232,240,.1);
-  background:transparent;
-  color:var(--t2);
-  text-align:left;
-  cursor:pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 15px 2px;
+  border: 0;
+  border-top: 1px solid rgba(226,232,240,.1);
+  background: transparent;
+  color: #93c5fd;
+  text-align: left;
+  cursor: pointer;
 }
 .dashboard .settings-page .profile-photo-menu-option > span {
-  flex:1;
-  min-width:0;
-  display:grid;
-  gap:4px;
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  gap: 4px;
 }
 .dashboard .settings-page .profile-photo-menu-option strong {
-  color:#f3f4f6;
+  color: #f3f4f6;
   font: 600 1.5rem/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-photo-menu-option small {
-  color:rgba(226,232,240,.55);
+  color: rgba(226,232,240,.55);
   font: 400 1.25rem/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-photo-menu-option > svg:last-child {
-  color:rgba(226,232,240,.4);
+  color: rgba(226,232,240,.4);
 }
 .dashboard .settings-page .profile-photo-menu-option:hover {
-  background:rgba(255,255,255,.04);
+  background: rgba(59,130,246,.08);
 }
 .dashboard .settings-page .profile-photo-menu-option.profile-photo-remove-option {
-  color:#f87171;
+  color: #f87171;
 }
 
 
@@ -337,28 +337,28 @@
 }
 .confirmation-modal,
 .confirmation-modal * {
-  font-style:normal !important;
+  font-style: normal !important;
 }
 .confirmation-modal .section-label {
-  display:inline-block;
-  padding:0 !important;
-  border:0 !important;
-  outline:0 !important;
-  background:transparent !important;
-  box-shadow:none !important;
-  font-size:1.05rem !important;
-  font-weight:500 !important;
-  font-style:normal !important;
-  letter-spacing:.1em;
-  line-height:1.2;
+  display: inline-block;
+  padding: 0 !important;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  font-size: 1.05rem !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+  letter-spacing: .1em;
+  line-height: 1.2;
 }
 .confirmation-modal h3 {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  font-size:2rem;
-  font-weight:500;
-  font-style:normal !important;
-  line-height:1.25;
-  letter-spacing:-.02em;
+  font-size: 2rem;
+  font-weight: 600;
+  font-style: normal !important;
+  line-height: 1.25;
+  letter-spacing: -.02em;
 }
 
 /* Explicitly normalize both logout and destructive confirmation dialogs. */
@@ -368,70 +368,30 @@
 .confirmation-backdrop .confirmation-modal .profile-modal-actions,
 .confirmation-backdrop .confirmation-modal .profile-modal-actions * {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-  font-style:normal !important;
+  font-style: normal !important;
 }
 .confirmation-backdrop .confirmation-modal .section-label {
-  border:none !important;
-  outline:none !important;
-  background:transparent !important;
-  box-shadow:none !important;
-  text-decoration:none !important;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
 }
 .confirmation-backdrop .confirmation-modal #profile-confirm-title {
-  font-weight:500 !important;
-  transform:none !important;
+  font-weight: 600 !important;
+  transform: none !important;
 }
 
 
 /* Logout confirmation: replace the legacy lime tick badge with Evolv blue. */
 .confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) {
-  border:1px solid var(--edge) !important;
-  outline:none !important;
-  background:rgba(255,255,255,.04) !important;
-  color:var(--t2) !important;
-  box-shadow:0 0 0 1px rgba(0,0,0,.22) !important;
+  border: 1px solid rgba(96, 165, 250, .42) !important;
+  outline: none !important;
+  background: rgba(59, 130, 246, .12) !important;
+  color: #93c5fd !important;
+  box-shadow: 0 0 0 1px rgba(59, 130, 246, .08) !important;
 }
 .confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) svg {
-  color:var(--t2) !important;
-  stroke:var(--t2) !important;
-}
-
-
-/* Profile typography refinement: lighter, quieter weights throughout the page. */
-.dashboard .settings-page .settings-heading h2,
-.dashboard .settings-page .profile-summary-copy h3,
-.dashboard .settings-page .profile-account-actions-heading h3 {
-  font-weight: 500 !important;
-  letter-spacing: -0.025em;
-}
-.dashboard .settings-page .profile-settings-section-heading strong,
-.dashboard .settings-page .profile-account-action-copy strong,
-.dashboard .settings-page .profile-settings-list .profile-setting-row strong,
-.dashboard .settings-page .profile-summary-focus strong,
-.dashboard .settings-page .profile-edit-button,
-.dashboard .settings-page .profile-photo-actions button,
-.dashboard .settings-page .settings-inline-action {
-  font-weight: 400 !important;
-}
-.dashboard .settings-page .profile-settings-section-heading .section-label,
-.dashboard .settings-page .profile-account-actions-heading .section-label,
-.dashboard .settings-page .profile-summary-focus .section-label {
-  font-weight: 400 !important;
-}
-.dashboard .settings-page .profile-summary-copy p,
-.dashboard .settings-page .profile-summary-copy small,
-.dashboard .settings-page .profile-settings-list .profile-setting-row span,
-.dashboard .settings-page .profile-settings-list .profile-setting-row small,
-.dashboard .settings-page .profile-account-action-copy small,
-.dashboard .settings-page .settings-heading p {
-  font-weight: 400 !important;
-}
-.dashboard .settings-page .profile-settings-section-heading strong {
-  font-size: 1.6rem;
-}
-.dashboard .settings-page .profile-account-action-copy strong {
-  font-size: 1.5rem;
-}
-.dashboard .settings-page .profile-summary-copy h3 {
-  font-weight: 500 !important;
+  color: #93c5fd !important;
+  stroke: #93c5fd !important;
 }

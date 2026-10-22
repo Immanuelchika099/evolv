@@ -32,15 +32,15 @@
   margin:5px 0 0;
   color:#eef6f1;
   font-size:17px;
-  font-weight:500;
+  font-weight:600;
   letter-spacing:-.02em;
 }
 .dashboard .settings-card{
-  border:1px solid var(--edge);
+  border:1px solid rgba(109,189,161,.11);
   border-radius:20px;
   padding:22px;
-  background:linear-gradient(120deg,rgba(255,255,255,.04),rgba(255,255,255,.015)),rgba(255,255,255,.04);
-  box-shadow:inset 0 1px 0 rgba(0,0,0,.22),0 18px 50px rgba(0,0,0,.22);
+  background:linear-gradient(120deg,rgba(109,189,161,.055),rgba(255,255,255,.015)),rgba(4,12,8,.58);
+  box-shadow:inset 0 1px 0 rgba(139,221,177,.045),0 18px 50px rgba(7,35,21,.18);
   backdrop-filter:blur(22px);
 }
 .dashboard .settings-card form{
@@ -60,7 +60,7 @@
 .dashboard .settings-card input{
   width:100%;
   min-height:48px;
-  border:1px solid var(--edge);
+  border:1px solid rgba(109,189,161,.11);
   border-radius:13px;
   padding:0 14px;
   background:rgba(0,0,0,.2);
@@ -68,8 +68,8 @@
   outline:none;
 }
 .dashboard .settings-card input:focus{
-  border-color:var(--edge);
-  box-shadow:0 0 0 3px rgba(0,0,0,.22);
+  border-color:rgba(109,189,161,.3);
+  box-shadow:0 0 0 3px rgba(109,189,161,.05);
 }
 .dashboard .settings-facts{
   display:grid;
@@ -80,7 +80,7 @@
   display:grid;
   gap:6px;
   padding:17px 20px;
-  border-bottom:1px solid var(--edge);
+  border-bottom:1px solid rgba(109,189,161,.08);
 }
 .dashboard .settings-facts > div:last-child{border-bottom:0}
 .dashboard .settings-facts span{
@@ -103,12 +103,12 @@
   justify-content:space-between;
   gap:18px;
   padding:19px 20px;
-  border:1px solid var(--edge);
+  border:1px solid rgba(109,189,161,.09);
   border-bottom:0;
-  background:rgba(255,255,255,.04);
+  background:rgba(4,12,8,.5);
 }
 .dashboard .settings-action-row:first-of-type{border-radius:18px 18px 0 0}
-.dashboard .settings-action-row:last-of-type{border-bottom:1px solid var(--edge);border-radius:0 0 18px 18px}
+.dashboard .settings-action-row:last-of-type{border-bottom:1px solid rgba(109,189,161,.09);border-radius:0 0 18px 18px}
 .dashboard .settings-action-row strong{
   display:block;
   color:#edf6f0;
@@ -134,14 +134,14 @@
   display:inline-flex;
   align-items:center;
   gap:7px;
-  border:1px solid var(--edge);
-  background:rgba(255,255,255,.04);
+  border:1px solid rgba(109,189,161,.15);
+  background:rgba(109,189,161,.05);
   color:#dcece3;
 }
 .dashboard .settings-delete-button{
   border:1px solid rgba(210,104,104,.2);
   background:rgba(160,49,49,.07);
-  color:var(--t2);
+  color:#e7aaaa;
 }
 .dashboard .settings-delete-button:hover{
   background:rgba(160,49,49,.13);
@@ -159,10 +159,10 @@
 .dashboard .settings-delete-modal{
   width:min(440px,100%);
   padding:28px;
-  border:1px solid var(--edge);
+  border:1px solid rgba(109,189,161,.14);
   border-radius:22px;
-  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.04));
-  box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 50px rgba(0,0,0,.22);
+  background:linear-gradient(145deg,rgba(13,28,20,.97),rgba(4,10,7,.98));
+  box-shadow:0 30px 90px rgba(0,0,0,.6),0 0 50px rgba(31,94,57,.12);
 }
 .dashboard .settings-delete-modal h3{
   margin:10px 0 9px;
@@ -185,7 +185,7 @@
   min-height:42px;
   padding:0 15px;
   border-radius:11px;
-  border:1px solid var(--edge);
+  border:1px solid rgba(109,189,161,.12);
   background:rgba(255,255,255,.035);
   color:#dfeae4;
   cursor:pointer;
@@ -195,7 +195,7 @@
 .dashboard .settings-delete-actions .settings-delete-confirm{
   border-color:rgba(210,104,104,.2);
   background:rgba(160,49,49,.12);
-  color:var(--t2);
+  color:#efb2b2;
 }
 
 @media(max-width:800px){
@@ -210,9 +210,10 @@
 
 
 .dashboard{
-  background:radial-gradient(760px 460px at 78% 0%, rgba(255,255,255,.04), transparent 68%),
+  background:
+    radial-gradient(760px 460px at 78% 0%, rgba(183,217,76,.045), transparent 68%),
     radial-gradient(680px 500px at 12% 52%, rgba(255,255,255,.014), transparent 72%),
-    rgba(255,255,255,.04) !important;
+    #020302 !important;
 }
 .dashboard .dashboard-home{
   min-height:calc(100vh - 80px);
@@ -420,9 +421,10 @@
   padding:30px;
   border:1px solid rgba(255,255,255,.09);
   border-radius:30px;
-  background:radial-gradient(circle at 88% 20%,rgba(255,255,255,.04),transparent 34%),
+  background:
+    radial-gradient(circle at 88% 20%,rgba(200,243,106,.09),transparent 34%),
     linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
-    rgba(255,255,255,.04);
+    rgba(7,12,9,.68);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.055),0 24px 70px rgba(0,0,0,.22);
   overflow:hidden;
 }
@@ -432,9 +434,9 @@
   display:grid;
   place-items:center;
   border-radius:28px;
-  border:1px solid var(--edge);
-  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.04));
-  color:var(--t2);
+  border:1px solid rgba(200,243,106,.25);
+  background:linear-gradient(145deg,rgba(200,243,106,.18),rgba(200,243,106,.035));
+  color:#c8f36a;
   font:650 3rem/1 'Space Grotesk';
   box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 14px 36px rgba(0,0,0,.18);
 }
@@ -466,9 +468,9 @@
   align-items:center;
   gap:9px;
   padding:10px 14px;
-  border:1px solid var(--edge);
+  border:1px solid rgba(200,243,106,.16);
   border-radius:999px;
-  background:rgba(255,255,255,.04);
+  background:rgba(200,243,106,.045);
   color:rgba(244,241,234,.68);
   font-size:1.5rem;
 }
@@ -476,8 +478,8 @@
   width:9px;
   height:9px;
   border-radius:50%;
-  background:rgba(255,255,255,.04);
-  box-shadow:0 0 14px rgba(0,0,0,.22);
+  background:#c8f36a;
+  box-shadow:0 0 14px rgba(200,243,106,.55);
 }
 
 .dashboard .profile-facts-grid{
@@ -530,8 +532,9 @@
   padding:26px !important;
   border:1px solid rgba(255,255,255,.08) !important;
   border-radius:24px !important;
-  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),
-    rgba(255,255,255,.04) !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),
+    rgba(7,12,9,.58) !important;
 }
 .dashboard .settings-page .settings-card form{
   max-width:none;
@@ -583,7 +586,7 @@
   min-height:92px;
   padding:22px 24px !important;
   border-color:rgba(255,255,255,.07) !important;
-  background:rgba(255,255,255,.04) !important;
+  background:rgba(7,12,9,.42) !important;
 }
 .dashboard .settings-page .settings-action-row strong{
   font-size:1.6rem !important;
@@ -712,9 +715,9 @@
   border-radius:50%;
 }
 .dashboard .profile-avatar{
-  border:1px solid var(--edge);
-  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.04));
-  color:var(--t2);
+  border:1px solid rgba(200,243,106,.28);
+  background:linear-gradient(145deg,rgba(200,243,106,.2),rgba(200,243,106,.035));
+  color:#c8f36a;
   font:650 3rem/1 'Space Grotesk';
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 16px 40px rgba(0,0,0,.22);
 }
@@ -731,10 +734,10 @@
   height:34px;
   display:grid;
   place-items:center;
-  border:2px solid var(--edge);
+  border:2px solid #07100a;
   border-radius:50%;
-  background:rgba(255,255,255,.04);
-  color:var(--t2);
+  background:#c8f36a;
+  color:#07100a;
   box-shadow:0 7px 20px rgba(0,0,0,.28);
 }
 .dashboard .profile-avatar-input{display:none}
@@ -758,13 +761,13 @@
   cursor:pointer;
 }
 .dashboard .profile-photo-actions button:first-child{
-  border-color:var(--edge);
-  background:rgba(255,255,255,.04);
+  border-color:rgba(200,243,106,.16);
+  background:rgba(200,243,106,.045);
   color:#dcebcf;
 }
 .dashboard .profile-photo-actions button:hover{
-  border-color:var(--edge);
-  background:rgba(255,255,255,.04);
+  border-color:rgba(200,243,106,.28);
+  background:rgba(200,243,106,.075);
 }
 .dashboard .profile-hero-copy small{
   display:block;
@@ -842,8 +845,9 @@
 
 
 .dashboard .profile-hero-card{
-  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
-    rgba(255,255,255,.04) !important;
+  background:
+    linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.012)),
+    rgba(7,12,9,.68) !important;
 }
 
 
@@ -866,7 +870,7 @@
 .dashboard .settings-page .settings-danger .settings-action-row{
   border-left:1px solid rgba(255,255,255,.08) !important;
   border-right:1px solid rgba(255,255,255,.08) !important;
-  background:rgba(255,255,255,.04) !important;
+  background:rgba(7,12,9,.48) !important;
 }
 .dashboard .settings-page .settings-danger .settings-action-row:first-child{
   border-top:1px solid rgba(255,255,255,.08) !important;
@@ -1534,39 +1538,39 @@ body,
 .dashboard .settings-page > .profile-layout,
 .dashboard .profile-layout,
 .dashboard .profile-settings-column {
-  box-sizing:border-box !important;
-  width:100% !important;
-  max-width:none !important;
-  min-width:0 !important;
-  margin-left:0 !important;
-  margin-right:0 !important;
-  background:transparent !important;
-  background-color:transparent !important;
-  background-image:none !important;
-  border:0 !important;
-  border-radius:0 !important;
-  box-shadow:none !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 .dashboard .panel-page.settings-page {
-  min-height:0 !important;
-  height:auto !important;
+  min-height: 0 !important;
+  height: auto !important;
   /* The page shell is transparent; its padding keeps content off screen edges. */
   padding: 0 clamp(1.6rem, 3vw, 3.2rem) !important;
 }
 .dashboard .profile-layout,
 .dashboard .profile-settings-column,
 .dashboard .profile-stat-grid {
-  overflow:visible !important;
-  min-width:0 !important;
+  overflow: visible !important;
+  min-width: 0 !important;
 }
 .dashboard .profile-stat-grid > article {
-  min-width:0 !important;
-  box-sizing:border-box !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
 }
 @media (max-width: 800px) {
   .dashboard .panel-page.settings-page {
-    padding-left:1.6rem !important;
-    padding-right:1.6rem !important;
+    padding-left: 1.6rem !important;
+    padding-right: 1.6rem !important;
   }
 }
 
@@ -1576,85 +1580,85 @@ body,
 .dashboard .settings-page > .settings-heading,
 .dashboard .settings-page > .profile-layout,
 .dashboard .settings-page .profile-settings-column {
-  background:transparent !important;
-  background-color:transparent !important;
-  background-image:none !important;
-  border:0 !important;
-  border-radius:0 !important;
-  box-shadow:none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 /* Restore the individual profile cards as the only solid-black surfaces. */
 .dashboard .settings-page .profile-summary-card,
 .dashboard .settings-page .profile-settings-section,
 .dashboard .settings-page .profile-stat-grid > article {
-  background:#000000 !important;
-  background-color:#000000 !important;
-  background-image:none !important;
-  border:1px solid rgba(255,255,255,.08) !important;
-  border-radius:2.4rem !important;
-  box-shadow:none !important;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  background-image: none !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 2.4rem !important;
+  box-shadow: none !important;
 }
 
 /* The list is content inside its section card, not another page-sized panel. */
 .dashboard .settings-page .profile-settings-list,
 .dashboard .settings-page .profile-settings-section-head {
-  background:transparent !important;
-  background-color:transparent !important;
-  background-image:none !important;
-  box-shadow:none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 /* Profile heading clearance: keep the first heading below the top app chrome.
    This is scoped to the profile page so it cannot shift the AI canvas or home. */
 .dashboard:not(.dashboard-ai-active) .panel-page.settings-page {
-  padding-top:7.2rem !important;
+  padding-top: 7.2rem !important;
 }
 @media (max-width: 800px) {
   .dashboard:not(.dashboard-ai-active) .panel-page.settings-page {
-    padding-top:7.2rem !important;
+    padding-top: 7.2rem !important;
   }
 }
 
 
 /* EVOLV dashboard accent unification: use the auth screen's exact signature lime. */
 .dashboard {
-  --accent:rgba(127,196,189,.10);
-  --evolv-lime:rgba(127,196,189,.10);
-  --home-lime:rgba(127,196,189,.10);
-  --evolv-accent:rgba(127,196,189,.10);
-  --evolv-accent-dim:rgba(127,196,189,.10);
-  --color-accent-start:rgba(127,196,189,.10);
-  --color-accent-end:rgba(127,196,189,.10);
-  --color-accent-dim:rgba(127,196,189,.10);
+  --accent: #74AAFF;
+  --evolv-lime: #74AAFF;
+  --home-lime: #74AAFF;
+  --evolv-accent: #74AAFF;
+  --evolv-accent-dim: rgba(214, 250, 75, .12);
+  --color-accent-start: #74AAFF;
+  --color-accent-end: #74AAFF;
+  --color-accent-dim: rgba(214, 250, 75, .16);
 }
 .dashboard .dashboard-home-redesign {
-  --evolv-lime:rgba(255,255,255,.04);
-  --home-lime:rgba(255,255,255,.04);
+  --evolv-lime: #74AAFF;
+  --home-lime: #74AAFF;
 }
 .dashboard .button-primary,
 .dashboard .goal-item-actions .goal-checkin-button,
 .dashboard .goal-checkin-button {
-  background:rgba(127,196,189,.10) !important;
-  border-color:rgba(127,196,189,.5) !important;
-  color:#0a0a0a !important;
-  box-shadow:none !important;
+  background: #74AAFF !important;
+  border-color: #74AAFF !important;
+  color: #0a0a0a !important;
+  box-shadow: none !important;
 }
 .dashboard .button-primary:hover:not(:disabled),
 .dashboard .goal-item-actions .goal-checkin-button:hover:not(:disabled),
 .dashboard .goal-checkin-button:hover:not(:disabled) {
-  background:rgba(127,196,189,.10) !important;
-  border-color:rgba(127,196,189,.5) !important;
-  color:#0a0a0a !important;
+  background: #e1ff6a !important;
+  border-color: #e1ff6a !important;
+  color: #0a0a0a !important;
 }
 .dashboard .home-add-button {
-  border-color:var(--edge) !important;
-  background:rgba(255,255,255,.04) !important;
-  color:#0a0a0a !important;
+  border-color: rgba(214, 250, 75, .42) !important;
+  background: #74AAFF !important;
+  color: #0a0a0a !important;
 }
 .dashboard .home-progress-ring {
-  background:conic-gradient(from -90deg, rgba(127,196,189,.10) var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important;
-  box-shadow:0 0 2.2rem rgba(127,196,189,.14) !important;
+  background: conic-gradient(from -90deg, #74AAFF var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important;
+  box-shadow: 0 0 2.2rem rgba(116,170,255,.09) !important;
 }
 .dashboard .home-progress-segments i.is-filled,
 .dashboard .home-week-bar-track i,
@@ -1662,8 +1666,8 @@ body,
 .dashboard .home-area-progress i,
 .dashboard .mini-progress i,
 .dashboard .progress-track i {
-  background:rgba(127,196,189,.10) !important;
-  box-shadow:0 0 1rem rgba(127,196,189,.14);
+  background: #74AAFF !important;
+  box-shadow: 0 0 1rem rgba(116,170,255,.12);
 }
 .dashboard .home-stat-average strong,
 .dashboard .home-stat-fire,
@@ -1674,244 +1678,244 @@ body,
 .dashboard .goal-item-actions .goal-checkin-button,
 .dashboard .focus.active svg,
 .dashboard .choice.active svg {
-  color:var(--accent) !important;
+  color: #74AAFF !important;
 }
 .dashboard .home-stat-icon,
 .dashboard .home-today-icon,
 .dashboard .home-area-icon {
-  background:rgba(255,255,255,.04) !important;
-  color:var(--t2) !important;
+  background: rgba(116,170,255,.1) !important;
+  color: #74AAFF !important;
 }
 .dashboard .home-stat-range button.is-active,
 .dashboard .goals-page .goal-type-choice.active,
 .dashboard .goals-page .goal-type-choice.selected,
 .dashboard .log-selected-metric,
 .dashboard .special-choice-grid button.active {
-  background:rgba(127,196,189,.10) !important;
-  border-color:rgba(127,196,189,.5) !important;
-  color:var(--accent) !important;
+  background: rgba(116,170,255,.12) !important;
+  border-color: rgba(116,170,255,.45) !important;
+  color: #74AAFF !important;
 }
 .dashboard .settings-toggle.active {
-  background:rgba(127,196,189,.10) !important;
-  border-color:rgba(127,196,189,.5) !important;
+  background: rgba(116,170,255,.2) !important;
+  border-color: rgba(116,170,255,.55) !important;
 }
 .dashboard .settings-toggle.active span {
-  background:rgba(127,196,189,.10) !important;
+  background: #74AAFF !important;
 }
 .dashboard input:focus,
 .dashboard textarea:focus,
 .dashboard select:focus,
 .dashboard button:focus-visible {
-  outline-color:var(--t2);
+  outline-color: rgba(116,170,255,.72);
 }
 .dashboard .profile-setting-row input:focus,
 .dashboard .profile-setting-row select:focus,
 .dashboard .goal-create-form input:focus,
 .dashboard .goal-create-form textarea:focus,
 .dashboard .profile-box input:focus {
-  border-color:var(--edge) !important;
-  box-shadow:0 0 0 3px rgba(0,0,0,.22) !important;
+  border-color: rgba(116,170,255,.6) !important;
+  box-shadow: 0 0 0 3px rgba(116,170,255,.08) !important;
 }
 .dashboard .settings-inline-action:hover,
 .dashboard .home-skip-button:hover,
 .dashboard .area-back:hover,
 .dashboard .settings-outline-button:hover {
-  color:var(--t2) !important;
+  color: #74AAFF !important;
 }
 .dashboard .settings-inline-action svg,
 .dashboard .section-label svg {
-  color:inherit;
+  color: inherit;
 }
 .dashboard .home-heatmap-cell.level-1,
 .dashboard .home-heatmap-footer i.level-1,
-.dashboard .goal-heatmap-cell.level-1 { background:rgba(255,255,255,.04) !important; }
+.dashboard .goal-heatmap-cell.level-1 { background: rgba(116,170,255,.18) !important; }
 .dashboard .home-heatmap-cell.level-2,
 .dashboard .home-heatmap-footer i.level-2,
-.dashboard .goal-heatmap-cell.level-2 { background:rgba(255,255,255,.04) !important; }
+.dashboard .goal-heatmap-cell.level-2 { background: rgba(116,170,255,.38) !important; }
 .dashboard .home-heatmap-cell.level-3,
 .dashboard .home-heatmap-footer i.level-3,
-.dashboard .goal-heatmap-cell.level-3 { background:rgba(255,255,255,.04) !important; }
+.dashboard .goal-heatmap-cell.level-3 { background: rgba(116,170,255,.66) !important; }
 .dashboard .home-heatmap-cell.level-4,
 .dashboard .home-heatmap-footer i.level-4,
-.dashboard .goal-heatmap-cell.level-4 { background:rgba(255,255,255,.04) !important; }
+.dashboard .goal-heatmap-cell.level-4 { background: #74AAFF !important; }
 .dashboard .progress-page .home-heatmap-cell.level-1,
-.dashboard .progress-page .home-heatmap-footer i.level-1 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-1 { background: rgba(116,170,255,.18) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-2,
-.dashboard .progress-page .home-heatmap-footer i.level-2 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-2 { background: rgba(116,170,255,.38) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-3,
-.dashboard .progress-page .home-heatmap-footer i.level-3 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-3 { background: rgba(116,170,255,.66) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-4,
-.dashboard .progress-page .home-heatmap-footer i.level-4 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-4 { background: #74AAFF !important; }
 
 /* Keep destructive actions red; lime is the shared product accent, not a danger state. */
 .dashboard .settings-danger-button,
 .dashboard .danger-row .settings-danger-button {
-  color:var(--accent);
+  color: #efaaaa;
 }
 
 
 /* Carry the same lime into the persistent dashboard navigation and detail pages. */
 .dashboard .evolv-bottom-nav button.bottom-active {
-  color:var(--accent) !important;
-  background:rgba(127,196,189,.10) !important;
-  box-shadow:inset 0 1px 0 rgba(127,196,189,.14) !important;
+  color: #74AAFF !important;
+  background: rgba(116,170,255,.09) !important;
+  box-shadow: inset 0 1px 0 rgba(116,170,255,.08) !important;
 }
 .dashboard .evolv-bottom-nav .log-nav-button > span {
-  background:rgba(255,255,255,.04) !important;
-  color:#0a0a0a !important;
+  background: #74AAFF !important;
+  color: #0a0a0a !important;
 }
 .dashboard .life-area-icon,
 .dashboard .life-area-icon.large,
 .dashboard .metric-detail-icon,
 .dashboard .area-detail-head .life-area-icon {
-  color:var(--t2) !important;
-  border-color:var(--edge) !important;
-  background-color:rgba(255,255,255,.04) !important;
+  color: #74AAFF !important;
+  border-color: rgba(116,170,255,.3) !important;
+  background-color: rgba(116,170,255,.1) !important;
 }
 .dashboard .life-area-icon svg,
 .dashboard .metric-detail-icon svg,
 .dashboard .area-detail-head svg {
-  color:var(--t2) !important;
+  color: #74AAFF !important;
 }
 .dashboard .home-today-icon,
 .dashboard .home-area-icon {
-  --task-color:rgba(255,255,255,.04) !important;
+  --task-color: #74AAFF !important;
 }
 .dashboard .dashboard-welcome-minimal::before {
-  background:radial-gradient(ellipse at 34% 48%, rgba(255,255,255,.04) 0%, rgba(255,255,255,.04) 28%, rgba(255,255,255,.04) 49%, transparent 72%) !important;
+  background: radial-gradient(ellipse at 34% 48%, rgba(116,170,255,.13) 0%, rgba(116,170,255,.075) 28%, rgba(116,170,255,.035) 49%, transparent 72%) !important;
 }
 
 
 /* Account confirmation dialog: keep it above the dashboard and reliably tappable on mobile. */
 .profile-modal-backdrop {
-  position:fixed;
-  inset:0;
-  z-index:30000;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  padding:24px;
-  background:rgba(0, 0, 0, .76);
-  -webkit-backdrop-filter:blur(10px);
-  backdrop-filter:blur(10px);
-  overscroll-behavior:contain;
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(0, 0, 0, .76);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  overscroll-behavior: contain;
 }
 .profile-modal-backdrop .profile-modal {
-  position:relative;
-  width:min(100%, 440px);
-  max-height:min(82dvh, 680px);
-  overflow-y:auto;
-  padding:28px;
-  border:1px solid rgba(255, 255, 255, .12);
-  border-radius:22px;
-  background:#111;
-  color:#f5f5f5;
-  box-shadow:0 24px 90px rgba(0, 0, 0, .55);
+  position: relative;
+  width: min(100%, 440px);
+  max-height: min(82dvh, 680px);
+  overflow-y: auto;
+  padding: 28px;
+  border: 1px solid rgba(255, 255, 255, .12);
+  border-radius: 22px;
+  background: #111;
+  color: #f5f5f5;
+  box-shadow: 0 24px 90px rgba(0, 0, 0, .55);
 }
 .profile-modal-backdrop .confirmation-modal {
-  display:flex;
-  flex-direction:column;
-  align-items:flex-start;
-  gap:12px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
 }
 .profile-modal-backdrop .confirmation-modal h3 {
-  margin:0;
-  color:#fff;
-  font-size:clamp(22px, 5vw, 28px);
-  line-height:1.2;
-  letter-spacing:-.035em;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(22px, 5vw, 28px);
+  line-height: 1.2;
+  letter-spacing: -.035em;
 }
 .profile-modal-backdrop .confirmation-modal p {
-  margin:0;
-  color:#b8b8b8;
-  font-size:15px;
-  line-height:1.65;
+  margin: 0;
+  color: #b8b8b8;
+  font-size: 15px;
+  line-height: 1.65;
 }
 .profile-modal-backdrop .confirmation-icon {
-  width:44px;
-  height:44px;
-  display:grid;
-  place-items:center;
-  border:1px solid var(--edge);
-  border-radius:14px;
-  background:rgba(255,255,255,.04);
-  color:var(--t2);
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(214, 250, 75, .24);
+  border-radius: 14px;
+  background: rgba(214, 250, 75, .09);
+  color: #74AAFF;
 }
 .profile-modal-backdrop .confirmation-icon.is-destructive {
-  border-color:rgba(239, 68, 68, .28);
-  background:rgba(239, 68, 68, .1);
-  color:#EF4444;
+  border-color: rgba(239, 68, 68, .28);
+  background: rgba(239, 68, 68, .1);
+  color: #EF4444;
 }
 .profile-modal-backdrop .profile-modal-actions {
-  width:100%;
-  display:flex;
-  justify-content:flex-end;
-  gap:10px;
-  margin-top:10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
 }
 .profile-modal-backdrop .profile-modal-actions button {
-  min-height:46px;
-  padding:0 16px;
-  border-radius:12px;
-  font-size:14px;
-  font-weight:650;
-  cursor:pointer;
-  touch-action:manipulation;
+  min-height: 46px;
+  padding: 0 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 650;
+  cursor: pointer;
+  touch-action: manipulation;
 }
 .profile-modal-backdrop .settings-cancel-button {
-  border:1px solid rgba(255, 255, 255, .14);
-  background:#1b1b1b;
-  color:#f2f2f2;
+  border: 1px solid rgba(255, 255, 255, .14);
+  background: #1b1b1b;
+  color: #f2f2f2;
 }
 .profile-modal-backdrop .settings-danger-button {
-  border:1px solid #EF4444;
-  background:#EF4444;
-  color:#fff;
+  border: 1px solid #EF4444;
+  background: #EF4444;
+  color: #fff;
 }
 .profile-modal-backdrop .settings-danger-button:disabled {
-  opacity:.55;
-  cursor:wait;
+  opacity: .55;
+  cursor: wait;
 }
 @media (max-width: 420px) {
-  .profile-modal-backdrop { padding:18px; }
-  .profile-modal-backdrop .profile-modal { padding:23px 20px; border-radius:18px; }
-  .profile-modal-backdrop .profile-modal-actions button { flex:1; padding-inline:10px; }
+  .profile-modal-backdrop { padding: 18px; }
+  .profile-modal-backdrop .profile-modal { padding: 23px 20px; border-radius: 18px; }
+  .profile-modal-backdrop .profile-modal-actions button { flex: 1; padding-inline: 10px; }
 }
 
 
 /* Final dashboard/Profile accent enforcement: blue only, with white on blue buttons. */
 .dashboard {
-  --accent:rgba(127,196,189,.10) !important;
-  --evolv-lime:rgba(127,196,189,.10) !important;
-  --home-lime:rgba(127,196,189,.10) !important;
-  --evolv-accent:rgba(127,196,189,.10) !important;
-  --evolv-accent-dim:rgba(127,196,189,.10) !important;
-  --color-accent-start:rgba(127,196,189,.10) !important;
-  --color-accent-end:rgba(127,196,189,.10) !important;
-  --color-accent-dim:rgba(127,196,189,.10) !important;
+  --accent: #74AAFF !important;
+  --evolv-lime: #74AAFF !important;
+  --home-lime: #74AAFF !important;
+  --evolv-accent: #74AAFF !important;
+  --evolv-accent-dim: rgba(116,170,255,.12) !important;
+  --color-accent-start: #74AAFF !important;
+  --color-accent-end: #74AAFF !important;
+  --color-accent-dim: rgba(116,170,255,.16) !important;
 }
-.dashboard .dashboard-home-redesign { --evolv-lime:rgba(255,255,255,.04) !important; --home-lime:rgba(255,255,255,.04) !important; }
+.dashboard .dashboard-home-redesign { --evolv-lime:#74AAFF !important; --home-lime:#74AAFF !important; }
 .dashboard .button-primary,
 .dashboard .goal-item-actions .goal-checkin-button,
 .dashboard .goal-checkin-button,
 .dashboard .home-add-button {
-  background:rgba(127,196,189,.10) !important;
-  background-color:rgba(127,196,189,.10) !important;
-  border-color:rgba(127,196,189,.5) !important;
-  color:#fff !important;
-  -webkit-text-fill-color:#fff !important;
+  background: #74AAFF !important;
+  background-color: #74AAFF !important;
+  border-color: #74AAFF !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
 }
 .dashboard .button-primary *,
 .dashboard .goal-item-actions .goal-checkin-button *,
 .dashboard .goal-checkin-button *,
 .dashboard .home-add-button * { color:#fff !important; fill:#fff !important; stroke:#fff !important; -webkit-text-fill-color:#fff !important; }
-.dashboard .home-progress-ring { background:conic-gradient(from -90deg, rgba(127,196,189,.10) var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important; box-shadow:0 0 2.2rem rgba(127,196,189,.14) !important; }
+.dashboard .home-progress-ring { background: conic-gradient(from -90deg, #74AAFF var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important; box-shadow: 0 0 2.2rem rgba(116,170,255,.09) !important; }
 .dashboard .home-progress-segments i.is-filled,
 .dashboard .home-week-bar-track i,
 .dashboard .home-today-bar i,
 .dashboard .home-area-progress i,
 .dashboard .mini-progress i,
-.dashboard .progress-track i { background:rgba(127,196,189,.10) !important; box-shadow:0 0 1rem rgba(127,196,189,.14) !important; }
+.dashboard .progress-track i { background:#74AAFF !important; box-shadow:0 0 1rem rgba(116,170,255,.12) !important; }
 .dashboard .home-stat-average strong,
 .dashboard .home-stat-fire,
 .dashboard .home-stat-check,
@@ -1929,65 +1933,65 @@ body,
 .dashboard .area-detail-head svg,
 .dashboard .home-stat-icon,
 .dashboard .home-today-icon,
-.dashboard .home-area-icon { color:var(--accent) !important; }
+.dashboard .home-area-icon { color:#74AAFF !important; }
 .dashboard .home-stat-icon,
 .dashboard .home-today-icon,
 .dashboard .home-area-icon,
 .dashboard .life-area-icon,
 .dashboard .life-area-icon.large,
 .dashboard .metric-detail-icon,
-.dashboard .area-detail-head .life-area-icon { background-color:rgba(255,255,255,.04) !important; border-color:var(--edge) !important; }
+.dashboard .area-detail-head .life-area-icon { background-color:rgba(116,170,255,.1) !important; border-color:rgba(116,170,255,.3) !important; }
 .dashboard .home-stat-range button.is-active,
 .dashboard .goals-page .goal-type-choice.active,
 .dashboard .goals-page .goal-type-choice.selected,
 .dashboard .log-selected-metric,
 .dashboard .special-choice-grid button.active,
-.dashboard .settings-toggle.active { background:rgba(127,196,189,.10) !important; border-color:rgba(127,196,189,.5) !important; color:var(--accent) !important; }
-.dashboard .settings-toggle.active span { background:rgba(127,196,189,.10) !important; }
+.dashboard .settings-toggle.active { background:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.45) !important; color:#74AAFF !important; }
+.dashboard .settings-toggle.active span { background:#74AAFF !important; }
 .dashboard input:focus,
 .dashboard textarea:focus,
 .dashboard select:focus,
-.dashboard button:focus-visible { outline-color:var(--t2) !important; }
+.dashboard button:focus-visible { outline-color:rgba(116,170,255,.72) !important; }
 .dashboard .profile-setting-row input:focus,
 .dashboard .profile-setting-row select:focus,
 .dashboard .goal-create-form input:focus,
 .dashboard .goal-create-form textarea:focus,
-.dashboard .profile-box input:focus { border-color:var(--edge) !important; box-shadow:0 0 0 3px rgba(0,0,0,.22) !important; }
+.dashboard .profile-box input:focus { border-color:rgba(116,170,255,.6) !important; box-shadow:0 0 0 3px rgba(116,170,255,.08) !important; }
 .dashboard .settings-inline-action:hover,
 .dashboard .home-skip-button:hover,
 .dashboard .area-back:hover,
-.dashboard .settings-outline-button:hover { color:var(--t2) !important; }
+.dashboard .settings-outline-button:hover { color:#74AAFF !important; }
 .dashboard .home-heatmap-cell.level-1,
 .dashboard .home-heatmap-footer i.level-1,
 .dashboard .goal-heatmap-cell.level-1,
 .dashboard .progress-page .home-heatmap-cell.level-1,
-.dashboard .progress-page .home-heatmap-footer i.level-1 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-1 { background:rgba(116,170,255,.18) !important; }
 .dashboard .home-heatmap-cell.level-2,
 .dashboard .home-heatmap-footer i.level-2,
 .dashboard .goal-heatmap-cell.level-2,
 .dashboard .progress-page .home-heatmap-cell.level-2,
-.dashboard .progress-page .home-heatmap-footer i.level-2 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-2 { background:rgba(116,170,255,.38) !important; }
 .dashboard .home-heatmap-cell.level-3,
 .dashboard .home-heatmap-footer i.level-3,
 .dashboard .goal-heatmap-cell.level-3,
 .dashboard .progress-page .home-heatmap-cell.level-3,
-.dashboard .progress-page .home-heatmap-footer i.level-3 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-3 { background:rgba(116,170,255,.66) !important; }
 .dashboard .home-heatmap-cell.level-4,
 .dashboard .home-heatmap-footer i.level-4,
 .dashboard .goal-heatmap-cell.level-4,
 .dashboard .progress-page .home-heatmap-cell.level-4,
-.dashboard .progress-page .home-heatmap-footer i.level-4 { background:rgba(127,196,189,.10) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-4 { background:#74AAFF !important; }
 .dashboard .dashboard-welcome-minimal::before {
-  background:radial-gradient(ellipse at 34% 48%, rgba(255,255,255,.04) 0%, rgba(255,255,255,.04) 28%, rgba(255,255,255,.04) 49%, transparent 72%) !important;
+  background: radial-gradient(ellipse at 34% 48%, rgba(116,170,255,.13) 0%, rgba(116,170,255,.075) 28%, rgba(116,170,255,.035) 49%, transparent 72%) !important;
 }
 
 
 /* Final profile and settings palette: override legacy lime rules with blue. */
 html body #root .dashboard .profile-page,
-html body #root .dashboard .profile-settings-page { --accent:rgba(255,255,255,.04) !important; --evolv-lime:rgba(255,255,255,.04) !important; --home-lime:rgba(255,255,255,.04) !important; --color-accent-lime:rgba(255,255,255,.04) !important; }
+html body #root .dashboard .profile-settings-page { --accent:#74AAFF !important; --evolv-lime:#74AAFF !important; --home-lime:#74AAFF !important; --color-accent-lime:#74AAFF !important; }
 html body #root .dashboard .profile-page [style*="214, 250, 75"],
-html body #root .dashboard .profile-settings-page [style*="214, 250, 75"] { color:var(--t2) !important; background-color:rgba(255,255,255,.04) !important; border-color:var(--edge) !important; }
+html body #root .dashboard .profile-settings-page [style*="214, 250, 75"] { color:#74AAFF !important; background-color:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.3) !important; }
 html body #root .dashboard .profile-page button.active,
 html body #root .dashboard .profile-settings-page button.active,
-html body #root .dashboard .settings-toggle.active { color:var(--accent) !important; background:rgba(127,196,189,.10) !important; border-color:rgba(127,196,189,.5) !important; }
-html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,rgba(127,196,189,.10) var(--home-progress),rgba(255,255,255,.09) var(--home-progress)) !important; }
+html body #root .dashboard .settings-toggle.active { color:#74AAFF !important; background:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.4) !important; }
+html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,#74AAFF var(--home-progress),rgba(255,255,255,.09) var(--home-progress)) !important; }
