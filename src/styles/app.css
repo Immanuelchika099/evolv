@@ -17,7 +17,7 @@
 /* EVOLV Phase 1 — global calm-glass foundation. */
 :root {
   --app-bg:var(--bg);
-  --accent:#7fc4bd;
+  --accent:#8ab4ff;
   --color-accent-blue:var(--accent);
   --color-accent-lime:var(--accent);
   --evolv-blue:var(--accent);
@@ -70,7 +70,7 @@ body::after {
 :where(p,li,label,.body-copy) { line-height:1.6; }
 :where(button,input,textarea,select) { font-family: inherit; }
 :where(button,a,input,textarea,select,[tabindex]):focus-visible {
-  outline:2px solid rgba(127,196,189,.75);
+  outline:2px solid rgba(138,180,255,.75);
   outline-offset:3px;
 }
 :where(input,textarea,select) {
@@ -78,7 +78,7 @@ body::after {
   border-radius:1.8rem;
 }
 :where(input,textarea,select):focus {
-  border-color:rgba(127,196,189,.5);
+  border-color:rgba(138,180,255,.5);
   box-shadow:0 0 0 3px var(--accent-soft);
 }
 :where(button,a) { -webkit-tap-highlight-color:transparent; }
@@ -161,7 +161,7 @@ body::after {
   .dashboard .settings-page .settings-card:hover,
   .quick-log-option:hover,
   .quick-log-history-row:hover {
-    border-color:rgba(127,196,189,.24);
+    border-color:rgba(138,180,255,.24);
     background-color:var(--glass-bg-raised);
     transform:translateY(-1px);
   }
@@ -201,7 +201,7 @@ body::after {
 .quick-log-sheet input:not([type="checkbox"]):not([type="radio"]):focus,
 .quick-log-sheet textarea:focus,
 .quick-log-sheet select:focus {
-  border-color:rgba(127,196,189,.72);
+  border-color:rgba(138,180,255,.72);
   background-color:rgba(255,255,255,.05);
   box-shadow:0 0 0 3px var(--accent-soft);
   outline:none;
@@ -241,11 +241,11 @@ body::after {
   transition:transform 180ms ease;
 }
 .settings-toggle.active {
-  border-color:rgba(127,196,189,.8);
+  border-color:rgba(138,180,255,.8);
   background:var(--accent);
 }
 .settings-toggle.active > span {
-  background:rgba(127,196,189,.10);
+  background:rgba(138,180,255,.10);
   transform:translateX(2rem);
 }
 .settings-toggle:disabled { opacity:.42; }
@@ -311,7 +311,7 @@ body::after {
 .evolv-floating-log:focus-visible,
 .settings-toggle:focus-visible,
 .quick-log-sheet button:focus-visible {
-  outline:2px solid rgba(127,196,189,.9);
+  outline:2px solid rgba(138,180,255,.9);
   outline-offset:3px;
 }
 
