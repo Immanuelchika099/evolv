@@ -9641,3 +9641,17 @@ html body #root .dashboard .goals-page .goal-milestone-section .goal-milestone-r
     padding: .65rem .75rem;
   }
 }
+
+
+/* With Log a Step removed, let Plan with AI own the entire action row. */
+html body #root .dashboard .goals-page .goal-coach-row {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+}
+html body #root .dashboard .goals-page .goal-coach-row > button:not(.goal-checkin-button) {
+  flex: 1 1 100%;
+  width: 100%;
+  min-width: 0;
+  justify-content: center;
+}
