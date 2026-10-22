@@ -4916,12 +4916,12 @@ body,
 .dashboard-home-redesign .home-title-period{display:inline-block;white-space:nowrap;color:var(--t2);margin-left:.015em}
 .dashboard-home-redesign .home-greeting-title{display:flex;align-items:baseline;gap:0;flex-wrap:nowrap;white-space:nowrap;width:max-content;max-width:100%;line-height:1.04}
 .dashboard-home-redesign .home-greeting-title>span:first-child{display:inline-block;white-space:nowrap}
-.dashboard-home-redesign .home-add-button{background:var(--home-rgba(255,255,255,.04));border-color:var(--edge);color:#000000;box-shadow:0 8px 28px rgba(0,0,0,.22)}
-.dashboard-home-redesign .home-progress-ring{background:conic-gradient(from -90deg,var(--home-rgba(127,196,189,.10)) var(--home-progress),rgba(255,255,255,.085) var(--home-progress));box-shadow:0 0 3.5rem rgba(127,196,189,.14)}
-.dashboard-home-redesign .home-progress-segments i.is-filled{background:var(--home-rgba(127,196,189,.10));box-shadow:0 0 1.2rem rgba(127,196,189,.14)}
+.dashboard-home-redesign .home-add-button{background:rgba(255,255,255,.04);border-color:var(--edge);color:#000000;box-shadow:0 8px 28px rgba(0,0,0,.22)}
+.dashboard-home-redesign .home-progress-ring{background:conic-gradient(from -90deg,rgba(127,196,189,.10) var(--home-progress),rgba(255,255,255,.085) var(--home-progress));box-shadow:0 0 3.5rem rgba(127,196,189,.14)}
+.dashboard-home-redesign .home-progress-segments i.is-filled{background:rgba(127,196,189,.10);box-shadow:0 0 1.2rem rgba(127,196,189,.14)}
 .dashboard-home-redesign .home-stat-range button{min-width:0;padding:.9rem .7rem;text-align:center;color:rgba(255,255,255,.43);font:inherit;font-size:1.15rem;border:0;border-radius:.9rem;background:transparent;cursor:pointer;transition:background .2s ease,color .2s ease}
 .dashboard-home-redesign .home-stat-range button.is-active{background:rgba(127,196,189,.10);color:var(--accent)}
-.dashboard-home-redesign .home-stat-range button:focus-visible{outline:2px solid var(--home-rgba(127,196,189,.5));outline-offset:2px}
+.dashboard-home-redesign .home-stat-range button:focus-visible{outline:2px solid rgba(127,196,189,.5);outline-offset:2px}
 .dashboard-home-redesign .home-stat-average strong{color:var(--t2)}
 .dashboard-home-redesign .home-week-bar-track i{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.04))}
 .dashboard-home-redesign .home-today-empty>span{background:rgba(255,255,255,.04);color:var(--t2)}
@@ -4930,7 +4930,7 @@ body,
 .dashboard-home-redesign .home-heatmap-cell.level-1,.dashboard-home-redesign .home-heatmap-footer i.level-1{background:#000000}
 .dashboard-home-redesign .home-heatmap-cell.level-2,.dashboard-home-redesign .home-heatmap-footer i.level-2{background:rgba(255,255,255,.04)}
 .dashboard-home-redesign .home-heatmap-cell.level-3,.dashboard-home-redesign .home-heatmap-footer i.level-3{background:rgba(255,255,255,.04)}
-.dashboard-home-redesign .home-heatmap-cell.level-4,.dashboard-home-redesign .home-heatmap-footer i.level-4{background:var(--home-rgba(255,255,255,.04))}
+.dashboard-home-redesign .home-heatmap-cell.level-4,.dashboard-home-redesign .home-heatmap-footer i.level-4{background:rgba(255,255,255,.04)}
 @media(max-width:560px){.dashboard-home-redesign .home-greeting-title{font-size:clamp(2.8rem,9vw,4.2rem)}}
 
 
@@ -5043,7 +5043,7 @@ body,
 .progress-page .home-heatmap-cell.level-3,
 .progress-page .home-heatmap-footer i.level-3 { background:rgba(127,196,189,.10) !important; }
 .progress-page .home-heatmap-cell.level-4,
-.progress-page .home-heatmap-footer i.level-4 { background:var(--home-rgba(127,196,189,.10)) !important; }
+.progress-page .home-heatmap-footer i.level-4 { background:rgba(127,196,189,.10) !important; }
 .progress-page .home-heatmap-cell:not([class*="level-"]) {
   background:rgba(127,196,189,.10);
 }
@@ -5114,7 +5114,7 @@ body,
 
 /* Keep the live indicator in the app's default lime accent. */
 .dashboard-home-redesign .home-live-dot {
-  background:var(--home-rgba(127,196,189,.10)) !important;
+  background:rgba(127,196,189,.10) !important;
   box-shadow:0 0 .8rem rgba(127,196,189,.14);
   animation:evolv-live-pulse 1.8s ease-in-out infinite;
 }
@@ -6193,14 +6193,14 @@ body,
   --evolv-lime:rgba(127,196,189,.10);
 }
 .dashboard-home-redesign .home-progress-ring {
-  background:conic-gradient(from -90deg, var(--evolv-rgba(127,196,189,.10)) var(--home-progress), rgba(255,255,255,.09) var(--home-progress));
+  background:conic-gradient(from -90deg, rgba(127,196,189,.10) var(--home-progress), rgba(255,255,255,.09) var(--home-progress));
   box-shadow:0 0 2.2rem rgba(127,196,189,.14);
 }
 .dashboard-home-redesign .home-progress-segments i.is-filled,
 .dashboard-home-redesign .home-week-bar-track i,
 .dashboard-home-redesign .home-today-bar i,
 .dashboard-home-redesign .home-area-progress i {
-  background:var(--evolv-rgba(127,196,189,.10));
+  background:rgba(127,196,189,.10);
 }
 .dashboard-home-redesign .home-stat-fire,
 .dashboard-home-redesign .home-stat-check,
@@ -6238,7 +6238,7 @@ body,
 .dashboard-home-redesign .home-heatmap-cell.level-4,
 .dashboard-home-redesign .home-heatmap-footer i.level-4,
 .goal-heatmap-cell.level-4 {
-  background:var(--evolv-rgba(255,255,255,.04)) !important;
+  background:rgba(255,255,255,.04) !important;
 }
 .progress-page .home-heatmap-cell.level-1,
 .progress-page .home-heatmap-footer i.level-1 { background:#000000 !important; }
