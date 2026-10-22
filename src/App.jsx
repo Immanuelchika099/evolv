@@ -3059,7 +3059,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   const metricIconColors={
     sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
     mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
-    learning:'#38BDF8',building:'#60A5FA',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
+    learning:'var(--graph-blue-cyan)',building:'var(--graph-blue-light)',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
     income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
     habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
   }
