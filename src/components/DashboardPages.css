@@ -9862,3 +9862,72 @@ html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .depth-carous
   html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion { margin-top:1.8rem !important; padding:1.3rem !important; }
   html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion p { font-size:1.4rem !important; }
 }
+
+
+/* AI insight cards — compact editorial stack, adapted for the live React data. */
+html body #root .dashboard-home.calm-home .ins-heading { display:flex; align-items:center; justify-content:space-between; gap:1.2rem; }
+html body #root .dashboard-home.calm-home .ins-heading-actions { display:flex; align-items:center; gap:.7rem; }
+html body #root .dashboard-home.calm-home .ins-heading-actions > button {
+  display:grid; place-items:center; width:4rem; height:4rem; flex:0 0 4rem;
+  border:1px solid rgba(255,255,255,.11); border-radius:50%;
+  background:rgba(255,255,255,.035); color:#f5f8ff;
+}
+html body #root .dashboard-home.calm-home .ins-heading-actions > button:disabled { opacity:.55; }
+html body #root .dashboard-home.calm-home .ins-stack { display:grid; grid-template-columns:1fr; gap:1.2rem; margin-top:1.5rem; }
+html body #root .dashboard-home.calm-home .ins-card {
+  position:relative; overflow:hidden; padding:2.2rem;
+  border:1px solid rgba(255,255,255,.09); border-radius:1.8rem;
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.018));
+  box-shadow:inset 0 1px rgba(255,255,255,.035),0 1.5rem 4rem rgba(0,0,0,.16);
+}
+html body #root .dashboard-home.calm-home .ins-card::before {
+  content:""; position:absolute; top:0; left:2.2rem; right:2.2rem; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(116,166,255,.55),transparent);
+}
+html body #root .dashboard-home.calm-home .ins-card-top { display:flex; align-items:center; justify-content:space-between; gap:1rem; margin-bottom:1.7rem; }
+html body #root .dashboard-home.calm-home .ins-card-index { color:rgba(239,244,255,.45); font-size:1.05rem; letter-spacing:.1em; }
+html body #root .dashboard-home.calm-home .ins-card-index span { padding:0 .35rem; color:rgba(239,244,255,.2); }
+html body #root .dashboard-home.calm-home .ins-card-category { color:#a8c6ff; font-size:1.05rem; font-weight:500; letter-spacing:.09em; text-transform:uppercase; }
+html body #root .dashboard-home.calm-home .ins-card h3 { margin:0 0 1rem; color:#f7f9ff; font-size:clamp(2.25rem,4vw,2.8rem); font-weight:500; letter-spacing:-.045em; line-height:1.15; }
+html body #root .dashboard-home.calm-home .ins-card-observation { margin:0; color:rgba(229,235,247,.76); font-size:1.5rem; line-height:1.7; }
+html body #root .dashboard-home.calm-home .ins-evidence { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1.4rem; }
+html body #root .dashboard-home.calm-home .ins-evidence span { padding:.55rem .8rem; border:1px solid rgba(255,255,255,.075); border-radius:999px; color:rgba(229,235,247,.66); background:rgba(255,255,255,.025); font-size:1.1rem; }
+html body #root .dashboard-home.calm-home .ins-next-step { display:grid; gap:.7rem; margin-top:1.8rem; padding:1.3rem 1.4rem; border:1px solid rgba(116,166,255,.14); border-radius:1.2rem; background:rgba(76,130,255,.055); }
+html body #root .dashboard-home.calm-home .ins-next-label { display:flex; align-items:center; gap:.55rem; color:#a8c6ff; font-size:1rem; letter-spacing:.1em; }
+html body #root .dashboard-home.calm-home .ins-next-step p { margin:0; color:#f7f9ff; font-size:1.45rem; line-height:1.6; }
+html body #root .dashboard-home.calm-home .ins-explore,
+html body #root .dashboard-home.calm-home .ins-chat-link {
+  display:inline-flex; align-items:center; justify-content:center; gap:.65rem; width:fit-content;
+  min-height:4.1rem; margin-top:1.4rem; padding:.8rem 1.25rem;
+  border:1px solid rgba(255,255,255,.11); border-radius:999px;
+  background:rgba(255,255,255,.04); color:#f6f8ff; font-size:1.25rem;
+}
+html body #root .dashboard-home.calm-home .ins-explore:hover,
+html body #root .dashboard-home.calm-home .ins-chat-link:hover { border-color:rgba(116,166,255,.34); background:rgba(76,130,255,.08); }
+html body #root .dashboard-home.calm-home .ins-empty {
+  display:flex; flex-direction:column; align-items:flex-start; gap:1rem; min-height:21rem;
+  margin-top:1.5rem; padding:2.2rem; border:1px solid rgba(255,255,255,.09); border-radius:1.8rem;
+  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.015));
+}
+html body #root .dashboard-home.calm-home .ins-loading-mark { display:grid; place-items:center; width:3.8rem; height:3.8rem; border-radius:1.2rem; color:#a8c6ff; background:rgba(76,130,255,.09); }
+html body #root .dashboard-home.calm-home .ins-empty h3 { margin:.2rem 0 0; color:#f7f9ff; font-size:2rem; font-weight:500; }
+html body #root .dashboard-home.calm-home .ins-empty p { margin:0; max-width:42rem; color:rgba(229,235,247,.7); font-size:1.4rem; line-height:1.7; }
+html body #root .dashboard-home.calm-home .ins-empty-actions { display:flex; flex-wrap:wrap; gap:.8rem; }
+html body #root .dashboard-home.calm-home .ins-loading { justify-content:center; }
+html body #root .dashboard-home.calm-home .ins-skeleton { display:grid; width:100%; gap:.8rem; }
+html body #root .dashboard-home.calm-home .ins-skeleton i { display:block; height:.9rem; width:86%; border-radius:999px; background:linear-gradient(90deg,rgba(255,255,255,.045),rgba(255,255,255,.11),rgba(255,255,255,.045)); background-size:200% 100%; animation:ins-shimmer 1.5s ease-in-out infinite; }
+html body #root .dashboard-home.calm-home .ins-skeleton i:nth-child(2) { width:68%; }
+html body #root .dashboard-home.calm-home .ins-skeleton i:nth-child(3) { width:42%; }
+@keyframes ins-shimmer { to { background-position:-200% 0; } }
+@media (min-width: 760px) {
+ html body #root .dashboard-home.calm-home .ins-stack { grid-template-columns:repeat(3,minmax(0,1fr)); align-items:stretch; gap:1rem; }
+ html body #root .dashboard-home.calm-home .ins-card { padding:1.7rem; }
+ html body #root .dashboard-home.calm-home .ins-card h3 { font-size:2.25rem; }
+ html body #root .dashboard-home.calm-home .ins-card-observation { font-size:1.35rem; }
+ html body #root .dashboard-home.calm-home .ins-next-step { padding:1.1rem; }
+}
+@media (max-width: 640px) {
+ html body #root .dashboard-home.calm-home .ins-card { padding:1.8rem; border-radius:1.6rem; }
+ html body #root .dashboard-home.calm-home .ins-card h3 { font-size:2.4rem; }
+ html body #root .dashboard-home.calm-home .ins-card-observation { font-size:1.4rem; }
+}
