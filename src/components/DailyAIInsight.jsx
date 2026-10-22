@@ -305,4 +305,3 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
     </section>
   )
 }
-}
