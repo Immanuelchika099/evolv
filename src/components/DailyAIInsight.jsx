@@ -284,7 +284,6 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
             <div className="daily-ai-insight-panel" aria-live={isActive ? 'polite' : 'off'}>
               <div className="daily-ai-insight-topline">
                 <span className="daily-ai-insight-category">{item.category || 'personal'} <span aria-hidden="true">/</span> REFLECTION</span>
-                <span className="daily-ai-insight-index">{String(index + 1).padStart(2, '0')} <span>/</span> {String(insights.length).padStart(2, '0')}</span>
               </div>
               <h3>{item.title}</h3>
               <p className="daily-ai-insight-observation">{item.observation}</p>
@@ -301,7 +300,6 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
             <>
               <div className="daily-ai-insight-topline">
                 <span className="daily-ai-insight-category">{insight.category || 'personal'} <span aria-hidden="true">/</span> REFLECTION</span>
-                <span className="daily-ai-insight-index">01 <span>/</span> 01</span>
               </div>
               <h3>{insight.title}</h3>
               <p className="daily-ai-insight-observation">{insight.observation}</p>
