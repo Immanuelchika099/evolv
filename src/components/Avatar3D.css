@@ -1,63 +1,63 @@
 .evolv-avatar-3d-shell {
-  position: relative;
-  display: block;
-  min-width: 0;
-  min-height: 0;
-  overflow: hidden;
-  background: transparent;
+  position:relative;
+  display:block;
+  min-width:0;
+  min-height:0;
+  overflow:hidden;
+  background:transparent;
 }
 .evolv-avatar-3d-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  touch-action: pan-y;
+  display:block;
+  width:100%;
+  height:100%;
+  touch-action:pan-y;
 }
 .evolv-avatar-3d-loading {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  pointer-events: none;
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  pointer-events:none;
 }
 .evolv-avatar-3d-loading span {
-  width: 2.2rem;
-  height: 2.2rem;
-  border: 2px solid rgba(255,255,255,.14);
-  border-top-color: #4d8dff;
-  border-radius: 50%;
-  animation: evolv-avatar-spin .8s linear infinite;
+  width:2.2rem;
+  height:2.2rem;
+  border:2px solid rgba(255,255,255,.14);
+  border-top-color:var(--edge);
+  border-radius:50%;
+  animation:evolv-avatar-spin .8s linear infinite;
 }
 .evolv-avatar-3d-error {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  align-content: center;
-  justify-items: center;
-  gap: .5rem;
-  color: rgba(255,255,255,.7);
-  text-align: center;
-  font-size: 1.2rem;
+  position:absolute;
+  inset:0;
+  display:grid;
+  align-content:center;
+  justify-items:center;
+  gap:.5rem;
+  color:rgba(255,255,255,.7);
+  text-align:center;
+  font-size:1.2rem;
 }
 .evolv-avatar-3d-error small {
-  color: rgba(255,255,255,.45);
-  font-size: 1rem;
+  color:rgba(255,255,255,.45);
+  font-size:1rem;
 }
-@keyframes evolv-avatar-spin { to { transform: rotate(360deg); } }
-.calm-home-welcome-avatar .evolv-mascot-wrap { min-height: 19rem; }
+@keyframes evolv-avatar-spin { to { transform:rotate(360deg); } }
+.calm-home-welcome-avatar .evolv-mascot-wrap { min-height:19rem; }
 .calm-home-welcome-avatar .evolv-mascot.evolv-avatar-3d-shell {
-  height: 22rem;
-  background: transparent;
+  height:22rem;
+  background:transparent;
 }
 .evolv-mascot-halo {
-  background: radial-gradient(circle, rgba(64,132,255,.16), rgba(64,132,255,.045) 42%, transparent 72%);
+  background:radial-gradient(circle, rgba(255,255,255,.04), rgba(255,255,255,.04) 42%, transparent 72%);
 }
 @media (min-width: 760px) {
-  .calm-home-welcome-avatar .evolv-mascot.evolv-avatar-3d-shell { height: 27rem; }
+  .calm-home-welcome-avatar .evolv-mascot.evolv-avatar-3d-shell { height:27rem; }
 }
 @media (max-width: 480px) {
-  .calm-home-welcome-avatar .evolv-mascot-wrap { min-height: 16rem; }
-  .calm-home-welcome-avatar .evolv-mascot.evolv-avatar-3d-shell { height: 17rem; }
+  .calm-home-welcome-avatar .evolv-mascot-wrap { min-height:16rem; }
+  .calm-home-welcome-avatar .evolv-mascot.evolv-avatar-3d-shell { height:17rem; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .evolv-avatar-3d-loading span { animation: none; }
+  .evolv-avatar-3d-loading span { animation:none; }
 }

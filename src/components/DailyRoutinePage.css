@@ -1,24 +1,24 @@
 /* Daily Routine — restrained black canvas, clear hierarchy, lime reserved for progress and actions. */
-.daily-routine-page { width: 100%; max-width: 104rem; margin: 0 auto; padding: 1.2rem clamp(1.8rem, 4vw, 4.2rem) 3.6rem; color: #f3f3ef; box-sizing: border-box; }
+.daily-routine-page { width:100%; max-width:104rem; margin:0 auto; padding:1.2rem clamp(1.8rem, 4vw, 4.2rem) 3.6rem; color:#f3f3ef; box-sizing:border-box; }
 .routine-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin:0 0 2.6rem; }
 .routine-eyebrow,.routine-label { display:block; color:#999b94; font-size:1.1rem; font-weight:650; letter-spacing:.13em; }
-.routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:600; }
-.routine-heading h1 span { color:#2563eb; }
+.routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:500; }
+.routine-heading h1 span { color:var(--t2); }
 .routine-heading p,.routine-section-heading p { margin:0; color:#a0a19b; font-size:1.45rem; line-height:1.65; }
 .routine-date { padding:.9rem 1.2rem; border:1px solid #292a2e; border-radius:999px; color:#d5d6ce; font-size:1.2rem; white-space:nowrap; }
-.routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid #292a2e; border-radius:1.8rem; background:linear-gradient(120deg,#101114,#08090b 75%); }
+.routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid #292a2e; border-radius:1.8rem; background:linear-gradient(120deg,rgba(127,196,189,.10),rgba(127,196,189,.10) 75%); }
 .routine-progress-top { display:flex; align-items:center; justify-content:space-between; gap:1.4rem; }
 .routine-progress-top h2 { margin:.8rem 0 0; font-size:2rem; font-weight:550; letter-spacing:-.035em; }
-.routine-progress-top>strong { font-size:2.8rem; font-weight:600; letter-spacing:-.05em; color:#2563eb; }
+.routine-progress-top>strong { font-size:2.8rem; font-weight:500; letter-spacing:-.05em; color:var(--accent); }
 .routine-progress-track { height:.6rem; margin:1.8rem 0 1.2rem; overflow:hidden; border-radius:99px; background:#292a25; }
-.routine-progress-track span { display:block; height:100%; border-radius:inherit; background:#2563eb; transition:width .25s ease; }
+.routine-progress-track span { display:block; height:100%; border-radius:inherit; background:rgba(127,196,189,.10); transition:width .25s ease; }
 .routine-progress-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; color:#9b9d96; font-size:1.2rem; }
-.routine-progress-bottom button,.routine-insight-card>button,.routine-reminder-note>button { display:inline-flex; align-items:center; gap:.5rem; color:#60a5fa; background:none; border:0; font:inherit; cursor:pointer; }
+.routine-progress-bottom button,.routine-insight-card>button,.routine-reminder-note>button { display:inline-flex; align-items:center; gap:.5rem; color:var(--accent); background:none; border:0; font:inherit; cursor:pointer; }
 .routine-insight-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.4rem; margin:1.5rem 0 3.4rem; }
-.routine-insight-card { min-width:0; padding:2rem; border:1px solid #282a30; border-radius:1.6rem; background:#0b0c0a; }
-.routine-insight-icon { display:grid; place-items:center; width:3.8rem; height:3.8rem; margin-bottom:1.8rem; border:1px solid rgba(37, 99, 235,.24); border-radius:1.1rem; color:#2563eb; }
-.routine-insight-icon.meal-icon { color:#e5d2a1; border-color:#383329; }
-.routine-insight-card>strong { display:block; margin:.9rem 0 .4rem; font-size:2.8rem; font-weight:600; letter-spacing:-.05em; }
+.routine-insight-card { min-width:0; padding:2rem; border:1px solid var(--edge); border-radius:1.6rem; background:rgba(255,255,255,.04); }
+.routine-insight-icon { display:grid; place-items:center; width:3.8rem; height:3.8rem; margin-bottom:1.8rem; border:1px solid var(--edge); border-radius:1.1rem; color:var(--t2); }
+.routine-insight-icon.meal-icon { color:var(--t2); border-color:var(--edge); }
+.routine-insight-card>strong { display:block; margin:.9rem 0 .4rem; font-size:2.8rem; font-weight:500; letter-spacing:-.05em; }
 .routine-insight-card>strong small { color:#a0a19b; font-size:1.35rem; font-weight:450; letter-spacing:0; }
 .routine-insight-card>p { min-height:3.6rem; margin:0 0 1.5rem; color:#999b94; font-size:1.3rem; line-height:1.55; }
 .routine-insight-card>button { padding:0; font-size:1.25rem; font-weight:550; }
@@ -26,28 +26,28 @@
 .routine-section-heading h2 { margin:.7rem 0 .5rem; font-size:2.5rem; font-weight:550; letter-spacing:-.05em; }
 .routine-saved-state { display:inline-flex; align-items:center; gap:.4rem; color:#9b9d96; font-size:1.1rem; white-space:nowrap; }
 .routine-schedule-list { display:grid; grid-template-columns:1fr; gap:1.4rem; }
-.routine-group { padding:1.6rem; border:1px solid #252622; border-radius:1.5rem; background:#08090b; }
+.routine-group { padding:1.6rem; border:1px solid #252622; border-radius:1.5rem; background:rgba(255,255,255,.04); }
 .routine-group>h3 { margin:0 0 .7rem; padding:0 .2rem .8rem; color:#92948d; font-size:1.15rem; font-weight:650; letter-spacing:.1em; text-transform:uppercase; }
 .routine-row { display:flex; align-items:center; gap:1.2rem; min-height:7rem; padding:1rem .2rem; border-top:1px solid #1f201d; transition:opacity .2s ease; }
 .routine-row-disabled { opacity:.48; }
 .routine-row-complete .routine-row-copy strong { color:#aeb0a8; text-decoration:line-through; text-decoration-color:#77796f; }
-.routine-check { flex:0 0 2.5rem; display:grid; place-items:center; width:2.5rem; height:2.5rem; border:1px solid rgba(37, 99, 235,.48); border-radius:50%; background:transparent; color:#10120b; cursor:pointer; }
-.routine-row-complete .routine-check { border-color:#2563eb; background:#2563eb; }
-.routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:#151612; color:#2563eb; }
+.routine-check { flex:0 0 2.5rem; display:grid; place-items:center; width:2.5rem; height:2.5rem; border:1px solid var(--edge); border-radius:50%; background:transparent; color:var(--t2); cursor:pointer; }
+.routine-row-complete .routine-check { border-color:rgba(127,196,189,.5); background:rgba(127,196,189,.10); }
+.routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:rgba(255,255,255,.04); color:var(--t2); }
 .routine-row-copy { display:flex; flex:1 1 auto; flex-direction:column; gap:.45rem; min-width:0; }
 .routine-row-copy strong { font-size:1.45rem; font-weight:550; }
 .routine-row-copy small { color:#8e9088; font-size:1.15rem; line-height:1.4; }
-.routine-time input { width:10.5rem; padding:.8rem .7rem; color:#e9eae3; color-scheme:dark; border:1px solid #2e3029; border-radius:.8rem; background:#101114; font:inherit; font-size:1.2rem; }
+.routine-time input { width:10.5rem; padding:.8rem .7rem; color:#e9eae3; color-scheme:dark; border:1px solid #2e3029; border-radius:.8rem; background:rgba(255,255,255,.04); font:inherit; font-size:1.2rem; }
 .routine-toggle { flex:0 0 4.1rem; width:4.1rem; height:2.4rem; padding:.25rem; border:1px solid #41423b; border-radius:99px; background:#20211d; cursor:pointer; }
 .routine-toggle span { display:block; width:1.6rem; height:1.6rem; border-radius:50%; background:#8d8f86; transition:transform .2s ease,background .2s ease; }
-.routine-toggle.is-on { border-color:#2563eb; background:rgba(37, 99, 235,.22); }
-.routine-toggle.is-on span { transform:translateX(1.55rem); background:#2563eb; }
-.routine-next-step { display:flex; align-items:center; gap:1.5rem; margin-top:1.6rem; padding:1.8rem; border:1px solid #282a30; border-radius:1.4rem; background:#0b0c0a; }
-.routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:#181a13; color:#2563eb; }
+.routine-toggle.is-on { border-color:rgba(127,196,189,.5); background:rgba(127,196,189,.10); }
+.routine-toggle.is-on span { transform:translateX(1.55rem); background:rgba(127,196,189,.10); }
+.routine-next-step { display:flex; align-items:center; gap:1.5rem; margin-top:1.6rem; padding:1.8rem; border:1px solid var(--edge); border-radius:1.4rem; background:rgba(255,255,255,.04); }
+.routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:rgba(255,255,255,.04); color:var(--t2); }
 .routine-next-step h2 { margin:.6rem 0 .35rem; font-size:1.8rem; font-weight:550; }
 .routine-next-step p { margin:0; color:#999b94; font-size:1.25rem; line-height:1.55; }
 .routine-reminder-note { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.7rem; border:1px solid #272823; border-radius:1.4rem; }
-.routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:#151612; color:#2563eb; }
+.routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:rgba(255,255,255,.04); color:var(--t2); }
 .routine-reminder-note>div:nth-child(2) { flex:1; min-width:0; }
 .routine-reminder-note strong { font-size:1.3rem; font-weight:550; }
 .routine-reminder-note p { margin:.5rem 0 0; color:#92948d; font-size:1.15rem; line-height:1.55; }
@@ -104,10 +104,10 @@
 .routine-row-copy { justify-content:center; }
 .routine-row-copy strong { font-size:1.55rem; }
 .routine-row-copy small { display:none; }
-.routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid #272823; border-radius:1.4rem; background:#0b0c0a; }
-.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:#151612; color:#2563eb; }
+.routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid #272823; border-radius:1.4rem; background:rgba(255,255,255,.04); }
+.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:rgba(255,255,255,.04); color:var(--t2); }
 .routine-reminder-control>div { display:flex; flex:1; min-width:0; flex-direction:column; gap:.35rem; }
-.routine-reminder-control strong { font-size:1.45rem; font-weight:600; }
+.routine-reminder-control strong { font-size:1.45rem; font-weight:500; }
 .routine-reminder-control small { color:#999b94; font-size:1.25rem; }
 .routine-reminder-control .routine-toggle { flex:0 0 4.1rem; }
 .routine-reminder-note { padding:1.5rem 1.7rem; }
@@ -130,65 +130,65 @@
 
 /* Geometric polish: true circles and a proportionate, centered switch knob. */
 .routine-check {
-  box-sizing: border-box;
-  flex: 0 0 2.5rem;
-  width: 2.5rem;
-  min-width: 2.5rem;
-  height: 2.5rem;
-  min-height: 2.5rem;
-  aspect-ratio: 1 / 1;
-  padding: 0;
-  border-radius: 50%;
-  overflow: hidden;
+  box-sizing:border-box;
+  flex:0 0 2.5rem;
+  width:2.5rem;
+  min-width:2.5rem;
+  height:2.5rem;
+  min-height:2.5rem;
+  aspect-ratio:1 / 1;
+  padding:0;
+  border-radius:50%;
+  overflow:hidden;
 }
 .routine-toggle {
-  box-sizing: border-box;
-  flex: 0 0 4.2rem;
-  width: 4.2rem;
-  min-width: 4.2rem;
-  height: 2.2rem;
-  min-height: 2.2rem;
-  padding: .2rem;
-  display: flex;
-  align-items: center;
-  border-radius: 999px;
+  box-sizing:border-box;
+  flex:0 0 4.2rem;
+  width:4.2rem;
+  min-width:4.2rem;
+  height:2.2rem;
+  min-height:2.2rem;
+  padding:.2rem;
+  display:flex;
+  align-items:center;
+  border-radius:999px;
 }
 .routine-toggle span {
-  box-sizing: border-box;
-  flex: 0 0 1.5rem;
-  width: 1.5rem;
-  min-width: 1.5rem;
-  height: 1.5rem;
-  min-height: 1.5rem;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
+  box-sizing:border-box;
+  flex:0 0 1.5rem;
+  width:1.5rem;
+  min-width:1.5rem;
+  height:1.5rem;
+  min-height:1.5rem;
+  aspect-ratio:1 / 1;
+  border-radius:50%;
 }
 .routine-toggle.is-on span {
-  transform: translateX(2rem);
+  transform:translateX(2rem);
 }
 @media (max-width: 700px) {
   .routine-check {
-    flex-basis: 2.3rem;
-    width: 2.3rem;
-    min-width: 2.3rem;
-    height: 2.3rem;
-    min-height: 2.3rem;
+    flex-basis:2.3rem;
+    width:2.3rem;
+    min-width:2.3rem;
+    height:2.3rem;
+    min-height:2.3rem;
   }
   .routine-toggle {
-    flex-basis: 3.6rem;
-    width: 3.6rem;
-    min-width: 3.6rem;
+    flex-basis:3.6rem;
+    width:3.6rem;
+    min-width:3.6rem;
   }
   .routine-toggle.is-on span {
-    transform: translateX(1.4rem);
+    transform:translateX(1.4rem);
   }
 }
 
 
 /* Adjustable lead time for routine reminders. */
 .routine-lead-time { display:flex; align-items:center; gap:.7rem; color:#a4a69e; font-size:1.15rem; white-space:nowrap; }
-.routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid #34362f; border-radius:.9rem; background:#101114; color:#f5f6f1; font:inherit; font-size:1.35rem; text-align:center; }
-.routine-lead-time input:focus { outline:1px solid #2563eb; border-color:#2563eb; }
+.routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid #34362f; border-radius:.9rem; background:rgba(255,255,255,.04); color:#f5f6f1; font:inherit; font-size:1.35rem; text-align:center; }
+.routine-lead-time input:focus { outline:1px solid var(--edge); border-color:var(--edge); }
 @media(max-width:700px) {
   .routine-reminder-control { flex-wrap:wrap; }
   .routine-lead-time { width:100%; justify-content:space-between; padding:.6rem 0 0 5rem; }
@@ -203,424 +203,423 @@
 .daily-routine-page .routine-row-icon,
 .daily-routine-page .routine-next-icon,
 .daily-routine-page .routine-reminder-icon,
-.daily-routine-page .routine-reminder-control-icon { color: #2563eb !important; }
-.daily-routine-page .routine-progress-track span { background: #2563eb !important; }
+.daily-routine-page .routine-reminder-control-icon { color:var(--accent) !important; }
+.daily-routine-page .routine-progress-track span { background:rgba(127,196,189,.10) !important; }
 .daily-routine-page .routine-progress-bottom button,
 .daily-routine-page .routine-insight-card > button,
-.daily-routine-page .routine-reminder-note > button { color: #2563eb !important; }
-.daily-routine-page .routine-insight-icon { border-color: rgba(37, 99, 235,.24) !important; background: rgba(37, 99, 235,.08) !important; }
+.daily-routine-page .routine-reminder-note > button { color:var(--accent) !important; }
+.daily-routine-page .routine-insight-icon { border-color:var(--edge) !important; background:rgba(255,255,255,.04) !important; }
 .daily-routine-page .routine-row-icon,
 .daily-routine-page .routine-next-icon,
 .daily-routine-page .routine-reminder-icon,
-.daily-routine-page .routine-reminder-control-icon { background: rgba(37, 99, 235,.09) !important; }
-.daily-routine-page .routine-row-complete .routine-check { border-color: #2563eb !important; background: #2563eb !important; color: #fff !important; }
-.daily-routine-page .routine-toggle.is-on { border-color: rgba(37, 99, 235,.75) !important; background: rgba(37, 99, 235,.22) !important; }
-.daily-routine-page .routine-toggle.is-on span { background: #2563eb !important; }
-.daily-routine-page .routine-lead-time input:focus { outline-color: #2563eb !important; border-color: #2563eb !important; }
-.daily-routine-page .routine-toggle.is-on span { transform: translateX(1.55rem); }
-@media (max-width:700px) { .daily-routine-page .routine-toggle.is-on span { transform: translateX(1.1rem); } }
+.daily-routine-page .routine-reminder-control-icon { background:rgba(255,255,255,.04) !important; }
+.daily-routine-page .routine-row-complete .routine-check { border-color:rgba(127,196,189,.5) !important; background:rgba(127,196,189,.10) !important; color:#fff !important; }
+.daily-routine-page .routine-toggle.is-on { border-color:rgba(127,196,189,.5) !important; background:rgba(127,196,189,.10) !important; }
+.daily-routine-page .routine-toggle.is-on span { background:rgba(127,196,189,.10) !important; }
+.daily-routine-page .routine-lead-time input:focus { outline-color:var(--t2) !important; border-color:var(--edge) !important; }
+.daily-routine-page .routine-toggle.is-on span { transform:translateX(1.55rem); }
+@media (max-width:700px) { .daily-routine-page .routine-toggle.is-on span { transform:translateX(1.1rem); } }
 
 
 /* Final routine-page accent enforcement: no lime remnants. */
-html body #root .daily-routine-page { --color-accent-lime:#2563eb !important; --accent:#2563eb !important; --routine-accent:#2563eb !important; }
+html body #root .daily-routine-page { --color-accent-lime:var(--accent) !important; --accent:rgba(127,196,189,.10) !important; --routine-accent:rgba(127,196,189,.10) !important; }
 html body #root .daily-routine-page .routine-heading h1 span,
 html body #root .daily-routine-page .routine-progress-top>strong,
 html body #root .daily-routine-page .routine-insight-icon,
 html body #root .daily-routine-page .routine-row-icon,
 html body #root .daily-routine-page .routine-next-icon,
 html body #root .daily-routine-page .routine-reminder-icon,
-html body #root .daily-routine-page .routine-reminder-control-icon { color:#2563eb !important; }
+html body #root .daily-routine-page .routine-reminder-control-icon { color:var(--accent) !important; }
 html body #root .daily-routine-page .routine-progress-track span,
 html body #root .daily-routine-page .routine-row-complete .routine-check,
-html body #root .daily-routine-page .routine-toggle.is-on span { background:#2563eb !important; }
+html body #root .daily-routine-page .routine-toggle.is-on span { background:rgba(127,196,189,.10) !important; }
 html body #root .daily-routine-page .routine-row-complete .routine-check,
-html body #root .daily-routine-page .routine-toggle.is-on { border-color:#2563eb !important; }
-html body #root .daily-routine-page .routine-toggle.is-on { background:rgba(37, 99, 235,.2) !important; }
-html body #root .daily-routine-page .routine-lead-time input:focus { outline-color:#2563eb !important; border-color:#2563eb !important; }
+html body #root .daily-routine-page .routine-toggle.is-on { border-color:rgba(127,196,189,.5) !important; }
+html body #root .daily-routine-page .routine-toggle.is-on { background:rgba(127,196,189,.10) !important; }
+html body #root .daily-routine-page .routine-lead-time input:focus { outline-color:var(--t2) !important; border-color:var(--edge) !important; }
 
 
 /* Readability pass — routine cards and schedule rows */
 .daily-routine-page .routine-insight-card {
-  padding: 2.2rem;
-  border-radius: 1.8rem;
+  padding:2.2rem;
+  border-radius:1.8rem;
 }
 .daily-routine-page .routine-insight-card > strong {
-  margin: 1rem 0 .6rem;
-  font-size: 2.9rem;
-  line-height: 1.15;
+  margin:1rem 0 .6rem;
+  font-size:2.9rem;
+  line-height:1.15;
 }
 .daily-routine-page .routine-insight-card > strong small {
-  font-size: 1.5rem;
-  line-height: 1.4;
+  font-size:1.5rem;
+  line-height:1.4;
 }
 .daily-routine-page .routine-insight-card > p {
-  min-height: 0;
-  margin: 0 0 1.7rem;
-  font-size: 1.5rem;
-  line-height: 1.6;
+  min-height:0;
+  margin:0 0 1.7rem;
+  font-size:1.5rem;
+  line-height:1.6;
 }
 .daily-routine-page .routine-insight-card > button {
-  min-height: 3.8rem;
-  font-size: 1.4rem;
-  line-height: 1.4;
+  min-height:3.8rem;
+  font-size:1.4rem;
+  line-height:1.4;
 }
 .daily-routine-page .routine-row-copy strong {
-  font-size: 1.6rem;
-  line-height: 1.4;
+  font-size:1.6rem;
+  line-height:1.4;
 }
 .daily-routine-page .routine-row-copy small {
-  font-size: 1.3rem;
-  line-height: 1.55;
+  font-size:1.3rem;
+  line-height:1.55;
 }
 .daily-routine-page .routine-group > h3,
 .daily-routine-page .routine-label,
 .daily-routine-page .routine-eyebrow {
-  font-size: 1.2rem;
-  line-height: 1.5;
+  font-size:1.2rem;
+  line-height:1.5;
 }
 @media (max-width: 640px) {
-  .daily-routine-page .routine-insight-grid { gap: 1.2rem; }
-  .daily-routine-page .routine-insight-card { padding: 1.7rem; }
-  .daily-routine-page .routine-insight-card > p { font-size: 1.4rem; line-height: 1.55; }
-  .daily-routine-page .routine-row-copy strong { font-size: 1.5rem; }
-  .daily-routine-page .routine-row-copy small { font-size: 1.25rem; }
+  .daily-routine-page .routine-insight-grid { gap:1.2rem; }
+  .daily-routine-page .routine-insight-card { padding:1.7rem; }
+  .daily-routine-page .routine-insight-card > p { font-size:1.4rem; line-height:1.55; }
+  .daily-routine-page .routine-row-copy strong { font-size:1.5rem; }
+  .daily-routine-page .routine-row-copy small { font-size:1.25rem; }
 }
 
 
 /* Routine life-coach carousel: quiet charcoal cards with restrained, category-specific color. */
 .daily-routine-page .routine-coach-section {
-  margin: 0 0 3.6rem;
-  min-width: 0;
+  margin:0 0 3.6rem;
+  min-width:0;
 }
 .daily-routine-page .routine-coach-heading {
-  margin-bottom: .4rem;
+  margin-bottom:.4rem;
 }
 .daily-routine-page .routine-coach-heading h2 {
-  margin: .7rem 0 .5rem;
-  font-size: 2.5rem;
-  font-weight: 550;
-  letter-spacing: -.05em;
+  margin:.7rem 0 .5rem;
+  font-size:2.5rem;
+  font-weight:550;
+  letter-spacing:-.05em;
 }
 .daily-routine-page .routine-coach-heading p {
-  margin: 0;
-  max-width: 42rem;
-  color: #92949d;
-  font-size: 1.4rem;
-  line-height: 1.6;
+  margin:0;
+  max-width:42rem;
+  color:#92949d;
+  font-size:1.4rem;
+  line-height:1.6;
 }
 .daily-routine-page .routine-coach-carousel {
-  height: 25rem;
-  min-height: 25rem;
-  margin-top: 1.1rem;
-  margin-bottom: .7rem;
+  height:25rem;
+  min-height:25rem;
+  margin-top:1.1rem;
+  margin-bottom:.7rem;
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__stage {
-  overflow: visible;
+  overflow:visible;
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__card {
-  background: #0b0c0f;
-  border-color: rgba(255,255,255,.11);
-  box-shadow: 0 22px 54px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.035);
-  user-select: none;
-  -webkit-user-select: none;
+  background:rgba(255,255,255,.04);
+  border-color:rgba(255,255,255,.11);
+  box-shadow:0 22px 54px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.035);
+  user-select:none;
+  -webkit-user-select:none;
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__card::before {
   content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--routine-coach-accent, #fff) 10%, transparent), transparent 62%),
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  background:radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--routine-coach-accent, #fff) 10%, transparent), transparent 62%),
     linear-gradient(145deg, rgba(255,255,255,.025), transparent 58%);
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__card::after {
   content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  opacity: .07;
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+  opacity:.07;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.86' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
 }
 .daily-routine-page .routine-coach-card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 100%;
-  height: 100%;
-  padding: 1.9rem;
-  box-sizing: border-box;
-  color: #f5f5f6;
-  overflow: hidden;
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  width:100%;
+  height:100%;
+  padding:1.9rem;
+  box-sizing:border-box;
+  color:#f5f5f6;
+  overflow:hidden;
 }
 .daily-routine-page .routine-coach-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
 }
 .daily-routine-page .routine-coach-icon {
-  display: grid;
-  place-items: center;
-  width: 4.2rem;
-  height: 4.2rem;
-  color: var(--routine-coach-accent, #dbeafe);
-  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--routine-coach-accent, #dbeafe) 16%, transparent));
+  display:grid;
+  place-items:center;
+  width:4.2rem;
+  height:4.2rem;
+  color:var(--routine-coach-accent, #dbeafe);
+  filter:drop-shadow(0 0 12px color-mix(in srgb, var(--routine-coach-accent, #dbeafe) 16%, transparent));
 }
 .daily-routine-page .routine-coach-arrow {
-  display: grid;
-  place-items: center;
-  width: 2.8rem;
-  height: 2.8rem;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: 50%;
-  color: #c4c5cc;
-  background: rgba(255,255,255,.025);
+  display:grid;
+  place-items:center;
+  width:2.8rem;
+  height:2.8rem;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  color:#c4c5cc;
+  background:rgba(255,255,255,.025);
 }
 .daily-routine-page .routine-coach-card-copy h3 {
-  margin: 0 0 .5rem;
-  font-size: 2.25rem;
-  font-weight: 570;
-  letter-spacing: -.045em;
+  margin:0 0 .5rem;
+  font-size:2.25rem;
+  font-weight:570;
+  letter-spacing:-.045em;
 }
 .daily-routine-page .routine-coach-card-copy p {
-  margin: 0;
-  color: #a1a3ac;
-  font-size: 1.35rem;
-  line-height: 1.5;
+  margin:0;
+  color:#a1a3ac;
+  font-size:1.35rem;
+  line-height:1.5;
 }
 .daily-routine-page .routine-coach-card-hint {
-  display: inline-flex;
-  align-items: center;
-  gap: .35rem;
-  align-self: flex-start;
-  color: #d1d3db;
-  font-size: 1.15rem;
-  font-weight: 500;
+  display:inline-flex;
+  align-items:center;
+  gap:.35rem;
+  align-self:flex-start;
+  color:#d1d3db;
+  font-size:1.15rem;
+  font-weight:500;
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__dots {
-  bottom: -.05rem !important;
+  bottom:-.05rem !important;
 }
 @media (max-width: 640px) {
   .daily-routine-page .routine-coach-carousel {
-    height: 24rem;
-    min-height: 24rem;
-    margin-top: .8rem;
+    height:24rem;
+    min-height:24rem;
+    margin-top:.8rem;
   }
   .daily-routine-page .routine-coach-carousel .depth-carousel__card {
-    max-width: calc(100vw - 4.4rem);
+    max-width:calc(100vw - 4.4rem);
   }
   .daily-routine-page .routine-coach-card {
-    padding: 1.7rem;
+    padding:1.7rem;
   }
   .daily-routine-page .routine-coach-card-copy h3 {
-    font-size: 2.1rem;
+    font-size:2.1rem;
   }
 }
 
 
 /* Routine coach cards: clearer type and more breathing room above the section. */
 .daily-routine-page .routine-coach-section {
-  padding-top: 1.8rem;
+  padding-top:1.8rem;
 }
 .daily-routine-page .routine-coach-heading {
-  margin-bottom: 1.2rem;
+  margin-bottom:1.2rem;
 }
 .daily-routine-page .routine-coach-heading h2 {
-  margin-top: 0;
-  font-size: 2.8rem;
-  line-height: 1.2;
+  margin-top:0;
+  font-size:2.8rem;
+  line-height:1.2;
 }
 .daily-routine-page .routine-coach-heading p {
-  margin-top: .8rem;
-  font-size: 1.5rem;
-  line-height: 1.6;
+  margin-top:.8rem;
+  font-size:1.5rem;
+  line-height:1.6;
 }
 .daily-routine-page .routine-coach-card-copy h3 {
-  font-size: 2.6rem;
-  line-height: 1.2;
-  margin-bottom: .8rem;
+  font-size:2.6rem;
+  line-height:1.2;
+  margin-bottom:.8rem;
 }
 .daily-routine-page .routine-coach-card-copy p {
-  font-size: 1.6rem;
-  line-height: 1.5;
+  font-size:1.6rem;
+  line-height:1.5;
 }
 .daily-routine-page .routine-coach-card-hint {
-  font-size: 1.4rem;
-  gap: .5rem;
+  font-size:1.4rem;
+  gap:.5rem;
 }
 @media (max-width: 640px) {
   .daily-routine-page .routine-coach-section {
-    padding-top: 2.4rem;
+    padding-top:2.4rem;
   }
   .daily-routine-page .routine-coach-heading h2 {
-    font-size: 2.7rem;
+    font-size:2.7rem;
   }
   .daily-routine-page .routine-coach-heading p {
-    font-size: 1.5rem;
+    font-size:1.5rem;
   }
   .daily-routine-page .routine-coach-card-copy h3 {
-    font-size: 2.5rem;
+    font-size:2.5rem;
   }
   .daily-routine-page .routine-coach-card-copy p {
-    font-size: 1.6rem;
+    font-size:1.6rem;
   }
   .daily-routine-page .routine-coach-card-hint {
-    font-size: 1.4rem;
+    font-size:1.4rem;
   }
 }
 
 
 /* Daily Routine — keep the Today progress percentage white. */
 html body #root .daily-routine-page .routine-progress-top > strong {
-  color: #fff !important;
+  color:#fff !important;
 }
 
 
 /* Notification status card — match the other routine cards and improve readability. */
 html body #root .daily-routine-page .routine-reminder-note {
-  background: #0b0c0f !important;
-  border-color: rgba(255,255,255,.11) !important;
+  background:rgba(255,255,255,.04) !important;
+  border-color:rgba(255,255,255,.11) !important;
 }
 html body #root .daily-routine-page .routine-reminder-note strong {
-  font-size: 1.6rem !important;
-  line-height: 1.4 !important;
-  color: #f5f5f6 !important;
+  font-size:1.6rem !important;
+  line-height:1.4 !important;
+  color:#f5f5f6 !important;
 }
 html body #root .daily-routine-page .routine-reminder-note p {
-  font-size: 1.5rem !important;
-  line-height: 1.65 !important;
-  color: #b2b4bd !important;
+  font-size:1.5rem !important;
+  line-height:1.65 !important;
+  color:#b2b4bd !important;
 }
 html body #root .daily-routine-page .routine-reminder-note > button {
-  font-size: 1.45rem !important;
-  line-height: 1.4 !important;
+  font-size:1.45rem !important;
+  line-height:1.4 !important;
 }
 @media (max-width: 640px) {
   html body #root .daily-routine-page .routine-reminder-note strong {
-    font-size: 1.55rem !important;
+    font-size:1.55rem !important;
   }
   html body #root .daily-routine-page .routine-reminder-note p {
-    font-size: 1.45rem !important;
+    font-size:1.45rem !important;
   }
   html body #root .daily-routine-page .routine-reminder-note > button {
-    font-size: 1.4rem !important;
+    font-size:1.4rem !important;
   }
 }
 
 
 /* Final switch geometry fix: keep the knob inset evenly and move it fully to the right. */
 html body #root .daily-routine-page .routine-toggle {
-  position: relative !important;
-  box-sizing: border-box !important;
-  overflow: hidden;
+  position:relative !important;
+  box-sizing:border-box !important;
+  overflow:hidden;
 }
 html body #root .daily-routine-page .routine-toggle span {
-  position: absolute !important;
-  left: .2rem !important;
-  top: 50% !important;
-  display: block !important;
-  box-sizing: border-box !important;
-  width: 1.5rem !important;
-  min-width: 1.5rem !important;
-  height: 1.5rem !important;
-  min-height: 1.5rem !important;
-  margin: 0 !important;
-  transform: translateY(-50%) !important;
-  transition: left .2s ease, transform .2s ease, background-color .2s ease !important;
+  position:absolute !important;
+  left:.2rem !important;
+  top:50% !important;
+  display:block !important;
+  box-sizing:border-box !important;
+  width:1.5rem !important;
+  min-width:1.5rem !important;
+  height:1.5rem !important;
+  min-height:1.5rem !important;
+  margin:0 !important;
+  transform:translateY(-50%) !important;
+  transition:left .2s ease, transform .2s ease, background-color .2s ease !important;
 }
 html body #root .daily-routine-page .routine-toggle.is-on span {
-  left: calc(100% - 1.7rem) !important;
-  transform: translateY(-50%) !important;
+  left:calc(100% - 1.7rem) !important;
+  transform:translateY(-50%) !important;
 }
 @media (max-width: 700px) {
   html body #root .daily-routine-page .routine-toggle span {
-    left: .2rem !important;
+    left:.2rem !important;
   }
   html body #root .daily-routine-page .routine-toggle.is-on span {
-    left: calc(100% - 1.7rem) !important;
+    left:calc(100% - 1.7rem) !important;
   }
 }
 
 /* Weekly routine scheduling */
-.routine-day-picker{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.routine-day-picker button{min-width:2.7rem;padding:.35rem .5rem;border:1px solid #30323a;border-radius:999px;background:#101114;color:#858995;font:inherit;font-size:1rem;line-height:1.2;cursor:pointer}.routine-day-picker button.is-selected{border-color:rgba(59,130,246,.65);background:rgba(37,99,235,.2);color:#bfdbfe}
+.routine-day-picker{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.routine-day-picker button{min-width:2.7rem;padding:.35rem .5rem;border:1px solid var(--edge);border-radius:999px;background:rgba(255,255,255,.04);color:#858995;font:inherit;font-size:1rem;line-height:1.2;cursor:pointer}.routine-day-picker button.is-selected{border-color:rgba(127,196,189,.5);background:rgba(127,196,189,.10);color:var(--accent)}
 @media(max-width:560px){.routine-row{flex-wrap:wrap;gap:.8rem}.routine-row-copy{flex:1 1 calc(100% - 8rem);order:2}.routine-row-icon{order:1}.routine-check{order:0}.routine-time{margin-left:auto;order:3}.routine-toggle{order:4}.routine-day-picker button{min-width:2.5rem;padding:.35rem .4rem}}
 
 
 /* Weekly routine editor — consistent two-level layout across phone and desktop. */
 .daily-routine-page .routine-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: stretch;
-  gap: .6rem;
-  min-height: 0;
-  padding: 1.35rem .2rem 1.5rem;
+  display:grid;
+  grid-template-columns:minmax(0, 1fr);
+  align-items:stretch;
+  gap:.6rem;
+  min-height:0;
+  padding:1.35rem .2rem 1.5rem;
 }
 .daily-routine-page .routine-row-main {
-  display: flex;
-  align-items: center;
-  gap: 1.1rem;
-  min-width: 0;
-  width: 100%;
+  display:flex;
+  align-items:center;
+  gap:1.1rem;
+  min-width:0;
+  width:100%;
 }
 .daily-routine-page .routine-row-main .routine-row-copy {
-  flex: 1 1 auto;
-  min-width: 0;
+  flex:1 1 auto;
+  min-width:0;
 }
 .daily-routine-page .routine-row-main .routine-row-copy strong {
-  font-size: 1.5rem;
-  line-height: 1.35;
+  font-size:1.5rem;
+  line-height:1.35;
 }
 .daily-routine-page .routine-day-picker {
-  display: grid;
-  grid-template-columns: repeat(7, minmax(0, 1fr));
-  align-items: center;
-  gap: .55rem;
-  width: 100%;
-  min-width: 0;
-  margin: .45rem 0 0;
+  display:grid;
+  grid-template-columns:repeat(7, minmax(0, 1fr));
+  align-items:center;
+  gap:.55rem;
+  width:100%;
+  min-width:0;
+  margin:.45rem 0 0;
 }
 .daily-routine-page .routine-day-picker button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-width: 0;
-  min-height: 3.6rem;
-  padding: .5rem .15rem;
-  box-sizing: border-box;
-  border: 1px solid #30323a;
-  border-radius: .95rem;
-  background: #101114;
-  color: #9296a2;
-  font-size: 1.15rem;
-  font-weight: 500;
-  line-height: 1;
-  white-space: nowrap;
-  -webkit-tap-highlight-color: transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:100%;
+  min-width:0;
+  min-height:3.6rem;
+  padding:.5rem .15rem;
+  box-sizing:border-box;
+  border:1px solid var(--edge);
+  border-radius:.95rem;
+  background:rgba(255,255,255,.04);
+  color:#9296a2;
+  font-size:1.15rem;
+  font-weight:500;
+  line-height:1;
+  white-space:nowrap;
+  -webkit-tap-highlight-color:transparent;
 }
 .daily-routine-page .routine-day-picker button.is-selected {
-  border-color: rgba(59,130,246,.72);
-  background: rgba(37,99,235,.18);
-  color: #bfdbfe;
+  border-color:rgba(127,196,189,.5);
+  background:rgba(127,196,189,.10);
+  color:var(--accent);
 }
 .daily-routine-page .routine-day-picker button:focus-visible {
-  outline: 2px solid #3b82f6;
-  outline-offset: 2px;
+  outline:2px solid rgba(127,196,189,.5);
+  outline-offset:2px;
 }
 @media(max-width:700px) {
-  .daily-routine-page .routine-row { gap: .7rem; padding: 1.25rem 0 1.4rem; }
-  .daily-routine-page .routine-row-main { gap: .75rem; }
-  .daily-routine-page .routine-row-main .routine-row-copy strong { font-size: 1.35rem; }
-  .daily-routine-page .routine-day-picker { gap: .4rem; margin-top: .35rem; }
-  .daily-routine-page .routine-day-picker button { min-height: 3.5rem; border-radius: .85rem; font-size: 1.05rem; }
-  .daily-routine-page .routine-time input { width: 8rem; padding: .7rem .35rem; }
+  .daily-routine-page .routine-row { gap:.7rem; padding:1.25rem 0 1.4rem; }
+  .daily-routine-page .routine-row-main { gap:.75rem; }
+  .daily-routine-page .routine-row-main .routine-row-copy strong { font-size:1.35rem; }
+  .daily-routine-page .routine-day-picker { gap:.4rem; margin-top:.35rem; }
+  .daily-routine-page .routine-day-picker button { min-height:3.5rem; border-radius:.85rem; font-size:1.05rem; }
+  .daily-routine-page .routine-time input { width:8rem; padding:.7rem .35rem; }
 }
 @media(max-width:390px) {
-  .daily-routine-page .routine-row-main { gap: .55rem; }
-  .daily-routine-page .routine-row-main .routine-row-icon { display: none; }
-  .daily-routine-page .routine-time input { width: 7.2rem; }
-  .daily-routine-page .routine-day-picker { gap: .3rem; }
-  .daily-routine-page .routine-day-picker button { min-height: 3.3rem; font-size: 1rem; }
+  .daily-routine-page .routine-row-main { gap:.55rem; }
+  .daily-routine-page .routine-row-main .routine-row-icon { display:none; }
+  .daily-routine-page .routine-time input { width:7.2rem; }
+  .daily-routine-page .routine-day-picker { gap:.3rem; }
+  .daily-routine-page .routine-day-picker button { min-height:3.3rem; font-size:1rem; }
 }

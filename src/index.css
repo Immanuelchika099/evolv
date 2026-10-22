@@ -2,48 +2,48 @@
 :root{
   /* 4px-based spacing scale */
   --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
-  --space-12: 48px;
+  --space-2:8px;
+  --space-3:12px;
+  --space-4:16px;
+  --space-6:24px;
+  --space-8:32px;
+  --space-12:48px;
 
   /* Shared surfaces, borders, and accent */
   --color-canvas: #090909;
-  --color-surface: #101010;
-  --color-surface-raised: #141414;
-  --color-text-primary: #f4f4f1;
-  --color-text-secondary: rgba(255,255,255,.66);
-  --color-text-muted: rgba(255,255,255,.44);
-  --color-border-subtle: rgba(255,255,255,.085);
-  --color-border: rgba(255,255,255,.12);
-  --color-accent-blue: #2563eb;
-  --evolv-blue: var(--color-accent-blue);
+  --color-surface:#101010;
+  --color-surface-raised:#141414;
+  --color-text-primary:#f4f4f1;
+  --color-text-secondary:rgba(255,255,255,.66);
+  --color-text-muted:rgba(255,255,255,.44);
+  --color-border-subtle:rgba(255,255,255,.085);
+  --color-border:rgba(255,255,255,.12);
+  --color-accent-blue:var(--accent);
+  --evolv-blue:var(--accent);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
-  --color-accent-lime: var(--color-accent-blue);
+  --color-accent-lime: var(--accent);
 
   /* Shared shape, elevation, and type scale */
   --radius-sm: 8px;
-  --radius-control: 12px;
-  --radius-card: 20px;
-  --radius-panel: 24px;
-  --radius-pill: 999px;
-  --shadow-card: 0 12px 36px rgba(0,0,0,.22);
-  --layout-max: 1120px;
-  --page-gutter: 18px;
-  --type-page-title: clamp(3.2rem, 5vw, 5.2rem);
-  --type-section-title: clamp(2.4rem, 3.2vw, 3.2rem);
-  --type-card-title: 1.8rem;
-  --type-body: 1.5rem;
-  --type-caption: 1.2rem;
+  --radius-control:12px;
+  --radius-card:20px;
+  --radius-panel:24px;
+  --radius-pill:999px;
+  --shadow-card:0 12px 36px rgba(0,0,0,.22);
+  --layout-max:1120px;
+  --page-gutter:18px;
+  --type-page-title:clamp(3.2rem, 5vw, 5.2rem);
+  --type-section-title:clamp(2.4rem, 3.2vw, 3.2rem);
+  --type-card-title:1.8rem;
+  --type-body:1.5rem;
+  --type-caption:1.2rem;
 
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color:#f4f1ea;
   background:#000;
   --muted:#85837f;
   --line:#ffffff1c;
-  --accent: #2563eb;
+  --accent:rgba(255,255,255,.04);
   --mint:#7d857b;
   -webkit-font-smoothing:antialiased;
 }
@@ -103,37 +103,37 @@ video{
 
 /* Single source of truth for the application canvas. */
 :root {
-  --app-bg: #000000;
-  color-scheme: dark;
-  background-color: var(--app-bg);
+  --app-bg:#000000;
+  color-scheme:dark;
+  background-color:var(--app-bg);
 }
 html,
 body,
 #root {
-  width: 100%;
-  min-width: 320px;
-  background-color: var(--app-bg) !important;
-  background-image: none !important;
+  width:100%;
+  min-width:320px;
+  background-color:var(--app-bg) !important;
+  background-image:none !important;
 }
 html,
 body {
-  min-height: 0;
+  min-height:0;
 }
 body {
-  margin: 0;
-  background: var(--app-bg) !important;
-  overscroll-behavior-x: none;
-  overflow-x: clip;
+  margin:0;
+  background:var(--app-bg) !important;
+  overscroll-behavior-x:none;
+  overflow-x:clip;
 }
 #root {
-  min-height: 100dvh;
-  isolation: isolate;
+  min-height:100dvh;
+  isolation:isolate;
 }
 
 /* Blue accent controls always need white foregrounds for contrast.
    Keep this shared rule after component styles so icons inherit white too. */
 :root {
-  --accent-foreground: #ffffff;
+  --accent-foreground:#ffffff;
 }
 .bottom-nav .bottom-active,
 .bottom-active,
@@ -148,7 +148,7 @@ button.chat-send-button,
 [aria-label="Send"],
 [title="Send message"],
 [title="Send"] {
-  color: #ffffff !important;
+  color:#ffffff !important;
 }
 .bottom-nav .bottom-active svg,
 .bottom-active svg,
@@ -163,17 +163,17 @@ button.chat-send-button svg,
 [aria-label="Send"] svg,
 [title="Send message"] svg,
 [title="Send"] svg {
-  color: #ffffff !important;
-  stroke: currentColor;
+  color:#ffffff !important;
+  stroke:currentColor;
 }
 
 
 
 /* FINAL GLOBAL CONTRAST PASS — all blue primary/accent buttons keep white content. */
 :root {
-  --accent-foreground: #ffffff !important;
-  --color-accent-foreground: #ffffff !important;
-  --button-primary-foreground: #ffffff !important;
+  --accent-foreground:#ffffff !important;
+  --color-accent-foreground:#ffffff !important;
+  --button-primary-foreground:#ffffff !important;
 }
 
 /* Cover primary actions across landing, auth, onboarding, dashboard, goals and AI. */
@@ -189,8 +189,8 @@ button.onboard-continue,
 button.onboarding-next,
 button.goal-heatmap-range .is-active,
 button.prompt-bar__send[data-armed],
-button[style*="#2563eb"],
-button[style*="rgb(37, 99, 235)"],
+button[style*="#7fc4bd"],
+button[style*="rgb(127, 196, 189)"],
 a.primary,
 a.primary-button,
 a.btn-primary,
@@ -200,8 +200,8 @@ a.button-primary,
 .auth-direct-page .auth-submit,
 .onboarding button.primary,
 .dashboard button.primary {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
 }
 
 button.bottom-active *,
@@ -216,8 +216,8 @@ button.onboard-continue *,
 button.onboarding-next *,
 button.goal-heatmap-range .is-active *,
 button.prompt-bar__send[data-armed] *,
-button[style*="#2563eb"] *,
-button[style*="rgb(37, 99, 235)"] *,
+button[style*="#7fc4bd"] *,
+button[style*="rgb(127, 196, 189)"] *,
 a.primary *,
 a.primary-button *,
 a.btn-primary *,
@@ -227,48 +227,48 @@ a.button-primary *,
 .auth-direct-page .auth-submit *,
 .onboarding button.primary *,
 .dashboard button.primary * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  fill:#ffffff !important;
+  stroke:#ffffff !important;
 }
 
 /* Remove leftover violet/purple styling from the routine navigation controls. */
 .routine-nav-button,
 .routine-nav-button:hover,
 .routine-nav-button:focus-visible {
-  color: #ffffff !important;
-  border-color: #292a2e !important;
-  background: #0b0c0f !important;
+  color:#ffffff !important;
+  border-color:#292a2e !important;
+  background:rgba(255,255,255,.04) !important;
 }
 .routine-nav-button:focus-visible {
-  outline-color: rgba(37, 99, 235, .7) !important;
+  outline-color:var(--t2) !important;
 }
 
 
 /* EVOLV boot loader: pure black canvas, consistently white wordmark. */
 html body #root .evolv-loader,
 html body #root .evolv-loader .evolv-loader-core {
-  background: #000000 !important;
-  background-color: #000000 !important;
-  background-image: none !important;
+  background:#000000 !important;
+  background-color:#000000 !important;
+  background-image:none !important;
 }
 html body #root .evolv-loader {
-  color: #ffffff !important;
-  box-shadow: none !important;
+  color:#ffffff !important;
+  box-shadow:none !important;
 }
 html body #root .evolv-loader .evolv-loader-wordmark {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
 }
 html body #root .evolv-loader::before,
 html body #root .evolv-loader::after,
 html body #root .evolv-loader .evolv-loader-core::before,
 html body #root .evolv-loader .evolv-loader-core::after {
-  background: #000000 !important;
-  background-color: #000000 !important;
-  background-image: none !important;
-  box-shadow: none !important;
+  background:#000000 !important;
+  background-color:#000000 !important;
+  background-image:none !important;
+  box-shadow:none !important;
 }
 
 
@@ -281,13 +281,13 @@ html body #root .onboarding .onboarding-next,
 html body #root .onboarding button[type="submit"],
 html body #root .onboarding .primary-button,
 html body #root .onboarding .btn-primary {
-  background: #2563eb !important;
-  background-color: #2563eb !important;
-  background-image: none !important;
-  border-color: #2563eb !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  box-shadow: none !important;
+  background:rgba(127,196,189,.10) !important;
+  background-color:rgba(127,196,189,.10) !important;
+  background-image:none !important;
+  border-color:rgba(127,196,189,.5) !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  box-shadow:none !important;
 }
 html body #root .evolv-welcome-cta *,
 html body #root .evolv-onboarding-continue *,
@@ -297,24 +297,24 @@ html body #root .onboarding .onboarding-next *,
 html body #root .onboarding button[type="submit"] *,
 html body #root .onboarding .primary-button *,
 html body #root .onboarding .btn-primary * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  fill:#ffffff !important;
+  stroke:#ffffff !important;
 }
 
 
 /* Floating Log action: only mounts after the boot loader and gently enters once. */
 @keyframes evolv-log-scale-in {
-  from { opacity: 0; transform: scale(.88) translateY(5px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from { opacity:0; transform:scale(.88) translateY(5px); }
+  to { opacity:1; transform:scale(1) translateY(0); }
 }
 .evolv-floating-log-intro {
-  animation: evolv-log-scale-in 420ms cubic-bezier(.2,.75,.25,1) both;
-  transform-origin: center;
+  animation:evolv-log-scale-in 420ms cubic-bezier(.2,.75,.25,1) both;
+  transform-origin:center;
 }
 @media (prefers-reduced-motion: reduce) {
-  .evolv-floating-log-intro { animation: none; }
+  .evolv-floating-log-intro { animation:none; }
 }
 
 /* EVOLV — public and standalone pages use a true black canvas.
@@ -329,8 +329,8 @@ html body #root .onboarding .btn-primary * {
 .forgot-password-page,
 .public-page,
 .standalone-page {
-  background-color: #000000 !important;
-  background-image: none !important;
+  background-color:#000000 !important;
+  background-image:none !important;
 }
 .auth-shell::before,
 .auth-shell::after,
@@ -338,8 +338,8 @@ html body #root .onboarding .btn-primary * {
 .auth-page::after,
 .evolv-onboarding::before,
 .evolv-onboarding::after {
-  background-color: transparent !important;
-  background-image: none !important;
+  background-color:transparent !important;
+  background-image:none !important;
 }
 
 
@@ -357,9 +357,9 @@ html body #root .standalone-page,
 html body #root .auth-page main,
 html body #root .auth-shell main,
 html body #root .auth-direct-page main {
-  background: #000000 !important;
-  background-color: #000000 !important;
-  background-image: none !important;
+  background:#000000 !important;
+  background-color:#000000 !important;
+  background-image:none !important;
 }
 
 html body #root .auth-page::before,
@@ -380,11 +380,11 @@ html body #root .public-page::before,
 html body #root .public-page::after,
 html body #root .standalone-page::before,
 html body #root .standalone-page::after {
-  background: none !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  filter: none !important;
+  background:none !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  box-shadow:none !important;
+  filter:none !important;
 }
 
 /* Keep account panels neutral too; never let inherited violet gradients show through. */
@@ -392,8 +392,8 @@ html body #root .auth-page .auth-content,
 html body #root .auth-shell .auth-content,
 html body #root .auth-direct-page .auth-content-compact,
 html body #root .auth-direct-page .auth-flow-content {
-  background-color: #000000 !important;
-  background-image: none !important;
+  background-color:#000000 !important;
+  background-image:none !important;
 }
 
 
@@ -403,25 +403,25 @@ html body #root .dashboard .evolv-bottom-nav button.bottom-active,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:hover,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:focus,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
-  color: rgba(255,255,255,.38) !important;
-  -webkit-text-fill-color: currentColor !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  outline-color: transparent !important;
+  color:rgba(255,255,255,.38) !important;
+  -webkit-text-fill-color:currentColor !important;
+  background:transparent !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  border-color:transparent !important;
+  box-shadow:none !important;
+  outline-color:transparent !important;
 }
 html body #root .dashboard .evolv-bottom-nav button.bottom-active > span,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
-  color: rgba(255,255,255,.38) !important;
-  -webkit-text-fill-color: currentColor !important;
-  fill: none !important;
-  stroke: currentColor !important;
+  color:rgba(255,255,255,.38) !important;
+  -webkit-text-fill-color:currentColor !important;
+  fill:none !important;
+  stroke:currentColor !important;
 }
 html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(255,255,255,.12) !important;
+  border-color:rgba(255,255,255,.12) !important;
 }
 
 
@@ -445,14 +445,14 @@ html body #root h3,
 html body #root h4,
 html body #root h5,
 html body #root h6 {
-  font-weight: 650;
+  font-weight:650;
 }
 
 html body #root .calm-home-welcome h1 {
-  font-weight: 750 !important;
-  letter-spacing: -0.045em;
+  font-weight:750 !important;
+  letter-spacing:-0.045em;
 }
 
 html body #root .calm-home-greeting {
-  font-weight: 500;
+  font-weight:500;
 }

@@ -1,23 +1,23 @@
 /* EVOLV depth carousel — right-side preview cards and tiny pagination. */
 .depth-carousel {
-  position: relative;
-  width: 100%;
-  height: var(--dc-card-height, 390px);
-  min-height: 360px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective: var(--dc-perspective, 1400px);
-  perspective-origin: 50% 50%;
-  touch-action: pan-y;
-  outline: none;
-  user-select: none;
-  -webkit-user-select: none;
-  cursor: grab;
-  margin: 1.8rem 0 .2rem;
+  position:relative;
+  width:100%;
+  height:var(--dc-card-height, 390px);
+  min-height:360px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  perspective:var(--dc-perspective, 1400px);
+  perspective-origin:50% 50%;
+  touch-action:pan-y;
+  outline:none;
+  user-select:none;
+  -webkit-user-select:none;
+  cursor:grab;
+  margin:1.8rem 0 .2rem;
 }
-.depth-carousel:active { cursor: grabbing; }
-.depth-carousel:focus-visible { outline: 1px solid rgba(255,255,255,.22); outline-offset: 4px; border-radius: 14px; }
+.depth-carousel:active { cursor:grabbing; }
+.depth-carousel:focus-visible { outline:1px solid rgba(255,255,255,.22); outline-offset:4px; border-radius:14px; }
 .depth-carousel__stage { position:absolute; inset:0; transform-style:preserve-3d; overflow:visible; }
 .depth-carousel__card {
   position:absolute;
