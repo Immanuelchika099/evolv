@@ -20,6 +20,7 @@
   --color-border: rgba(255,255,255,.12);
   --color-accent-blue: #2563eb;
   --blue-accent: var(--color-accent-blue);
+  --ai-bubble-blue: #133362;
   --evolv-blue: var(--color-accent-blue);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
   --color-accent-lime: var(--color-accent-blue);
