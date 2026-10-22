@@ -1,0 +1,48 @@
+/* EVOLV full calm redesign — global foundation. Loaded last from main.jsx. */
+:root { color:var(--t1); background:var(--bg); font-family:var(--font-ui); }
+html { background:var(--bg); scroll-padding-top:calc(env(safe-area-inset-top) + 1rem); }
+body {
+  margin:0; min-height:100%; background:var(--bg); color:var(--t1);
+  font-family:var(--font-ui); font-size:1.5rem; line-height:1.65;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+}
+body::before, body::after {
+  content:""; position:fixed; z-index:0; pointer-events:none; border-radius:50%;
+  background:radial-gradient(closest-side,var(--glow-a),transparent);
+}
+body::before { width:100vw; height:100vw; top:-30vw; right:-35vw; opacity:.22; }
+body::after { width:110vw; height:110vw; bottom:-35vw; left:-40vw; background:radial-gradient(closest-side,var(--glow-b),transparent); opacity:.24; }
+#root { position:relative; z-index:1; min-height:100vh; isolation:isolate; }
+#root > main { position:relative; z-index:1; }
+* { box-sizing:border-box; }
+:where(h1,h2,h3,h4,h5,h6) {
+  font-family:var(--font-ui)!important; font-weight:300!important;
+  letter-spacing:-.01em!important; line-height:1.2;
+  text-wrap:balance;
+}
+:where(p,li,label,input,textarea,select,button) { font-family:var(--font-ui); }
+:where(p,li) { line-height:1.7; }
+:where(button,a,[role=button],input,textarea,select) { -webkit-tap-highlight-color:transparent; }
+:where(button,a,[role=button]) { touch-action:manipulation; }
+:where(button,input,textarea,select) { font-size:inherit; }
+:where(button,a,input,textarea,select,[tabindex]):focus-visible {
+  outline:2px solid var(--accent)!important; outline-offset:3px;
+}
+:where(a) { color:var(--accent); text-decoration-color:rgba(127,196,189,.38); text-underline-offset:.25em; }
+:where(button) { font-weight:400; }
+:where(input,textarea,select) {
+  min-height:5.2rem; color:var(--t1); background:rgba(255,255,255,.04);
+  border:1px solid var(--edge); border-radius:1.8rem;
+  -webkit-backdrop-filter:blur(18px); backdrop-filter:blur(18px);
+}
+:where(input,textarea,select):focus {
+  border-color:rgba(127,196,189,.55)!important;
+  box-shadow:0 0 0 3px var(--accent-soft)!important; outline:none;
+}
+::selection { color:#071111; background:var(--accent); }
+.noise { pointer-events:none; }
+.page-enter { animation:evolv-rise .32s cubic-bezier(.2,.8,.2,1) both; }
+@keyframes evolv-rise { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+@media(min-width:768px){:root{--page-gutter:3.2rem}}
+@media(min-width:1280px){:root{--page-gutter:4.8rem}}

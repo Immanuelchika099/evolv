@@ -1,4 +1,4 @@
-/* EVOLV calm premium design tokens — single accent, quiet glass. */
+/* EVOLV calm premium design tokens — one soft teal accent. */
 :root {
   --bg: #090b0c;
   --accent: #7fc4bd;
@@ -6,12 +6,10 @@
   --glow-a: rgba(34,96,108,.55);
   --glow-b: rgba(22,52,84,.5);
   --t1: rgba(238,243,243,.94);
-  --t2: rgba(238,243,243,.62);
-  --t3: rgba(238,243,243,.38);
+  --t2: rgba(238,243,243,.72);
+  --t3: rgba(238,243,243,.48);
   --edge: rgba(255,255,255,.10);
   --danger: #e5484d;
-
-  /* Backwards-compatible aliases for existing components during migration. */
   --color-bg: var(--bg);
   --color-surface-start: rgba(255,255,255,.07);
   --color-surface-end: rgba(255,255,255,.02);
@@ -32,7 +30,6 @@
   --color-text-secondary: var(--t2);
   --color-text-muted: var(--t3);
   --color-border-subtle: var(--edge);
-  --color-border: var(--edge);
   --color-accent-blue: var(--accent);
   --evolv-blue: var(--accent);
   --color-accent-lime: var(--accent);
@@ -42,43 +39,26 @@
   --accent-gradient: linear-gradient(135deg,var(--accent),var(--accent));
   --surface-gradient: linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));
   --card-shadow: 0 2rem 5rem rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.07);
-
   --font-ui: system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  --type-display: clamp(3.4rem,3vw + 2rem,5.4rem);
-  --type-h1: clamp(2.8rem,2vw + 1.8rem,3.6rem);
-  --type-h2: clamp(2.2rem,1.2vw + 1.8rem,2.7rem);
-  --type-h3: 1.9rem;
+  --type-display: clamp(3.2rem,3vw + 1.8rem,5rem);
+  --type-h1: clamp(2.5rem,2vw + 1.6rem,3.2rem);
+  --type-h2: clamp(2.1rem,1.2vw + 1.6rem,2.6rem);
+  --type-h3: 1.8rem;
   --type-body: 1.5rem;
   --type-small: 1.4rem;
   --type-caption: 1.2rem;
   --lh-heading: 1.2;
-  --lh-body: 1.65;
-
-  --space-1: .4rem;
-  --space-2: .8rem;
-  --space-3: 1.2rem;
-  --space-4: 1.6rem;
-  --space-6: 2.4rem;
-  --space-8: 3.2rem;
-  --space-12: 4.8rem;
-  --space-16: 6.4rem;
-  --space-24: 9.6rem;
-  --page-gutter: 2rem;
-  --content-max: 120rem;
-  --layout-max: 112rem;
-  --card-padding: 2.4rem;
-  --control-height: 5.2rem;
-  --row-min-height: 5.6rem;
-  --radius-control: 1.8rem;
-  --radius-card: 2.8rem;
-  --radius-panel: 2.8rem;
-  --radius-pill: 999px;
-
+  --lh-body: 1.7;
+  --space-1: .4rem; --space-2: .8rem; --space-3: 1.2rem; --space-4: 1.6rem;
+  --space-6: 2.4rem; --space-8: 3.2rem; --space-12: 4.8rem; --space-16: 6.4rem; --space-24: 9.6rem;
+  --page-gutter: 2rem; --content-max: 120rem; --layout-max: 112rem;
+  --card-padding: 2.4rem; --control-height: 5.2rem; --row-min-height: 5.6rem;
+  --radius-control: 1.8rem; --radius-card: 2.8rem; --radius-panel: 2.8rem; --radius-pill: 999px;
   font-family: var(--font-ui);
   color: var(--t1);
   color-scheme: dark;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-@media (min-width: 768px) { :root { --page-gutter: 3.2rem; } }
-@media (min-width: 1280px) { :root { --page-gutter: 4.8rem; } }
+@media (min-width:768px){:root{--page-gutter:3.2rem}}
+@media (min-width:1280px){:root{--page-gutter:4.8rem}}
