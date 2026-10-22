@@ -10014,3 +10014,10 @@ html body #root .dashboard-home.calm-home .ins-skeleton i:nth-child(3) { width:4
     padding-inline: 1.4rem !important;
   }
 }
+
+
+/* Logged experience: pure-black canvas; teal is an accent, never a page fill. */
+html, body, #root, .dashboard, .dashboard .dash-main, .dashboard .dashboard-pages, .dashboard .panel-page, .dashboard .settings-page, .dashboard .log-overlay, .dashboard .log-sheet, .dashboard .log-sheet-head, .dashboard .log-sheet-scroll, .quick-log-overlay, .quick-log-overlay .quick-log-sheet, .quick-log-overlay .quick-log-editor, .daily-routine-page, .money-page, .workout-page { background-color: #000 !important; }
+.dashboard .log-sheet, .quick-log-overlay .quick-log-sheet { background-image: none !important; }
+.dashboard .log-sheet-head, .dashboard .log-sheet-scroll { background-color: #000 !important; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card, .quick-log-overlay:has(.quick-log-editor) .quick-log-exercise, .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-description input { background: #000 !important; }
