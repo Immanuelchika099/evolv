@@ -9805,3 +9805,35 @@ html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot.i
     font-size: 1.45rem !important;
   }
 }
+
+
+/* Home dashboard AI Insights spacing: separate heading, card stack, and pagination. */
+html body #root .dashboard .calm-insights-section .calm-focus-heading {
+  margin-bottom: 1.8rem !important;
+}
+html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel {
+  box-sizing: border-box;
+  height: 41.5rem !important;
+  min-height: 41.5rem !important;
+  margin-top: 1.8rem !important;
+  margin-bottom: 1.2rem !important;
+  padding-bottom: 1.8rem;
+}
+html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .depth-carousel__dots {
+  bottom: 0.1rem !important;
+}
+@media (max-width: 640px) {
+  html body #root .dashboard .calm-insights-section .calm-focus-heading {
+    margin-bottom: 1.6rem !important;
+  }
+  html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel {
+    height: 41rem !important;
+    min-height: 41rem !important;
+    margin-top: 1.6rem !important;
+    margin-bottom: 1.4rem !important;
+    padding-bottom: 1.8rem;
+  }
+  html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .depth-carousel__dots {
+    bottom: 0.15rem !important;
+  }
+}
