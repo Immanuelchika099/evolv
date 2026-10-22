@@ -11,7 +11,7 @@
   "description": "Your AI-powered productivity and personal growth companion. Build better routines, plan your day, track goals, and understand your progress.",
   "icons": [
     {
-      "src": "/evolv-mark.svg?v=10",
+      "src": "/evolv-mark.svg?v=11",
       "sizes": "any",
       "type": "image/svg+xml",
       "purpose": "any maskable"
