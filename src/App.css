@@ -2645,3 +2645,40 @@ html,body,#root{background:#000 !important;}
   .landing-v2 .ev-system-steps strong { font-size:2rem; }
   .landing-v2 .ev-system-steps small { font-size:1.35rem; }
 }
+
+
+/* EVOLV dashboard stability pass — keep app surfaces readable and controls reachable. */
+.dashboard:not(.dashboard-ai-active) {
+  isolation: isolate;
+}
+.dashboard:not(.dashboard-ai-active) .app-topbar {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  inset-block-start: 0 !important;
+  z-index: 100000 !important;
+  transform: none !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+}
+.dashboard:not(.dashboard-ai-active) .dash-main {
+  min-height: 100dvh;
+  padding-top: max(7.2rem, calc(6.4rem + env(safe-area-inset-top, 0px)));
+  padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+}
+.dashboard:not(.dashboard-ai-active) .app-topbar,
+.dashboard:not(.dashboard-ai-active) .app-topbar * {
+  box-sizing: border-box;
+}
+@media (max-width: 800px) {
+  .dashboard:not(.dashboard-ai-active) .app-topbar {
+    min-height: calc(6.4rem + env(safe-area-inset-top, 0px)) !important;
+    padding-top: calc(.9rem + env(safe-area-inset-top, 0px)) !important;
+    padding-bottom: .8rem !important;
+  }
+  .dashboard:not(.dashboard-ai-active) .dash-main {
+    padding-top: max(6.6rem, calc(5.8rem + env(safe-area-inset-top, 0px)));
+    padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
+  }
+}
