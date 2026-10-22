@@ -3,8 +3,8 @@
 .dashboard .settings-page .profile-photo-actions button:first-child,
 .dashboard .settings-page .settings-inline-action,
 .dashboard .settings-page .profile-avatar-studio-button {
-  border-color:rgba(127,196,189,.5) !important;
-  background:rgba(127,196,189,.10) !important;
+  border-color:rgba(138,180,255,.5) !important;
+  background:rgba(138,180,255,.10) !important;
   color:#f4f7ff !important;
   transition:background .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
 }
