@@ -1623,24 +1623,24 @@ body,
 
 /* EVOLV dashboard accent unification: use the auth screen's exact signature lime. */
 .dashboard {
-  --accent: #74AAFF;
-  --evolv-lime: #74AAFF;
-  --home-lime: #74AAFF;
-  --evolv-accent: #74AAFF;
+  --accent: var(--color-accent-blue);
+  --evolv-lime: var(--color-accent-blue);
+  --home-lime: var(--color-accent-blue);
+  --evolv-accent: var(--color-accent-blue);
   --evolv-accent-dim: rgba(214, 250, 75, .12);
-  --color-accent-start: #74AAFF;
-  --color-accent-end: #74AAFF;
+  --color-accent-start: var(--color-accent-blue);
+  --color-accent-end: var(--color-accent-blue);
   --color-accent-dim: rgba(214, 250, 75, .16);
 }
 .dashboard .dashboard-home-redesign {
-  --evolv-lime: #74AAFF;
-  --home-lime: #74AAFF;
+  --evolv-lime: var(--color-accent-blue);
+  --home-lime: var(--color-accent-blue);
 }
 .dashboard .button-primary,
 .dashboard .goal-item-actions .goal-checkin-button,
 .dashboard .goal-checkin-button {
-  background: #74AAFF !important;
-  border-color: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
+  border-color: var(--color-accent-blue) !important;
   color: #0a0a0a !important;
   box-shadow: none !important;
 }
@@ -1653,12 +1653,12 @@ body,
 }
 .dashboard .home-add-button {
   border-color: rgba(214, 250, 75, .42) !important;
-  background: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
   color: #0a0a0a !important;
 }
 .dashboard .home-progress-ring {
-  background: conic-gradient(from -90deg, #74AAFF var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important;
-  box-shadow: 0 0 2.2rem rgba(116,170,255,.09) !important;
+  background: conic-gradient(from -90deg, var(--color-accent-blue) var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important;
+  box-shadow: 0 0 2.2rem color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important;
 }
 .dashboard .home-progress-segments i.is-filled,
 .dashboard .home-week-bar-track i,
@@ -1666,8 +1666,8 @@ body,
 .dashboard .home-area-progress i,
 .dashboard .mini-progress i,
 .dashboard .progress-track i {
-  background: #74AAFF !important;
-  box-shadow: 0 0 1rem rgba(116,170,255,.12);
+  background: var(--color-accent-blue) !important;
+  box-shadow: 0 0 1rem color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
 }
 .dashboard .home-stat-average strong,
 .dashboard .home-stat-fire,
@@ -1678,49 +1678,49 @@ body,
 .dashboard .goal-item-actions .goal-checkin-button,
 .dashboard .focus.active svg,
 .dashboard .choice.active svg {
-  color: #74AAFF !important;
+  color: var(--color-accent-blue) !important;
 }
 .dashboard .home-stat-icon,
 .dashboard .home-today-icon,
 .dashboard .home-area-icon {
-  background: rgba(116,170,255,.1) !important;
-  color: #74AAFF !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 10%, transparent) !important;
+  color: var(--color-accent-blue) !important;
 }
 .dashboard .home-stat-range button.is-active,
 .dashboard .goals-page .goal-type-choice.active,
 .dashboard .goals-page .goal-type-choice.selected,
 .dashboard .log-selected-metric,
 .dashboard .special-choice-grid button.active {
-  background: rgba(116,170,255,.12) !important;
-  border-color: rgba(116,170,255,.45) !important;
-  color: #74AAFF !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 45%, transparent) !important;
+  color: var(--color-accent-blue) !important;
 }
 .dashboard .settings-toggle.active {
-  background: rgba(116,170,255,.2) !important;
-  border-color: rgba(116,170,255,.55) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 20%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 55%, transparent) !important;
 }
 .dashboard .settings-toggle.active span {
-  background: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
 }
 .dashboard input:focus,
 .dashboard textarea:focus,
 .dashboard select:focus,
 .dashboard button:focus-visible {
-  outline-color: rgba(116,170,255,.72);
+  outline-color: color-mix(in srgb, var(--color-accent-blue) 72%, transparent);
 }
 .dashboard .profile-setting-row input:focus,
 .dashboard .profile-setting-row select:focus,
 .dashboard .goal-create-form input:focus,
 .dashboard .goal-create-form textarea:focus,
 .dashboard .profile-box input:focus {
-  border-color: rgba(116,170,255,.6) !important;
-  box-shadow: 0 0 0 3px rgba(116,170,255,.08) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 60%, transparent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 8%, transparent) !important;
 }
 .dashboard .settings-inline-action:hover,
 .dashboard .home-skip-button:hover,
 .dashboard .area-back:hover,
 .dashboard .settings-outline-button:hover {
-  color: #74AAFF !important;
+  color: var(--color-accent-blue) !important;
 }
 .dashboard .settings-inline-action svg,
 .dashboard .section-label svg {
@@ -1728,24 +1728,24 @@ body,
 }
 .dashboard .home-heatmap-cell.level-1,
 .dashboard .home-heatmap-footer i.level-1,
-.dashboard .goal-heatmap-cell.level-1 { background: rgba(116,170,255,.18) !important; }
+.dashboard .goal-heatmap-cell.level-1 { background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important; }
 .dashboard .home-heatmap-cell.level-2,
 .dashboard .home-heatmap-footer i.level-2,
-.dashboard .goal-heatmap-cell.level-2 { background: rgba(116,170,255,.38) !important; }
+.dashboard .goal-heatmap-cell.level-2 { background: color-mix(in srgb, var(--color-accent-blue) 38%, transparent) !important; }
 .dashboard .home-heatmap-cell.level-3,
 .dashboard .home-heatmap-footer i.level-3,
-.dashboard .goal-heatmap-cell.level-3 { background: rgba(116,170,255,.66) !important; }
+.dashboard .goal-heatmap-cell.level-3 { background: color-mix(in srgb, var(--color-accent-blue) 66%, transparent) !important; }
 .dashboard .home-heatmap-cell.level-4,
 .dashboard .home-heatmap-footer i.level-4,
-.dashboard .goal-heatmap-cell.level-4 { background: #74AAFF !important; }
+.dashboard .goal-heatmap-cell.level-4 { background: var(--color-accent-blue) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-1,
-.dashboard .progress-page .home-heatmap-footer i.level-1 { background: rgba(116,170,255,.18) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-1 { background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-2,
-.dashboard .progress-page .home-heatmap-footer i.level-2 { background: rgba(116,170,255,.38) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-2 { background: color-mix(in srgb, var(--color-accent-blue) 38%, transparent) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-3,
-.dashboard .progress-page .home-heatmap-footer i.level-3 { background: rgba(116,170,255,.66) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-3 { background: color-mix(in srgb, var(--color-accent-blue) 66%, transparent) !important; }
 .dashboard .progress-page .home-heatmap-cell.level-4,
-.dashboard .progress-page .home-heatmap-footer i.level-4 { background: #74AAFF !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-4 { background: var(--color-accent-blue) !important; }
 
 /* Keep destructive actions red; lime is the shared product accent, not a danger state. */
 .dashboard .settings-danger-button,
@@ -1756,33 +1756,33 @@ body,
 
 /* Carry the same lime into the persistent dashboard navigation and detail pages. */
 .dashboard .evolv-bottom-nav button.bottom-active {
-  color: #74AAFF !important;
-  background: rgba(116,170,255,.09) !important;
-  box-shadow: inset 0 1px 0 rgba(116,170,255,.08) !important;
+  color: var(--color-accent-blue) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--color-accent-blue) 8%, transparent) !important;
 }
 .dashboard .evolv-bottom-nav .log-nav-button > span {
-  background: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
   color: #0a0a0a !important;
 }
 .dashboard .life-area-icon,
 .dashboard .life-area-icon.large,
 .dashboard .metric-detail-icon,
 .dashboard .area-detail-head .life-area-icon {
-  color: #74AAFF !important;
-  border-color: rgba(116,170,255,.3) !important;
-  background-color: rgba(116,170,255,.1) !important;
+  color: var(--color-accent-blue) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 30%, transparent) !important;
+  background-color: color-mix(in srgb, var(--color-accent-blue) 10%, transparent) !important;
 }
 .dashboard .life-area-icon svg,
 .dashboard .metric-detail-icon svg,
 .dashboard .area-detail-head svg {
-  color: #74AAFF !important;
+  color: var(--color-accent-blue) !important;
 }
 .dashboard .home-today-icon,
 .dashboard .home-area-icon {
-  --task-color: #74AAFF !important;
+  --task-color: var(--color-accent-blue) !important;
 }
 .dashboard .dashboard-welcome-minimal::before {
-  background: radial-gradient(ellipse at 34% 48%, rgba(116,170,255,.13) 0%, rgba(116,170,255,.075) 28%, rgba(116,170,255,.035) 49%, transparent 72%) !important;
+  background: radial-gradient(ellipse at 34% 48%, color-mix(in srgb, var(--color-accent-blue) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent) 28%, color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent) 49%, transparent 72%) !important;
 }
 
 
@@ -1839,7 +1839,7 @@ body,
   border: 1px solid rgba(214, 250, 75, .24);
   border-radius: 14px;
   background: rgba(214, 250, 75, .09);
-  color: #74AAFF;
+  color: var(--color-accent-blue);
 }
 .profile-modal-backdrop .confirmation-icon.is-destructive {
   border-color: rgba(239, 68, 68, .28);
@@ -1885,23 +1885,23 @@ body,
 
 /* Final dashboard/Profile accent enforcement: blue only, with white on blue buttons. */
 .dashboard {
-  --accent: #74AAFF !important;
-  --evolv-lime: #74AAFF !important;
-  --home-lime: #74AAFF !important;
-  --evolv-accent: #74AAFF !important;
-  --evolv-accent-dim: rgba(116,170,255,.12) !important;
-  --color-accent-start: #74AAFF !important;
-  --color-accent-end: #74AAFF !important;
-  --color-accent-dim: rgba(116,170,255,.16) !important;
+  --accent: var(--color-accent-blue) !important;
+  --evolv-lime: var(--color-accent-blue) !important;
+  --home-lime: var(--color-accent-blue) !important;
+  --evolv-accent: var(--color-accent-blue) !important;
+  --evolv-accent-dim: color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important;
+  --color-accent-start: var(--color-accent-blue) !important;
+  --color-accent-end: var(--color-accent-blue) !important;
+  --color-accent-dim: color-mix(in srgb, var(--color-accent-blue) 16%, transparent) !important;
 }
-.dashboard .dashboard-home-redesign { --evolv-lime:#74AAFF !important; --home-lime:#74AAFF !important; }
+.dashboard .dashboard-home-redesign { --evolv-lime:var(--color-accent-blue) !important; --home-lime:var(--color-accent-blue) !important; }
 .dashboard .button-primary,
 .dashboard .goal-item-actions .goal-checkin-button,
 .dashboard .goal-checkin-button,
 .dashboard .home-add-button {
-  background: #74AAFF !important;
-  background-color: #74AAFF !important;
-  border-color: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
+  background-color: var(--color-accent-blue) !important;
+  border-color: var(--color-accent-blue) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
 }
@@ -1909,13 +1909,13 @@ body,
 .dashboard .goal-item-actions .goal-checkin-button *,
 .dashboard .goal-checkin-button *,
 .dashboard .home-add-button * { color:#fff !important; fill:#fff !important; stroke:#fff !important; -webkit-text-fill-color:#fff !important; }
-.dashboard .home-progress-ring { background: conic-gradient(from -90deg, #74AAFF var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important; box-shadow: 0 0 2.2rem rgba(116,170,255,.09) !important; }
+.dashboard .home-progress-ring { background: conic-gradient(from -90deg, var(--color-accent-blue) var(--home-progress), rgba(255,255,255,.09) var(--home-progress)) !important; box-shadow: 0 0 2.2rem color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important; }
 .dashboard .home-progress-segments i.is-filled,
 .dashboard .home-week-bar-track i,
 .dashboard .home-today-bar i,
 .dashboard .home-area-progress i,
 .dashboard .mini-progress i,
-.dashboard .progress-track i { background:#74AAFF !important; box-shadow:0 0 1rem rgba(116,170,255,.12) !important; }
+.dashboard .progress-track i { background:var(--color-accent-blue) !important; box-shadow:0 0 1rem color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important; }
 .dashboard .home-stat-average strong,
 .dashboard .home-stat-fire,
 .dashboard .home-stat-check,
@@ -1933,65 +1933,65 @@ body,
 .dashboard .area-detail-head svg,
 .dashboard .home-stat-icon,
 .dashboard .home-today-icon,
-.dashboard .home-area-icon { color:#74AAFF !important; }
+.dashboard .home-area-icon { color:var(--color-accent-blue) !important; }
 .dashboard .home-stat-icon,
 .dashboard .home-today-icon,
 .dashboard .home-area-icon,
 .dashboard .life-area-icon,
 .dashboard .life-area-icon.large,
 .dashboard .metric-detail-icon,
-.dashboard .area-detail-head .life-area-icon { background-color:rgba(116,170,255,.1) !important; border-color:rgba(116,170,255,.3) !important; }
+.dashboard .area-detail-head .life-area-icon { background-color:color-mix(in srgb, var(--color-accent-blue) 10%, transparent) !important; border-color:color-mix(in srgb, var(--color-accent-blue) 30%, transparent) !important; }
 .dashboard .home-stat-range button.is-active,
 .dashboard .goals-page .goal-type-choice.active,
 .dashboard .goals-page .goal-type-choice.selected,
 .dashboard .log-selected-metric,
 .dashboard .special-choice-grid button.active,
-.dashboard .settings-toggle.active { background:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.45) !important; color:#74AAFF !important; }
-.dashboard .settings-toggle.active span { background:#74AAFF !important; }
+.dashboard .settings-toggle.active { background:color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important; border-color:color-mix(in srgb, var(--color-accent-blue) 45%, transparent) !important; color:var(--color-accent-blue) !important; }
+.dashboard .settings-toggle.active span { background:var(--color-accent-blue) !important; }
 .dashboard input:focus,
 .dashboard textarea:focus,
 .dashboard select:focus,
-.dashboard button:focus-visible { outline-color:rgba(116,170,255,.72) !important; }
+.dashboard button:focus-visible { outline-color:color-mix(in srgb, var(--color-accent-blue) 72%, transparent) !important; }
 .dashboard .profile-setting-row input:focus,
 .dashboard .profile-setting-row select:focus,
 .dashboard .goal-create-form input:focus,
 .dashboard .goal-create-form textarea:focus,
-.dashboard .profile-box input:focus { border-color:rgba(116,170,255,.6) !important; box-shadow:0 0 0 3px rgba(116,170,255,.08) !important; }
+.dashboard .profile-box input:focus { border-color:color-mix(in srgb, var(--color-accent-blue) 60%, transparent) !important; box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 8%, transparent) !important; }
 .dashboard .settings-inline-action:hover,
 .dashboard .home-skip-button:hover,
 .dashboard .area-back:hover,
-.dashboard .settings-outline-button:hover { color:#74AAFF !important; }
+.dashboard .settings-outline-button:hover { color:var(--color-accent-blue) !important; }
 .dashboard .home-heatmap-cell.level-1,
 .dashboard .home-heatmap-footer i.level-1,
 .dashboard .goal-heatmap-cell.level-1,
 .dashboard .progress-page .home-heatmap-cell.level-1,
-.dashboard .progress-page .home-heatmap-footer i.level-1 { background:rgba(116,170,255,.18) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-1 { background:color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important; }
 .dashboard .home-heatmap-cell.level-2,
 .dashboard .home-heatmap-footer i.level-2,
 .dashboard .goal-heatmap-cell.level-2,
 .dashboard .progress-page .home-heatmap-cell.level-2,
-.dashboard .progress-page .home-heatmap-footer i.level-2 { background:rgba(116,170,255,.38) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-2 { background:color-mix(in srgb, var(--color-accent-blue) 38%, transparent) !important; }
 .dashboard .home-heatmap-cell.level-3,
 .dashboard .home-heatmap-footer i.level-3,
 .dashboard .goal-heatmap-cell.level-3,
 .dashboard .progress-page .home-heatmap-cell.level-3,
-.dashboard .progress-page .home-heatmap-footer i.level-3 { background:rgba(116,170,255,.66) !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-3 { background:color-mix(in srgb, var(--color-accent-blue) 66%, transparent) !important; }
 .dashboard .home-heatmap-cell.level-4,
 .dashboard .home-heatmap-footer i.level-4,
 .dashboard .goal-heatmap-cell.level-4,
 .dashboard .progress-page .home-heatmap-cell.level-4,
-.dashboard .progress-page .home-heatmap-footer i.level-4 { background:#74AAFF !important; }
+.dashboard .progress-page .home-heatmap-footer i.level-4 { background:var(--color-accent-blue) !important; }
 .dashboard .dashboard-welcome-minimal::before {
-  background: radial-gradient(ellipse at 34% 48%, rgba(116,170,255,.13) 0%, rgba(116,170,255,.075) 28%, rgba(116,170,255,.035) 49%, transparent 72%) !important;
+  background: radial-gradient(ellipse at 34% 48%, color-mix(in srgb, var(--color-accent-blue) 13%, transparent) 0%, color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent) 28%, color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent) 49%, transparent 72%) !important;
 }
 
 
 /* Final profile and settings palette: override legacy lime rules with blue. */
 html body #root .dashboard .profile-page,
-html body #root .dashboard .profile-settings-page { --accent:#74AAFF !important; --evolv-lime:#74AAFF !important; --home-lime:#74AAFF !important; --color-accent-lime:#74AAFF !important; }
+html body #root .dashboard .profile-settings-page { --accent:var(--color-accent-blue) !important; --evolv-lime:var(--color-accent-blue) !important; --home-lime:var(--color-accent-blue) !important; --color-accent-lime:var(--color-accent-blue) !important; }
 html body #root .dashboard .profile-page [style*="214, 250, 75"],
-html body #root .dashboard .profile-settings-page [style*="214, 250, 75"] { color:#74AAFF !important; background-color:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.3) !important; }
+html body #root .dashboard .profile-settings-page [style*="214, 250, 75"] { color:var(--color-accent-blue) !important; background-color:color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important; border-color:color-mix(in srgb, var(--color-accent-blue) 30%, transparent) !important; }
 html body #root .dashboard .profile-page button.active,
 html body #root .dashboard .profile-settings-page button.active,
-html body #root .dashboard .settings-toggle.active { color:#74AAFF !important; background:rgba(116,170,255,.12) !important; border-color:rgba(116,170,255,.4) !important; }
-html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,#74AAFF var(--home-progress),rgba(255,255,255,.09) var(--home-progress)) !important; }
+html body #root .dashboard .settings-toggle.active { color:var(--color-accent-blue) !important; background:color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important; border-color:color-mix(in srgb, var(--color-accent-blue) 40%, transparent) !important; }
+html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,var(--color-accent-blue) var(--home-progress),rgba(255,255,255,.09) var(--home-progress)) !important; }
