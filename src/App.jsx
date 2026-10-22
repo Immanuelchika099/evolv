@@ -1029,7 +1029,7 @@ function Landing({onStart, onExplore, onArticle, onPricing, onContact, onLegal})
             preset="silk"
             pattern="line"
             wave="silk"
-            color="#7fc4bd"
+            color="#8ab4ff"
             backgroundColor="#050505"
             opacity={0.12}
             fade="center"
@@ -1469,10 +1469,10 @@ function ArticlePage({ article, onStart, onBack }) {
 const onboardingGoals = [
   { id: 'sleep', title: 'Sleep & energy', detail: 'Feel more rested and steady', icon: Moon, color: '#F5B84B', tint: 'rgba(245,184,75,.13)' },
   { id: 'mood', title: 'Mood & wellbeing', detail: 'Understand how I feel', icon: HeartPulse, color: '#FF7896', tint: 'rgba(255,120,150,.13)' },
-  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#b8c2c1', tint: 'rgba(255,255,255,.06)' },
-  { id: 'self-care', title: 'Self-care', detail: 'Make more room for myself', icon: Sparkles, color: '#F2A6D8', tint: 'rgba(242,166,216,.13)' },
-  { id: 'career', title: 'Learning & career', detail: 'Keep growing my skills', icon: BookOpen, color: '#55D6C2', tint: 'rgba(85,214,194,.13)' },
-  { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', icon: WalletCards, color: '#65CDA5', tint: 'rgba(101,205,165,.13)' },
+  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#a8c8ff', tint: 'rgba(138,180,255,.12)' },
+  { id: 'self-care', title: 'Self-care', detail: 'Make more room for myself', icon: Sparkles, color: '#FF9DB5', tint: 'rgba(255,157,181,.12)' },
+  { id: 'career', title: 'Learning & career', detail: 'Keep growing my skills', icon: BookOpen, color: '#8ab4ff', tint: 'rgba(138,180,255,.12)' },
+  { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', icon: WalletCards, color: '#F5B84B', tint: 'rgba(245,184,75,.12)' },
 ]
 
 const avatarStylePresets = {
@@ -1493,7 +1493,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#7fc4bd"
+          color="#8ab4ff"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1554,7 +1554,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#7fc4bd"
+          color="#8ab4ff"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"

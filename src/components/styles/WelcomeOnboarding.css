@@ -949,3 +949,131 @@
   .evolv-onboarding-approach-item { transition:none; }
   .evolv-onboarding-approach-item:hover { transform:none; }
 }
+
+
+/* Final onboarding polish: quieter typography, cohesive blue accents, refined category icons. */
+.evolv-welcome,
+.evolv-onboarding {
+  --onboarding-blue: #8ab4ff;
+  --onboarding-blue-soft: rgba(138,180,255,.13);
+  --onboarding-blue-line: rgba(138,180,255,.3);
+}
+.evolv-onboarding-progress i {
+  background:linear-gradient(90deg, #6f9ff5, #a8c8ff);
+  box-shadow:0 0 1.6rem rgba(106,157,245,.14);
+}
+.evolv-onboarding-eyebrow { color:rgba(174,199,239,.82); }
+.evolv-onboarding-stage h1 {
+  font-weight:500;
+  letter-spacing:-.065em;
+}
+.evolv-onboarding-stage h1 em { color:#a8c8ff; }
+.evolv-onboarding-copy { color:rgba(231,235,244,.68); }
+.evolv-onboarding-approach-orbit::before {
+  background:radial-gradient(circle, rgba(138,180,255,.13), rgba(138,180,255,.025) 48%, transparent 72%);
+}
+.evolv-onboarding-orbit-ring-one { border-color:rgba(138,180,255,.24); }
+.evolv-onboarding-orbit-core {
+  border-color:rgba(138,180,255,.28);
+  background:linear-gradient(145deg, rgba(138,180,255,.14), rgba(255,255,255,.025));
+  color:#c6dcff;
+  box-shadow:0 1.5rem 5rem rgba(24,54,105,.16), inset 0 1px rgba(255,255,255,.1);
+}
+.evolv-onboarding-orbit-dot {
+  background:#a8c8ff;
+  box-shadow:0 0 1.8rem rgba(138,180,255,.38);
+}
+.evolv-onboarding-approach-item {
+  border-color:rgba(255,255,255,.085);
+  background:linear-gradient(120deg, rgba(255,255,255,.035), rgba(255,255,255,.009));
+}
+.evolv-onboarding-approach-item:hover {
+  border-color:rgba(138,180,255,.2);
+  background:linear-gradient(120deg, rgba(138,180,255,.045), rgba(255,255,255,.01));
+}
+.evolv-onboarding-approach-icon {
+  border-color:rgba(138,180,255,.2);
+  background:rgba(138,180,255,.08);
+  color:#a8c8ff;
+}
+.evolv-onboarding-approach-item strong {
+  font-weight:500;
+  letter-spacing:-.015em;
+}
+.evolv-onboarding-goal {
+  border-color:rgba(255,255,255,.09);
+  background:linear-gradient(135deg, rgba(255,255,255,.028), rgba(255,255,255,.008));
+}
+.evolv-onboarding-goal:hover {
+  border-color:rgba(138,180,255,.24);
+  background:rgba(138,180,255,.035);
+}
+.evolv-onboarding-goal.is-selected {
+  border-color:rgba(138,180,255,.5);
+  background:linear-gradient(135deg, rgba(138,180,255,.105), rgba(138,180,255,.025));
+  box-shadow:inset 0 0 0 1px rgba(138,180,255,.05);
+}
+.evolv-onboarding-goal-symbol {
+  flex-basis:3.6rem;
+  width:3.6rem;
+  height:3.6rem;
+  border-radius:1.05rem;
+  background:var(--goal-icon-tint, rgba(255,255,255,.04));
+  color:var(--goal-icon-color, #a8c8ff);
+}
+.evolv-onboarding-goal-symbol svg { width:2rem; height:2rem; stroke-width:1.7; }
+.evolv-onboarding-goal-text strong {
+  color:rgba(247,248,252,.94);
+  font-weight:500;
+  letter-spacing:-.01em;
+}
+.evolv-onboarding-goal-text small { color:rgba(222,228,240,.58); }
+.evolv-onboarding-goal-check {
+  border-color:rgba(138,180,255,.22);
+  background:rgba(138,180,255,.055);
+  color:#b9d2ff;
+}
+.evolv-onboarding-goal.is-selected .evolv-onboarding-goal-check {
+  border-color:#8ab4ff;
+  background:#8ab4ff;
+  color:#07111f;
+}
+.evolv-onboarding-ready-mark {
+  border-color:rgba(138,180,255,.22);
+  background:radial-gradient(circle, rgba(138,180,255,.12), rgba(138,180,255,.02) 68%);
+}
+.evolv-onboarding-ready-mark span {
+  border-color:rgba(138,180,255,.32);
+  background:rgba(138,180,255,.1);
+  color:#c6dcff;
+}
+.evolv-onboarding-continue {
+  border-color:#8ab4ff;
+  background:#8ab4ff;
+  color:#07111f;
+  font-weight:500;
+  box-shadow:0 0 2.5rem rgba(106,157,245,.1);
+}
+.evolv-onboarding-continue:hover:not(:disabled) {
+  border-color:#b1ceff;
+  background:#b1ceff;
+  box-shadow:0 0 2.5rem rgba(106,157,245,.16);
+}
+.evolv-onboarding :is(button, input):focus-visible {
+  outline-color:#a8c8ff;
+}
+.evolv-onboarding-back,
+.evolv-onboarding-skip { font-weight:400; }
+.evolv-onboarding-step { font-weight:400; }
+.evolv-onboarding-footer-note { letter-spacing:.1em; }
+@media (max-width:680px) {
+  .evolv-onboarding-goal-symbol { flex-basis:3.4rem; width:3.4rem; height:3.4rem; }
+  .evolv-onboarding-goal-symbol svg { width:1.9rem; height:1.9rem; }
+  .evolv-onboarding-stage h1 { font-weight:500; letter-spacing:-.055em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-onboarding-orbit-dot,
+  .evolv-onboarding-orbit-core,
+  .evolv-onboarding-orbit-ring-one,
+  .evolv-onboarding-orbit-ring-two { animation:none; }
+}
