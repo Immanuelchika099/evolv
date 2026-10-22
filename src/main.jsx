@@ -21,6 +21,9 @@ if ('serviceWorker' in navigator) {
   })
 }
 
+import './styles/redesign.css'
+
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppErrorBoundary>

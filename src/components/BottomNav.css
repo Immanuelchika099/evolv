@@ -1,138 +1,138 @@
 /* EVOLV Phase 2 — floating glass navigation dock. */
 .evolv-bottom-nav {
-  position: fixed !important;
-  z-index: 100000;
-  left: 50% !important;
-  right: auto !important;
-  bottom: calc(.8rem + env(safe-area-inset-bottom, 0px)) !important;
-  transform: translateX(-50%) !important;
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  align-items: center;
-  gap: .3rem;
-  width: min(48rem, calc(100vw - 2.4rem)) !important;
-  max-width: 48rem !important;
-  min-height: 6.8rem;
-  height: 6.8rem !important;
-  padding: .55rem;
-  margin: 0;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  border-radius: 2.4rem !important;
-  background: rgba(12,16,17,.76) !important;
-  background-image: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)) !important;
-  box-shadow: 0 1.4rem 4rem rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.055) !important;
-  -webkit-backdrop-filter: blur(24px) saturate(135%);
-  backdrop-filter: blur(24px) saturate(135%);
-  isolation: isolate;
-  box-sizing: border-box;
+  position:fixed !important;
+  z-index:100000;
+  left:50% !important;
+  right:auto !important;
+  bottom:calc(.8rem + env(safe-area-inset-bottom, 0px)) !important;
+  transform:translateX(-50%) !important;
+  display:grid;
+  grid-template-columns:repeat(5, minmax(0, 1fr));
+  align-items:center;
+  gap:.3rem;
+  width:min(48rem, calc(100vw - 2.4rem)) !important;
+  max-width:48rem !important;
+  min-height:6.8rem;
+  height:6.8rem !important;
+  padding:.55rem;
+  margin:0;
+  border:1px solid rgba(255,255,255,.12) !important;
+  border-radius:2.4rem !important;
+  background:rgba(255,255,255,.04) !important;
+  background-image:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)) !important;
+  box-shadow:0 1.4rem 4rem rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.055) !important;
+  -webkit-backdrop-filter:blur(24px) saturate(135%);
+  backdrop-filter:blur(24px) saturate(135%);
+  isolation:isolate;
+  box-sizing:border-box;
 }
 
 .evolv-bottom-nav button {
-  display: grid;
-  place-items: center;
-  align-content: center;
-  gap: .35rem;
-  width: 100%;
-  min-width: 0;
-  min-height: 5.4rem;
-  height: 5.4rem;
-  padding: .4rem .15rem;
-  margin: 0;
-  border: 1px solid transparent;
-  border-radius: 1.8rem;
-  background: transparent;
-  color: var(--t3);
+  display:grid;
+  place-items:center;
+  align-content:center;
+  gap:.35rem;
+  width:100%;
+  min-width:0;
+  min-height:5.4rem;
+  height:5.4rem;
+  padding:.4rem .15rem;
+  margin:0;
+  border:1px solid transparent;
+  border-radius:1.8rem;
+  background:transparent;
+  color:var(--t3);
   font: inherit;
-  cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
-  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+  transition:color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
 .evolv-bottom-nav button > span {
-  display: grid;
-  place-items: center;
-  width: 2.8rem;
-  height: 2.4rem;
-  color: currentColor;
+  display:grid;
+  place-items:center;
+  width:2.8rem;
+  height:2.4rem;
+  color:currentColor;
 }
 
 .evolv-bottom-nav button > span svg {
-  width: 2rem;
-  height: 2rem;
-  stroke-width: 1.8;
+  width:2rem;
+  height:2rem;
+  stroke-width:1.8;
 }
 
 .evolv-bottom-nav button small {
-  color: currentColor;
+  color:currentColor;
   font: 500 1.15rem/1.1 var(--font-ui, system-ui, sans-serif);
-  letter-spacing: 0;
-  white-space: nowrap;
+  letter-spacing:0;
+  white-space:nowrap;
 }
 
 .evolv-bottom-nav button.bottom-active,
 .evolv-bottom-nav button.bottom-active:hover,
 .evolv-bottom-nav button.bottom-active:focus,
 .evolv-bottom-nav button.bottom-active:active {
-  color: var(--t1) !important;
-  background: rgba(255,255,255,.075) !important;
-  background-image: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.02)) !important;
-  border-color: rgba(255,255,255,.12) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.075) !important;
-  outline-color: transparent;
+  color:var(--t1) !important;
+  background:rgba(255,255,255,.075) !important;
+  background-image:linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.02)) !important;
+  border-color:rgba(255,255,255,.12) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.075) !important;
+  outline-color:transparent;
 }
 
-.evolv-bottom-nav button:active { transform: scale(.97); }
+.evolv-bottom-nav button:active { transform:scale(.97); }
 
 .evolv-bottom-nav .bottom-profile-icon {
-  display: grid !important;
-  place-items: center !important;
-  flex: 0 0 2.4rem !important;
-  width: 2.4rem !important;
-  min-width: 2.4rem !important;
-  max-width: 2.4rem !important;
-  height: 2.4rem !important;
-  min-height: 2.4rem !important;
-  max-height: 2.4rem !important;
-  overflow: hidden !important;
-  aspect-ratio: 1 / 1;
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 50% !important;
+  display:grid !important;
+  place-items:center !important;
+  flex:0 0 2.4rem !important;
+  width:2.4rem !important;
+  min-width:2.4rem !important;
+  max-width:2.4rem !important;
+  height:2.4rem !important;
+  min-height:2.4rem !important;
+  max-height:2.4rem !important;
+  overflow:hidden !important;
+  aspect-ratio:1 / 1;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:50% !important;
 }
 .evolv-bottom-nav .bottom-profile-icon .bottom-profile-image {
-  display: block;
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  object-fit: cover !important;
-  border-radius: 50% !important;
+  display:block;
+  width:100% !important;
+  height:100% !important;
+  min-width:100% !important;
+  min-height:100% !important;
+  object-fit:cover !important;
+  border-radius:50% !important;
 }
 
 @media (max-width: 420px) {
   .evolv-bottom-nav {
-    width: calc(100vw - 1.8rem) !important;
-    bottom: calc(.7rem + env(safe-area-inset-bottom, 0px)) !important;
-    gap: .15rem;
-    padding: .45rem;
-    border-radius: 2.1rem !important;
+    width:calc(100vw - 1.8rem) !important;
+    bottom:calc(.7rem + env(safe-area-inset-bottom, 0px)) !important;
+    gap:.15rem;
+    padding:.45rem;
+    border-radius:2.1rem !important;
   }
   .evolv-bottom-nav button {
-    gap: .25rem;
-    border-radius: 1.55rem;
+    gap:.25rem;
+    border-radius:1.55rem;
   }
-  .evolv-bottom-nav button small { font-size: 1.1rem; }
+  .evolv-bottom-nav button small { font-size:1.1rem; }
 }
 
 @media (min-width: 48rem) {
   .evolv-bottom-nav {
-    left: 50% !important;
-    right: auto !important;
-    width: min(48rem, calc(100vw - 3.2rem)) !important;
-    max-width: 48rem !important;
-    border-radius: 2.4rem !important;
+    left:50% !important;
+    right:auto !important;
+    width:min(48rem, calc(100vw - 3.2rem)) !important;
+    max-width:48rem !important;
+    border-radius:2.4rem !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .evolv-bottom-nav button { transition: none !important; }
+  .evolv-bottom-nav button { transition:none !important; }
 }
