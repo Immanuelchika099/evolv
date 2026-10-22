@@ -1681,6 +1681,16 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
+  const [firstNotificationPromptOpen,setFirstNotificationPromptOpen]=useState(false)
+  useEffect(() => {
+    const promptKey = 'evolv-notification-permission-prompted'
+    if (localStorage.getItem(promptKey)) return
+    if (typeof Notification === 'undefined' || Notification.permission !== 'default') {
+      localStorage.setItem(promptKey, 'true')
+      return
+    }
+    setFirstNotificationPromptOpen(true)
+  }, [])
   const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
   const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
@@ -3125,7 +3135,27 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     window.addEventListener('keydown',handleKey)
     window.setTimeout(()=>sheetRef.current?.querySelector('button,input,textarea')?.focus(),80)
 
-    return ()=>{
+    return (
+    <>
+      {firstNotificationPromptOpen && (
+        <div className="evolv-notification-first-prompt" role="dialog" aria-modal="true" aria-labelledby="evolv-notification-prompt-title">
+          <div className="evolv-notification-first-card">
+            <span className="evolv-notification-first-icon"><Bell size={23} strokeWidth={1.7} /></span>
+            <h2 id="evolv-notification-prompt-title">Allow EVOLV to send notifications?</h2>
+            <p>Get gentle reminders for your daily goals and check-ins, even when you’re away from the app.</p>
+            <button type="button" className="evolv-notification-first-allow" onClick={() => {
+              localStorage.setItem('evolv-notification-permission-prompted', 'true')
+              setFirstNotificationPromptOpen(false)
+              toggleNotifications()
+            }}>Allow notifications</button>
+            <button type="button" className="evolv-notification-first-later" onClick={() => {
+              localStorage.setItem('evolv-notification-permission-prompted', 'true')
+              setFirstNotificationPromptOpen(false)
+            }}>Maybe later</button>
+          </div>
+        </div>
+      )}
+)=>{
       document.body.style.overflow=previousOverflow
       window.removeEventListener('keydown',handleKey)
     }
