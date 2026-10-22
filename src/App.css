@@ -2682,3 +2682,14 @@ html,body,#root{background:#000 !important;}
     padding-bottom: calc(10rem + env(safe-area-inset-bottom, 0px));
   }
 }
+
+
+/* One-time first-launch notification permission prompt */
+.evolv-notification-first-prompt{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;padding:2.4rem;background:rgba(0,0,0,.78);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.evolv-notification-first-card{width:min(100%,38rem);padding:2.8rem 2.4rem 2.2rem;border:1px solid rgba(255,255,255,.1);border-radius:2.2rem;background:#080a09;color:#fff;text-align:center;box-shadow:0 2rem 8rem rgba(0,0,0,.55)}
+.evolv-notification-first-icon{display:grid;place-items:center;width:5.2rem;height:5.2rem;margin:0 auto 1.8rem;border:1px solid rgba(45,212,191,.22);border-radius:1.6rem;background:rgba(45,212,191,.08);color:#5eead4}
+.evolv-notification-first-card h2{margin:0;font-size:2.2rem;font-weight:450;line-height:1.2;letter-spacing:-.035em}
+.evolv-notification-first-card p{margin:1.1rem 0 2.1rem;color:rgba(255,255,255,.62);font-size:1.4rem;font-weight:400;line-height:1.6}
+.evolv-notification-first-allow,.evolv-notification-first-later{width:100%;min-height:4.8rem;border-radius:1.3rem;font:inherit;font-size:1.4rem;cursor:pointer}
+.evolv-notification-first-allow{border:1px solid rgba(94,234,212,.4);background:#123c36;color:#fff}
+.evolv-notification-first-later{margin-top:.7rem;border:1px solid transparent;background:transparent;color:rgba(255,255,255,.58)}
