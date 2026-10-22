@@ -1029,7 +1029,7 @@ function Landing({onStart, onExplore, onArticle, onPricing, onContact, onLegal})
             preset="silk"
             pattern="line"
             wave="silk"
-            color="#2563eb"
+            color="var(--color-accent-blue)"
             backgroundColor="#050505"
             opacity={0.12}
             fade="center"
@@ -1469,7 +1469,7 @@ function ArticlePage({ article, onStart, onBack }) {
 const onboardingGoals = [
   { id: 'sleep', title: 'Sleep & energy', detail: 'Feel more rested and steady', icon: Moon, color: '#F5B84B', tint: 'rgba(245,184,75,.13)' },
   { id: 'mood', title: 'Mood & wellbeing', detail: 'Understand how I feel', icon: HeartPulse, color: '#FF7896', tint: 'rgba(255,120,150,.13)' },
-  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: '#2563eb', tint: 'rgba(37, 99, 235,.13)' },
+  { id: 'consistency', title: 'Build consistency', detail: 'Create habits that stick', icon: TrendingUp, color: 'var(--color-accent-blue)', tint: 'color-mix(in srgb, var(--color-accent-blue) 13%, transparent)' },
   { id: 'self-care', title: 'Self-care', detail: 'Make more room for myself', icon: Sparkles, color: '#F2A6D8', tint: 'rgba(242,166,216,.13)' },
   { id: 'career', title: 'Learning & career', detail: 'Keep growing my skills', icon: BookOpen, color: '#55D6C2', tint: 'rgba(85,214,194,.13)' },
   { id: 'spending', title: 'Spending habits', detail: 'Feel more intentional with money', icon: WalletCards, color: '#65CDA5', tint: 'rgba(101,205,165,.13)' },
@@ -3059,7 +3059,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   const metricIconColors={
     sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
     mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
-    learning:'#38BDF8',building:'#60A5FA',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
+    learning:'var(--graph-blue-cyan)',building:'var(--graph-blue-light)',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
     income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
     habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
   }

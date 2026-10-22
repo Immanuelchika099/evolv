@@ -54,7 +54,7 @@
   height: 35px !important;
   border: 2px solid #080a0d !important;
   border-radius: 50% !important;
-  background: #3b82f6 !important;
+  background: var(--graph-blue-bright) !important;
   color: #fff !important;
   box-shadow: 0 5px 18px rgba(0,0,0,.48) !important;
   pointer-events: none;
@@ -130,7 +130,7 @@
   border-radius: 13px;
   background: transparent;
 }
-.dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color: #60a5fa; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color: var(--graph-blue-light); }
 .dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color: #a78bfa; }
 .dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color: #fbbf24; }
 .dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color: #34d399; }
@@ -157,7 +157,7 @@
 }
 .dashboard .settings-page .profile-settings-chevron.is-open {
   transform: rotate(180deg);
-  color: #93c5fd;
+  color: var(--graph-blue-pale);
 }
 .dashboard .settings-page .profile-settings-accordion-content {
   display: grid;
@@ -223,7 +223,7 @@
   cursor: pointer;
 }
 .dashboard .settings-page .profile-account-action:last-child { border-bottom: 0; }
-.dashboard .settings-page .profile-account-action .logout-icon { color: #60a5fa; }
+.dashboard .settings-page .profile-account-action .logout-icon { color: var(--graph-blue-light); }
 .dashboard .settings-page .profile-account-action .delete-icon { color: #f87171; }
 .dashboard .settings-page .profile-account-action-copy {
   flex: 1;
@@ -261,7 +261,7 @@
 }
 
 /* Distinct, tasteful icon colours for each expandable settings category. */
-.dashboard .settings-page .profile-settings-section-icon.icon-account { color: #60a5fa !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-account { color: var(--graph-blue-light) !important; }
 .dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color: #a78bfa !important; }
 .dashboard .settings-page .profile-settings-section-icon.icon-notifications { color: #fbbf24 !important; }
 .dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color: #34d399 !important; }
@@ -296,7 +296,7 @@
   border: 0;
   border-top: 1px solid rgba(226,232,240,.1);
   background: transparent;
-  color: #93c5fd;
+  color: var(--graph-blue-pale);
   text-align: left;
   cursor: pointer;
 }
@@ -388,10 +388,10 @@
   border: 1px solid rgba(96, 165, 250, .42) !important;
   outline: none !important;
   background: rgba(59, 130, 246, .12) !important;
-  color: #93c5fd !important;
+  color: var(--graph-blue-pale) !important;
   box-shadow: 0 0 0 1px rgba(59, 130, 246, .08) !important;
 }
 .confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) svg {
-  color: #93c5fd !important;
-  stroke: #93c5fd !important;
+  color: var(--graph-blue-pale) !important;
+  stroke: var(--graph-blue-pale) !important;
 }

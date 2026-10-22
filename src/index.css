@@ -19,6 +19,15 @@
   --color-border-subtle: rgba(255,255,255,.085);
   --color-border: rgba(255,255,255,.12);
   --color-accent-blue: #2563eb;
+  --blue-accent: var(--color-accent-blue);
+  --ai-bubble-blue: #133362;
+  --graph-blue: var(--color-accent-blue);
+  --graph-blue-deep: color-mix(in srgb, var(--color-accent-blue) 78%, black);
+  --graph-blue-bright: color-mix(in srgb, var(--color-accent-blue) 88%, white);
+  --graph-blue-light: color-mix(in srgb, var(--color-accent-blue) 70%, white);
+  --graph-blue-pale: color-mix(in srgb, var(--color-accent-blue) 48%, white);
+  --graph-blue-cyan: color-mix(in srgb, var(--color-accent-blue) 48%, white);
+  --graph-blue-violet: #9b7cff;
   --evolv-blue: var(--color-accent-blue);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
   --color-accent-lime: var(--color-accent-blue);
@@ -43,7 +52,7 @@
   background:#000;
   --muted:#85837f;
   --line:#ffffff1c;
-  --accent: #2563eb;
+  --accent: var(--color-accent-blue);
   --mint:#7d857b;
   -webkit-font-smoothing:antialiased;
 }
@@ -189,8 +198,7 @@ button.onboard-continue,
 button.onboarding-next,
 button.goal-heatmap-range .is-active,
 button.prompt-bar__send[data-armed],
-button[style*="#2563eb"],
-button[style*="rgb(37, 99, 235)"],
+button[style*="var(--color-accent-blue)"],
 a.primary,
 a.primary-button,
 a.btn-primary,
@@ -216,8 +224,7 @@ button.onboard-continue *,
 button.onboarding-next *,
 button.goal-heatmap-range .is-active *,
 button.prompt-bar__send[data-armed] *,
-button[style*="#2563eb"] *,
-button[style*="rgb(37, 99, 235)"] *,
+button[style*="var(--color-accent-blue)"] *,
 a.primary *,
 a.primary-button *,
 a.btn-primary *,
@@ -242,7 +249,7 @@ a.button-primary *,
   background: #0b0c0f !important;
 }
 .routine-nav-button:focus-visible {
-  outline-color: rgba(37, 99, 235, .7) !important;
+  outline-color: color-mix(in srgb, var(--color-accent-blue) 70%, transparent) !important;
 }
 
 
@@ -281,10 +288,10 @@ html body #root .onboarding .onboarding-next,
 html body #root .onboarding button[type="submit"],
 html body #root .onboarding .primary-button,
 html body #root .onboarding .btn-primary {
-  background: #2563eb !important;
-  background-color: #2563eb !important;
+  background: var(--color-accent-blue) !important;
+  background-color: var(--color-accent-blue) !important;
   background-image: none !important;
-  border-color: #2563eb !important;
+  border-color: var(--color-accent-blue) !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   box-shadow: none !important;

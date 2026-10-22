@@ -7,7 +7,7 @@
 .menu-button{width:39px;height:39px;border-radius:50%;border:1px solid #ffffff18;background:#ffffff08;display:grid;place-content:center;gap:5px}.menu-button span{display:block;width:13px;height:1px;background:#ddd;transition:.25s}.menu-button.menu-open span:first-child{transform:translateY(3px) rotate(45deg)}.menu-button.menu-open span:last-child{transform:translateY(-3px) rotate(-45deg)}
 .mobile-menu{position:fixed;right:max(24px,calc((100vw - 1180px)/2));top:86px;width:250px;padding:12px;border:1px solid #ffffff18;border-radius:20px;background:#000000dd;backdrop-filter:blur(25px);z-index:14;opacity:0;pointer-events:none;transform:translateY(-10px);transition:.3s ease}.mobile-menu.open{opacity:1;pointer-events:auto;transform:none}.mobile-menu a,.mobile-menu button{display:flex;align-items:center;justify-content:space-between;width:100%;padding:14px;border:0;background:transparent;color:#aaa;font-size:12px;text-align:left}.mobile-menu button{margin-top:4px;border-radius:12px;background:#f3f1ea;color:#090909}
 .hero{min-height:800px;padding-top:115px}.hero-title{overflow:hidden}.hero-title .line{display:block}.hero-aura{position:absolute;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,#d9d2ae12,transparent 62%);filter:blur(10px)}
-.hero-outer-ring{position:absolute;width:min(480px,44vw);aspect-ratio:1;border:1px solid #74AAFF22;border-radius:50%;border-right-color:#74AAFF56;pointer-events:none;z-index:0}
+.hero-outer-ring{position:absolute;width:min(480px,44vw);aspect-ratio:1;border:1px solid color-mix(in srgb, var(--color-accent-blue) 13.3%, transparent);border-radius:50%;border-right-color:color-mix(in srgb, var(--color-accent-blue) 33.7%, transparent);pointer-events:none;z-index:0}
 .hero-outer-ring::after{content:"";position:absolute;top:8%;right:21%;width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 20px var(--accent)}
 @media(max-width:800px){.hero-outer-ring{width:88vw}}
 
@@ -25,7 +25,7 @@
 .experience{width:min(1180px,calc(100% - 48px));margin:0 auto 220px;display:grid;grid-template-columns:.75fr 1.25fr;gap:70px;align-items:center}.preview-copy h2{font:500 clamp(48px,5.3vw,76px)/.94 'Space Grotesk';letter-spacing:-.06em;margin:24px 0}.preview-copy .button{margin-top:28px}
 .manifesto{text-align:center;min-height:520px;display:flex;flex-direction:column;align-items:center;justify-content:center}.manifesto p{margin:0 auto}
 .faq{width:min(1100px,calc(100% - 48px));margin:0 auto 200px;display:grid;grid-template-columns:.8fr 1.2fr;gap:90px}.faq h2{font:500 clamp(55px,6vw,80px)/.92 'Space Grotesk';letter-spacing:-.06em;margin:25px 0}.faq-list{border-top:1px solid #ffffff16}.faq-item{border-bottom:1px solid #ffffff16}.faq-item summary{list-style:none;cursor:pointer;padding:23px 2px;display:flex;justify-content:space-between;align-items:center;font:500 17px 'Space Grotesk'}.faq-item summary::-webkit-details-marker{display:none}.faq-item summary span{font-size:22px;color:#657067;transition:.25s}.faq-item[open] summary span{transform:rotate(45deg);color:var(--accent)}.faq-item p{color:#727872;font-size:12px;line-height:1.8;max-width:500px;margin:0;padding:0 30px 23px 2px}
-.final-cta{width:min(900px,calc(100% - 48px));margin:0 auto 170px;text-align:center;min-height:500px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:radial-gradient(circle,#00000066,transparent 65%)}.final-cta h2{font:500 clamp(58px,7vw,94px)/.92 'Space Grotesk';letter-spacing:-.07em;margin:25px 0 35px}.final-cta .button{box-shadow:0 0 40px #74AAFF15}
+.final-cta{width:min(900px,calc(100% - 48px));margin:0 auto 170px;text-align:center;min-height:500px;display:flex;flex-direction:column;justify-content:center;align-items:center;background:radial-gradient(circle,#00000066,transparent 65%)}.final-cta h2{font:500 clamp(58px,7vw,94px)/.92 'Space Grotesk';letter-spacing:-.07em;margin:25px 0 35px}.final-cta .button{box-shadow:0 0 40px color-mix(in srgb, var(--color-accent-blue) 8.2%, transparent)}
 @media(max-width:800px){.landing-nav{top:12px;height:54px!important}.hero{padding-top:75px}.landing-nav .nav-links,.landing-nav .nav-login{display:none}.mobile-menu{right:16px;top:75px;width:calc(100% - 32px)}.story-intro,.story-statement,.manifesto{width:calc(100% - 32px);margin:110px auto 150px}.story-intro{min-height:420px}.story-intro h2,.story-statement h2,.manifesto h2{font-size:clamp(48px,13vw,68px)}.story-statement{display:block}.statement-number{margin-bottom:35px}.features-story,.experience,.faq{width:calc(100% - 32px);margin-bottom:150px}.feature-steps{grid-template-columns:1fr}.feature-step:nth-child(odd){border-right:0}.feature-step{min-height:170px;padding:25px 0}.experience{display:block}.preview-copy{margin-bottom:55px}.faq{display:block}.faq-head{margin-bottom:55px}.final-cta{width:calc(100% - 32px);min-height:420px;margin-bottom:110px}.final-cta h2{font-size:clamp(50px,13vw,70px)}}
 
 
@@ -73,7 +73,7 @@
 
 .landing{background:radial-gradient(circle at 73% 10%,#0000002e 0,transparent 28%),radial-gradient(circle at 15% 40%,#00000026 0,transparent 30%),#000000}
 .landing:before{background:linear-gradient(180deg,transparent,#0000000c 38%,transparent 62%,#0000000e)}
-.hero-aura{background:radial-gradient(circle,#74AAFF15,transparent 62%)}
+.hero-aura{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 8.2%, transparent),transparent 62%)}
 .final-cta{background:radial-gradient(circle,#00000024,transparent 65%)}
 
 
@@ -117,8 +117,8 @@
 }
 .feature-step.feature-card:nth-child(odd){border-right:1px solid #ffffff12!important}
 .feature-step.feature-card:hover{
-  border-color:#74AAFF35!important;
-  background:linear-gradient(145deg,#74AAFF0b,#ffffff03);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 20.8%, transparent)!important;
+  background:linear-gradient(145deg,color-mix(in srgb, var(--color-accent-blue) 4.3%, transparent),#ffffff03);
   box-shadow:0 30px 90px #00000055;
 }
 .feature-step.feature-card>span{color:#697168}
@@ -571,11 +571,11 @@ body{
 }
 .evolv-hero-marquee-content{display:flex;align-items:center;gap:34px;padding-right:34px;flex-shrink:0}
 .evolv-hero-marquee-content span{
-  color:rgba(116, 170, 255,.18);font:500 clamp(18px,1.8vw,28px)/1 'Space Grotesk';
+  color:color-mix(in srgb, var(--color-accent-blue) 18%, transparent);font:500 clamp(18px,1.8vw,28px)/1 'Space Grotesk';
   letter-spacing:.055em;text-transform:uppercase;white-space:nowrap;
-  text-shadow:0 0 16px rgba(116, 170, 255,.035);
+  text-shadow:0 0 16px color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent);
 }
-.evolv-hero-marquee-content i{color:rgba(116, 170, 255,.11);font-style:normal;font-size:12px}
+.evolv-hero-marquee-content i{color:color-mix(in srgb, var(--color-accent-blue) 11%, transparent);font-style:normal;font-size:12px}
 @keyframes evolvHeroMarquee{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
 @media(prefers-reduced-motion:reduce){.evolv-hero-marquee-track{animation-play-state:paused}}
 @media(max-width:800px){
@@ -1161,7 +1161,7 @@ body,
   --ev-line:rgba(255,255,255,.13);
   --ev-copy:rgba(244,244,239,.68);
   --ev-muted:rgba(244,244,239,.42);
-  --ev-accent:#74AAFF;
+  --ev-accent:var(--color-accent-blue);
   background:#070807!important;
   color:#f4f4ef;
   isolation:isolate;
@@ -1200,7 +1200,7 @@ body,
 .landing-v2 .ev-hero-glow{
   width:min(68vw,900px)!important;height:min(68vw,900px)!important;
   right:-15%!important;top:0!important;left:auto!important;
-  background:radial-gradient(circle,rgba(116, 170, 255,.09),rgba(116, 170, 255,.025) 35%,transparent 68%)!important;
+  background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 9%, transparent),color-mix(in srgb, var(--color-accent-blue) 2.5%, transparent) 35%,transparent 68%)!important;
   filter:blur(8px)!important;
 }
 .landing-v2 .ev-hero-watermark{
@@ -1224,7 +1224,7 @@ body,
 }
 .landing-v2 .ev-hero-eyebrow i{
   width:6px!important;height:6px!important;border-radius:50%;
-  background:var(--ev-accent)!important;box-shadow:0 0 14px rgba(116, 170, 255,.45);
+  background:var(--ev-accent)!important;box-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 45%, transparent);
 }
 .landing-v2 .ev-hero-title{
   max-width:900px!important;margin:32px 0 25px!important;
@@ -1249,9 +1249,9 @@ body,
 .landing-v2 .ev-btn:hover{transform:translateY(-3px)}
 .landing-v2 .ev-btn-solid{
   background:var(--ev-accent)!important;color:#000000!important;border:1px solid var(--ev-accent)!important;
-  box-shadow:0 10px 35px rgba(116, 170, 255,.08)!important;
+  box-shadow:0 10px 35px color-mix(in srgb, var(--color-accent-blue) 8%, transparent)!important;
 }
-.landing-v2 .ev-btn-solid:hover{background:#74AAFF!important}
+.landing-v2 .ev-btn-solid:hover{background:var(--color-accent-blue)!important}
 .landing-v2 .ev-btn-line{
   background:rgba(255,255,255,.035)!important;color:#f4f4ef!important;
   border:1px solid rgba(255,255,255,.17)!important;
@@ -1265,7 +1265,7 @@ body,
   box-shadow:0 35px 100px rgba(0,0,0,.28)!important;
   backdrop-filter:blur(18px)!important;
 }
-.landing-v2 .ev-orbit{border-color:rgba(116, 170, 255,.15)!important;border-right-color:rgba(116, 170, 255,.65)!important}
+.landing-v2 .ev-orbit{border-color:color-mix(in srgb, var(--color-accent-blue) 15%, transparent)!important;border-right-color:color-mix(in srgb, var(--color-accent-blue) 65%, transparent)!important}
 .landing-v2 .ev-stage-meta,.landing-v2 .ev-stage-footer{
   color:rgba(244,244,239,.42)!important;font-size:9px!important;letter-spacing:.12em!important;
 }
@@ -1338,7 +1338,7 @@ body,
   display:flex!important;flex-direction:column!important;align-items:flex-start!important;
   position:relative;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s ease,background .35s ease!important;
 }
-.landing-v2 .ev-system-card:hover{transform:translateY(-5px)!important;border-color:rgba(116, 170, 255,.34)!important;background:linear-gradient(145deg,rgba(116, 170, 255,.055),rgba(255,255,255,.012))!important}
+.landing-v2 .ev-system-card:hover{transform:translateY(-5px)!important;border-color:color-mix(in srgb, var(--color-accent-blue) 34%, transparent)!important;background:linear-gradient(145deg,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),rgba(255,255,255,.012))!important}
 .landing-v2 .ev-card-num{color:rgba(244,244,239,.35)!important;font:10px 'DM Mono',monospace!important;margin-bottom:38px!important}
 .landing-v2 .ev-system-card>svg{color:var(--ev-accent)!important;margin-bottom:20px!important}
 .landing-v2 .ev-system-card h3{font-size:clamp(24px,3vw,34px)!important;letter-spacing:-.05em!important;font-weight:500!important;margin:0 0 10px!important}
@@ -1357,7 +1357,7 @@ body,
   background:#101110!important;padding:22px!important;box-shadow:0 40px 100px rgba(0,0,0,.25)!important;
 }
 .landing-v2 .ev-device-top,.landing-v2 .ev-device-bottom{color:rgba(244,244,239,.4)!important;font-size:9px!important;letter-spacing:.12em!important}
-.landing-v2 .ev-device-ring{border-color:rgba(116, 170, 255,.35)!important}
+.landing-v2 .ev-device-ring{border-color:color-mix(in srgb, var(--color-accent-blue) 35%, transparent)!important}
 .landing-v2 .ev-device-ring strong{color:#f4f4ef!important}
 .landing-v2 .ev-device-ring span{color:var(--ev-accent)!important}
 .landing-v2 .ev-device-list>div{border-bottom:1px solid rgba(255,255,255,.1)!important}
@@ -1400,7 +1400,7 @@ body,
   width:100%!important;max-width:none!important;min-height:550px!important;
   margin:0!important;padding:100px 24px!important;border-top:1px solid var(--ev-line)!important;
   border-bottom:1px solid var(--ev-line)!important;border-radius:0!important;
-  background:radial-gradient(ellipse at 50% 65%,rgba(116, 170, 255,.075),transparent 45%),#090a09!important;
+  background:radial-gradient(ellipse at 50% 65%,color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent),transparent 45%),#090a09!important;
 }
 .landing-v2 .ev-final-watermark{color:rgba(255,255,255,.035)!important;font-size:clamp(150px,28vw,390px)!important;letter-spacing:-.1em!important}
 .landing-v2 .ev-final h2{font-size:clamp(52px,8vw,105px)!important;line-height:.92!important;letter-spacing:-.08em!important;font-weight:500!important}
@@ -1598,8 +1598,8 @@ body,
 @media (hover:hover) {
   .landing-v2 .ev-system-steps > div:hover {
     transform: translateY(-3px);
-    border-color: rgba(116, 170, 255,.28) !important;
-    background: linear-gradient(145deg, rgba(116, 170, 255,.045), rgba(255,255,255,.012)) !important;
+    border-color: color-mix(in srgb, var(--color-accent-blue) 28%, transparent) !important;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent), rgba(255,255,255,.012)) !important;
   }
 }
 .landing-v2 .ev-experience {
@@ -1636,7 +1636,7 @@ body,
 .landing-v2 .ev-faq-item summary { padding: 2.2rem 0 !important; font-size: 1.55rem !important; line-height: 1.5 !important; }
 .landing-v2 .ev-faq-item summary span { font-size: 2rem !important; }
 .landing-v2 .ev-faq-item p { font-size: 1.4rem !important; line-height: 1.8 !important; color: var(--ev-muted) !important; }
-.landing-v2 .ev-final { min-height: 51rem !important; padding: 9rem 2.4rem !important; background: radial-gradient(ellipse at 50% 70%, rgba(116, 170, 255,.055), transparent 48%), #070807 !important; }
+.landing-v2 .ev-final { min-height: 51rem !important; padding: 9rem 2.4rem !important; background: radial-gradient(ellipse at 50% 70%, color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent), transparent 48%), #070807 !important; }
 .landing-v2 .ev-final h2 { font-size: clamp(5.2rem, 7.6vw, 9.6rem) !important; line-height: .96 !important; letter-spacing: -.08em !important; }
 .landing-v2 .ev-final .ev-btn { margin-top: 1rem !important; }
 .landing-v2 .site-footer { padding: 6.4rem 0 2.8rem !important; }
@@ -1858,8 +1858,8 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   padding: 25px 0;
   overflow: hidden;
   transform: rotate(-2.4deg);
-  border-top: 1px solid rgba(116, 170, 255, .32);
-  border-bottom: 1px solid rgba(116, 170, 255, .32);
+  border-top: 1px solid color-mix(in srgb, var(--color-accent-blue) 32%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-accent-blue) 32%, transparent);
   background: linear-gradient(100deg, #101827, #0b0c0f 48%, #111b2a);
   box-shadow: 0 16px 55px rgba(0,0,0,.22);
 }
@@ -1883,10 +1883,10 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   white-space: nowrap;
 }
 .landing-v2 .ev-marquee-slanted-content span:nth-of-type(3n + 2) {
-  color: #74AAFF;
+  color: var(--color-accent-blue);
 }
 .landing-v2 .ev-marquee-slanted-content i {
-  color: rgba(116, 170, 255, .8);
+  color: color-mix(in srgb, var(--color-accent-blue) 80%, transparent);
   font-style: normal;
   font-size: clamp(12px, 1.5vw, 18px);
 }
@@ -1992,7 +1992,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   display: block;
   flex: 0 0 auto;
   margin: 0;
-  color: var(--ev-accent, #74AAFF);
+  color: var(--ev-accent, var(--color-accent-blue));
 }
 
 
@@ -2007,7 +2007,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   height: 22px;
   flex: 0 0 22px;
   margin: 0 !important;
-  color: var(--ev-accent, #74AAFF) !important;
+  color: var(--ev-accent, var(--color-accent-blue)) !important;
 }
 .landing-v2 .ev-system-step-copy {
   display: flex;
@@ -2033,7 +2033,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   border: 1px solid rgba(255,255,255,.1) !important;
   border-radius: 26px !important;
   background:
-    radial-gradient(ellipse at 12% 0%, rgba(116,170,255,.095), transparent 42%),
+    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--color-accent-blue) 9.5%, transparent), transparent 42%),
     linear-gradient(145deg, #121416 0%, #0b0c0e 100%) !important;
   box-shadow: 0 32px 90px rgba(0,0,0,.3) !important;
 }
@@ -2077,8 +2077,8 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   height: 6px;
   flex: 0 0 6px;
   border-radius: 50%;
-  background: #74AAFF;
-  box-shadow: 0 0 12px rgba(116,170,255,.45);
+  background: var(--color-accent-blue);
+  box-shadow: 0 0 12px color-mix(in srgb, var(--color-accent-blue) 45%, transparent);
 }
 .landing-v2 .ev-device-body {
   grid-template-columns: minmax(145px, .72fr) minmax(0, 1.28fr) !important;
@@ -2114,7 +2114,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 }
 .landing-v2 .ev-device-progress-value > span {
   margin-top: 4px;
-  color: #74AAFF;
+  color: var(--color-accent-blue);
   font-size: 22px;
   line-height: 1;
 }
@@ -2131,7 +2131,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, #568fe8, #9bc4ff);
-  box-shadow: 0 0 16px rgba(116,170,255,.22);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
 }
 .landing-v2 .ev-device-progress > small {
   margin-top: 13px;
@@ -2159,13 +2159,13 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   width: 17px;
   height: 17px;
   color: #91bbff !important;
-  border: 1px solid rgba(116,170,255,.38);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 38%, transparent);
   border-radius: 50%;
   font-size: 9px !important;
 }
 .landing-v2 .ev-device-list .ev-device-status.is-active {
-  border-color: rgba(116,170,255,.65);
-  background: rgba(116,170,255,.12);
+  border-color: color-mix(in srgb, var(--color-accent-blue) 65%, transparent);
+  background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
 }
 .landing-v2 .ev-device-list .ev-device-status.is-progress {
   border-color: rgba(244,244,239,.25);
@@ -2175,7 +2175,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   width: 5px;
   height: 5px;
   border-radius: 50%;
-  background: #74AAFF;
+  background: var(--color-accent-blue);
 }
 .landing-v2 .ev-device-list .ev-device-status.is-upcoming {
   color: rgba(244,244,239,.5) !important;
@@ -2310,7 +2310,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   width: clamp(22px, 2.8vw, 42px);
   height: 1px;
   margin-inline: 2px;
-  background: rgba(116, 170, 255, .8);
+  background: color-mix(in srgb, var(--color-accent-blue) 80%, transparent);
   color: transparent !important;
   font-size: 0 !important;
   vertical-align: middle;
@@ -2376,13 +2376,13 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 /* Marquee typography: keep every moving label in EVOLV blue. */
 .landing-v2 .ev-marquee-content span,
 .landing-v2 .ev-marquee-slanted-content span {
-  color: #74AAFF !important;
+  color: var(--color-accent-blue) !important;
 }
 .landing-v2 .ev-marquee-content .ev-marquee-star {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: #74AAFF !important;
+  color: var(--color-accent-blue) !important;
   font-style: normal;
   line-height: 1;
 }
@@ -2407,7 +2407,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .site-footer .footer-links a,
 .landing-v2 .site-footer .footer-links button.footer-contact { color: rgba(244,244,239,.76) !important; }
 .landing-v2 .site-footer .footer-links a:hover,
-.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: #74AAFF !important; }
+.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: var(--color-accent-blue) !important; }
 .landing-v2 .site-footer .footer-bottom { border-top-color: rgba(255,255,255,.12) !important; }
 .landing-v2 .site-footer::before {
   z-index: 0 !important;
@@ -2560,9 +2560,9 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 }
 /* Blue primary CTA with white text and arrow. */
 .landing-v2 .ev-hero-actions .ev-btn-solid {
-  background: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
   color: #fff !important;
-  border-color: #74AAFF !important;
+  border-color: var(--color-accent-blue) !important;
 }
 .landing-v2 .ev-hero-actions .ev-btn-solid:hover {
   background: #5f9bf8 !important;

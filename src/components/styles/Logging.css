@@ -3746,7 +3746,7 @@
 .dashboard .log-overlay.log-page-mode .log-save {
   width: 100% !important; min-width: 0 !important; min-height: 4.8rem !important;
   border-radius: 1.2rem !important; justify-content: center !important;
-  background: #2563eb !important; border-color: #2563eb !important; color: #fff !important;
+  background: var(--color-accent-blue) !important; border-color: var(--color-accent-blue) !important; color: #fff !important;
 }
 .dashboard .log-overlay.log-page-mode .log-save svg { color: #fff !important; stroke: currentColor !important; }
 @media (min-width: 700px) {
@@ -3761,9 +3761,9 @@
 
 /* Logging areas and metric icons use their own calm, colorful area accents. */
 .dashboard .log-overlay.log-page-mode .log-choice-icon {
-  color: var(--area-color, #60a5fa) !important;
-  background: color-mix(in srgb, var(--area-color, #60a5fa) 12%, transparent) !important;
-  border-color: color-mix(in srgb, var(--area-color, #60a5fa) 24%, transparent) !important;
+  color: var(--area-color, var(--graph-blue-light)) !important;
+  background: color-mix(in srgb, var(--area-color, var(--graph-blue-light)) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--area-color, var(--graph-blue-light)) 24%, transparent) !important;
 }
 .dashboard .log-overlay.log-page-mode .log-card-title strong {
   color: #f1efe9 !important;

@@ -1,13 +1,13 @@
 
 button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.38}
-.onboarding{min-height:100vh;display:flex;flex-direction:column}.onboard-head{height:88px;width:min(1180px,calc(100% - 48px));margin:auto;display:flex;justify-content:space-between;align-items:center}.step-count{color:#77756f;font:10px 'DM Mono'}.progress-track{height:1px;background:#ffffff12;width:min(1180px,calc(100% - 48px));margin:auto}.progress-track i{display:block;height:100%;background:var(--accent);box-shadow:0 0 12px #74AAFF;transition:width .5s ease}.onboard-content{width:min(880px,calc(100% - 48px));margin:auto;flex:1;display:flex;align-items:center;padding:70px 0}.back-button{position:relative;display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;color:#aaa;font:500 12px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;padding:0;cursor:pointer;transition:color .25s ease}.back-button svg{width:15px;height:15px;flex-shrink:0}.back-button:hover{color:#fff}.back-button:hover{color:#fff}.onboard-step{width:100%;max-width:720px;margin:auto}.onboard-step.wide{max-width:900px}.onboard-step h1{font:500 clamp(55px,7vw,88px)/.94 'Space Grotesk';letter-spacing:-.065em;margin:22px 0}.onboard-step h1 em{font-style:normal;color:#77756f}.onboard-step>p{color:#77756f;font-size:14px;line-height:1.7;margin-bottom:30px}.onboard-step input,.onboard-step textarea{width:100%;background:transparent;border:0;border-bottom:1px solid #ffffff2b;color:#fff;outline:0;padding:18px 0;font-size:25px;font-family:'Space Grotesk';resize:none}.onboard-step input:focus,.onboard-step textarea:focus{border-color:var(--accent)}.onboard-step input::placeholder,.onboard-step textarea::placeholder{color:#3f3e3a}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{position:relative;text-align:left;min-height:110px;padding:20px;background:#ffffff05;border:1px solid #ffffff0e;border-radius:14px;color:#aaa;border-color:#ffffff0e}.choice span{display:block;color:#f2f0ea;font:500 19px 'Space Grotesk';margin-bottom:7px}.choice small{color:#66645f;font-size:11px}.choice svg{position:absolute;right:17px;top:17px;color:var(--accent)}.choice.active{background:#74AAFF09;border-color:#74AAFF42}.focus-list{display:grid;gap:1px;border-top:1px solid #ffffff12}.focus{display:flex;justify-content:space-between;align-items:center;padding:21px 2px;background:transparent;border:0;border-bottom:1px solid #ffffff12;color:#77756f;text-align:left;font:500 21px 'Space Grotesk'}.focus:hover,.focus.active{color:#fff}.focus.active svg{color:var(--accent)}.onboard-footer{width:min(1180px,calc(100% - 48px));margin:auto;padding:28px 0 38px;border-top:1px solid #ffffff0d;display:flex;align-items:center;justify-content:space-between}.onboard-footer>span{font:9px 'DM Mono';color:#4f4e4a;letter-spacing:.13em}
-.dashboard{min-height:100vh;display:flex}.sidebar{width:240px;border-right:1px solid #ffffff0d;padding:32px 22px;display:flex;flex-direction:column;flex-shrink:0}.sidebar nav{margin-top:80px;display:grid;gap:5px}.sidebar nav button,.logout{border:0;background:transparent;color:#66645f;padding:13px 12px;border-radius:10px;text-align:left;display:flex;gap:11px;align-items:center;font-size:12px}.sidebar nav button:hover,.side-active{background:#ffffff08!important;color:#fff!important}.logout{margin-top:auto}.dash-main{width:min(1180px,100%);padding:42px 55px;margin:auto}.dash-header{display:flex;justify-content:space-between;align-items:flex-start}.dash-header h1{font:500 clamp(35px,4vw,52px) 'Space Grotesk';letter-spacing:-.05em;margin:12px 0 0}.icon-button{width:42px;height:42px;border:1px solid #ffffff14;background:#ffffff06;color:#777;border-radius:50%;display:grid;place-items:center}.dash-hero{margin-top:55px;min-height:300px;border:1px solid #ffffff12;border-radius:22px;padding:35px;display:flex;justify-content:space-between;align-items:center;background:radial-gradient(circle at 80% 30%,#74AAFF0b,transparent 35%),#ffffff04}.dash-hero strong{display:block;font:500 clamp(90px,12vw,150px)/.8 'Space Grotesk';letter-spacing:-.09em;margin:22px 0}.dash-hero strong span{font-size:35px;color:#66645f}.dash-hero p{color:#66645f;font-size:12px}.dash-circle{width:180px;height:180px;border-radius:50%;border:1px solid #74AAFF38;display:grid;place-items:center;color:#777;font:10px 'DM Mono';box-shadow:0 0 80px #74AAFF07}.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.dash-card{min-height:220px;border:1px solid #ffffff12;border-radius:18px;padding:25px;background:#ffffff03}.card-head{display:flex;justify-content:space-between;color:#55534e;font:9px 'DM Mono';letter-spacing:.12em}.dash-card h2{font:500 29px 'Space Grotesk';letter-spacing:-.04em;margin:38px 0 10px}.dash-card p{color:#66645f;font-size:12px;line-height:1.7}.mini-progress{height:2px;background:#242421;margin-top:28px}.mini-progress i{display:block;width:12%;height:100%;background:var(--accent)}.area-pills{display:flex;flex-wrap:wrap;gap:7px;margin:35px 0}.area-pills span{padding:8px 11px;border:1px solid #ffffff12;border-radius:999px;color:#999;font-size:10px}.add-goal{border:0;background:transparent;color:#777;font-size:11px;padding:0;display:flex;gap:7px;align-items:center}.empty-state{border-top:1px solid #ffffff0d;margin-top:55px;padding:40px 0}.empty-state>span{font:9px 'DM Mono';color:#4f4e4a;letter-spacing:.12em}.empty-state h2{font:500 30px 'Space Grotesk';letter-spacing:-.04em;margin:15px 0}.empty-state p{color:#66645f;font-size:12px}.panel-page{padding-top:70px}.panel-page h2{font:500 60px 'Space Grotesk';letter-spacing:-.06em;margin:12px 0 45px}.goal-empty{min-height:300px;border:1px dashed #ffffff16;border-radius:18px;display:grid;place-items:center;align-content:center;gap:15px;color:#666}.goal-empty p{font-size:12px}.profile-box{max-width:650px;border:1px solid #ffffff12;border-radius:18px;padding:28px}.profile-box p{font:9px 'DM Mono';color:#55534e;text-transform:uppercase;margin:22px 0 7px}.profile-box p:first-child{margin-top:0}.profile-box strong{font:500 20px 'Space Grotesk';color:#ddd}
+.onboarding{min-height:100vh;display:flex;flex-direction:column}.onboard-head{height:88px;width:min(1180px,calc(100% - 48px));margin:auto;display:flex;justify-content:space-between;align-items:center}.step-count{color:#77756f;font:10px 'DM Mono'}.progress-track{height:1px;background:#ffffff12;width:min(1180px,calc(100% - 48px));margin:auto}.progress-track i{display:block;height:100%;background:var(--accent);box-shadow:0 0 12px var(--color-accent-blue);transition:width .5s ease}.onboard-content{width:min(880px,calc(100% - 48px));margin:auto;flex:1;display:flex;align-items:center;padding:70px 0}.back-button{position:relative;display:inline-flex;align-items:center;gap:8px;background:transparent;border:0;color:#aaa;font:500 12px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;padding:0;cursor:pointer;transition:color .25s ease}.back-button svg{width:15px;height:15px;flex-shrink:0}.back-button:hover{color:#fff}.back-button:hover{color:#fff}.onboard-step{width:100%;max-width:720px;margin:auto}.onboard-step.wide{max-width:900px}.onboard-step h1{font:500 clamp(55px,7vw,88px)/.94 'Space Grotesk';letter-spacing:-.065em;margin:22px 0}.onboard-step h1 em{font-style:normal;color:#77756f}.onboard-step>p{color:#77756f;font-size:14px;line-height:1.7;margin-bottom:30px}.onboard-step input,.onboard-step textarea{width:100%;background:transparent;border:0;border-bottom:1px solid #ffffff2b;color:#fff;outline:0;padding:18px 0;font-size:25px;font-family:'Space Grotesk';resize:none}.onboard-step input:focus,.onboard-step textarea:focus{border-color:var(--accent)}.onboard-step input::placeholder,.onboard-step textarea::placeholder{color:#3f3e3a}.choice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.choice{position:relative;text-align:left;min-height:110px;padding:20px;background:#ffffff05;border:1px solid #ffffff0e;border-radius:14px;color:#aaa;border-color:#ffffff0e}.choice span{display:block;color:#f2f0ea;font:500 19px 'Space Grotesk';margin-bottom:7px}.choice small{color:#66645f;font-size:11px}.choice svg{position:absolute;right:17px;top:17px;color:var(--accent)}.choice.active{background:color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent);border-color:color-mix(in srgb, var(--color-accent-blue) 25.9%, transparent)}.focus-list{display:grid;gap:1px;border-top:1px solid #ffffff12}.focus{display:flex;justify-content:space-between;align-items:center;padding:21px 2px;background:transparent;border:0;border-bottom:1px solid #ffffff12;color:#77756f;text-align:left;font:500 21px 'Space Grotesk'}.focus:hover,.focus.active{color:#fff}.focus.active svg{color:var(--accent)}.onboard-footer{width:min(1180px,calc(100% - 48px));margin:auto;padding:28px 0 38px;border-top:1px solid #ffffff0d;display:flex;align-items:center;justify-content:space-between}.onboard-footer>span{font:9px 'DM Mono';color:#4f4e4a;letter-spacing:.13em}
+.dashboard{min-height:100vh;display:flex}.sidebar{width:240px;border-right:1px solid #ffffff0d;padding:32px 22px;display:flex;flex-direction:column;flex-shrink:0}.sidebar nav{margin-top:80px;display:grid;gap:5px}.sidebar nav button,.logout{border:0;background:transparent;color:#66645f;padding:13px 12px;border-radius:10px;text-align:left;display:flex;gap:11px;align-items:center;font-size:12px}.sidebar nav button:hover,.side-active{background:#ffffff08!important;color:#fff!important}.logout{margin-top:auto}.dash-main{width:min(1180px,100%);padding:42px 55px;margin:auto}.dash-header{display:flex;justify-content:space-between;align-items:flex-start}.dash-header h1{font:500 clamp(35px,4vw,52px) 'Space Grotesk';letter-spacing:-.05em;margin:12px 0 0}.icon-button{width:42px;height:42px;border:1px solid #ffffff14;background:#ffffff06;color:#777;border-radius:50%;display:grid;place-items:center}.dash-hero{margin-top:55px;min-height:300px;border:1px solid #ffffff12;border-radius:22px;padding:35px;display:flex;justify-content:space-between;align-items:center;background:radial-gradient(circle at 80% 30%,color-mix(in srgb, var(--color-accent-blue) 4.3%, transparent),transparent 35%),#ffffff04}.dash-hero strong{display:block;font:500 clamp(90px,12vw,150px)/.8 'Space Grotesk';letter-spacing:-.09em;margin:22px 0}.dash-hero strong span{font-size:35px;color:#66645f}.dash-hero p{color:#66645f;font-size:12px}.dash-circle{width:180px;height:180px;border-radius:50%;border:1px solid color-mix(in srgb, var(--color-accent-blue) 22%, transparent);display:grid;place-items:center;color:#777;font:10px 'DM Mono';box-shadow:0 0 80px color-mix(in srgb, var(--color-accent-blue) 2.7%, transparent)}.dash-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}.dash-card{min-height:220px;border:1px solid #ffffff12;border-radius:18px;padding:25px;background:#ffffff03}.card-head{display:flex;justify-content:space-between;color:#55534e;font:9px 'DM Mono';letter-spacing:.12em}.dash-card h2{font:500 29px 'Space Grotesk';letter-spacing:-.04em;margin:38px 0 10px}.dash-card p{color:#66645f;font-size:12px;line-height:1.7}.mini-progress{height:2px;background:#242421;margin-top:28px}.mini-progress i{display:block;width:12%;height:100%;background:var(--accent)}.area-pills{display:flex;flex-wrap:wrap;gap:7px;margin:35px 0}.area-pills span{padding:8px 11px;border:1px solid #ffffff12;border-radius:999px;color:#999;font-size:10px}.add-goal{border:0;background:transparent;color:#777;font-size:11px;padding:0;display:flex;gap:7px;align-items:center}.empty-state{border-top:1px solid #ffffff0d;margin-top:55px;padding:40px 0}.empty-state>span{font:9px 'DM Mono';color:#4f4e4a;letter-spacing:.12em}.empty-state h2{font:500 30px 'Space Grotesk';letter-spacing:-.04em;margin:15px 0}.empty-state p{color:#66645f;font-size:12px}.panel-page{padding-top:70px}.panel-page h2{font:500 60px 'Space Grotesk';letter-spacing:-.06em;margin:12px 0 45px}.goal-empty{min-height:300px;border:1px dashed #ffffff16;border-radius:18px;display:grid;place-items:center;align-content:center;gap:15px;color:#666}.goal-empty p{font-size:12px}.profile-box{max-width:650px;border:1px solid #ffffff12;border-radius:18px;padding:28px}.profile-box p{font:9px 'DM Mono';color:#55534e;text-transform:uppercase;margin:22px 0 7px}.profile-box p:first-child{margin-top:0}.profile-box strong{font:500 20px 'Space Grotesk';color:#ddd}
 @media(max-width:800px){.onboard-head,.progress-track,.onboard-content,.onboard-footer{width:calc(100% - 32px)}.onboard-content{padding:90px 0 40px}.back-button{top:105px}.onboard-step h1{font-size:clamp(50px,13vw,70px)}.choice-grid{grid-template-columns:1fr}.choice{min-height:90px}.onboard-footer{align-items:flex-end}.onboard-footer>span{display:none}.dashboard{display:block}.sidebar{width:100%;height:74px;border-right:0;border-bottom:1px solid #ffffff0d;padding:0 16px;display:flex;flex-direction:row;align-items:center;justify-content:space-between}.sidebar nav{margin:0;display:flex;gap:3px}.sidebar nav button{font-size:0;padding:10px}.sidebar nav button svg{margin:0}.sidebar .logout{margin:0;font-size:0;padding:10px}.dash-main{padding:30px 16px}.dash-header h1{font-size:34px}.dash-hero{margin-top:35px;min-height:310px;padding:25px;align-items:flex-end}.dash-circle{width:110px;height:110px}.dash-grid{grid-template-columns:1fr}.panel-page{padding-top:35px}.panel-page h2{font-size:48px}}
 
 
 
 
-.landing{background:radial-gradient(circle at 73% 10%,#00000022 0,transparent 28%),radial-gradient(circle at 15% 40%,#00000018 0,transparent 30%),#000000}.hero-aura{background:radial-gradient(circle,#74AAFF20,transparent 62%)}.orb-glow{background:radial-gradient(circle,#74AAFF60,#74AAFF0d 42%,transparent 70%)}.orb-ring{border-color:#74AAFF25;border-right-color:#74AAFF80}.orb-dot{background:var(--accent);box-shadow:0 0 12px #74AAFF66}.progress-line i,.mini-progress i{background:var(--accent);box-shadow:0 0 9px #74AAFF60}.panel-bottom b{color:var(--accent)}.final-cta{background:radial-gradient(circle,#00000038,transparent 65%)}
+.landing{background:radial-gradient(circle at 73% 10%,#00000022 0,transparent 28%),radial-gradient(circle at 15% 40%,#00000018 0,transparent 30%),#000000}.hero-aura{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 12.5%, transparent),transparent 62%)}.orb-glow{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 37.6%, transparent),color-mix(in srgb, var(--color-accent-blue) 5.1%, transparent) 42%,transparent 70%)}.orb-ring{border-color:color-mix(in srgb, var(--color-accent-blue) 14.5%, transparent);border-right-color:color-mix(in srgb, var(--color-accent-blue) 50.2%, transparent)}.orb-dot{background:var(--accent);box-shadow:0 0 12px color-mix(in srgb, var(--color-accent-blue) 40%, transparent)}.progress-line i,.mini-progress i{background:var(--accent);box-shadow:0 0 9px color-mix(in srgb, var(--color-accent-blue) 37.6%, transparent)}.panel-bottom b{color:var(--accent)}.final-cta{background:radial-gradient(circle,#00000038,transparent 65%)}
 .mobile-menu{z-index:30}.landing-nav{z-index:40}
 
 
@@ -50,7 +50,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 
 .goal-create-form{display:grid;gap:12px;margin:28px 0 34px;padding:22px;border:1px solid #ffffff10;background:#ffffff03}
-.goal-create-form input,.goal-create-form textarea,.profile-box input{width:100%;box-sizing:border-box;background:#ffffff04;border:1px solid #ffffff12;color:#74AAFF;border-radius:0;padding:14px 15px;font:12px 'DM Mono';outline:none}
+.goal-create-form input,.goal-create-form textarea,.profile-box input{width:100%;box-sizing:border-box;background:#ffffff04;border:1px solid #ffffff12;color:var(--color-accent-blue);border-radius:0;padding:14px 15px;font:12px 'DM Mono';outline:none}
 .goal-create-form input:focus,.goal-create-form textarea:focus,.profile-box input:focus{border-color:#ffffff35;background:#ffffff06}
 .goal-create-form textarea{resize:vertical;min-height:90px}
 .goal-create-form .button{justify-self:start}
@@ -59,11 +59,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .goal-item-top{display:flex;justify-content:space-between;gap:24px}
 .goal-item-top h3{margin:8px 0 7px;font-size:22px;letter-spacing:-.03em}
 .goal-item-top p{margin:0;color:#737b74;font-size:13px;line-height:1.7;max-width:620px}
-.goal-item-top>strong{font:18px 'DM Mono';color:#74AAFF}
+.goal-item-top>strong{font:18px 'DM Mono';color:var(--color-accent-blue)}
 .goal-item .mini-progress{margin:18px 0 15px}
 .goal-actions{display:flex;flex-wrap:wrap;gap:8px}
 .goal-actions button{padding:9px 12px;border:1px solid #ffffff12;background:#ffffff04;color:#8f9890;font:9px 'DM Mono';letter-spacing:.08em;text-transform:uppercase;cursor:pointer}
-.goal-actions button:hover{color:#74AAFF;border-color:#ffffff2b}
+.goal-actions button:hover{color:var(--color-accent-blue);border-color:#ffffff2b}
 .goal-actions button:disabled{opacity:.35;cursor:not-allowed}
 .profile-box form{display:grid;gap:12px;margin-bottom:28px}
 .profile-box label{display:grid;gap:8px}
@@ -85,7 +85,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   position:relative;
   isolation:isolate;
   background:
-    radial-gradient(ellipse 70% 55% at 78% 0%, rgba(116, 170, 255,.12), transparent 62%),
+    radial-gradient(ellipse 70% 55% at 78% 0%, color-mix(in srgb, var(--color-accent-blue) 12%, transparent), transparent 62%),
     radial-gradient(ellipse 58% 48% at 5% 32%, rgba(57, 49, 126,.10), transparent 64%),
     radial-gradient(ellipse 65% 52% at 58% 92%, rgba(28, 24, 54,.09), transparent 66%),
     linear-gradient(135deg,#030404 0%,#000000 42%,#000000 72%,#000000 100%);
@@ -97,7 +97,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   z-index:-1;
   pointer-events:none;
   background:
-    radial-gradient(ellipse 32% 22% at 82% 14%, rgba(116, 170, 255,.09), transparent 70%),
+    radial-gradient(ellipse 32% 22% at 82% 14%, color-mix(in srgb, var(--color-accent-blue) 9%, transparent), transparent 70%),
     radial-gradient(ellipse 28% 24% at 14% 76%, rgba(57, 49, 126,.07), transparent 72%);
   filter:blur(24px);
 }
@@ -115,9 +115,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .dashboard .notification-button{
-  border-color:rgba(116, 170, 255,.14);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
   background:rgba(57, 49, 126,.08);
-  box-shadow:inset 0 1px 0 rgba(116, 170, 255,.07),0 12px 35px rgba(28, 24, 54,.2);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--color-accent-blue) 7%, transparent),0 12px 35px rgba(28, 24, 54,.2);
 }
 
 .dashboard .state-ring{
@@ -126,21 +126,21 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 .dashboard .state-ring-track{
   background:
-    conic-gradient(from -90deg,#74AAFF 0 var(--ring-progress),rgba(116, 170, 255,.10) var(--ring-progress) 360deg);
+    conic-gradient(from -90deg,var(--color-accent-blue) 0 var(--ring-progress),color-mix(in srgb, var(--color-accent-blue) 10%, transparent) var(--ring-progress) 360deg);
 }
 
 .dashboard .state-ring-track::after{
-  background:radial-gradient(circle at 35% 25%,rgba(116, 170, 255,.10),rgba(28, 24, 54,.95) 66%);
-  border-color:rgba(116, 170, 255,.08);
+  background:radial-gradient(circle at 35% 25%,color-mix(in srgb, var(--color-accent-blue) 10%, transparent),rgba(28, 24, 54,.95) 66%);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
 }
 
 .dashboard .frequency-heading button{
-  border-color:rgba(116, 170, 255,.13);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 13%, transparent);
   background:rgba(57, 49, 126,.07);
 }
 
 .dashboard .glass-task{
-  border-color:rgba(116, 170, 255,.12);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
   background:
     linear-gradient(120deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),
     rgba(28, 24, 54,.54);
@@ -153,12 +153,12 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .dashboard .glass-task.checked .task-check{
-  border-color:#74AAFF;
-  background:#74AAFF;
+  border-color:var(--color-accent-blue);
+  background:var(--color-accent-blue);
 }
 
 .dashboard .daily-insight::before{
-  background:linear-gradient(90deg,rgba(116, 170, 255,.9),transparent);
+  background:linear-gradient(90deg,color-mix(in srgb, var(--color-accent-blue) 90%, transparent),transparent);
 }
 
 .dashboard .dashboard-welcome-copy h1,
@@ -185,7 +185,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   width:100%;
   min-height:46px;
   padding:0 18px;
-  border:1px solid rgba(116, 170, 255,.14);
+  border:1px solid color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
   border-radius:14px;
   background:rgba(28, 24, 54,.52);
   color:rgba(171, 166, 255,.78);
@@ -195,8 +195,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   transition:background .25s ease,border-color .25s ease,color .25s ease;
 }
 .dashboard .profile-signout:hover{
-  background:rgba(116, 170, 255,.08);
-  border-color:rgba(116, 170, 255,.28);
+  background:color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent);
   color:#fff;
 }
 
@@ -328,22 +328,22 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-radius:50%;
   display:grid;
   place-items:center;
-  box-shadow:0 0 50px #74AAFF12;
+  box-shadow:0 0 50px color-mix(in srgb, var(--color-accent-blue) 7.1%, transparent);
   position:relative;
 }
 .evolv-loader-mark:before{
   content:"";
   position:absolute;
   inset:6px;
-  border:1px solid #74AAFF35;
+  border:1px solid color-mix(in srgb, var(--color-accent-blue) 20.8%, transparent);
   border-radius:50%;
 }
 .evolv-loader-mark span{
   width:10px;
   height:10px;
   border-radius:50%;
-  background:#74AAFF;
-  box-shadow:0 0 20px #74AAFFaa;
+  background:var(--color-accent-blue);
+  box-shadow:0 0 20px color-mix(in srgb, var(--color-accent-blue) 66.7%, transparent);
   animation:evolv-loader-pulse 1.2s ease-in-out infinite;
 }
 .evolv-loader-word{
@@ -362,8 +362,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   display:block;
   width:42%;
   height:100%;
-  background:#74AAFF;
-  box-shadow:0 0 12px #74AAFF88;
+  background:var(--color-accent-blue);
+  box-shadow:0 0 12px color-mix(in srgb, var(--color-accent-blue) 53.3%, transparent);
   animation:evolv-loader-progress 1.15s cubic-bezier(.22,1,.36,1) forwards;
 }
 @keyframes evolv-loader-rise{
@@ -399,7 +399,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   box-shadow:0 24px 65px rgba(0,0,0,.28),0 0 50px rgba(57, 49, 126,.13),inset 0 1px 0 rgba(255,255,255,.12);
 }
 .dashboard .state-ring-track{
-  background:conic-gradient(from -90deg,#74AAFF 0 var(--ring-progress),rgba(116, 170, 255,.10) var(--ring-progress) 360deg);
+  background:conic-gradient(from -90deg,var(--color-accent-blue) 0 var(--ring-progress),color-mix(in srgb, var(--color-accent-blue) 10%, transparent) var(--ring-progress) 360deg);
 }
 .dashboard .state-ring-track::after{
   inset:7px;
@@ -408,7 +408,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 }
 .dashboard .state-ring-center{gap:4px}
-.dashboard .state-ring-center strong{display:flex;align-items:baseline;gap:1px;font-size:35px;color:#74AAFF}
+.dashboard .state-ring-center strong{display:flex;align-items:baseline;gap:1px;font-size:35px;color:var(--color-accent-blue)}
 .dashboard .state-ring-center strong span{color:rgba(171, 166, 255,.58);font:500 16px 'Manrope';letter-spacing:-.03em}
 .dashboard .state-ring-center > span{color:rgba(171, 166, 255,.48);font-size:8px;letter-spacing:.12em}
 
@@ -416,14 +416,14 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .frequency-heading{margin-bottom:17px}
 .dashboard .frequency-heading>span{color:rgba(171, 166, 255,.52);font-size:10px;letter-spacing:.16em}
 .dashboard .frequency-heading button{
-  width:32px;height:32px;border-color:rgba(116, 170, 255,.16);background:rgba(116, 170, 255,.06);
+  width:32px;height:32px;border-color:color-mix(in srgb, var(--color-accent-blue) 16%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 6%, transparent);
   backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
 }
 .dashboard .frequency-list{gap:13px}
 
 .dashboard .glass-task{
   min-height:78px;padding:17px 20px;gap:15px;border-radius:40px;
-  border-color:rgba(116, 170, 255,.14);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
   background:linear-gradient(135deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),rgba(28, 24, 54,.48);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 -1px 0 rgba(0,0,0,.20),0 16px 42px rgba(0,0,0,.22);
   backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);
@@ -432,28 +432,28 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .glass-task::before{background:linear-gradient(115deg,rgba(255,255,255,.075),transparent 35%);opacity:.72}
 .dashboard .glass-task:hover{
-  transform:translateY(-1px);border-color:rgba(116, 170, 255,.21);
+  transform:translateY(-1px);border-color:color-mix(in srgb, var(--color-accent-blue) 21%, transparent);
   background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.022)),rgba(28, 24, 54,.50);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.085),0 18px 44px rgba(0,0,0,.25);
 }
 .dashboard .task-check{
-  width:31px;height:31px;border:1px solid rgba(171, 166, 255,.22);color:#74AAFF;
+  width:31px;height:31px;border:1px solid rgba(171, 166, 255,.22);color:var(--color-accent-blue);
   background:rgba(255,255,255,.012);box-shadow:inset 0 1px 0 rgba(255,255,255,.07);
 }
 .dashboard .glass-task.checked{opacity:.78}
 .dashboard .glass-task.checked .task-check{
-  border-color:rgba(116, 170, 255,.72);background:rgba(116, 170, 255,.10);color:#74AAFF;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px rgba(116, 170, 255,.10);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 72%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 10%, transparent);color:var(--color-accent-blue);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 0 18px color-mix(in srgb, var(--color-accent-blue) 10%, transparent);
 }
 .dashboard .task-text{font-size:15px;color:rgba(171, 166, 255,.74)}
 .dashboard .task-progress{font-size:9px;color:rgba(171, 166, 255,.34)}
 
 .dashboard .daily-insight{padding-top:34px}
 .dashboard .daily-insight-label{color:rgba(171, 166, 255,.48)}
-.dashboard .daily-insight h2{font-size:clamp(42px,5.5vw,62px);color:#74AAFF}
+.dashboard .daily-insight h2{font-size:clamp(42px,5.5vw,62px);color:var(--color-accent-blue)}
 .dashboard .daily-insight p{color:rgba(171, 166, 255,.56);font-size:15px;line-height:1.8}
 .dashboard .daily-insight-points > div{
-  border-color:rgba(116, 170, 255,.09);border-radius:18px;background:rgba(255,255,255,.025);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 9%, transparent);border-radius:18px;background:rgba(255,255,255,.025);
   backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
 }
 
@@ -664,7 +664,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 .dashboard .mini-progress i{
   border-radius:999px;
-  background:#74AAFF;
+  background:var(--color-accent-blue);
 }
 
 .dashboard .goal-actions{
@@ -796,7 +796,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   position:relative;
   isolation:isolate;
   background:
-    radial-gradient(900px 520px at 76% -8%, rgba(116, 170, 255,.085), transparent 62%),
+    radial-gradient(900px 520px at 76% -8%, color-mix(in srgb, var(--color-accent-blue) 8.5%, transparent), transparent 62%),
     radial-gradient(720px 560px at 12% 38%, rgba(28, 24, 54,.055), transparent 68%),
     linear-gradient(180deg,#000000 0%,#000000 48%,#000000 100%) !important;
 }
@@ -807,7 +807,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   pointer-events:none;
   z-index:-1;
   background:
-    radial-gradient(500px 340px at 62% 18%, rgba(116, 170, 255,.055), transparent 72%),
+    radial-gradient(500px 340px at 62% 18%, color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent), transparent 72%),
     radial-gradient(760px 520px at 100% 70%, rgba(28, 24, 54,.12), transparent 70%);
   opacity:1;
 }
@@ -837,7 +837,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   left:16%;
   top:-50px;
   pointer-events:none;
-  background:radial-gradient(ellipse,rgba(116, 170, 255,.065),transparent 68%);
+  background:radial-gradient(ellipse,color-mix(in srgb, var(--color-accent-blue) 6.5%, transparent),transparent 68%);
   filter:blur(12px);
   z-index:-1;
 }
@@ -852,7 +852,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   color:rgba(243,241,233,.46);
 }
 .dashboard .glass-task{
-  border-color:rgba(116, 170, 255,.075);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent);
   background:
     linear-gradient(120deg,rgba(255,255,255,.052),rgba(255,255,255,.018)),
     rgba(28, 24, 54,.72);
@@ -860,9 +860,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   backdrop-filter:blur(18px);
 }
 .dashboard .glass-task:hover{
-  border-color:rgba(116, 170, 255,.18);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
   background:
-    linear-gradient(120deg,rgba(116, 170, 255,.055),rgba(255,255,255,.02)),
+    linear-gradient(120deg,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),rgba(255,255,255,.02)),
     rgba(28, 24, 54,.78);
   transform:translateY(-2px);
 }
@@ -870,8 +870,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:rgba(243,241,233,.18);
 }
 .dashboard .glass-task.checked .task-check{
-  background:#74AAFF;
-  border-color:#74AAFF;
+  background:var(--color-accent-blue);
+  border-color:var(--color-accent-blue);
   color:#000000;
 }
 .dashboard .daily-insight,
@@ -897,8 +897,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   background:rgba(255,255,255,.065);
 }
 .dashboard .mini-progress i{
-  background:linear-gradient(90deg,#234574,#74AAFF);
-  box-shadow:0 0 18px rgba(116, 170, 255,.12);
+  background:linear-gradient(90deg,#234574,var(--color-accent-blue));
+  box-shadow:0 0 18px color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
 }
 @media(max-width:800px){
   .dashboard .dashboard-welcome{
@@ -939,7 +939,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   height:300px;
   left:4%;
   top:-55px;
-  background:radial-gradient(ellipse,rgba(116, 170, 255,.075),transparent 68%);
+  background:radial-gradient(ellipse,color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent),transparent 68%);
   filter:blur(18px);
 }
 .dashboard .frequency-section{
@@ -963,8 +963,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .frequency-heading button:hover{
   transform:translateY(-1px);
-  border-color:rgba(116, 170, 255,.2);
-  background:rgba(116, 170, 255,.06);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
+  background:color-mix(in srgb, var(--color-accent-blue) 6%, transparent);
 }
 .dashboard .frequency-list{
   gap:10px !important;
@@ -987,7 +987,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task.checked .task-text{
   color:rgba(243,241,233,.48);
   text-decoration:line-through;
-  text-decoration-color:rgba(116, 170, 255,.32);
+  text-decoration-color:color-mix(in srgb, var(--color-accent-blue) 32%, transparent);
 }
 @media(max-width:800px){
   .dashboard .dashboard-welcome{
@@ -1056,7 +1056,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   transition:transform 180ms ease-out,border-color 180ms ease-out,background-color 180ms ease-out,box-shadow 180ms ease-out;
 }
 .dashboard .goal-item:hover{
-  background-color:rgba(116, 170, 255,.025);
+  background-color:color-mix(in srgb, var(--color-accent-blue) 2.5%, transparent);
 }
 .dashboard .goal-item-top{
   display:grid;
@@ -1067,7 +1067,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .goal-status-copy{
   display:block;
   margin-bottom:10px;
-  color:rgba(116, 170, 255,.68) !important;
+  color:color-mix(in srgb, var(--color-accent-blue) 68%, transparent) !important;
   font:500 10px 'DM Mono' !important;
   letter-spacing:.1em !important;
   text-transform:uppercase;
@@ -1105,7 +1105,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .mini-progress i{
   height:100%;
   border-radius:0 !important;
-  background:linear-gradient(90deg,#234574,#74AAFF) !important;
+  background:linear-gradient(90deg,#234574,var(--color-accent-blue)) !important;
   box-shadow:none !important;
 }
 .dashboard .goal-actions{
@@ -1124,9 +1124,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   transition:all .25s ease;
 }
 .dashboard .goal-actions button:hover{
-  border-color:rgba(116, 170, 255,.18);
-  color:#74AAFF;
-  background:rgba(116, 170, 255,.055);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
+  color:var(--color-accent-blue);
+  background:color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent);
 }
 @media(max-width:800px){
   .dashboard .dashboard-panel>h2{
@@ -1181,7 +1181,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   right:-100px;
   top:-70px;
   pointer-events:none;
-  background:radial-gradient(ellipse,rgba(116, 170, 255,.045),transparent 70%);
+  background:radial-gradient(ellipse,color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent),transparent 70%);
   filter:blur(20px);
 }
 .dashboard .weekly-progress-head{
@@ -1265,7 +1265,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   left:8%;
   top:-80px;
   pointer-events:none;
-  background:radial-gradient(ellipse,rgba(116, 170, 255,.045),transparent 70%);
+  background:radial-gradient(ellipse,color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent),transparent 70%);
   filter:blur(24px);
 }
 .dashboard .ai-page .ai-heading{
@@ -1303,8 +1303,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   letter-spacing:.08em !important;
 }
 .dashboard .ai-page .ai-status i{
-  background:#74AAFF !important;
-  box-shadow:0 0 14px rgba(116, 170, 255,.2) !important;
+  background:var(--color-accent-blue) !important;
+  box-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 20%, transparent) !important;
 }
 .dashboard .ai-page .ai-context-strip{
   position:relative;
@@ -1377,9 +1377,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   width:46px;
   height:46px;
   border-radius:50%;
-  background:#74AAFF !important;
+  background:var(--color-accent-blue) !important;
   color:#000000 !important;
-  box-shadow:0 8px 25px rgba(116, 170, 255,.12);
+  box-shadow:0 8px 25px color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
 }
 @media(max-width:800px){
   .dashboard .ai-page{
@@ -1455,7 +1455,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .sidebar nav button.active{
   color:#f3f1e9 !important;
-  background:rgba(116, 170, 255,.065) !important;
+  background:color-mix(in srgb, var(--color-accent-blue) 6.5%, transparent) !important;
 }
 .dashboard .sidebar nav button.active::before{
   content:"";
@@ -1465,8 +1465,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   bottom:10px;
   width:2px;
   border-radius:2px;
-  background:#74AAFF;
-  box-shadow:0 0 12px rgba(116, 170, 255,.16);
+  background:var(--color-accent-blue);
+  box-shadow:0 0 12px color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
 }
 .dashboard .sidebar-profile{
   border-top:1px solid rgba(255,255,255,.055) !important;
@@ -1522,8 +1522,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .settings-page input:focus,
 .dashboard .settings-page select:focus{
-  border-color:rgba(116, 170, 255,.28) !important;
-  box-shadow:0 0 0 3px rgba(116, 170, 255,.055) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent) !important;
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent) !important;
 }
 @media(max-width:800px){
   .dashboard .panel-page.settings-page{
@@ -1594,7 +1594,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .ai-page .ai-input button:hover{
   transform:translateY(-1px) scale(1.02);
-  box-shadow:0 10px 30px rgba(116, 170, 255,.16);
+  box-shadow:0 10px 30px color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
 }
 .dashboard .ai-page .ai-input button:active{
   transform:scale(.94);
@@ -1606,7 +1606,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   outline:none;
 }
 .dashboard :focus-visible{
-  outline:1px solid rgba(116, 170, 255,.5);
+  outline:1px solid color-mix(in srgb, var(--color-accent-blue) 50%, transparent);
   outline-offset:3px;
 }
 @media(prefers-reduced-motion:reduce){
@@ -1666,7 +1666,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .weekly-progress-total{
   flex:0 0 auto;
   padding-bottom:8px;
-  color:rgba(116, 170, 255,.7);
+  color:color-mix(in srgb, var(--color-accent-blue) 70%, transparent);
   font:500 11px 'DM Mono';
   letter-spacing:.04em;
 }
@@ -1718,7 +1718,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 
 .dashboard{
-  --evolv-green:#74AAFF;
+  --evolv-green:var(--color-accent-blue);
   --evolv-cream:#f3f1e9;
   --evolv-muted:rgba(171, 166, 255,.5);
 }
@@ -1751,14 +1751,14 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .sidebar nav button.active{
   color:#f3f1e9 !important;
-  background:rgba(116, 170, 255,.055) !important;
+  background:color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent) !important;
 }
 .dashboard .sidebar nav button.active::before{
   width:3px;
   height:18px;
   left:-2px;
   background:var(--evolv-green);
-  box-shadow:0 0 16px rgba(116, 170, 255,.18);
+  box-shadow:0 0 16px color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
 }
 .dashboard .sidebar-profile{
   border-top:1px solid rgba(255,255,255,.055);
@@ -1787,7 +1787,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   padding-top:52px;
 }
 .dashboard .ai-page::before{
-  background:radial-gradient(ellipse at 68% 10%,rgba(116, 170, 255,.055),transparent 55%) !important;
+  background:radial-gradient(ellipse at 68% 10%,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),transparent 55%) !important;
   opacity:1 !important;
 }
 .dashboard .ai-page .ai-heading{
@@ -1809,13 +1809,13 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   color:var(--evolv-muted);
 }
 .dashboard .ai-page .ai-status{
-  border-color:rgba(116, 170, 255,.12);
-  background:rgba(116, 170, 255,.035);
-  color:rgba(116, 170, 255,.72);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
+  background:color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent);
+  color:color-mix(in srgb, var(--color-accent-blue) 72%, transparent);
 }
 .dashboard .ai-page .ai-status i{
   background:var(--evolv-green);
-  box-shadow:0 0 14px rgba(116, 170, 255,.3);
+  box-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 30%, transparent);
 }
 .dashboard .ai-page .ai-context-strip{
   border:0;
@@ -1853,8 +1853,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   align-items:flex-end;
 }
 .dashboard .ai-page .ai-message.user p{
-  background:rgba(116, 170, 255,.075);
-  color:#74AAFF;
+  background:color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent);
+  color:var(--color-accent-blue);
 }
 .dashboard .ai-page .ai-input{
   border:1px solid rgba(255,255,255,.075);
@@ -1869,7 +1869,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .ai-page .ai-input button{
   background:var(--evolv-green);
   color:#000000;
-  box-shadow:0 8px 25px rgba(116, 170, 255,.12);
+  box-shadow:0 8px 25px color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
 }
 .dashboard .panel-page.settings-page{
   max-width:980px;
@@ -1911,8 +1911,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .settings-page input:focus,
 .dashboard .settings-page select:focus{
-  border-color:rgba(116, 170, 255,.28);
-  box-shadow:0 0 0 3px rgba(116, 170, 255,.055);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent);
 }
 .dashboard .dash-main > *{
   animation:evolvReveal .7s cubic-bezier(.2,.75,.2,1) both;
@@ -1968,9 +1968,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   --evolv-surface:#080a08;
   --evolv-cream:#f4f1e8;
   --evolv-soft:rgba(244,241,232,.54);
-  --evolv-accent:#74AAFF;
+  --evolv-accent:var(--color-accent-blue);
   background:
-    radial-gradient(780px 520px at 72% -12%,rgba(116, 170, 255,.055),transparent 66%),
+    radial-gradient(780px 520px at 72% -12%,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),transparent 66%),
     radial-gradient(900px 700px at -10% 70%,rgba(255,255,255,.018),transparent 70%),
     var(--evolv-black) !important;
 }
@@ -2004,7 +2004,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   height:360px;
   left:2%;
   top:12%;
-  background:radial-gradient(ellipse,rgba(116, 170, 255,.055),transparent 67%);
+  background:radial-gradient(ellipse,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),transparent 67%);
   filter:blur(24px);
 }
 .dashboard .frequency-section{
@@ -2036,7 +2036,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task:hover{
   transform:none;
   
-  background:linear-gradient(90deg,rgba(116, 170, 255,.035),transparent 65%) !important;
+  background:linear-gradient(90deg,color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent),transparent 65%) !important;
 }
 .dashboard .glass-task .task-text{
   font-size:17px !important;
@@ -2117,7 +2117,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   background:transparent !important;
 }
 .dashboard .daily-insight-points span{
-  color:rgba(116, 170, 255,.55) !important;
+  color:color-mix(in srgb, var(--color-accent-blue) 55%, transparent) !important;
 }
 .dashboard .daily-insight-points p{
   color:rgba(244,241,232,.5) !important;
@@ -2241,8 +2241,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task:hover{
   transform:translateY(-2px) !important;
   
-  background:rgba(116, 170, 255,.045) !important;
-  border-color:rgba(116, 170, 255,.18) !important;
+  background:color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important;
 }
 .dashboard .glass-task .task-check{
   width:19px !important;
@@ -2257,8 +2257,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   white-space:nowrap;
 }
 .dashboard .glass-task.checked{
-  border-color:rgba(116, 170, 255,.2) !important;
-  background:rgba(116, 170, 255,.07) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 20%, transparent) !important;
+  background:color-mix(in srgb, var(--color-accent-blue) 7%, transparent) !important;
   color:rgba(171, 166, 255,.82) !important;
 }
 
@@ -2293,7 +2293,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   right:-140px;
   top:-170px;
   border-radius:50%;
-  background:radial-gradient(circle,rgba(116, 170, 255,.055),transparent 68%);
+  background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),transparent 68%);
   pointer-events:none;
 }
 .dashboard .weekly-progress-head{
@@ -2492,7 +2492,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   width:2px;
   height:calc(100% - 57px);
   border-radius:2px;
-  background:rgba(116, 170, 255,.5);
+  background:color-mix(in srgb, var(--color-accent-blue) 50%, transparent);
   opacity:.35;
 }
 .dashboard .goal-item-top{
@@ -2504,7 +2504,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .goal-status-copy{
   display:block;
   margin-bottom:9px !important;
-  color:rgba(116, 170, 255,.58) !important;
+  color:color-mix(in srgb, var(--color-accent-blue) 58%, transparent) !important;
   font:500 9px 'DM Mono' !important;
   letter-spacing:.13em !important;
   text-transform:uppercase;
@@ -2539,7 +2539,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   display:block;
   height:100%;
   border-radius:inherit;
-  background:rgba(116, 170, 255,.7) !important;
+  background:color-mix(in srgb, var(--color-accent-blue) 70%, transparent) !important;
 }
 .dashboard .goal-actions{
   display:flex !important;
@@ -2784,8 +2784,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 
 :root{
-  --evolv-lime:#74AAFF;
-  --evolv-mint:#74AAFF;
+  --evolv-lime:var(--color-accent-blue);
+  --evolv-mint:var(--color-accent-blue);
   --evolv-cyan:#63d9ff;
   --evolv-violet:#9b7cff;
   --evolv-coral:#ff8f87;
@@ -2797,7 +2797,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   background:
     radial-gradient(700px 520px at 88% 3%,rgba(99,217,255,.10),transparent 62%),
     radial-gradient(720px 560px at 10% 20%,rgba(155,124,255,.085),transparent 64%),
-    radial-gradient(650px 520px at 72% 78%,rgba(116, 170, 255,.075),transparent 65%),
+    radial-gradient(650px 520px at 72% 78%,color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent),transparent 65%),
     #030505 !important;
 }
 .dashboard:before{
@@ -2807,7 +2807,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   pointer-events:none;
   z-index:-1;
   background:
-    radial-gradient(320px 240px at 52% 8%,rgba(116, 170, 255,.055),transparent 70%),
+    radial-gradient(320px 240px at 52% 8%,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),transparent 70%),
     radial-gradient(260px 220px at 20% 90%,rgba(255,143,135,.035),transparent 72%);
 }
 .dashboard .dash-main{
@@ -2828,12 +2828,12 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   pointer-events:none;
 }
 .dashboard .dashboard-eyebrow{
-  color:rgba(116, 170, 255,.72) !important;
+  color:color-mix(in srgb, var(--color-accent-blue) 72%, transparent) !important;
   letter-spacing:.12em !important;
   text-transform:uppercase;
 }
 .dashboard .dashboard-welcome h1{
-  background:linear-gradient(105deg,#fff 5%,#74AAFF 45%,#9de9ff 100%);
+  background:linear-gradient(105deg,#fff 5%,var(--color-accent-blue) 45%,#9de9ff 100%);
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -2848,24 +2848,24 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .glass-task{
   border-color:rgba(255,255,255,.12) !important;
-  background:linear-gradient(105deg,rgba(155,124,255,.075),rgba(116, 170, 255,.045) 55%,rgba(99,217,255,.055)) !important;
+  background:linear-gradient(105deg,rgba(155,124,255,.075),color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent) 55%,rgba(99,217,255,.055)) !important;
   box-shadow:inset 0 1px 0 rgba(255,255,255,.09),0 18px 50px rgba(0,0,0,.18) !important;
 }
 .dashboard .glass-task:hover{
-  border-color:rgba(116, 170, 255,.35) !important;
-  background:linear-gradient(105deg,rgba(155,124,255,.12),rgba(116, 170, 255,.08),rgba(99,217,255,.09)) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 35%, transparent) !important;
+  background:linear-gradient(105deg,rgba(155,124,255,.12),color-mix(in srgb, var(--color-accent-blue) 8%, transparent),rgba(99,217,255,.09)) !important;
 }
 .dashboard .glass-task .task-check{
-  border-color:rgba(116, 170, 255,.45) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 45%, transparent) !important;
 }
 .dashboard .glass-task.checked{
-  border-color:rgba(116, 170, 255,.38) !important;
-  background:linear-gradient(105deg,rgba(116, 170, 255,.12),rgba(116, 170, 255,.06)) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 38%, transparent) !important;
+  background:linear-gradient(105deg,color-mix(in srgb, var(--color-accent-blue) 12%, transparent),color-mix(in srgb, var(--color-accent-blue) 6%, transparent)) !important;
 }
 .dashboard .glass-task.checked .task-check{
   background:var(--evolv-mint) !important;
   color:#000000 !important;
-  box-shadow:0 0 22px rgba(116, 170, 255,.35);
+  box-shadow:0 0 22px color-mix(in srgb, var(--color-accent-blue) 35%, transparent);
 }
 .dashboard .daily-insight{
   position:relative;
@@ -2891,7 +2891,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   color:rgba(255,214,107,.72) !important;
 }
 .dashboard .daily-insight h2{
-  background:linear-gradient(100deg,#fff,#74AAFF 55%,#74AAFF);
+  background:linear-gradient(100deg,#fff,var(--color-accent-blue) 55%,var(--color-accent-blue));
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -2900,7 +2900,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .daily-insight-points > div:nth-child(2) span{color:var(--evolv-violet) !important}
 .dashboard .daily-insight-points > div:nth-child(3) span{color:var(--evolv-coral) !important}
 .dashboard .dashboard-panel .section-label{
-  color:rgba(116, 170, 255,.72) !important;
+  color:color-mix(in srgb, var(--color-accent-blue) 72%, transparent) !important;
 }
 .dashboard .weekly-progress-card{
   position:relative;
@@ -2924,7 +2924,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .weekly-chart-summary > div:nth-child(3) strong{color:var(--evolv-violet) !important}
 .dashboard .weekly-chart-visual svg path[stroke]{
   stroke:var(--evolv-mint) !important;
-  filter:drop-shadow(0 0 7px rgba(116, 170, 255,.25));
+  filter:drop-shadow(0 0 7px color-mix(in srgb, var(--color-accent-blue) 25%, transparent));
 }
 .dashboard .weekly-chart-visual svg circle{
   fill:var(--evolv-lime) !important;
@@ -2941,11 +2941,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .goal-item:nth-child(3n) .goal-status-copy{color:var(--evolv-coral) !important}
 .dashboard .goal-item .mini-progress i{
   background:linear-gradient(90deg,var(--evolv-lime),var(--evolv-mint),var(--evolv-cyan)) !important;
-  box-shadow:0 0 14px rgba(116, 170, 255,.2);
+  box-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
 }
 .dashboard .goal-actions button:hover{
   color:var(--evolv-lime) !important;
-  border-color:rgba(116, 170, 255,.25) !important;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 25%, transparent) !important;
 }
 
 
@@ -2956,15 +2956,15 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard:before{background:none !important}
 .dashboard .dashboard-welcome:after{display:none !important}
 .dashboard .glass-task{background:rgba(255,255,255,.025) !important;border-color:rgba(255,255,255,.10) !important}
-.dashboard .glass-task:hover{background:rgba(255,255,255,.045) !important;border-color:rgba(116, 170, 255,.28) !important}
+.dashboard .glass-task:hover{background:rgba(255,255,255,.045) !important;border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent) !important}
 .dashboard .daily-insight{background:transparent !important}
 .dashboard .daily-insight:after,.dashboard .weekly-progress-card:after{display:none !important}
 .dashboard .dashboard-eyebrow{color:rgba(244,241,232,.58) !important}
 .dashboard .frequency-heading{position:relative;padding-bottom:13px;border-bottom:1px solid rgba(255,255,255,.08)}
 .dashboard .frequency-heading>span{color:rgba(244,241,232,.55) !important}
-.dashboard .frequency-heading:after{content:"";position:absolute;left:0;bottom:-1px;width:72px;height:1px;background:linear-gradient(90deg,#74AAFF,#74AAFF,transparent)}
-.dashboard .glass-task .task-check{border-color:rgba(116, 170, 255,.40) !important}
-.dashboard .glass-task.checked{border-color:rgba(116, 170, 255,.28) !important;background:rgba(116, 170, 255,.035) !important}
+.dashboard .frequency-heading:after{content:"";position:absolute;left:0;bottom:-1px;width:72px;height:1px;background:linear-gradient(90deg,var(--color-accent-blue),var(--color-accent-blue),transparent)}
+.dashboard .glass-task .task-check{border-color:color-mix(in srgb, var(--color-accent-blue) 40%, transparent) !important}
+.dashboard .glass-task.checked{border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent) !important;background:color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent) !important}
 .dashboard .daily-insight{margin-top:110px !important;padding:80px 0 95px !important;border-top:1px solid rgba(255,255,255,.08) !important}
 .dashboard .daily-insight-label{color:rgba(255,214,107,.72) !important}
 .dashboard .daily-insight h2{background:none !important;-webkit-text-fill-color:initial !important;color:#f4f1ea !important}
@@ -2974,15 +2974,15 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .daily-insight-points>div:nth-child(2) span{color:#9b7cff !important}
 .dashboard .daily-insight-points>div:nth-child(3) span{color:#ff8f87 !important}
 .dashboard .weekly-progress-head{border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:26px}
-.dashboard .weekly-progress-total{color:#74AAFF !important;border-left:1px solid rgba(116, 170, 255,.35);padding-left:14px}
+.dashboard .weekly-progress-total{color:var(--color-accent-blue) !important;border-left:1px solid color-mix(in srgb, var(--color-accent-blue) 35%, transparent);padding-left:14px}
 .dashboard .weekly-chart-summary{border-bottom:1px solid rgba(255,255,255,.07)}
 .dashboard .weekly-chart-summary>div{background:transparent !important}
-.dashboard .weekly-chart-summary>div:nth-child(1) strong{color:#74AAFF !important}
+.dashboard .weekly-chart-summary>div:nth-child(1) strong{color:var(--color-accent-blue) !important}
 .dashboard .weekly-chart-summary>div:nth-child(2) strong{color:#63d9ff !important}
 .dashboard .weekly-chart-summary>div:nth-child(3) strong{color:#9b7cff !important}
 .dashboard .weekly-chart-visual{border-bottom:1px solid rgba(255,255,255,.07);padding-bottom:26px}
-.dashboard .weekly-chart-visual svg path[stroke]{stroke:#74AAFF !important}
-.dashboard .weekly-chart-visual svg circle{fill:#74AAFF !important}
+.dashboard .weekly-chart-visual svg path[stroke]{stroke:var(--color-accent-blue) !important}
+.dashboard .weekly-chart-visual svg circle{fill:var(--color-accent-blue) !important}
 .dashboard .weekly-flow-dot{background:#ff8f87 !important}
 .dashboard .goal-list{border-top:1px solid rgba(255,255,255,.09)}
 .dashboard .goal-item{border:0 !important;border-bottom:1px solid rgba(255,255,255,.08) !important;border-radius:0 !important;background:transparent !important;padding:30px 0 !important}
@@ -2992,7 +2992,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .goal-item:nth-child(3n+2) .goal-status-copy{color:#9b7cff !important}
 .dashboard .goal-item:nth-child(3n) .goal-status-copy{color:#ff8f87 !important}
 .dashboard .goal-item .mini-progress{background:rgba(255,255,255,.08) !important}
-.dashboard .goal-item .mini-progress i{background:linear-gradient(90deg,#74AAFF,#74AAFF) !important}
+.dashboard .goal-item .mini-progress i{background:linear-gradient(90deg,var(--color-accent-blue),var(--color-accent-blue)) !important}
 .dashboard .goal-actions button{border-color:rgba(255,255,255,.08) !important;background:transparent !important}
 .dashboard .settings-card{background:transparent !important;border-color:rgba(255,255,255,.08) !important}
 
@@ -3003,7 +3003,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .today-snapshot{width:min(980px,100%);margin:0 auto 58px;padding:25px 0 0;border-top:1px solid rgba(255,255,255,.08)}
 .dashboard .today-snapshot-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;margin-bottom:18px}
 .dashboard .today-snapshot-head h2{margin:7px 0 0;font-size:25px;letter-spacing:-.035em}
-.dashboard .today-log-count{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(116, 170, 255,.7)}
+.dashboard .today-log-count{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:color-mix(in srgb, var(--color-accent-blue) 70%, transparent)}
 .dashboard .today-metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:10px}
 .dashboard .today-metric{min-width:0;display:grid;grid-template-columns:40px minmax(0,1fr) 15px;align-items:center;gap:12px;min-height:72px;padding:14px 15px;border:1px solid rgba(255,255,255,.07);border-radius:18px;background:rgba(255,255,255,.025);color:#f4f1ea;text-align:left;cursor:pointer;box-sizing:border-box}
 .dashboard .today-metric:hover{background:rgba(255,255,255,.045);border-color:rgba(255,255,255,.11)}
@@ -3011,7 +3011,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .today-metric strong{font-size:13px;font-weight:600}
 .dashboard .today-metric small{font-size:11px;color:rgba(244,241,234,.38);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .dashboard .today-empty{grid-column:1/-1;display:flex;align-items:center;gap:12px;margin:0 2px;padding:26px 4px;color:rgba(244,241,234,.38)}
-.dashboard .today-empty svg{color:#74AAFF}
+.dashboard .today-empty svg{color:var(--color-accent-blue)}
 .dashboard .today-empty p{margin:0;font-size:13px}
 @media(max-width:600px){
   .dashboard .today-snapshot{margin-bottom:44px}
@@ -3028,22 +3028,22 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .progress-heading p{font-size:1rem!important;line-height:1.7}
 .dashboard .progress-range-switch{display:flex;gap:8px;margin:30px 0 42px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:14px}
 .dashboard .progress-range-switch button{min-width:72px;border:0;border-bottom:1px solid transparent;background:transparent;color:rgba(244,241,234,.38);padding:10px 8px;font-size:1rem;font-weight:600;cursor:pointer}
-.dashboard .progress-range-switch button.active{color:#74AAFF;border-bottom-color:#74AAFF}
+.dashboard .progress-range-switch button.active{color:var(--color-accent-blue);border-bottom-color:var(--color-accent-blue)}
 .dashboard .progress-focus-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid rgba(255,255,255,.08);padding:0 0 22px}
 .dashboard .progress-focus-head h3{font-size:1.8rem!important;margin:7px 0 0;letter-spacing:-.03em}
 .dashboard .progress-focus-value{font-size:2.2rem;font-weight:650;letter-spacing:-.04em;color:#f4f1ea}
 .dashboard .progress-metric-picker{display:flex;gap:8px;overflow-x:auto;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06);scrollbar-width:none}
 .dashboard .progress-metric-picker::-webkit-scrollbar{display:none}
 .dashboard .progress-metric-picker button{white-space:nowrap;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(255,255,255,.025);color:rgba(244,241,234,.48);padding:10px 15px;font-size:.95rem;cursor:pointer}
-.dashboard .progress-metric-picker button.active{color:#74AAFF;border-color:rgba(116, 170, 255,.35);background:rgba(116, 170, 255,.06)}
+.dashboard .progress-metric-picker button.active{color:var(--color-accent-blue);border-color:color-mix(in srgb, var(--color-accent-blue) 35%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 6%, transparent)}
 .dashboard .progress-period-summary{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid rgba(255,255,255,.08)}
 .dashboard .progress-period-summary>div{padding:24px 20px 24px 0;border-right:1px solid rgba(255,255,255,.07)}
 .dashboard .progress-period-summary>div+div{padding-left:20px}
 .dashboard .progress-period-summary>div:last-child{border-right:0}
 .dashboard .progress-period-summary span{display:block;font-size:1.5rem;color:rgba(244,241,234,.38);margin-bottom:8px}
 .dashboard .progress-period-summary strong{display:block;font-size:1.55rem;color:#f4f1ea}
-.dashboard .progress-period-summary small{display:block;margin-top:5px;font-size:.85rem;color:rgba(116, 170, 255,.7)}
-.dashboard .progress-period-summary strong.up{color:#74AAFF}.dashboard .progress-period-summary strong.down{color:#ff8f87}.dashboard .progress-period-summary strong.neutral{color:rgba(244,241,234,.4);font-size:1rem}
+.dashboard .progress-period-summary small{display:block;margin-top:5px;font-size:.85rem;color:color-mix(in srgb, var(--color-accent-blue) 70%, transparent)}
+.dashboard .progress-period-summary strong.up{color:var(--color-accent-blue)}.dashboard .progress-period-summary strong.down{color:#ff8f87}.dashboard .progress-period-summary strong.neutral{color:rgba(244,241,234,.4);font-size:1rem}
 .dashboard .progress-chart-card{margin-top:34px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:24px 0 20px}
 .dashboard .progress-chart-top{display:flex;justify-content:space-between;gap:20px;margin-bottom:20px}
 .dashboard .progress-chart-top p{margin:7px 0 0;font-size:1rem;color:rgba(244,241,234,.4)}
@@ -3052,17 +3052,17 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .progress-line-chart svg{width:100%;height:205px;display:block;overflow:visible}
 .dashboard .progress-chart-labels{display:flex;justify-content:space-between;gap:8px;color:rgba(244,241,234,.28);font-size:.8rem}
 .dashboard .progress-insight-block{margin-top:64px;border-top:1px solid rgba(255,255,255,.08);padding-top:28px}
-.dashboard .progress-insight-head{display:flex;justify-content:space-between;align-items:center;color:#74AAFF}
+.dashboard .progress-insight-head{display:flex;justify-content:space-between;align-items:center;color:var(--color-accent-blue)}
 .dashboard .progress-insight-head .section-label{font-size:.9rem}
 .dashboard .progress-observations{border-top:1px solid rgba(255,255,255,.07);margin-top:20px}
 .dashboard .progress-observations>div{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.07)}
-.dashboard .progress-observations>div>span{font-size:.9rem;color:rgba(116, 170, 255,.62)}
+.dashboard .progress-observations>div>span{font-size:.9rem;color:color-mix(in srgb, var(--color-accent-blue) 62%, transparent)}
 .dashboard .progress-observations p{margin:0;font-size:1.15rem;line-height:1.65;color:rgba(244,241,234,.75)}
 .dashboard .progress-not-enough{margin:20px 0 0;max-width:650px;font-size:1.05rem;line-height:1.75;color:rgba(244,241,234,.42)}
 .dashboard .progress-empty-large{padding:70px 0!important}
 .dashboard .progress-empty-large h3{font-size:1.8rem!important;margin:15px 0 8px}
 .dashboard .progress-empty-large p{font-size:1.05rem;max-width:540px;line-height:1.7}
-.dashboard .progress-empty-large svg{color:#74AAFF}
+.dashboard .progress-empty-large svg{color:var(--color-accent-blue)}
 .dashboard .progress-page .progress-stats strong{font-size:2rem}
 .dashboard .progress-page .progress-stats span{font-size:.9rem}
 .dashboard .progress-page .secondary-head .section-label{font-size:.9rem}
@@ -3569,13 +3569,13 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   transition:.2s ease;
 }
 .dashboard .progress-page .progress-range-switch button:hover{
-  border-color:rgba(116, 170, 255,.28);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent);
   color:#f4f1ea;
 }
 .dashboard .progress-page .progress-range-switch button.active{
-  background:rgba(116, 170, 255,.1);
-  border-color:rgba(116, 170, 255,.32);
-  color:#74AAFF;
+  background:color-mix(in srgb, var(--color-accent-blue) 10%, transparent);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 32%, transparent);
+  color:var(--color-accent-blue);
 }
 .dashboard .progress-page .progress-focus-head{
   display:flex;
@@ -3594,7 +3594,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:2.5rem !important;
   line-height:1;
   font-weight:650;
-  color:#74AAFF;
+  color:var(--color-accent-blue);
 }
 .dashboard .progress-page .progress-metric-picker{
   display:flex;
@@ -3623,12 +3623,12 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   transition:.2s ease;
 }
 .dashboard .progress-page .progress-metric-picker button:hover{
-  border-color:rgba(116, 170, 255,.25);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 25%, transparent);
   color:#f4f1ea;
 }
 .dashboard .progress-page .progress-metric-picker button.active{
-  background:#74AAFF;
-  border-color:#74AAFF;
+  background:var(--color-accent-blue);
+  border-color:var(--color-accent-blue);
   color:#000000;
 }
 .dashboard .progress-page .progress-period-summary{
@@ -3778,10 +3778,10 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .progress-page .secondary-head button{
   min-height:48px;
   padding:0 14px;
-  border:1px solid rgba(116, 170, 255,.2);
+  border:1px solid color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
   border-radius:999px;
-  background:rgba(116, 170, 255,.06);
-  color:#74AAFF;
+  background:color-mix(in srgb, var(--color-accent-blue) 6%, transparent);
+  color:var(--color-accent-blue);
   font-size:1.5rem !important;
   cursor:pointer;
 }
@@ -3891,9 +3891,9 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .reflection-time-row strong{font-size:14px;letter-spacing:-.01em}
 .reflection-time-row span{margin-top:5px;color:rgba(255,255,255,.48);font-size:12px}
 .reflection-time-row input{appearance:none;border:1px solid rgba(255,255,255,.12);border-radius:12px;background:rgba(255,255,255,.045);color:inherit;padding:10px 11px;font:inherit;font-size:13px;outline:none}
-.reflection-time-row input:focus{border-color:rgba(116, 170, 255,.5);box-shadow:0 0 0 3px rgba(116, 170, 255,.08)}
-.reflection-preview-button{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;padding:13px 15px;border:1px solid rgba(116, 170, 255,.22);border-radius:13px;background:rgba(116, 170, 255,.07);color:inherit;font:inherit;font-size:13px;cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease}
-.reflection-preview-button:hover{transform:translateY(-1px);border-color:rgba(116, 170, 255,.42);background:rgba(116, 170, 255,.1)}
+.reflection-time-row input:focus{border-color:color-mix(in srgb, var(--color-accent-blue) 50%, transparent);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 8%, transparent)}
+.reflection-preview-button{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px;padding:13px 15px;border:1px solid color-mix(in srgb, var(--color-accent-blue) 22%, transparent);border-radius:13px;background:color-mix(in srgb, var(--color-accent-blue) 7%, transparent);color:inherit;font:inherit;font-size:13px;cursor:pointer;transition:transform .2s ease,border-color .2s ease,background .2s ease}
+.reflection-preview-button:hover{transform:translateY(-1px);border-color:color-mix(in srgb, var(--color-accent-blue) 42%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 10%, transparent)}
 
 .reflection-overlay{position:fixed;inset:0;z-index:1200;display:flex;align-items:flex-end;justify-content:center;padding:18px;isolation:isolate}
 .reflection-overlay::before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:-1}
@@ -3906,7 +3906,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .reflection-close,.reflection-back{border:0;background:transparent;color:inherit;display:inline-flex;align-items:center;gap:5px;cursor:pointer}
 .reflection-close{width:36px;height:36px;justify-content:center;border-radius:50%;background:rgba(255,255,255,.05)}
 .reflection-step{padding:38px 0 20px}
-.reflection-kicker{font-size:10px;letter-spacing:.16em;color:#74AAFF;font-weight:700}
+.reflection-kicker{font-size:10px;letter-spacing:.16em;color:var(--color-accent-blue);font-weight:700}
 .reflection-step h2{font-size:clamp(28px,5vw,42px);line-height:1.02;letter-spacing:-.045em;margin:12px 0 11px;max-width:520px}
 .reflection-step p{font-size:14px;line-height:1.7;color:rgba(255,255,255,.5);max-width:500px;margin:0 0 26px}
 .reflection-mood-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:22px 0 30px}
@@ -3914,17 +3914,17 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .reflection-mood-grid button{padding:16px 7px;display:flex;flex-direction:column;align-items:center;gap:8px}
 .reflection-mood-grid button span{font-size:27px}
 .reflection-mood-grid button small{font-size:10px;color:rgba(255,255,255,.48)}
-.reflection-mood-grid button.selected,.reflection-feeling-grid button.selected{border-color:rgba(116, 170, 255,.58);background:rgba(116, 170, 255,.1);transform:translateY(-2px)}
+.reflection-mood-grid button.selected,.reflection-feeling-grid button.selected{border-color:color-mix(in srgb, var(--color-accent-blue) 58%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 10%, transparent);transform:translateY(-2px)}
 .reflection-feeling-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:24px 0 30px}
 .reflection-feeling-grid button{padding:17px 15px;text-align:left;font-size:13px}
 .reflection-next{margin-left:auto;display:inline-flex;align-items:center;gap:8px}
 .reflection-step-actions{display:flex;align-items:center;justify-content:space-between;gap:14px}
 .reflection-back{padding:10px 0;color:rgba(255,255,255,.55);font-size:12px}
 .reflection-note{width:100%;resize:vertical;min-height:150px;border:1px solid rgba(255,255,255,.1);border-radius:17px;background:rgba(255,255,255,.035);color:inherit;padding:16px;font:inherit;font-size:14px;line-height:1.65;outline:none;margin:8px 0 28px;box-sizing:border-box}
-.reflection-note:focus{border-color:rgba(116, 170, 255,.5);box-shadow:0 0 0 3px rgba(116, 170, 255,.07)}
+.reflection-note:focus{border-color:color-mix(in srgb, var(--color-accent-blue) 50%, transparent);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 7%, transparent)}
 .reflection-progress{display:flex;justify-content:center;gap:6px;padding-top:8px}
 .reflection-progress span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .25s ease}
-.reflection-progress span.active{width:18px;border-radius:99px;background:#74AAFF}
+.reflection-progress span.active{width:18px;border-radius:99px;background:var(--color-accent-blue)}
 @keyframes reflection-sheet-in{from{opacity:0;transform:translateY(35px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
 @media(max-width:640px){
   .reflection-overlay{padding:0}
@@ -3958,8 +3958,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   align-items:center;
   transform:rotate(-1.4deg) scale(1.015);
   border:0;
-  background:rgba(116, 170, 255,.025);
-  box-shadow:0 0 28px rgba(116, 170, 255,.10),0 0 75px rgba(116, 170, 255,.055),inset 0 0 35px rgba(116, 170, 255,.025);
+  background:color-mix(in srgb, var(--color-accent-blue) 2.5%, transparent);
+  box-shadow:0 0 28px color-mix(in srgb, var(--color-accent-blue) 10%, transparent),0 0 75px color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),inset 0 0 35px color-mix(in srgb, var(--color-accent-blue) 2.5%, transparent);
 }
 .evolv-scroll-marquee-viewport{
   width:100%;
@@ -3982,14 +3982,14 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .evolv-scroll-marquee-content span{
   font:500 clamp(28px,4.2vw,64px)/1 'Space Grotesk';
   letter-spacing:-.065em;
-  color:#74AAFF;
-  text-shadow:0 0 18px rgba(116, 170, 255,.16);
+  color:var(--color-accent-blue);
+  text-shadow:0 0 18px color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
 }
 .evolv-scroll-marquee-content i{
   font-style:normal;
-  color:rgba(116, 170, 255,.42);
+  color:color-mix(in srgb, var(--color-accent-blue) 42%, transparent);
   font-size:12px;
-  text-shadow:0 0 14px rgba(116, 170, 255,.25);
+  text-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 25%, transparent);
 }
 .evolv-scroll-marquee::before,
 .evolv-scroll-marquee::after{
@@ -4122,7 +4122,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   background:linear-gradient(145deg,#202022,#1c1c1e) !important;
 }
 .dashboard .progress-overview-primary strong{
-  color:#74AAFF !important;
+  color:var(--color-accent-blue) !important;
 }
 .dashboard .progress-section-card{
   padding:2rem !important;
@@ -4150,7 +4150,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   display:inline-flex !important;
   align-items:center !important;
   gap:.45rem !important;
-  color:#74AAFF !important;
+  color:var(--color-accent-blue) !important;
   background:transparent !important;
   border:0 !important;
   outline:none !important;
@@ -4199,7 +4199,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   display:block !important;
   height:100% !important;
   border-radius:inherit !important;
-  background:#74AAFF !important;
+  background:var(--color-accent-blue) !important;
   transition:width .35s ease !important;
 }
 .dashboard .progress-completed-note{
@@ -4288,7 +4288,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   min-height:.3rem !important;
   display:block !important;
   border-radius:.8rem !important;
-  background:#74AAFF !important;
+  background:var(--color-accent-blue) !important;
 }
 .dashboard .progress-activity-day b{
   color:rgba(245,245,247,.55) !important;
@@ -4337,7 +4337,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   place-items:center !important;
   border-radius:1.2rem !important;
   background:#151517 !important;
-  color:#74AAFF !important;
+  color:var(--color-accent-blue) !important;
 }
 .dashboard .progress-recent-row>div{
   min-width:0 !important;
@@ -6135,7 +6135,7 @@ html.evolv-android .reflection-sheet *{
   object-fit:contain;
   opacity:.9;
   transform:translate3d(0,0,0) rotate(0deg);
-  filter:drop-shadow(0 6px 18px rgba(116, 170, 255,.08));
+  filter:drop-shadow(0 6px 18px color-mix(in srgb, var(--color-accent-blue) 8%, transparent));
   animation:feature-icon-float 4.8s ease-in-out infinite;
   will-change:transform;
 }
@@ -6152,7 +6152,7 @@ html.evolv-android .reflection-sheet *{
 
 .features-story .feature-step:hover .feature-step-icon{
   opacity:1;
-  filter:drop-shadow(0 8px 22px rgba(116, 170, 255,.13));
+  filter:drop-shadow(0 8px 22px color-mix(in srgb, var(--color-accent-blue) 13%, transparent));
 }
 
 @keyframes feature-icon-float{
@@ -6408,16 +6408,16 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
 
 /* Daily routine entry point in the authenticated app header. */
 .app-topbar-actions{display:flex;align-items:center;gap:.8rem;}
-.routine-nav-button{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;min-height:4rem;padding:0 1.25rem;border:1px solid #292a26;border-radius:999px;background:#0b0c0a;color:#74AAFF;font:inherit;font-size:1.25rem;font-weight:550;cursor:pointer;transition:border-color .2s ease,background .2s ease;}
+.routine-nav-button{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;min-height:4rem;padding:0 1.25rem;border:1px solid #292a26;border-radius:999px;background:#0b0c0a;color:var(--color-accent-blue);font:inherit;font-size:1.25rem;font-weight:550;cursor:pointer;transition:border-color .2s ease,background .2s ease;}
 .routine-nav-button:hover{border-color:#234574;background:#000000;}
-.routine-nav-button:focus-visible{outline:2px solid #74AAFF;outline-offset:3px;}
+.routine-nav-button:focus-visible{outline:2px solid var(--color-accent-blue);outline-offset:3px;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
 @media(max-width:420px){.routine-nav-button{width:4rem;padding:0;gap:0;}.routine-nav-button span{display:none;}.app-topbar-actions{gap:.55rem;}}
 
 /* ChatGPT-inspired user message bubbles: calm blue surface, white text. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user p,
 .dashboard .ai-page .ai-message.user p {
-  background: #74AAFF !important;
+  background: var(--color-accent-blue) !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   border-color: transparent !important;
@@ -6430,7 +6430,7 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
 
 
 /* Final Progress-page accent cleanup: black surfaces, blue accents, white active labels. */
-.dashboard .progress-page,.dashboard .progress-page *{--progress-accent:#74AAFF}.dashboard .progress-page .progress-range-switch button.active,.dashboard .progress-page .progress-range-switch button[aria-pressed="true"],.dashboard .progress-page .progress-range-switch button.is-active{background:#74AAFF!important;color:#fff!important;border-color:#74AAFF!important}.dashboard .progress-page .progress-range-switch button.active *, .dashboard .progress-page .progress-range-switch button[aria-pressed="true"] *,.dashboard .progress-page .progress-range-switch button.is-active *{color:#fff!important;fill:#fff!important;stroke:#fff!important}.dashboard .progress-page .progress-chart-bar,.dashboard .progress-page .progress-chart-fill,.dashboard .progress-page .progress-line i{background:#74AAFF!important;stroke:#74AAFF!important}.dashboard .progress-page .progress-heading,.dashboard .progress-page .progress-heading h2,.dashboard .progress-page .progress-focus-value,.dashboard .progress-page .secondary-head button{color:#74AAFF!important}
+.dashboard .progress-page,.dashboard .progress-page *{--progress-accent:var(--color-accent-blue)}.dashboard .progress-page .progress-range-switch button.active,.dashboard .progress-page .progress-range-switch button[aria-pressed="true"],.dashboard .progress-page .progress-range-switch button.is-active{background:var(--color-accent-blue)!important;color:#fff!important;border-color:var(--color-accent-blue)!important}.dashboard .progress-page .progress-range-switch button.active *, .dashboard .progress-page .progress-range-switch button[aria-pressed="true"] *,.dashboard .progress-page .progress-range-switch button.is-active *{color:#fff!important;fill:#fff!important;stroke:#fff!important}.dashboard .progress-page .progress-chart-bar,.dashboard .progress-page .progress-chart-fill,.dashboard .progress-page .progress-line i{background:var(--color-accent-blue)!important;stroke:var(--color-accent-blue)!important}.dashboard .progress-page .progress-heading,.dashboard .progress-page .progress-heading h2,.dashboard .progress-page .progress-focus-value,.dashboard .progress-page .secondary-head button{color:var(--color-accent-blue)!important}
 
 
 /* Reflection polish: readable type, custom avatar moods, and consistent Evolv blue actions. */
@@ -6478,15 +6478,15 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
   transition: background .18s ease, border-color .18s ease, transform .18s ease !important;
 }
 .reflection-sheet .reflection-feeling-grid button:hover {
-  background: rgba(37,99,235,.13) !important;
-  border-color: rgba(37,99,235,.5) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 13%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 50%, transparent) !important;
   transform: translateY(-1px);
 }
 .reflection-sheet .reflection-feeling-grid button.selected {
   color: #fff !important;
-  background: rgba(37,99,235,.2) !important;
-  border-color: #2563eb !important;
-  box-shadow: 0 0 0 1px rgba(37,99,235,.2) inset;
+  background: color-mix(in srgb, var(--color-accent-blue) 20%, transparent) !important;
+  border-color: var(--color-accent-blue) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent-blue) 20%, transparent) inset;
 }
 .reflection-sheet .reflection-mood-grid button {
   min-width: 0;
@@ -6506,44 +6506,44 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
   color: rgba(255,255,255,.72) !important;
 }
 .reflection-sheet .reflection-mood-grid button:hover {
-  background: rgba(37,99,235,.12) !important;
-  border-color: rgba(37,99,235,.42) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 42%, transparent) !important;
 }
 .reflection-sheet .reflection-mood-grid button.selected {
-  background: rgba(37,99,235,.18) !important;
-  border-color: #2563eb !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important;
+  border-color: var(--color-accent-blue) !important;
 }
 .reflection-sheet .reflection-next,
 .reflection-sheet .reflection-next:visited {
   min-height: 5.2rem;
   padding: 1.35rem 2rem !important;
   gap: .9rem !important;
-  border: 1px solid #2563eb !important;
+  border: 1px solid var(--color-accent-blue) !important;
   border-radius: 1.6rem !important;
-  background: #2563eb !important;
+  background: var(--color-accent-blue) !important;
   background-image: none !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   font-size: 1.55rem !important;
   font-weight: 700 !important;
   line-height: 1.2 !important;
-  box-shadow: 0 8px 24px rgba(37,99,235,.22) !important;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-accent-blue) 22%, transparent) !important;
   transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease !important;
 }
 .reflection-sheet .reflection-next:hover:not(:disabled),
 .reflection-sheet .reflection-next:focus-visible:not(:disabled) {
-  background: #1d4ed8 !important;
+  background: var(--graph-blue-deep) !important;
   background-image: none !important;
-  border-color: #1d4ed8 !important;
+  border-color: var(--graph-blue-deep) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   transform: translateY(-1px);
-  box-shadow: 0 10px 26px rgba(37,99,235,.3) !important;
+  box-shadow: 0 10px 26px color-mix(in srgb, var(--color-accent-blue) 30%, transparent) !important;
 }
 .reflection-sheet .reflection-next:disabled {
-  background: #2563eb !important;
+  background: var(--color-accent-blue) !important;
   background-image: none !important;
-  border-color: #2563eb !important;
+  border-color: var(--color-accent-blue) !important;
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   opacity: .45;
