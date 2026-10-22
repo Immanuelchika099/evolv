@@ -21,6 +21,13 @@
   --color-accent-blue: #2563eb;
   --blue-accent: var(--color-accent-blue);
   --ai-bubble-blue: #133362;
+  --graph-blue: #74AAFF;
+  --graph-blue-deep: #1d4ed8;
+  --graph-blue-bright: #3b82f6;
+  --graph-blue-light: #60a5fa;
+  --graph-blue-pale: #93c5fd;
+  --graph-blue-cyan: #63d9ff;
+  --graph-blue-violet: #9b7cff;
   --evolv-blue: var(--color-accent-blue);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
   --color-accent-lime: var(--color-accent-blue);
