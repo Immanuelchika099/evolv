@@ -9690,3 +9690,195 @@ html body #root .dashboard .goals-page .goal-ai-plan .goal-apply-plan {
   background: #2563eb !important;
   border-color: #2563eb !important;
 }
+
+
+/* Phase 3 — AI insight cards: editorial hierarchy, quiet glass, teal as the only accent. */
+html body #root .dashboard-home.calm-home .calm-insights-section {
+  margin-top: 4.2rem;
+}
+html body #root .dashboard-home.calm-home .calm-insights-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: .75rem;
+  margin-bottom: .9rem;
+  color: rgba(159,207,201,.82) !important;
+  font-size: 1.05rem !important;
+  font-weight: 600;
+  letter-spacing: .13em !important;
+}
+html body #root .dashboard-home.calm-home .calm-insights-eyebrow svg {
+  color: #9bd4cd !important;
+}
+html body #root .dashboard-home.calm-home .calm-insights-section .calm-focus-heading h2 {
+  margin: 0;
+  color: rgba(242,248,247,.96);
+  font-size: clamp(2.6rem, 4vw, 3.4rem) !important;
+  font-weight: 500;
+  letter-spacing: -.045em;
+  line-height: 1.1;
+}
+html body #root .dashboard-home.calm-home .calm-insights-section .calm-focus-heading > button {
+  display: grid;
+  place-items: center;
+  flex: 0 0 4.2rem;
+  width: 4.2rem;
+  height: 4.2rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 50%;
+  background: rgba(255,255,255,.035);
+  color: rgba(238,243,243,.8);
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+html body #root .dashboard-home.calm-home .calm-insights-section .calm-focus-heading > button:hover {
+  border-color: rgba(127,196,189,.3);
+  background: rgba(127,196,189,.08);
+  transform: translateX(2px);
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-card,
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel {
+  position: relative;
+  overflow: hidden;
+  min-height: 29rem;
+  padding: clamp(2rem, 4vw, 3rem) !important;
+  border: 1px solid rgba(255,255,255,.09) !important;
+  border-radius: 2rem !important;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(127,196,189,.075), transparent 48%),
+    linear-gradient(145deg, rgba(20,25,26,.96), rgba(11,14,15,.98)) !important;
+  box-shadow: inset 0 1px rgba(255,255,255,.035), 0 2rem 5rem rgba(0,0,0,.18) !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-card::before,
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel::before {
+  content: none !important;
+  display: none !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-topline {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 2.2rem !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-category {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  color: rgba(174,211,206,.78) !important;
+  font-family: inherit !important;
+  font-size: 1.05rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .11em !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-category span {
+  color: rgba(238,243,243,.25);
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-card h3,
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+  max-width: 54rem;
+  margin: 0 0 1.25rem !important;
+  color: rgba(246,250,249,.98) !important;
+  font-size: clamp(2.4rem, 4.5vw, 3.3rem) !important;
+  font-weight: 500 !important;
+  letter-spacing: -.045em !important;
+  line-height: 1.13 !important;
+  text-wrap: balance;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-observation {
+  max-width: 54rem !important;
+  margin: 0 !important;
+  color: rgba(224,234,232,.7) !important;
+  font-size: 1.5rem !important;
+  line-height: 1.75 !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion {
+  display: grid;
+  gap: .8rem;
+  margin-top: 2.4rem !important;
+  padding: 1.6rem 1.7rem !important;
+  border: 1px solid rgba(127,196,189,.13) !important;
+  border-radius: 1.4rem !important;
+  background: rgba(127,196,189,.045) !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion > span {
+  margin: 0 !important;
+  color: rgba(159,207,201,.72) !important;
+  font-family: inherit !important;
+  font-size: 1rem !important;
+  font-weight: 600 !important;
+  letter-spacing: .12em !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion p {
+  margin: 0 !important;
+  color: rgba(245,249,248,.93) !important;
+  font-size: 1.45rem !important;
+  font-weight: 500;
+  line-height: 1.6 !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-action,
+html body #root .dashboard-home.calm-home .daily-ai-insight-text-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  width: fit-content;
+  min-height: 4.3rem;
+  margin-top: 1.8rem !important;
+  padding: .9rem 1.35rem;
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 999px;
+  background: rgba(255,255,255,.045) !important;
+  color: rgba(243,248,247,.9) !important;
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 500;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-action:hover,
+html body #root .dashboard-home.calm-home .daily-ai-insight-text-action:hover {
+  border-color: rgba(127,196,189,.28) !important;
+  background: rgba(127,196,189,.08) !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-state {
+  min-height: 20rem;
+  justify-content: center;
+  gap: 1.3rem;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-state > svg {
+  color: #9bd4cd;
+}
+html body #root .dashboard-home.calm-home .daily-ai-insight-state p {
+  color: rgba(224,234,232,.7);
+  font-size: 1.45rem;
+  line-height: 1.7;
+}
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel {
+  margin-top: 1.4rem;
+  margin-bottom: .8rem;
+}
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .depth-carousel__card {
+  border-color: rgba(255,255,255,.09) !important;
+  border-radius: 2rem !important;
+  background: #0b0f10 !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .depth-carousel__dots {
+  bottom: -.1rem !important;
+}
+html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .depth-carousel__dot.is-active {
+  background: #9bd4cd !important;
+}
+@media (max-width: 640px) {
+  html body #root .dashboard-home.calm-home .calm-insights-section { margin-top: 3.4rem; }
+  html body #root .dashboard-home.calm-home .daily-ai-insight-card,
+  html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel {
+    min-height: 27rem;
+    padding: 1.8rem !important;
+    border-radius: 1.7rem !important;
+  }
+  html body #root .dashboard-home.calm-home .daily-ai-insight-topline { margin-bottom: 1.7rem !important; }
+  html body #root .dashboard-home.calm-home .daily-ai-insight-card h3,
+  html body #root .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
+    font-size: 2.55rem !important;
+  }
+  html body #root .dashboard-home.calm-home .daily-ai-insight-observation { font-size: 1.4rem !important; }
+  html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion { margin-top: 1.8rem !important; padding: 1.3rem !important; }
+  html body #root .dashboard-home.calm-home .daily-ai-insight-suggestion p { font-size: 1.4rem !important; }
+}
