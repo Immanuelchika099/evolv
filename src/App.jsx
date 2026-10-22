@@ -804,7 +804,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
         </div>
         <header className="auth-intro">
           <h1>Welcome to EVOLV</h1>
-          <p>Sign in and continue creating</p>
+          <p>Sign in to continue</p>
         </header>
 
         <button className="auth-signup-banner" type="button" onClick={() => {
@@ -817,7 +817,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
             <path d="M3 10h18v4H3zM5 14v7h14v-7M12 10v11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
             <path d="M12 10H7.7a2.2 2.2 0 1 1 2.2-2.2c0 1.1 2.1 2.2 2.1 2.2ZM12 10h4.3a2.2 2.2 0 1 0-2.2-2.2C14.1 8.9 12 10 12 10Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
-          <span>Sign up with work email &amp; start evolving</span>
+          <span>New to EVOLV? Create an account</span>
           <svg className="auth-banner-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
@@ -854,7 +854,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
             setMessage('')
             setAuthStage(mode === 'signup' ? 'password' : 'email')
           }}>
-            <label htmlFor="auth-work-email">Work email</label>
+            <label htmlFor="auth-work-email">Email</label>
             <input id="auth-work-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@company.com" autoComplete="email" required />
             <button className="auth-continue-button" type="submit" disabled={sending}>
               <span>Continue</span>
@@ -872,12 +872,12 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
             <form className="auth-form" onSubmit={submit}>
               {mode === 'login' ? (
                 <label>
-                  <span>Work email</span>
+                  <span>Email</span>
                   <input required type="email" value={email} onChange={event => setEmail(event.target.value)} placeholder="name@company.com" autoComplete="email" autoFocus />
                 </label>
               ) : (
                 <div className="auth-email-summary">
-                  <span>Work email</span>
+                  <span>Email</span>
                   <strong>{email}</strong>
                   <button type="button" onClick={() => setAuthStage('choices')}>Change</button>
                 </div>
@@ -1627,7 +1627,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
             <div className="evolv-onboarding-ready">
               <div className="evolv-onboarding-ready-mark" aria-hidden="true"><span><Check size={30} strokeWidth={1.8} /></span></div>
               <strong>{getFirstName(data.name) || 'Your next self'}</strong>
-              <span>{(data.areas || []).length ? `${data.areas.length} focus areas chosen` : 'Your journey, your pace'}</span>
+              <span>{(data.areas || []).length ? `${data.areas.length} focus ${data.areas.length === 1 ? 'area' : 'areas'} chosen` : 'Your journey, your pace'}</span>
             </div>
           )}
         </section>
