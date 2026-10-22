@@ -1,401 +1,138 @@
+/* EVOLV Phase 2 — floating glass navigation dock. */
 .evolv-bottom-nav {
-  position: fixed;
-  inset-inline: 0;
-  bottom: 0;
+  position: fixed !important;
   z-index: 100000;
-  width: 100%;
-  min-height: 0;
-  height: auto;
-  box-sizing: border-box;
+  left: 50% !important;
+  right: auto !important;
+  bottom: calc(.8rem + env(safe-area-inset-bottom, 0px)) !important;
+  transform: translateX(-50%) !important;
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: .35rem;
-  padding: .55rem 1rem calc(.55rem + env(safe-area-inset-bottom, 0px));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: center;
+  gap: .3rem;
+  width: min(48rem, calc(100vw - 2.4rem)) !important;
+  max-width: 48rem !important;
+  min-height: 6.8rem;
+  height: 6.8rem !important;
+  padding: .55rem;
   margin: 0;
-  border: 0;
-  border-top: 1px solid rgba(255,255,255,.09);
-  border-radius: 0;
-  background: rgba(10, 13, 12, .68);
-  box-shadow: 0 -1px 0 rgba(255,255,255,.025), 0 -14px 34px rgba(0,0,0,.22);
-  backdrop-filter: blur(30px) saturate(145%);
-  -webkit-backdrop-filter: blur(30px) saturate(145%);
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 2.4rem !important;
+  background: rgba(12,16,17,.76) !important;
+  background-image: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.012)) !important;
+  box-shadow: 0 1.4rem 4rem rgba(0,0,0,.38), inset 0 1px 0 rgba(255,255,255,.055) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(135%);
+  backdrop-filter: blur(24px) saturate(135%);
+  isolation: isolate;
+  box-sizing: border-box;
 }
 
 .evolv-bottom-nav button {
-  width: 100%;
-  min-width: 0;
-  min-height: 0;
-  height: 5.6rem;
-  padding: .55rem .35rem;
-  margin: 0;
-  border: 0;
-  border-radius: 1.35rem;
-  background: transparent;
-  color: #7f8780;
   display: grid;
   place-items: center;
   align-content: center;
-  gap: .3rem;
+  gap: .35rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 5.4rem;
+  height: 5.4rem;
+  padding: .4rem .15rem;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: 1.8rem;
+  background: transparent;
+  color: var(--t3);
   font: inherit;
   cursor: pointer;
-  transition: color .2s ease, background .2s ease, transform .2s ease;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease;
 }
 
 .evolv-bottom-nav button > span {
-  width: 3.2rem;
-  height: 2.4rem;
   display: grid;
   place-items: center;
+  width: 2.8rem;
+  height: 2.4rem;
   color: currentColor;
 }
 
+.evolv-bottom-nav button > span svg {
+  width: 2rem;
+  height: 2rem;
+  stroke-width: 1.8;
+}
+
 .evolv-bottom-nav button small {
-  font: 500 1.3rem/1 'Manrope', sans-serif;
-  letter-spacing: -.01em;
-}
-
-.evolv-bottom-nav button.bottom-active {
-  color: rgba(255,255,255,.92);
-  background: transparent;
-}
-
-.evolv-bottom-nav button:active {
-  transform: scale(.96);
-}
-
-.evolv-bottom-nav .bottom-profile-icon {
-  overflow: hidden;
-  border-radius: 50%;
-}
-
-.evolv-bottom-nav .bottom-profile-image {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.evolv-bottom-nav .log-nav-button {
-  color: rgba(255,255,255,.92);
-}
-
-@media (min-width: 48rem) {
-  .evolv-bottom-nav {
-    width: 100%;
-    left: 0;
-    right: 0;
-    transform: none;
-    padding-inline: 1.2rem;
-  }
-}
-
-html.evolv-android .evolv-bottom-nav {
-  background: #090909;
-  background-image: none;
-  -webkit-backdrop-filter: none;
-  backdrop-filter: none;
-  box-shadow: 0 -1px 0 rgba(255,255,255,.08), 0 -14px 34px rgba(0,0,0,.28);
-}
-
-/* Profile avatar stays a true circle. */
-.evolv-bottom-nav .bottom-profile-icon {
-  width: 3.2rem !important;
-  height: 3.2rem !important;
-  min-width: 3.2rem !important;
-  min-height: 3.2rem !important;
-  max-width: 3.2rem !important;
-  max-height: 3.2rem !important;
-  aspect-ratio: 1 / 1 !important;
-  flex: 0 0 3.2rem !important;
-  display: grid !important;
-  place-items: center !important;
-  overflow: hidden !important;
-  border-radius: 50% !important;
-  box-sizing: border-box !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-}
-
-.evolv-bottom-nav .bottom-profile-icon .bottom-profile-image {
-  width: 100% !important;
-  height: 100% !important;
-  min-width: 100% !important;
-  min-height: 100% !important;
-  max-width: none !important;
-  max-height: none !important;
-  aspect-ratio: 1 / 1 !important;
-  object-fit: cover !important;
-  border-radius: 50% !important;
-}
-
-/* EVOLV bottom dock */
-.evolv-bottom-nav {
-  position: fixed !important;
-  left: 50% !important;
-  right: auto !important;
-  bottom: 0 !important;
-  transform: translateX(-50%) !important;
-  width: calc(100vw - 1.6rem) !important;
-  max-width: 42rem !important;
-  height: 6.8rem !important;
-  min-height: 6.8rem !important;
-  padding: .55rem !important;
-  margin: 0 !important;
-  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
-  gap: .2rem !important;
-  border: 1px solid rgba(255,255,255,.1) !important;
-  border-radius: 2.2rem 2.2rem 0 0 !important;
-  background: rgba(13,13,13,.94) !important;
-  box-shadow: 0 1.8rem 5rem rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.06) !important;
-  backdrop-filter: blur(1.8rem) saturate(110%) !important;
-  -webkit-backdrop-filter: blur(1.8rem) saturate(110%) !important;
-}
-
-.evolv-bottom-nav button {
-  height: 5.65rem !important;
-  border-radius: 1.7rem !important;
-  color: rgba(255,255,255,.38) !important;
-  background: transparent !important;
-}
-
-.evolv-bottom-nav button.bottom-active {
-  color: #f4f2ec !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.evolv-bottom-nav .log-nav-button { color: #090909 !important; }
-.evolv-bottom-nav .log-nav-button > span {
-  width: 3.25rem !important;
-  height: 3.25rem !important;
-  border-radius: 1.15rem !important;
-  background: #f1efe8 !important;
-  color: #090909 !important;
-  box-shadow: 0 .7rem 1.8rem rgba(0,0,0,.28) !important;
-}
-.evolv-bottom-nav .log-nav-button small { color: rgba(255,255,255,.42) !important; }
-.evolv-bottom-nav button:active { transform: scale(.95) !important; }
-
-@media (max-width: 700px) {
-  .evolv-bottom-nav {
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-    transform: none !important;
-    border-radius: 1.8rem 1.8rem 0 0 !important;
-    padding-left: .55rem !important;
-    padding-right: .55rem !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .evolv-bottom-nav button { transition: none !important; }
-}
-
-/* Android keeps the dock stable without backdrop compositing. */
-html.evolv-android .evolv-bottom-nav {
-  background: #090909 !important;
-  background-image: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-}
-
-
-/* Stable mobile dock: avoid backdrop-filter compositing while the page scrolls.
-   The frosted-glass layer was causing the fixed navigation to visibly jitter
-   on mobile Safari. Keep the dock fixed to the viewport with a simple dark,
-   slightly transparent surface instead. */
-.evolv-bottom-nav {
-  position: fixed !important;
-  inset-inline: 0 !important;
-  bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  max-width: none !important;
-  height: 6.8rem !important;
-  min-height: 6.8rem !important;
-  padding: .55rem .55rem calc(.55rem + env(safe-area-inset-bottom, 0px)) !important;
-  margin: 0 !important;
-  transform: none !important;
-  border: 0 !important;
-  border-top: 1px solid rgba(255,255,255,.09) !important;
-  border-radius: 1.8rem 1.8rem 0 0 !important;
-  background: rgba(8,8,8,.94) !important;
-  background-image: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  box-shadow: 0 -1px 0 rgba(255,255,255,.025), 0 -1.4rem 3.4rem rgba(0,0,0,.28) !important;
-  will-change: auto !important;
-  isolation: isolate;
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  color: currentColor;
+  font: 500 1.15rem/1.1 var(--font-ui, system-ui, sans-serif);
+  letter-spacing: 0;
+  white-space: nowrap;
 }
 
 .evolv-bottom-nav button.bottom-active,
 .evolv-bottom-nav button.bottom-active:hover,
 .evolv-bottom-nav button.bottom-active:focus,
 .evolv-bottom-nav button.bottom-active:active {
-  color: rgba(255,255,255,.94) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  box-shadow: none !important;
+  color: var(--t1) !important;
+  background: rgba(255,255,255,.075) !important;
+  background-image: linear-gradient(180deg, rgba(255,255,255,.065), rgba(255,255,255,.02)) !important;
+  border-color: rgba(255,255,255,.12) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.075) !important;
   outline-color: transparent;
 }
 
-.evolv-bottom-nav button {
-  -webkit-tap-highlight-color: transparent;
+.evolv-bottom-nav button:active { transform: scale(.97); }
+
+.evolv-bottom-nav .bottom-profile-icon {
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 2.4rem !important;
+  width: 2.4rem !important;
+  min-width: 2.4rem !important;
+  max-width: 2.4rem !important;
+  height: 2.4rem !important;
+  min-height: 2.4rem !important;
+  max-height: 2.4rem !important;
+  overflow: hidden !important;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50% !important;
+}
+.evolv-bottom-nav .bottom-profile-icon .bottom-profile-image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 100% !important;
+  min-height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}
+
+@media (max-width: 420px) {
+  .evolv-bottom-nav {
+    width: calc(100vw - 1.8rem) !important;
+    bottom: calc(.7rem + env(safe-area-inset-bottom, 0px)) !important;
+    gap: .15rem;
+    padding: .45rem;
+    border-radius: 2.1rem !important;
+  }
+  .evolv-bottom-nav button {
+    gap: .25rem;
+    border-radius: 1.55rem;
+  }
+  .evolv-bottom-nav button small { font-size: 1.1rem; }
 }
 
 @media (min-width: 48rem) {
   .evolv-bottom-nav {
-    inset-inline: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-    transform: none !important;
-    border-radius: 0 !important;
+    left: 50% !important;
+    right: auto !important;
+    width: min(48rem, calc(100vw - 3.2rem)) !important;
+    max-width: 48rem !important;
+    border-radius: 2.4rem !important;
   }
 }
 
-
-/* Deep-indigo active state — override any legacy lime navigation styling. */
-html body #root .evolv-bottom-nav button.bottom-active,
-html body #root .evolv-bottom-nav button.bottom-active:hover,
-html body #root .evolv-bottom-nav button.bottom-active:focus,
-html body #root .evolv-bottom-nav button.bottom-active:active {
-  color: #a29bff !important;
-  background: rgba(116, 170, 255, .16) !important;
-  background-color: rgba(116, 170, 255, .16) !important;
-  box-shadow: inset 0 0 0 1px rgba(129, 119, 255, .18) !important;
-  outline-color: transparent !important;
-}
-
-html body #root .evolv-bottom-nav button.bottom-active > span,
-html body #root .evolv-bottom-nav button.bottom-active > span svg,
-html body #root .evolv-bottom-nav button.bottom-active small {
-  color: #a29bff !important;
-  stroke: currentColor !important;
-}
-
-html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(129, 119, 255, .65) !important;
-}
-
-
-/* ChatGPT-inspired blue active state: blue surface, crisp white icon and label. */
-html body #root .evolv-bottom-nav button.bottom-active,
-html body #root .evolv-bottom-nav button.bottom-active:hover,
-html body #root .evolv-bottom-nav button.bottom-active:focus,
-html body #root .evolv-bottom-nav button.bottom-active:active {
-  color: #ffffff !important;
-  background: #74AAFF !important;
-  background-color: #74AAFF !important;
-  box-shadow: 0 0.4rem 1.4rem rgba(116, 170, 255, .22) !important;
-  outline-color: transparent !important;
-}
-
-html body #root .evolv-bottom-nav button.bottom-active > span,
-html body #root .evolv-bottom-nav button.bottom-active > span svg,
-html body #root .evolv-bottom-nav button.bottom-active small {
-  color: #ffffff !important;
-  stroke: currentColor !important;
-}
-
-html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(255, 255, 255, .85) !important;
-}
-
-
-/* Final navigation treatment: translucent glass, never a solid accent fill. */
-html body #root .dashboard .evolv-bottom-nav {
-  background: rgba(10, 10, 10, .58) !important;
-  background-color: rgba(10, 10, 10, .58) !important;
-  background-image: none !important;
-  -webkit-backdrop-filter: blur(24px) saturate(135%) !important;
-  backdrop-filter: blur(24px) saturate(135%) !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  border-bottom: 0 !important;
-}
-html body #root .dashboard .evolv-bottom-nav button.bottom-active,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active:hover,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active:focus,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
-  color: #ffffff !important;
-  background: rgba(255,255,255,.085) !important;
-  background-color: rgba(255,255,255,.085) !important;
-  background-image: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.025)) !important;
-  border: 1px solid rgba(255,255,255,.13) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.11), 0 4px 14px rgba(0,0,0,.12) !important;
-  outline-color: transparent !important;
-}
-html body #root .dashboard .evolv-bottom-nav button.bottom-active > span,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
-  color: #ffffff !important;
-  fill: none !important;
-  stroke: currentColor !important;
-}
-html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(255,255,255,.72) !important;
-}
-@media (max-width: 700px) {
-  html body #root .dashboard .evolv-bottom-nav {
-    border-radius: 1.8rem 1.8rem 0 0 !important;
-  }
-}
-
-
-/* FINAL: active tab is frosted glass, not a blue-filled button. */
-html body #root .evolv-bottom-nav button.bottom-active,
-html body #root .evolv-bottom-nav button.bottom-active:hover,
-html body #root .evolv-bottom-nav button.bottom-active:focus,
-html body #root .evolv-bottom-nav button.bottom-active:active {
-  color: #ffffff !important;
-  background: rgba(255,255,255,.075) !important;
-  background-color: rgba(255,255,255,.075) !important;
-  background-image: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.025)) !important;
-  border: 1px solid rgba(255,255,255,.16) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.12), 0 3px 12px rgba(0,0,0,.14) !important;
-  backdrop-filter: blur(18px) saturate(140%) !important;
-  -webkit-backdrop-filter: blur(18px) saturate(140%) !important;
-}
-html body #root .evolv-bottom-nav button.bottom-active > span,
-html body #root .evolv-bottom-nav button.bottom-active > span svg,
-html body #root .evolv-bottom-nav button.bottom-active small { color:#fff !important; fill:none !important; stroke:currentColor !important; }
-html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon { border-color:rgba(255,255,255,.72) !important; }
-
-
-/* Active navigation fix: only the dock keeps its liquid-glass surface.
-   The selected item itself must not turn white or gain its own pill. */
-html body #root nav.evolv-bottom-nav button.bottom-active,
-html body #root nav.evolv-bottom-nav button.bottom-active:hover,
-html body #root nav.evolv-bottom-nav button.bottom-active:focus,
-html body #root nav.evolv-bottom-nav button.bottom-active:active {
-  color: rgba(255,255,255,.42) !important;
-  -webkit-text-fill-color: rgba(255,255,255,.42) !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  outline: none !important;
-}
-html body #root nav.evolv-bottom-nav button.bottom-active > span,
-html body #root nav.evolv-bottom-nav button.bottom-active > span svg,
-html body #root nav.evolv-bottom-nav button.bottom-active small,
-html body #root nav.evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  color: rgba(255,255,255,.42) !important;
-  -webkit-text-fill-color: rgba(255,255,255,.42) !important;
-  fill: none !important;
-  stroke: currentColor !important;
-  border-color: rgba(255,255,255,.12) !important;
-}
-html body #root nav.evolv-bottom-nav button.bottom-active > span svg * {
-  stroke: currentColor !important;
-  fill: none !important;
+@media (prefers-reduced-motion: reduce) {
+  .evolv-bottom-nav button { transition: none !important; }
 }
