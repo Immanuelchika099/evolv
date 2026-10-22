@@ -1681,6 +1681,16 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
+  const [firstNotificationPromptOpen,setFirstNotificationPromptOpen]=useState(false)
+  useEffect(() => {
+    const promptKey = 'evolv-notification-permission-prompted'
+    if (localStorage.getItem(promptKey)) return
+    if (typeof Notification === 'undefined' || Notification.permission !== 'default') {
+      localStorage.setItem(promptKey, 'true')
+      return
+    }
+    setFirstNotificationPromptOpen(true)
+  }, [])
   const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
   const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
@@ -2667,7 +2677,26 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     WeeklyProgressChart,
   }
 
-  return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
+  return <>
+    {firstNotificationPromptOpen && (
+      <div className="evolv-notification-first-prompt" role="dialog" aria-modal="true" aria-labelledby="evolv-notification-prompt-title">
+        <div className="evolv-notification-first-card">
+          <span className="evolv-notification-first-icon"><Bell size={23} strokeWidth={1.7} /></span>
+          <h2 id="evolv-notification-prompt-title">Allow EVOLV to send notifications?</h2>
+          <p>Get gentle reminders for your daily goals and check-ins, even when you’re away from the app.</p>
+          <button type="button" className="evolv-notification-first-allow" onClick={() => {
+            localStorage.setItem('evolv-notification-permission-prompted', 'true')
+            setFirstNotificationPromptOpen(false)
+            toggleNotifications()
+          }}>Allow notifications</button>
+          <button type="button" className="evolv-notification-first-later" onClick={() => {
+            localStorage.setItem('evolv-notification-permission-prompted', 'true')
+            setFirstNotificationPromptOpen(false)
+          }}>Maybe later</button>
+        </div>
+      </div>
+    )}
+    <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
     {active !== 'ai' && <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>}
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
@@ -2684,6 +2713,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     
     {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
+  </>
+
 }
 
 function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,onSave,onClose}){
