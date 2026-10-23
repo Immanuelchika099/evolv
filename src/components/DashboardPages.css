@@ -10183,3 +10183,52 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
     scroll-behavior: auto;
   }
 }
+
+
+/* EVOLV — subtle ambient edge light.
+   Keep the light on the app canvas, never clipped by the homepage content box. */
+html body #root .dashboard {
+  background-color: #000 !important;
+  background-image:
+    radial-gradient(
+      ellipse 54rem 30rem at 50% -24rem,
+      color-mix(in srgb, var(--color-accent-blue) 8%, transparent) 0%,
+      color-mix(in srgb, var(--color-accent-blue) 4%, transparent) 38%,
+      transparent 72%
+    ),
+    radial-gradient(
+      ellipse 42rem 38rem at -7rem calc(100% + 23rem),
+      color-mix(in srgb, var(--color-accent-blue) 7%, transparent) 0%,
+      color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent) 42%,
+      transparent 74%
+    ) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+html body #root .dashboard .dashboard-home.calm-home {
+  background-image: none !important;
+  overflow: visible !important;
+}
+html body #root .dashboard .dashboard-home.calm-home::before,
+html body #root .dashboard .dashboard-home.calm-home::after {
+  content: none !important;
+  display: none !important;
+}
+@media (max-width: 800px) {
+  html body #root .dashboard {
+    background-image:
+      radial-gradient(
+        ellipse 40rem 24rem at 50% -21rem,
+        color-mix(in srgb, var(--color-accent-blue) 7%, transparent) 0%,
+        color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent) 40%,
+        transparent 74%
+      ),
+      radial-gradient(
+        ellipse 34rem 32rem at -9rem calc(100% + 20rem),
+        color-mix(in srgb, var(--color-accent-blue) 6%, transparent) 0%,
+        color-mix(in srgb, var(--color-accent-blue) 3%, transparent) 42%,
+        transparent 74%
+      ) !important;
+    background-attachment: fixed !important;
+  }
+}
