@@ -647,7 +647,7 @@
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-done{
   width:3.6rem!important;height:3.6rem!important;min-width:3.6rem!important;
-  justify-self:center!important;border:1.5px solid #454a54!important;
+  justify-self:center!important;border:1.5px solid #454545!important;
   border-radius:50%!important;background:transparent!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-done.is-complete{
