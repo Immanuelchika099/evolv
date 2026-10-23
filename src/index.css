@@ -35,9 +35,9 @@
   /* Global font-weight scale — use these tokens across component styles. */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
-  --font-weight-extrabold: 800;
+  --font-weight-semibold: 500;
+  --font-weight-bold: 600;
+  --font-weight-extrabold: 600;
 
   /* Shared shape, elevation, and type scale */
   --radius-sm: 8px;
@@ -459,14 +459,30 @@ html body #root h3,
 html body #root h4,
 html body #root h5,
 html body #root h6 {
-  font-weight: var(--font-weight-semibold);
+  font-weight: var(--font-weight-medium);
 }
 
 html body #root .calm-home-welcome h1 {
-  font-weight: var(--font-weight-bold) !important;
+  font-weight: var(--font-weight-medium) !important;
   letter-spacing: -0.045em;
 }
 
 html body #root .calm-home-greeting {
   font-weight: var(--font-weight-medium);
+}
+
+
+/* Keep the interface calm: no heavy bold weights anywhere in the app. */
+html body #root :is(h1, h2, h3, h4, h5, h6, strong, b) {
+  font-weight: var(--font-weight-medium) !important;
+}
+
+html body #root .calm-home-welcome h1,
+html body #root .calm-home-greeting {
+  font-weight: var(--font-weight-medium) !important;
+}
+
+/* Profile and settings text should stay light and readable. */
+html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-page, .profile-summary, .profile-modal) :is(h1, h2, h3, h4, h5, h6, strong, b, label) {
+  font-weight: var(--font-weight-medium) !important;
 }
