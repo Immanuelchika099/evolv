@@ -6,7 +6,7 @@
   display:grid;
   place-items:center;
   padding:20px;
-  background:#1c1836b8;
+  background:#101010b8;
   backdrop-filter:blur(18px);
 }
 .contact-modal{
@@ -17,7 +17,7 @@
   padding:42px;
   border:1px solid #ffffff18;
   border-radius:28px;
-  background:linear-gradient(145deg,#1c1836f5,#1c1836f5);
+  background:linear-gradient(145deg,#101010f5,#101010f5);
   box-shadow:0 35px 120px #000b;
 }
 .contact-close{
