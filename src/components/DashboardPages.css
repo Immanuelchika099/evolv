@@ -9838,3 +9838,28 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
     bottom: 0.15rem !important;
   }
 }
+
+
+/* AI insight cards: translucent glass treatment from the supplied reference.
+   Intentionally no surrounding halo or external background glow. */
+.calm-insights-section .daily-ai-depth-carousel .depth-carousel__card {
+  background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.05)) !important;
+  border: 1px solid rgba(190,230,226,.22) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 28px 50px -26px rgba(0,0,0,.8) !important;
+}
+.calm-insights-section .daily-ai-depth-carousel .daily-ai-insight-panel {
+  background: transparent !important;
+  background-image: none !important;
+}
+.calm-insights-section .daily-ai-insight-card {
+  background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.05)) !important;
+  border: 1px solid rgba(190,230,226,.22) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.2);
+  backdrop-filter: blur(22px) saturate(1.2);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 28px 50px -26px rgba(0,0,0,.8);
+}
+.calm-insights-section .daily-ai-insight-card::before {
+  display: none !important;
+}
