@@ -102,7 +102,7 @@
 }
 .footer-links a:hover,
 .footer-links button.footer-contact:hover {
-  color: #1558b0;
+  color: var(--color-accent-blue);
   transform: translateX(2px);
 }
 .footer-contact {
@@ -189,9 +189,9 @@
 }
 .footer-newsletter-controls input::placeholder { color: #77766f; }
 .footer-newsletter-controls input:focus {
-  border-color: #2563eb;
+  border-color: var(--color-accent-blue);
   background: rgba(255, 255, 255, .72);
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
 }
 .footer-newsletter-submit {
   flex: 0 0 auto;
@@ -201,22 +201,22 @@
   gap: 8px;
   min-height: 48px;
   padding: 0 15px;
-  border: 1px solid #2563eb;
+  border: 1px solid var(--color-accent-blue);
   border-radius: 10px;
-  background: #2563eb;
+  background: var(--color-accent-blue);
   color: #fff;
   font: 600 1.3rem/1.4 Manrope, sans-serif;
   white-space: nowrap;
   transition: background .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 .footer-newsletter-submit:hover {
-  border-color: #1d4ed8;
-  background: #1d4ed8;
-  box-shadow: 0 4px 14px rgba(37, 99, 235, .2);
+  border-color: var(--color-accent-blue);
+  background: var(--color-accent-blue);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
   transform: translateY(-1px);
 }
 .footer-newsletter-submit:focus-visible {
-  outline: 2px solid #2563eb;
+  outline: 2px solid var(--color-accent-blue);
   outline-offset: 3px;
 }
 .footer-newsletter-message {

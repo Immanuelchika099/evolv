@@ -3,8 +3,8 @@
 .dashboard .settings-page .profile-photo-actions button:first-child,
 .dashboard .settings-page .settings-inline-action,
 .dashboard .settings-page .profile-avatar-studio-button {
-  border-color: rgba(72, 133, 255, .24) !important;
-  background: rgba(59, 130, 246, .09) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 24%, transparent) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important;
   color: #f4f7ff !important;
   transition: background .18s ease, border-color .18s ease, transform .18s ease, color .18s ease;
 }
@@ -12,8 +12,8 @@
 .dashboard .settings-page .profile-photo-actions button:hover,
 .dashboard .settings-page .settings-inline-action:hover,
 .dashboard .settings-page .profile-avatar-studio-button:hover {
-  border-color: rgba(96, 165, 250, .52) !important;
-  background: rgba(59, 130, 246, .18) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 52%, transparent) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important;
   color: #fff !important;
 }
 .dashboard .settings-page .settings-danger-button {
@@ -69,13 +69,13 @@
   z-index: 2;
 }
 .dashboard .settings-page .profile-photo-actions button:first-child {
-  border-color: rgba(72, 133, 255, .24) !important;
-  background: rgba(59, 130, 246, .09) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 24%, transparent) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important;
   color: #f4f7ff !important;
 }
 .dashboard .settings-page .profile-photo-actions button:first-child:hover {
-  border-color: rgba(96, 165, 250, .52) !important;
-  background: rgba(59, 130, 246, .18) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 52%, transparent) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important;
 }
 
 /* Keep destructive actions red rather than inheriting the old green theme. */
@@ -116,7 +116,7 @@
   cursor: pointer;
 }
 .dashboard .settings-page .profile-settings-section-head:focus-visible {
-  outline: 2px solid rgba(96, 165, 250, .8);
+  outline: 2px solid color-mix(in srgb, var(--color-accent-blue) 80%, transparent);
   outline-offset: 3px;
   border-radius: 8px !important;
 }
@@ -131,7 +131,7 @@
   background: transparent;
 }
 .dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color: var(--graph-blue-light); }
-.dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color: #a78bfa; }
+.dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color: var(--color-accent-blue); }
 .dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color: #fbbf24; }
 .dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color: #34d399; }
 .dashboard .settings-page .profile-settings-section-heading {
@@ -244,7 +244,7 @@
   color: rgba(226, 232, 240, .42);
 }
 .dashboard .settings-page .profile-account-action:hover .profile-account-action-arrow {
-  color: rgba(147, 197, 253, .9);
+  color: color-mix(in srgb, var(--color-accent-blue) 90%, transparent);
 }
 .dashboard .settings-page .profile-account-action.delete-account-action:hover .profile-account-action-arrow {
   color: #f87171;
@@ -262,7 +262,7 @@
 
 /* Distinct, tasteful icon colours for each expandable settings category. */
 .dashboard .settings-page .profile-settings-section-icon.icon-account { color: var(--graph-blue-light) !important; }
-.dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color: #a78bfa !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color: var(--color-accent-blue) !important; }
 .dashboard .settings-page .profile-settings-section-icon.icon-notifications { color: #fbbf24 !important; }
 .dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color: #34d399 !important; }
 
@@ -318,7 +318,7 @@
   color: rgba(226,232,240,.4);
 }
 .dashboard .settings-page .profile-photo-menu-option:hover {
-  background: rgba(59,130,246,.08);
+  background: color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
 }
 .dashboard .settings-page .profile-photo-menu-option.profile-photo-remove-option {
   color: #f87171;
@@ -385,11 +385,11 @@
 
 /* Logout confirmation: replace the legacy lime tick badge with Evolv blue. */
 .confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) {
-  border: 1px solid rgba(96, 165, 250, .42) !important;
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 42%, transparent) !important;
   outline: none !important;
-  background: rgba(59, 130, 246, .12) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important;
   color: var(--graph-blue-pale) !important;
-  box-shadow: 0 0 0 1px rgba(59, 130, 246, .08) !important;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-accent-blue) 8%, transparent) !important;
 }
 .confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) svg {
   color: var(--graph-blue-pale) !important;

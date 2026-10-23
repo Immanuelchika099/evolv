@@ -636,7 +636,7 @@
 }
 
 .onboarding .journey-orbit span{
-  box-shadow:0 0 18px rgba(171, 166, 255,.18)!important;
+  box-shadow:0 0 18px color-mix(in srgb, var(--color-accent-blue) 18%, transparent)!important;
 }
 
 .onboarding .ready-card{

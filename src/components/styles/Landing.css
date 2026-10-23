@@ -1823,7 +1823,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 }
 .landing-v2 .site-footer .footer-links a:hover,
 .landing-v2 .site-footer .footer-links button.footer-contact:hover {
-  color: #1558b0 !important;
+  color: var(--color-accent-blue) !important;
 }
 .landing-v2 .site-footer .footer-bottom {
   border-top-color: rgba(25, 25, 25, .16) !important;
@@ -2130,7 +2130,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   width: 72%;
   height: 100%;
   border-radius: inherit;
-  background: linear-gradient(90deg, #568fe8, #9bc4ff);
+  background: linear-gradient(90deg, var(--color-accent-blue), var(--color-accent-blue));
   box-shadow: 0 0 16px color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
 }
 .landing-v2 .ev-device-progress > small {
@@ -2158,7 +2158,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   justify-content: center;
   width: 17px;
   height: 17px;
-  color: #91bbff !important;
+  color: var(--color-accent-blue) !important;
   border: 1px solid color-mix(in srgb, var(--color-accent-blue) 38%, transparent);
   border-radius: 50%;
   font-size: 9px !important;
@@ -2213,7 +2213,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   gap: 10px;
 }
 .landing-v2 .ev-device-change strong {
-  color: #91bbff;
+  color: var(--color-accent-blue);
   font-size: 18px;
   font-weight: var(--font-weight-medium);
   letter-spacing: -.04em;
@@ -2507,7 +2507,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 }
 .landing-v2 .site-footer .footer-links a:hover,
 .landing-v2 .site-footer .footer-links button.footer-contact:hover {
-  color: #1558b0 !important;
+  color: var(--color-accent-blue) !important;
 }
 .landing-v2 .site-footer .footer-bottom {
   border-top-color: rgba(0,0,0,.15) !important;
@@ -2565,8 +2565,8 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   border-color: var(--color-accent-blue) !important;
 }
 .landing-v2 .ev-hero-actions .ev-btn-solid:hover {
-  background: #5f9bf8 !important;
-  border-color: #5f9bf8 !important;
+  background: var(--color-accent-blue) !important;
+  border-color: var(--color-accent-blue) !important;
   color: #fff !important;
 }
 .landing-v2 .ev-hero-actions .ev-btn-solid,
@@ -2613,7 +2613,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .site-footer .footer-links a,
 .landing-v2 .site-footer .footer-links button.footer-contact { color: rgba(17,17,17,.78) !important; }
 .landing-v2 .site-footer .footer-links a:hover,
-.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: #1558b0 !important; }
+.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: var(--color-accent-blue) !important; }
 .landing-v2 .site-footer .footer-bottom { border-top-color: rgba(0,0,0,.15) !important; }
 
 
@@ -2644,5 +2644,5 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .site-footer .footer-links a,
 .landing-v2 .site-footer .footer-links button.footer-contact { color: rgba(17,17,17,.78) !important; }
 .landing-v2 .site-footer .footer-links a:hover,
-.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: #1558b0 !important; }
+.landing-v2 .site-footer .footer-links button.footer-contact:hover { color: var(--color-accent-blue) !important; }
 .landing-v2 .site-footer .footer-bottom { border-top-color: rgba(0,0,0,.15) !important; }

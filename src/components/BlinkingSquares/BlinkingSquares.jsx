@@ -20,7 +20,7 @@ export default function BlinkingSquares({
   twinkleStrength = 0.55,
   intensity = 0.65,
   opacity = 0.42,
-  squareColor = '#3451B2',
+  squareColor = 'var(--color-accent-blue)',
   dpr = 1.5,
 }) {
   const canvasRef = useRef(null)

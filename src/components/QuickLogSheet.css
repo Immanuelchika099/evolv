@@ -40,33 +40,33 @@
 .quick-log-options { display: grid; gap: .7rem; }
 .quick-log-option { display: grid; grid-template-columns: 4.4rem minmax(0,1fr) 2rem; align-items: center; gap: 1.2rem; width: 100%; min-height: 7.2rem; padding: 1.1rem 1.2rem; text-align: left; border: 1px solid rgba(255,255,255,.08); border-radius: 1.6rem; background: #111; color: #f5f5f3; transition: background .16s ease, border-color .16s ease; }
 .quick-log-option:active { background: #171717; border-color: rgba(255,255,255,.18); }
-.quick-log-option-icon, .quick-log-history-icon { display: grid; width: 4.4rem; height: 4.4rem; place-items: center; border-radius: 1.25rem; background: rgba(37,99,235,.14); color: #8db5ff; }
+.quick-log-option-icon, .quick-log-history-icon { display: grid; width: 4.4rem; height: 4.4rem; place-items: center; border-radius: 1.25rem; background: color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); color: var(--color-accent-blue); }
 
 /* Give each logging action its own clear visual identity. */
-.quick-log-option:nth-child(1) .quick-log-option-icon { color: #79aaff; background: rgba(59,130,246,.17); }
+.quick-log-option:nth-child(1) .quick-log-option-icon { color: #79aaff; background: color-mix(in srgb, var(--color-accent-blue) 17%, transparent); }
 .quick-log-option:nth-child(2) .quick-log-option-icon { color: #ffb36b; background: rgba(249,115,22,.16); }
-.quick-log-option:nth-child(3) .quick-log-option-icon { color: #a5c7ff; background: rgba(96,165,250,.15); }
-.quick-log-option:nth-child(4) .quick-log-option-icon { color: #62d7f4; background: rgba(6,182,212,.15); }
+.quick-log-option:nth-child(3) .quick-log-option-icon { color: #a5c7ff; background: color-mix(in srgb, var(--color-accent-blue) 15%, transparent); }
+.quick-log-option:nth-child(4) .quick-log-option-icon { color: var(--color-accent-blue); background: color-mix(in srgb, var(--color-accent-blue) 15%, transparent); }
 .quick-log-option:nth-child(5) .quick-log-option-icon { color: #f5ca75; background: rgba(234,179,8,.14); }
 .quick-log-option:nth-child(6) .quick-log-option-icon { color: #d1d5db; background: rgba(156,163,175,.12); }
-.quick-log-option:nth-child(7) .quick-log-option-icon { color: #8bbcff; background: rgba(37,99,235,.18); }
-.quick-log-option:nth-child(1):active { border-color: rgba(59,130,246,.45); }
+.quick-log-option:nth-child(7) .quick-log-option-icon { color: #8bbcff; background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent); }
+.quick-log-option:nth-child(1):active { border-color: color-mix(in srgb, var(--color-accent-blue) 45%, transparent); }
 .quick-log-option:nth-child(2):active { border-color: rgba(249,115,22,.4); }
-.quick-log-option:nth-child(3):active { border-color: rgba(96,165,250,.4); }
-.quick-log-option:nth-child(4):active { border-color: rgba(6,182,212,.4); }
+.quick-log-option:nth-child(3):active { border-color: color-mix(in srgb, var(--color-accent-blue) 40%, transparent); }
+.quick-log-option:nth-child(4):active { border-color: color-mix(in srgb, var(--color-accent-blue) 40%, transparent); }
 .quick-log-option:nth-child(5):active { border-color: rgba(234,179,8,.38); }
-.quick-log-option:nth-child(7):active { border-color: rgba(37,99,235,.5); }
+.quick-log-option:nth-child(7):active { border-color: color-mix(in srgb, var(--color-accent-blue) 50%, transparent); }
 .quick-log-option-copy { display: grid; min-width: 0; }
 .quick-log-option-copy strong { font-size: 1.55rem; font-weight: var(--font-weight-semibold); }
 .quick-log-chevron { color: rgba(255,255,255,.38); }
 .quick-log-workout-toolbar { display: grid; margin-bottom: 1.5rem; }
 .quick-log-workout-toolbar p { margin: 0; }
-.quick-log-primary, .quick-log-add-exercise { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 4.6rem; padding: 0 1.6rem; border: 1px solid #2563eb; border-radius: 1.35rem; background: #2563eb; color: #fff; font-size: 1.45rem; font-weight: var(--font-weight-semibold); white-space: nowrap; }
+.quick-log-primary, .quick-log-add-exercise { display: inline-flex; align-items: center; justify-content: center; gap: .8rem; min-height: 4.6rem; padding: 0 1.6rem; border: 1px solid var(--color-accent-blue); border-radius: 1.35rem; background: var(--color-accent-blue); color: #fff; font-size: 1.45rem; font-weight: var(--font-weight-semibold); white-space: nowrap; }
 .quick-log-primary svg, .quick-log-add-exercise svg { color: #fff; stroke: #fff; }
-.quick-log-primary:active { background: #1d4ed8; }
+.quick-log-primary:active { background: var(--color-accent-blue); }
 .quick-log-workout-toolbar .quick-log-primary { justify-self: stretch; }
 .quick-log-notice, .quick-log-error { display: flex; align-items: flex-start; gap: .8rem; padding: 1.1rem 1.2rem; margin: 0 0 1.2rem; border-radius: 1.2rem; font-size: 1.35rem; line-height: 1.5; }
-.quick-log-notice { background: rgba(37,99,235,.12); color: #a9c8ff; }
+.quick-log-notice { background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent); color: #a9c8ff; }
 .quick-log-error { background: rgba(248,113,113,.1); color: #fca5a5; }
 .quick-log-loading { display: flex; align-items: center; gap: 1rem; padding: 2.4rem 0; color: rgba(255,255,255,.58); font-size: 1.4rem; }
 .quick-log-spinner { display: inline-block; width: 1.6rem; height: 1.6rem; flex: 0 0 1.6rem; border: 2px solid rgba(255,255,255,.3); border-top-color: #fff; border-radius: 50%; animation: quick-log-spin .7s linear infinite; }
@@ -78,14 +78,14 @@
 .quick-log-history-copy small { color: rgba(255,255,255,.5); font-size: 1.35rem; line-height: 1.45; }
 .quick-log-history-row > svg { color: rgba(255,255,255,.4); }
 .quick-log-empty { display: flex; flex-direction: column; align-items: flex-start; gap: .9rem; padding: 2.2rem 1.6rem; border: 1px solid rgba(255,255,255,.08); border-radius: 1.8rem; background: #101010; }
-.quick-log-empty > svg { color: #8db5ff; }
+.quick-log-empty > svg { color: var(--color-accent-blue); }
 .quick-log-empty strong { font-size: 1.6rem; }
 .quick-log-editor { padding-bottom: 0; }
 .quick-log-workout-fields { display: grid; gap: 1.2rem; }
 .quick-log-field { display: grid; gap: .7rem; min-width: 0; }
 .quick-log-field > span, .quick-log-exercise-name > span { color: rgba(255,255,255,.62); font-size: 1.4rem; font-weight: var(--font-weight-medium); }
 .quick-log-field input, .quick-log-field select, .quick-log-field textarea, .quick-log-exercise-name input, .quick-log-number-field input { width: 100%; min-width: 0; min-height: 4.6rem; padding: 0 1.2rem; border: 1px solid rgba(255,255,255,.12); border-radius: 1.2rem; outline: none; background: #111; color: #f5f5f3; font-size: 1.55rem; color-scheme: dark; }
-.quick-log-field input:focus, .quick-log-field select:focus, .quick-log-field textarea:focus, .quick-log-exercise-name input:focus, .quick-log-number-field input:focus { border-color: rgba(100,155,255,.8); box-shadow: 0 0 0 2px rgba(37,99,235,.18); }
+.quick-log-field input:focus, .quick-log-field select:focus, .quick-log-field textarea:focus, .quick-log-exercise-name input:focus, .quick-log-number-field input:focus { border-color: rgba(100,155,255,.8); box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-accent-blue) 18%, transparent); }
 .quick-log-field-row { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 1rem; }
 .quick-log-unit-field select { padding-right: .4rem; font-size: 1.35rem; }
 .quick-log-field textarea { padding: 1rem 1.2rem; min-height: 7rem; resize: vertical; line-height: 1.55; }
@@ -98,7 +98,7 @@
 .quick-log-exercises { display: grid; gap: 1rem; }
 .quick-log-exercise { padding: 1.2rem; border: 1px solid rgba(255,255,255,.09); border-radius: 1.6rem; background: #101010; }
 .quick-log-exercise-heading { display: grid; grid-template-columns: 2.6rem minmax(0,1fr) 3.6rem; align-items: center; gap: .7rem; margin-bottom: 1.2rem; }
-.quick-log-exercise-number { color: #8db5ff; font-size: 1.35rem; font-weight: var(--font-weight-bold); letter-spacing: .05em; }
+.quick-log-exercise-number { color: var(--color-accent-blue); font-size: 1.35rem; font-weight: var(--font-weight-bold); letter-spacing: .05em; }
 .quick-log-exercise-name input { min-height: 4.4rem; font-size: 1.45rem; }
 .quick-log-icon-button { display: grid; width: 3.6rem; height: 3.6rem; place-items: center; padding: 0; border: 1px solid rgba(255,255,255,.08); border-radius: 1.1rem; background: #171717; color: rgba(255,255,255,.55); }
 .quick-log-set-head, .quick-log-set-row { display: grid; grid-template-columns: 2.4rem minmax(0,1fr) minmax(0,1fr) 3.4rem; align-items: center; gap: .65rem; }
@@ -107,17 +107,17 @@
 .quick-log-set-head span:last-child { text-align: center; }
 .quick-log-set-list { display: grid; gap: .65rem; }
 .quick-log-set-row { padding: .45rem; border: 1px solid rgba(255,255,255,.055); border-radius: 1.1rem; background: #0b0b0b; }
-.quick-log-set-row.is-complete { border-color: rgba(37,99,235,.4); background: rgba(37,99,235,.07); }
+.quick-log-set-row.is-complete { border-color: color-mix(in srgb, var(--color-accent-blue) 40%, transparent); background: color-mix(in srgb, var(--color-accent-blue) 7.000000000000001%, transparent); }
 .quick-log-set-number { text-align: center; color: rgba(255,255,255,.7); font-size: 1.4rem; font-weight: var(--font-weight-semibold); }
 .quick-log-number-field input { min-height: 4.2rem; padding: 0 .4rem; text-align: center; font-size: 1.45rem; border-color: transparent; background: #151515; }
 .quick-log-number-field input::placeholder { color: rgba(255,255,255,.3); }
 .quick-log-set-done { display: grid; width: 3.2rem; height: 3.2rem; place-items: center; justify-self: center; padding: 0; border: 1px solid rgba(255,255,255,.18); border-radius: 50%; background: transparent; color: #fff; }
 .quick-log-set-done > span { width: 1rem; height: 1rem; border-radius: 50%; background: transparent; }
-.quick-log-set-done.is-complete { border-color: #2563eb; background: #2563eb; }
+.quick-log-set-done.is-complete { border-color: var(--color-accent-blue); background: var(--color-accent-blue); }
 .quick-log-remove-set { display: grid; grid-column: 2 / -1; justify-self: end; width: 2.8rem; height: 2.6rem; place-items: center; border: 0; border-radius: .8rem; background: transparent; color: rgba(255,255,255,.42); }
-.quick-log-add-set { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1rem; padding: .6rem .2rem; border: 0; background: transparent; color: #9dbfff; font-size: 1.35rem; font-weight: var(--font-weight-semibold); }
-.quick-log-add-exercise { width: 100%; margin-top: 1.2rem; background: transparent; border-color: rgba(37,99,235,.55); color: #9dbfff; }
-.quick-log-add-exercise svg { color: #9dbfff; stroke: currentColor; }
+.quick-log-add-set { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1rem; padding: .6rem .2rem; border: 0; background: transparent; color: var(--color-accent-blue); font-size: 1.35rem; font-weight: var(--font-weight-semibold); }
+.quick-log-add-exercise { width: 100%; margin-top: 1.2rem; background: transparent; border-color: color-mix(in srgb, var(--color-accent-blue) 55.00000000000001%, transparent); color: var(--color-accent-blue); }
+.quick-log-add-exercise svg { color: var(--color-accent-blue); stroke: currentColor; }
 .quick-log-editor-footer { position: sticky; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; margin: 1.6rem -1.8rem 0; padding: 1.2rem 1.8rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); border-top: 1px solid rgba(255,255,255,.09); background: rgba(10,10,10,.97); }
 .quick-log-editor-footer > div { display: grid; gap: .2rem; }
 .quick-log-editor-footer strong { font-size: 1.7rem; }
@@ -131,7 +131,7 @@
 .quick-log-detail-sets { display: grid; gap: .6rem; }
 .quick-log-detail-set { display: grid; grid-template-columns: 3rem minmax(0,1fr) auto; align-items: center; gap: .8rem; min-height: 4.4rem; padding: .7rem 1rem; border: 1px solid rgba(255,255,255,.07); border-radius: 1.1rem; background: #101010; }
 .quick-log-detail-set > span { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border-radius: 50%; background: #1a1a1a; color: rgba(255,255,255,.62); font-size: 1.35rem; }
-.quick-log-detail-set.is-complete > span { background: #2563eb; color: #fff; }
+.quick-log-detail-set.is-complete > span { background: var(--color-accent-blue); color: #fff; }
 .quick-log-detail-set strong { font-size: 1.35rem; font-weight: var(--font-weight-medium); }
 .quick-log-detail-set small { color: rgba(255,255,255,.54); font-size: 1.35rem; white-space: nowrap; }
 .quick-log-detail-actions { display: flex; gap: 1rem; margin-top: 2rem; }
@@ -155,23 +155,23 @@
 
 
 /* Keep each icon's identity independent of its current row position. */
-.quick-log-option-workout .quick-log-option-icon { color:#79aaff; background:rgba(59,130,246,.17); }
+.quick-log-option-workout .quick-log-option-icon { color:#79aaff; background:color-mix(in srgb, var(--color-accent-blue) 17%, transparent); }
 .quick-log-option-meal .quick-log-option-icon { color:#ffb36b; background:rgba(249,115,22,.16); }
-.quick-log-option-sleep .quick-log-option-icon { color:#a5c7ff; background:rgba(96,165,250,.15); }
-.quick-log-option-water .quick-log-option-icon { color:#62d7f4; background:rgba(6,182,212,.15); }
+.quick-log-option-sleep .quick-log-option-icon { color:#a5c7ff; background:color-mix(in srgb, var(--color-accent-blue) 15%, transparent); }
+.quick-log-option-water .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 15%, transparent); }
 .quick-log-option-money .quick-log-option-icon { color:#f5ca75; background:rgba(234,179,8,.14); }
-.quick-log-option-ai .quick-log-option-icon { color:#8bbcff; background:rgba(37,99,235,.18); }
+.quick-log-option-ai .quick-log-option-icon { color:#8bbcff; background:color-mix(in srgb, var(--color-accent-blue) 18%, transparent); }
 .quick-log-option-health .quick-log-option-icon { color:#ff8f9d; background:rgba(255,107,114,.14); }
 .quick-log-option-nutrition .quick-log-option-icon { color:#ffb84d; background:rgba(255,184,77,.14); }
-.quick-log-option-career .quick-log-option-icon { color:#63c8ff; background:rgba(99,200,255,.14); }
-.quick-log-option-mind .quick-log-option-icon { color:#b6a2ff; background:rgba(155,124,255,.14); }
+.quick-log-option-career .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
+.quick-log-option-mind .quick-log-option-icon { color:#b6a2ff; background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
 .quick-log-option-life .quick-log-option-icon { color:#9dd6b0; background:rgba(157,214,176,.12); }
 
-.quick-log-options .quick-log-option-ai .quick-log-option-icon { color:#8bbcff; background:rgba(37,99,235,.18); }
+.quick-log-options .quick-log-option-ai .quick-log-option-icon { color:#8bbcff; background:color-mix(in srgb, var(--color-accent-blue) 18%, transparent); }
 .quick-log-options .quick-log-option-health .quick-log-option-icon { color:#ff8f9d; background:rgba(255,107,114,.14); }
 .quick-log-options .quick-log-option-nutrition .quick-log-option-icon { color:#ffb84d; background:rgba(255,184,77,.14); }
-.quick-log-options .quick-log-option-career .quick-log-option-icon { color:#63c8ff; background:rgba(99,200,255,.14); }
-.quick-log-options .quick-log-option-mind .quick-log-option-icon { color:#b6a2ff; background:rgba(155,124,255,.14); }
+.quick-log-options .quick-log-option-career .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
+.quick-log-options .quick-log-option-mind .quick-log-option-icon { color:#b6a2ff; background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
 .quick-log-options .quick-log-option-life .quick-log-option-icon { color:#9dd6b0; background:rgba(157,214,176,.12); }
 
 
@@ -266,7 +266,7 @@
 /* Cinematic full-screen workout tracker with safe, contained cards. */
 .quick-log-overlay-page {
   background:
-    radial-gradient(ellipse at 90% 0%, rgba(54,104,190,.14), transparent 34rem),
+    radial-gradient(ellipse at 90% 0%, color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent), transparent 34rem),
     #050608 !important;
   color: #f5f7fb;
 }
@@ -321,7 +321,7 @@
 .quick-log-overlay-page .quick-log-primary {
   min-height: 4.8rem;
   border-radius: 1.45rem;
-  box-shadow: 0 .8rem 2.4rem rgba(51,113,220,.18);
+  box-shadow: 0 .8rem 2.4rem color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
 }
 @media (max-width: 390px) {
   .quick-log-overlay-page .quick-log-content { padding-left: 1.4rem; padding-right: 1.4rem; }
@@ -455,7 +455,7 @@
   background: #101115 !important;
 }
 .quick-log-overlay-page .quick-log-set-row.is-complete {
-  background: rgba(37,99,235,.12) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important;
 }
 .quick-log-overlay-page .quick-log-number-field input {
   min-height: 4.4rem !important;
@@ -594,7 +594,7 @@
   min-width:0!important;margin-bottom:1.3rem!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-number{
-  color:#75aaff!important;font-size:1.7rem!important;font-weight:var(--font-weight-bold)!important;
+  color:var(--color-accent-blue)!important;font-size:1.7rem!important;font-weight:var(--font-weight-bold)!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name{
   min-width:0!important;width:100%!important;
@@ -651,22 +651,22 @@
   border-radius:50%!important;background:transparent!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-done.is-complete{
-  background:#287df0!important;border-color:#287df0!important;color:#fff!important;
+  background:var(--color-accent-blue)!important;border-color:var(--color-accent-blue)!important;color:#fff!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-row.is-complete{
-  background:rgba(40,125,240,.12)!important;
+  background:color-mix(in srgb, var(--color-accent-blue) 12%, transparent)!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-add-set{
   display:inline-flex!important;align-items:center!important;gap:.7rem!important;
   min-height:4.2rem!important;margin:.4rem 0 0!important;padding:.7rem .5rem!important;
-  background:transparent!important;border:0!important;color:#8db8ff!important;
+  background:transparent!important;border:0!important;color:var(--color-accent-blue)!important;
   font-size:1.55rem!important;font-weight:var(--font-weight-semibold)!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-add-exercise{
   display:flex!important;align-items:center!important;justify-content:center!important;gap:.8rem!important;
   width:100%!important;min-height:5.6rem!important;margin:1.6rem 0!important;
-  border:1px solid #287df0!important;border-radius:1.6rem!important;
-  background:transparent!important;color:#8db8ff!important;font-size:1.7rem!important;font-weight:var(--font-weight-bold)!important;
+  border:1px solid var(--color-accent-blue)!important;border-radius:1.6rem!important;
+  background:transparent!important;color:var(--color-accent-blue)!important;font-size:1.7rem!important;font-weight:var(--font-weight-bold)!important;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-notes-field{margin-top:.5rem!important}
 .quick-log-overlay:has(.quick-log-editor) .quick-log-editor-footer{
@@ -686,7 +686,7 @@
   display:flex!important;align-items:center!important;justify-content:center!important;gap:.9rem!important;
   min-height:5.6rem!important;padding:0 2rem!important;
   border:0!important;border-radius:1.6rem!important;
-  background:#2864f0!important;color:#fff!important;
+  background:var(--color-accent-blue)!important;color:#fff!important;
   font-size:1.7rem!important;font-weight:var(--font-weight-bold)!important;
 }
 @media(max-width:420px){
@@ -825,7 +825,7 @@
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-heading::before {
   position: absolute; top: 1.7rem; bottom: 1.7rem; left: .7rem; width: .5rem; border-radius: 999px;
-  background: var(--evolv-blue, var(--color-accent-blue, #2563eb)); content: "";
+  background: var(--evolv-blue, var(--color-accent-blue, var(--color-accent-blue))); content: "";
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name input { color: #fff; font-size: 2rem; font-weight: var(--font-weight-semibold); }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-exercise-name input::placeholder { color: #8e8e93; font-weight: var(--font-weight-regular); }
@@ -833,10 +833,10 @@
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-row { grid-template-columns: 2.8rem minmax(0,1fr) minmax(0,1fr) 3.6rem; gap: .6rem; }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-head { color: #f5f5f7; }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-row { min-height: 5.6rem; border-bottom: 1px solid rgba(255,255,255,.035); }
-.quick-log-overlay:has(.quick-log-editor) .quick-log-add-set { color: var(--evolv-blue, #2563eb); }
-.quick-log-overlay:has(.quick-log-editor) .quick-log-add-exercise { border-color: var(--evolv-blue, #2563eb); color: #fff; }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-add-set { color: var(--evolv-blue, var(--color-accent-blue)); }
+.quick-log-overlay:has(.quick-log-editor) .quick-log-add-exercise { border-color: var(--evolv-blue, var(--color-accent-blue)); color: #fff; }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-set-done.is-complete {
-  background: var(--evolv-blue, #2563eb) !important; border-color: var(--evolv-blue, #2563eb) !important;
+  background: var(--evolv-blue, var(--color-accent-blue)) !important; border-color: var(--evolv-blue, var(--color-accent-blue)) !important;
 }
 @media (max-width: 420px) {
   .quick-log-overlay:has(.quick-log-editor) .quick-log-workout-totals-card > div { min-height: 9.5rem; padding-inline: .25rem; }
@@ -915,7 +915,7 @@
   color: #fff;
 }
 .quick-log-overlay:has(.quick-log-editor) .quick-log-intensity-control svg {
-  color: #8db8ff;
+  color: var(--color-accent-blue);
   transform: rotate(90deg);
   pointer-events: none;
 }

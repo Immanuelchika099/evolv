@@ -88,7 +88,7 @@
   padding: 0 2rem;
   border: 0;
   border-radius: 1.2rem;
-  background: #2f6fed;
+  background: var(--color-accent-blue);
   color: #fff;
   font: inherit;
   font-size: 1.6rem;
@@ -97,7 +97,7 @@
   transition: background .18s ease, transform .18s ease;
 }
 .pwa-install-button:hover {
-  background: #2459c7;
+  background: var(--color-accent-blue);
 }
 .pwa-install-button:active {
   transform: scale(.99);
@@ -112,7 +112,7 @@
   padding: .8rem 1.2rem;
   border: 0;
   background: transparent;
-  color: #667085;
+  color: var(--color-text-muted);
   font: inherit;
   font-size: 1.35rem;
   cursor: pointer;

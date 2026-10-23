@@ -397,8 +397,8 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
                     return [
                       { id: 'health', title: 'Health', icon: HeartPulse, color: '#ff8f9d' },
                       { id: 'nutrition', title: 'Nutrition', icon: Apple, color: '#ffb84d' },
-                      { id: 'career', title: 'Career', icon: BriefcaseBusiness, color: '#63c8ff' },
-                      { id: 'mind', title: 'Mind', icon: Brain, color: '#b6a2ff' },
+                      { id: 'career', title: 'Career', icon: BriefcaseBusiness, color: 'var(--color-accent-blue)' },
+                      { id: 'mind', title: 'Mind', icon: Brain, color: 'var(--color-accent-blue)' },
                       { id: 'life', title: 'Life', icon: Sprout, color: '#9dd6b0' },
                     ].map(extra => {
                       const Icon = extra.icon

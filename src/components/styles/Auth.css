@@ -6,15 +6,15 @@
 .auth-form{display:grid;gap:18px}
 .auth-form label{display:grid;gap:8px}
 .auth-form label span{font:9px 'DM Mono';letter-spacing:.14em;color:#59615b;text-transform:uppercase}
-.auth-form input{width:100%;box-sizing:border-box;background:#ffffff05;border:1px solid #ffffff12;border-radius:12px;padding:16px 17px;color:#aba6ff;outline:none;font:14px 'Manrope'}
-.auth-form input:focus{border-color:#5145c860;box-shadow:0 0 0 3px #5145c810}
+.auth-form input{width:100%;box-sizing:border-box;background:#ffffff05;border:1px solid #ffffff12;border-radius:12px;padding:16px 17px;color:var(--color-accent-blue);outline:none;font:14px 'Manrope'}
+.auth-form input:focus{border-color:color-mix(in srgb, var(--color-accent-blue) 38%, transparent);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 6%, transparent)}
 .auth-submit{margin-top:6px;width:max-content}
 .auth-switch,.auth-back{background:none;border:0;color:#7d857e;cursor:pointer}
 .auth-switch{font:11px 'DM Mono';margin-top:22px}
-.auth-switch:hover,.auth-back:hover{color:#aba6ff}
+.auth-switch:hover,.auth-back:hover{color:var(--color-accent-blue)}
 .auth-back{display:flex;align-items:center;gap:.6rem;font:1.2rem 'DM Mono';margin-top:5rem;padding:0}
 .auth-error{margin:0;color:#ff8f8f;font:11px 'DM Mono'}
-.auth-message{margin:0;color:#5145c8;font:11px 'DM Mono';line-height:1.6}
+.auth-message{margin:0;color:var(--color-accent-blue);font:11px 'DM Mono';line-height:1.6}
 @media(max-width:800px){
   .auth-content{padding:90px 0 70px}
   .auth-content h1{font-size:clamp(44px,13vw,72px)}
@@ -54,14 +54,14 @@
   margin-top:-2px;
   border:0;
   background:none;
-  color:rgba(171, 166, 255,.72);
+  color:color-mix(in srgb, var(--color-accent-blue) 72%, transparent);
   font:500 1.3rem 'Manrope';
   cursor:pointer;
   padding:3px 0;
   transition:color .2s ease;
 }
 .forgot-password:hover:not(:disabled){
-  color:#aba6ff;
+  color:var(--color-accent-blue);
 }
 .forgot-password:disabled{
   opacity:.5;
@@ -97,7 +97,7 @@
   align-items:center;
   gap:12px;
   margin:18px 0 12px;
-  color:rgba(171, 166, 255,.28);
+  color:color-mix(in srgb, var(--color-accent-blue) 28.000000000000004%, transparent);
   font-size:9px;
   letter-spacing:.16em;
 }
@@ -105,7 +105,7 @@
   content:"";
   flex:1;
   height:1px;
-  background:rgba(81, 69, 200,.09);
+  background:color-mix(in srgb, var(--color-accent-blue) 9%, transparent);
 }
 .google-auth-button{
   width:100%;
@@ -114,18 +114,18 @@
   align-items:center;
   justify-content:center;
   gap:10px;
-  border:1px solid rgba(81, 69, 200,.12);
+  border:1px solid color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
   border-radius:12px;
   background:rgba(255,255,255,.035);
-  color:#aba6ff;
+  color:var(--color-accent-blue);
   font:inherit;
   font-size:13px;
   cursor:pointer;
   transition:.25s ease;
 }
 .google-auth-button:hover:not(:disabled){
-  background:rgba(81, 69, 200,.065);
-  border-color:rgba(81, 69, 200,.22);
+  background:color-mix(in srgb, var(--color-accent-blue) 6.5%, transparent);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
 }
 .google-auth-button:disabled{opacity:.55;cursor:not-allowed}
 .auth-provider-logo{

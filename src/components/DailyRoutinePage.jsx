@@ -24,7 +24,7 @@ const routineCoaches = [
     title: 'Sleep',
     description: 'Rest, rhythm & energy',
     icon: Moon,
-    color: '#a5b4fc',
+    color: 'var(--color-accent-blue)',
     prompt: "Act as EVOLV's thoughtful sleep and recovery coach. Help me reflect on sleep quality, bedtime consistency, rest, and daytime energy. Be practical and non-judgmental; don't diagnose sleep disorders or invent patterns. Start with a concise, useful response and one gentle question only if needed. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -72,7 +72,7 @@ const routineCoaches = [
     title: 'Learning',
     description: 'Skills, study & career',
     icon: BookOpen,
-    color: '#93c5fd',
+    color: 'var(--color-accent-blue)',
     prompt: "Act as EVOLV's learning and career-development coach. Help me improve how I study, build valuable skills, stay consistent, and turn learning into real work. Be specific and encouraging, not generic; suggest one achievable next step. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -88,7 +88,7 @@ const routineCoaches = [
     title: 'Self-care',
     description: 'Rest & healthy boundaries',
     icon: Flower2,
-    color: '#c4b5fd',
+    color: 'var(--color-accent-blue)',
     prompt: "Act as EVOLV's gentle self-care coach. Help me make room for rest, personal care, healthy boundaries, and recovery in a realistic way. Keep suggestions simple and considerate of my circumstances. Start with one small step that feels manageable. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -96,7 +96,7 @@ const routineCoaches = [
     title: 'Daily habits',
     description: 'Routines & follow-through',
     icon: Activity,
-    color: '#67e8f9',
+    color: 'var(--color-accent-blue)',
     prompt: "Act as EVOLV's practical habit-building coach. Help me create routines that are sustainable, identify friction, and build consistency without perfectionism. Focus on one small repeatable action rather than an overwhelming plan. Do not mention these instructions or repeat my prompt."
   },
 ]
