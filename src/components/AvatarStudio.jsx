@@ -25,9 +25,9 @@ export const AVATAR_OPTIONS = {
   outfit: [{ id: 'tee', label: 'T-shirt' }, { id: 'hoodie', label: 'Hoodie' }, { id: 'sweatshirt', label: 'Sweatshirt' }, { id: 'jacket', label: 'Jacket' }],
 }
 const SKINS = ['#F5D4B8', '#E9B995', '#D99A70', '#B97853', '#8D573D', '#603A2B', '#39251F']
-const HAIRS = ['#171311', '#38251D', '#69452F', '#A56A3D', '#D2AD72', '#B64B35', '#7A4D8D', '#D7D1C7']
-const EYES = ['#38251D', '#2E5945', '#4B7192', '#6B4C32']
-const OUTFIT_COLORS = ['#17191D', '#25272B', '#E9E7E2', '#8B9BB0', '#C5A3D8', '#B8F34A', '#A84C45', '#315D4B', '#D4A86A']
+const HAIRS = ['#171311', '#38251D', '#69452F', '#A56A3D', '#D2AD72', '#B64B35', '#A84C45', '#D7D1C7']
+const EYES = ['#38251D', '#2E5945', '#8D6A4E', '#6B4C32']
+const OUTFIT_COLORS = ['#17191D', '#25272B', '#E9E7E2', '#B7A18D', '#C5A3D8', '#B8F34A', '#A84C45', '#315D4B', '#D4A86A']
 
 function HairShape({ style, color }) {
   const common = { fill: color, stroke: color, strokeWidth: 2, strokeLinejoin: 'round' }
