@@ -32,7 +32,7 @@
   margin:5px 0 0;
   color:#eef6f1;
   font-size:17px;
-  font-weight:600;
+  font-weight:var(--font-weight-semibold);
   letter-spacing:-.02em;
 }
 .dashboard .settings-card{
@@ -92,7 +92,7 @@
 .dashboard .settings-facts strong{
   color:rgba(244,250,246,.84);
   font-size:14px;
-  font-weight:500;
+  font-weight:var(--font-weight-medium);
 }
 .dashboard .settings-danger{
   margin-top:42px;
@@ -280,7 +280,7 @@
 }
 .dashboard .settings-page .settings-section h3{
   font-size:22px !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .settings-page .settings-card{
   border:0 !important;
@@ -328,7 +328,7 @@
   color:rgba(244,241,232,.76) !important;
   font-size:15px !important;
   line-height:1.5 !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .settings-page .settings-action-row{
   border-top:1px solid rgba(255,255,255,.045) !important;
@@ -511,7 +511,7 @@
   color:#f4f1ea;
   font-size:1.6rem;
   line-height:1.35;
-  font-weight:550;
+  font-weight:var(--font-weight-medium);
 }
 
 .dashboard .settings-page .settings-section{
@@ -570,7 +570,7 @@
   color:rgba(244,241,234,.7);
   font-size:1.5rem;
   line-height:1.35;
-  font-weight:500;
+  font-weight:var(--font-weight-medium);
   overflow-wrap:anywhere;
 }
 .dashboard .settings-page .settings-card .button{
@@ -1858,7 +1858,7 @@ body,
   padding: 0 16px;
   border-radius: 12px;
   font-size: 14px;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   cursor: pointer;
   touch-action: manipulation;
 }

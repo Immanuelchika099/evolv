@@ -78,7 +78,7 @@
 .article-page .article-hero{max-width:1100px;margin:0 auto;padding:150px 28px 80px;border-bottom:1px solid rgba(255,255,255,.08)}
 .article-page .article-hero-copy{max-width:850px}
 .article-page .article-kicker{font-size:.9rem!important;color:rgba(81, 69, 200,.72)!important}
-.article-page .article-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(3rem,7vw,6.5rem);line-height:.98;letter-spacing:-.055em;font-weight:700;margin:22px 0 28px;max-width:900px}
+.article-page .article-title{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:clamp(3rem,7vw,6.5rem);line-height:.98;letter-spacing:-.055em;font-weight:var(--font-weight-bold);margin:22px 0 28px;max-width:900px}
 .article-page .article-intro{font-size:1.25rem;line-height:1.75;color:rgba(244,241,234,.64);max-width:760px;margin:0}
 .article-page .article-body{max-width:1000px;margin:0 auto;padding:0 28px 110px}
 .article-page .article-block p{font-size:1.08rem;line-height:1.85;color:rgba(244,241,234,.67)}
@@ -233,7 +233,7 @@
 .dashboard .area-back{
   color:#fff !important;
   font-size:1.5rem !important;
-  font-weight:600;
+  font-weight:var(--font-weight-semibold);
 }
 
 .dashboard .area-back svg{

@@ -51,7 +51,7 @@
   color: #f7f7f1;
   cursor: pointer;
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   letter-spacing: .22em;
 }
 .evolv-welcome-wordmark img,
@@ -69,7 +69,7 @@
   border-radius: 99rem;
   background: rgba(14,14,14,.52);
   color: #f5f5ef;
-  font: inherit; font-size: 1.35rem; font-weight: 600;
+  font: inherit; font-size: 1.35rem; font-weight: var(--font-weight-semibold);
   cursor: pointer;
   transition: border-color .2s ease, background .2s ease;
 }
@@ -96,7 +96,7 @@
   gap: 1rem;
   color: #c6c7bd;
   font-size: 1.15rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: .2em;
   text-transform: uppercase;
 }
@@ -112,7 +112,7 @@
   margin: 2.5rem 0 2rem;
   color: #f8f8f2;
   font-size: clamp(4.8rem, 8.2vw, 9.2rem);
-  font-weight: 750;
+  font-weight: var(--font-weight-bold);
   letter-spacing: -.085em;
   line-height: .96;
 }
@@ -141,7 +141,7 @@
   border-radius: 99rem;
   background: var(--color-accent-blue);
   color: #ffffff;
-  font: inherit; font-size: 1.55rem; font-weight: 800; line-height: 1;
+  font: inherit; font-size: 1.55rem; font-weight: var(--font-weight-extrabold); line-height: 1;
   cursor: pointer;
   box-shadow: 0 0 2.5rem color-mix(in srgb, var(--color-accent-blue) 7%, transparent);
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
@@ -155,7 +155,7 @@
   margin-top: 2.2rem;
   color: #7f8179;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: .19em;
 }
 .evolv-welcome-bottom {
@@ -169,7 +169,7 @@
   gap: 1.6rem;
   color: #6e7069;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: .2em;
 }
 .evolv-welcome-bottom i {
@@ -202,7 +202,7 @@
 .evolv-onboarding-step {
   color: #f5f5ef;
   font-size: 1.35rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 .evolv-onboarding-step span { color: #777970; }
 .evolv-onboarding-progress {
@@ -242,7 +242,7 @@
   border: 0;
   background: transparent;
   color: #b5b6ae;
-  font: inherit; font-size: 1.35rem; font-weight: 600; line-height: 1.4;
+  font: inherit; font-size: 1.35rem; font-weight: var(--font-weight-semibold); line-height: 1.4;
   cursor: pointer;
 }
 .evolv-onboarding-back:disabled { visibility: hidden; }
@@ -255,7 +255,7 @@
 .evolv-onboarding-stage h1 {
   margin: 1.8rem 0 1.5rem;
   font-size: clamp(3.7rem, 6vw, 6.2rem);
-  font-weight: 750;
+  font-weight: var(--font-weight-bold);
   letter-spacing: -.075em;
   line-height: 1.02;
 }
@@ -276,7 +276,7 @@
 .evolv-onboarding-name > span {
   color: var(--color-accent-blue);
   font-size: 1.3rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 .evolv-onboarding-name input {
   width: 100%;
@@ -287,7 +287,7 @@
   outline: 0;
   background: rgba(15,15,15,.78);
   color: #f7f7ef;
-  font: inherit; font-size: 1.8rem; font-weight: 500; line-height: 1.4;
+  font: inherit; font-size: 1.8rem; font-weight: var(--font-weight-medium); line-height: 1.4;
   transition: border-color .2s ease, box-shadow .2s ease;
 }
 .evolv-onboarding-name input:focus {
@@ -333,7 +333,7 @@
   background: radial-gradient(ellipse at 50% 38%, color-mix(in srgb, var(--color-accent-blue) 13%, transparent), transparent 70%);
 }
 .evolv-avatar-choice-art svg { display: block; width: 100%; height: 100%; max-height: 15rem; overflow: visible; }
-.evolv-avatar-choice-label { font-size: 1.4rem; font-weight: 700; }
+.evolv-avatar-choice-label { font-size: 1.4rem; font-weight: var(--font-weight-bold); }
 .evolv-avatar-choice-check {
   position: absolute;
   top: 1rem;
@@ -399,7 +399,7 @@
   gap: .45rem;
   min-width: 0;
 }
-.evolv-onboarding-goal-text strong { font-size: 1.4rem; font-weight: 700; }
+.evolv-onboarding-goal-text strong { font-size: 1.4rem; font-weight: var(--font-weight-bold); }
 .evolv-onboarding-goal-text small { color: #92948a; font-size: 1.15rem; line-height: 1.4; }
 .evolv-onboarding-goal-check {
   display: grid;
@@ -453,7 +453,7 @@
 .evolv-onboarding-footer-note {
   color: #777970;
   font-size: 1rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: .15em;
 }
 .evolv-onboarding-footer .evolv-onboarding-continue { margin-top: 0; }
@@ -463,7 +463,7 @@
   border: 0;
   background: transparent;
   color: #a9aaa1;
-  font: inherit; font-size: 1.35rem; font-weight: 600; line-height: 1.4;
+  font: inherit; font-size: 1.35rem; font-weight: var(--font-weight-semibold); line-height: 1.4;
   cursor: pointer;
 }
 .evolv-onboarding-skip:hover { color: #f4f4ed; }
@@ -682,7 +682,7 @@
 .evolv-onboarding-approach-item strong {
   color: #f5f6fb;
   font-size: 1.4rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
 }
 .evolv-onboarding-approach-item small {
   color: #9b9faa;

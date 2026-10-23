@@ -246,15 +246,15 @@ body:has(.dashboard.dashboard-ai-active){
   margin:0;
   font-size:clamp(3.2rem,6vw,5.4rem);
   line-height:1.05;
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
   letter-spacing:-.045em;
   color:#f5f5f5;
 }
 .dashboard.dashboard-ai-active .ai-welcome h3 span{
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
 }
 .dashboard.dashboard-ai-active .ai-welcome h3 strong{
-  font-weight:700;
+  font-weight:var(--font-weight-bold);
   color:#fff;
 }
 @media(max-width:800px){
@@ -430,7 +430,7 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 .dashboard.dashboard-ai-active .ai-page .ai-welcome h3{
   font-family:'Space Grotesk',sans-serif;
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
   letter-spacing:-.06em;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message{
@@ -926,7 +926,7 @@ html:has(.dashboard.dashboard-ai-active) {
   color:#f5f5f2;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   font-size:1.7rem;
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
   line-height:1.78;
   overflow-wrap:anywhere;
 }
@@ -944,7 +944,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3{
   color:#fff;
   font-family:inherit;
-  font-weight:700;
+  font-weight:var(--font-weight-bold);
   letter-spacing:-.025em;
   line-height:1.3;
   white-space:normal;
@@ -963,7 +963,7 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong{
   color:#fff;
-  font-weight:700;
+  font-weight:var(--font-weight-bold);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ul,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ol{
@@ -1515,7 +1515,7 @@ html:has(.dashboard.dashboard-ai-active) {
   border:1px solid rgba(255,255,255,.09);
   cursor:pointer;
   font:inherit;
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
   line-height:normal;
   box-shadow:none;
 }
@@ -1582,12 +1582,12 @@ html:has(.dashboard.dashboard-ai-active) {
   padding:1rem .3rem .2rem;
   color:#f5f5f5;
   font-size:1.3rem;
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
 }
 .ai-image-source a {
   color:#8ab4ff;
   font-size:1.25rem;
-  font-weight:400;
+  font-weight:var(--font-weight-regular);
 }
 @media (max-width:600px) {
   .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card {
@@ -2115,7 +2115,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
   margin: 1.65em 0 .65em;
   color: #fff;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   letter-spacing: -.025em;
 }
@@ -2146,7 +2146,7 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong {
   color: #fff;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote {
@@ -2296,7 +2296,7 @@ html:has(.dashboard.dashboard-ai-active) {
   gap: .8rem;
   color: #a9c8ff;
   font-size: 1.08rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   letter-spacing: .1em;
 }
 .ai-workout-card-eyebrow > span {
@@ -2311,7 +2311,7 @@ html:has(.dashboard.dashboard-ai-active) {
   margin: 1.1rem 0 .4rem;
   color: #fff;
   font-size: 1.9rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -.035em;
 }
 .ai-workout-card-summary {
@@ -2332,7 +2332,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .ai-workout-card-exercise strong {
   color: rgba(255,255,255,.92);
   font-size: 1.4rem;
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
 }
 .ai-workout-card-exercise small {
   color: rgba(255,255,255,.54);
@@ -2357,7 +2357,7 @@ html:has(.dashboard.dashboard-ai-active) {
   background: rgba(37,99,235,.16);
   color: #c5d9ff;
   font-size: 1.35rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
 }
 .ai-workout-card-open:active { background: rgba(37,99,235,.28); }
 

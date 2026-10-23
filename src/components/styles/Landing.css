@@ -670,7 +670,7 @@ body,
   gap: .9rem;
   color: #8b8b8b;
   font-size: 1rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: .14em;
   text-transform: uppercase;
 }
@@ -715,7 +715,7 @@ body,
   left: 4vw;
   bottom: -4.5vw;
   font-size: clamp(12rem, 25vw, 38rem);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   letter-spacing: -.09em;
   line-height: .72;
   color: rgba(255,255,255,.035);
@@ -735,7 +735,7 @@ body,
   color: #a0a0a0;
   font-size: 1.05rem;
   letter-spacing: .12em;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
 }
 .ev-hero-eyebrow i { width: 3.5rem; height: 1px; background: rgba(255,255,255,.28); }
 .ev-hero-title {
@@ -744,7 +744,7 @@ body,
   font-size: clamp(6.4rem, 10.7vw, 16.5rem);
   line-height: .82;
   letter-spacing: -.075em;
-  font-weight: 680;
+  font-weight: var(--font-weight-semibold);
 }
 .ev-hero-title-line {
   display: block;
@@ -771,7 +771,7 @@ body,
   cursor: pointer;
   transition: transform .35s ease, background .35s ease, border-color .35s ease;
   font-size: 1.35rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   border: 1px solid transparent;
 }
 .ev-btn:hover { transform: translateY(-3px); }
@@ -826,11 +826,11 @@ body,
   align-items: baseline;
   letter-spacing: -.08em;
 }
-.ev-stage-score strong { font-size: clamp(8rem, 10vw, 13rem); line-height: .8; font-weight: 600; }
+.ev-stage-score strong { font-size: clamp(8rem, 10vw, 13rem); line-height: .8; font-weight: var(--font-weight-semibold); }
 .ev-stage-score span { font-size: 2.6rem; color: #888; }
 .ev-stage-copy { flex: 1; }
 .ev-stage-copy > span, .ev-stage-copy small { display: block; color: #777; font-size: 1rem; letter-spacing: .12em; }
-.ev-stage-copy b { display: block; margin: .8rem 0 2rem; font-size: 1.6rem; font-weight: 500; }
+.ev-stage-copy b { display: block; margin: .8rem 0 2rem; font-size: 1.6rem; font-weight: var(--font-weight-medium); }
 .ev-stage-copy i { display: block; height: 2px; background: #292929; }
 .ev-stage-copy i u { display: block; width: 72%; height: 100%; background: #eee; text-decoration: none; }
 .ev-stage-copy small { margin-top: 1rem; letter-spacing: .04em; }
@@ -859,7 +859,7 @@ body,
 }
 .ev-marquee-track { display: flex; width: max-content; animation: evMarquee 28s linear infinite; }
 .ev-marquee-content { display: flex; align-items: center; gap: 2.5rem; padding-right: 2.5rem; }
-.ev-marquee span { font-size: 1.15rem; font-weight: 650; letter-spacing: .13em; }
+.ev-marquee span { font-size: 1.15rem; font-weight: var(--font-weight-semibold); letter-spacing: .13em; }
 .ev-marquee i { color: #777; font-style: normal; }
 @keyframes evMarquee { to { transform: translateX(-50%); } }
 
@@ -881,7 +881,7 @@ body,
   font-size: clamp(4.8rem, 7vw, 10rem);
   line-height: .9;
   letter-spacing: -.07em;
-  font-weight: 620;
+  font-weight: var(--font-weight-semibold);
 }
 .ev-statement-copy p, .ev-section-head > p, .ev-experience-copy p {
   max-width: 50rem;
@@ -903,7 +903,7 @@ body,
   font-size: clamp(2.8rem, 5.2vw, 7.5rem);
   letter-spacing: -.065em;
 }
-.ev-band strong { font-weight: 650; }
+.ev-band strong { font-weight: var(--font-weight-semibold); }
 .ev-band span { color: #777; }
 .ev-band i { font-style: normal; color: #777; }
 
@@ -990,7 +990,7 @@ body,
   border-bottom: 1px solid #222;
 }
 .ev-device-list span, .ev-device-list i { color: #555; font-size: .95rem; font-style: normal; }
-.ev-device-list b { font-size: 1.25rem; font-weight: 500; }
+.ev-device-list b { font-size: 1.25rem; font-weight: var(--font-weight-medium); }
 
 .ev-areas { padding: 13rem 0; }
 .ev-service-list { border-top: 1px solid #292929; }
@@ -1011,7 +1011,7 @@ body,
 }
 .ev-service-row:hover { padding-left: 1.5rem; color: #fff; }
 .ev-service-row > span { color: #555; font-size: 1rem; letter-spacing: .12em; }
-.ev-service-row strong { font-size: clamp(2.2rem, 3.2vw, 4.5rem); letter-spacing: -.05em; font-weight: 550; }
+.ev-service-row strong { font-size: clamp(2.2rem, 3.2vw, 4.5rem); letter-spacing: -.05em; font-weight: var(--font-weight-medium); }
 .ev-service-row small { color: #737373; font-size: 1.3rem; }
 .ev-service-row svg { justify-self: end; color: #666; }
 
@@ -1028,19 +1028,19 @@ body,
   right: -2vw;
   bottom: -3vw;
   font-size: clamp(10rem, 23vw, 35rem);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   letter-spacing: -.1em;
   line-height: .7;
   color: rgba(0,0,0,.045);
 }
 .ev-stats .ev-label { color: #777; position: relative; z-index: 1; }
-.ev-stats h2 { position: relative; z-index: 1; margin: 2rem 0 8rem; font-size: clamp(4.5rem, 7vw, 10rem); line-height: .9; letter-spacing: -.07em; font-weight: 620; }
+.ev-stats h2 { position: relative; z-index: 1; margin: 2rem 0 8rem; font-size: clamp(4.5rem, 7vw, 10rem); line-height: .9; letter-spacing: -.07em; font-weight: var(--font-weight-semibold); }
 .ev-stats h2 em { color: #888; }
 .ev-stat-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #c8c8c2; }
 .ev-stat-grid > div { padding: 4rem 2rem 1rem 0; border-right: 1px solid #c8c8c2; }
 .ev-stat-grid > div:not(:first-child) { padding-left: 2rem; }
 .ev-stat-grid > div:last-child { border-right: 0; }
-.ev-stat-grid strong { display: block; font-size: clamp(6rem, 9vw, 13rem); line-height: .8; letter-spacing: -.08em; font-weight: 550; }
+.ev-stat-grid strong { display: block; font-size: clamp(6rem, 9vw, 13rem); line-height: .8; letter-spacing: -.08em; font-weight: var(--font-weight-medium); }
 .ev-stat-grid span { display: block; margin-top: 2rem; color: #777; font-size: 1rem; letter-spacing: .13em; }
 
 .ev-faq { padding: 13rem 0; display: grid; grid-template-columns: .65fr 1.35fr; gap: 10rem; }
@@ -1068,12 +1068,12 @@ body,
   right: -3vw;
   top: 10%;
   font-size: clamp(13rem, 30vw, 44rem);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   line-height: .7;
   letter-spacing: -.1em;
   color: rgba(255,255,255,.025);
 }
-.ev-final h2 { position: relative; z-index: 1; margin: 2rem 0 4rem; max-width: 105rem; font-size: clamp(5.5rem, 9vw, 14rem); line-height: .82; letter-spacing: -.08em; font-weight: 620; }
+.ev-final h2 { position: relative; z-index: 1; margin: 2rem 0 4rem; max-width: 105rem; font-size: clamp(5.5rem, 9vw, 14rem); line-height: .82; letter-spacing: -.08em; font-weight: var(--font-weight-semibold); }
 .ev-final .ev-btn { position: relative; z-index: 1; }
 
 @media (max-width: 1050px) {
@@ -1207,7 +1207,7 @@ body,
   position:absolute!important;z-index:-1!important;
   right:-.03em!important;bottom:-.19em!important;left:auto!important;top:auto!important;
   font-size:clamp(170px,27vw,430px)!important;line-height:.78!important;
-  letter-spacing:-.105em!important;font-weight:700!important;
+  letter-spacing:-.105em!important;font-weight:var(--font-weight-bold)!important;
   color:rgba(255,255,255,.035)!important;
   white-space:nowrap!important;pointer-events:none;
 }
@@ -1220,7 +1220,7 @@ body,
   padding:10px 13px!important;border:1px solid rgba(255,255,255,.14);
   border-radius:999px;background:rgba(255,255,255,.035);
   color:rgba(244,244,239,.67)!important;font-size:11px!important;
-  letter-spacing:.12em!important;font-weight:500!important;
+  letter-spacing:.12em!important;font-weight:var(--font-weight-medium)!important;
 }
 .landing-v2 .ev-hero-eyebrow i{
   width:6px!important;height:6px!important;border-radius:50%;
@@ -1229,7 +1229,7 @@ body,
 .landing-v2 .ev-hero-title{
   max-width:900px!important;margin:32px 0 25px!important;
   font-size:clamp(64px,9.2vw,132px)!important;line-height:.88!important;
-  letter-spacing:-.085em!important;font-weight:500!important;
+  letter-spacing:-.085em!important;font-weight:var(--font-weight-medium)!important;
 }
 .landing-v2 .ev-hero-title-line{display:block!important;white-space:normal}
 .landing-v2 .ev-hero-title em{
@@ -1243,7 +1243,7 @@ body,
 .landing-v2 .ev-hero-actions{display:flex;flex-wrap:wrap;gap:10px!important;margin-top:30px!important}
 .landing-v2 .ev-btn{
   min-height:52px!important;padding:0 20px!important;border-radius:999px!important;
-  font-size:13px!important;font-weight:600!important;letter-spacing:-.01em;
+  font-size:13px!important;font-weight:var(--font-weight-semibold)!important;letter-spacing:-.01em;
   transition:transform .35s cubic-bezier(.2,.8,.2,1),background .25s ease,border-color .25s ease!important;
 }
 .landing-v2 .ev-btn:hover{transform:translateY(-3px)}
@@ -1299,12 +1299,12 @@ body,
 .landing-v2 .ev-section-index{color:var(--ev-accent)!important;font:11px 'DM Mono',monospace!important;padding-top:14px}
 .landing-v2 .ev-label{
   color:rgba(244,244,239,.45)!important;font-size:10px!important;
-  letter-spacing:.15em!important;font-weight:500!important;
+  letter-spacing:.15em!important;font-weight:var(--font-weight-medium)!important;
 }
 .landing-v2 .ev-statement-copy h2,.landing-v2 .ev-section-head h2,
 .landing-v2 .ev-experience-copy h2,.landing-v2 .ev-areas h2,.landing-v2 .ev-faq h2{
   font-size:clamp(44px,6.5vw,88px)!important;line-height:.98!important;
-  letter-spacing:-.075em!important;font-weight:500!important;margin:25px 0!important;
+  letter-spacing:-.075em!important;font-weight:var(--font-weight-medium)!important;margin:25px 0!important;
 }
 .landing-v2 .ev-statement-copy h2 em,.landing-v2 .ev-section-head h2 em,
 .landing-v2 .ev-experience-copy h2 em,.landing-v2 .ev-areas h2 em,.landing-v2 .ev-faq h2 em{
@@ -1321,7 +1321,7 @@ body,
   background:#0e0f0e!important;color:rgba(244,244,239,.32)!important;
   font-size:clamp(16px,2vw,25px)!important;letter-spacing:-.04em;
 }
-.landing-v2 .ev-band strong{font-weight:500!important;color:#f4f4ef!important}
+.landing-v2 .ev-band strong{font-weight:var(--font-weight-medium)!important;color:#f4f4ef!important}
 .landing-v2 .ev-band strong:nth-of-type(1){color:var(--ev-accent)!important}
 .landing-v2 .ev-band i{font-style:normal;color:rgba(244,244,239,.3)!important}
 .landing-v2 .ev-system,.landing-v2 .ev-areas{padding-top:clamp(100px,12vw,160px)!important}
@@ -1341,7 +1341,7 @@ body,
 .landing-v2 .ev-system-card:hover{transform:translateY(-5px)!important;border-color:color-mix(in srgb, var(--color-accent-blue) 34%, transparent)!important;background:linear-gradient(145deg,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),rgba(255,255,255,.012))!important}
 .landing-v2 .ev-card-num{color:rgba(244,244,239,.35)!important;font:10px 'DM Mono',monospace!important;margin-bottom:38px!important}
 .landing-v2 .ev-system-card>svg{color:var(--ev-accent)!important;margin-bottom:20px!important}
-.landing-v2 .ev-system-card h3{font-size:clamp(24px,3vw,34px)!important;letter-spacing:-.05em!important;font-weight:500!important;margin:0 0 10px!important}
+.landing-v2 .ev-system-card h3{font-size:clamp(24px,3vw,34px)!important;letter-spacing:-.05em!important;font-weight:var(--font-weight-medium)!important;margin:0 0 10px!important}
 .landing-v2 .ev-system-card p{max-width:310px!important;color:var(--ev-copy)!important;font-size:13px!important;line-height:1.75!important}
 .landing-v2 .ev-card-arrow{position:absolute!important;right:24px!important;top:24px!important;color:rgba(244,244,239,.55)!important}
 .landing-v2 .ev-experience{
@@ -1373,7 +1373,7 @@ body,
 }
 .landing-v2 .ev-service-row:hover{padding-left:26px!important;background:rgba(255,255,255,.045)!important}
 .landing-v2 .ev-service-row>span{color:rgba(244,244,239,.36)!important;font:10px 'DM Mono',monospace!important}
-.landing-v2 .ev-service-row strong{font-size:clamp(21px,2.6vw,32px)!important;font-weight:500!important;letter-spacing:-.045em!important}
+.landing-v2 .ev-service-row strong{font-size:clamp(21px,2.6vw,32px)!important;font-weight:var(--font-weight-medium)!important;letter-spacing:-.045em!important}
 .landing-v2 .ev-service-row small{color:var(--ev-copy)!important;font-size:12px!important;text-align:left!important}
 .landing-v2 .ev-service-row svg{color:var(--ev-accent)!important}
 .landing-v2 .ev-stats{
@@ -1510,7 +1510,7 @@ body,
   font-size: clamp(6.4rem, 9vw, 12rem) !important;
   line-height: .91 !important;
   letter-spacing: -.082em !important;
-  font-weight: 500 !important;
+  font-weight: var(--font-weight-medium) !important;
 }
 .landing-v2 .ev-hero-copy {
   max-width: 470px !important;
@@ -1586,7 +1586,7 @@ body,
   display: block !important;
   color: var(--ev-ink) !important;
   font-size: clamp(2rem, 2.2vw, 2.7rem) !important;
-  font-weight: 500 !important;
+  font-weight: var(--font-weight-medium) !important;
   letter-spacing: -.055em !important;
   line-height: 1.15 !important;
 }
@@ -1618,7 +1618,7 @@ body,
 .landing-v2 .ev-device-top,
 .landing-v2 .ev-device-bottom { font-size: 1rem !important; letter-spacing: .12em !important; }
 .landing-v2 .ev-device-list > div { min-height: 5.5rem !important; gap: 1.4rem !important; }
-.landing-v2 .ev-device-list > div b { font-size: 1.35rem !important; font-weight: 500 !important; }
+.landing-v2 .ev-device-list > div b { font-size: 1.35rem !important; font-weight: var(--font-weight-medium) !important; }
 .landing-v2 .ev-device-list > div span,
 .landing-v2 .ev-device-list > div i { font-size: 1rem !important; }
 .landing-v2 .ev-service-list { border-top: 1px solid var(--ev-border) !important; }
@@ -2049,7 +2049,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 }
 .landing-v2 .ev-device-brand {
   color: rgba(244,244,239,.9);
-  font-weight: 600;
+  font-weight: var(--font-weight-semibold);
   white-space: nowrap;
 }
 .landing-v2 .ev-device-brand i {
@@ -2095,7 +2095,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .ev-device-kicker {
   color: rgba(244,244,239,.48);
   font-size: 9px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: .13em;
   line-height: 1.4;
 }
@@ -2108,7 +2108,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .ev-device-progress-value strong {
   color: #f4f4ef;
   font-size: clamp(54px, 6vw, 76px);
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: .88;
   letter-spacing: -.09em;
 }
@@ -2185,14 +2185,14 @@ html body #root .landing{background:#000!important;background-color:#000!importa
   min-width: 0;
   color: #f4f4ef !important;
   font-size: clamp(11px, 1.15vw, 13px) !important;
-  font-weight: 450 !important;
+  font-weight: var(--font-weight-regular) !important;
   line-height: 1.4;
 }
 .landing-v2 .ev-device-list > div i {
   color: rgba(244,244,239,.42) !important;
   font-size: 8px !important;
   font-style: normal;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: .08em;
   white-space: nowrap;
 }
@@ -2215,7 +2215,7 @@ html body #root .landing{background:#000!important;background-color:#000!importa
 .landing-v2 .ev-device-change strong {
   color: #91bbff;
   font-size: 18px;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: -.04em;
 }
 .landing-v2 .ev-device-change > span {

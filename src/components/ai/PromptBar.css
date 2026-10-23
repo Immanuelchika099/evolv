@@ -58,7 +58,7 @@
   text-align:left; cursor:pointer; outline:none; -webkit-tap-highlight-color:transparent;
 }
 .prompt-bar__row-icon { display:inline-flex; flex:none; justify-content:center; width:20px; color:color-mix(in srgb,var(--pb-ink) 70%,transparent); }
-.prompt-bar__row-name { flex:none; font-size:13px; font-weight:500; }
+.prompt-bar__row-name { flex:none; font-size:13px; font-weight:var(--font-weight-medium); }
 .prompt-bar__row-desc { flex:1 1 auto; min-width:0; overflow:hidden; color:var(--pb-muted); font-size:12px; white-space:nowrap; text-overflow:ellipsis; }
 .prompt-bar__row-tag { flex:none; margin-left:auto; color:var(--pb-muted); font-size:11px; }
 .prompt-bar__row-check { display:inline-flex; flex:none; justify-content:center; width:16px; opacity:0; }
@@ -104,7 +104,7 @@
 .prompt-bar__tool,.prompt-bar__pick,.prompt-bar__send { flex:none; border:0; font:inherit; cursor:pointer; outline:none; user-select:none; -webkit-user-select:none; -webkit-tap-highlight-color:transparent; touch-action:manipulation; }
 .prompt-bar__tool { display:inline-grid; place-items:center; width:28px; height:28px; padding:0; border-radius:8px; background:transparent; color:color-mix(in srgb,var(--pb-ink) 60%,transparent); transition:background-color 150ms ease,color 150ms ease,transform 160ms var(--pb-ease-out); }
 .prompt-bar__tool:active { transform:scale(.94); }
-.prompt-bar__pick { display:inline-flex; align-items:center; gap:4px; height:28px; padding:0 8px; border-radius:8px; background:transparent; color:color-mix(in srgb,var(--pb-ink) 70%,transparent); font-size:12px; font-weight:500; transition:background-color 150ms ease,color 150ms ease; }
+.prompt-bar__pick { display:inline-flex; align-items:center; gap:4px; height:28px; padding:0 8px; border-radius:8px; background:transparent; color:color-mix(in srgb,var(--pb-ink) 70%,transparent); font-size:12px; font-weight:var(--font-weight-medium); transition:background-color 150ms ease,color 150ms ease; }
 .prompt-bar__tool[data-on],.prompt-bar__pick[data-on] { background:var(--pb-hover); color:var(--pb-ink); }
 @media (hover:hover) and (pointer:fine) { .prompt-bar__tool:hover,.prompt-bar__pick:hover { background:var(--pb-hover); color:var(--pb-ink); } }
 .prompt-bar__pick[data-max] { color:#fff; }
@@ -112,7 +112,7 @@
 .prompt-bar__menu[data-kind='effort'] { right:auto; left:-12px; width:248px; padding:12px 14px 14px; transform-origin:bottom left; }
 .prompt-bar__effort-head { display:flex; align-items:center; gap:8px; font-size:13px; line-height:18px; }
 .prompt-bar__effort-title { color:var(--pb-muted); }
-.prompt-bar__effort-level { font-weight:500; }
+.prompt-bar__effort-level { font-weight:var(--font-weight-medium); }
 .prompt-bar__effort-help { display:inline-flex; margin-left:auto; color:var(--pb-muted); }
 .prompt-bar__effort-ends { display:flex; justify-content:space-between; margin-top:12px; color:var(--pb-muted); font-size:12px; line-height:16px; }
 

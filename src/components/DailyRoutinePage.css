@@ -1,15 +1,15 @@
 /* Daily Routine — restrained black canvas, clear hierarchy, lime reserved for progress and actions. */
 .daily-routine-page { width: 100%; max-width: 104rem; margin: 0 auto; padding: 1.2rem clamp(1.8rem, 4vw, 4.2rem) 3.6rem; color: #f3f3ef; box-sizing: border-box; }
 .routine-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin:0 0 2.6rem; }
-.routine-eyebrow,.routine-label { display:block; color:#999b94; font-size:1.1rem; font-weight:650; letter-spacing:.13em; }
-.routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:600; }
+.routine-eyebrow,.routine-label { display:block; color:#999b94; font-size:1.1rem; font-weight:var(--font-weight-semibold); letter-spacing:.13em; }
+.routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:var(--font-weight-semibold); }
 .routine-heading h1 span { color:#2563eb; }
 .routine-heading p,.routine-section-heading p { margin:0; color:#a0a19b; font-size:1.45rem; line-height:1.65; }
 .routine-date { padding:.9rem 1.2rem; border:1px solid #292a2e; border-radius:999px; color:#d5d6ce; font-size:1.2rem; white-space:nowrap; }
 .routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid #292a2e; border-radius:1.8rem; background:linear-gradient(120deg,#101114,#08090b 75%); }
 .routine-progress-top { display:flex; align-items:center; justify-content:space-between; gap:1.4rem; }
-.routine-progress-top h2 { margin:.8rem 0 0; font-size:2rem; font-weight:550; letter-spacing:-.035em; }
-.routine-progress-top>strong { font-size:2.8rem; font-weight:600; letter-spacing:-.05em; color:#2563eb; }
+.routine-progress-top h2 { margin:.8rem 0 0; font-size:2rem; font-weight:var(--font-weight-medium); letter-spacing:-.035em; }
+.routine-progress-top>strong { font-size:2.8rem; font-weight:var(--font-weight-semibold); letter-spacing:-.05em; color:#2563eb; }
 .routine-progress-track { height:.6rem; margin:1.8rem 0 1.2rem; overflow:hidden; border-radius:99px; background:#292a25; }
 .routine-progress-track span { display:block; height:100%; border-radius:inherit; background:#2563eb; transition:width .25s ease; }
 .routine-progress-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; color:#9b9d96; font-size:1.2rem; }
@@ -18,16 +18,16 @@
 .routine-insight-card { min-width:0; padding:2rem; border:1px solid #282a30; border-radius:1.6rem; background:#0b0c0a; }
 .routine-insight-icon { display:grid; place-items:center; width:3.8rem; height:3.8rem; margin-bottom:1.8rem; border:1px solid rgba(37, 99, 235,.24); border-radius:1.1rem; color:#2563eb; }
 .routine-insight-icon.meal-icon { color:#e5d2a1; border-color:#383329; }
-.routine-insight-card>strong { display:block; margin:.9rem 0 .4rem; font-size:2.8rem; font-weight:600; letter-spacing:-.05em; }
-.routine-insight-card>strong small { color:#a0a19b; font-size:1.35rem; font-weight:450; letter-spacing:0; }
+.routine-insight-card>strong { display:block; margin:.9rem 0 .4rem; font-size:2.8rem; font-weight:var(--font-weight-semibold); letter-spacing:-.05em; }
+.routine-insight-card>strong small { color:#a0a19b; font-size:1.35rem; font-weight:var(--font-weight-regular); letter-spacing:0; }
 .routine-insight-card>p { min-height:3.6rem; margin:0 0 1.5rem; color:#999b94; font-size:1.3rem; line-height:1.55; }
-.routine-insight-card>button { padding:0; font-size:1.25rem; font-weight:550; }
+.routine-insight-card>button { padding:0; font-size:1.25rem; font-weight:var(--font-weight-medium); }
 .routine-section-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:1.5rem; margin-bottom:1.5rem; }
-.routine-section-heading h2 { margin:.7rem 0 .5rem; font-size:2.5rem; font-weight:550; letter-spacing:-.05em; }
+.routine-section-heading h2 { margin:.7rem 0 .5rem; font-size:2.5rem; font-weight:var(--font-weight-medium); letter-spacing:-.05em; }
 .routine-saved-state { display:inline-flex; align-items:center; gap:.4rem; color:#9b9d96; font-size:1.1rem; white-space:nowrap; }
 .routine-schedule-list { display:grid; grid-template-columns:1fr; gap:1.4rem; }
 .routine-group { padding:1.6rem; border:1px solid #252622; border-radius:1.5rem; background:#08090b; }
-.routine-group>h3 { margin:0 0 .7rem; padding:0 .2rem .8rem; color:#92948d; font-size:1.15rem; font-weight:650; letter-spacing:.1em; text-transform:uppercase; }
+.routine-group>h3 { margin:0 0 .7rem; padding:0 .2rem .8rem; color:#92948d; font-size:1.15rem; font-weight:var(--font-weight-semibold); letter-spacing:.1em; text-transform:uppercase; }
 .routine-row { display:flex; align-items:center; gap:1.2rem; min-height:7rem; padding:1rem .2rem; border-top:1px solid #1f201d; transition:opacity .2s ease; }
 .routine-row-disabled { opacity:.48; }
 .routine-row-complete .routine-row-copy strong { color:#aeb0a8; text-decoration:line-through; text-decoration-color:#77796f; }
@@ -35,7 +35,7 @@
 .routine-row-complete .routine-check { border-color:#2563eb; background:#2563eb; }
 .routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:#151612; color:#2563eb; }
 .routine-row-copy { display:flex; flex:1 1 auto; flex-direction:column; gap:.45rem; min-width:0; }
-.routine-row-copy strong { font-size:1.45rem; font-weight:550; }
+.routine-row-copy strong { font-size:1.45rem; font-weight:var(--font-weight-medium); }
 .routine-row-copy small { color:#8e9088; font-size:1.15rem; line-height:1.4; }
 .routine-time input { width:10.5rem; padding:.8rem .7rem; color:#e9eae3; color-scheme:dark; border:1px solid #2e3029; border-radius:.8rem; background:#101114; font:inherit; font-size:1.2rem; }
 .routine-toggle { flex:0 0 4.1rem; width:4.1rem; height:2.4rem; padding:.25rem; border:1px solid #41423b; border-radius:99px; background:#20211d; cursor:pointer; }
@@ -44,12 +44,12 @@
 .routine-toggle.is-on span { transform:translateX(1.55rem); background:#2563eb; }
 .routine-next-step { display:flex; align-items:center; gap:1.5rem; margin-top:1.6rem; padding:1.8rem; border:1px solid #282a30; border-radius:1.4rem; background:#0b0c0a; }
 .routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:#181a13; color:#2563eb; }
-.routine-next-step h2 { margin:.6rem 0 .35rem; font-size:1.8rem; font-weight:550; }
+.routine-next-step h2 { margin:.6rem 0 .35rem; font-size:1.8rem; font-weight:var(--font-weight-medium); }
 .routine-next-step p { margin:0; color:#999b94; font-size:1.25rem; line-height:1.55; }
 .routine-reminder-note { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.7rem; border:1px solid #272823; border-radius:1.4rem; }
 .routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:#151612; color:#2563eb; }
 .routine-reminder-note>div:nth-child(2) { flex:1; min-width:0; }
-.routine-reminder-note strong { font-size:1.3rem; font-weight:550; }
+.routine-reminder-note strong { font-size:1.3rem; font-weight:var(--font-weight-medium); }
 .routine-reminder-note p { margin:.5rem 0 0; color:#92948d; font-size:1.15rem; line-height:1.55; }
 .routine-reminder-note>button { flex:0 0 auto; font-size:1.15rem; }
 @media(max-width:700px) {
@@ -107,7 +107,7 @@
 .routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid #272823; border-radius:1.4rem; background:#0b0c0a; }
 .routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:#151612; color:#2563eb; }
 .routine-reminder-control>div { display:flex; flex:1; min-width:0; flex-direction:column; gap:.35rem; }
-.routine-reminder-control strong { font-size:1.45rem; font-weight:600; }
+.routine-reminder-control strong { font-size:1.45rem; font-weight:var(--font-weight-semibold); }
 .routine-reminder-control small { color:#999b94; font-size:1.25rem; }
 .routine-reminder-control .routine-toggle { flex:0 0 4.1rem; }
 .routine-reminder-note { padding:1.5rem 1.7rem; }
@@ -298,7 +298,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
 .daily-routine-page .routine-coach-heading h2 {
   margin: .7rem 0 .5rem;
   font-size: 2.5rem;
-  font-weight: 550;
+  font-weight: var(--font-weight-medium);
   letter-spacing: -.05em;
 }
 .daily-routine-page .routine-coach-heading p {
@@ -397,7 +397,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   align-self: flex-start;
   color: #d1d3db;
   font-size: 1.15rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__dots {
   bottom: -.05rem !important;
@@ -595,7 +595,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   background: #101114;
   color: #9296a2;
   font-size: 1.15rem;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   line-height: 1;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
