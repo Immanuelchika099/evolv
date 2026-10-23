@@ -50,7 +50,7 @@
 }
 .pwa-install-step-number {
   flex: 0 0 auto;
-  color: #202939;
+  color: #202020;
   font-weight: var(--font-weight-semibold);
 }
 .pwa-install-step-content {
