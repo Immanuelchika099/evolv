@@ -1437,7 +1437,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .ai-response-content a:not(.ai-image-card) {
   color: var(--color-accent-blue);
   text-decoration: underline;
-  text-decoration-color: rgba(138,180,255,.45);
+  text-decoration-color: color-mix(in srgb, var(--color-accent-blue) 45%, transparent);
   text-underline-offset: .2em;
   overflow-wrap: anywhere;
 }
@@ -1639,7 +1639,7 @@ html:has(.dashboard.dashboard-ai-active) {
   width: 100%; max-width: 100%; padding: 1.2rem .2rem 0;
   color: rgba(255,255,255,.82); font-size: 1.25rem; line-height: 1.4;
 }
-.ai-image-source a { flex: 0 0 auto; color: #9cc2ff; text-decoration: none; }
+.ai-image-source a { flex: 0 0 auto; color: var(--color-accent-blue); text-decoration: none; }
 @media (max-width: 600px) {
   .ai-image-lightbox { padding: 1.2rem; }
   .ai-image-lightbox-panel { max-height: 82dvh; }
@@ -2163,7 +2163,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content a {
   color: var(--color-accent-blue);
   text-decoration: underline;
-  text-decoration-color: rgba(138,180,255,.45);
+  text-decoration-color: color-mix(in srgb, var(--color-accent-blue) 45%, transparent);
   text-underline-offset: .2em;
 }
 
@@ -2263,10 +2263,10 @@ html:has(.dashboard.dashboard-ai-active) {
   margin: 0 !important;
   padding: 1rem 1.35rem !important;
   box-sizing: border-box !important;
-  border: 1px solid #133362 !important;
+  border: 1px solid #9E3D1C !important;
   border-radius: 1.8rem !important;
-  background: #133362 !important;
-  background-color: #133362 !important;
+  background: #9E3D1C !important;
+  background-color: #9E3D1C !important;
   color: #ffffff !important;
 }
 
@@ -2294,7 +2294,7 @@ html:has(.dashboard.dashboard-ai-active) {
   display: flex;
   align-items: center;
   gap: .8rem;
-  color: #a9c8ff;
+  color: var(--color-accent-blue);
   font-size: 1.08rem;
   font-weight: var(--font-weight-bold);
   letter-spacing: .1em;
@@ -2355,7 +2355,7 @@ html:has(.dashboard.dashboard-ai-active) {
   border: 1px solid color-mix(in srgb, var(--color-accent-blue) 25%, transparent);
   border-radius: 1.1rem;
   background: color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
-  color: #c5d9ff;
+  color: var(--color-accent-blue);
   font-size: 1.35rem;
   font-weight: var(--font-weight-semibold);
 }

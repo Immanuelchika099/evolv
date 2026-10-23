@@ -826,8 +826,8 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
         <div className="auth-provider-stack">
           <button className="auth-provider-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
             <svg className="auth-provider-icon auth-google-icon" viewBox="0 0 48 48" aria-hidden="true" focusable="false">
-              <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2l6.6 5.1c3.9-3.6 6.1-8.9 6.1-15Z"/>
-              <path fill="#39317e" d="M24 44c5.5 0 10.1-1.8 13.5-4.9l-6.6-5.1c-1.8 1.2-4.1 1.9-6.9 1.9-5.3 0-9.8-3.6-11.4-8.4l-6.8 5.2C7.3 39.4 15.1 44 24 44Z"/>
+              <path fill="#FFFFFF" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2l6.6 5.1c3.9-3.6 6.1-8.9 6.1-15Z"/>
+              <path fill="#FFFFFF" d="M24 44c5.5 0 10.1-1.8 13.5-4.9l-6.6-5.1c-1.8 1.2-4.1 1.9-6.9 1.9-5.3 0-9.8-3.6-11.4-8.4l-6.8 5.2C7.3 39.4 15.1 44 24 44Z"/>
               <path fill="#FBBC05" d="M12.6 27.5a12 12 0 0 1 0-7l-6.8-5.2a20.1 20.1 0 0 0 0 27.4l6.8-5.2a12 12 0 0 1 0-10Z"/>
               <path fill="#EA4335" d="M24 12.1c3 0 5.7 1 7.8 3.1l5.8-5.8C34.1 6.1 29.5 4 24 4 15.1 4 7.3 8.6 3.9 15.3l6.8 5.2c1.6-4.8 6.1-8.4 13.3-8.4Z"/>
             </svg>

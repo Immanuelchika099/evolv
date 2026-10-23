@@ -87,7 +87,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   background:
     radial-gradient(ellipse 70% 55% at 78% 0%, color-mix(in srgb, var(--color-accent-blue) 12%, transparent), transparent 62%),
     radial-gradient(ellipse 58% 48% at 5% 32%, color-mix(in srgb, var(--color-accent-blue) 10%, transparent), transparent 64%),
-    radial-gradient(ellipse 65% 52% at 58% 92%, rgba(28, 24, 54,.09), transparent 66%),
+    radial-gradient(ellipse 65% 52% at 58% 92%, rgba(16, 16, 16,.09), transparent 66%),
     linear-gradient(135deg,#030404 0%,#000000 42%,#000000 72%,#000000 100%);
 }
 .dashboard::before{
@@ -117,7 +117,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .notification-button{
   border-color:color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
   background:color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
-  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--color-accent-blue) 7%, transparent),0 12px 35px rgba(28, 24, 54,.2);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--color-accent-blue) 7%, transparent),0 12px 35px rgba(16, 16, 16,.2);
 }
 
 .dashboard .state-ring{
@@ -130,7 +130,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 
 .dashboard .state-ring-track::after{
-  background:radial-gradient(circle at 35% 25%,color-mix(in srgb, var(--color-accent-blue) 10%, transparent),rgba(28, 24, 54,.95) 66%);
+  background:radial-gradient(circle at 35% 25%,color-mix(in srgb, var(--color-accent-blue) 10%, transparent),rgba(16, 16, 16,.95) 66%);
   border-color:color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
 }
 
@@ -143,7 +143,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
   background:
     linear-gradient(120deg,rgba(255,255,255,.035),rgba(255,255,255,.012)),
-    rgba(28, 24, 54,.54);
+    rgba(16, 16, 16,.54);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 14px 38px rgba(0,0,0,.22);
 }
 
@@ -187,7 +187,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   padding:0 18px;
   border:1px solid color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
   border-radius:14px;
-  background:rgba(28, 24, 54,.52);
+  background:rgba(16, 16, 16,.52);
   color:color-mix(in srgb, var(--color-accent-blue) 78%, transparent);
   font:inherit;
   font-size:13px;
@@ -403,7 +403,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .state-ring-track::after{
   inset:7px;
-  background:radial-gradient(circle at 34% 20%,rgba(255,255,255,.08),transparent 32%),linear-gradient(145deg,rgba(28, 24, 54,.88),rgba(28, 24, 54,.97));
+  background:radial-gradient(circle at 34% 20%,rgba(255,255,255,.08),transparent 32%),linear-gradient(145deg,rgba(16, 16, 16,.88),rgba(16, 16, 16,.97));
   border-color:rgba(255,255,255,.075);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.06);
 }
@@ -424,7 +424,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task{
   min-height:78px;padding:17px 20px;gap:15px;border-radius:40px;
   border-color:color-mix(in srgb, var(--color-accent-blue) 14%, transparent);
-  background:linear-gradient(135deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),rgba(28, 24, 54,.48);
+  background:linear-gradient(135deg,rgba(255,255,255,.065),rgba(255,255,255,.018)),rgba(16, 16, 16,.48);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.075),inset 0 -1px 0 rgba(0,0,0,.20),0 16px 42px rgba(0,0,0,.22);
   backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);
   transition:transform .22s ease,border-color .22s ease,background .22s ease,box-shadow .22s ease;
@@ -433,7 +433,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .glass-task::before{background:linear-gradient(115deg,rgba(255,255,255,.075),transparent 35%);opacity:.72}
 .dashboard .glass-task:hover{
   transform:translateY(-1px);border-color:color-mix(in srgb, var(--color-accent-blue) 21%, transparent);
-  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.022)),rgba(28, 24, 54,.50);
+  background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.022)),rgba(16, 16, 16,.50);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.085),0 18px 44px rgba(0,0,0,.25);
 }
 .dashboard .task-check{
@@ -797,7 +797,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   isolation:isolate;
   background:
     radial-gradient(900px 520px at 76% -8%, color-mix(in srgb, var(--color-accent-blue) 8.5%, transparent), transparent 62%),
-    radial-gradient(720px 560px at 12% 38%, rgba(28, 24, 54,.055), transparent 68%),
+    radial-gradient(720px 560px at 12% 38%, rgba(16, 16, 16,.055), transparent 68%),
     linear-gradient(180deg,#000000 0%,#000000 48%,#000000 100%) !important;
 }
 .dashboard::before{
@@ -808,7 +808,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   z-index:-1;
   background:
     radial-gradient(500px 340px at 62% 18%, color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent), transparent 72%),
-    radial-gradient(760px 520px at 100% 70%, rgba(28, 24, 54,.12), transparent 70%);
+    radial-gradient(760px 520px at 100% 70%, rgba(16, 16, 16,.12), transparent 70%);
   opacity:1;
 }
 .dashboard::after{
@@ -855,7 +855,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent);
   background:
     linear-gradient(120deg,rgba(255,255,255,.052),rgba(255,255,255,.018)),
-    rgba(28, 24, 54,.72);
+    rgba(16, 16, 16,.72);
   box-shadow:0 18px 50px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.025);
   backdrop-filter:blur(18px);
 }
@@ -863,7 +863,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border-color:color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
   background:
     linear-gradient(120deg,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),rgba(255,255,255,.02)),
-    rgba(28, 24, 54,.78);
+    rgba(16, 16, 16,.78);
   transform:translateY(-2px);
 }
 .dashboard .glass-task .task-check{
@@ -1366,7 +1366,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   margin:0 !important;
   padding:18px 20px !important;
   border-top:1px solid rgba(255,255,255,.055) !important;
-  background:rgba(28, 24, 54,.38) !important;
+  background:rgba(16, 16, 16,.38) !important;
 }
 .dashboard .ai-page .ai-input input{
   min-height:48px;
@@ -1429,7 +1429,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 
 
 .dashboard .sidebar{
-  background:rgba(28, 24, 54,.72) !important;
+  background:rgba(16, 16, 16,.72) !important;
   border-right:1px solid rgba(255,255,255,.055) !important;
   backdrop-filter:blur(24px) saturate(120%);
 }
@@ -1726,7 +1726,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   width:248px;
   padding:34px 24px;
   border-right:1px solid rgba(255,255,255,.055);
-  background:rgba(28, 24, 54,.28);
+  background:rgba(16, 16, 16,.28);
   backdrop-filter:blur(18px);
 }
 .dashboard .sidebar-logo{
@@ -1927,7 +1927,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 @media(max-width:800px){
   .dashboard .sidebar{
     padding:0 16px;
-    background:rgba(28, 24, 54,.58);
+    background:rgba(16, 16, 16,.58);
     backdrop-filter:blur(20px);
   }
   .dashboard .sidebar nav button{
@@ -2833,7 +2833,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   text-transform:uppercase;
 }
 .dashboard .dashboard-welcome h1{
-  background:linear-gradient(105deg,#fff 5%,var(--color-accent-blue) 45%,#9de9ff 100%);
+  background:linear-gradient(105deg,#fff 5%,var(--color-accent-blue) 45%,var(--color-accent-blue) 100%);
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
@@ -3637,7 +3637,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border:1px solid rgba(255,255,255,.08);
   border-radius:22px;
   overflow:hidden;
-  background:rgba(28, 24, 54,.42);
+  background:rgba(16, 16, 16,.42);
   margin-bottom:20px;
 }
 .dashboard .progress-page .progress-period-summary > div{
@@ -3671,7 +3671,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   padding:24px;
   border:1px solid rgba(255,255,255,.08);
   border-radius:24px;
-  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(28, 24, 54,.55);
+  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012)),rgba(16, 16, 16,.55);
   overflow:hidden;
 }
 .dashboard .progress-page .progress-chart-top{
@@ -3732,7 +3732,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   padding:24px;
   border:1px solid rgba(255,255,255,.08);
   border-radius:24px;
-  background:rgba(28, 24, 54,.4);
+  background:rgba(16, 16, 16,.4);
 }
 .dashboard .progress-page .progress-insight-head{
   display:flex;
@@ -3752,7 +3752,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border:1px solid rgba(255,255,255,.08);
   border-radius:22px;
   overflow:hidden;
-  background:rgba(28, 24, 54,.35);
+  background:rgba(16, 16, 16,.35);
 }
 .dashboard .progress-page .progress-stats > div{
   min-width:0;
@@ -3770,7 +3770,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   border:1px solid rgba(255,255,255,.08);
   border-radius:22px;
   overflow:hidden;
-  background:rgba(28, 24, 54,.35);
+  background:rgba(16, 16, 16,.35);
 }
 .dashboard .progress-page .secondary-head{
   padding:20px 22px;
@@ -3796,7 +3796,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   padding:56px 24px;
   border:1px solid rgba(255,255,255,.08);
   border-radius:24px;
-  background:rgba(28, 24, 54,.4);
+  background:rgba(16, 16, 16,.4);
 }
 .dashboard .progress-page .progress-empty h3{
   margin:14px 0 8px;
@@ -5882,7 +5882,7 @@ html.evolv-android .reflection-sheet *{
   justify-content:center;
   background:
     linear-gradient(145deg,rgba(255,255,255,.085) 0%,rgba(255,255,255,.03) 38%,rgba(255,255,255,.012) 100%),
-    rgba(28, 24, 54,.74);
+    rgba(16, 16, 16,.74);
   color:#f5f3ed;
   border:1px solid rgba(255,255,255,.1);
   box-shadow:
