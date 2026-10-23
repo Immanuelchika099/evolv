@@ -19,6 +19,8 @@
   --color-border-subtle: rgba(255,255,255,.085);
   --color-border: rgba(255,255,255,.12);
   --color-accent-blue: #A63842;
+  --color-glow-red: rgba(143, 38, 56, 0.16);
+  --color-glow-brown: rgba(84, 43, 39, 0.07);
   --blue-accent: var(--color-accent-blue);
   --ai-bubble-blue: #A63842;
   --graph-blue: var(--color-accent-blue);
