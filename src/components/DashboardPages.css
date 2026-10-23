@@ -10043,3 +10043,40 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
 @media (prefers-reduced-motion: reduce) {
   .calm-week-day, .calm-week-point { transition: none !important; }
 }
+
+
+/* EVOLV home — restrained burnt-orange ambient light, kept behind the content. */
+.dashboard .dashboard-home.calm-home {
+  background-color: transparent !important;
+  background-image:
+    radial-gradient(
+      ellipse 34rem 25rem at 2% 0%,
+      color-mix(in srgb, var(--color-accent-blue) 24%, #9E3D1C) 0%,
+      color-mix(in srgb, var(--color-accent-blue) 12%, transparent) 32%,
+      transparent 74%
+    ),
+    radial-gradient(
+      ellipse 27rem 30rem at 0% 96%,
+      color-mix(in srgb, var(--color-accent-blue) 16%, #9E3D1C) 0%,
+      color-mix(in srgb, var(--color-accent-blue) 7%, transparent) 38%,
+      transparent 76%
+    ) !important;
+  background-repeat: no-repeat !important;
+}
+@media (max-width: 800px) {
+  .dashboard .dashboard-home.calm-home {
+    background-image:
+      radial-gradient(
+        ellipse 27rem 22rem at 0% 0%,
+        color-mix(in srgb, var(--color-accent-blue) 19%, #9E3D1C) 0%,
+        color-mix(in srgb, var(--color-accent-blue) 9%, transparent) 34%,
+        transparent 76%
+      ),
+      radial-gradient(
+        ellipse 22rem 24rem at 0% 96%,
+        color-mix(in srgb, var(--color-accent-blue) 12%, #9E3D1C) 0%,
+        color-mix(in srgb, var(--color-accent-blue) 5%, transparent) 40%,
+        transparent 78%
+      ) !important;
+  }
+}
