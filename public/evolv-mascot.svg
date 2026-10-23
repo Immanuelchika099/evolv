@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 390" fill="none">
   <defs>
     <linearGradient id="skin" x1="120" y1="105" x2="260" y2="275" gradientUnits="userSpaceOnUse"><stop stop-color="#DFAF8B"/><stop offset=".58" stop-color="#B97D5C"/><stop offset="1" stop-color="#8D563F"/></linearGradient>
-    <linearGradient id="hair" x1="95" y1="20" x2="265" y2="115" gradientUnits="userSpaceOnUse"><stop stop-color="#25212D"/><stop offset=".55" stop-color="#17151D"/><stop offset="1" stop-color="#393044"/></linearGradient>
+    <linearGradient id="hair" x1="95" y1="20" x2="265" y2="115" gradientUnits="userSpaceOnUse"><stop stop-color="#25212D"/><stop offset=".55" stop-color="#17151D"/><stop offset="1" stop-color="#2A2724"/></linearGradient>
     <linearGradient id="sweater" x1="85" y1="240" x2="270" y2="390" gradientUnits="userSpaceOnUse"><stop stop-color="#393A3D"/><stop offset="1" stop-color="#17181B"/></linearGradient>
-    <linearGradient id="hairTip" x1="130" y1="15" x2="220" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#A997D7"/><stop offset="1" stop-color="#6C5B9A"/></linearGradient>
+    <linearGradient id="hairTip" x1="130" y1="15" x2="220" y2="80" gradientUnits="userSpaceOnUse"><stop stop-color="#D7A17D"/><stop offset="1" stop-color="#8F4A2B"/></linearGradient>
   </defs>
   <ellipse cx="181" cy="369" rx="104" ry="12" fill="#000" opacity=".22"/>
   <path d="M84 390c2-63 20-109 63-126l36-10 48 9c38 12 58 56 62 127H84Z" fill="url(#sweater)"/>
