@@ -932,7 +932,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:clamp(72px,10vw,132px) !important;
   line-height:.82 !important;
   letter-spacing:-.075em !important;
-  font-weight:600 !important;
+  font-weight:var(--font-weight-semibold) !important;
 }
 .dashboard .dashboard-welcome::after{
   width:560px;
@@ -1997,7 +1997,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:clamp(86px,12.5vw,168px) !important;
   letter-spacing:-.085em !important;
   line-height:.78 !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .dashboard-welcome::after{
   width:680px;
@@ -2061,7 +2061,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .weekly-progress-head h2{
   font-size:clamp(48px,6vw,78px) !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .weekly-progress-head p{
   font-size:15px !important;
@@ -2071,7 +2071,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .dashboard-panel>h2{
   font-size:clamp(52px,6.5vw,86px) !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .goal-list{
   max-width:1060px;
@@ -2081,7 +2081,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .goal-item h3{
   font-size:clamp(27px,3vw,38px) !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .goal-item-top>strong{
   color:rgba(244,241,232,.5) !important;
@@ -2104,7 +2104,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 }
 .dashboard .daily-insight h2{
   font-size:clamp(48px,6vw,78px) !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .daily-insight-points{
   margin-top:44px;
@@ -2311,7 +2311,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:clamp(48px,6.7vw,88px) !important;
   line-height:.92 !important;
   letter-spacing:-.065em !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .weekly-progress-head p{
   margin:18px 0 0 !important;
@@ -2364,7 +2364,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:36px !important;
   line-height:1 !important;
   letter-spacing:-.045em !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .weekly-chart-summary span{
   display:block;
@@ -2430,7 +2430,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:clamp(40px,5vw,64px) !important;
   line-height:.95 !important;
   letter-spacing:-.055em !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 
 
@@ -2514,7 +2514,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:24px !important;
   line-height:1.12 !important;
   letter-spacing:-.025em !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
 }
 .dashboard .goal-item p{
   margin:9px 0 0 !important;
@@ -2525,7 +2525,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   font-size:30px !important;
   line-height:1 !important;
   letter-spacing:-.04em !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
   color:rgba(244,241,232,.7) !important;
 }
 .dashboard .mini-progress{
@@ -3027,11 +3027,11 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .progress-heading h2{font-size:clamp(52px,7vw,84px)!important}
 .dashboard .progress-heading p{font-size:1rem!important;line-height:1.7}
 .dashboard .progress-range-switch{display:flex;gap:8px;margin:30px 0 42px;border-bottom:1px solid rgba(255,255,255,.08);padding-bottom:14px}
-.dashboard .progress-range-switch button{min-width:72px;border:0;border-bottom:1px solid transparent;background:transparent;color:rgba(244,241,234,.38);padding:10px 8px;font-size:1rem;font-weight:600;cursor:pointer}
+.dashboard .progress-range-switch button{min-width:72px;border:0;border-bottom:1px solid transparent;background:transparent;color:rgba(244,241,234,.38);padding:10px 8px;font-size:1rem;font-weight:var(--font-weight-semibold);cursor:pointer}
 .dashboard .progress-range-switch button.active{color:var(--color-accent-blue);border-bottom-color:var(--color-accent-blue)}
 .dashboard .progress-focus-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;border-bottom:1px solid rgba(255,255,255,.08);padding:0 0 22px}
 .dashboard .progress-focus-head h3{font-size:1.8rem!important;margin:7px 0 0;letter-spacing:-.03em}
-.dashboard .progress-focus-value{font-size:2.2rem;font-weight:650;letter-spacing:-.04em;color:#f4f1ea}
+.dashboard .progress-focus-value{font-size:2.2rem;font-weight:var(--font-weight-semibold);letter-spacing:-.04em;color:#f4f1ea}
 .dashboard .progress-metric-picker{display:flex;gap:8px;overflow-x:auto;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.06);scrollbar-width:none}
 .dashboard .progress-metric-picker::-webkit-scrollbar{display:none}
 .dashboard .progress-metric-picker button{white-space:nowrap;border:1px solid rgba(255,255,255,.08);border-radius:999px;background:rgba(255,255,255,.025);color:rgba(244,241,234,.48);padding:10px 15px;font-size:.95rem;cursor:pointer}
@@ -3593,7 +3593,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   flex-shrink:0;
   font-size:2.5rem !important;
   line-height:1;
-  font-weight:650;
+  font-weight:var(--font-weight-semibold);
   color:var(--color-accent-blue);
 }
 .dashboard .progress-page .progress-metric-picker{
@@ -4301,7 +4301,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
 .dashboard .progress-activity-day>span{
   color:#f5f5f7 !important;
   font-size:1.3rem !important;
-  font-weight:700 !important;
+  font-weight:var(--font-weight-bold) !important;
 }
 .dashboard .progress-trend-card .progress-metric-picker{
   margin-bottom:1.5rem !important;
@@ -6193,7 +6193,7 @@ html.evolv-android .reflection-sheet *{
 .landing .hero-aura{width:520px!important;height:520px!important;background:radial-gradient(circle,rgba(255,255,255,.055),transparent 67%)!important;filter:blur(18px)!important}
 .landing .hero-outer-ring{border-color:rgba(255,255,255,.10)!important;border-right-color:rgba(255,255,255,.28)!important}
 .landing .hero-outer-ring::after{background:#f5f5f7!important;box-shadow:0 0 18px rgba(255,255,255,.28)!important}
-.landing .hero-title{font-weight:500!important;letter-spacing:-.075em!important}
+.landing .hero-title{font-weight:var(--font-weight-medium)!important;letter-spacing:-.075em!important}
 .landing .hero-title em,.landing .story-intro h2 em,.landing .story-statement h2 em,.landing .manifesto h2 em,.landing .preview-copy h2 em,.landing .faq h2 em,.landing .final-cta h2 em{color:rgba(255,255,255,.42)!important}
 .landing .hero-description,.landing .story-intro p,.landing .story-statement p,.landing .manifesto p,.landing .preview-copy p{color:rgba(255,255,255,.58)!important}
 .landing .section-label{color:rgba(255,255,255,.38)!important}
@@ -6408,7 +6408,7 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
 
 /* Daily routine entry point in the authenticated app header. */
 .app-topbar-actions{display:flex;align-items:center;gap:.8rem;}
-.routine-nav-button{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;min-height:4rem;padding:0 1.25rem;border:1px solid #292a26;border-radius:999px;background:#0b0c0a;color:var(--color-accent-blue);font:inherit;font-size:1.25rem;font-weight:550;cursor:pointer;transition:border-color .2s ease,background .2s ease;}
+.routine-nav-button{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;min-height:4rem;padding:0 1.25rem;border:1px solid #292a26;border-radius:999px;background:#0b0c0a;color:var(--color-accent-blue);font:inherit;font-size:1.25rem;font-weight:var(--font-weight-medium);cursor:pointer;transition:border-color .2s ease,background .2s ease;}
 .routine-nav-button:hover{border-color:#234574;background:#000000;}
 .routine-nav-button:focus-visible{outline:2px solid var(--color-accent-blue);outline-offset:3px;}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
@@ -6470,7 +6470,7 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
   padding: 1.6rem 1.8rem !important;
   border-radius: 1.6rem !important;
   font-size: 1.6rem !important;
-  font-weight: 600 !important;
+  font-weight: var(--font-weight-semibold) !important;
   line-height: 1.4 !important;
   text-align: left;
   background: rgba(255,255,255,.045) !important;
@@ -6525,7 +6525,7 @@ html body .dashboard .dash-main .goals-page .goal-create-form > label.goal-date-
   color: #fff !important;
   -webkit-text-fill-color: #fff !important;
   font-size: 1.55rem !important;
-  font-weight: 700 !important;
+  font-weight: var(--font-weight-bold) !important;
   line-height: 1.2 !important;
   box-shadow: 0 8px 24px color-mix(in srgb, var(--color-accent-blue) 22%, transparent) !important;
   transition: background .18s ease, border-color .18s ease, transform .18s ease, box-shadow .18s ease !important;

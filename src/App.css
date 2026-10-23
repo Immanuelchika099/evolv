@@ -233,7 +233,7 @@
 .entry-detail-body{padding:1.75rem 0 1.25rem}
 .entry-detail-value{
   font-size:2rem;
-  font-weight:700;
+  font-weight:var(--font-weight-bold);
   line-height:1.25;
   overflow-wrap:anywhere;
 }
@@ -491,7 +491,7 @@
   color:rgba(255,255,255,.9);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 1rem 3rem rgba(0,0,0,.18);
   font:inherit;
-  font-weight:600;
+  font-weight:var(--font-weight-semibold);
   letter-spacing:-.01em;
   cursor:pointer;
   overflow:hidden;
@@ -589,7 +589,7 @@
 }
 .log-history-divider span:first-child{
   color:rgba(255,255,255,.72);
-  font-weight:600;
+  font-weight:var(--font-weight-semibold);
 }
 .log-history-list{
   display:flex;
@@ -770,7 +770,7 @@
 }
 .manage-logs-button-copy strong{
   font-size:1.65rem;
-  font-weight:650;
+  font-weight:var(--font-weight-semibold);
   letter-spacing:-.02em;
 }
 .manage-logs-button-copy small{
@@ -1486,7 +1486,7 @@ html.evolv-android .goals-page .goal-item {
 .dashboard .area-back,
 .dashboard-panel .area-back{
   color:var(--color-accent-blue);
-  font-weight:600;
+  font-weight:var(--font-weight-semibold);
 }
 
 .dashboard .area-back svg,
@@ -1842,7 +1842,7 @@ html.evolv-android .goals-page .goal-item {
   display:block;
   color:#fff;
   font-size:1.7rem;
-  font-weight:600;
+  font-weight:var(--font-weight-semibold);
   line-height:1.15;
   letter-spacing:-.03em;
 }
@@ -1930,7 +1930,7 @@ html,body,#root{background:#000 !important;}
   gap: .9rem;
   color: #8b8b8b;
   font-size: 1rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: .14em;
   text-transform: uppercase;
 }
@@ -1975,7 +1975,7 @@ html,body,#root{background:#000 !important;}
   left: 4vw;
   bottom: -4.5vw;
   font-size: clamp(12rem, 25vw, 38rem);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   letter-spacing: -.09em;
   line-height: .72;
   color: rgba(255,255,255,.035);
@@ -1995,7 +1995,7 @@ html,body,#root{background:#000 !important;}
   color: #a0a0a0;
   font-size: 1.05rem;
   letter-spacing: .12em;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
 }
 .ev-hero-eyebrow i { width: 3.5rem; height: 1px; background: rgba(255,255,255,.28); }
 .ev-hero-title {
@@ -2004,7 +2004,7 @@ html,body,#root{background:#000 !important;}
   font-size: clamp(6.4rem, 10.7vw, 16.5rem);
   line-height: .82;
   letter-spacing: -.075em;
-  font-weight: 680;
+  font-weight: var(--font-weight-semibold);
 }
 .ev-hero-title-line {
   display: block;
@@ -2031,7 +2031,7 @@ html,body,#root{background:#000 !important;}
   cursor: pointer;
   transition: transform .35s ease, background .35s ease, border-color .35s ease;
   font-size: 1.35rem;
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
   border: 1px solid transparent;
 }
 .ev-btn:hover { transform: translateY(-3px); }
@@ -2086,11 +2086,11 @@ html,body,#root{background:#000 !important;}
   align-items: baseline;
   letter-spacing: -.08em;
 }
-.ev-stage-score strong { font-size: clamp(8rem, 10vw, 13rem); line-height: .8; font-weight: 600; }
+.ev-stage-score strong { font-size: clamp(8rem, 10vw, 13rem); line-height: .8; font-weight: var(--font-weight-semibold); }
 .ev-stage-score span { font-size: 2.6rem; color: #888; }
 .ev-stage-copy { flex: 1; }
 .ev-stage-copy > span, .ev-stage-copy small { display: block; color: #777; font-size: 1rem; letter-spacing: .12em; }
-.ev-stage-copy b { display: block; margin: .8rem 0 2rem; font-size: 1.6rem; font-weight: 500; }
+.ev-stage-copy b { display: block; margin: .8rem 0 2rem; font-size: 1.6rem; font-weight: var(--font-weight-medium); }
 .ev-stage-copy i { display: block; height: 2px; background: #292929; }
 .ev-stage-copy i u { display: block; width: 72%; height: 100%; background: #eee; text-decoration: none; }
 .ev-stage-copy small { margin-top: 1rem; letter-spacing: .04em; }
@@ -2119,7 +2119,7 @@ html,body,#root{background:#000 !important;}
 }
 .ev-marquee-track { display: flex; width: max-content; animation: evMarquee 28s linear infinite; }
 .ev-marquee-content { display: flex; align-items: center; gap: 2.5rem; padding-right: 2.5rem; }
-.ev-marquee span { font-size: 1.15rem; font-weight: 650; letter-spacing: .13em; }
+.ev-marquee span { font-size: 1.15rem; font-weight: var(--font-weight-semibold); letter-spacing: .13em; }
 .ev-marquee i { color: #777; font-style: normal; }
 @keyframes evMarquee { to { transform: translateX(-50%); } }
 
@@ -2141,7 +2141,7 @@ html,body,#root{background:#000 !important;}
   font-size: clamp(4.8rem, 7vw, 10rem);
   line-height: .9;
   letter-spacing: -.07em;
-  font-weight: 620;
+  font-weight: var(--font-weight-semibold);
 }
 .ev-statement-copy p, .ev-section-head > p, .ev-experience-copy p {
   max-width: 50rem;
@@ -2163,7 +2163,7 @@ html,body,#root{background:#000 !important;}
   font-size: clamp(2.8rem, 5.2vw, 7.5rem);
   letter-spacing: -.065em;
 }
-.ev-band strong { font-weight: 650; }
+.ev-band strong { font-weight: var(--font-weight-semibold); }
 .ev-band span { color: #777; }
 .ev-band i { font-style: normal; color: #777; }
 
@@ -2250,7 +2250,7 @@ html,body,#root{background:#000 !important;}
   border-bottom: 1px solid #222;
 }
 .ev-device-list span, .ev-device-list i { color: #555; font-size: .95rem; font-style: normal; }
-.ev-device-list b { font-size: 1.25rem; font-weight: 500; }
+.ev-device-list b { font-size: 1.25rem; font-weight: var(--font-weight-medium); }
 
 .ev-areas { padding: 13rem 0; }
 .ev-service-list { border-top: 1px solid #292929; }
@@ -2271,7 +2271,7 @@ html,body,#root{background:#000 !important;}
 }
 .ev-service-row:hover { padding-left: 1.5rem; color: #fff; }
 .ev-service-row > span { color: #555; font-size: 1rem; letter-spacing: .12em; }
-.ev-service-row strong { font-size: clamp(2.2rem, 3.2vw, 4.5rem); letter-spacing: -.05em; font-weight: 550; }
+.ev-service-row strong { font-size: clamp(2.2rem, 3.2vw, 4.5rem); letter-spacing: -.05em; font-weight: var(--font-weight-medium); }
 .ev-service-row small { color: #737373; font-size: 1.3rem; }
 .ev-service-row svg { justify-self: end; color: #666; }
 
@@ -2288,19 +2288,19 @@ html,body,#root{background:#000 !important;}
   right: -2vw;
   bottom: -3vw;
   font-size: clamp(10rem, 23vw, 35rem);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   letter-spacing: -.1em;
   line-height: .7;
   color: rgba(0,0,0,.045);
 }
 .ev-stats .ev-label { color: #777; position: relative; z-index: 1; }
-.ev-stats h2 { position: relative; z-index: 1; margin: 2rem 0 8rem; font-size: clamp(4.5rem, 7vw, 10rem); line-height: .9; letter-spacing: -.07em; font-weight: 620; }
+.ev-stats h2 { position: relative; z-index: 1; margin: 2rem 0 8rem; font-size: clamp(4.5rem, 7vw, 10rem); line-height: .9; letter-spacing: -.07em; font-weight: var(--font-weight-semibold); }
 .ev-stats h2 em { color: #888; }
 .ev-stat-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(3,1fr); border-top: 1px solid #c8c8c2; }
 .ev-stat-grid > div { padding: 4rem 2rem 1rem 0; border-right: 1px solid #c8c8c2; }
 .ev-stat-grid > div:not(:first-child) { padding-left: 2rem; }
 .ev-stat-grid > div:last-child { border-right: 0; }
-.ev-stat-grid strong { display: block; font-size: clamp(6rem, 9vw, 13rem); line-height: .8; letter-spacing: -.08em; font-weight: 550; }
+.ev-stat-grid strong { display: block; font-size: clamp(6rem, 9vw, 13rem); line-height: .8; letter-spacing: -.08em; font-weight: var(--font-weight-medium); }
 .ev-stat-grid span { display: block; margin-top: 2rem; color: #777; font-size: 1rem; letter-spacing: .13em; }
 
 .ev-faq { padding: 13rem 0; display: grid; grid-template-columns: .65fr 1.35fr; gap: 10rem; }
@@ -2328,12 +2328,12 @@ html,body,#root{background:#000 !important;}
   right: -3vw;
   top: 10%;
   font-size: clamp(13rem, 30vw, 44rem);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   line-height: .7;
   letter-spacing: -.1em;
   color: rgba(255,255,255,.025);
 }
-.ev-final h2 { position: relative; z-index: 1; margin: 2rem 0 4rem; max-width: 105rem; font-size: clamp(5.5rem, 9vw, 14rem); line-height: .82; letter-spacing: -.08em; font-weight: 620; }
+.ev-final h2 { position: relative; z-index: 1; margin: 2rem 0 4rem; max-width: 105rem; font-size: clamp(5.5rem, 9vw, 14rem); line-height: .82; letter-spacing: -.08em; font-weight: var(--font-weight-semibold); }
 .ev-final .ev-btn { position: relative; z-index: 1; }
 
 @media (max-width: 1050px) {
@@ -2619,7 +2619,7 @@ html,body,#root{background:#000 !important;}
 .landing-v2 .ev-system-steps strong {
   color:#f4f4f0;
   font-size:clamp(1.8rem,2.5vw,2.5rem);
-  font-weight:550;
+  font-weight:var(--font-weight-medium);
   letter-spacing:-.035em;
 }
 .landing-v2 .ev-system-steps small {

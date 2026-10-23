@@ -2974,7 +2974,7 @@
   color:#f5f5f2 !important;
   font-family:Manrope,sans-serif !important;
   font-size:1.6rem !important;
-  font-weight:500 !important;
+  font-weight:var(--font-weight-medium) !important;
   line-height:1.72 !important;
   letter-spacing:-.008em !important;
   -webkit-font-smoothing:antialiased !important;
@@ -2983,12 +2983,12 @@
 
 .dashboard .ai-page .ai-message.assistant .ai-message-role{
   color:rgba(245,245,242,.5) !important;
-  font-weight:600 !important;
+  font-weight:var(--font-weight-semibold) !important;
 }
 
 .dashboard .ai-page .ai-message.user p{
   color:rgba(245,245,242,.82) !important;
-  font-weight:450 !important;
+  font-weight:var(--font-weight-regular) !important;
 }
 
 @media(max-width:800px){
