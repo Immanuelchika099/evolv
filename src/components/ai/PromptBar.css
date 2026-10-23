@@ -5,7 +5,7 @@
   --pb-w: 400px;
   --pb-radius: 16px;
   --pb-press: 0.96;
-  --pb-spark: #b39dff;
+  --pb-spark: var(--color-accent-blue);
   --pb-ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --pb-muted: color-mix(in srgb, var(--pb-ink) 55%, transparent);
   --pb-hover: color-mix(in srgb, var(--pb-ink) 8%, transparent);
