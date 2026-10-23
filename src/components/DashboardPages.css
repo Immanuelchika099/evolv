@@ -10087,3 +10087,99 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
       ) !important;
   }
 }
+
+
+/* =========================================================
+   EVOLV premium refinement — phase 1: contained home ambience
+   Inspired by FRQNCY's atmospheric restraint, not its identity.
+   ========================================================= */
+.dashboard .dashboard-home.calm-home {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  padding-bottom: max(3.2rem, env(safe-area-inset-bottom));
+}
+.dashboard .dashboard-home.calm-home::before,
+.dashboard .dashboard-home.calm-home::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  display: block;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(1px);
+}
+.dashboard .dashboard-home.calm-home::before {
+  width: min(88vw, 104rem);
+  height: min(66rem, 66vw);
+  top: -25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center,
+    color-mix(in srgb, var(--color-accent-blue) 16%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent-blue) 8%, transparent) 31%,
+    rgba(0,0,0,0) 72%);
+  opacity: .82;
+}
+.dashboard .dashboard-home.calm-home::after {
+  width: min(78vw, 88rem);
+  height: min(78rem, 78vw);
+  left: -36rem;
+  bottom: -38rem;
+  background: radial-gradient(ellipse at center,
+    color-mix(in srgb, var(--color-accent-blue) 12%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent-blue) 5%, transparent) 38%,
+    rgba(0,0,0,0) 72%);
+  opacity: .76;
+}
+.dashboard .dashboard-home.calm-home > * {
+  position: relative;
+}
+.dashboard .dashboard-home.calm-home .calm-home-welcome {
+  margin-bottom: 2.6rem;
+}
+.dashboard .dashboard-home.calm-home .calm-insights-section {
+  margin-top: 3.2rem;
+  margin-bottom: 3.8rem;
+}
+.dashboard .dashboard-home.calm-home .calm-insights-section .calm-focus-heading {
+  margin-bottom: 2rem;
+}
+.dashboard .dashboard-home.calm-home .calm-insights-section .calm-focus-heading h2 {
+  letter-spacing: -.045em;
+}
+.dashboard .dashboard-home.calm-home .calm-insights-section .calm-focus-heading p {
+  max-width: 42rem;
+  line-height: 1.55;
+}
+.dashboard .dashboard-home.calm-home .calm-home-focus,
+.dashboard .dashboard-home.calm-home .calm-goal-snapshot {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+@media (max-width: 640px) {
+  .dashboard .dashboard-home.calm-home::before {
+    width: 125vw;
+    height: 64rem;
+    top: -28rem;
+  }
+  .dashboard .dashboard-home.calm-home::after {
+    width: 115vw;
+    height: 72rem;
+    left: -52vw;
+    bottom: -34rem;
+  }
+  .dashboard .dashboard-home.calm-home .calm-home-welcome {
+    margin-bottom: 2.2rem;
+  }
+  .dashboard .dashboard-home.calm-home .calm-insights-section {
+    margin-top: 2.8rem;
+    margin-bottom: 3.2rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .dashboard-home.calm-home::before,
+  .dashboard .dashboard-home.calm-home::after {
+    scroll-behavior: auto;
+  }
+}
