@@ -80,7 +80,7 @@
 }
 .contact-fields input:focus,
 .contact-fields textarea:focus{
-  border-color:#5145c845;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent);
   background:#ffffff09;
 }
 .contact-fields input::placeholder,
@@ -93,10 +93,10 @@
   display:grid;
   place-items:center;
   margin:0 auto 25px;
-  border:1px solid #5145c830;
+  border:1px solid color-mix(in srgb, var(--color-accent-blue) 19%, transparent);
   border-radius:50%;
   color:var(--accent);
-  background:#5145c808;
+  background:color-mix(in srgb, var(--color-accent-blue) 3%, transparent);
 }
 .contact-success h2{margin-bottom:18px}
 .contact-success p{
