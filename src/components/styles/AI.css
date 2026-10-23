@@ -270,7 +270,7 @@
 .dashboard .ai-attach{border:0;background:transparent;color:rgba(244,241,234,.58)}
 .dashboard .ai-attach:hover{background:rgba(255,255,255,.08);color:#f4f1ea}
 .dashboard .ai-send{border:1px solid color-mix(in srgb, var(--color-accent-blue) 20%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 10%, transparent);color:var(--color-accent-blue)}
-.dashboard .ai-send:hover:not(:disabled){background:var(--color-accent-blue);color:#1c1836;transform:translateY(-1px)}
+.dashboard .ai-send:hover:not(:disabled){background:var(--color-accent-blue);color:#101010;transform:translateY(-1px)}
 .dashboard .ai-send:disabled{opacity:.25;cursor:not-allowed}
 @media(max-width:650px){
   .dashboard .ai-heading{align-items:flex-start;flex-direction:column;gap:10px}
@@ -297,7 +297,7 @@
   padding:24px;
   border:1px solid rgba(255,255,255,.08);
   border-radius:24px;
-  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.012)),rgba(28, 24, 54,.5);
+  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.012)),rgba(16, 16, 16,.5);
 }
 .dashboard .progress-log-details-head{
   display:flex;
@@ -478,7 +478,7 @@
   padding:12px max(18px,calc((100vw - 980px)/2));
   padding-bottom:max(12px,env(safe-area-inset-bottom));
   border-top:1px solid rgba(255,255,255,.08);
-  background:rgba(28, 24, 54,.9);
+  background:rgba(16, 16, 16,.9);
   backdrop-filter:blur(22px) saturate(130%);
   -webkit-backdrop-filter:blur(22px) saturate(130%);
 }
@@ -572,7 +572,7 @@
   margin:0 !important;
   padding:12px max(24px,calc((100vw - 1120px)/2)) max(12px,env(safe-area-inset-bottom)) !important;
   border-top:1px solid rgba(255,255,255,.08) !important;
-  background:rgba(28, 24, 54,.9) !important;
+  background:rgba(16, 16, 16,.9) !important;
   backdrop-filter:blur(22px) saturate(130%) !important;
   -webkit-backdrop-filter:blur(22px) saturate(130%) !important;
 }
@@ -855,7 +855,7 @@
 .dashboard-ai-active .dash-main,
 .dashboard-ai-active .ai-page,
 .dashboard-ai-active .ai-page .ai-chat{
-  background:#1c1836 !important;
+  background:#101010 !important;
   background-image:none !important;
 }
 
@@ -953,7 +953,7 @@
   gap:10px;
   border:1px solid rgba(255,255,255,.105);
   border-radius:30px;
-  background:#1c1836;
+  background:#101010;
   box-shadow:0 10px 35px rgba(0,0,0,.28);
 }
 .dashboard-ai-active .ai-composer input,
@@ -1308,10 +1308,10 @@
   padding:2.8rem max(1.8rem,calc((100vw - 98rem)/2)) max(1.2rem,env(safe-area-inset-bottom)) !important;
   background:linear-gradient(
     to bottom,
-    rgba(28, 24, 54,0),
-    rgba(28, 24, 54,.72) 28%,
-    rgba(28, 24, 54,.96) 55%,
-    #1c1836 100%
+    rgba(16, 16, 16,0),
+    rgba(16, 16, 16,.72) 28%,
+    rgba(16, 16, 16,.96) 55%,
+    #101010 100%
   ) !important;
   border:0 !important;
   backdrop-filter:none !important;
@@ -1911,7 +1911,7 @@
   pointer-events:auto !important;
   border:1px solid rgba(255,255,255,.12) !important;
   border-radius:50% !important;
-  background:#1c1836 !important;
+  background:#101010 !important;
   color:var(--color-accent-blue) !important;
   box-shadow:0 1.2rem 3rem rgba(0,0,0,.45) !important;
   transform:none !important;
@@ -2001,7 +2001,7 @@
   border:1px solid rgba(255,255,255,.09) !important;
   border-radius:2.2rem !important;
   padding:2rem !important;
-  background:#1c1836 !important;
+  background:#101010 !important;
   box-shadow:0 2.8rem 8rem rgba(0,0,0,.58) !important;
   scrollbar-width:none !important;
 }
@@ -3559,7 +3559,7 @@ html,body,#root{
 
 .dashboard.dashboard-ai-active .ai-page .ai-new-chat,
 .dashboard.dashboard-ai-active .ai-page .ai-more-button{
-  background:rgba(22,30,52,.96) !important;
+  background:rgba(16,16,16,.96) !important;
   border:1px solid color-mix(in srgb, var(--color-accent-blue) 22%, transparent) !important;
   box-shadow:0 .4rem 1.4rem rgba(0,0,0,.28), inset 0 1px 0 color-mix(in srgb, var(--color-accent-blue) 6%, transparent) !important;
   color:rgba(241,244,252,.9) !important;
@@ -3582,7 +3582,7 @@ html,body,#root{
 
 .dashboard.dashboard-ai-active .ai-page .ai-new-chat:hover,
 .dashboard.dashboard-ai-active .ai-page .ai-more-button:hover{
-  background:rgba(30,41,70,.98) !important;
+  background:rgba(16,16,16,.98) !important;
   border-color:color-mix(in srgb, var(--color-accent-blue) 34%, transparent) !important;
   color:#fff !important;
 }
@@ -4081,7 +4081,7 @@ body:has(.dashboard.dashboard-ai-active) {
 }
 .dashboard .ai-promptbar-shell .prompt-bar__send[data-armed]{
   background:var(--evolv-green);
-  color:#1c1836;
+  color:#101010;
 }
 .dashboard .ai-promptbar-shell .prompt-bar__menu{
   border:1px solid rgba(255,255,255,.07);
