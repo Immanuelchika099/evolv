@@ -193,9 +193,9 @@ function HomePage({ pageProps }) {
         <div className="calm-week-summary" aria-live="polite">
           <div>
             <strong>{loading ? 'Updating your week…' : selectedWeekDay.count}</strong>
-            <span>{selectedWeekDay.count === 1 ? 'logged activity' : 'logged activities'}</span>
+            <span>{selectedWeekDay.count === 1 ? 'activity' : 'activities'}</span>
           </div>
-          <p>{selectedWeekDay.fullLabel}{selectedWeekDay.count === 0 && !loading ? ' · A quiet day is still part of your progress.' : ''}</p>
+          <p>{selectedWeekDay.fullLabel}</p>
         </div>
       </section>
 
