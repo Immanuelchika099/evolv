@@ -32,6 +32,13 @@
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
   --color-accent-lime: var(--color-accent-blue);
 
+  /* Global font-weight scale — use these tokens across component styles. */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
   /* Shared shape, elevation, and type scale */
   --radius-sm: 8px;
   --radius-control: 12px;
@@ -452,14 +459,14 @@ html body #root h3,
 html body #root h4,
 html body #root h5,
 html body #root h6 {
-  font-weight: 650;
+  font-weight: var(--font-weight-semibold);
 }
 
 html body #root .calm-home-welcome h1 {
-  font-weight: 750 !important;
+  font-weight: var(--font-weight-bold) !important;
   letter-spacing: -0.045em;
 }
 
 html body #root .calm-home-greeting {
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
 }
