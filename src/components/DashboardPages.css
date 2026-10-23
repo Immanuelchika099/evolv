@@ -9863,3 +9863,183 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
 .calm-insights-section .daily-ai-insight-card::before {
   display: none !important;
 }
+
+
+/* Calm weekly activity — restrained orange light, quiet glass, clear hierarchy. */
+.dashboard-home.calm-home .calm-home-welcome::before {
+  background: radial-gradient(ellipse at 43% 46%,
+    color-mix(in srgb, var(--color-accent-blue) 9%, transparent) 0%,
+    color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent) 34%,
+    transparent 72%) !important;
+  opacity: .82;
+  filter: blur(3.6rem);
+}
+.dashboard-home.calm-home .calm-home-welcome h1 {
+  font-weight: var(--font-weight-medium);
+}
+.calm-week-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(1.9rem, 3.5vw, 2.8rem);
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 2.2rem;
+  background:
+    radial-gradient(ellipse at 92% 0%, color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent), transparent 47%),
+    linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+  box-shadow: 0 1.8rem 4.5rem rgba(0,0,0,.16), inset 0 1px 0 rgba(255,255,255,.025);
+}
+.calm-week-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.4rem;
+}
+.calm-week-head h2 {
+  margin: .7rem 0 0;
+  color: #f5f4f0;
+  font-size: clamp(2.25rem, 3.6vw, 2.8rem);
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  font-weight: var(--font-weight-medium);
+}
+.calm-week-period {
+  margin-top: .15rem;
+  padding: .65rem .9rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 999px;
+  color: rgba(255,255,255,.48);
+  font-size: 1rem;
+  letter-spacing: .09em;
+  white-space: nowrap;
+}
+.calm-week-chart-wrap {
+  margin: 2.2rem -.4rem .4rem;
+}
+.calm-week-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.calm-week-gridline {
+  stroke: rgba(255,255,255,.065);
+  stroke-width: 1;
+  stroke-dasharray: 2 5;
+}
+.calm-week-line {
+  fill: none;
+  stroke: var(--color-accent-blue);
+  stroke-width: 2.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-blue) 22%, transparent));
+}
+.calm-week-point {
+  fill: #17110e;
+  stroke: color-mix(in srgb, var(--color-accent-blue) 78%, white);
+  stroke-width: 1.5;
+  transition: r .2s ease, fill .2s ease;
+}
+.calm-week-point.is-selected {
+  fill: var(--color-accent-blue);
+  stroke: #ffe3d4;
+  stroke-width: 1.5;
+}
+.calm-week-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: .45rem;
+  margin-top: .4rem;
+}
+.calm-week-day {
+  min-width: 0;
+  min-height: 4.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  border: 1px solid transparent;
+  border-radius: 1.1rem;
+  background: transparent;
+  color: rgba(255,255,255,.47);
+  font-size: 1.2rem;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+.calm-week-day i {
+  display: block;
+  width: .4rem;
+  height: .4rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,.18);
+}
+.calm-week-day.is-selected {
+  border-color: color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
+  background: color-mix(in srgb, var(--color-accent-blue) 7%, transparent);
+  color: #fff;
+}
+.calm-week-day.is-selected i {
+  background: var(--color-accent-blue);
+  box-shadow: 0 0 .8rem color-mix(in srgb, var(--color-accent-blue) 28%, transparent);
+}
+.calm-week-day:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent-blue) 65%, transparent);
+  outline-offset: 2px;
+}
+.calm-week-summary {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.4rem;
+  margin-top: 1.65rem;
+  padding-top: 1.45rem;
+  border-top: 1px solid rgba(255,255,255,.065);
+}
+.calm-week-summary > div {
+  display: flex;
+  align-items: baseline;
+  gap: .65rem;
+  min-width: 0;
+}
+.calm-week-summary strong {
+  color: #f7f5f0;
+  font-size: 2.6rem;
+  line-height: 1;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: -.05em;
+}
+.calm-week-summary span {
+  color: rgba(255,255,255,.58);
+  font-size: 1.25rem;
+}
+.calm-week-summary p {
+  margin: 0;
+  color: rgba(255,255,255,.4);
+  font-size: 1.15rem;
+  text-align: right;
+}
+@media (max-width: 600px) {
+  .calm-week-card {
+    padding: 1.8rem 1.5rem 1.55rem;
+    border-radius: 1.8rem;
+  }
+  .calm-week-chart-wrap {
+    margin-top: 2rem;
+  }
+  .calm-week-day {
+    min-height: 4rem;
+    font-size: 1.1rem;
+  }
+  .calm-week-summary {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .65rem;
+  }
+  .calm-week-summary p {
+    text-align: left;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .calm-week-day, .calm-week-point { transition: none !important; }
+}
