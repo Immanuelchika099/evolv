@@ -267,7 +267,7 @@
     border-radius:999px !important;
     background:#f3f1ea !important;
     color:#090909 !important;
-    font-weight:600;
+    font-weight:var(--font-weight-semibold);
   }
 
   .evolv-mobile-menu .evolv-mobile-start:hover,
