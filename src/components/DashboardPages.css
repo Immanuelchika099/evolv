@@ -6857,7 +6857,7 @@ body,
     color-mix(in srgb, var(--color-accent-blue) 16%, transparent) 0%,
     color-mix(in srgb, var(--color-accent-blue) 9%, transparent) 30%,
     color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent) 52%,
-    rgba(28, 24, 54,.018) 65%,
+    rgba(16, 16, 16,.018) 65%,
     transparent 78%);
   filter: blur(4.2rem);
   opacity: .98;
@@ -7922,7 +7922,7 @@ body,
 .progress-page .home-heatmap-footer i.level-1,
 .goal-heatmap-cell.level-1,
 .goal-heatmap-legend i.level-1 {
-  background: #17263B !important;
+  background: #101010 !important;
   border-color: color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important;
 }
 .dashboard-home-redesign .home-heatmap-cell.level-2,
