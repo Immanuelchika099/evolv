@@ -15,7 +15,7 @@
   background: var(--hb-bg);
   color: var(--hb-text);
   font-family: inherit;
-  font-weight: 500;
+  font-weight: var(--font-weight-medium);
   letter-spacing: .01em;
   line-height: 1;
   cursor: pointer;
