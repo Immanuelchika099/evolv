@@ -64,6 +64,35 @@ function HomePage({ pageProps }) {
     ? 'Good morning' : now.getHours() >= 12 && now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
   const moodMetric = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
   const activeGoals = goals.filter(goal => goal.status === 'active')
+  const [selectedWeekIndex, setSelectedWeekIndex] = useState(() => (new Date().getDay() + 6) % 7)
+  const weekStats = Array.from({ length: 7 }, (_, index) => {
+    const date = new Date(now)
+    date.setHours(0, 0, 0, 0)
+    date.setDate(date.getDate() - ((date.getDay() + 6) % 7) + index)
+    const key = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-')
+    const count = [...logs, ...meals].filter(entry => {
+      const rawDate = entry.created_at || entry.logged_at || entry.date || entry.recorded_at
+      if (!rawDate) return false
+      const parsed = new Date(rawDate)
+      if (Number.isNaN(parsed.getTime())) return false
+      const entryKey = [parsed.getFullYear(), String(parsed.getMonth() + 1).padStart(2, '0'), String(parsed.getDate()).padStart(2, '0')].join('-')
+      return entryKey === key
+    }).length
+    return {
+      key,
+      date,
+      count,
+      label: date.toLocaleDateString(undefined, { weekday: 'short' }),
+      fullLabel: date.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })
+    }
+  })
+  const selectedWeekDay = weekStats[Math.max(0, Math.min(6, selectedWeekIndex))]
+  const maxWeekCount = Math.max(1, ...weekStats.map(day => day.count))
+  const weekChartPoints = weekStats.map((day, index) => ({
+    x: 22 + index * 43,
+    y: 67 - (day.count / maxWeekCount) * 40
+  }))
+  const weekChartPath = weekChartPoints.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ')
   const recentActivity = [
     ...todayLogs.map((log, index) => {
       const def = defs.find(item => String(item.id) === String(log.metric_id))
@@ -126,6 +155,47 @@ function HomePage({ pageProps }) {
               <small>{option.label}</small>
             </button>
           ))}
+        </div>
+      </section>
+
+      <section className="calm-week-card" aria-labelledby="calm-week-title">
+        <div className="calm-week-head">
+          <div>
+            <span className="calm-section-kicker">YOUR ACTIVITY</span>
+            <h2 id="calm-week-title">Your week</h2>
+          </div>
+          <span className="calm-week-period">THIS WEEK</span>
+        </div>
+        <div className="calm-week-chart-wrap">
+          <svg className="calm-week-chart" viewBox="0 0 302 84" role="img" aria-label="Daily activity across this week">
+            <defs>
+              <linearGradient id="calm-week-fill" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--color-accent-blue)" stopOpacity=".22" />
+                <stop offset="100%" stopColor="var(--color-accent-blue)" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            {[27, 47, 67].map(y => <line key={y} x1="8" y1={y} x2="294" y2={y} className="calm-week-gridline" />)}
+            <path d={`${weekChartPath} L 280 76 L 22 76 Z`} fill="url(#calm-week-fill)" />
+            <path d={weekChartPath} className="calm-week-line" />
+            {weekChartPoints.map((point, index) => (
+              <circle key={weekStats[index].key} cx={point.x} cy={point.y} r={selectedWeekIndex === index ? 4.5 : 2.8} className={selectedWeekIndex === index ? 'calm-week-point is-selected' : 'calm-week-point'} />
+            ))}
+          </svg>
+        </div>
+        <div className="calm-week-days" aria-label="Choose a day to inspect activity">
+          {weekStats.map((day, index) => (
+            <button type="button" key={day.key} className={selectedWeekIndex === index ? 'calm-week-day is-selected' : 'calm-week-day'} aria-pressed={selectedWeekIndex === index} onClick={() => setSelectedWeekIndex(index)}>
+              <span>{day.label}</span>
+              <i aria-hidden="true" />
+            </button>
+          ))}
+        </div>
+        <div className="calm-week-summary" aria-live="polite">
+          <div>
+            <strong>{loading ? 'Updating your week…' : selectedWeekDay.count}</strong>
+            <span>{selectedWeekDay.count === 1 ? 'logged activity' : 'logged activities'}</span>
+          </div>
+          <p>{selectedWeekDay.fullLabel}{selectedWeekDay.count === 0 && !loading ? ' · A quiet day is still part of your progress.' : ''}</p>
         </div>
       </section>
 
