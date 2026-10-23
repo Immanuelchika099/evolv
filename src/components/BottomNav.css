@@ -266,22 +266,22 @@ html body #root .evolv-bottom-nav button.bottom-active,
 html body #root .evolv-bottom-nav button.bottom-active:hover,
 html body #root .evolv-bottom-nav button.bottom-active:focus,
 html body #root .evolv-bottom-nav button.bottom-active:active {
-  color: #a29bff !important;
-  background: rgba(116, 170, 255, .16) !important;
-  background-color: rgba(116, 170, 255, .16) !important;
-  box-shadow: inset 0 0 0 1px rgba(129, 119, 255, .18) !important;
+  color: var(--color-accent-blue) !important;
+  background: color-mix(in srgb, var(--color-accent-blue) 16%, transparent) !important;
+  background-color: color-mix(in srgb, var(--color-accent-blue) 16%, transparent) !important;
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-accent-blue) 18%, transparent) !important;
   outline-color: transparent !important;
 }
 
 html body #root .evolv-bottom-nav button.bottom-active > span,
 html body #root .evolv-bottom-nav button.bottom-active > span svg,
 html body #root .evolv-bottom-nav button.bottom-active small {
-  color: #a29bff !important;
+  color: var(--color-accent-blue) !important;
   stroke: currentColor !important;
 }
 
 html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(129, 119, 255, .65) !important;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 65%, transparent) !important;
 }
 
 
@@ -291,9 +291,9 @@ html body #root .evolv-bottom-nav button.bottom-active:hover,
 html body #root .evolv-bottom-nav button.bottom-active:focus,
 html body #root .evolv-bottom-nav button.bottom-active:active {
   color: #ffffff !important;
-  background: #74AAFF !important;
-  background-color: #74AAFF !important;
-  box-shadow: 0 0.4rem 1.4rem rgba(116, 170, 255, .22) !important;
+  background: var(--color-accent-blue) !important;
+  background-color: var(--color-accent-blue) !important;
+  box-shadow: 0 0.4rem 1.4rem color-mix(in srgb, var(--color-accent-blue) 22%, transparent) !important;
   outline-color: transparent !important;
 }
 

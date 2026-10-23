@@ -1493,7 +1493,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#5145c8"
+          color="var(--color-accent-blue)"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1554,7 +1554,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           preset="silk"
           pattern="line"
           wave="silk"
-          color="#5145c8"
+          color="var(--color-accent-blue)"
           backgroundColor="#050505"
           opacity={0.12}
           fade="center"
@@ -1768,10 +1768,10 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const areas={
     health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
     nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
-    money:{title:'Money',icon:WalletCards,color:'#5145c8'},
-    career:{title:'Career',icon:BriefcaseBusiness,color:'#63d9ff'},
-    mind:{title:'Mind',icon:Brain,color:'#9b7cff'},
-    life:{title:'Life',icon:Sprout,color:'#5145c8'}
+    money:{title:'Money',icon:WalletCards,color:'var(--color-accent-blue)'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'var(--color-accent-blue)'},
+    mind:{title:'Mind',icon:Brain,color:'var(--color-accent-blue)'},
+    life:{title:'Life',icon:Sprout,color:'var(--color-accent-blue)'}
   }
   const metricArea={sleep:'health',water:'health',steps:'health',exercise:'health',energy:'health',weight:'health',mood:'mind',focus:'mind',reflection:'mind',stress:'mind',learning:'career',building:'career',outreach:'career',applications:'career',skills:'career',income:'money',spending:'money',savings:'money',bills:'money',habits:'life',reading:'life',social:'life',personal:'life',meals:'nutrition'}
   const icons={sleep:Moon,water:Droplets,steps:Footprints,exercise:Dumbbell,energy:Zap,weight:Scale,mood:Smile,focus:Focus,reflection:NotebookPen,stress:Brain,learning:BookOpen,building:BriefcaseBusiness,outreach:Send,applications:Receipt,skills:Sparkles,income:ArrowDownLeft,spending:ArrowUpRight,savings:PiggyBank,bills:Receipt,habits:CheckCircle2,reading:BookOpen,social:Users,personal:Sprout,meals:Utensils}
@@ -3035,8 +3035,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
     nutrition:{title:'Nutrition',icon:Apple,color:'#F5B84B',description:'Meals, nourishment and the details you want to remember.'},
     money:{title:'Money',icon:WalletCards,color:'#34D399',description:'Income, spending, savings and the bills you need to stay on top of.'},
-    career:{title:'Career',icon:BriefcaseBusiness,color:'#38BDF8',description:'Applications, learning, projects, skills and outreach.'},
-    mind:{title:'Mind',icon:Brain,color:'#A78BFA',description:'Mood, focus, reflection and the moments that shape your inner life.'},
+    career:{title:'Career',icon:BriefcaseBusiness,color:'var(--color-accent-blue)',description:'Applications, learning, projects, skills and outreach.'},
+    mind:{title:'Mind',icon:Brain,color:'var(--color-accent-blue)',description:'Mood, focus, reflection and the moments that shape your inner life.'},
     life:{title:'Life',icon:Sprout,color:'#4ADE80',description:'Habits, reading, people and time spent on yourself.'}
   }
 
@@ -3057,11 +3057,11 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   }
 
   const metricIconColors={
-    sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
-    mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
+    sleep:'#F5B84B',water:'var(--color-accent-blue)',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
+    mood:'#FB7185',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'#F97316',
     learning:'var(--graph-blue-cyan)',building:'var(--graph-blue-light)',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
     income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
-    habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+    habits:'#A3E635',reading:'var(--color-accent-blue)',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
   }
 
   const rows=definitions.filter(d=>metricArea[d.slug]===area && d.slug!=='exercise')
@@ -3425,7 +3425,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
           {metric&&metric.value_type!=='meal'&&(
             <div className="log-form">
               <div className="log-selected-metric">
-                <span className="log-choice-icon" style={{'--metric-color':metric.color||'#5145c8'}}><I size={19}/></span>
+                <span className="log-choice-icon" style={{'--metric-color':metric.color||'var(--color-accent-blue)'}}><I size={19}/></span>
                 <div><strong>{metric.name}</strong><small>{metric.unit||'Your entry'}</small></div>
               </div>
 
@@ -3598,14 +3598,14 @@ function WeeklyProgressChart({ checkins = [], goals = [] }) {
         <svg viewBox="0 0 300 125" preserveAspectRatio="none" role="img" aria-label="Weekly check-in progress chart">
           <defs>
             <linearGradient id="weeklyFlowFill" x1="0" x2="0" y1="0" y2="1">
-              <stop offset="0%" stopColor="rgba(81, 69, 200,.28)" />
-              <stop offset="100%" stopColor="rgba(81, 69, 200,0)" />
+              <stop offset="0%" stopColor="color-mix(in srgb, var(--color-accent-blue) 28.000000000000004%, transparent)" />
+              <stop offset="100%" stopColor="color-mix(in srgb, var(--color-accent-blue) 0%, transparent)" />
             </linearGradient>
           </defs>
           <path d={`${path} L 280 108 L 20 108 Z`} fill="url(#weeklyFlowFill)" />
-          <path d={path} fill="none" stroke="rgba(81, 69, 200,.95)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+          <path d={path} fill="none" stroke="color-mix(in srgb, var(--color-accent-blue) 95%, transparent)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
           {points.map(point => (
-            <circle key={point.key} cx={point.x} cy={point.y} r={point.count ? 4 : 2.5} fill="rgba(81, 69, 200,1)" />
+            <circle key={point.key} cx={point.x} cy={point.y} r={point.count ? 4 : 2.5} fill="color-mix(in srgb, var(--color-accent-blue) 100%, transparent)" />
           ))}
         </svg>
         <div className="weekly-chart-days">

@@ -79,7 +79,7 @@
   height:6px;
   border-radius:50%;
   background:var(--accent);
-  box-shadow:0 0 14px #5145c866;
+  box-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 40%, transparent);
 }
 .pricing-content{
   width:min(1180px,calc(100% - 48px));
@@ -111,12 +111,12 @@
   box-shadow:0 35px 100px #0008;
 }
 .pricing-card.featured{
-  border-color:#5145c842;
-  background:linear-gradient(145deg,#5145c80b,#ffffff03);
+  border-color:color-mix(in srgb, var(--color-accent-blue) 26%, transparent);
+  background:linear-gradient(145deg,color-mix(in srgb, var(--color-accent-blue) 4%, transparent),#ffffff03);
   box-shadow:0 25px 80px #0006;
 }
 .pricing-card.featured:hover{
-  border-color:#5145c870;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 44%, transparent);
   box-shadow:0 40px 110px #0009;
 }
 .pricing-popular{
@@ -124,11 +124,11 @@
   top:0;
   right:0;
   padding:9px 14px;
-  border-left:1px solid #5145c830;
-  border-bottom:1px solid #5145c830;
+  border-left:1px solid color-mix(in srgb, var(--color-accent-blue) 19%, transparent);
+  border-bottom:1px solid color-mix(in srgb, var(--color-accent-blue) 19%, transparent);
   border-radius:0 0 0 14px;
-  color:#5145c8;
-  background:#5145c809;
+  color:var(--color-accent-blue);
+  background:color-mix(in srgb, var(--color-accent-blue) 4%, transparent);
   font:8px 'DM Mono';
   letter-spacing:.12em;
 }
@@ -181,9 +181,9 @@
   opacity:1!important;
 }
 .pricing-card.featured .pricing-card-cta{
-  border-color:#5145c840;
-  background:#5145c810;
-  color:#5145c8;
+  border-color:color-mix(in srgb, var(--color-accent-blue) 25%, transparent);
+  background:color-mix(in srgb, var(--color-accent-blue) 6%, transparent);
+  color:var(--color-accent-blue);
 }
 .pricing-divider{
   height:1px;
@@ -212,7 +212,7 @@
 }
 .pricing-card li svg{
   flex:0 0 auto;
-  color:#39317e;
+  color:var(--color-accent-blue);
   margin-top:1px;
 }
 .pricing-comparison{

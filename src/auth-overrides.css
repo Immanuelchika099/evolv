@@ -39,7 +39,7 @@
 .alarm-date-time-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .evolv-alarm-list{display:grid;gap:1rem;margin-top:1.5rem}
 .evolv-alarm-row{display:grid;grid-template-columns:6rem minmax(0,1fr) auto auto;align-items:center;gap:1rem;padding:1.2rem;border:1px solid rgba(255,255,255,.08);border-radius:1.5rem}
-.evolv-alarm-time strong{color:#2563eb;font-size:1.8rem}
+.evolv-alarm-time strong{color:var(--color-accent-blue);font-size:1.8rem}
 .evolv-alarm-time span,.evolv-alarm-copy span{display:block;color:rgba(244,241,234,.45);font-size:1.2rem;margin-top:.2rem}
 .evolv-alarm-copy{min-width:0}.evolv-alarm-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.45rem}
 @media(max-width:650px){.alarm-date-time-grid{grid-template-columns:1fr}.evolv-alarm-row{grid-template-columns:5.8rem minmax(0,1fr) auto}.evolv-alarm-copy{grid-column:2;grid-row:1 / span 2}.evolv-alarm-time{grid-column:1;grid-row:1 / span 2}}
@@ -605,8 +605,8 @@
   --border: #2a2a2a;
   --text: #ffffff;
   --muted: #8a8a8a;
-  --accent: #2563eb;
-  --accent-tint: rgba(37, 99, 235, 0.14);
+  --accent: var(--color-accent-blue);
+  --accent-tint: color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent);
   --disabled-bg: #151818;
   --radius: 16px;
   --error: #ff6b6b;
@@ -1160,48 +1160,48 @@
 /* Signup page: restore EVOLV's calm blue highlights and hover states. */
 .auth-page .auth-signup-banner,
 .auth-page .auth-email-choice {
-  border-color: rgba(37, 99, 235, .3);
-  background: rgba(37, 99, 235, .1);
-  color: #2563eb;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 30%, transparent);
+  background: color-mix(in srgb, var(--color-accent-blue) 10%, transparent);
+  color: var(--color-accent-blue);
 }
 
 .auth-page .auth-signup-banner:hover,
 .auth-page .auth-email-choice:hover {
-  border-color: rgba(37, 99, 235, .58);
-  background: rgba(37, 99, 235, .18);
-  color: #2563eb;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 57.99999999999999%, transparent);
+  background: color-mix(in srgb, var(--color-accent-blue) 18%, transparent);
+  color: var(--color-accent-blue);
 }
 
 .auth-page .auth-quick-form input:focus,
 .auth-page .auth-form input:focus,
 .auth-page input[type="email"]:focus {
-  border-color: #2563eb !important;
+  border-color: var(--color-accent-blue) !important;
   outline: none !important;
   background: #10141b;
-  box-shadow: 0 0 0 3px rgba(37, 99, 235, .14) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent) !important;
 }
 
 .auth-page .auth-continue-button,
 .auth-page .auth-submit {
-  border-color: #2563eb;
-  background: #2563eb;
+  border-color: var(--color-accent-blue);
+  background: var(--color-accent-blue);
   color: #ffffff;
 }
 
 .auth-page .auth-continue-button:hover:not(:disabled),
 .auth-page .auth-submit:hover:not(:disabled) {
-  border-color: #1d4ed8;
-  background: #1d4ed8;
+  border-color: var(--color-accent-blue);
+  background: var(--color-accent-blue);
   color: #ffffff;
   filter: none;
-  box-shadow: 0 5px 18px rgba(37, 99, 235, .25);
+  box-shadow: 0 5px 18px color-mix(in srgb, var(--color-accent-blue) 25%, transparent);
 }
 
 .auth-page .auth-continue-button:focus-visible,
 .auth-page .auth-submit:focus-visible,
 .auth-page .auth-signup-banner:focus-visible,
 .auth-page .auth-email-choice:focus-visible {
-  outline: 2px solid rgba(37, 99, 235, .85);
+  outline: 2px solid color-mix(in srgb, var(--color-accent-blue) 85%, transparent);
   outline-offset: 3px;
 }
 
@@ -1212,17 +1212,17 @@
   padding:0;
   border:0;
   background:transparent;
-  color:#8ab4ff;
+  color:var(--color-accent-blue);
   font:inherit;
   text-decoration:underline;
   text-underline-offset:.25em;
   cursor:pointer;
 }
 .auth-page .auth-legal button:hover{
-  color:#c3d8ff;
+  color:var(--color-accent-blue);
 }
 .auth-page .auth-legal button:focus-visible{
-  outline:2px solid #2563eb;
+  outline:2px solid var(--color-accent-blue);
   outline-offset:3px;
   border-radius:2px;
 }

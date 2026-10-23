@@ -613,7 +613,7 @@
 .evolv-onboarding-orbit-ring {
   position: absolute;
   display: block;
-  border: 1px solid rgba(130,166,255,.2);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
   border-radius: 50%;
 }
 .evolv-onboarding-orbit-ring-one {
@@ -632,10 +632,10 @@
   place-items: center;
   width: 8.2rem;
   height: 8.2rem;
-  border: 1px solid rgba(135,170,255,.35);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 35%, transparent);
   border-radius: 2.5rem;
   background: linear-gradient(145deg, color-mix(in srgb, var(--color-accent-blue) 23%, transparent), rgba(10,13,21,.9));
-  color: #dbe7ff;
+  color: var(--color-accent-blue);
   box-shadow: 0 1.5rem 5rem color-mix(in srgb, var(--color-accent-blue) 12%, transparent), inset 0 1px rgba(255,255,255,.12);
   animation: evolv-approach-float 4.8s ease-in-out infinite;
 }
@@ -646,8 +646,8 @@
   width: .8rem;
   height: .8rem;
   border-radius: 50%;
-  background: #8db2ff;
-  box-shadow: 0 0 1.8rem rgba(90,143,255,.7);
+  background: var(--color-accent-blue);
+  box-shadow: 0 0 1.8rem color-mix(in srgb, var(--color-accent-blue) 70%, transparent);
 }
 .evolv-onboarding-approach-list {
   display: grid;
@@ -669,10 +669,10 @@
   place-items: center;
   width: 4rem;
   height: 4rem;
-  border: 1px solid rgba(116,157,255,.16);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
   border-radius: 1.2rem;
   background: color-mix(in srgb, var(--color-accent-blue) 11%, transparent);
-  color: #a9c4ff;
+  color: var(--color-accent-blue);
 }
 .evolv-onboarding-approach-item > span:last-child {
   display: grid;
@@ -707,7 +707,7 @@
   width: 9rem;
   height: 9rem;
   margin-bottom: .6rem;
-  border: 1px solid rgba(120,160,255,.22);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
   border-radius: 50%;
   background: radial-gradient(circle, color-mix(in srgb, var(--color-accent-blue) 16%, transparent), color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent) 68%);
 }
@@ -716,10 +716,10 @@
   place-items: center;
   width: 5.4rem;
   height: 5.4rem;
-  border: 1px solid rgba(140,174,255,.38);
+  border: 1px solid color-mix(in srgb, var(--color-accent-blue) 38%, transparent);
   border-radius: 50%;
   background: color-mix(in srgb, var(--color-accent-blue) 16%, transparent);
-  color: #dbe7ff;
+  color: var(--color-accent-blue);
 }
 @media (max-width: 680px) {
   .evolv-onboarding-approach {

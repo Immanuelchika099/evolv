@@ -3,7 +3,7 @@
 .legal-back-button{display:inline-flex;align-items:center;gap:.8rem;min-height:4.4rem;padding:.8rem 1.2rem .8rem .7rem;border:1px solid rgba(255,255,255,.14);border-radius:999px;background:rgba(255,255,255,.045);color:#f4f4f1;font-size:1.4rem;font-weight:var(--font-weight-semibold);transition:background .18s ease,border-color .18s ease}
 .legal-back-button:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.24)}
 .legal-page-header{padding:clamp(4.2rem,8vw,7rem) 0 3.6rem;border-bottom:1px solid rgba(255,255,255,.13)}
-.legal-eyebrow{display:inline-block;margin-bottom:1.6rem;color:#9ba6bd;font-size:1.2rem;font-weight:var(--font-weight-bold);letter-spacing:.18em}
+.legal-eyebrow{display:inline-block;margin-bottom:1.6rem;color:var(--color-accent-blue);font-size:1.2rem;font-weight:var(--font-weight-bold);letter-spacing:.18em}
 .legal-page-header h1{margin:0;max-width:760px;color:#fff;font-size:clamp(3.4rem,7vw,5.8rem);line-height:1.12;letter-spacing:-.045em;font-weight:600}
 .legal-dates{display:flex;flex-wrap:wrap;gap:.8rem;margin:1.8rem 0 0;color:rgba(255,255,255,.55);font-size:1.3rem;line-height:1.7}
 .legal-intro{max-width:720px;margin:2.6rem 0 0;color:rgba(255,255,255,.78);font-size:1.6rem;line-height:1.9}

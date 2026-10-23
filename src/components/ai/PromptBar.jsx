@@ -134,7 +134,7 @@ export default function PromptBar({
   background = '#27272a',
   color = '#f5f5f5',
   menuBackground = '#323236',
-  sparkColor = '#b39dff',
+  sparkColor = 'var(--color-accent-blue)',
   sparkBoost = 1,
   width = 400,
   radius = 16,

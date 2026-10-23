@@ -195,11 +195,11 @@ function AreaPage({ pageProps }) {
   const current = areas[currentArea]
   const AreaIcon = current?.icon || Activity
   const metricIconColors = {
-    sleep:'#F5B84B',water:'#49C6F0',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
-    mood:'#FB7185',focus:'#A78BFA',reflection:'#C084FC',stress:'#F97316',
-    learning:'#38BDF8',building:'#60A5FA',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
+    sleep:'#F5B84B',water:'var(--color-accent-blue)',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
+    mood:'#FB7185',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'#F97316',
+    learning:'var(--color-accent-blue)',building:'var(--color-accent-blue)',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
     income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
-    habits:'#A3E635',reading:'#C084FC',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+    habits:'#A3E635',reading:'var(--color-accent-blue)',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
   }
   const trackers = defs.filter(def => metricArea[def.slug] === currentArea)
   const recentMeals = meals.length
@@ -208,7 +208,7 @@ function AreaPage({ pageProps }) {
     <section className="panel-page dashboard-panel area-detail-page area-options-page">
       <button className="area-back" onClick={() => goTo('overview')}><ChevronLeft size={16} /> Home</button>
       <header className="area-options-heading">
-        <span className="life-area-icon large" style={{ '--area-color': current?.color || '#8ab4ff' }}><AreaIcon size={20} /></span>
+        <span className="life-area-icon large" style={{ '--area-color': current?.color || 'var(--color-accent-blue)' }}><AreaIcon size={20} /></span>
         <h1>{current?.title || 'Health'}</h1>
       </header>
 
@@ -225,7 +225,7 @@ function AreaPage({ pageProps }) {
           const entry = latest[def.slug]
           return (
             <button type="button" className="area-option-row" key={def.id} onClick={() => openLog(currentArea, def)}>
-              <span className="metric-row-icon area-option-icon" style={{ '--metric-color': metricIconColors[def.slug] || def.color || current?.color || '#8ab4ff' }}><Icon size={18} /></span>
+              <span className="metric-row-icon area-option-icon" style={{ '--metric-color': metricIconColors[def.slug] || def.color || current?.color || 'var(--color-accent-blue)' }}><Icon size={18} /></span>
               <span className="area-option-copy"><strong>{def.name}</strong><small>{entry ? valueText(entry, def) : 'Not logged yet'}</small></span>
               <ChevronRight size={17} className="area-option-action" />
             </button>

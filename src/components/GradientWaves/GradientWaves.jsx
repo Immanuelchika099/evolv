@@ -129,7 +129,7 @@ void main() {
 const ctxMap = new WeakMap();
 
 const GradientWaves = ({
-  horizonColor = '#5227FF',
+  horizonColor = 'var(--color-accent-blue)',
   waveColor = '#FF9FFC',
   crestColor = '#FFFFFF',
   speed = 0.4,

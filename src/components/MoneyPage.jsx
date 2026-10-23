@@ -5,20 +5,20 @@ import './MoneyPage.css'
 
 const categories = {
   income: [
-    { value: 'Freelance', icon: Laptop, color: '#63d9ff' },
+    { value: 'Freelance', icon: Laptop, color: 'var(--color-accent-blue)' },
     { value: 'Salary', icon: BriefcaseBusiness, color: '#62e6bd' },
-    { value: 'Business', icon: WalletCards, color: '#9dbbff' },
-    { value: 'Gift', icon: Gift, color: '#d8a4ff' },
+    { value: 'Business', icon: WalletCards, color: 'var(--color-accent-blue)' },
+    { value: 'Gift', icon: Gift, color: 'var(--color-accent-blue)' },
     { value: 'Other income', icon: ArrowDownLeft, color: '#62e6bd' },
   ],
   expense: [
     { value: 'Food', icon: Utensils, color: '#ffb86b' },
-    { value: 'Transport', icon: Bus, color: '#78b7ff' },
-    { value: 'Shopping', icon: ShoppingBag, color: '#d8a4ff' },
+    { value: 'Transport', icon: Bus, color: 'var(--color-accent-blue)' },
+    { value: 'Shopping', icon: ShoppingBag, color: 'var(--color-accent-blue)' },
     { value: 'Bills', icon: Receipt, color: '#ff8f87' },
     { value: 'Home', icon: Home, color: '#f1cc75' },
     { value: 'Health', icon: Heart, color: '#ff8f9d' },
-    { value: 'Subscriptions', icon: CreditCard, color: '#9dbbff' },
+    { value: 'Subscriptions', icon: CreditCard, color: 'var(--color-accent-blue)' },
     { value: 'Other expense', icon: WalletCards, color: '#a9a9b2' },
   ],
   savings: [{ value: 'Savings', icon: PiggyBank, color: '#62e6bd' }],
@@ -55,7 +55,7 @@ function categoryInfo(entry, definition) {
   const label = metadata.category || (type === 'income' ? 'Other income' : type === 'savings' ? 'Savings' : type === 'bill' ? 'Bills' : 'Other expense')
   const item = (categories[type] || categories.expense).find(option => option.value.toLowerCase() === String(label).toLowerCase())
     || Object.values(categories).flat().find(option => option.value.toLowerCase() === String(label).toLowerCase())
-  return { label, icon: item?.icon || (type === 'income' ? ArrowDownLeft : type === 'savings' ? PiggyBank : type === 'bill' ? Receipt : WalletCards), color: item?.color || '#9dbbff', type }
+  return { label, icon: item?.icon || (type === 'income' ? ArrowDownLeft : type === 'savings' ? PiggyBank : type === 'bill' ? Receipt : WalletCards), color: item?.color || 'var(--color-accent-blue)', type }
 }
 
 export default function MoneyPage({ defs = [], logs = [] }) {
