@@ -1489,25 +1489,25 @@ function getAvatarPreset(style = 'androgynous') {
 function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
 const welcomeImages = [
     {
-      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
+      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=90',
       alt: 'A focused work session at a laptop',
       label: 'LEARN',
       className: 'learn',
     },
     {
-      image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85',
+      image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=90',
       alt: 'Someone building strength through exercise',
       label: 'MOVE',
       className: 'move',
     },
     {
-      image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=85',
+      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=90',
       alt: 'A notebook and workspace ready for planning',
       label: 'CREATE',
       className: 'create',
     },
     {
-      image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85',
+      image: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=900&q=90',
       alt: 'A calm, restful bedroom',
       label: 'REST',
       className: 'rest',
@@ -1529,7 +1529,7 @@ const welcomeImages = [
         <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
           {welcomeImages.map((item) => (
             <figure className={`evolv-welcome-image evolv-welcome-image--${item.className}`} key={item.className}>
-              <img key={`${item.className}-${welcomeImageIndex}`} src={item.image} alt={item.alt} loading="eager" fetchPriority="high" />
+              <img src={item.image} alt={item.alt} loading="eager" fetchPriority="high" />
               <figcaption>{item.label}</figcaption>
             </figure>
           ))}
