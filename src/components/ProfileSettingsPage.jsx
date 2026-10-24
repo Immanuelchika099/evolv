@@ -177,7 +177,7 @@ export default function ProfileSettingsPage({pageProps}){
     <div className="profile-v2-summary">
       <div className="profile-v2-summary-main">
         <div className="profile-avatar-wrap profile-v2-avatar-wrap">
-          <button type="button" className="profile-avatar-button profile-v2-avatar-button" onClick={()=>setPhotoMenuOpen(true)} disabled={avatarBusy} aria-label="Manage profile photo">
+          <button type="button" className="profile-avatar-button profile-v2-avatar-button" onClick={()=>document.getElementById('profile-avatar-input')?.click()} disabled={avatarBusy} aria-label="Choose profile photo">
             {displayAvatar?<img src={displayAvatar} alt={firstName+" profile"} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={15}/></span>
           </button>
           <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleAvatar} aria-label="Choose profile photo"/>
