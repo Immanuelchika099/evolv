@@ -10431,3 +10431,54 @@ html body #root .dashboard .dashboard-home.calm-home .calm-insights-section::aft
     background-attachment: scroll !important;
   }
 }
+
+
+/* AI Insights reference match: a second soft orange halo on the left,
+   positioned opposite the existing right-side glow around the insight stack.
+   It stays on the dashboard canvas, outside the cards themselves. */
+html body #root .dashboard {
+  background-image:
+    radial-gradient(ellipse 66rem 58rem at 50% 7rem,
+      rgba(196,76,29,.16) 0%,
+      rgba(160,53,18,.085) 35%,
+      rgba(112,36,13,.025) 62%,
+      transparent 79%),
+    radial-gradient(ellipse 48rem 50rem at 100% 57%,
+      rgba(178,65,22,.15) 0%,
+      rgba(145,48,17,.075) 35%,
+      rgba(90,28,10,.022) 59%,
+      transparent 78%),
+    radial-gradient(ellipse 44rem 48rem at 0% 57%,
+      rgba(178,65,22,.13) 0%,
+      rgba(145,48,17,.065) 36%,
+      rgba(90,28,10,.018) 60%,
+      transparent 79%),
+    radial-gradient(ellipse 54rem 56rem at 0% calc(100% + 20rem),
+      rgba(184,65,22,.15) 0%,
+      rgba(145,46,15,.07) 40%,
+      rgba(100,31,10,.02) 66%,
+      transparent 80%) !important;
+}
+@media (max-width: 600px) {
+  html body #root .dashboard {
+    background-image:
+      radial-gradient(ellipse 42rem 48rem at 50% 9rem,
+        rgba(196,76,29,.17) 0%,
+        rgba(160,53,18,.08) 38%,
+        rgba(112,36,13,.02) 65%,
+        transparent 80%),
+      radial-gradient(ellipse 36rem 46rem at 100% 56%,
+        rgba(178,65,22,.15) 0%,
+        rgba(145,48,17,.07) 38%,
+        rgba(90,28,10,.018) 62%,
+        transparent 80%),
+      radial-gradient(ellipse 32rem 42rem at 0% 56%,
+        rgba(178,65,22,.12) 0%,
+        rgba(145,48,17,.06) 40%,
+        transparent 79%),
+      radial-gradient(ellipse 38rem 46rem at 0% calc(100% + 18rem),
+        rgba(184,65,22,.14) 0%,
+        rgba(145,46,15,.065) 42%,
+        transparent 80%) !important;
+  }
+}
