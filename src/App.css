@@ -2656,3 +2656,35 @@ html,body,#root{background:#000 !important;}
   .landing-v2 .ev-system-steps strong { font-size:2rem; }
   .landing-v2 .ev-system-steps small { font-size:1.35rem; }
 }
+
+
+/* AI insight cards: soft ambient orange light sits beneath the cards, offset right. */
+.dashboard-home .daily-insight {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+}
+.dashboard-home .daily-insight::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  width: min(92vw, 54rem);
+  height: clamp(20rem, 54vw, 34rem);
+  right: -7rem;
+  bottom: -11rem;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 72% 58%, rgba(222, 82, 35, .105) 0%, rgba(222, 82, 35, .055) 32%, rgba(222, 82, 35, .018) 54%, transparent 74%);
+  filter: blur(2.4rem);
+  opacity: .82;
+}
+@media (max-width: 40rem) {
+  .dashboard-home .daily-insight::after {
+    width: 112vw;
+    height: 30rem;
+    right: -9rem;
+    bottom: -13rem;
+    background: radial-gradient(ellipse at 76% 60%, rgba(222, 82, 35, .09) 0%, rgba(222, 82, 35, .045) 34%, rgba(222, 82, 35, .012) 56%, transparent 74%);
+    filter: blur(2.8rem);
+  }
+}
