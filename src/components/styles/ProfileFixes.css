@@ -1339,3 +1339,59 @@
   color: #f28d83 !important;
 }
 
+
+
+/* Focus & growth now uses the same grouped panel and left alignment as the other profile sections. */
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section {
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  padding: 6px 8px 10px !important;
+  overflow: hidden !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section > .profile-v2-focus-row {
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: 44px minmax(0, 1fr) 18px !important;
+  align-items: center !important;
+  column-gap: 12px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 64px !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 10px 8px !important;
+  border: 0 !important;
+  border-radius: 2.4rem !important;
+  outline: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: left !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section > .profile-v2-focus-row:focus-visible {
+  outline: 1px solid rgba(255,255,255,.28) !important;
+  outline-offset: -2px !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section .profile-v2-focus-icon {
+  box-sizing: border-box !important;
+  display: grid !important;
+  place-items: center !important;
+  width: 44px !important;
+  height: 44px !important;
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+  border-radius: 50% !important;
+  background: rgba(255,255,255,.06) !important;
+  color: #fff !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section .profile-v2-focus-copy {
+  min-width: 0 !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section .profile-v2-focus-chevron {
+  justify-self: end !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-section .profile-v2-focus-more > .profile-v2-direction-editor {
+  padding-left: 60px !important;
+  padding-right: 8px !important;
+}
