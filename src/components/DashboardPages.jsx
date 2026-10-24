@@ -712,16 +712,53 @@ function ProfilePage({ pageProps }) {
 
     <div className="profile-account-actions">
       <div className="profile-account-actions-heading"><span className="section-label">ACCOUNT</span><h3>Account actions</h3></div>
-      <button type="button" className="profile-account-action" onClick={onLogout}>
-        <span className="profile-action-icon logout-icon"><Settings size={18} /></span>
-        <span className="profile-account-action-copy"><strong>Sign out</strong><small>Sign out of EVOLV on this device.</small></span>
-        <span className="profile-account-action-arrow">›</span>
-      </button>
-      <button type="button" className="profile-account-action delete-account-action" onClick={deleteAccount} disabled={deleting}>
-        <span className="profile-action-icon delete-icon"><Settings size={18} /></span>
-        <span className="profile-account-action-copy"><strong>{deleting ? 'Deleting account…' : 'Delete account'}</strong><small>Permanently remove your account and saved information.</small></span>
-        <span className="profile-account-action-arrow">›</span>
-      </button>
+      <div className="settings-action-row settings-hold-row profile-account-hold-row">
+        <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
+        <HoldButton
+          doneLabel="Signed out"
+          backgroundColor="#27272a"
+          fillColor="#ffffff"
+          textColor="#f5f5f5"
+          fillTextColor="#050505"
+          size="md"
+          radius={14}
+          fillDirection="right"
+          holdTime={2000}
+          releaseTime={200}
+          pressScale={0.97}
+          wave
+          waveAmplitude={6}
+          glow
+          resetAfter={1200}
+          onHold={onLogout}
+        >
+          Sign out
+        </HoldButton>
+      </div>
+      <div className="settings-action-row settings-hold-row profile-account-hold-row danger">
+        <div><strong>Delete account</strong><span>Hold to permanently remove your account and saved information.</span></div>
+        <HoldButton
+          doneLabel="Deleted"
+          backgroundColor="#27272a"
+          fillColor="#EF4444"
+          textColor="#f5f5f5"
+          fillTextColor="#ffffff"
+          size="md"
+          radius={14}
+          fillDirection="right"
+          holdTime={2000}
+          releaseTime={200}
+          pressScale={0.97}
+          wave
+          waveAmplitude={6}
+          glow
+          resetAfter={1200}
+          onHold={deleteAccount}
+          disabled={deleting}
+        >
+          {deleting ? 'Deleting…' : 'Delete account'}
+        </HoldButton>
+      </div>
     </div>
   </section>
 }
