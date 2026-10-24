@@ -168,7 +168,7 @@ export default function ProfileSettingsPage({pageProps}){
   if(loading&&!user)return <section className="panel-page dashboard-panel settings-page profile-v2 settings-loading" aria-busy="true"><header className="profile-v2-topbar"><span className="profile-v2-title">Profile</span></header><div className="settings-loading-line"/><div className="settings-loading-line short"/></section>
 
   return <section className="panel-page dashboard-panel settings-page profile-v2">
-    <div className="profile-v2-top-scrim status-scrim" aria-hidden="true"/>
+    {createPortal(<div className="profile-v2-top-scrim status-scrim" aria-hidden="true"/>, document.body)}
     <header className="profile-v2-topbar">
       <button type="button" className="profile-v2-icon-button" onClick={()=>pageProps.goTo?.('overview')} aria-label="Back to home"><ChevronLeft size={21}/></button>
       <h1 className="profile-v2-title">Profile</h1>
@@ -178,8 +178,9 @@ export default function ProfileSettingsPage({pageProps}){
       <div className="profile-v2-summary-main">
         <div className="profile-avatar-wrap profile-v2-avatar-wrap">
           <button type="button" className="profile-avatar-button profile-v2-avatar-button" onClick={()=>setPhotoMenuOpen(true)} disabled={avatarBusy} aria-label="Manage profile photo">
-            {displayAvatar?<img src={displayAvatar} alt={firstName+" profile"} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={15}/></span>
+            {displayAvatar?<img src={displayAvatar} alt={firstName+" profile"} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}
           </button>
+          <span className="profile-avatar-camera" aria-hidden="true"><Camera size={15}/></span>
           <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleAvatar} aria-label="Choose profile photo"/>
         </div>
         <div className="profile-v2-identity"><h2>{profileName||"Your name"}</h2><p title={user?.email||profile?.email||"Account email"}>{user?.email||profile?.email||"Account email"}</p></div>
@@ -209,7 +210,7 @@ export default function ProfileSettingsPage({pageProps}){
           </ProfileSettingsSection>
         </div>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Your routine</p>
-          <button type="button" className="profile-setting-row profile-v2-focus-row" aria-expanded={focusExpanded} onClick={()=>setFocusExpanded(value=>!value)}><span className="profile-v2-focus-icon" aria-hidden="true"><Compass size={19}/></span><span className="profile-v2-focus-copy"><strong>Focus &amp; growth areas</strong><small>Choose your direction · {growthAreas.length||0} selected</small></span><ChevronDown size={18} className={focusExpanded?"profile-v2-focus-chevron is-open":"profile-v2-focus-chevron"}/></button>
+          <button type="button" className="profile-settings-section-head profile-v2-focus-row" aria-expanded={focusExpanded} onClick={()=>setFocusExpanded(value=>!value)}><span className="profile-settings-section-icon profile-v2-focus-icon" aria-hidden="true"><Compass size={19} strokeWidth={1.9}/></span><span className="profile-settings-section-heading profile-v2-focus-copy"><strong>Focus &amp; growth areas</strong><small>Choose your direction · {growthAreas.length||0} selected</small></span><ChevronDown size={19} className={focusExpanded?"profile-settings-chevron is-open":"profile-settings-chevron"}/></button>
           <div className={focusExpanded?"profile-v2-focus-more is-open":"profile-v2-focus-more"} aria-hidden={!focusExpanded} inert={!focusExpanded}><div className="profile-v2-direction-editor">
             <label className="profile-v2-focus-select"><span>Primary focus</span><select value={focusDraft} onChange={event=>setFocusDraft(event.target.value)}><option value="">Choose your direction</option>{focusDraft&&!['Career','Skills','Money','Life','Health','Creative'].includes(focusDraft)&&<option value={focusDraft}>{focusDraft}</option>}{['Career','Skills','Money','Life','Health','Creative'].map(option=><option key={option} value={option}>{option}</option>)}</select></label>
             <fieldset className="profile-v2-growth-options"><legend>Growth areas</legend>{[{id:'career',title:'Career'},{id:'skills',title:'Skills'},{id:'money',title:'Money'},{id:'life',title:'Life'},{id:'health',title:'Health'},{id:'creative',title:'Creative'}].map(area=><label key={area.id} className={growthDraft.includes(area.id)?'is-selected':''}><input type="checkbox" checked={growthDraft.includes(area.id)} onChange={()=>toggleGrowthArea(area.id)}/><span>{area.title}</span></label>)}</fieldset>
