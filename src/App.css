@@ -2871,7 +2871,7 @@ body:has(.dashboard-home)::before,
 body:has(.dashboard-home)::after {
   content: "";
   position: fixed;
-  z-index: -1;
+  z-index: 0;
   display: block;
   pointer-events: none;
   border-radius: 50%;
@@ -2912,4 +2912,10 @@ body:has(.dashboard-home)::after {
     bottom: -24rem;
     filter: blur(5rem);
   }
+}
+
+
+body:has(.dashboard-home) .dashboard-home {
+  position: relative;
+  z-index: 1;
 }
