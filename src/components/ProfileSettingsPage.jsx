@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings, Compass } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
@@ -168,6 +168,7 @@ export default function ProfileSettingsPage({pageProps}){
   if(loading&&!user)return <section className="panel-page dashboard-panel settings-page profile-v2 settings-loading" aria-busy="true"><header className="profile-v2-topbar"><span className="profile-v2-title">Profile</span></header><div className="settings-loading-line"/><div className="settings-loading-line short"/></section>
 
   return <section className="panel-page dashboard-panel settings-page profile-v2">
+    <div className="profile-v2-top-scrim status-scrim" aria-hidden="true"/>
     <header className="profile-v2-topbar">
       <button type="button" className="profile-v2-icon-button" onClick={()=>pageProps.goTo?.('overview')} aria-label="Back to home"><ChevronLeft size={21}/></button>
       <h1 className="profile-v2-title">Profile</h1>
@@ -202,13 +203,13 @@ export default function ProfileSettingsPage({pageProps}){
         <div className="profile-v2-group"><p className="profile-v2-group-label">Your details</p>
           <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
             <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
-            <div className="profile-setting-row"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
+            <div className="profile-setting-row profile-setting-row-wide"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
             <div className="profile-setting-row"><div><strong>Bio</strong><span>A short line shown on your profile.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{draft.bio?'Edit bio':'Add bio'} <ChevronRight size={15}/></button></div>
             <div className="profile-setting-row"><div><strong>Edit profile</strong><span>Update your name and personal details.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
           </ProfileSettingsSection>
         </div>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Your routine</p>
-          <button type="button" className="profile-setting-row profile-v2-focus-row" aria-expanded={focusExpanded} onClick={()=>setFocusExpanded(value=>!value)}><span><strong>Focus &amp; growth areas</strong><small>Choose your direction · {growthAreas.length||0} selected</small></span><ChevronRight size={18} className={focusExpanded?"profile-v2-focus-chevron is-open":"profile-v2-focus-chevron"}/></button>
+          <button type="button" className="profile-setting-row profile-v2-focus-row" aria-expanded={focusExpanded} onClick={()=>setFocusExpanded(value=>!value)}><span className="profile-v2-focus-icon" aria-hidden="true"><Compass size={19}/></span><span className="profile-v2-focus-copy"><strong>Focus &amp; growth areas</strong><small>Choose your direction · {growthAreas.length||0} selected</small></span><ChevronDown size={18} className={focusExpanded?"profile-v2-focus-chevron is-open":"profile-v2-focus-chevron"}/></button>
           <div className={focusExpanded?"profile-v2-focus-more is-open":"profile-v2-focus-more"} aria-hidden={!focusExpanded} inert={!focusExpanded}><div className="profile-v2-direction-editor">
             <label className="profile-v2-focus-select"><span>Primary focus</span><select value={focusDraft} onChange={event=>setFocusDraft(event.target.value)}><option value="">Choose your direction</option>{focusDraft&&!['Career','Skills','Money','Life','Health','Creative'].includes(focusDraft)&&<option value={focusDraft}>{focusDraft}</option>}{['Career','Skills','Money','Life','Health','Creative'].map(option=><option key={option} value={option}>{option}</option>)}</select></label>
             <fieldset className="profile-v2-growth-options"><legend>Growth areas</legend>{[{id:'career',title:'Career'},{id:'skills',title:'Skills'},{id:'money',title:'Money'},{id:'life',title:'Life'},{id:'health',title:'Health'},{id:'creative',title:'Creative'}].map(area=><label key={area.id} className={growthDraft.includes(area.id)?'is-selected':''}><input type="checkbox" checked={growthDraft.includes(area.id)} onChange={()=>toggleGrowthArea(area.id)}/><span>{area.title}</span></label>)}</fieldset>
@@ -226,8 +227,8 @@ export default function ProfileSettingsPage({pageProps}){
             <SettingToggle label="Daily reminders" description="Your existing morning, midday and evening reminders." checked={notificationsEnabled} onChange={toggleNotifications}/>
             <SettingToggle label="Streak alerts" description="Keep a quiet nudge when a streak is at risk." checked={settings.streakAlerts} onChange={v=>updateSetting('streakAlerts',v)}/>
             <SettingToggle label="Weekly summary" description="Keep a weekly view of how consistently you showed up." checked={settings.weeklySummary} onChange={v=>updateSetting('weeklySummary',v)}/>
-            <div className="profile-setting-row profile-setting-row-nested"><div><strong>Reminder schedule</strong><span>Existing EVOLV reminder times.</span></div><span className="settings-value">{notificationTimes.morningTime} · {notificationTimes.hydrationTime} · {notificationTimes.reflectionTime}</span></div>
-            <div className="profile-setting-row profile-setting-row-nested"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
+            <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide"><div><strong>Reminder schedule</strong><span>Existing EVOLV reminder times.</span></div><span className="settings-value">{notificationTimes.morningTime} · {notificationTimes.hydrationTime} · {notificationTimes.reflectionTime}</span></div>
+            <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
           </ProfileSettingsSection>
         </div>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Your information</p>

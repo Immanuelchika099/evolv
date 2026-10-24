@@ -2571,3 +2571,10 @@ html:has(.dashboard.dashboard-ai-active) {
     line-height: 1.75 !important;
   }
 }
+
+
+/* EVOLV AI sent-message bubble — requested dark brown accent. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  background: #653218 !important;
+  border-color: rgba(255,255,255,.08) !important;
+}
