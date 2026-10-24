@@ -1651,6 +1651,12 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [quickLogInitialScreen,setQuickLogInitialScreen]=useState('menu')
 
   useEffect(()=>{
+    const openDashboardNavigation=()=>setDesktopSidebarOpen(true)
+    window.addEventListener('evolv-open-dashboard-navigation',openDashboardNavigation)
+    return()=>window.removeEventListener('evolv-open-dashboard-navigation',openDashboardNavigation)
+  },[])
+
+  useEffect(()=>{
     const openWorkoutTracker=()=>{
       setQuickLogInitialScreen('workouts')
       setQuickLogOpen(true)
