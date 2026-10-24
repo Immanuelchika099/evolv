@@ -1487,53 +1487,27 @@ function getAvatarPreset(style = 'androgynous') {
 }
 
 function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
-  const [welcomeImageIndex, setWelcomeImageIndex] = useState(0)
-
-  useEffect(() => {
-    const rotation = window.setInterval(() => {
-      setWelcomeImageIndex((current) => (current + 1) % 3)
-    }, 4200)
-
-    return () => window.clearInterval(rotation)
-  }, [])
-
-  const welcomeImages = [
+const welcomeImages = [
     {
-      images: [
-      'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=85',
-    ],
+      image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
       alt: 'A focused work session at a laptop',
       label: 'LEARN',
       className: 'learn',
     },
     {
-      images: [
-      'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=85',
-    ],
+      image: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85',
       alt: 'Someone building strength through exercise',
       label: 'MOVE',
       className: 'move',
     },
     {
-      images: [
-      'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=85',
-    ],
+      image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=85',
       alt: 'A notebook and workspace ready for planning',
       label: 'CREATE',
       className: 'create',
     },
     {
-      images: [
-      'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=900&q=85',
-      'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=900&q=85',
-    ],
+      image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85',
       alt: 'A calm, restful bedroom',
       label: 'REST',
       className: 'rest',
@@ -1555,7 +1529,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
         <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
           {welcomeImages.map((item) => (
             <figure className={`evolv-welcome-image evolv-welcome-image--${item.className}`} key={item.className}>
-              <img key={`${item.className}-${welcomeImageIndex}`} src={item.images[welcomeImageIndex]} alt={item.alt} loading="eager" fetchPriority="high" />
+              <img key={`${item.className}-${welcomeImageIndex}`} src={item.image} alt={item.alt} loading="eager" fetchPriority="high" />
               <figcaption>{item.label}</figcaption>
             </figure>
           ))}
