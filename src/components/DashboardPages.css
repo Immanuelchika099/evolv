@@ -10285,3 +10285,67 @@ html body #root .dashboard .dashboard-home.calm-home::after {
       ) !important;
   }
 }
+
+
+/* Visible page-canvas ambience: three independent glows, never clipped by a card/section. */
+html body #root .dashboard {
+  background-color: #000 !important;
+  background-image:
+    radial-gradient(
+      ellipse 58rem 30rem at 50% -8rem,
+      rgba(196, 76, 29, .15) 0%,
+      rgba(160, 53, 18, .085) 34%,
+      rgba(112, 36, 13, .035) 57%,
+      transparent 76%
+    ),
+    radial-gradient(
+      ellipse 46rem 42rem at 0% 100%,
+      rgba(184, 65, 22, .15) 0%,
+      rgba(145, 46, 15, .075) 38%,
+      rgba(100, 31, 10, .025) 60%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 42rem 52rem at 100% 43%,
+      rgba(184, 65, 22, .145) 0%,
+      rgba(145, 46, 15, .075) 36%,
+      rgba(100, 31, 10, .025) 59%,
+      transparent 78%
+    ) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+html body #root .dashboard .dashboard-home.calm-home {
+  background-color: transparent !important;
+  background-image: none !important;
+  overflow: visible !important;
+}
+html body #root .dashboard .dashboard-home.calm-home::before,
+html body #root .dashboard .dashboard-home.calm-home::after {
+  content: none !important;
+  display: none !important;
+}
+@media (max-width: 800px) {
+  html body #root .dashboard {
+    background-image:
+      radial-gradient(
+        ellipse 40rem 24rem at 50% -6rem,
+        rgba(196, 76, 29, .14) 0%,
+        rgba(160, 53, 18, .075) 38%,
+        transparent 76%
+      ),
+      radial-gradient(
+        ellipse 34rem 34rem at 0% 100%,
+        rgba(184, 65, 22, .14) 0%,
+        rgba(145, 46, 15, .07) 40%,
+        transparent 78%
+      ),
+      radial-gradient(
+        ellipse 34rem 44rem at 100% 42%,
+        rgba(184, 65, 22, .14) 0%,
+        rgba(145, 46, 15, .07) 38%,
+        transparent 78%
+      ) !important;
+    background-attachment: fixed !important;
+  }
+}
