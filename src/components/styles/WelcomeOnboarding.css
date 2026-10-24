@@ -977,3 +977,97 @@
     animation: none;
   }
 }
+
+
+/* Welcome refinement: taller photo collage, tighter headline spacing, and a clear image-slide entrance. */
+.evolv-welcome-content {
+  justify-content: flex-start;
+}
+
+.evolv-welcome-message {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.evolv-welcome-collage {
+  grid-template-rows: 16rem 15rem;
+  margin-bottom: 1.25rem;
+}
+
+.evolv-welcome-image img {
+  animation: evolv-welcome-image-slide-in .9s cubic-bezier(.2,.72,.25,1) both;
+  will-change: opacity, transform, filter;
+}
+
+.evolv-welcome-cta {
+  border-radius: 999px;
+  background: #ffffff;
+  color: #050505;
+  box-shadow: none;
+  transition: transform .2s ease, background-color .2s ease;
+}
+
+.evolv-welcome-cta:hover {
+  background: #f0f0f0;
+  color: #050505;
+  transform: translateY(-1px);
+}
+
+.evolv-welcome-cta:active {
+  transform: scale(.985);
+}
+
+@keyframes evolv-welcome-image-slide-in {
+  from {
+    opacity: .18;
+    transform: translateY(1.4rem) scale(1.045);
+    filter: saturate(.45) brightness(.62);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: saturate(.72) brightness(.78);
+  }
+}
+
+@media (min-width: 760px) {
+  .evolv-welcome-collage {
+    grid-template-rows: 19rem 17rem;
+    margin-bottom: 1.6rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .evolv-welcome-content {
+    padding-bottom: max(2.2rem, env(safe-area-inset-bottom));
+  }
+
+  .evolv-welcome-collage {
+    grid-template-rows: 13rem 12rem;
+    gap: .7rem;
+    margin-bottom: 1rem;
+  }
+
+  .evolv-welcome-content h1 {
+    margin-top: 1rem;
+  }
+
+  .evolv-welcome-cta {
+    min-height: 5.6rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .evolv-welcome-collage {
+    grid-template-rows: 12.5rem 11.5rem;
+    margin-bottom: .8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .evolv-welcome-image img,
+  .evolv-welcome-cta {
+    animation: none;
+    transition: none;
+  }
+}

@@ -1492,7 +1492,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
   useEffect(() => {
     const rotation = window.setInterval(() => {
       setWelcomeImageIndex((current) => (current + 1) % 3)
-    }, 5000)
+    }, 4200)
 
     return () => window.clearInterval(rotation)
   }, [])
