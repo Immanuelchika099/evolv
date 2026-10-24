@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
@@ -44,6 +44,8 @@ export default function ProfileSettingsPage({pageProps}){
   const [toast,setToast]=useState(''),[toastError,setToastError]=useState(false),[confirmAction,setConfirmAction]=useState(null),[resetting,setResetting]=useState(false)
   const [avatarPreview,setAvatarPreview]=useState(''),[avatarBusy,setAvatarBusy]=useState(false),[localAvatar,setLocalAvatar]=useState(avatarUrl||''),[unsaved,setUnsaved]=useState(false)
   const [avatarStudioOpen,setAvatarStudioOpen]=useState(false)
+  const [photoMenuOpen,setPhotoMenuOpen]=useState(false)
+  const [profileTab,setProfileTab]=useState('account')
   const [avatarStyle,setAvatarStyle]=useState(()=>{try{return {...DEFAULT_AVATAR,...JSON.parse(localStorage.getItem('evolv-avatar-preferences')||'{}')}}catch{return {...DEFAULT_AVATAR}}})
   const settingsKey=user?.id?'evolv-profile-settings-'+user.id:null
 
@@ -133,66 +135,93 @@ export default function ProfileSettingsPage({pageProps}){
 
   const allActivity=useMemo(()=>[...logs,...meals],[logs,meals]),streaks=useMemo(()=>streaksFor(allActivity),[allActivity]),memberSince=user?.created_at||profile?.created_at?new Date(user?.created_at||profile?.created_at).toLocaleDateString(undefined,{month:'short',year:'numeric'}):'—',completed=allActivity.length,initials=profileName.trim().split(/\s+/).filter(Boolean).slice(0,2).map(p=>p[0]).join('').toUpperCase()||'E',displayAvatar=avatarPreview||localAvatar||avatarUrl,firstName=profileName.trim().split(/\s+/)[0]||'There'
 
-  if(loading&&!user)return <section className="panel-page dashboard-panel settings-page settings-loading" aria-busy="true"><span className="section-label">YOUR SPACE</span><h2>Profile.</h2><div className="settings-loading-line"/><div className="settings-loading-line short"/></section>
+  const activityDates = new Set(allActivity.map(item => dateKey(item.logged_at || item.created_at || item.eaten_at)).filter(Boolean))
+  const today = new Date()
+  const monday = new Date(today)
+  monday.setHours(0, 0, 0, 0)
+  monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7))
+  const daysThisWeek = new Set([...activityDates].filter(key => { const date = new Date(key + 'T12:00:00'); return date >= monday && date <= today })).size
+  const goalTarget = Math.max(1, Number(settings.weeklyGoalTarget) || 3)
+  const goalProgress = Math.min(100, Math.round(daysThisWeek / goalTarget * 100))
+  const focusLabel = profile?.focus || data?.focus || 'Choose your direction'
+  const growthAreas = profile?.growth_areas || data?.areas || []
 
-  return <section className="panel-page dashboard-panel settings-page">
-    <div className="settings-heading"><span className="section-label">YOUR SPACE</span><h2>Profile.</h2><p>One quiet place for your account, preferences and journey.</p></div>
-    <div className="profile-layout">
-      <aside className="profile-summary-card">
-        <div className="profile-summary-top">
-          <div className="profile-avatar-wrap">
-            <button type="button" className="profile-avatar-button" onClick={()=>document.getElementById("profile-avatar-input")?.click()} disabled={avatarBusy} aria-label="Change profile photo">{displayAvatar?<img src={displayAvatar} alt={firstName+' profile'} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={16}/></span></button>
-            <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/*" onChange={handleAvatar} aria-label="Choose profile photo"/>
-            <div className="profile-photo-actions"><button type="button" onClick={()=>document.getElementById('profile-avatar-input')?.click()} disabled={avatarBusy}><Upload size={14}/>{avatarBusy?'Uploading…':'Edit photo'}</button>{localAvatar&&<button type="button" onClick={removeAvatar} disabled={avatarBusy}>Remove</button>}</div>
-          </div>
-          <div className="profile-summary-copy"><h3>{profileName||'Your name'}.</h3><p>{draft.bio||'Build a life you can recognise as your own.'}</p><small>{user?.email||profile?.email||'Account email'}</small></div>
+  if(loading&&!user)return <section className="panel-page dashboard-panel settings-page profile-v2 settings-loading" aria-busy="true"><header className="profile-v2-topbar"><span className="profile-v2-title">Profile</span></header><div className="settings-loading-line"/><div className="settings-loading-line short"/></section>
+
+  return <section className="panel-page dashboard-panel settings-page profile-v2">
+    <header className="profile-v2-topbar">
+      <button type="button" className="profile-v2-icon-button" onClick={()=>pageProps.goTo?.('overview')} aria-label="Back to home"><ChevronLeft size={21}/></button>
+      <h1 className="profile-v2-title">Profile</h1>
+      <button type="button" className="profile-v2-icon-button" onClick={()=>setProfileTab('preferences')} aria-label="Open profile preferences"><Settings size={19}/></button>
+    </header>
+    <div className="profile-v2-summary">
+      <div className="profile-v2-summary-main">
+        <div className="profile-avatar-wrap profile-v2-avatar-wrap">
+          <button type="button" className="profile-avatar-button profile-v2-avatar-button" onClick={()=>setPhotoMenuOpen(true)} disabled={avatarBusy} aria-label="Manage profile photo">
+            {displayAvatar?<img src={displayAvatar} alt={firstName+' profile'} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={15}/></span>
+          </button>
+          <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleAvatar} aria-label="Choose profile photo"/>
         </div>
-        <button type="button" className="profile-edit-button" onClick={beginEdit}><Pencil size={15}/> Edit profile</button>
-        <div className="profile-summary-focus"><span className="section-label">FOCUS</span><strong>{profile?.focus||data?.focus||'Choose your direction'}</strong></div>
-        <div className="profile-summary-focus"><span className="section-label">GROWTH AREAS</span><strong>{(profile?.growth_areas||data?.areas||[]).length||0} selected</strong></div>
-      </aside>
-      <div className="profile-settings-column">
-        <ProfileSettingsSection label="YOUR JOURNEY" title="Streak & stats" icon={Activity}>
-          <section className="profile-stat-grid" aria-label="Your EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
-        </ProfileSettingsSection>
-        <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
-          <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
-          <div className="profile-setting-row"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
-          <div className="profile-setting-row"><div><strong>Bio</strong><span>A short line shown on your profile.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{draft.bio?'Edit bio':'Add bio'} <ChevronRight size={15}/></button></div>
-          <div className="profile-setting-row"><div><strong>Avatar</strong><span>Use a clear image or keep your initials.</span></div><button type="button" className="settings-inline-action" onClick={()=>document.getElementById('profile-avatar-input')?.click()}>Edit photo <ChevronRight size={15}/></button></div>
-        </ProfileSettingsSection>
-        <ProfileSettingsSection label="YOUR ROUTINE" title="Goals & habits" icon={Target}>
-          <SettingSelect label="Weekly goal target" description="How many focused check-ins you want each week." value={settings.weeklyGoalTarget} onChange={v=>updateSetting('weeklyGoalTarget',Number(v))} options={[1,2,3,4,5,6,7].map(v=>({value:v,label:v+' '+(v===1?'check-in':'check-ins')}))}/>
-          <label className="profile-setting-row profile-setting-control-row"><span className="profile-setting-copy"><strong>Default reminder time</strong><small>Used as the starting time for your daily reminder.</small></span><input type="time" value={notificationTimes.morningTime||'08:00'} onChange={e=>saveNotificationTime('morningTime',e)} aria-label="Default reminder time"/></label>
-          <SettingSelect label="Week starts" description="Choose how weekly progress is grouped." value={settings.weekStart} onChange={v=>updateSetting('weekStart',v)} options={[{value:'monday',label:'Monday'},{value:'sunday',label:'Sunday'}]}/>
-        </ProfileSettingsSection>
-        <ProfileSettingsSection label="STAY IN THE LOOP" title="Notifications" icon={Bell}>
-          <SettingToggle label="Daily reminders" description="Your existing morning, midday and evening reminders." checked={notificationsEnabled} onChange={toggleNotifications}/>
-          <SettingToggle label="Streak alerts" description="Keep a quiet nudge when a streak is at risk." checked={settings.streakAlerts} onChange={v=>updateSetting('streakAlerts',v)}/>
-          <SettingToggle label="Weekly summary" description="Keep a weekly view of how consistently you showed up." checked={settings.weeklySummary} onChange={v=>updateSetting('weeklySummary',v)}/>
-          <div className="profile-setting-row profile-setting-row-nested"><div><strong>Reminder schedule</strong><span>Existing EVOLV reminder times.</span></div><span className="settings-value">{notificationTimes.morningTime} · {notificationTimes.hydrationTime} · {notificationTimes.reflectionTime}</span></div>
-          <div className="profile-setting-row profile-setting-row-nested"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
-        </ProfileSettingsSection>
-
-        <ProfileSettingsSection label="YOUR INFORMATION" title="Privacy & data" icon={ShieldCheck}>
-          <div className="profile-setting-row"><div><strong>Export my data</strong><span>Download your tracked EVOLV data as JSON.</span></div><button type="button" className="settings-inline-action" onClick={exportData}><Download size={15}/> Export</button></div>
-          <div className="profile-setting-row danger-row"><div><strong>Reset all habit data</strong><span>Remove logs, meals, goals and reflections without deleting your account.</span></div><button type="button" className="settings-danger-button" onClick={()=>setConfirmAction('reset')}>Reset data</button></div>
-        </ProfileSettingsSection>
-        <section className="profile-account-actions" aria-labelledby="profile-account-actions-title">
-          <div className="profile-account-actions-heading"><span className="section-label">ACCOUNT</span><h3 id="profile-account-actions-title">Account actions</h3></div>
-          <button type="button" className="profile-account-action" onClick={()=>setConfirmAction('logout')}>
-            <span className="profile-action-icon logout-icon"><LogOut size={18}/></span>
-            <span className="profile-account-action-copy"><strong>Log out</strong><small>Sign out on this device. Your data stays saved.</small></span>
-            <ChevronRight size={18} className="profile-account-action-arrow"/>
-          </button>
-          <button type="button" className="profile-account-action delete-account-action" onClick={()=>setConfirmAction('delete')}>
-            <span className="profile-action-icon delete-icon"><Trash2 size={18}/></span>
-            <span className="profile-account-action-copy"><strong>Delete account</strong><small>Permanently remove your account and saved information.</small></span>
-            <ChevronRight size={18} className="profile-account-action-arrow"/>
-          </button>
-        </section>
+        <div className="profile-v2-identity"><h2>{profileName||'Your name'}</h2><p>{user?.email||profile?.email||'Account email'}</p>{draft.bio&&<span className="profile-v2-bio">{draft.bio}</span>}</div>
       </div>
+      <button type="button" className="profile-v2-edit" onClick={beginEdit}><Pencil size={14}/> Edit profile</button>
+      <div className="profile-v2-focus"><span><small>FOCUS</small><strong>{focusLabel}</strong></span><span><small>GROWTH AREAS</small><strong>{growthAreas.length||0} selected</strong></span></div>
     </div>
+    <section className="profile-v2-stats" aria-label="Your EVOLV progress">
+      <div><span>CHECK-INS</span><strong>{completed}</strong></div><i aria-hidden="true"/><div><span>DAYS THIS WEEK</span><strong>{daysThisWeek}<small> / 7</small></strong></div><i aria-hidden="true"/><div><span>GOAL PROGRESS</span><strong>{goalProgress}%</strong></div>
+    </section>
+    <div className="profile-v2-tabs" role="tablist" aria-label="Profile settings">
+      <span className={'profile-v2-tab-indicator '+(profileTab==='preferences'?'is-preferences':'')} aria-hidden="true"/>
+      <button type="button" role="tab" aria-selected={profileTab==='account'} className={profileTab==='account'?'is-active':''} onClick={()=>setProfileTab('account')}>Account</button>
+      <button type="button" role="tab" aria-selected={profileTab==='preferences'} className={profileTab==='preferences'?'is-active':''} onClick={()=>setProfileTab('preferences')}>Preferences</button>
+    </div>
+    <div key={profileTab} className="profile-v2-tab-content">
+      {profileTab==='account' ? <>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">YOUR JOURNEY</p>
+          <ProfileSettingsSection label="YOUR JOURNEY" title="Streak & stats" icon={Activity}>
+            <section className="profile-stat-grid profile-v2-stat-details" aria-label="Detailed EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
+          </ProfileSettingsSection>
+        </div>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">YOUR DETAILS</p>
+          <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
+            <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
+            <div className="profile-setting-row"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
+            <div className="profile-setting-row"><div><strong>Bio</strong><span>A short line shown on your profile.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{draft.bio?'Edit bio':'Add bio'} <ChevronRight size={15}/></button></div>
+            <div className="profile-setting-row"><div><strong>Focus & growth areas</strong><span>{focusLabel} · {growthAreas.length||0} areas selected.</span></div><ChevronRight size={17}/></div>
+          </ProfileSettingsSection>
+        </div>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">YOUR ROUTINE</p>
+          <ProfileSettingsSection label="YOUR ROUTINE" title="Goals & habits" icon={Target}>
+            <SettingSelect label="Weekly goal target" description="How many focused check-ins you want each week." value={settings.weeklyGoalTarget} onChange={v=>updateSetting('weeklyGoalTarget',Number(v))} options={[1,2,3,4,5,6,7].map(v=>({value:v,label:v+' '+(v===1?'check-in':'check-ins')}))}/>
+            <label className="profile-setting-row profile-setting-control-row"><span className="profile-setting-copy"><strong>Default reminder time</strong><small>Used as the starting time for your daily reminder.</small></span><input type="time" value={notificationTimes.morningTime||'08:00'} onChange={e=>saveNotificationTime('morningTime',e)} aria-label="Default reminder time"/></label>
+            <SettingSelect label="Week starts" description="Choose how weekly progress is grouped." value={settings.weekStart} onChange={v=>updateSetting('weekStart',v)} options={[{value:'monday',label:'Monday'},{value:'sunday',label:'Sunday'}]}/>
+          </ProfileSettingsSection>
+        </div>
+      </> : <>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">STAY IN THE LOOP</p>
+          <ProfileSettingsSection label="STAY IN THE LOOP" title="Notifications" icon={Bell}>
+            <SettingToggle label="Daily reminders" description="Your existing morning, midday and evening reminders." checked={notificationsEnabled} onChange={toggleNotifications}/>
+            <SettingToggle label="Streak alerts" description="Keep a quiet nudge when a streak is at risk." checked={settings.streakAlerts} onChange={v=>updateSetting('streakAlerts',v)}/>
+            <SettingToggle label="Weekly summary" description="Keep a weekly view of how consistently you showed up." checked={settings.weeklySummary} onChange={v=>updateSetting('weeklySummary',v)}/>
+            <div className="profile-setting-row profile-setting-row-nested"><div><strong>Reminder schedule</strong><span>Existing EVOLV reminder times.</span></div><span className="settings-value">{notificationTimes.morningTime} · {notificationTimes.hydrationTime} · {notificationTimes.reflectionTime}</span></div>
+            <div className="profile-setting-row profile-setting-row-nested"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
+          </ProfileSettingsSection>
+        </div>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">YOUR INFORMATION</p>
+          <ProfileSettingsSection label="YOUR INFORMATION" title="Privacy & data" icon={ShieldCheck}>
+            <div className="profile-setting-row"><div><strong>Export my data</strong><span>Download your tracked EVOLV data as JSON.</span></div><button type="button" className="settings-inline-action" onClick={exportData}><Download size={15}/> Export</button></div>
+            <div className="profile-setting-row danger-row"><div><strong>Reset all habit data</strong><span>Remove logs, meals, goals and reflections without deleting your account.</span></div><button type="button" className="settings-danger-button" onClick={()=>setConfirmAction('reset')}>Reset data</button></div>
+          </ProfileSettingsSection>
+        </div>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">ACCOUNT ACTIONS</p>
+          <section className="profile-settings-section profile-v2-actions" aria-label="Account actions">
+            <div className="profile-v2-action-row"><span className="profile-v2-action-icon"><LogOut size={18}/></span><span className="profile-account-action-copy"><strong>Log out</strong><small>Sign out on this device. Your data stays saved.</small></span><button type="button" className="profile-v2-row-action" onClick={()=>setConfirmAction('logout')} aria-label="Log out"><ChevronRight size={18}/></button></div>
+            <div className="profile-v2-action-row is-danger"><span className="profile-v2-action-icon"><Trash2 size={18}/></span><span className="profile-account-action-copy"><strong>Delete account</strong><small>Permanently remove your account and saved information.</small></span><button type="button" className="profile-v2-row-action" onClick={()=>setConfirmAction('delete')} aria-label="Delete account"><ChevronRight size={18}/></button></div>
+          </section>
+        </div>
+      </>}
+    </div>
+    {photoMenuOpen&&createPortal(<div className="profile-modal-backdrop profile-photo-menu-backdrop" role="presentation" onMouseDown={e=>e.target===e.currentTarget&&setPhotoMenuOpen(false)}><section className="profile-modal profile-photo-menu" role="dialog" aria-modal="true" aria-labelledby="profile-photo-menu-title"><div className="profile-modal-head"><div><span className="section-label">YOUR PHOTO</span><h3 id="profile-photo-menu-title">Profile photo</h3></div><button type="button" onClick={()=>setPhotoMenuOpen(false)} aria-label="Close photo options"><X size={18}/></button></div><button type="button" className="profile-photo-menu-option" onClick={()=>{setPhotoMenuOpen(false);document.getElementById('profile-avatar-input')?.click()}} disabled={avatarBusy}><Upload size={19}/><span><strong>{avatarBusy?'Uploading…':'Upload a photo'}</strong><small>Choose an image from your device.</small></span><ChevronRight size={17}/></button><button type="button" className="profile-photo-menu-option" onClick={()=>{setPhotoMenuOpen(false);setAvatarStudioOpen(true)}}><UserRound size={19}/><span><strong>Make an avatar</strong><small>Customise your EVOLV portrait.</small></span><ChevronRight size={17}/></button>{localAvatar&&<button type="button" className="profile-photo-menu-option profile-photo-remove-option" onClick={()=>{setPhotoMenuOpen(false);removeAvatar()}} disabled={avatarBusy}><Trash2 size={18}/><span><strong>Remove photo</strong><small>Return to your initials.</small></span><ChevronRight size={17}/></button>}</section></div>,document.body)}
     {avatarStudioOpen&&createPortal(<div className="profile-avatar-studio-portal"><AvatarStudio preferences={avatarStyle} onChange={updateAvatarStyle} onClose={()=>setAvatarStudioOpen(false)}/></div>,document.body)}
     {editOpen&&createPortal(<div className="profile-modal-backdrop" role="presentation" onMouseDown={e=>e.target===e.currentTarget&&cancelEdit()}><section className="profile-modal" role="dialog" aria-modal="true" aria-labelledby="profile-edit-title"><div className="profile-modal-head"><div><span className="section-label">ACCOUNT</span><h3 id="profile-edit-title">Edit profile.</h3></div><button type="button" onClick={cancelEdit} aria-label="Close edit profile"><X size={18}/></button></div><form onSubmit={saveProfile}><label><span>Name</span><input autoFocus maxLength={80} value={draft.name} onChange={e=>{setDraft({...draft,name:e.target.value});setUnsaved(true)}}/></label><label><span>Email</span><input type="email" maxLength={320} value={draft.email} onChange={e=>{setDraft({...draft,email:e.target.value});setUnsaved(true)}}/></label><label><span>Bio <small>optional</small></span><textarea maxLength={180} rows="3" value={draft.bio} onChange={e=>{setDraft({...draft,bio:e.target.value});setUnsaved(true)}} placeholder="A short line about you."/></label>{error&&<p className="profile-inline-error" role="alert">{error}</p>}<div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={cancelEdit}>Cancel</button><button type="submit" className="button button-primary" disabled={saving}>{saving?'Saving…':'Save changes'} <Check size={15}/></button></div></form></section></div>,document.body)}
     {confirmAction&&createPortal(<div className="profile-modal-backdrop confirmation-backdrop" role="presentation" onMouseDown={e=>e.target===e.currentTarget&&setConfirmAction(null)}><section className="profile-modal confirmation-modal" role="dialog" aria-modal="true" aria-labelledby="profile-confirm-title" aria-describedby="profile-confirm-copy"><div className={'confirmation-icon '+(confirmAction==='delete'?'is-destructive':'')}>{confirmAction==='delete'?<Trash2 size={19}/>:<Check size={19}/>}</div><span className="section-label">ARE YOU SURE</span><h3 id="profile-confirm-title">{confirmAction==='reset'?'Reset habit data?':confirmAction==='logout'?'Log out of EVOLV?':'Delete your account?'}</h3><p id="profile-confirm-copy">{confirmAction==='reset'?'This permanently removes your logs, meals, goals, reflections and notification history. Your account stays intact.':confirmAction==='logout'?'Your data remains saved. You can sign back in whenever you are ready.':'This permanently removes your EVOLV account and saved information. This cannot be undone.'}</p><div className="profile-modal-actions"><button type="button" className="settings-cancel-button" onClick={()=>setConfirmAction(null)}>Cancel</button><button type="button" className="settings-danger-button" disabled={resetting||deleting} onClick={handleConfirmedAction}>{resetting||deleting?'Working…':confirmAction==='reset'?'Reset data':confirmAction==='logout'?'Log out':'Delete account'}</button></div></section></div>,document.body)}
