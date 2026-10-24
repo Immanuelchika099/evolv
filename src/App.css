@@ -2658,33 +2658,81 @@ html,body,#root{background:#000 !important;}
 }
 
 
-/* AI insight cards: soft ambient orange light sits beneath the cards, offset right. */
+
+/* Ambient dashboard glows — broad, quiet light on the page canvas. */
+.dashboard-home {
+  position: relative;
+  isolation: isolate;
+}
+.dashboard-home::before,
+.dashboard-home::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(5.5rem);
+}
+.dashboard-home::before {
+  width: min(150vw, 100rem);
+  height: clamp(30rem, 68vw, 62rem);
+  top: -20rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(222,82,35,.065) 0%, rgba(222,82,35,.03) 42%, transparent 74%);
+}
+.dashboard-home::after {
+  width: min(125vw, 86rem);
+  height: clamp(38rem, 90vw, 76rem);
+  left: -38rem;
+  bottom: -30rem;
+  background: radial-gradient(ellipse at 38% 58%, rgba(222,82,35,.07) 0%, rgba(222,82,35,.032) 43%, transparent 75%);
+}
+
+/* AI Insights glow belongs to the insight rail itself, not the Activity graph.
+   Keep it behind the cards, lower and wider on phones, with no visible hotspot. */
 .dashboard-home .daily-insight {
   position: relative;
-  z-index: 0;
-  isolation: isolate;
+  z-index: 1;
+  isolation: auto;
 }
 .dashboard-home .daily-insight::after {
   content: "";
   position: absolute;
   z-index: -1;
   pointer-events: none;
-  width: min(92vw, 54rem);
-  height: clamp(20rem, 54vw, 34rem);
-  right: -7rem;
-  bottom: -11rem;
+  width: min(120vw, 72rem);
+  height: clamp(28rem, 70vw, 46rem);
+  right: -12rem;
+  bottom: -19rem;
   border-radius: 50%;
-  background: radial-gradient(ellipse at 72% 58%, rgba(222, 82, 35, .105) 0%, rgba(222, 82, 35, .055) 32%, rgba(222, 82, 35, .018) 54%, transparent 74%);
-  filter: blur(2.4rem);
-  opacity: .82;
+  background: radial-gradient(ellipse at 72% 60%, rgba(222,82,35,.09) 0%, rgba(222,82,35,.045) 35%, rgba(222,82,35,.014) 57%, transparent 76%);
+  filter: blur(3.4rem);
+  opacity: .9;
 }
 @media (max-width: 40rem) {
+  .dashboard-home::before {
+    width: 165vw;
+    height: 43rem;
+    top: -17rem;
+    filter: blur(6rem);
+  }
+  .dashboard-home::after {
+    width: 155vw;
+    height: 55rem;
+    left: -42vw;
+    bottom: -24rem;
+    filter: blur(6rem);
+  }
+  .dashboard-home .daily-insight {
+    z-index: 1;
+  }
   .dashboard-home .daily-insight::after {
-    width: 112vw;
-    height: 30rem;
-    right: -9rem;
-    bottom: -13rem;
-    background: radial-gradient(ellipse at 76% 60%, rgba(222, 82, 35, .09) 0%, rgba(222, 82, 35, .045) 34%, rgba(222, 82, 35, .012) 56%, transparent 74%);
-    filter: blur(2.8rem);
+    width: 145vw;
+    height: 39rem;
+    right: -22vw;
+    bottom: -22rem;
+    background: radial-gradient(ellipse at 74% 62%, rgba(222,82,35,.085) 0%, rgba(222,82,35,.04) 37%, rgba(222,82,35,.012) 59%, transparent 77%);
+    filter: blur(3.8rem);
   }
 }
