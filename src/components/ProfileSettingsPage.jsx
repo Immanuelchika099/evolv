@@ -47,10 +47,14 @@ export default function ProfileSettingsPage({pageProps}){
   const [photoMenuOpen,setPhotoMenuOpen]=useState(false)
   const [profileTab,setProfileTab]=useState('account')
   const [focusExpanded,setFocusExpanded]=useState(false)
+  const [focusDraft,setFocusDraft]=useState(profile?.focus||data?.focus||'')
+  const [growthDraft,setGrowthDraft]=useState(profile?.growth_areas||data?.areas||[])
+  const [directionSaving,setDirectionSaving]=useState(false)
   const [avatarStyle,setAvatarStyle]=useState(()=>{try{return {...DEFAULT_AVATAR,...JSON.parse(localStorage.getItem('evolv-avatar-preferences')||'{}')}}catch{return {...DEFAULT_AVATAR}}})
   const settingsKey=user?.id?'evolv-profile-settings-'+user.id:null
 
   useEffect(()=>{let mounted=true;(async()=>{const {data:a}=await supabase.auth.getUser();if(!mounted||!a?.user)return;const current=a.user;const {data:p}=await supabase.from('profiles').select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').eq('id',current.id).maybeSingle();if(!mounted)return;setUser(current);setDraft({name:p?.first_name||profileName||'',email:current.email||'',bio:current.user_metadata?.bio||''});setLocalAvatar(p?.avatar_url||current.user_metadata?.avatar_url||avatarUrl||'')})();return()=>{mounted=false}},[])
+  useEffect(()=>{setFocusDraft(profile?.focus||data?.focus||'');setGrowthDraft(profile?.growth_areas||data?.areas||[])},[profile?.focus,profile?.growth_areas,data?.focus,data?.areas])
   useEffect(()=>{if(!settingsKey)return;try{const next={...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem(settingsKey)||'{}')};setSettings(next);document.documentElement.classList.toggle('evolv-reduced-motion',next.animations===false)}catch{}},[settingsKey])
   useEffect(()=>{if(!editOpen)setDraft(d=>({...d,name:profileName||d.name,email:profile?.email||d.email,bio:user?.user_metadata?.bio||d.bio}))},[profileName,profile?.email,user?.user_metadata?.bio,editOpen])
   useEffect(()=>{
@@ -71,6 +75,20 @@ export default function ProfileSettingsPage({pageProps}){
   function updateAvatarStyle(updated){setAvatarStyle(updated);try{localStorage.setItem('evolv-avatar-preferences',JSON.stringify(updated))}catch{};window.dispatchEvent(new CustomEvent('evolv-avatar-updated'))}
   function updateSetting(key,value){const next={...settings,[key]:value};setSettings(next);if(settingsKey)localStorage.setItem(settingsKey,JSON.stringify(next));if(key==='animations')document.documentElement.classList.toggle('evolv-reduced-motion',value===false);window.dispatchEvent(new CustomEvent('evolv-settings-updated',{detail:next}));try{const stored=JSON.parse(localStorage.getItem('evolv-notification-times')||'{}');const preferences={...stored,streakAlerts:next.streakAlerts,weeklySummary:next.weeklySummary};localStorage.setItem('evolv-notification-times',JSON.stringify(preferences));if(localStorage.getItem('evolv-notifications-enabled')==='true'){(async()=>{const registration=await navigator.serviceWorker?.ready;const subscription=await registration?.pushManager?.getSubscription();if(!subscription)return;const result=await supabase.functions.invoke('save-push-subscription',{body:{subscription:subscription.toJSON(),timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos',preferences,enabled:true}});if(result.error)throw result.error})().catch(error=>{console.error('Could not save notification preferences:',error);showToast('Preference saved, but push sync failed.',true)})}}catch(error){console.error('Could not save notification preferences:',error)}showToast('Preference saved.')}
   function beginEdit(){setDraft({name:profileName||'',email:user?.email||profile?.email||'',bio:user?.user_metadata?.bio||''});setError('');setUnsaved(false);setEditOpen(true)}
+  async function saveDirection(){
+    if(!user?.id){showToast('Sign in again to update your focus and growth areas.',true);return}
+    setDirectionSaving(true)
+    try{
+      const {data:updated,error:saveError}=await supabase.from('profiles').update({focus:focusDraft,growth_areas:growthDraft,updated_at:new Date().toISOString()}).eq('id',user.id).select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').single()
+      if(saveError)throw saveError
+      window.dispatchEvent(new CustomEvent('evolv-profile-updated',{detail:updated}))
+      showToast('Focus and growth areas saved.')
+    }catch(err){showToast(err?.message||'Could not save your direction.',true)}
+    finally{setDirectionSaving(false)}
+  }
+  function toggleGrowthArea(area){
+    setGrowthDraft(current=>current.includes(area)?current.filter(item=>item!==area):[...current,area])
+  }
   function cancelEdit(){beginEdit();setEditOpen(false);setUnsaved(false)}
   async function saveProfile(e){
     e.preventDefault();const name=draft.name.trim(),email=draft.email.trim().toLowerCase(),bio=draft.bio.trim()
@@ -191,7 +209,11 @@ export default function ProfileSettingsPage({pageProps}){
         </div>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Your routine</p>
           <button type="button" className="profile-setting-row profile-v2-focus-row" aria-expanded={focusExpanded} onClick={()=>setFocusExpanded(value=>!value)}><span><strong>Focus &amp; growth areas</strong><small>Choose your direction · {growthAreas.length||0} selected</small></span><ChevronRight size={18} className={focusExpanded?"profile-v2-focus-chevron is-open":"profile-v2-focus-chevron"}/></button>
-          <div className={focusExpanded?"profile-v2-focus-more is-open":"profile-v2-focus-more"} aria-hidden={!focusExpanded}><div><p><span>Focus</span><strong>{focusLabel}</strong></p><p><span>Growth areas</span><strong>{growthAreas.length ? growthAreas.join(", ") : "None selected yet"}</strong></p></div></div>
+          <div className={focusExpanded?"profile-v2-focus-more is-open":"profile-v2-focus-more"} aria-hidden={!focusExpanded} inert={!focusExpanded}><div className="profile-v2-direction-editor">
+            <label className="profile-v2-focus-select"><span>Primary focus</span><select value={focusDraft} onChange={event=>setFocusDraft(event.target.value)}><option value="">Choose your direction</option>{['Career','Skills','Money','Life','Health','Creative'].map(option=><option key={option} value={option}>{option}</option>)}</select></label>
+            <fieldset className="profile-v2-growth-options"><legend>Growth areas</legend>{[{id:'career',title:'Career'},{id:'skills',title:'Skills'},{id:'money',title:'Money'},{id:'life',title:'Life'},{id:'health',title:'Health'},{id:'creative',title:'Creative'}].map(area=><label key={area.id} className={growthDraft.includes(area.title)?'is-selected':''}><input type="checkbox" checked={growthDraft.includes(area.title)} onChange={()=>toggleGrowthArea(area.title)}/><span>{area.title}</span></label>)}</fieldset>
+            <button type="button" className="profile-v2-direction-save" onClick={saveDirection} disabled={directionSaving}>{directionSaving?'Saving…':'Save changes'} <Check size={15}/></button>
+          </div></div>
           <ProfileSettingsSection label="YOUR ROUTINE" title="Goals & habits" icon={Target}>
             <SettingSelect label="Weekly goal target" description="How many focused check-ins you want each week." value={settings.weeklyGoalTarget} onChange={v=>updateSetting('weeklyGoalTarget',Number(v))} options={[1,2,3,4,5,6,7].map(v=>({value:v,label:v+' '+(v===1?'check-in':'check-ins')}))}/>
             <label className="profile-setting-row profile-setting-control-row"><span className="profile-setting-copy"><strong>Default reminder time</strong><small>Used as the starting time for your daily reminder.</small></span><input type="time" value={notificationTimes.morningTime||'08:00'} onChange={e=>saveNotificationTime('morningTime',e)} aria-label="Default reminder time"/></label>
