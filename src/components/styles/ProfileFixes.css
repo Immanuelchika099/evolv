@@ -397,15 +397,235 @@
 }
 
 
-/* Evolv profile summary orange glass polish */
-.dashboard .settings-page .profile-summary-card{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(229,134,66,.2)!important;border-radius:30px!important;background:radial-gradient(ellipse at 88% 0%,rgba(229,134,66,.19),transparent 48%),linear-gradient(145deg,rgba(229,134,66,.105),rgba(255,255,255,.025) 72%)!important;box-shadow:inset 0 1px 0 rgba(255,255,255,.07),0 22px 54px rgba(0,0,0,.18)!important}
-.dashboard .settings-page .profile-avatar-button{border-color:rgba(229,134,66,.55)!important;box-shadow:0 0 0 4px rgba(229,134,66,.07)!important}
-.dashboard .settings-page .profile-avatar{background:linear-gradient(145deg,rgba(229,134,66,.2),rgba(255,255,255,.045))!important;color:#f0a66f!important}
-.dashboard .settings-page .profile-avatar-camera{background:#e58642!important;color:#241205!important;border-color:#17110d!important}
-.dashboard .settings-page .profile-edit-button,.dashboard .settings-page .profile-photo-actions button,.dashboard .settings-page .settings-inline-action{border-color:rgba(229,134,66,.23)!important;background:rgba(229,134,66,.075)!important}
-.dashboard .settings-page .profile-settings-section{border-color:rgba(255,255,255,.075)!important;background:linear-gradient(150deg,rgba(255,255,255,.035),rgba(255,255,255,.012))!important;border-radius:24px!important}
-.dashboard .settings-page .profile-settings-section-icon:not(.icon-danger){color:#e99a5b!important;background:rgba(229,134,66,.08)!important;border-color:rgba(229,134,66,.17)!important}
-.dashboard .settings-page .profile-settings-chevron{color:rgba(244,238,232,.42)!important}
-.dashboard .settings-page .settings-toggle.active{background:#e58642!important}
-.dashboard .settings-page .settings-toggle.active span{background:#2a1406!important}
-@media(max-width:640px){.dashboard .settings-page .profile-summary-card{border-radius:27px!important}}
+/* Evolv profile structure — reuse the existing dark-orange theme token. */
+.dashboard .settings-page .profile-summary-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  margin: 1.8rem 0 2.4rem;
+  padding: 2.2rem;
+  border: 1px solid color-mix(in srgb, var(--ai-bubble-blue) 36%, transparent) !important;
+  border-radius: 2.6rem !important;
+  background:
+    radial-gradient(ellipse at 92% 0%, color-mix(in srgb, var(--ai-bubble-blue) 25%, transparent), transparent 50%),
+    linear-gradient(145deg, color-mix(in srgb, var(--ai-bubble-blue) 13%, transparent), rgba(255,255,255,.018) 74%) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055), 0 2.2rem 5.4rem rgba(0,0,0,.2) !important;
+}
+.dashboard .settings-page .profile-summary-top {
+  display: flex;
+  align-items: center;
+  gap: 1.8rem;
+  min-width: 0;
+}
+.dashboard .settings-page .profile-summary-copy {
+  display: grid;
+  gap: .55rem;
+  min-width: 0;
+  flex: 1;
+}
+.dashboard .settings-page .profile-summary-copy h3 {
+  margin: .15rem 0 0;
+  color: #f7f5f2;
+  font-size: clamp(2.2rem, 4vw, 2.8rem);
+  font-weight: 600;
+  line-height: 1.12;
+  overflow-wrap: anywhere;
+}
+.dashboard .settings-page .profile-summary-copy > p {
+  margin: 0;
+  color: rgba(245,242,238,.58);
+  font-size: 1.35rem;
+  overflow-wrap: anywhere;
+}
+.dashboard .settings-page .profile-summary-status {
+  display: inline-flex;
+  align-items: center;
+  gap: .65rem;
+  width: fit-content;
+  margin-top: .35rem;
+  color: rgba(245,242,238,.65);
+  font-size: 1.2rem;
+}
+.dashboard .settings-page .profile-summary-status i {
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background: var(--ai-bubble-blue);
+  box-shadow: 0 0 .9rem color-mix(in srgb, var(--ai-bubble-blue) 65%, transparent);
+}
+.dashboard .settings-page .profile-avatar-button {
+  border-color: color-mix(in srgb, var(--ai-bubble-blue) 72%, transparent) !important;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--ai-bubble-blue) 12%, transparent) !important;
+}
+.dashboard .settings-page .profile-avatar {
+  background: linear-gradient(145deg, color-mix(in srgb, var(--ai-bubble-blue) 34%, transparent), rgba(255,255,255,.04)) !important;
+  color: #f2d0bc !important;
+}
+.dashboard .settings-page .profile-avatar-camera {
+  background: var(--ai-bubble-blue) !important;
+  color: #fff !important;
+  border-color: #17110d !important;
+}
+.dashboard .settings-page .profile-photo-actions button,
+.dashboard .settings-page .profile-edit-button,
+.dashboard .settings-page .settings-inline-action {
+  border-color: color-mix(in srgb, var(--ai-bubble-blue) 42%, transparent) !important;
+  background: color-mix(in srgb, var(--ai-bubble-blue) 13%, transparent) !important;
+}
+.dashboard .settings-page .profile-facts-grid {
+  margin-top: 2rem;
+}
+.dashboard .settings-page .profile-settings-section {
+  margin: 0 !important;
+  padding: 0 1.4rem !important;
+  border: 1px solid rgba(255,255,255,.075) !important;
+  border-radius: 2rem !important;
+  background: linear-gradient(150deg, rgba(255,255,255,.032), rgba(255,255,255,.012)) !important;
+}
+.dashboard .settings-page .profile-settings-section + .profile-settings-section {
+  margin-top: 1rem !important;
+}
+.dashboard .settings-page .profile-settings-section:first-of-type {
+  border-top: 1px solid rgba(255,255,255,.075) !important;
+}
+.dashboard .settings-page .profile-settings-section-head {
+  min-height: 7rem;
+  gap: 1.2rem;
+  padding: 1.25rem 0 !important;
+}
+.dashboard .settings-page .profile-settings-section-icon {
+  width: 4rem;
+  height: 4rem;
+  flex-basis: 4rem;
+  border: 1px solid color-mix(in srgb, var(--ai-bubble-blue) 35%, transparent);
+  border-radius: 1.25rem;
+  color: color-mix(in srgb, var(--ai-bubble-blue) 78%, white) !important;
+  background: color-mix(in srgb, var(--ai-bubble-blue) 14%, transparent) !important;
+}
+.dashboard .settings-page .profile-settings-section-heading .section-label {
+  color: rgba(226,232,240,.43) !important;
+}
+.dashboard .settings-page .profile-settings-section-heading strong {
+  font-size: 1.6rem;
+}
+.dashboard .settings-page .profile-settings-chevron {
+  color: rgba(244,238,232,.46) !important;
+}
+.dashboard .settings-page .profile-settings-chevron.is-open {
+  color: color-mix(in srgb, var(--ai-bubble-blue) 76%, white) !important;
+}
+.dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list {
+  padding: 0 0 0 5.2rem;
+}
+.dashboard .settings-page .profile-settings-accordion-content.is-open > .profile-settings-list {
+  padding-bottom: 1.6rem;
+}
+.dashboard .settings-page .profile-account-details-form {
+  display: grid;
+  gap: 1.4rem;
+  padding: 1rem 0 1.5rem;
+}
+.dashboard .settings-page .profile-account-details-form label {
+  display: grid;
+  gap: .7rem;
+}
+.dashboard .settings-page .profile-account-details-form label > span,
+.dashboard .settings-page .profile-account-email > span {
+  color: rgba(226,232,240,.52);
+  font-size: 1.25rem;
+}
+.dashboard .settings-page .profile-account-details-form input {
+  width: 100%;
+  min-width: 0;
+}
+.dashboard .settings-page .profile-account-email {
+  display: grid;
+  gap: .55rem;
+}
+.dashboard .settings-page .profile-account-email strong {
+  color: rgba(245,247,250,.9);
+  overflow-wrap: anywhere;
+}
+.dashboard .settings-page .profile-account-details-form .button-primary {
+  justify-self: start;
+  border-color: color-mix(in srgb, var(--ai-bubble-blue) 48%, transparent);
+  background: var(--ai-bubble-blue);
+}
+.dashboard .settings-page .profile-reminder-list {
+  padding-top: .2rem !important;
+}
+.dashboard .settings-page .profile-reminder-list .notification-master-row {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.dashboard .settings-page .settings-toggle.active {
+  background: var(--ai-bubble-blue) !important;
+}
+.dashboard .settings-page .settings-toggle.active span {
+  background: #fff !important;
+}
+.dashboard .settings-page .profile-account-actions {
+  margin-top: 2.6rem;
+  padding: 0 1.4rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 2rem;
+  background: linear-gradient(150deg, rgba(255,255,255,.025), rgba(255,255,255,.01));
+}
+.dashboard .settings-page .profile-account-actions-heading {
+  padding: 1.8rem 0 1rem;
+}
+.dashboard .settings-page .profile-account-hold-row {
+  gap: 1.2rem;
+  padding: 1.5rem 0;
+}
+.dashboard .settings-page .profile-account-hold-row > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+.dashboard .settings-page .profile-account-hold-row .hold-button,
+.dashboard .settings-page .profile-account-hold-row button {
+  flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .dashboard .settings-page .profile-summary-card {
+    padding: 1.7rem;
+    border-radius: 2.2rem !important;
+  }
+  .dashboard .settings-page .profile-summary-top {
+    align-items: flex-start;
+    gap: 1.2rem;
+  }
+  .dashboard .settings-page .profile-avatar-wrap {
+    flex: 0 0 auto;
+  }
+  .dashboard .settings-page .profile-avatar-button {
+    width: 7.2rem;
+    height: 7.2rem;
+  }
+  .dashboard .settings-page .profile-summary-copy h3 {
+    font-size: 2.1rem;
+  }
+  .dashboard .settings-page .profile-facts-grid {
+    grid-template-columns: 1fr;
+    gap: .8rem;
+  }
+  .dashboard .settings-page .profile-facts-grid > div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .dashboard .settings-page .profile-facts-grid strong {
+    text-align: right;
+  }
+  .dashboard .settings-page .profile-settings-section {
+    padding: 0 1rem !important;
+  }
+  .dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list {
+    padding-left: .2rem;
+  }
+  .dashboard .settings-page .profile-account-hold-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
