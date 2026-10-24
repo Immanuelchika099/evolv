@@ -35,6 +35,9 @@ export default function DesktopSidebar({ active, onNavigate, open, onToggle }) {
       {open && <>
         <button className="evolv-desktop-sidebar-scrim" type="button" aria-label="Close navigation" onClick={() => onToggle(false)} />
         <aside className="evolv-desktop-sidebar" aria-label="Dashboard navigation">
+          <div className="evolv-desktop-sidebar-head">
+            <button type="button" className="evolv-desktop-sidebar-close" aria-label="Close navigation" onClick={() => onToggle(false)}><X size={18}/></button>
+          </div>
           <nav className="evolv-desktop-sidebar-links">
             {links.map(({ page, label, Icon }) => (
               <button
