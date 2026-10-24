@@ -2704,3 +2704,55 @@ html:has(.dashboard.dashboard-ai-active) {
     padding-inline: .2rem;
   }
 }
+
+
+/* Final conversation width guard: keep both assistant replies and user turns
+   inside a centered reading column instead of letting them touch the viewport edges. */
+.dashboard.dashboard-ai-active .ai-page .ai-message {
+  display: block;
+  width: min(78rem, calc(100% - 4rem)) !important;
+  max-width: 78rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  box-sizing: border-box;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > *,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content pre,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content table {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  display: flex;
+  width: min(78rem, calc(100% - 4rem)) !important;
+  max-width: 78rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  align-items: flex-end;
+  box-sizing: border-box;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  max-width: min(48rem, 100%) !important;
+  box-sizing: border-box;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user {
+    width: calc(100% - 3.2rem) !important;
+    max-width: 78rem !important;
+  }
+}
