@@ -106,9 +106,9 @@ export default function PWAInstallPrompt() {
 
   async function continueInstall() {
     if (ios) {
-      // iOS requires the user to use Safari's Share menu; a website
-      // cannot open Add to Home Screen or install itself automatically.
-      dismiss()
+      // iOS has no web API for opening the native Add to Home Screen sheet.
+      // Keep the user in Evolv and reveal a short, clear Safari walkthrough.
+      setShowInstructions(true)
       return
     }
 
@@ -138,19 +138,33 @@ export default function PWAInstallPrompt() {
       <section className="pwa-install-card">
         <div className="pwa-install-copy">
           <h1 id="pwa-install-title">Welcome to Evolv</h1>
-          <p>For the best experience we strongly recommend installing the web app:</p>
+          <p>{ios
+            ? (showInstructions
+              ? 'Add Evolv to your Home Screen in a few quick steps.'
+              : 'Keep Evolv one tap away by adding it to your iPhone Home Screen.')
+            : 'For the best experience, install Evolv on your device.'}</p>
 
-          {ios ? (
+          {ios && showInstructions ? (
             <div className="pwa-install-steps">
               <div className="pwa-install-step">
                 <span className="pwa-install-step-number">1.</span>
-                <span className="pwa-install-step-content">Tap <span className="pwa-share-symbol" aria-label="Share"><Share size={19} strokeWidth={2.1} /></span></span>
+                <span className="pwa-install-step-content">Open this page in <strong>Safari</strong> if you are using another browser or an in-app browser.</span>
               </div>
               <div className="pwa-install-step">
                 <span className="pwa-install-step-number">2.</span>
-                <span className="pwa-install-step-content">Tap <strong>Add to Home Screen</strong></span>
+                <span className="pwa-install-step-content">Tap the <strong>Share</strong> button <span className="pwa-share-symbol" aria-label="Share"><Share size={19} strokeWidth={2.1} /></span></span>
               </div>
-              <p className="pwa-install-hint">Use Safari's Share button, then choose Add to Home Screen.</p>
+              <div className="pwa-install-step">
+                <span className="pwa-install-step-number">3.</span>
+                <span className="pwa-install-step-content">Choose <strong>Add to Home Screen</strong>, then tap <strong>Add</strong>.</span>
+              </div>
+              <p className="pwa-install-hint">iPhone does not let websites open this system menu automatically. These steps finish the installation.</p>
+            </div>
+          ) : ios ? (
+            <div className="pwa-install-steps">
+              <div className="pwa-install-step">
+                <span className="pwa-install-step-content">Your iPhone will guide you through the final step. It only takes a moment.</span>
+              </div>
             </div>
           ) : showInstructions ? (
             <div className="pwa-install-steps">
@@ -172,8 +186,8 @@ export default function PWAInstallPrompt() {
             </div>
           )}
 
-          <button className="pwa-install-button" type="button" onClick={continueInstall} disabled={busy}>
-            {busy ? 'Opening…' : 'Continue'}
+          <button className="pwa-install-button" type="button" onClick={ios && showInstructions ? dismiss : continueInstall} disabled={busy}>
+            {busy ? 'Opening…' : ios && showInstructions ? 'Got it' : ios ? 'Show me how' : 'Continue'}
           </button>
 
           <button className="pwa-install-later" type="button" onClick={dismiss}>Maybe later</button>
