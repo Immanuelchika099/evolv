@@ -2782,3 +2782,13 @@ html,body,#root{background:#000 !important;}
 .daily-ai-insight-suggestion{border-color:rgba(255,255,255,.1)!important}
 .daily-ai-insight-action{border-color:rgba(229,134,66,.25)!important;background:rgba(229,134,66,.09)!important;color:#f4eee8!important}
 .daily-ai-insight-action:active{background:rgba(229,134,66,.16)!important}
+
+
+/* Mobile AI conversation: bring both sides closer to the viewport edges without touching desktop layout. */
+@media (max-width: 40rem) {
+  .ai-page .ai-chat {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+    box-sizing: border-box;
+  }
+}
