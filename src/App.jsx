@@ -1501,7 +1501,7 @@ const welcomeImages = [
       className: 'move',
     },
     {
-      image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=90',
+      image: 'https://images.unsplash.com/photo-1455390582262-044cada277a8?auto=format&fit=crop&w=900&q=90',
       alt: 'A notebook and workspace ready for planning',
       label: 'CREATE',
       className: 'create',
