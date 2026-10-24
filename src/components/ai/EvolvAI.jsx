@@ -185,7 +185,7 @@ function AssistantMessageContent({ content, typing = false }) {
 }
 
 import {
-  History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown, Pencil,
+  History, Plus, MoreHorizontal, X, Copy, Volume2, VolumeX, Share2, ArrowDown, Pencil, PanelLeftOpen,
   Check, Search, Files, Dumbbell, ArrowRight
 } from 'lucide-react'
 import { supabase } from '../../lib/supabase'
@@ -1234,6 +1234,15 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   return (
     <section className="panel-page ai-page">
       <div className="ai-topbar">
+        <button
+          className="ai-mobile-navigation-button"
+          type="button"
+          onClick={() => window.dispatchEvent(new CustomEvent('evolv-open-dashboard-navigation'))}
+          aria-label="Open dashboard navigation"
+          title="Dashboard navigation"
+        >
+          <PanelLeftOpen size={20} />
+        </button>
         <button
           className="ai-history-button"
           type="button"
