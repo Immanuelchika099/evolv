@@ -137,3 +137,14 @@
     filter: blur(2.5rem);
   }
 }
+
+
+/* Shared card finish: keep the Routine swipe-card surface, remove the orange outline
+   and heavy black shadow so the stack feels clean against the page. */
+.depth-carousel__card {
+  border: 1px solid rgba(255,255,255,.085) !important;
+  background: linear-gradient(155deg, rgba(31,27,24,.82), rgba(12,12,12,.9)) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.06) !important;
+  backdrop-filter: blur(22px) saturate(1.06) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
