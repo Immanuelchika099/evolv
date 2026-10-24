@@ -1487,25 +1487,36 @@ function getAvatarPreset(style = 'androgynous') {
 }
 
 function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
+  const welcomeImages = [
+    {
+      src: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=900&q=85',
+      alt: 'A focused work session at a laptop',
+      label: 'LEARN',
+      className: 'learn',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=900&q=85',
+      alt: 'Someone building strength through exercise',
+      label: 'MOVE',
+      className: 'move',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=85',
+      alt: 'A notebook and workspace ready for planning',
+      label: 'CREATE',
+      className: 'create',
+    },
+    {
+      src: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=85',
+      alt: 'A calm, restful bedroom',
+      label: 'REST',
+      className: 'rest',
+    },
+  ]
+
   return (
     <div className="evolv-welcome page-enter">
       <div className="evolv-welcome-background" aria-hidden="true">
-        <PatternWaves
-          preset="silk"
-          pattern="line"
-          wave="silk"
-          color="var(--color-accent-blue)"
-          backgroundColor="#050505"
-          opacity={0.12}
-          fade="center"
-          fadeSize={0.82}
-          speed={0.12}
-          depth={0.52}
-          shine={0.18}
-          interactive={false}
-          intro
-          className="evolv-welcome-pattern"
-        />
         <div className="evolv-welcome-vignette" />
       </div>
       <header className="evolv-welcome-header">
@@ -1516,13 +1527,24 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
         <button className="evolv-welcome-signin" type="button" onClick={onSignIn}>Sign in <ArrowRight size={15} /></button>
       </header>
       <main className="evolv-welcome-content">
-        <span className="evolv-welcome-eyebrow"><i /> YOUR SPACE TO GROW</span>
-        <h1>One step at a time.<br /><em>Become you.</em></h1>
-        <p>Build better habits, understand yourself, and make room for the person you’re becoming.</p>
-        <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started <ArrowRight size={18} /></button>
-        <span className="evolv-welcome-note">GROW AT YOUR OWN PACE</span>
+        <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
+          {welcomeImages.map((item) => (
+            <figure className={`evolv-welcome-image evolv-welcome-image--${item.className}`} key={item.className}>
+              <img src={item.src} alt={item.alt} loading="eager" fetchPriority="high" />
+              <figcaption>{item.label}</figcaption>
+            </figure>
+          ))}
+          <span className="evolv-welcome-collage-glow" aria-hidden="true" />
+        </div>
+        <section className="evolv-welcome-message">
+          <span className="evolv-welcome-eyebrow"><i /> YOUR SPACE TO GROW</span>
+          <h1>Become who<br />you’re <em>capable of.</em></h1>
+          <p>Build better habits, understand yourself, and make progress at your own pace.</p>
+          <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started <ArrowRight size={18} /></button>
+          <span className="evolv-welcome-note">SMALL STEPS. REAL PROGRESS.</span>
+        </section>
       </main>
-      <div className="evolv-welcome-bottom" aria-hidden="true"><span>NOTICE</span><i /> <span>GROW</span><i /> <span>REPEAT</span></div>
+      <div className="evolv-welcome-bottom" aria-hidden="true"><span>LEARN</span><i /> <span>GROW</span><i /> <span>BEGIN AGAIN</span></div>
     </div>
   )
 }
