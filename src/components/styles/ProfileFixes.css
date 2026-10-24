@@ -822,3 +822,18 @@
   .dashboard .settings-page.profile-v2 .profile-v2-stats strong{font-size:24px!important}
 }
 @media(prefers-reduced-motion:reduce){.dashboard .settings-page.profile-v2 *{transition:none!important;animation:none!important}}
+
+.dashboard .settings-page.profile-v2 .profile-v2-direction-editor{display:grid;gap:16px;padding:4px 0 0}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select{display:grid;gap:8px}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select>span,
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options legend{font-size:13px;font-weight:400;color:var(--t3)}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select select{width:100%;min-height:46px;padding:0 14px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.045);color:#fff;font:300 15px/1.3 inherit}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select option{background:#171717;color:#fff}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;border:0;min-width:0}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options legend{margin-bottom:8px;padding:0}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options label{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid rgba(255,255,255,.1);border-radius:999px;background:rgba(255,255,255,.035);color:var(--t2);font-size:13px;font-weight:300;cursor:pointer}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options label.is-selected{border-color:color-mix(in srgb,var(--ai-bubble-blue,#9E3D1C) 65%,transparent);background:color-mix(in srgb,var(--ai-bubble-blue,#9E3D1C) 18%,transparent);color:#fff}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options input{position:absolute;width:1px;height:1px;opacity:0}
+.dashboard .settings-page.profile-v2 .profile-v2-direction-save{justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border:1px solid color-mix(in srgb,var(--ai-bubble-blue,#9E3D1C) 45%,transparent);border-radius:999px;background:var(--ai-bubble-blue,#9E3D1C);color:#fff;font-size:14px;font-weight:400}
+.dashboard .settings-page.profile-v2 .profile-v2-direction-save:disabled{opacity:.6}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options label:focus-within{outline:2px solid color-mix(in srgb,var(--ai-bubble-blue,#9E3D1C) 65%,transparent);outline-offset:2px}
