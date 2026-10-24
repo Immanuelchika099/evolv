@@ -2996,3 +2996,59 @@ html:has(.dashboard.dashboard-ai-active) {
     overflow-wrap: anywhere !important;
   }
 }
+
+
+/* AI top bar polish: remove the decorative active dot and tighten the two
+   navigation controls without changing the other top-bar actions. */
+.dashboard.dashboard-ai-active .ai-page .ai-mobile-navigation-button::before,
+.dashboard.dashboard-ai-active .ai-page .ai-mobile-navigation-button::after,
+.dashboard.dashboard-ai-active .ai-page .ai-history-button::before,
+.dashboard.dashboard-ai-active .ai-page .ai-history-button::after {
+  content: none !important;
+  display: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  column-gap: .6rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-mobile-navigation-button,
+.dashboard.dashboard-ai-active .ai-page .ai-history-button {
+  flex: 0 0 auto;
+  margin: 0 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-history-button {
+  margin-left: -.35rem !important;
+}
+
+/* Keep every part of an AI reply visually consistent on mobile.
+   Markdown headings stay bold, but no longer jump to a larger display size. */
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > p,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h1,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h4,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content pre,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content code,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content a,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content em {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 1.8rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+    line-height: 1.7 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h1,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h4 {
+    line-height: 1.45 !important;
+    letter-spacing: 0 !important;
+  }
+}
