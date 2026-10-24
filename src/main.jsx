@@ -8,6 +8,7 @@ import './auth-overrides.css'
 import './direct-signup.css'
 import './components/styles/WelcomeOnboarding.css'
 import App from './App.jsx'
+import NotificationPermissionPrompt from './components/NotificationPermissionPrompt.jsx'
 import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
 
@@ -25,6 +26,7 @@ createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AppErrorBoundary>
       <App />
+      <NotificationPermissionPrompt />
     </AppErrorBoundary>
   </StrictMode>,
 )
