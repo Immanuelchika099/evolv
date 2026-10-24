@@ -2682,9 +2682,9 @@ html,body,#root{background:#000 !important;}
   background: radial-gradient(ellipse at center, rgba(222,82,35,.065) 0%, rgba(222,82,35,.03) 42%, transparent 74%);
 }
 .dashboard-home::after {
-  width: min(125vw, 86rem);
-  height: clamp(38rem, 90vw, 76rem);
-  left: -38rem;
+  width: min(100vw, 68rem);
+  height: clamp(30rem, 72vw, 58rem);
+  left: -30rem;
   bottom: -30rem;
   background: radial-gradient(ellipse at 38% 58%, rgba(222,82,35,.07) 0%, rgba(222,82,35,.032) 43%, transparent 75%);
 }
@@ -2718,11 +2718,11 @@ html,body,#root{background:#000 !important;}
     filter: blur(6rem);
   }
   .dashboard-home::after {
-    width: 155vw;
-    height: 55rem;
-    left: -42vw;
-    bottom: -24rem;
-    filter: blur(6rem);
+    width: 118vw;
+    height: 42rem;
+    left: -29vw;
+    bottom: -20rem;
+    filter: blur(5rem);
   }
   .dashboard-home .daily-insight {
     z-index: 1;
