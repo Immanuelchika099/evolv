@@ -1520,7 +1520,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
     },
     {
       images: [
-      'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=85',
+      'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85',
       'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=85',
       'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=85',
     ],
@@ -1555,7 +1555,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
         <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
           {welcomeImages.map((item) => (
             <figure className={`evolv-welcome-image evolv-welcome-image--${item.className}`} key={item.className}>
-              <img key={`${item.className}-${welcomeImageIndex}`} src={item.images[welcomeImageIndex]} alt={item.alt} loading="eager" fetchPriority="high" />
+              <img key={`${item.className}-${welcomeImageIndex}`} src={item.images[welcomeImageIndex]} alt={item.alt} loading="eager" fetchPriority="high" onError={item.className === 'create' ? (event) => { event.currentTarget.onerror = null; event.currentTarget.src = 'https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&fit=crop&w=900&q=85' } : undefined} />
               <figcaption>{item.label}</figcaption>
             </figure>
           ))}
