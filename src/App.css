@@ -2851,3 +2851,71 @@ html,body,#root{background:#000 !important;}
     bottom: -24rem;
   }
 }
+
+
+/* Final fix: keep dashboard ambient light outside the expandable content tree.
+   A fixed pseudo-element on .dashboard-home can still move with transformed or
+   contained ancestors on mobile Safari, so render the glow on the viewport body. */
+.dashboard-home::before,
+.dashboard-home::after {
+  content: none !important;
+  display: none !important;
+}
+
+body:has(.dashboard-home) {
+  position: relative;
+  isolation: isolate;
+}
+
+body:has(.dashboard-home)::before,
+body:has(.dashboard-home)::after {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(5.5rem);
+  transform: translateZ(0);
+  will-change: auto;
+}
+
+body:has(.dashboard-home)::before {
+  width: min(150vw, 100rem);
+  height: clamp(30rem, 68vw, 62rem);
+  top: -20rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(0);
+  background: radial-gradient(ellipse at center, rgba(222,82,35,.065) 0%, rgba(222,82,35,.03) 42%, transparent 74%);
+}
+
+body:has(.dashboard-home)::after {
+  width: min(100vw, 68rem);
+  height: clamp(30rem, 72vw, 58rem);
+  left: -30rem;
+  bottom: -30rem;
+  background: radial-gradient(ellipse at 38% 58%, rgba(222,82,35,.07) 0%, rgba(222,82,35,.032) 43%, transparent 75%);
+}
+
+@media (max-width: 40rem) {
+  body:has(.dashboard-home)::before {
+    width: 165vw;
+    height: 43rem;
+    top: -17rem;
+    filter: blur(6rem);
+  }
+
+  body:has(.dashboard-home)::after {
+    width: 118vw;
+    height: 42rem;
+    left: -29vw;
+    bottom: -24rem;
+    filter: blur(5rem);
+  }
+}
+
+
+body:has(.dashboard-home) .dashboard-home {
+  position: relative;
+  z-index: 1;
+}
