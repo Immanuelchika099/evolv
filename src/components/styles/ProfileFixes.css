@@ -1395,3 +1395,20 @@
   padding-left: 60px !important;
   padding-right: 8px !important;
 }
+
+
+/* Keep the avatar camera badge above the photo and let it sit outside the circle. */
+.dashboard .settings-page.profile-v2 .profile-v2-avatar-button {
+  overflow: visible !important;
+  isolation: isolate !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-avatar-button .profile-avatar-image,
+.dashboard .settings-page.profile-v2 .profile-v2-avatar-button > .profile-avatar {
+  overflow: hidden !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-avatar-button .profile-avatar-camera {
+  position: absolute !important;
+  right: -6px !important;
+  bottom: -6px !important;
+  z-index: 30 !important;
+}
