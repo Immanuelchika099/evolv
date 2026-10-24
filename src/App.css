@@ -2773,3 +2773,12 @@ html,body,#root{background:#000 !important;}
 .daily-ai-insight-action:active {
   background:rgba(229,134,66,.16) !important;
 }
+
+
+/* Daily AI insight cards — translucent glass in Evolv orange */
+.daily-ai-insight-panel{position:relative;isolation:isolate;overflow:hidden;border:1px solid rgba(229,134,66,.21);background:linear-gradient(155deg,rgba(255,255,255,.105),rgba(255,255,255,.032))!important;-webkit-backdrop-filter:blur(22px) saturate(1.15);backdrop-filter:blur(22px) saturate(1.15);box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 22px 48px -28px rgba(0,0,0,.86)}
+.daily-ai-insight-panel::before{content:"";position:absolute;z-index:-1;inset:0;pointer-events:none;background:radial-gradient(ellipse at 100% 0%,rgba(229,134,66,.09),transparent 58%)}
+.daily-ai-insight-category,.daily-ai-insight-suggestion>span{color:rgba(229,134,66,.9)!important}
+.daily-ai-insight-suggestion{border-color:rgba(255,255,255,.1)!important}
+.daily-ai-insight-action{border-color:rgba(229,134,66,.25)!important;background:rgba(229,134,66,.09)!important;color:#f4eee8!important}
+.daily-ai-insight-action:active{background:rgba(229,134,66,.16)!important}
