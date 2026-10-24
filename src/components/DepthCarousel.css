@@ -81,38 +81,59 @@
 }
 
 
-/* Evolv AI insights — translucent glass with the existing orange ambient glow */
+/* Evolv AI insights — wide, diffused orange light beneath dark glass cards. */
 .depth-carousel {
-  isolation:isolate;
-  overflow:visible;
+  isolation: isolate;
+  overflow: visible;
+}
+.depth-carousel__stage {
+  z-index: 1;
 }
 .depth-carousel::before {
-  content:"";
-  position:absolute;
-  z-index:-1;
-  pointer-events:none;
-  width:118%;
-  height:74%;
-  left:-9%;
-  top:12%;
-  border-radius:50%;
-  background:radial-gradient(closest-side,rgba(229,134,66,.2),rgba(229,134,66,.075) 48%,transparent 100%);
-  filter:blur(8px);
+  content: "";
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: 158%;
+  height: 112%;
+  left: -29%;
+  top: -6%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 72% 56%,
+    rgba(229,134,66,.17) 0%,
+    rgba(229,134,66,.105) 34%,
+    rgba(229,134,66,.045) 61%,
+    transparent 82%);
+  filter: blur(2.8rem);
 }
 .depth-carousel__card {
-  background:linear-gradient(155deg,rgba(255,255,255,.105),rgba(255,255,255,.035)) !important;
-  border:1px solid rgba(229,134,66,.22) !important;
-  -webkit-backdrop-filter:blur(22px) saturate(1.15);
-  backdrop-filter:blur(22px) saturate(1.15);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.11),0 28px 55px -28px rgba(0,0,0,.88) !important;
+  background: linear-gradient(155deg,
+    rgba(28,19,14,.58),
+    rgba(11,10,9,.68)) !important;
+  border: 1px solid rgba(229,134,66,.19) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.08);
+  backdrop-filter: blur(22px) saturate(1.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.075),
+    0 28px 55px -28px rgba(0,0,0,.82) !important;
 }
 .depth-carousel__dot.is-active,
 .depth-carousel__dot.is-active:hover,
 .depth-carousel__dot.is-active:focus,
 .depth-carousel__dot.is-active:active {
-  background:#e58642 !important;
-  box-shadow:0 0 12px rgba(229,134,66,.22) !important;
+  background: #e58642 !important;
+  box-shadow: 0 0 12px rgba(229,134,66,.22) !important;
 }
-@media(max-width:640px) {
-  .depth-carousel::before { width:124%; left:-12%; top:10%; }
+@media (max-width: 640px) {
+  .depth-carousel::before {
+    width: 178%;
+    height: 120%;
+    left: -39%;
+    top: -8%;
+    background: radial-gradient(ellipse at 74% 58%,
+      rgba(229,134,66,.16) 0%,
+      rgba(229,134,66,.095) 35%,
+      rgba(229,134,66,.04) 62%,
+      transparent 83%);
+    filter: blur(2.5rem);
+  }
 }
