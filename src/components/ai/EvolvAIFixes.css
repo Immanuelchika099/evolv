@@ -2578,3 +2578,28 @@ html:has(.dashboard.dashboard-ai-active) {
   background: #653218 !important;
   border-color: rgba(255,255,255,.08) !important;
 }
+
+
+/* Mobile dashboard navigation sits beside the AI chat-history control. */
+.dashboard.dashboard-ai-active .ai-mobile-navigation-button {
+  display: none;
+}
+@media (max-width: 1023px) {
+  .dashboard.dashboard-ai-active .ai-mobile-navigation-button {
+    display: grid;
+    flex: 0 0 4.6rem;
+    width: 4.6rem;
+    height: 4.6rem;
+    place-items: center;
+    margin-right: .6rem;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 1.35rem;
+    color: #f2f2f2;
+    background: rgba(255,255,255,.045);
+    cursor: pointer;
+  }
+  .dashboard.dashboard-ai-active .ai-mobile-navigation-button svg {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+}
