@@ -220,3 +220,17 @@
   background-color: transparent !important;
   box-shadow: none !important;
 }
+
+
+/* Round the EVOLV AI composer more generously, matching a pill-like chat input. */
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  border-radius: 3.2rem !important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field::before {
+  border-radius: inherit;
+}
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+    border-radius: 2.8rem !important;
+  }
+}

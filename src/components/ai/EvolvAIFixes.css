@@ -2603,3 +2603,104 @@ html:has(.dashboard.dashboard-ai-active) {
     height: 2.1rem;
   }
 }
+
+
+/* Desktop AI layout — ChatGPT-inspired toolbar, conversation width and spacing.
+   Mobile layout remains governed by the existing rules above. */
+@media (min-width: 1024px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 6.8rem;
+    min-height: 6.8rem;
+    max-height: 6.8rem;
+    padding: 0 2.4rem 0 7.8rem;
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    background: rgba(0, 0, 0, .72);
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: blur(2rem) saturate(115%);
+    -webkit-backdrop-filter: blur(2rem) saturate(115%);
+  }
+
+  .dashboard.dashboard-ai-active .evolv-desktop-menu-toggle {
+    top: 1.2rem;
+    left: 1.8rem;
+    width: 4.4rem;
+    height: 4.4rem;
+    border-radius: 1.4rem;
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-history-button {
+    display: grid;
+    flex: 0 0 4.4rem;
+    width: 4.4rem;
+    height: 4.4rem;
+    place-items: center;
+    margin: 0;
+    border: 0;
+    border-radius: 1.4rem;
+    background: transparent;
+    color: rgba(255,255,255,.88);
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-left: auto;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat,
+  .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button {
+    min-height: 4.2rem;
+    border-radius: 1.4rem;
+    padding-inline: 1.3rem;
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    padding-top: 2.4rem;
+    padding-bottom: calc(13rem + env(safe-area-inset-bottom, 0px));
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message {
+    width: min(78rem, calc(100% - 5.6rem));
+    max-width: 78rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell {
+    padding: 1rem 2rem calc(1.4rem + env(safe-area-inset-bottom, 0px));
+    background: linear-gradient(to top, rgba(0,0,0,.98) 0%, rgba(0,0,0,.9) 65%, transparent 100%);
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar {
+    width: min(78rem, 100%);
+    max-width: 78rem;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+    border-radius: 3.2rem !important;
+    padding: 1.6rem 1.8rem !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field::before {
+    border-radius: inherit;
+  }
+
+  .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+    padding-inline: .2rem;
+  }
+}
