@@ -3037,7 +3037,7 @@ html:has(.dashboard.dashboard-ai-active) {
   .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong,
   .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content em {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    font-size: 1.8rem !important;
+    font-size: 1.65rem !important;
   }
 
   .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
@@ -3062,7 +3062,7 @@ html:has(.dashboard.dashboard-ai-active) {
 @media (max-width: 800px) {
   .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-response-content {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-    font-size: 1.8rem !important;
+    font-size: 1.65rem !important;
     line-height: 1.7 !important;
   }
 
