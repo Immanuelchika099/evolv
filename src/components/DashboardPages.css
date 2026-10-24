@@ -10232,3 +10232,120 @@ html body #root .dashboard .dashboard-home.calm-home::after {
     background-attachment: fixed !important;
   }
 }
+
+
+/* AI insights: page-level ambient orange + genuinely translucent glass.
+   Keep the glow on the home canvas, not trapped inside the insight carousel. */
+.dashboard .dashboard-home.calm-home {
+  overflow: visible !important;
+  background-color: #000 !important;
+  background-image:
+    radial-gradient(
+      ellipse 38rem 46rem at 100% 43%,
+      rgba(178, 65, 22, .14) 0%,
+      rgba(145, 48, 17, .075) 34%,
+      rgba(90, 28, 10, .025) 58%,
+      transparent 76%
+    ) !important;
+  background-repeat: no-repeat !important;
+}
+.dashboard .dashboard-home.calm-home .daily-ai-depth-carousel .depth-carousel__card,
+.dashboard .dashboard-home.calm-home .daily-ai-insight-card {
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, .045) 0%,
+    rgba(255, 255, 255, .018) 55%,
+    rgba(255, 255, 255, .012) 100%
+  ) !important;
+  border-color: rgba(214, 112, 66, .13) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(1.08) !important;
+  backdrop-filter: blur(22px) saturate(1.08) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .055),
+    0 2.2rem 5rem rgba(0, 0, 0, .22) !important;
+}
+.dashboard .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel {
+  background: transparent !important;
+  background-image: none !important;
+}
+.dashboard .dashboard-home.calm-home .daily-ai-insight-back-one {
+  background: rgba(15, 12, 11, .78) !important;
+}
+.dashboard .dashboard-home.calm-home .daily-ai-insight-back-two {
+  background: rgba(10, 9, 8, .72) !important;
+}
+@media (max-width: 800px) {
+  .dashboard .dashboard-home.calm-home {
+    background-image:
+      radial-gradient(
+        ellipse 34rem 42rem at 100% 40%,
+        rgba(178, 65, 22, .13) 0%,
+        rgba(145, 48, 17, .065) 36%,
+        transparent 76%
+      ) !important;
+  }
+}
+
+
+/* Visible page-canvas ambience: three independent glows, never clipped by a card/section. */
+html body #root .dashboard {
+  background-color: #000 !important;
+  background-image:
+    radial-gradient(
+      ellipse 58rem 30rem at 50% -8rem,
+      rgba(196, 76, 29, .15) 0%,
+      rgba(160, 53, 18, .085) 34%,
+      rgba(112, 36, 13, .035) 57%,
+      transparent 76%
+    ),
+    radial-gradient(
+      ellipse 46rem 42rem at 0% 100%,
+      rgba(184, 65, 22, .15) 0%,
+      rgba(145, 46, 15, .075) 38%,
+      rgba(100, 31, 10, .025) 60%,
+      transparent 78%
+    ),
+    radial-gradient(
+      ellipse 42rem 52rem at 100% 43%,
+      rgba(184, 65, 22, .145) 0%,
+      rgba(145, 46, 15, .075) 36%,
+      rgba(100, 31, 10, .025) 59%,
+      transparent 78%
+    ) !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+html body #root .dashboard .dashboard-home.calm-home {
+  background-color: transparent !important;
+  background-image: none !important;
+  overflow: visible !important;
+}
+html body #root .dashboard .dashboard-home.calm-home::before,
+html body #root .dashboard .dashboard-home.calm-home::after {
+  content: none !important;
+  display: none !important;
+}
+@media (max-width: 800px) {
+  html body #root .dashboard {
+    background-image:
+      radial-gradient(
+        ellipse 40rem 24rem at 50% -6rem,
+        rgba(196, 76, 29, .14) 0%,
+        rgba(160, 53, 18, .075) 38%,
+        transparent 76%
+      ),
+      radial-gradient(
+        ellipse 34rem 34rem at 0% 100%,
+        rgba(184, 65, 22, .14) 0%,
+        rgba(145, 46, 15, .07) 40%,
+        transparent 78%
+      ),
+      radial-gradient(
+        ellipse 34rem 44rem at 100% 42%,
+        rgba(184, 65, 22, .14) 0%,
+        rgba(145, 46, 15, .07) 38%,
+        transparent 78%
+      ) !important;
+    background-attachment: fixed !important;
+  }
+}
