@@ -1524,7 +1524,6 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           <img src="/evolv-mark.svg" alt="EVOLV" />
           <span>EVOLV</span>
         </button>
-        <button className="evolv-welcome-signin" type="button" onClick={onSignIn}>Sign in <ArrowRight size={15} /></button>
       </header>
       <main className="evolv-welcome-content">
         <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
@@ -1537,14 +1536,11 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           <span className="evolv-welcome-collage-glow" aria-hidden="true" />
         </div>
         <section className="evolv-welcome-message">
-          <span className="evolv-welcome-eyebrow"><i /> YOUR SPACE TO GROW</span>
           <h1>Become who<br />you’re <em>capable of.</em></h1>
           <p>Build better habits, understand yourself, and make progress at your own pace.</p>
           <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started <ArrowRight size={18} /></button>
-          <span className="evolv-welcome-note">SMALL STEPS. REAL PROGRESS.</span>
         </section>
       </main>
-      <div className="evolv-welcome-bottom" aria-hidden="true"><span>LEARN</span><i /> <span>GROW</span><i /> <span>BEGIN AGAIN</span></div>
     </div>
   )
 }
