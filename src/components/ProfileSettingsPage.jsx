@@ -168,7 +168,7 @@ export default function ProfileSettingsPage({pageProps}){
   if(loading&&!user)return <section className="panel-page dashboard-panel settings-page profile-v2 settings-loading" aria-busy="true"><header className="profile-v2-topbar"><span className="profile-v2-title">Profile</span></header><div className="settings-loading-line"/><div className="settings-loading-line short"/></section>
 
   return <section className="panel-page dashboard-panel settings-page profile-v2">
-    {createPortal(<div className="profile-v2-top-scrim status-scrim" aria-hidden="true"/>, document.body)}
+    <div className="profile-v2-top-scrim status-scrim" aria-hidden="true"/>
     <header className="profile-v2-topbar">
       <button type="button" className="profile-v2-icon-button" onClick={()=>pageProps.goTo?.('overview')} aria-label="Back to home"><ChevronLeft size={21}/></button>
       <h1 className="profile-v2-title">Profile</h1>
@@ -178,9 +178,8 @@ export default function ProfileSettingsPage({pageProps}){
       <div className="profile-v2-summary-main">
         <div className="profile-avatar-wrap profile-v2-avatar-wrap">
           <button type="button" className="profile-avatar-button profile-v2-avatar-button" onClick={()=>setPhotoMenuOpen(true)} disabled={avatarBusy} aria-label="Manage profile photo">
-            {displayAvatar?<img src={displayAvatar} alt={firstName+" profile"} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}
+            {displayAvatar?<img src={displayAvatar} alt={firstName+" profile"} className="profile-avatar-image"/>:<span className="profile-avatar">{initials}</span>}<span className="profile-avatar-camera"><Camera size={15}/></span>
           </button>
-          <span className="profile-avatar-camera" aria-hidden="true"><Camera size={15}/></span>
           <input id="profile-avatar-input" className="profile-avatar-input" type="file" accept="image/jpeg,image/png,image/webp,image/gif" onChange={handleAvatar} aria-label="Choose profile photo"/>
         </div>
         <div className="profile-v2-identity"><h2>{profileName||"Your name"}</h2><p title={user?.email||profile?.email||"Account email"}>{user?.email||profile?.email||"Account email"}</p></div>

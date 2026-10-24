@@ -1314,3 +1314,28 @@
 .dashboard .settings-page.profile-v2 .profile-stat-grid article>small{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:300!important;line-height:1.4!important;color:var(--t2)!important}
 .dashboard .evolv-floating-log{right:18px!important;bottom:calc(86px + env(safe-area-inset-bottom))!important;background:rgba(var(--ac),.14)!important;border:1px solid rgba(var(--ac),.45)!important;-webkit-backdrop-filter:blur(14px)!important;backdrop-filter:blur(14px)!important}
 .dashboard .evolv-floating-log span{display:none!important}
+
+/* Profile icon pass: white icons and no orange rings around icon tiles. */
+.dashboard .settings-page.profile-v2 .profile-settings-section-icon,
+.dashboard .settings-page.profile-v2 .profile-v2-focus-icon,
+.dashboard .settings-page.profile-v2 .profile-v2-action-icon,
+.dashboard .settings-page.profile-v2 .profile-v2-icon-button,
+.dashboard .settings-page.profile-v2 .profile-v2-row-action,
+.dashboard .settings-page.profile-v2 .profile-avatar-camera {
+  color: #fff !important;
+}
+.dashboard .settings-page.profile-v2 .profile-settings-section-icon {
+  border: 0 !important;
+  background: rgba(255,255,255,.06) !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-action-icon {
+  border: 0 !important;
+  background: rgba(255,255,255,.06) !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-icon {
+  color: #fff !important;
+}
+.dashboard .settings-page.profile-v2 .profile-v2-action-row.is-danger .profile-v2-action-icon {
+  color: #f28d83 !important;
+}
+
