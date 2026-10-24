@@ -2819,3 +2819,35 @@ html,body,#root{background:#000 !important;}
     display: none !important;
   }
 }
+
+
+/* Keep ambient dashboard lighting anchored to the viewport.
+   Expanded content should scroll independently instead of carrying the glows
+   down the page. The glow artwork, opacity and scale remain unchanged. */
+.dashboard-home::before,
+.dashboard-home::after {
+  position: fixed;
+  pointer-events: none;
+}
+
+.dashboard-home::before {
+  top: -20rem;
+  bottom: auto;
+}
+
+.dashboard-home::after {
+  top: auto;
+  bottom: -30rem;
+}
+
+@media (max-width: 40rem) {
+  .dashboard-home::before {
+    top: -17rem;
+    bottom: auto;
+  }
+
+  .dashboard-home::after {
+    top: auto;
+    bottom: -24rem;
+  }
+}
