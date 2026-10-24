@@ -88,11 +88,6 @@ function HomePage({ pageProps }) {
   })
   const selectedWeekDay = weekStats[Math.max(0, Math.min(6, selectedWeekIndex))]
   const maxWeekCount = Math.max(1, ...weekStats.map(day => day.count))
-  const weekChartPoints = weekStats.map((day, index) => ({
-    x: 22 + index * 43,
-    y: 67 - (day.count / maxWeekCount) * 40
-  }))
-  const weekChartPath = weekChartPoints.map((point, index) => `${index === 0 ? 'M' : 'L'} ${point.x} ${point.y}`).join(' ')
   const recentActivity = [
     ...todayLogs.map((log, index) => {
       const def = defs.find(item => String(item.id) === String(log.metric_id))
@@ -167,20 +162,20 @@ function HomePage({ pageProps }) {
           <span className="calm-week-period">THIS WEEK</span>
         </div>
         <div className="calm-week-chart-wrap">
-          <svg className="calm-week-chart" viewBox="0 0 302 84" role="img" aria-label="Daily activity across this week">
-            <defs>
-              <linearGradient id="calm-week-fill" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--color-accent-blue)" stopOpacity=".22" />
-                <stop offset="100%" stopColor="var(--color-accent-blue)" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            {[27, 47, 67].map(y => <line key={y} x1="8" y1={y} x2="294" y2={y} className="calm-week-gridline" />)}
-            <path d={`${weekChartPath} L 280 76 L 22 76 Z`} fill="url(#calm-week-fill)" />
-            <path d={weekChartPath} className="calm-week-line" />
-            {weekChartPoints.map((point, index) => (
-              <circle key={weekStats[index].key} cx={point.x} cy={point.y} r={selectedWeekIndex === index ? 4.5 : 2.8} className={selectedWeekIndex === index ? 'calm-week-point is-selected' : 'calm-week-point'} />
-            ))}
-          </svg>
+          <div className="calm-week-bars" role="img" aria-label={`Daily activity this week: ${weekStats.map(day => `${day.label} ${day.count}`).join(', ')}`}>
+            {weekStats.map((day, index) => {
+              const barHeight = day.count ? Math.max(22, (day.count / maxWeekCount) * 100) : 8
+              return (
+                <div className="calm-week-bar-column" key={day.key}>
+                  <span className="calm-week-bar-count">{day.count || ''}</span>
+                  <span
+                    className={selectedWeekIndex === index ? 'calm-week-bar is-selected' : 'calm-week-bar'}
+                    style={{ height: `${barHeight}%` }}
+                  />
+                </div>
+              )
+            })}
+          </div>
         </div>
         <div className="calm-week-days" aria-label="Choose a day to inspect activity">
           {weekStats.map((day, index) => (
