@@ -2968,28 +2968,31 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Larger Android phones: add a more comfortable side gutter to the AI
-   conversation so long replies and sent messages don't feel pressed against
-   the screen edges. Keep the existing spacing on compact phones unchanged. */
-@media (min-width: 430px) and (max-width: 800px) {
-  .dashboard.dashboard-ai-active .ai-page .ai-chat {
-    padding-left: 24px !important;
-    padding-right: 24px !important;
-  }
 
-  .dashboard.dashboard-ai-active .ai-page .ai-messages {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
+/* Authoritative mobile message gutter.
+   The message scroller is absolutely positioned, so padding on .ai-chat alone
+   does not constrain its children. Earlier mobile rules also zeroed the
+   message-row margins with !important. Apply the gutter to the actual rows. */
+@media (max-width: 800px) {
   .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant,
   .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user {
-    width: 100% !important;
-    max-width: 100% !important;
+    width: calc(100% - 3rem) !important;
+    max-width: calc(100% - 3rem) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
   }
 
   .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-response-content,
   .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-message-actions {
+    width: 100% !important;
     max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user > p {
+    max-width: min(100%, 48rem) !important;
+    box-sizing: border-box !important;
+    overflow-wrap: anywhere !important;
   }
 }
