@@ -748,3 +748,207 @@
 }
 
 /* Ambient sound toggle: quiet, optional, and restricted to the pre-login journey. */
+
+
+/* Pinterest-inspired EVOLV welcome: editorial photography, not a card dashboard. */
+.evolv-welcome {
+  display: flex;
+  flex-direction: column;
+  min-height: 100svh;
+  min-height: 100dvh;
+  background: #050505;
+}
+.evolv-welcome-background {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 35%, rgba(232,90,39,.075), transparent 42%),
+    #050505;
+}
+.evolv-welcome-vignette {
+  background: linear-gradient(180deg, rgba(5,5,5,.02) 0%, rgba(5,5,5,.04) 42%, #050505 100%);
+}
+.evolv-welcome-header {
+  width: min(100% - 4rem, 132rem);
+  padding: 2.1rem 0;
+}
+.evolv-welcome-signin {
+  min-height: 4.2rem;
+  padding: 0 1.6rem;
+  border-color: rgba(255,255,255,.13);
+  background: rgba(15,15,15,.62);
+}
+.evolv-welcome-content {
+  width: min(100% - 4rem, 72rem);
+  min-height: 0;
+  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0;
+  padding: 0 0 8.5rem;
+  text-align: center;
+}
+.evolv-welcome-collage {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr 1fr;
+  grid-template-rows: 13rem 12rem;
+  gap: .9rem;
+  width: min(100%, 63rem);
+  margin: .2rem auto 3.2rem;
+  isolation: isolate;
+}
+.evolv-welcome-image {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 1.5rem;
+  background: #151515;
+  box-shadow: 0 1.5rem 4rem rgba(0,0,0,.24);
+  transform: translateZ(0);
+}
+.evolv-welcome-image--learn {
+  grid-column: 1 / 3;
+  grid-row: 1;
+}
+.evolv-welcome-image--move {
+  grid-column: 3;
+  grid-row: 1 / 3;
+}
+.evolv-welcome-image--create {
+  grid-column: 1;
+  grid-row: 2;
+}
+.evolv-welcome-image--rest {
+  grid-column: 2;
+  grid-row: 2;
+}
+.evolv-welcome-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: saturate(.72) brightness(.78);
+  transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease;
+}
+.evolv-welcome-image--learn img { object-position: center 48%; }
+.evolv-welcome-image--move img { object-position: center; }
+.evolv-welcome-image--create img { object-position: center 55%; }
+.evolv-welcome-image--rest img { object-position: center 52%; }
+.evolv-welcome-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.02) 38%, rgba(0,0,0,.66) 100%);
+  pointer-events: none;
+}
+.evolv-welcome-image figcaption {
+  position: absolute;
+  z-index: 1;
+  right: 1.1rem;
+  bottom: 1rem;
+  left: 1.1rem;
+  color: rgba(255,255,255,.9);
+  font-size: 1rem;
+  font-weight: 650;
+  letter-spacing: .16em;
+  text-align: left;
+}
+.evolv-welcome-collage-glow {
+  position: absolute;
+  z-index: -1;
+  inset: 12% 8%;
+  border-radius: 50%;
+  background: rgba(232,90,39,.13);
+  filter: blur(5rem);
+  pointer-events: none;
+}
+.evolv-welcome-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.evolv-welcome-eyebrow {
+  justify-content: center;
+  font-size: 1.05rem;
+  letter-spacing: .18em;
+}
+.evolv-welcome-content h1 {
+  margin: 1.6rem 0 1.3rem;
+  font-size: clamp(4.1rem, 7vw, 7.2rem);
+  letter-spacing: -.075em;
+  line-height: .99;
+}
+.evolv-welcome-content h1 em {
+  color: #f0a083;
+}
+.evolv-welcome-content > .evolv-welcome-message > p,
+.evolv-welcome-message > p {
+  max-width: 42rem;
+  margin: 0;
+  color: rgba(245,245,239,.68);
+  font-size: clamp(1.45rem, 1.8vw, 1.7rem);
+  line-height: 1.7;
+}
+.evolv-welcome-cta {
+  width: min(100%, 34rem);
+  min-height: 5.6rem;
+  margin-top: 2.4rem;
+  border-radius: 1.5rem;
+  background: var(--color-accent-blue);
+  box-shadow: 0 1rem 3rem rgba(232,90,39,.13);
+}
+.evolv-welcome-note {
+  margin-top: 1.6rem;
+  font-size: .95rem;
+  letter-spacing: .16em;
+}
+.evolv-welcome-bottom {
+  position: relative;
+  right: auto;
+  bottom: auto;
+  left: auto;
+  padding: 0 1rem 2.2rem;
+  font-size: .9rem;
+  letter-spacing: .16em;
+}
+@media (min-width: 760px) {
+  .evolv-welcome-header { padding-top: 2.8rem; }
+  .evolv-welcome-content {
+    width: min(100% - 5.2rem, 82rem);
+    padding-bottom: 7.5rem;
+  }
+  .evolv-welcome-collage {
+    grid-template-rows: 16rem 14rem;
+    gap: 1.1rem;
+    margin-bottom: 3.8rem;
+  }
+  .evolv-welcome-image { border-radius: 1.8rem; }
+  .evolv-welcome-image figcaption { font-size: 1.1rem; }
+}
+@media (max-width: 420px) {
+  .evolv-welcome-header { width: calc(100% - 3.2rem); padding: 1.7rem 0; }
+  .evolv-welcome-wordmark { gap: .8rem; font-size: 1.2rem; }
+  .evolv-welcome-wordmark img { width: 2.5rem; height: 2.5rem; }
+  .evolv-welcome-signin { min-height: 3.8rem; padding: 0 1.2rem; font-size: 1.25rem; }
+  .evolv-welcome-content { width: calc(100% - 3.2rem); padding-bottom: 7.5rem; }
+  .evolv-welcome-collage {
+    grid-template-rows: 11rem 10rem;
+    gap: .7rem;
+    margin-bottom: 2.7rem;
+  }
+  .evolv-welcome-image { border-radius: 1.2rem; }
+  .evolv-welcome-image figcaption { right: .8rem; bottom: .8rem; left: .8rem; font-size: .9rem; }
+  .evolv-welcome-content h1 { font-size: clamp(3.8rem, 11vw, 4.6rem); }
+  .evolv-welcome-message > p { max-width: 31rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-welcome-image img { transition: none; }
+}
