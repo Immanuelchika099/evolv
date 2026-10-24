@@ -1495,8 +1495,8 @@ const welcomeImages = [
       className: 'learn',
     },
     {
-      image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=90',
-      alt: 'Someone building strength through exercise',
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=90',
+      alt: 'A modern gym space for strength training',
       label: 'MOVE',
       className: 'move',
     },
