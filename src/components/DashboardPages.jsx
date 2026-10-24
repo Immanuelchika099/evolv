@@ -626,128 +626,141 @@ function GoalsPage({ pageProps }) {
 }
 
 function ProfilePage({ pageProps }) {
+  const [expandedProfileSection, setExpandedProfileSection] = useState('account')
   const {
     profileName, setProfileName, profile, data, avatarUrl, avatarInputRef, avatarUploading,
     handleAvatarChange, removeAvatar, saveProfile, profileMessage,
     notificationsEnabled, toggleNotifications, notificationTimes, reflectionTime, saveNotificationTime, toggleNotificationTime,
     saveQuietHour, toggleQuietHours, openReflection, deleteAccount, deleting, onLogout
   } = pageProps
-  return <section className="panel-page dashboard-panel settings-page">
-  <div className="settings-heading">
-    <span className="section-label">YOUR SPACE</span>
-    <h2>Profile.</h2>
-    <p>A home for the person behind your EVOLV journey.</p>
-  </div>
 
-  <div className="profile-hero-card">
-    <div className="profile-avatar-wrap">
-      <button className="profile-avatar-button" type="button" onClick={()=>avatarInputRef.current?.click()} aria-label="Change profile photo" disabled={avatarUploading}>
-        {avatarUrl?<img src={avatarUrl} alt="" className="profile-avatar-image"/>:<span className="profile-avatar">{(profileName||'E').trim().charAt(0).toUpperCase()}</span>}
-        <span className="profile-avatar-camera"><Camera size={17}/></span>
-      </button>
-      <input ref={avatarInputRef} className="profile-avatar-input" type="file" accept="image/*" onChange={handleAvatarChange}/>
-      <div className="profile-photo-actions">
-        <button type="button" onClick={()=>avatarInputRef.current?.click()} disabled={avatarUploading}><Upload size={15}/>{avatarUploading?'Uploading…':'Change photo'}</button>
-        {avatarUrl&&<button type="button" onClick={removeAvatar} disabled={avatarUploading}>Remove</button>}
+  const toggleProfileSection = section => {
+    setExpandedProfileSection(current => current === section ? null : section)
+  }
+
+  return <section className="panel-page dashboard-panel settings-page">
+    <div className="settings-heading">
+      <span className="section-label">YOUR SPACE</span>
+      <h2>Profile.</h2>
+      <p>A home for the person behind your EVOLV journey.</p>
+    </div>
+
+    <div className="profile-summary-card">
+      <div className="profile-summary-top">
+        <div className="profile-avatar-wrap">
+          <button className="profile-avatar-button" type="button" onClick={() => avatarInputRef.current?.click()} aria-label="Change profile photo" disabled={avatarUploading}>
+            {avatarUrl ? <img src={avatarUrl} alt="" className="profile-avatar-image" /> : <span className="profile-avatar">{(profileName || 'E').trim().charAt(0).toUpperCase()}</span>}
+            <span className="profile-avatar-camera"><Camera size={17} /></span>
+          </button>
+          <input ref={avatarInputRef} className="profile-avatar-input" type="file" accept="image/*" onChange={handleAvatarChange} />
+          <div className="profile-photo-actions">
+            <button type="button" onClick={() => avatarInputRef.current?.click()} disabled={avatarUploading}><Upload size={15} />{avatarUploading ? 'Uploading…' : 'Change photo'}</button>
+            {avatarUrl && <button type="button" onClick={removeAvatar} disabled={avatarUploading}>Remove</button>}
+          </div>
+        </div>
+        <div className="profile-summary-copy">
+          <span className="section-label">YOUR PROFILE</span>
+          <h3>{profileName || 'Your name'}</h3>
+          <p>{profile?.email || 'Your account email'}</p>
+          <span className="profile-summary-status"><i /> Active account</span>
+        </div>
+      </div>
+      <div className="profile-facts-grid">
+        <div><span>FOCUS</span><strong>{profile?.focus || data.focus || 'Choose your direction'}</strong></div>
+        <div><span>GROWTH AREAS</span><strong>{(profile?.growth_areas || data.areas || []).length || 0} selected</strong></div>
+        <div><span>FIRST GOAL</span><strong>{profile?.first_goal || data.goal || 'Add your first goal'}</strong></div>
       </div>
     </div>
-    <div className="profile-hero-copy">
-      <span className="section-label">EVOLV MEMBER</span>
-      <h3>{profileName||'Your name'}</h3>
-      <p>{profile?.email||'Your account email'}</p>
-      <small>Personalise your space with a photo and keep your journey recognisably yours.</small>
-    </div>
-    <div className="profile-hero-status"><span></span> Active</div>
-  </div>
 
-  <div className="profile-facts-grid">
-    <div><span>FOCUS</span><strong>{profile?.focus||data.focus||'Choose your direction'}</strong></div>
-    <div><span>GROWTH AREAS</span><strong>{(profile?.growth_areas||data.areas||[]).length || 0} selected</strong></div>
-    <div><span>FIRST GOAL</span><strong>{profile?.first_goal||data.goal||'Add your first goal'}</strong></div>
-  </div>
-
-  <div className="settings-section">
-    <div className="settings-section-head">
-      <div><span className="section-label">ACCOUNT</span><h3>Personal details</h3></div>
-      <Settings size={20}/>
-    </div>
-    <div className="settings-card">
-      <form onSubmit={saveProfile}>
-        <label><span>First name</span><input value={profileName} onChange={e=>setProfileName(e.target.value)} /></label>
-        <div className="profile-account-email">
-          <span>ACCOUNT EMAIL</span>
-          <strong>{profile?.email||'Connected to your EVOLV account'}</strong>
+    <div className="profile-settings-section">
+      <button type="button" className="profile-settings-section-head" aria-expanded={expandedProfileSection === 'account'} aria-controls="profile-account-panel" onClick={() => toggleProfileSection('account')}>
+        <span className="profile-settings-section-icon icon-account"><Settings size={19} /></span>
+        <span className="profile-settings-section-heading"><span className="section-label">ACCOUNT</span><strong>Personal details</strong></span>
+        <ChevronDown size={18} className={'profile-settings-chevron' + (expandedProfileSection === 'account' ? ' is-open' : '')} />
+      </button>
+      <div id="profile-account-panel" className={'profile-settings-accordion-content' + (expandedProfileSection === 'account' ? ' is-open' : '')} aria-hidden={expandedProfileSection !== 'account'}>
+        <div className="profile-settings-list">
+          <form className="profile-setting-row profile-account-details-form" onSubmit={saveProfile}>
+            <label><span>First name</span><input value={profileName} onChange={e => setProfileName(e.target.value)} /></label>
+            <div className="profile-account-email"><span>ACCOUNT EMAIL</span><strong>{profile?.email || 'Connected to your EVOLV account'}</strong></div>
+            <button className="button button-primary" type="submit">Save changes</button>
+            {profileMessage && <p className="auth-message">{profileMessage}</p>}
+          </form>
         </div>
-        <button className="button button-primary" type="submit">Save changes</button>
-        {profileMessage&&<p className="auth-message">{profileMessage}</p>}
-      </form>
+      </div>
     </div>
-  </div>
 
-
-
-  <div className="settings-section notifications-settings-section">
-    <div className="settings-section-head"><div><span className="section-label">REMINDERS</span><h3>Notifications</h3></div><Bell size={20}/></div>
-    <div className="notification-master-row"><div><strong>Daily reminders</strong><span>Three thoughtful check-ins, spaced through your day.</span></div><button type="button" className={notificationsEnabled?'settings-toggle active':'settings-toggle'} onClick={toggleNotifications} aria-pressed={notificationsEnabled}><span /></button></div>
-    <div className={notificationsEnabled?'notification-preferences':'notification-preferences disabled'}>
-      <div className="notification-preference notification-preference-timed"><div><strong>Morning</strong><span>Start the day with intention.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.morningTime} onChange={e=>saveNotificationTime('morningTime',e)} disabled={!notificationsEnabled||!notificationTimes.morning}/><button type="button" onClick={()=>toggleNotificationTime('morning')} className={notificationTimes.morning?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
-      <div className="notification-preference notification-preference-timed"><div><strong>Midday reset</strong><span>A gentle hydration and check-in moment.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.hydrationTime} onChange={e=>saveNotificationTime('hydrationTime',e)} disabled={!notificationsEnabled||!notificationTimes.hydration}/><button type="button" onClick={()=>toggleNotificationTime('hydration')} className={notificationTimes.hydration?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
-      <div className="notification-preference notification-preference-timed"><div><strong>Evening reflection</strong><span>Close the day with a quiet check-in.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.reflectionTime||reflectionTime} onChange={e=>saveNotificationTime('reflectionTime',e)} disabled={!notificationsEnabled||!notificationTimes.reflection}/><button type="button" onClick={()=>toggleNotificationTime('reflection')} className={notificationTimes.reflection?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
-      <div className="notification-quiet-row"><div><strong>Quiet hours</strong><span>EVOLV will never interrupt this window.</span></div><div className="notification-quiet-controls"><input type="time" value={notificationTimes.quietStart} onChange={e=>saveQuietHour('quietStart',e)} disabled={!notificationsEnabled||!notificationTimes.quietHours}/><span>to</span><input type="time" value={notificationTimes.quietEnd} onChange={e=>saveQuietHour('quietEnd',e)} disabled={!notificationsEnabled||!notificationTimes.quietHours}/><button type="button" onClick={toggleQuietHours} className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
-      <button className="reflection-preview-button" type="button" onClick={openReflection}><Moon size={15}/> Try tonight's reflection now</button>
+    <div className="profile-settings-section">
+      <button type="button" className="profile-settings-section-head" aria-expanded={expandedProfileSection === 'reminders'} aria-controls="profile-reminders-panel" onClick={() => toggleProfileSection('reminders')}>
+        <span className="profile-settings-section-icon icon-notifications"><Bell size={19} /></span>
+        <span className="profile-settings-section-heading"><span className="section-label">REMINDERS</span><strong>Notifications</strong></span>
+        <ChevronDown size={18} className={'profile-settings-chevron' + (expandedProfileSection === 'reminders' ? ' is-open' : '')} />
+      </button>
+      <div id="profile-reminders-panel" className={'profile-settings-accordion-content' + (expandedProfileSection === 'reminders' ? ' is-open' : '')} aria-hidden={expandedProfileSection !== 'reminders'}>
+        <div className="profile-settings-list profile-reminder-list">
+          <div className="profile-setting-row notification-master-row"><div><strong>Daily reminders</strong><span>Three thoughtful check-ins, spaced through your day.</span></div><button type="button" className={notificationsEnabled ? 'settings-toggle active' : 'settings-toggle'} onClick={toggleNotifications} aria-pressed={notificationsEnabled}><span /></button></div>
+          <div className={notificationsEnabled ? 'notification-preferences' : 'notification-preferences disabled'}>
+            <div className="notification-preference notification-preference-timed"><div><strong>Morning</strong><span>Start the day with intention.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.morningTime} onChange={e => saveNotificationTime('morningTime', e)} disabled={!notificationsEnabled || !notificationTimes.morning} /><button type="button" onClick={() => toggleNotificationTime('morning')} className={notificationTimes.morning ? 'settings-toggle active' : 'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+            <div className="notification-preference notification-preference-timed"><div><strong>Midday reset</strong><span>A gentle hydration and check-in moment.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.hydrationTime} onChange={e => saveNotificationTime('hydrationTime', e)} disabled={!notificationsEnabled || !notificationTimes.hydration} /><button type="button" onClick={() => toggleNotificationTime('hydration')} className={notificationTimes.hydration ? 'settings-toggle active' : 'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+            <div className="notification-preference notification-preference-timed"><div><strong>Evening reflection</strong><span>Close the day with a quiet check-in.</span></div><div className="notification-time-control"><input type="time" value={notificationTimes.reflectionTime || reflectionTime} onChange={e => saveNotificationTime('reflectionTime', e)} disabled={!notificationsEnabled || !notificationTimes.reflection} /><button type="button" onClick={() => toggleNotificationTime('reflection')} className={notificationTimes.reflection ? 'settings-toggle active' : 'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+            <div className="notification-quiet-row"><div><strong>Quiet hours</strong><span>EVOLV will never interrupt this window.</span></div><div className="notification-quiet-controls"><input type="time" value={notificationTimes.quietStart} onChange={e => saveQuietHour('quietStart', e)} disabled={!notificationsEnabled || !notificationTimes.quietHours} /><span>to</span><input type="time" value={notificationTimes.quietEnd} onChange={e => saveQuietHour('quietEnd', e)} disabled={!notificationsEnabled || !notificationTimes.quietHours} /><button type="button" onClick={toggleQuietHours} className={notificationTimes.quietHours ? 'settings-toggle active' : 'settings-toggle'} disabled={!notificationsEnabled}><span /></button></div></div>
+            <button className="reflection-preview-button" type="button" onClick={openReflection}><Moon size={15} /> Try tonight's reflection now</button>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div className="settings-section settings-danger">
-    <div className="settings-action-row settings-hold-row">
-      <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
-      <HoldButton
-        doneLabel="Signed out"
-        backgroundColor="#27272a"
-        fillColor="#ffffff"
-        textColor="#f5f5f5"
-        fillTextColor="#050505"
-        size="md"
-        radius={14}
-        fillDirection="right"
-        holdTime={2000}
-        releaseTime={200}
-        pressScale={0.97}
-        wave
-        waveAmplitude={6}
-        glow
-        resetAfter={1200}
-        onHold={onLogout}
-      >
-        Sign out
-      </HoldButton>
+    <div className="profile-account-actions">
+      <div className="profile-account-actions-heading"><span className="section-label">ACCOUNT</span><h3>Account actions</h3></div>
+      <div className="settings-action-row settings-hold-row profile-account-hold-row">
+        <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
+        <HoldButton
+          doneLabel="Signed out"
+          backgroundColor="#27272a"
+          fillColor="#ffffff"
+          textColor="#f5f5f5"
+          fillTextColor="#050505"
+          size="md"
+          radius={14}
+          fillDirection="right"
+          holdTime={2000}
+          releaseTime={200}
+          pressScale={0.97}
+          wave
+          waveAmplitude={6}
+          glow
+          resetAfter={1200}
+          onHold={onLogout}
+        >
+          Sign out
+        </HoldButton>
+      </div>
+      <div className="settings-action-row settings-hold-row profile-account-hold-row danger">
+        <div><strong>Delete account</strong><span>Hold to permanently remove your account and saved information.</span></div>
+        <HoldButton
+          doneLabel="Deleted"
+          backgroundColor="#27272a"
+          fillColor="#EF4444"
+          textColor="#f5f5f5"
+          fillTextColor="#ffffff"
+          size="md"
+          radius={14}
+          fillDirection="right"
+          holdTime={2000}
+          releaseTime={200}
+          pressScale={0.97}
+          wave
+          waveAmplitude={6}
+          glow
+          resetAfter={1200}
+          onHold={deleteAccount}
+          disabled={deleting}
+        >
+          {deleting ? 'Deleting…' : 'Delete account'}
+        </HoldButton>
+      </div>
     </div>
-    <div className="settings-action-row settings-hold-row danger">
-      <div><strong>Delete account</strong><span>Hold to permanently remove your account and saved information.</span></div>
-      <HoldButton
-        doneLabel="Deleted"
-        backgroundColor="#27272a"
-        fillColor="#EF4444"
-        textColor="#f5f5f5"
-        fillTextColor="#ffffff"
-        size="md"
-        radius={14}
-        fillDirection="right"
-        holdTime={2000}
-        releaseTime={200}
-        pressScale={0.97}
-        wave
-        waveAmplitude={6}
-        glow
-        resetAfter={1200}
-        onHold={deleteAccount}
-        disabled={deleting}
-      >
-        {deleting ? 'Deleting…' : 'Delete account'}
-      </HoldButton>
-    </div>
-  </div>
-</section>
+  </section>
 }
 
 function NotificationsPage({ pageProps }) {
