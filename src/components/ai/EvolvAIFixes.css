@@ -2835,3 +2835,88 @@ html:has(.dashboard.dashboard-ai-active) {
     max-width: min(48rem, 100%) !important;
   }
 }
+
+
+/* TRUE CONVERSATION COLUMN — authoritative override.
+   Keep the scroll viewport full-width, but constrain each message row itself
+   and center that row in the viewport. Do not center only the inner text. */
+@media (min-width: 801px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-chat {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+    padding-inline: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    align-self: center !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    flex: 0 0 auto !important;
+    width: min(78rem, calc(100% - 5.6rem)) !important;
+    min-width: 0 !important;
+    max-width: 78rem !important;
+    margin: 1.2rem auto 1.8rem !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-response-content {
+    display: block !important;
+    align-self: stretch !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-message-actions {
+    align-self: stretch !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-inline: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    align-self: center !important;
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    transform: none !important;
+    flex: 0 0 auto !important;
+    width: min(78rem, calc(100% - 5.6rem)) !important;
+    min-width: 0 !important;
+    max-width: 78rem !important;
+    margin: 1.2rem auto 1.8rem !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user > p {
+    align-self: flex-end !important;
+    width: fit-content !important;
+    max-width: min(48rem, 100%) !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+  }
+}
