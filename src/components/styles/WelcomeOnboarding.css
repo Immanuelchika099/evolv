@@ -1111,3 +1111,54 @@
     margin-bottom: 1.8rem !important;
   }
 }
+
+
+/* Cinematic, still welcome feed: keep the editorial photos in place and force the CTA to white. */
+.evolv-welcome .evolv-welcome-cta,
+.evolv-welcome .evolv-welcome-cta:link,
+.evolv-welcome .evolv-welcome-cta:visited,
+.evolv-welcome .evolv-welcome-cta:hover,
+.evolv-welcome .evolv-welcome-cta:focus,
+.evolv-welcome .evolv-welcome-cta:focus-visible,
+.evolv-welcome .evolv-welcome-cta:active {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  background: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #ffffff !important;
+  color: #050505 !important;
+  -webkit-text-fill-color: #050505 !important;
+  box-shadow: none !important;
+}
+.evolv-welcome .evolv-welcome-cta svg {
+  color: #050505 !important;
+  stroke: #050505 !important;
+}
+.evolv-welcome .evolv-welcome-image img {
+  animation: none !important;
+  will-change: auto !important;
+  transform: none !important;
+}
+.evolv-welcome .evolv-welcome-collage {
+  grid-template-rows: 15rem 13rem;
+  margin-bottom: 2.4rem;
+}
+@media (min-width: 760px) {
+  .evolv-welcome .evolv-welcome-collage {
+    grid-template-rows: 20rem 17rem;
+    margin-bottom: 2.8rem;
+  }
+}
+@media (max-width: 680px) {
+  .evolv-welcome .evolv-welcome-collage {
+    grid-template-rows: 16rem 14rem !important;
+    gap: .8rem !important;
+    margin-bottom: 2.6rem !important;
+  }
+}
+@media (max-width: 420px) {
+  .evolv-welcome .evolv-welcome-collage {
+    grid-template-rows: 15rem 13rem !important;
+    margin-bottom: 2.3rem !important;
+  }
+}
