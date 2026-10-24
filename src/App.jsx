@@ -5,6 +5,7 @@ import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LegalPage from './components/LegalPage'
 import BottomNav from './components/BottomNav'
+import DesktopSidebar from './components/DesktopSidebar'
 import QuickLogSheet from './components/QuickLogSheet'
 import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
@@ -1644,6 +1645,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
 
 function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [active,setActive]=useState('overview')
+  const [desktopSidebarOpen,setDesktopSidebarOpen]=useState(false)
   const [logOpen,setLogOpen]=useState(false)
   const [quickLogOpen,setQuickLogOpen]=useState(false)
   const [quickLogInitialScreen,setQuickLogInitialScreen]=useState('menu')
@@ -2668,6 +2670,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   }
 
   return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
+    <DesktopSidebar active={active} onNavigate={goTo} open={desktopSidebarOpen} onToggle={setDesktopSidebarOpen}/>
     {active !== 'ai' && active !== 'profile' && <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>}
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
