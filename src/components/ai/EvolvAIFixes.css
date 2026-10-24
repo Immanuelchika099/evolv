@@ -2966,3 +2966,30 @@ html:has(.dashboard.dashboard-ai-active) {
     box-sizing: border-box !important;
   }
 }
+
+
+/* Larger Android phones: add a more comfortable side gutter to the AI
+   conversation so long replies and sent messages don't feel pressed against
+   the screen edges. Keep the existing spacing on compact phones unchanged. */
+@media (min-width: 430px) and (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-chat {
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant,
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-response-content,
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-message-actions {
+    max-width: 100% !important;
+  }
+}
