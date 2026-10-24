@@ -9916,35 +9916,45 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
 .calm-week-chart-wrap {
   margin: 2.2rem -.4rem .4rem;
 }
-.calm-week-chart {
+.calm-week-bars {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  align-items: end;
+  gap: clamp(.9rem, 3.5vw, 1.8rem);
+  height: 12.5rem;
+  padding: .4rem .7rem 0;
+  border-bottom: 1px solid rgba(255,255,255,.075);
+}
+.calm-week-bar-column {
+  display: flex;
+  min-width: 0;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .65rem;
+}
+.calm-week-bar-count {
+  min-height: 1.25rem;
+  color: rgba(255,255,255,.42);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+.calm-week-bar {
   display: block;
-  width: 100%;
-  height: auto;
-  overflow: visible;
+  width: min(100%, 2.2rem);
+  min-height: .8rem;
+  border: 1px solid rgba(229,134,66,.12);
+  border-radius: .8rem .8rem .25rem .25rem;
+  background: linear-gradient(180deg, rgba(229,134,66,.28), rgba(229,134,66,.08));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+  transition: height .28s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
 }
-.calm-week-gridline {
-  stroke: rgba(255,255,255,.065);
-  stroke-width: 1;
-  stroke-dasharray: 2 5;
-}
-.calm-week-line {
-  fill: none;
-  stroke: var(--color-accent-blue);
-  stroke-width: 2.25;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--color-accent-blue) 22%, transparent));
-}
-.calm-week-point {
-  fill: #17110e;
-  stroke: color-mix(in srgb, var(--color-accent-blue) 78%, white);
-  stroke-width: 1.5;
-  transition: r .2s ease, fill .2s ease;
-}
-.calm-week-point.is-selected {
-  fill: var(--color-accent-blue);
-  stroke: #ffe3d4;
-  stroke-width: 1.5;
+.calm-week-bar.is-selected {
+  border-color: rgba(229,134,66,.52);
+  background: linear-gradient(180deg, #e58642, rgba(229,134,66,.42));
+  box-shadow: 0 0 1.8rem rgba(229,134,66,.13), inset 0 1px 0 rgba(255,255,255,.16);
 }
 .calm-week-days {
   display: grid;
@@ -10027,6 +10037,18 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
   .calm-week-chart-wrap {
     margin-top: 2rem;
   }
+  .calm-week-bars {
+    height: 10.5rem;
+    gap: .8rem;
+    padding-right: .3rem;
+    padding-left: .3rem;
+  }
+  .calm-week-bar {
+    width: min(100%, 1.8rem);
+  }
+  .calm-week-bar-count {
+    font-size: .95rem;
+  }
   .calm-week-day {
     min-height: 4rem;
     font-size: 1.1rem;
@@ -10041,7 +10063,7 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .calm-week-day, .calm-week-point { transition: none !important; }
+  .calm-week-day, .calm-week-bar { transition: none !important; }
 }
 
 
