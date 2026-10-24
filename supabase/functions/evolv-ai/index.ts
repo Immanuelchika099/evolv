@@ -1112,6 +1112,10 @@ EVOLV RESPONSE VOICE & RHYTHM:
 - For longer answers, use clear Markdown headings, meaningful blank lines, short paragraphs, and lists only where they improve understanding. Use bold for key ideas sparingly. Avoid one giant paragraph and avoid making every sentence its own line.
 - For Bible study, use relevant Bible/book emojis naturally (📖, 🙏🏽, ❤️), explain the passage in context, distinguish Scripture from your own application, and include reflective questions when helpful. Don't preach at the user or assume they want a sermon every time they mention faith.
 - For practical advice, explain the why as well as the what. Give examples that feel grounded in the user's actual question, not generic filler.
+- For everyday life, money habits, routines, and reflective coaching, sound like a helpful chat partner rather than an article: lead with the specific point, remove broad essay-style introductions, and keep the reply focused on the user's situation.
+- For a normal conversational answer that has context plus a follow-up question, use 2 short paragraphs with a real blank line between them when natural. Keep the question in its own paragraph instead of attaching it to a long block.
+- Use one or two fitting emojis naturally in warm lifestyle or coaching replies when they add warmth (for example 💙, 💸, 🌱, ✨). Do not force emojis into technical, serious factual, or professional answers.
+- Use a short Markdown heading when the reply has distinct sections or multiple actionable points; do not force a heading onto a simple one-question conversation. Use **bold** sparingly to highlight a key idea, and use bullets for multiple options or steps.
 - Don't repeat the same takeaway in multiple sections. End naturally; don't tack on a motivational slogan or follow-up question to every reply.
 
 NIGERIAN LANGUAGE & CULTURAL CONTEXT:
@@ -1205,31 +1209,57 @@ ${progressContext}${researchContext}`
     const models = ["gemini-3.8-flash", "gemini-3.5-flash-lite", "gemini-3.1-flash-lite"]
     let lastStatus = 503
     let lastMessage = ""
+    // Bound the whole model-generation phase so one slow model cannot consume
+    // Supabase's ~150s request window. Each Gemini request gets at most 12s.
+    const modelDeadline = Date.now() + 45_000
 
     for (const model of models) {
+      if (Date.now() >= modelDeadline) {
+        lastStatus = 504
+        lastMessage = "The AI request timed out. Please try again."
+        break
+      }
+
       let modelContents = [...contents]
       const performedActions: any[] = []
 
       for (let turn = 0; turn < 5; turn += 1) {
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "x-goog-api-key": geminiKey,
-            },
-            body: JSON.stringify({
-              systemInstruction: { parts: [{ text: instructions }] },
-              contents: modelContents,
-              tools,
-              generationConfig: {
-                maxOutputTokens: 850,
-                temperature: 0.7,
+        const remainingMs = modelDeadline - Date.now()
+        if (remainingMs <= 0) {
+          lastStatus = 504
+          lastMessage = "The AI request timed out. Please try again."
+          break
+        }
+
+        let response: Response
+        try {
+          response = await fetch(
+            `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "x-goog-api-key": geminiKey,
               },
-            }),
-          },
-        )
+              signal: AbortSignal.timeout(Math.min(12_000, remainingMs)),
+              body: JSON.stringify({
+                systemInstruction: { parts: [{ text: instructions }] },
+                contents: modelContents,
+                tools,
+                generationConfig: {
+                  maxOutputTokens: 850,
+                  temperature: 0.7,
+                },
+              }),
+            },
+          )
+        } catch (requestError: any) {
+          lastStatus = 504
+          lastMessage = "Gemini did not respond in time. Please try again."
+          console.error(`Gemini ${model} request failed or timed out`, requestError?.message || requestError)
+          // Try the next configured model rather than letting this request hang.
+          break
+        }
 
         const result = await response.json().catch(() => ({}))
 
