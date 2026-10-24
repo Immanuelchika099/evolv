@@ -3052,3 +3052,22 @@ html:has(.dashboard.dashboard-ai-active) {
     letter-spacing: 0 !important;
   }
 }
+
+
+/* Final mobile AI typography guard.
+   The reply renderer also creates nested Markdown elements (for example,
+   paragraphs inside quotes and inline explanation fragments). Normalize the
+   response root, then make every descendant inherit its typography so no
+   nested element can silently scale itself up. */
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-response-content {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 1.8rem !important;
+    line-height: 1.7 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.assistant > .ai-response-content * {
+    font-family: inherit !important;
+    font-size: inherit !important;
+  }
+}
