@@ -1495,13 +1495,13 @@ const welcomeImages = [
       className: 'learn',
     },
     {
-      image: 'https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=900&q=90',
-      alt: 'Someone building strength through exercise',
+      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=90',
+      alt: 'A modern gym space for strength training',
       label: 'MOVE',
       className: 'move',
     },
     {
-      image: 'https://images.unsplash.com/photo-1455390582262-044cada277a8?auto=format&fit=crop&w=900&q=90',
+      image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=90',
       alt: 'A notebook and workspace ready for planning',
       label: 'CREATE',
       className: 'create',
@@ -1529,7 +1529,7 @@ const welcomeImages = [
         <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
           {welcomeImages.map((item) => (
             <figure className={`evolv-welcome-image evolv-welcome-image--${item.className}`} key={item.className}>
-              <img src={item.image} alt={item.alt} loading="eager" fetchPriority="high" />
+              <img src={item.image} alt={item.alt} loading="eager" fetchPriority="high" onError={item.className === 'create' ? (event) => { event.currentTarget.onerror = null; event.currentTarget.src = 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=90'; } : undefined} />
               <figcaption>{item.label}</figcaption>
             </figure>
           ))}
