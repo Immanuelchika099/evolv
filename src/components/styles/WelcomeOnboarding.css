@@ -473,7 +473,7 @@
   .evolv-welcome-wordmark img,
   .evolv-onboarding-header > img { width: 2.4rem; height: 2.4rem; }
   .evolv-welcome-signin { padding: 1rem 1.2rem; font-size: 1.25rem; }
-  .evolv-welcome-content { width: calc(100% - 3.6rem); min-height: calc(100svh - 12rem); padding: 2rem 0 7rem; }
+  .evolv-welcome-content { width: calc(100% - 3.6rem); min-height: 0; padding: 0 0 max(2.4rem, env(safe-area-inset-bottom)); }
   .evolv-welcome-content h1 { margin: 2rem 0 1.5rem; font-size: clamp(4.4rem, 12vw, 6.3rem); }
   .evolv-welcome-content > p { max-width: 34rem; font-size: 1.55rem; line-height: 1.7; }
   .evolv-welcome-cta { min-height: 5.4rem; margin-top: 2.6rem; }
@@ -787,8 +787,12 @@
   align-items: center;
   justify-content: flex-start;
   gap: 0;
-  padding: 0 0 8.5rem;
+  padding: 0 0 max(2.4rem, env(safe-area-inset-bottom));
   text-align: center;
+}
+.evolv-welcome-message {
+  margin-top: auto;
+  padding-top: 2.4rem;
 }
 .evolv-welcome-collage {
   position: relative;
@@ -938,7 +942,7 @@
   .evolv-welcome-wordmark { gap: .8rem; font-size: 1.2rem; }
   .evolv-welcome-wordmark img { width: 2.5rem; height: 2.5rem; }
   .evolv-welcome-signin { min-height: 3.8rem; padding: 0 1.2rem; font-size: 1.25rem; }
-  .evolv-welcome-content { width: calc(100% - 3.2rem); padding-bottom: 7.5rem; }
+  .evolv-welcome-content { width: calc(100% - 3.2rem); padding-bottom: max(2.2rem, env(safe-area-inset-bottom)); }
   .evolv-welcome-collage {
     grid-template-rows: 11rem 10rem;
     gap: .7rem;
