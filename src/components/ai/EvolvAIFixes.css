@@ -2791,3 +2791,47 @@ html:has(.dashboard.dashboard-ai-active) {
     margin-inline: auto !important;
   }
 }
+
+
+/* Corrective layout: message rows span the available canvas; the readable
+   conversation content itself gets a max-width and is centered inside each row. */
+@media (min-width: 801px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-messages {
+    width: 100% !important;
+    padding-inline: 0 !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 1.2rem 0 1.8rem !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+    align-self: stretch !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content,
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions {
+    width: min(78rem, calc(100% - 5.6rem)) !important;
+    max-width: 78rem !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user {
+    display: flex !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 1.2rem 0 1.8rem !important;
+    padding-inline: max(2.8rem, calc((100% - 78rem) / 2)) !important;
+    box-sizing: border-box !important;
+    align-items: flex-end !important;
+    align-self: stretch !important;
+  }
+
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
+    max-width: min(48rem, 100%) !important;
+  }
+}
