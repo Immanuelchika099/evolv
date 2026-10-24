@@ -1126,3 +1126,73 @@ html body button.evolv-floating-log:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html body button.evolv-floating-log { transition: none !important; }
 }
+
+
+/* Onboarding refinement: white primary CTA and quieter card surfaces. */
+html body #root .evolv-welcome .evolv-welcome-cta,
+html body #root .evolv-welcome .evolv-welcome-cta:hover,
+html body #root .evolv-welcome .evolv-welcome-cta:focus,
+html body #root .evolv-welcome .evolv-welcome-cta:active,
+html body #root .evolv-onboarding .evolv-onboarding-continue,
+html body #root .evolv-onboarding .evolv-onboarding-continue:hover,
+html body #root .evolv-onboarding .evolv-onboarding-continue:focus,
+html body #root .evolv-onboarding .evolv-onboarding-continue:active,
+html body #root .onboarding .onboard-footer .button,
+html body #root .onboarding .onboard-continue,
+html body #root .onboarding .onboarding-next,
+html body #root .onboarding button[type="submit"],
+html body #root .onboarding .primary-button,
+html body #root .onboarding .btn-primary {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  border: 1px solid #ffffff !important;
+  color: #050505 !important;
+  -webkit-text-fill-color: #050505 !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+html body #root .evolv-welcome .evolv-welcome-cta *,
+html body #root .evolv-onboarding .evolv-onboarding-continue *,
+html body #root .onboarding .onboard-footer .button *,
+html body #root .onboarding .onboard-continue *,
+html body #root .onboarding .onboarding-next *,
+html body #root .onboarding button[type="submit"] *,
+html body #root .onboarding .primary-button *,
+html body #root .onboarding .btn-primary * {
+  color: #050505 !important;
+  -webkit-text-fill-color: #050505 !important;
+  fill: #050505 !important;
+  stroke: #050505 !important;
+}
+html body #root .evolv-welcome .evolv-welcome-cta:hover,
+html body #root .evolv-welcome .evolv-welcome-cta:focus-visible,
+html body #root .evolv-onboarding .evolv-onboarding-continue:hover:not(:disabled),
+html body #root .evolv-onboarding .evolv-onboarding-continue:focus-visible {
+  background: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #050505 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+html body #root .evolv-welcome .evolv-welcome-cta svg,
+html body #root .evolv-onboarding .evolv-onboarding-continue svg {
+  color: #050505 !important;
+  fill: none !important;
+  stroke: #050505 !important;
+}
+
+/* Remove the extra perimeter strokes from onboarding cards, while keeping
+   the selected-state fill and the small selection indicators intact. */
+html body #root .evolv-onboarding .evolv-avatar-choice,
+html body #root .evolv-onboarding .evolv-avatar-choice:hover,
+html body #root .evolv-onboarding .evolv-avatar-choice.is-selected,
+html body #root .evolv-onboarding .evolv-onboarding-goal,
+html body #root .evolv-onboarding .evolv-onboarding-goal.is-selected,
+html body #root .evolv-onboarding .evolv-onboarding-ready,
+html body #root .evolv-onboarding .evolv-onboarding-avatar-stage,
+html body #root .evolv-onboarding .evolv-onboarding-approach-item {
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
