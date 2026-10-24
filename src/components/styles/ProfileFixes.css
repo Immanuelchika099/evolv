@@ -827,7 +827,7 @@
 .dashboard .settings-page.profile-v2 .profile-v2-focus-select{display:grid;gap:8px}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-select>span,
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options legend{font-size:13px;font-weight:400;color:var(--t3)}
-.dashboard .settings-page.profile-v2 .profile-v2-focus-select select{width:100%;min-height:46px;padding:0 14px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.045);color:#fff;font:300 15px/1.3 inherit}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select select{width:100%;min-height:46px;padding:0 14px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.045);color:#fff;font-size:15px;font-weight:300;line-height:1.3;font-family:inherit}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-select option{background:#171717;color:#fff}
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;border:0;min-width:0}
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options legend{margin-bottom:8px;padding:0}
