@@ -63,3 +63,173 @@
 .money-delete-button{display:flex;align-items:center;justify-content:center;gap:.7rem;min-height:4.4rem;border:1px solid rgba(248,113,113,.25);border-radius:1.2rem;background:transparent;color:#fca5a5;font-size:1.35rem}
 @media(max-width:390px){.money-page{padding:3rem 1.2rem calc(13rem + env(safe-area-inset-bottom,0px))}.money-summary{padding:1.5rem 1.4rem}.money-summary-values{gap:1rem}.money-summary-values strong{font-size:2.35rem}.money-summary-values>span{font-size:1.6rem}.money-transaction-row{grid-template-columns:3.8rem minmax(0,1fr) auto 2.4rem;gap:.7rem}.money-transaction-icon{width:3.7rem;height:3.7rem;border-radius:1.15rem}.money-transaction-copy strong{font-size:1.4rem}.money-transaction-copy small{font-size:1.25rem}.money-transaction-amount{font-size:1.3rem}.money-row-more{width:2.4rem}.money-form-heading,.money-form{padding-inline:1.4rem}.money-form-pair{grid-template-columns:minmax(0,1fr)}}
 @media(prefers-reduced-motion:reduce){.money-add-transaction,.money-filter-tabs button{transition:none}}
+
+
+/* Phase 6 — Money: clearer totals, transaction hierarchy, and keyboard-safe sheet */
+.money-page .money-summary {
+  position: relative;
+  overflow: hidden;
+  padding: 2rem !important;
+  border-color: rgba(255,255,255,.09) !important;
+  background: linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.018) 65%), #0d0d0d !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+.money-page .money-summary-values {
+  display: grid !important;
+  grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+  gap: 1.2rem !important;
+  margin: 1.3rem 0 1.5rem !important;
+}
+.money-page .money-summary-values > strong,
+.money-page .money-summary-values > span {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-variant-numeric: tabular-nums;
+}
+.money-page .money-summary-values > span {
+  color: #f1f1f1 !important;
+  font-size: 2.4rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.035em;
+}
+.money-page .money-income-total { color: #f3f3f1 !important; }
+.money-page .money-summary-footer { gap: 1rem 1.4rem; }
+.money-page .money-filter-tabs {
+  position: relative;
+  gap: .35rem !important;
+  padding: .45rem !important;
+  border-radius: 1.35rem !important;
+  background: #0c0c0c !important;
+}
+.money-page .money-filter-tabs button {
+  min-width: 0;
+  border: 1px solid transparent;
+  transition: background .18s ease, border-color .18s ease, color .18s ease;
+}
+.money-page .money-filter-tabs button.is-active {
+  border-color: rgba(255,255,255,.1) !important;
+  background: #242424 !important;
+  color: #fff !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
+}
+.money-page .money-filter-tabs button:focus-visible,
+.money-page .money-transaction-copy:focus-visible,
+.money-page .money-row-more:focus-visible,
+.money-page .money-add-transaction:focus-visible,
+.money-page .money-save-button:focus-visible,
+.money-page .money-form-heading > button:focus-visible {
+  outline: 2px solid rgba(255,255,255,.7);
+  outline-offset: 3px;
+}
+.money-page .money-transaction-row {
+  grid-template-columns: 4.4rem minmax(0,1fr) auto 3rem;
+  gap: 1.1rem;
+  padding: 1.55rem 0;
+}
+.money-page .money-transaction-copy strong {
+  font-size: 1.55rem;
+  font-weight: 520;
+  letter-spacing: -.015em;
+}
+.money-page .money-transaction-copy small {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-height: 1.45;
+}
+.money-page .money-transaction-amount {
+  font-size: 1.45rem;
+  font-weight: 550;
+  letter-spacing: -.02em;
+}
+.money-page .money-add-transaction {
+  bottom: calc(8.4rem + env(safe-area-inset-bottom,0px));
+  border-color: rgba(255,255,255,.14) !important;
+  background: #f1f1ef !important;
+  color: #101010 !important;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.42) !important;
+  transition: transform .18s ease, opacity .18s ease;
+}
+.money-page .money-add-transaction:active {
+  transform: translateX(-50%) scale(.985);
+}
+.money-page .money-notice.money-toast {
+  position: fixed;
+  z-index: 200020;
+  left: 50%;
+  bottom: calc(14.2rem + env(safe-area-inset-bottom,0px));
+  width: max-content;
+  max-width: calc(100vw - 3.2rem);
+  margin: 0 !important;
+  padding: 1.1rem 1.5rem;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255,255,255,.13);
+  border-radius: 1.25rem;
+  background: rgba(25,25,25,.96);
+  color: #f4f4f2 !important;
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.36);
+  font-size: 1.35rem;
+  line-height: 1.4;
+  text-align: center;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  animation: money-toast-enter .2s ease-out both;
+}
+@keyframes money-toast-enter {
+  from { opacity: 0; transform: translate(-50%, .6rem); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+.money-form-overlay {
+  top: var(--money-visual-offset, 0px) !important;
+  height: var(--money-visual-height, 100dvh);
+  min-height: 0;
+  padding-top: max(1rem, env(safe-area-inset-top,0px)) !important;
+  padding-bottom: max(1rem, env(safe-area-inset-bottom,0px)) !important;
+}
+.money-form-sheet {
+  max-height: calc(var(--money-visual-height, 100dvh) - 2rem) !important;
+  padding-bottom: env(safe-area-inset-bottom,0px);
+  overscroll-behavior: contain;
+}
+.money-form {
+  padding-bottom: max(2rem, env(safe-area-inset-bottom,0px)) !important;
+}
+.money-amount-field > div {
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+.money-amount-field input {
+  min-height: 4.5rem;
+  font-size: 2.6rem !important;
+}
+.money-form-field input,
+.money-form-field select,
+.money-form-field textarea {
+  font-size: 16px !important;
+}
+.money-save-button {
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
+  box-shadow: 0 -1rem 2rem rgba(11,11,11,.7);
+}
+.money-page .money-form-field select {
+  color-scheme: dark;
+}
+@media (max-width: 430px) {
+  .money-page .money-summary { padding: 1.6rem !important; }
+  .money-page .money-summary-values { gap: .8rem !important; }
+  .money-page .money-summary-values > strong { font-size: 2.15rem !important; }
+  .money-page .money-summary-values > span { font-size: 2rem !important; }
+  .money-page .money-transaction-row { grid-template-columns: 3.8rem minmax(0,1fr) auto 2.4rem; gap: .7rem; }
+  .money-page .money-transaction-icon { width: 3.7rem; height: 3.7rem; }
+  .money-page .money-transaction-amount { font-size: 1.25rem; }
+  .money-page .money-row-more { width: 2.4rem; }
+  .money-page .money-add-transaction { width: calc(100% - 2.4rem); }
+  .money-form-pair { grid-template-columns: minmax(0,1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .money-page .money-filter-tabs button,
+  .money-page .money-add-transaction,
+  .money-page .money-notice.money-toast { animation: none !important; transition: none !important; }
+}
