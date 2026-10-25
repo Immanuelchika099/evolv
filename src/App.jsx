@@ -1651,7 +1651,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           )}
         </section>
         <footer className="evolv-onboarding-footer">
-          {current.type === 'goals' ? <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Skip for now</button> : <span className="evolv-onboarding-footer-note">A SMALL STEP, JUST FOR YOU</span>}
+          {current.type === 'goals' ? <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Skip for now</button>}
           <button className="evolv-onboarding-continue" type="button" disabled={!canContinue} onClick={next}>
             {current.type === 'ready' ? 'Enter EVOLV' : current.type === 'name' ? 'Continue' : current.type === 'approach' ? 'Continue' : 'Choose goals'} <ArrowRight size={17} />
           </button>
