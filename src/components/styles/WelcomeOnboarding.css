@@ -1875,3 +1875,20 @@
     padding-top: max(1.7rem, env(safe-area-inset-top));
   }
 }
+
+
+/* Raise the crystal so its full circular silhouette clears the lower copy area. */
+.evolv-welcome .evolv-welcome-visual .crystalized-ball {
+  inset: -7vh 0 7vh;
+  height: calc(100% + 14vh);
+  transform: translateY(-5vh) scale(1.04);
+  transform-origin: center center;
+}
+@media (max-width: 760px) {
+  .evolv-welcome .evolv-welcome-visual .crystalized-ball {
+    inset: -14vh 0 14vh;
+    height: calc(100% + 28vh);
+    transform: translateY(-9vh) scale(1.06);
+    transform-origin: center center;
+  }
+}
