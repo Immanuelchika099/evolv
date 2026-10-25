@@ -54,3 +54,57 @@
 
 /* FINAL CANVAS TOKENS */
 :root{--color-bg:#000;--color-surface-start:#000;--color-surface-end:#000;}
+
+
+/* EVOLV shared design system — canonical tokens */
+:root {
+  --ac: 229, 134, 66;
+  --bg: #0a0908;
+  --t1: #fff;
+  --t2: rgba(255,255,255,.62);
+  --t3: rgba(255,255,255,.4);
+  --edge: rgba(255,255,255,.09);
+  --danger: #e0766a;
+  --pos: #8fd0a8;
+  --neg: #e0766a;
+  --r-input: 18px;
+  --r-row: 22px;
+  --r-card: 28px;
+  --r-hero: 34px;
+
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-display: var(--font-ui);
+  --color-bg: var(--bg);
+  --color-surface-start: #151311;
+  --color-surface-end: #0f0d0b;
+  --color-border: var(--edge);
+  --color-text: var(--t1);
+  --color-muted: var(--t2);
+  --color-disabled: var(--t3);
+  --color-accent-start: rgb(var(--ac));
+  --color-accent-end: rgb(var(--ac));
+  --color-accent-dim: rgba(var(--ac), .45);
+  --color-chart-orange: rgb(var(--ac));
+  --color-chart-amber: rgb(var(--ac));
+  --color-danger: var(--danger);
+  --type-display: 54px;
+  --type-h1: 32px;
+  --type-h2: 22px;
+  --type-h3: 17px;
+  --type-body: 15px;
+  --type-small: 13px;
+  --type-caption: 12px;
+  --lh-heading: 1.2;
+  --lh-body: 1.6;
+  --page-gutter: 22px;
+  --content-max: 120rem;
+  --card-padding: 22px;
+  --control-height: 52px;
+  --row-min-height: 64px;
+  --radius-control: var(--r-input);
+  --radius-card: var(--r-card);
+  --radius-panel: var(--r-card);
+  --surface-gradient: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+  --accent-gradient: linear-gradient(135deg, rgb(var(--ac)), rgb(var(--ac)));
+  --card-shadow: 0 12px 36px rgba(0,0,0,.22);
+}
