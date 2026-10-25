@@ -1644,7 +1644,7 @@
   padding-right: 1.2rem !important;
 }
 .quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
-  font-size: 3.2rem !important;
+  font-size: 4rem !important;
 }
 .evolv-floating-log.is-open {
   visibility: hidden !important;
@@ -1658,6 +1658,6 @@
     padding-right: 1.2rem !important;
   }
   .quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
-    font-size: 3.2rem !important;
+    font-size: 4rem !important;
   }
 }
