@@ -3003,3 +3003,92 @@ body:has(.dashboard-home) .dashboard-home {
     width: 100%;
   }
 }
+
+
+/* Manage Goals: repair the actual form controls inside the goal ghost card. */
+.goals-page .goal-create-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.goals-page .goal-create-form > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.goals-page .goal-create-form .goal-type-choice {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .8rem;
+  width: 100%;
+}
+
+.goals-page .goal-create-form .goal-type-choice button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .7rem;
+  min-width: 0;
+  width: 100%;
+  min-height: 4.6rem;
+  padding: 1rem;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+.goals-page .goal-create-form input,
+.goals-page .goal-create-form textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.goals-page .goal-create-form textarea {
+  min-height: 8rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.goals-page .goal-create-form .goal-next-action-field,
+.goals-page .goal-create-form .goal-date-field {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: .6rem;
+  width: 100%;
+  min-width: 0;
+}
+
+.goals-page .goal-create-form .goal-next-action-field > span,
+.goals-page .goal-create-form .goal-date-field > span {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: .5rem;
+}
+
+.goals-page .goal-create-form .goal-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .8rem;
+  width: 100%;
+}
+
+@media (max-width: 480px) {
+  .goals-page .goal-create-form {
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .goals-page .goal-create-form .goal-type-choice button {
+    padding: .9rem .65rem;
+    gap: .5rem;
+  }
+
+  .goals-page .goal-create-form .goal-form-actions > button {
+    min-height: 4.5rem;
+  }
+}
