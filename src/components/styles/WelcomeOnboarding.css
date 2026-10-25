@@ -1832,3 +1832,46 @@
   }
 }
 
+
+
+/* Welcome refinement: keep the mark floating over the same full-screen atmosphere. */
+.evolv-welcome .evolv-welcome-header {
+  position: absolute;
+  z-index: 8;
+  top: 0;
+  right: 0;
+  left: 0;
+  width: min(100% - 5.2rem, 132rem);
+  margin: 0 auto;
+  padding: max(2.8rem, env(safe-area-inset-top)) 0 0;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+.evolv-welcome .evolv-welcome-wordmark,
+.evolv-welcome .evolv-welcome-wordmark:hover,
+.evolv-welcome .evolv-welcome-wordmark:focus,
+.evolv-welcome .evolv-welcome-wordmark:active {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #fff;
+}
+.evolv-welcome .evolv-welcome-wordmark img {
+  display: block;
+  background: transparent !important;
+  object-fit: contain;
+  filter: none;
+}
+.evolv-welcome .evolv-welcome-message::before {
+  content: none !important;
+  display: none !important;
+}
+@media (max-width: 760px) {
+  .evolv-welcome .evolv-welcome-header {
+    width: calc(100% - 3.8rem);
+    padding-top: max(1.7rem, env(safe-area-inset-top));
+  }
+}
