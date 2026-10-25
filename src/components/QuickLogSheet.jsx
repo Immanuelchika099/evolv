@@ -65,6 +65,7 @@ const loggingOptions = [
   { id: 'mind', title: 'Mind', icon: Brain, color: 'var(--color-accent-blue)' },
   { id: 'life', title: 'Life', icon: Sprout, color: '#9dd6b0' },
 ]
+const loggingOptionTitles = loggingOptions.map((option) => option.title)
 
 export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSaved, initialScreen = 'menu' }) {
   const [screen, setScreen] = useState(initialScreen)
@@ -391,7 +392,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
             <OptionWheel
-              items={loggingOptions.map(option => option.title)}
+              items={loggingOptionTitles}
               defaultSelected={0}
               textColor="#a6a6a6"
               activeColor="#ffffff"
