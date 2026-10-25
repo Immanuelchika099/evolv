@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, MoreHorizontal, WalletCards, HeartPulse, Apple, BriefcaseBusiness, Brain, Sprout } from 'lucide-react'
+import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, WalletCards, HeartPulse, Apple, BriefcaseBusiness, Brain, Sprout } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './QuickLogSheet.css'
 
@@ -79,7 +79,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   const [weightUnit, setWeightUnit] = useState('kg')
   const [exercises, setExercises] = useState([])
   const [deleteBusy, setDeleteBusy] = useState(false)
-  const [showMoreOptions, setShowMoreOptions] = useState(false)
 
   useEffect(() => {
     // Lock the page behind the sheet, including iOS Safari/PWA where
@@ -323,10 +322,6 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
     }
     if (option.id === 'ai') {
       onLogWithAI('Help me log something in Evolv. Ask what I want to record, one question at a time, and save it only when you have enough information. Keep the conversation simple and do not show me a generic form.')
-      return
-    }
-    if (option.id === 'more') {
-      setShowMoreOptions(true)
       return
     }
     if (['meal', 'sleep', 'water', 'money', 'health', 'nutrition', 'career', 'mind', 'life'].includes(option.id)) {
