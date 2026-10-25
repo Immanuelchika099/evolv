@@ -11432,3 +11432,53 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
 .goal-checkin-confirmed strong{font-size:1.35rem;font-weight:550}
 .goal-checkin-confirmed small{color:rgba(255,255,255,.58);font-size:1.2rem}
 @media(max-width:480px){.goal-habit-days{gap:.4rem}.goal-habit-days>span{padding:.75rem .1rem;border-radius:.8rem}.goal-checkin-reflection{padding:1.15rem}.goal-checkin-reflection>div{flex-wrap:wrap}.goal-checkin-reflection>div button{flex:1}}
+
+
+/* Habit completion confirmation: keep the copy full-width instead of inheriting
+   the seven-day grid layout used by the weekly tracker. */
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > .goal-checkin-confirmed {
+  display: flex !important;
+  grid-template-columns: none !important;
+  grid-template-rows: none !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin: .8rem 0 0 !important;
+  padding: 1.25rem 1.35rem !important;
+  box-sizing: border-box !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-checkin-confirmed > svg {
+  flex: 0 0 1.8rem !important;
+  width: 1.8rem !important;
+  height: 1.8rem !important;
+  margin-top: .15rem !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-checkin-confirmed > span {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: .35rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-checkin-confirmed strong {
+  display: block !important;
+  width: 100% !important;
+  color: #fff !important;
+  font-size: 1.45rem !important;
+  line-height: 1.35 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-checkin-confirmed small {
+  display: block !important;
+  width: 100% !important;
+  color: rgba(255,255,255,.62) !important;
+  font-size: 1.3rem !important;
+  line-height: 1.55 !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+}
