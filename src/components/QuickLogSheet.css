@@ -1443,3 +1443,48 @@
   flex: 0 1 auto;
   margin: 0;
 }
+
+
+/* The menu itself is the compact floating carousel, not the standard log sheet. */
+.quick-log-overlay.quick-log-wheel-mode {
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 1.2rem calc(8.4rem + env(safe-area-inset-bottom, 0px));
+  background: rgba(0, 0, 0, 0.52);
+  -webkit-backdrop-filter: blur(14px) saturate(.72);
+  backdrop-filter: blur(14px) saturate(.72);
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-sheet {
+  width: min(31rem, calc(100vw - 2.4rem));
+  max-height: min(68dvh, 58rem);
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-header {
+  padding-bottom: .8rem;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-header h2 {
+  font-size: 1.55rem;
+  letter-spacing: -.035em;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-content {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+.evolv-floating-log.is-open > span:last-child {
+  display: none !important;
+}
+.evolv-floating-log.is-open {
+  width: 4.8rem !important;
+  min-width: 4.8rem !important;
+  padding-inline: 0 !important;
+  justify-content: center !important;
+}
+@media (max-width: 480px) {
+  .quick-log-overlay.quick-log-wheel-mode {
+    padding-inline: 1rem;
+    padding-bottom: calc(8rem + env(safe-area-inset-bottom, 0px));
+  }
+  .quick-log-overlay.quick-log-wheel-mode .quick-log-sheet {
+    width: calc(100vw - 2rem);
+    max-height: min(68dvh, 58rem);
+  }
+}
