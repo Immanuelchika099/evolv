@@ -11576,3 +11576,43 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
   overflow-wrap: anywhere !important;
   word-break: normal !important;
 }
+
+
+/* Definitive layout fix: override the seven-column tracker grid with a two-column
+   confirmation layout (icon + flexible copy). This prevents word-by-word wrapping. */
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed {
+  display: grid !important;
+  grid-template-columns: 1.8rem minmax(0, 1fr) !important;
+  grid-template-rows: auto !important;
+  grid-auto-flow: row !important;
+  column-gap: 1rem !important;
+  row-gap: 0 !important;
+  align-items: start !important;
+  justify-items: stretch !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed > svg {
+  grid-column: 1 !important;
+  grid-row: 1 !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed > span {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed strong,
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed small {
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  writing-mode: horizontal-tb !important;
+}
