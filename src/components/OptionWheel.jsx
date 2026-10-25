@@ -163,7 +163,7 @@ export default function OptionWheel({
       const step = Math.max(-1, Math.min(1, delta / cfg.rowH))
       applyTarget(targetRef.current + step, false)
       if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current)
-      wheelTimerRef.current = setTimeout(() => applyTarget(targetRef.current, true), 140)
+      wheelTimerRef.current = setTimeout(() => applyTarget(targetRef.current, true, false), 140)
     }
     el.addEventListener('wheel', onWheel, { passive: false })
     return () => {
@@ -195,7 +195,7 @@ export default function OptionWheel({
     if (!dragRef.current) return
     dragRef.current = null
     setIsDragging(false)
-    if (dragMovedRef.current) applyTarget(targetRef.current, true)
+    if (dragMovedRef.current) applyTarget(targetRef.current, true, false)
   }, [applyTarget])
 
   const handleItemClick = useCallback((index) => {
@@ -208,7 +208,10 @@ export default function OptionWheel({
       if (delta > cfg.count / 2) delta -= cfg.count
       else if (delta < -cfg.count / 2) delta += cfg.count
     }
-    applyTarget(current + delta, true)
+    // A category opens only from an intentional click/tap, never from drag release.
+    applyTarget(current + delta, true, false)
+    lastNotifiedRef.current = index
+    onChangeRef.current?.(index, cfg.items[index])
   }, [applyTarget])
 
   const handleKeyDown = useCallback((event) => {
