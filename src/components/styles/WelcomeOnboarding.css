@@ -1469,3 +1469,217 @@
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Cinematic crystal welcome — restrained orange light, deep blacks, and a single focal point. */
+.evolv-welcome .evolv-welcome-background {
+  background:
+    radial-gradient(ellipse at 72% 45%, rgba(232, 90, 39, .075), transparent 36%),
+    #050505;
+}
+.evolv-welcome .evolv-welcome-vignette {
+  background:
+    radial-gradient(ellipse at 70% 43%, transparent 0%, rgba(5,5,5,.22) 36%, rgba(5,5,5,.86) 78%),
+    linear-gradient(90deg, #050505 0%, rgba(5,5,5,.88) 38%, rgba(5,5,5,.12) 100%),
+    linear-gradient(180deg, rgba(5,5,5,.25), transparent 35%, rgba(5,5,5,.45));
+}
+.evolv-welcome .evolv-welcome-content--cinematic {
+  display: grid;
+  grid-template-columns: minmax(0, .92fr) minmax(34rem, 1.08fr);
+  align-items: center;
+  gap: clamp(1rem, 4vw, 5.5rem);
+  width: min(100% - 6rem, 124rem);
+  min-height: calc(100svh - 10rem);
+  padding: 0 0 max(4rem, env(safe-area-inset-bottom));
+}
+.evolv-welcome .evolv-welcome-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: 1 / 1.02;
+  max-height: min(76vh, 76rem);
+  isolation: isolate;
+}
+.evolv-welcome .evolv-welcome-visual::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(232,90,39,.15), rgba(232,90,39,.045) 38%, transparent 72%);
+  filter: blur(4.5rem);
+  animation: evolv-crystal-breathe 7s ease-in-out infinite;
+}
+.evolv-welcome .evolv-welcome-visual::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 8% 0 12%;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 30%, rgba(5,5,5,.08) 56%, #050505 83%);
+}
+.evolv-welcome .evolv-welcome-visual canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: pan-y;
+}
+.evolv-welcome .evolv-welcome-visual-grain {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+.evolv-welcome .evolv-welcome-visual-caption {
+  position: absolute;
+  z-index: 4;
+  bottom: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(244, 235, 227, .48);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  white-space: nowrap;
+}
+.evolv-welcome .evolv-welcome-message {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  min-width: 0;
+  padding: 2rem 0;
+  text-align: left;
+}
+.evolv-welcome .evolv-welcome-message::before {
+  content: "A MORE INTENTIONAL WAY TO GROW";
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.2rem;
+  color: rgba(232, 151, 115, .9);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+.evolv-welcome .evolv-welcome-message > h1 {
+  max-width: 66rem;
+  margin: .7rem 0 1.8rem;
+  font-size: clamp(5rem, 6.8vw, 9.2rem);
+  line-height: .93;
+  letter-spacing: -.085em;
+  text-wrap: balance;
+}
+.evolv-welcome .evolv-welcome-message > h1 em {
+  color: #E85A27;
+  text-shadow: 0 0 4rem rgba(232,90,39,.16);
+}
+.evolv-welcome .evolv-welcome-message > p {
+  max-width: 42rem;
+  margin: 0;
+  color: rgba(239, 237, 231, .68);
+  font-size: clamp(1.55rem, 1.6vw, 1.85rem);
+  line-height: 1.8;
+  text-wrap: pretty;
+}
+.evolv-welcome .evolv-welcome-cta,
+.evolv-welcome .evolv-welcome-cta:link,
+.evolv-welcome .evolv-welcome-cta:visited {
+  width: auto;
+  min-width: 18rem;
+  margin-top: 3rem;
+  padding: 0 2.4rem;
+  border: 1px solid #E85A27 !important;
+  border-radius: 999px;
+  background: #E85A27 !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  box-shadow: 0 1rem 3.5rem rgba(232,90,39,.16) !important;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.evolv-welcome .evolv-welcome-cta svg {
+  color: #fff !important;
+  stroke: #fff !important;
+  transition: transform .25s ease;
+}
+.evolv-welcome .evolv-welcome-cta:hover,
+.evolv-welcome .evolv-welcome-cta:focus-visible {
+  background: #f16a37 !important;
+  border-color: #f16a37 !important;
+  box-shadow: 0 1rem 4rem rgba(232,90,39,.24) !important;
+  transform: translateY(-2px);
+}
+.evolv-welcome .evolv-welcome-cta:hover svg { transform: translateX(3px); }
+@keyframes evolv-crystal-breathe {
+  0%, 100% { opacity: .72; transform: scale(.96); }
+  50% { opacity: 1; transform: scale(1.05); }
+}
+@media (max-width: 760px) {
+  .evolv-welcome .evolv-welcome-content--cinematic {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+    width: calc(100% - 3.8rem);
+    min-height: auto;
+    padding-top: 0;
+    padding-bottom: max(3rem, env(safe-area-inset-bottom));
+  }
+  .evolv-welcome .evolv-welcome-visual {
+    width: min(100%, 42rem);
+    aspect-ratio: 1 / .78;
+    max-height: 34vh;
+    min-height: 22rem;
+    margin: -1.2rem auto -.4rem;
+  }
+  .evolv-welcome .evolv-welcome-visual::before { inset: 20%; filter: blur(3rem); }
+  .evolv-welcome .evolv-welcome-visual::after { inset: 4% 0 8%; }
+  .evolv-welcome .evolv-welcome-visual-caption { bottom: 5%; font-size: .82rem; letter-spacing: .22em; }
+  .evolv-welcome .evolv-welcome-message {
+    align-items: center;
+    padding: 0 0 1rem;
+    text-align: center;
+  }
+  .evolv-welcome .evolv-welcome-message::before {
+    justify-content: center;
+    margin-bottom: .8rem;
+    font-size: .85rem;
+    letter-spacing: .16em;
+  }
+  .evolv-welcome .evolv-welcome-message > h1 {
+    margin: .6rem 0 1.3rem;
+    font-size: clamp(4.3rem, 11vw, 5.8rem);
+    line-height: .98;
+  }
+  .evolv-welcome .evolv-welcome-message > p {
+    max-width: 34rem;
+    font-size: 1.5rem;
+    line-height: 1.65;
+  }
+  .evolv-welcome .evolv-welcome-cta {
+    width: min(100%, 34rem);
+    min-height: 5.7rem;
+    margin-top: 2.1rem;
+  }
+}
+@media (max-width: 380px) {
+  .evolv-welcome .evolv-welcome-visual { min-height: 19rem; max-height: 30vh; }
+  .evolv-welcome .evolv-welcome-message > h1 { font-size: clamp(3.7rem, 10.8vw, 4.5rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-welcome .evolv-welcome-visual::before { animation: none; }
+}
+
+
+.evolv-welcome .crystalized-ball {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
