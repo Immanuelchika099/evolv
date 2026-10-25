@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, Check, CheckCircle2, ChevronRight, Clock3, Dumbbell, Plus, Sparkles, Trash2, Utensils, X, Droplets, Moon, Pencil, Save, WalletCards, HeartPulse, Apple, BriefcaseBusiness, Brain, Sprout } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './QuickLogSheet.css'
+import OptionWheel from './OptionWheel'
 
 function localDateKey(date = new Date()) {
   return [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-')
@@ -389,30 +390,26 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
-            <div className="quick-log-options quick-log-wheel-options" role="list" aria-label="Choose what to log">
-              {loggingOptions.map((option, index) => {
-                const Icon = option.icon
-                const offset = index - (loggingOptions.length - 1) / 2
-                return (
-                  <button
-                    type="button"
-                    className={"quick-log-option quick-log-wheel-option quick-log-option-" + option.id}
-                    key={option.id}
-                    style={{
-                      '--wheel-shift': `${Math.abs(offset) * 0.12}rem`,
-                      '--wheel-rotation': `${offset * -1.05}deg`,
-                      '--wheel-opacity': Math.max(0.48, 0.94 - Math.abs(offset) * 0.055),
-                      ...(option.color ? { '--wheel-item-color': option.color } : {}),
-                    }}
-                    onClick={() => openCategory(option)}
-                  >
-                    <span className="quick-log-option-icon"><Icon size={19} strokeWidth={1.8} /></span>
-                    <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
-                    <ChevronRight size={16} className="quick-log-chevron" />
-                  </button>
-                )
-              })}
-            </div>
+            <OptionWheel
+              items={loggingOptions.map(option => option.title)}
+              defaultSelected={0}
+              textColor="#a6a6a6"
+              activeColor="#ffffff"
+              side="right"
+              fontSize={2.6}
+              spacing={0.15}
+              curve={1}
+              tilt={6}
+              blur={2}
+              fade={0.12}
+              smoothing={200}
+              inset={8}
+              loop={false}
+              draggable
+              soundUrl="/assets/sounds/click-soft.mp3"
+              soundVolume={0.5}
+              onChange={(index) => openCategory(loggingOptions[index])}
+            />
           </div>
         )}
 
