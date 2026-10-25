@@ -11409,3 +11409,26 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
     aspect-ratio: 1.25 / 1 !important;
   }
 }
+
+
+/* Habit check-ins should feel like recording a real moment, not tapping a status box. */
+.goal-habit-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:.65rem;width:100%;margin:1.1rem 0 1.25rem}
+.goal-habit-days>span{display:flex;min-width:0;flex-direction:column;align-items:center;justify-content:center;gap:.45rem;padding:.8rem .2rem;border:1px solid rgba(255,255,255,.09);border-radius:1rem;background:rgba(255,255,255,.025);color:rgba(255,255,255,.55)}
+.goal-habit-days>span i{font-size:1.15rem;font-style:normal;line-height:1}
+.goal-habit-days>span b{font-size:1.35rem;font-weight:500;line-height:1.1}
+.goal-habit-days>span.is-done{border-color:rgba(76,142,230,.48);background:rgba(19,51,98,.62);color:#fff}
+.goal-checkin-reflection{display:grid;gap:1rem;width:100%;margin-top:1rem;padding:1.4rem;border:1px solid rgba(255,255,255,.1);border-radius:1.35rem;background:rgba(255,255,255,.035)}
+.goal-checkin-reflection label{display:grid;gap:.45rem}
+.goal-checkin-reflection label strong{color:rgba(255,255,255,.95);font-size:1.45rem;font-weight:550;line-height:1.45}
+.goal-checkin-reflection label span{color:rgba(255,255,255,.58);font-size:1.25rem;line-height:1.45}
+.goal-checkin-reflection textarea{width:100%;min-height:7rem;resize:vertical;border:1px solid rgba(255,255,255,.11);border-radius:1rem;padding:1rem 1.1rem;background:rgba(0,0,0,.35);color:#fff;font:inherit;font-size:1.4rem}
+.goal-checkin-reflection textarea::placeholder{color:rgba(255,255,255,.38)}
+.goal-checkin-reflection>div{display:flex;justify-content:flex-end;gap:.8rem}
+.goal-checkin-reflection>div button{display:inline-flex;min-height:4.2rem;align-items:center;justify-content:center;gap:.55rem;border-radius:.95rem;padding:.9rem 1.25rem;font:inherit;font-size:1.3rem}
+.goal-checkin-cancel{border:1px solid rgba(255,255,255,.12);background:transparent;color:rgba(255,255,255,.75)}
+.goal-checkin-save{border:1px solid #133362;background:#133362;color:#fff}
+.goal-checkin-confirmed{display:flex;align-items:center;gap:.9rem;margin-top:.8rem;padding:1rem 1.1rem;border:1px solid rgba(76,142,230,.25);border-radius:1rem;background:rgba(19,51,98,.25);color:#fff}
+.goal-checkin-confirmed>span{display:grid;gap:.2rem}
+.goal-checkin-confirmed strong{font-size:1.35rem;font-weight:550}
+.goal-checkin-confirmed small{color:rgba(255,255,255,.58);font-size:1.2rem}
+@media(max-width:480px){.goal-habit-days{gap:.4rem}.goal-habit-days>span{padding:.75rem .1rem;border-radius:.8rem}.goal-checkin-reflection{padding:1.15rem}.goal-checkin-reflection>div{flex-wrap:wrap}.goal-checkin-reflection>div button{flex:1}}
