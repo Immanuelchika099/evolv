@@ -624,3 +624,263 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   .daily-routine-page .routine-day-picker { gap: .3rem; }
   .daily-routine-page .routine-day-picker button { min-height: 3.3rem; font-size: 1rem; }
 }
+
+
+/* Phase 3 — Routine: unify the schedule, progress and coach cards with EVOLV's warm dark surface. */
+.daily-routine-page {
+  max-width: 112rem;
+  padding: 1.6rem clamp(1.6rem, 3.2vw, 3.2rem) 16rem;
+  color: var(--t1, #fff);
+}
+.daily-routine-page .routine-heading {
+  align-items: center;
+  margin-bottom: 2rem;
+}
+.daily-routine-page .routine-heading h1 {
+  font-size: clamp(3.2rem, 4.8vw, 4.8rem);
+  font-weight: 450;
+  letter-spacing: -.045em;
+  line-height: 1.08;
+}
+.daily-routine-page .routine-heading h1 span {
+  color: rgb(var(--ac, 229, 134, 66)) !important;
+}
+.daily-routine-page .routine-eyebrow,
+.daily-routine-page .routine-label {
+  color: var(--t3, rgba(255,255,255,.4));
+  font-size: 1.15rem;
+  letter-spacing: .11em;
+}
+.daily-routine-page .routine-date {
+  border: 1px solid var(--edge, rgba(255,255,255,.09));
+  background: rgba(255,255,255,.035);
+  border-radius: 999px;
+  padding: .85rem 1.2rem;
+  color: var(--t2, rgba(255,255,255,.62));
+}
+.daily-routine-page .routine-progress-panel,
+.daily-routine-page .routine-group,
+.daily-routine-page .routine-insight-card,
+.daily-routine-page .routine-reminder-control,
+.daily-routine-page .routine-next-step,
+.daily-routine-page .routine-reminder-note {
+  border: 1px solid var(--edge, rgba(255,255,255,.09)) !important;
+  border-radius: 2.2rem;
+  background: linear-gradient(155deg, rgba(255,255,255,.045), rgba(255,255,255,.018)) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+}
+.daily-routine-page .routine-progress-panel {
+  padding: 2.2rem;
+  margin-bottom: 2.8rem;
+}
+.daily-routine-page .routine-progress-top h2 {
+  font-size: clamp(1.9rem, 2.4vw, 2.3rem);
+  font-weight: 450;
+  letter-spacing: -.035em;
+}
+.daily-routine-page .routine-progress-top > strong {
+  color: #fff !important;
+  font-size: 2.8rem;
+  font-variant-numeric: tabular-nums;
+}
+.daily-routine-page .routine-progress-track {
+  height: .65rem;
+  background: rgba(255,255,255,.09);
+  border-radius: 999px;
+}
+.daily-routine-page .routine-progress-track span {
+  background: rgb(var(--ac, 229, 134, 66)) !important;
+  border-radius: inherit;
+}
+.daily-routine-page .routine-progress-bottom {
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+.daily-routine-page .routine-progress-bottom button,
+.daily-routine-page .routine-insight-card > button,
+.daily-routine-page .routine-reminder-note > button {
+  color: rgb(var(--ac, 229, 134, 66)) !important;
+}
+.daily-routine-page .routine-coach-section {
+  padding-top: .5rem;
+  margin-bottom: 2.8rem;
+}
+.daily-routine-page .routine-coach-heading h2,
+.daily-routine-page .routine-section-heading h2 {
+  color: #fff;
+  font-size: clamp(2.25rem, 3vw, 2.8rem);
+  font-weight: 450;
+  letter-spacing: -.04em;
+  line-height: 1.2;
+}
+.daily-routine-page .routine-coach-heading p,
+.daily-routine-page .routine-section-heading p {
+  color: var(--t2, rgba(255,255,255,.62));
+  font-size: 1.45rem;
+  line-height: 1.55;
+}
+.daily-routine-page .routine-coach-card {
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 2.2rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+}
+.daily-routine-page .routine-coach-icon {
+  color: rgb(var(--ac, 229, 134, 66));
+  border-color: rgba(var(--ac, 229, 134, 66), .2);
+  background: rgba(var(--ac, 229, 134, 66), .09);
+}
+.daily-routine-page .routine-coach-card-copy h3 {
+  color: #fff;
+  font-weight: 450;
+  letter-spacing: -.035em;
+}
+.daily-routine-page .routine-coach-card-copy p,
+.daily-routine-page .routine-coach-card-hint {
+  color: var(--t2, rgba(255,255,255,.62));
+}
+.daily-routine-page .routine-schedule-section {
+  margin-top: 2.8rem;
+}
+.daily-routine-page .routine-schedule-list {
+  gap: 1.2rem;
+}
+.daily-routine-page .routine-group {
+  padding: 1.8rem 2rem;
+}
+.daily-routine-page .routine-group > h3 {
+  color: var(--t3, rgba(255,255,255,.4));
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  font-size: 1.15rem;
+  letter-spacing: .1em;
+}
+.daily-routine-page .routine-row {
+  border-top-color: rgba(255,255,255,.065);
+}
+.daily-routine-page .routine-row-copy strong {
+  color: rgba(255,255,255,.92);
+  font-size: 1.5rem;
+  font-weight: 450;
+}
+.daily-routine-page .routine-row-icon,
+.daily-routine-page .routine-next-icon,
+.daily-routine-page .routine-reminder-icon,
+.daily-routine-page .routine-reminder-control-icon {
+  color: rgb(var(--ac, 229, 134, 66)) !important;
+  border-color: rgba(var(--ac, 229, 134, 66), .18);
+  background: rgba(var(--ac, 229, 134, 66), .08) !important;
+}
+.daily-routine-page .routine-check {
+  border-color: rgba(255,255,255,.22);
+}
+.daily-routine-page .routine-row-complete .routine-check {
+  color: #16110c !important;
+  border-color: rgb(var(--ac, 229, 134, 66)) !important;
+  background: rgb(var(--ac, 229, 134, 66)) !important;
+}
+.daily-routine-page .routine-day-picker button {
+  border-color: rgba(255,255,255,.09);
+  background: rgba(255,255,255,.025);
+  color: var(--t2, rgba(255,255,255,.62));
+}
+.daily-routine-page .routine-day-picker button.is-selected {
+  border-color: rgba(var(--ac, 229, 134, 66), .42);
+  background: rgba(var(--ac, 229, 134, 66), .13);
+  color: rgb(var(--ac, 229, 134, 66));
+}
+.daily-routine-page .routine-time input,
+.daily-routine-page .routine-lead-time input {
+  min-height: 4.2rem;
+  border-color: rgba(255,255,255,.1);
+  border-radius: 1.2rem;
+  background: rgba(255,255,255,.035);
+  color: #fff;
+  font-size: 1.4rem;
+}
+.daily-routine-page .routine-toggle.is-on {
+  border-color: rgba(var(--ac, 229, 134, 66), .5) !important;
+  background: rgba(var(--ac, 229, 134, 66), .18) !important;
+}
+.daily-routine-page .routine-toggle.is-on span {
+  background: rgb(var(--ac, 229, 134, 66)) !important;
+}
+.daily-routine-page .routine-next-step {
+  margin-top: 1.5rem;
+  padding: 1.8rem 2rem;
+}
+.daily-routine-page .routine-next-step h2 {
+  color: #fff;
+  font-size: 1.9rem;
+  font-weight: 450;
+  letter-spacing: -.025em;
+}
+.daily-routine-page .routine-next-step p,
+.daily-routine-page .routine-reminder-control small,
+.daily-routine-page .routine-reminder-note p {
+  color: var(--t2, rgba(255,255,255,.62));
+  font-size: 1.35rem;
+  line-height: 1.55;
+}
+.daily-routine-page .routine-reminder-control {
+  margin-top: 1.4rem;
+  padding: 1.7rem 1.8rem;
+  gap: 1.2rem;
+}
+.daily-routine-page .routine-reminder-control strong,
+.daily-routine-page .routine-reminder-note strong {
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: 450;
+}
+.daily-routine-page .routine-reminder-note {
+  margin-top: 1.2rem;
+  padding: 1.6rem 1.8rem;
+}
+.daily-routine-page button:focus-visible,
+.daily-routine-page input:focus-visible {
+  outline: 2px solid rgba(var(--ac, 229, 134, 66), .85);
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .daily-routine-page {
+    padding: 1rem 1.6rem 15rem;
+  }
+  .daily-routine-page .routine-heading {
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .daily-routine-page .routine-heading h1 {
+    font-size: 3.6rem;
+  }
+  .daily-routine-page .routine-progress-panel {
+    padding: 1.8rem;
+    border-radius: 2rem;
+  }
+  .daily-routine-page .routine-progress-bottom {
+    align-items: flex-start;
+    font-size: 1.15rem;
+  }
+  .daily-routine-page .routine-group {
+    padding: 1.5rem 1.4rem;
+    border-radius: 1.8rem;
+  }
+  .daily-routine-page .routine-row-main {
+    gap: .8rem;
+  }
+  .daily-routine-page .routine-row-main .routine-row-copy strong {
+    font-size: 1.45rem;
+  }
+  .daily-routine-page .routine-reminder-control {
+    padding: 1.5rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .daily-routine-page *,
+  .daily-routine-page *::before,
+  .daily-routine-page *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
