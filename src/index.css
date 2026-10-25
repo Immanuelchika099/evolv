@@ -488,3 +488,58 @@ html body #root .calm-home-greeting {
 html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-page, .profile-summary, .profile-modal) :is(h1, h2, h3, h4, h5, h6, strong, b, label) {
   font-weight: var(--font-weight-medium) !important;
 }
+
+/* Cinematic onboarding name field — restrained, dark, and borderless on focus. */
+.evolv-onboarding-name {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.evolv-onboarding-name input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 6.4rem;
+  padding: 1.8rem 2rem;
+  color: #f7f7f8 !important;
+  -webkit-text-fill-color: #f7f7f8;
+  caret-color: #f7f7f8;
+  font: inherit;
+  font-size: clamp(1.8rem, 2.4vw, 2.2rem);
+  letter-spacing: -0.025em;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.018) 58%, rgba(255,255,255,.035)),
+    rgba(9, 10, 12, .88) !important;
+  border: 1px solid rgba(255,255,255,.13) !important;
+  border-radius: 1.8rem;
+  outline: none !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 1.8rem 4.8rem rgba(0,0,0,.22) !important;
+  transition: border-color .28s ease, background .28s ease, box-shadow .28s ease, transform .28s ease;
+}
+
+.evolv-onboarding-name input::placeholder {
+  color: rgba(245,245,247,.38) !important;
+  -webkit-text-fill-color: rgba(245,245,247,.38);
+  opacity: 1;
+}
+
+.evolv-onboarding-name input:hover {
+  border-color: rgba(255,255,255,.22) !important;
+}
+
+.evolv-onboarding-name input:focus,
+.evolv-onboarding-name input:focus-visible {
+  border-color: rgba(255,255,255,.3) !important;
+  outline: none !important;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025) 58%, rgba(255,255,255,.04)),
+    rgba(9, 10, 12, .96) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 3px rgba(255,255,255,.025), 0 2rem 5rem rgba(0,0,0,.28) !important;
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .evolv-onboarding-name input {
+    transition: none;
+  }
+}
+
