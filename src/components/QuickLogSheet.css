@@ -1569,3 +1569,34 @@
     font-size: 2.45rem !important;
   }
 }
+
+
+/* Give the text-only React Bits wheel a real viewport to animate within. */
+.quick-log-overlay.quick-log-wheel-mode .quick-log-content,
+.quick-log-overlay.quick-log-wheel-mode .quick-log-menu {
+  width: 100% !important;
+  height: min(64dvh, 52rem) !important;
+  min-height: 28rem !important;
+  max-height: min(64dvh, 52rem) !important;
+  overflow: hidden !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel {
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+@media (max-height: 620px) {
+  .quick-log-overlay.quick-log-wheel-mode .quick-log-content,
+  .quick-log-overlay.quick-log-wheel-mode .quick-log-menu {
+    height: 58dvh !important;
+    min-height: 22rem !important;
+    max-height: 58dvh !important;
+  }
+}
