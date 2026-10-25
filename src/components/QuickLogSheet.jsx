@@ -397,17 +397,17 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
               activeColor="#ffffff"
               side="right"
               fontSize={2.6}
-              spacing={0.15}
-              curve={1}
+              spacing={1.4}
+              curve={1.75}
               tilt={6}
               blur={2}
-              fade={0.12}
+              fade={0.25}
               smoothing={200}
-              inset={8}
+              inset={18}
               loop={false}
               draggable
-              soundUrl="/assets/sounds/click-soft.mp3"
-              soundVolume={0.5}
+              soundUrl=""
+              soundVolume={0.05}
               onChange={(index) => openCategory(loggingOptions[index])}
             />
           </div>
