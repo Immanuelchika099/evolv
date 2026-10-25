@@ -2919,3 +2919,87 @@ body:has(.dashboard-home) .dashboard-home {
   position: relative;
   z-index: 1;
 }
+
+
+/* Goals ghost-card layout repair — keep form content inside its own width. */
+.goals-page .goal-create-form,
+.goals-page .goal-create-form * {
+  min-width: 0;
+}
+
+.goals-page .goal-create-form {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.goals-page .goal-create-form input,
+.goals-page .goal-create-form textarea,
+.goals-page .goal-create-form select,
+.goals-page .goal-create-form button {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.goals-page .goal-create-form textarea {
+  width: 100%;
+  display: block;
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+.goals-page .goal-create-form label,
+.goals-page .goal-create-form .goal-date-field {
+  min-width: 0;
+  width: 100%;
+}
+
+.goals-page .goal-create-form .goal-type-selector,
+.goals-page .goal-create-form .goal-type-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: .8rem;
+  width: 100%;
+}
+
+.goals-page .goal-create-form .goal-type-selector > *,
+.goals-page .goal-create-form .goal-type-options > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.goals-page .goal-create-form button,
+.goals-page .goal-create-form [role="button"] {
+  overflow-wrap: anywhere;
+  white-space: normal;
+}
+
+@media (max-width: 480px) {
+  .goals-page .goal-create-form {
+    padding: 1.25rem;
+    border-radius: 1.6rem;
+  }
+
+  .goals-page .goal-create-form input,
+  .goals-page .goal-create-form textarea,
+  .goals-page .goal-create-form select {
+    width: 100%;
+    min-width: 0;
+    font-size: 1.5rem;
+  }
+
+  .goals-page .goal-create-form .goal-type-selector,
+  .goals-page .goal-create-form .goal-type-options {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .goals-page .goal-create-form .goal-form-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: .75rem;
+  }
+
+  .goals-page .goal-create-form .goal-form-actions > * {
+    width: 100%;
+  }
+}
