@@ -43,6 +43,8 @@ export default function OptionWheel({
   const wheelTimerRef = useRef(null)
   const dragRef = useRef(null)
   const dragMovedRef = useRef(false)
+  const suppressClickRef = useRef(false)
+  const suppressClickTimerRef = useRef(null)
   const audioRef = useRef(null)
   const audioUrlRef = useRef('')
   const lastTickRef = useRef(0)
@@ -57,6 +59,8 @@ export default function OptionWheel({
   cfgRef.current = {
     count: items.length,
     items,
+    // Match the actual rendered item size so drag distance maps predictably
+    // to the visual spacing, including when CSS adjusts the displayed font.
     rowH: Math.max(fontSize * spacing * remPx, 1),
     curve, tilt, blur, fade, minOpacity, side, loop, smoothing,
     draggable, soundUrl, soundVolume,
@@ -176,6 +180,8 @@ export default function OptionWheel({
     if (!cfgRef.current.draggable) return
     dragRef.current = { y: event.clientY, start: targetRef.current, id: event.pointerId }
     dragMovedRef.current = false
+    suppressClickRef.current = false
+    if (suppressClickTimerRef.current) clearTimeout(suppressClickTimerRef.current)
     try { event.currentTarget.setPointerCapture(event.pointerId) } catch {}
     setIsDragging(true)
   }, [])
@@ -184,22 +190,37 @@ export default function OptionWheel({
     const drag = dragRef.current
     if (!drag) return
     const deltaY = event.clientY - drag.y
-    if (!dragMovedRef.current && Math.abs(deltaY) > 4) {
+    if (!dragMovedRef.current && Math.abs(deltaY) > 8) {
       dragMovedRef.current = true
+      suppressClickRef.current = true
       rootRef.current?.setPointerCapture?.(drag.id)
     }
-    if (dragMovedRef.current) applyTarget(drag.start - deltaY / cfgRef.current.rowH, false, false)
+    // Slightly damp the gesture so a short swipe doesn't skip past the
+    // option the user is aiming for. The release then snaps to the nearest row.
+    if (dragMovedRef.current) {
+      const sensitivity = 0.82
+      applyTarget(drag.start - (deltaY * sensitivity) / cfgRef.current.rowH, false, false)
+    }
   }, [applyTarget])
 
   const handlePointerEnd = useCallback(() => {
     if (!dragRef.current) return
     dragRef.current = null
     setIsDragging(false)
-    if (dragMovedRef.current) applyTarget(targetRef.current, true, false)
+    if (dragMovedRef.current) {
+      applyTarget(targetRef.current, true, false)
+      // iOS can dispatch a synthetic click after pointer release. Ignore only
+      // that immediate click, then restore normal tap-to-select behavior.
+      if (suppressClickTimerRef.current) clearTimeout(suppressClickTimerRef.current)
+      suppressClickTimerRef.current = setTimeout(() => {
+        suppressClickRef.current = false
+        dragMovedRef.current = false
+      }, 220)
+    }
   }, [applyTarget])
 
   const handleItemClick = useCallback((index) => {
-    if (dragMovedRef.current) return
+    if (suppressClickRef.current || dragMovedRef.current) return
     const cfg = cfgRef.current
     if (!cfg.count) return
     const current = targetRef.current
@@ -238,6 +259,7 @@ export default function OptionWheel({
     rafRef.current = null
     audioRef.current?.pause()
     if (wheelTimerRef.current) clearTimeout(wheelTimerRef.current)
+    if (suppressClickTimerRef.current) clearTimeout(suppressClickTimerRef.current)
   }, [])
 
   return (
