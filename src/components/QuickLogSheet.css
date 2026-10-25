@@ -1488,3 +1488,84 @@
     max-height: min(68dvh, 58rem);
   }
 }
+
+
+/* Exact text-only OptionWheel treatment for the quick-log selector.
+   The sheet is intentionally invisible: no card, panel, icon, or border. */
+.quick-log-overlay.quick-log-wheel-mode {
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+  padding: 0 1.8rem calc(8.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  background: rgba(0, 0, 0, .34) !important;
+  -webkit-backdrop-filter: blur(12px) saturate(.7) !important;
+  backdrop-filter: blur(12px) saturate(.7) !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-sheet {
+  display: block !important;
+  width: min(31rem, calc(100vw - 3.6rem)) !important;
+  max-height: min(70dvh, 58rem) !important;
+  min-height: 0 !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  animation: quick-log-wheel-in 220ms cubic-bezier(.2,.8,.2,1) both;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-handle,
+.quick-log-overlay.quick-log-wheel-mode .quick-log-header {
+  display: none !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-content,
+.quick-log-overlay.quick-log-wheel-mode .quick-log-menu {
+  display: block !important;
+  max-height: min(70dvh, 58rem) !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel {
+  max-height: min(70dvh, 58rem) !important;
+  padding: 0 !important;
+  gap: 0 !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel-item {
+  display: block !important;
+  min-height: 3.2rem !important;
+  padding: .15rem .2rem !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  text-align: right !important;
+  font-size: 2.6rem !important;
+  font-weight: 400 !important;
+  letter-spacing: -.055em !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel-item.is-active {
+  color: #fff !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel-item:focus-visible {
+  outline: none !important;
+  text-decoration: none !important;
+}
+@media (max-width: 480px) {
+  .quick-log-overlay.quick-log-wheel-mode {
+    padding-inline: 1.25rem !important;
+    padding-bottom: calc(8.2rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .quick-log-overlay.quick-log-wheel-mode .quick-log-sheet {
+    width: calc(100vw - 2.5rem) !important;
+  }
+  .quick-log-overlay.quick-log-wheel-mode .option-wheel-item {
+    min-height: 3.05rem !important;
+    font-size: 2.45rem !important;
+  }
+}
