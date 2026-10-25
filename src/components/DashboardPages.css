@@ -11229,3 +11229,78 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
   .dashboard-pages .notification-page-delete,
   .profile-modal-actions > button { transition: none !important; }
 }
+
+
+/* Manage Goals — force every field and choice card to use the full available form width. */
+.dashboard .goals-page,
+.dashboard .goals-page .goal-create-form,
+.dashboard .goals-page .goal-create-form > *,
+.dashboard .goals-page .goal-create-form label,
+.dashboard .goals-page .goal-create-form label > input,
+.dashboard .goals-page .goal-create-form > input,
+.dashboard .goals-page .goal-create-form > textarea {
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.dashboard .goals-page .goal-create-form {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  align-items: stretch !important;
+  width: 100% !important;
+}
+.dashboard .goals-page .goal-create-form > input,
+.dashboard .goals-page .goal-create-form > textarea,
+.dashboard .goals-page .goal-create-form .goal-next-action-field,
+.dashboard .goals-page .goal-create-form .goal-date-field,
+.dashboard .goals-page .goal-create-form .goal-form-actions {
+  grid-column: 1 / -1 !important;
+  width: 100% !important;
+}
+.dashboard .goals-page .goal-create-form .goal-type-choice {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+.dashboard .goals-page .goal-create-form .goal-type-choice > button {
+  display: flex !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+}
+.dashboard .goals-page .goal-create-form .goal-next-action-field,
+.dashboard .goals-page .goal-create-form .goal-date-field {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  justify-items: stretch !important;
+}
+.dashboard .goals-page .goal-create-form .goal-next-action-field > input,
+.dashboard .goals-page .goal-create-form .goal-date-field > input[type="date"] {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  justify-self: stretch !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+.dashboard .goals-page .goal-create-form .goal-form-actions {
+  display: flex !important;
+  align-items: stretch !important;
+}
+.dashboard .goals-page .goal-create-form .goal-form-actions > button:only-child {
+  width: 100% !important;
+  flex: 1 1 100% !important;
+}
+@media (max-width: 520px) {
+  .dashboard .goals-page .goal-create-form .goal-type-choice {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+  .dashboard .goals-page .goal-create-form .goal-type-choice > button {
+    padding: 1.15rem .9rem !important;
+  }
+}
