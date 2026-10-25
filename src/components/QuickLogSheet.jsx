@@ -397,10 +397,10 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
               textColor="#a6a6a6"
               activeColor="#ffffff"
               side="right"
-              fontSize={3}
+              fontSize={3.2}
               spacing={1.55}
               curve={2.35}
-              tilt={10}
+              tilt={7.2}
               blur={2}
               fade={0.25}
               smoothing={200}
