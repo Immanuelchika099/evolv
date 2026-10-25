@@ -1802,3 +1802,33 @@
     max-width: 34rem;
   }
 }
+
+/* Keep the welcome copy readable by gently darkening the atmosphere beneath it. */
+.evolv-welcome .evolv-welcome-message::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2rem -4rem;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      #050505 0%,
+      rgba(5, 5, 5, .97) 35%,
+      rgba(5, 5, 5, .82) 58%,
+      rgba(5, 5, 5, .38) 82%,
+      transparent 100%);
+}
+
+@media (max-width: 760px) {
+  .evolv-welcome .evolv-welcome-message::after {
+    inset: -3rem -2rem -2rem;
+    background:
+      linear-gradient(180deg,
+        transparent 0%,
+        rgba(5, 5, 5, .72) 12%,
+        rgba(5, 5, 5, .94) 36%,
+        #050505 78%,
+        #050505 100%);
+  }
+}
+
