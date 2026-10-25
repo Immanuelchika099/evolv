@@ -1335,8 +1335,7 @@
   animation: quick-log-wheel-in 220ms cubic-bezier(.2,.8,.2,1) both;
 }
 .quick-log-wheel-mode .quick-log-handle,
-.quick-log-wheel-mode .quick-log-close,
-.quick-log-wheel-mode .quick-log-header-copy > div { display: none; }
+.quick-log-wheel-mode .quick-log-close { display: none; }
 .quick-log-wheel-mode .quick-log-header {
   min-height: 0;
   margin: 0;
