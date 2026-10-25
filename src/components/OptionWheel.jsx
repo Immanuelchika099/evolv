@@ -39,6 +39,7 @@ export default function OptionWheel({
   const cfgRef = useRef({})
   const onChangeRef = useRef(onChange)
   const selectedRef = useRef(defaultSelected)
+  const lastNotifiedRef = useRef(defaultSelected)
   const wheelTimerRef = useRef(null)
   const dragRef = useRef(null)
   const dragMovedRef = useRef(false)
@@ -130,7 +131,7 @@ export default function OptionWheel({
     audio.play()?.catch(() => {})
   }, [])
 
-  const applyTarget = useCallback((value, snap) => {
+  const applyTarget = useCallback((value, snap, notify = true) => {
     const cfg = cfgRef.current
     if (!cfg.count) return
     let nextValue = value
@@ -141,8 +142,13 @@ export default function OptionWheel({
     if (index !== selectedRef.current) {
       selectedRef.current = index
       setSelectedIndex(index)
-      onChangeRef.current?.(index, cfg.items[index])
       playTick()
+    }
+    // During a drag, update the wheel visually but do not navigate away.
+    // Notify the parent only when the interaction is committed/snapped.
+    if (notify && snap && index !== lastNotifiedRef.current) {
+      lastNotifiedRef.current = index
+      onChangeRef.current?.(index, cfg.items[index])
     }
     startLoop()
   }, [startLoop, playTick])
@@ -170,6 +176,7 @@ export default function OptionWheel({
     if (!cfgRef.current.draggable) return
     dragRef.current = { y: event.clientY, start: targetRef.current, id: event.pointerId }
     dragMovedRef.current = false
+    try { event.currentTarget.setPointerCapture(event.pointerId) } catch {}
     setIsDragging(true)
   }, [])
 
@@ -181,7 +188,7 @@ export default function OptionWheel({
       dragMovedRef.current = true
       rootRef.current?.setPointerCapture?.(drag.id)
     }
-    if (dragMovedRef.current) applyTarget(drag.start - deltaY / cfgRef.current.rowH, false)
+    if (dragMovedRef.current) applyTarget(drag.start - deltaY / cfgRef.current.rowH, false, false)
   }, [applyTarget])
 
   const handlePointerEnd = useCallback(() => {
@@ -218,6 +225,7 @@ export default function OptionWheel({
     posRef.current = initial
     targetRef.current = initial
     selectedRef.current = initial
+    lastNotifiedRef.current = initial
     setSelectedIndex(initial)
     applyTarget(initial, false)
   }, [items, defaultSelected, fontSize, spacing, curve, tilt, blur, fade, minOpacity, side, loop, smoothing, applyTarget])
