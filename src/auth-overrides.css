@@ -1246,3 +1246,93 @@ html body #root .auth-page p.auth-legal button {
   font: inherit !important;
   vertical-align: baseline;
 }
+
+
+/* Phase 9 — cohesive, readable authentication presentation. */
+.auth-page .auth-shell {
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-top: max(2.4rem, env(safe-area-inset-top));
+  padding-bottom: max(2.4rem, env(safe-area-inset-bottom));
+}
+.auth-page .auth-intro {
+  text-wrap: pretty;
+}
+.auth-page .auth-provider-stack {
+  gap: 1.2rem;
+}
+.auth-page .auth-provider-button,
+.auth-page .auth-quick-form input,
+.auth-page .auth-form input,
+.auth-page .auth-continue-button {
+  min-height: 5.6rem;
+  border-radius: 1.4rem;
+}
+.auth-page .auth-provider-button {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+.auth-page .auth-quick-form input,
+.auth-page .auth-form input {
+  padding-inline: 1.6rem;
+  font-size: 1.55rem;
+}
+.auth-page .auth-quick-form input::placeholder,
+.auth-page .auth-form input::placeholder {
+  color: #858b95;
+  opacity: 1;
+}
+.auth-page .auth-continue-button,
+.auth-page .auth-submit {
+  min-height: 5.6rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  transition: transform .18s ease, filter .18s ease, box-shadow .18s ease;
+}
+.auth-page .auth-continue-button:not(:disabled):active,
+.auth-page .auth-submit:not(:disabled):active,
+.auth-page .auth-provider-button:active {
+  transform: scale(.99);
+}
+.auth-page .auth-step-copy,
+.auth-page .auth-intro,
+.auth-page .auth-message {
+  line-height: 1.7;
+}
+.auth-page .auth-legal {
+  white-space: normal !important;
+  line-height: 1.6 !important;
+}
+.auth-page .auth-account-switch {
+  text-wrap: pretty;
+}
+.auth-page .auth-provider-button:focus-visible,
+.auth-page .auth-continue-button:focus-visible,
+.auth-page .auth-submit:focus-visible,
+.auth-page .auth-step-back:focus-visible,
+.auth-page .auth-password-toggle:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent-blue) 90%, white);
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .auth-page .auth-shell {
+    padding: max(1.8rem, env(safe-area-inset-top)) 1.8rem max(2.2rem, env(safe-area-inset-bottom));
+  }
+  .auth-page .auth-provider-button,
+  .auth-page .auth-quick-form input,
+  .auth-page .auth-form input,
+  .auth-page .auth-continue-button {
+    min-height: 5.4rem;
+  }
+  .auth-page .auth-legal {
+    font-size: 1.25rem !important;
+    white-space: normal !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-page .auth-provider-button,
+  .auth-page .auth-continue-button,
+  .auth-page .auth-submit {
+    transition: none;
+  }
+}
