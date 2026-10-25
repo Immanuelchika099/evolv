@@ -960,3 +960,7 @@ input:-webkit-autofill:focus {
   place-items: center;
   line-height: 0;
 }
+
+
+/* While open, the floating action becomes a standalone close control. */
+.evolv-floating-log.is-open > span:last-child { display: none !important; }
