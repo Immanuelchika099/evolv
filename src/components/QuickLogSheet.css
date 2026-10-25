@@ -1600,3 +1600,30 @@
     max-height: 58dvh !important;
   }
 }
+
+
+/* Final curved-wheel tuning: stronger circular arc, clean touch dragging,
+   and a soft falloff at the top and bottom without adding a visible card. */
+.quick-log-overlay.quick-log-wheel-mode .option-wheel {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, #000 14%, #000 86%, transparent 100%);
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel.option-wheel--dragging {
+  cursor: grabbing;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
+  pointer-events: auto;
+  transition: color 120ms ease;
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel__item--selected {
+  font-weight: 500;
+}
+@media (prefers-reduced-motion: reduce) {
+  .quick-log-overlay.quick-log-wheel-mode .option-wheel__item { transition: none; }
+}
