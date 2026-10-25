@@ -948,3 +948,15 @@ input:-webkit-autofill:focus {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* The Log action remains reachable as an X while its quick selector is open. */
+.evolv-floating-log.is-open {
+  z-index: 200002 !important;
+  pointer-events: auto !important;
+}
+.evolv-floating-log.is-open .evolv-floating-log-icon {
+  display: grid;
+  place-items: center;
+  line-height: 0;
+}
