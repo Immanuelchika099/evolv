@@ -80,6 +80,17 @@ export default function MoneyPage({ defs = [], logs = [] }) {
   useEffect(() => {
     if (!formOpen) return
     const body = document.body
+    const viewport = window.visualViewport
+    const updateViewport = () => {
+      const height = viewport?.height || window.innerHeight
+      const offsetTop = viewport?.offsetTop || 0
+      document.documentElement.style.setProperty('--money-visual-height', `${height}px`)
+      document.documentElement.style.setProperty('--money-visual-offset', `${offsetTop}px`)
+    }
+    updateViewport()
+    viewport?.addEventListener('resize', updateViewport)
+    viewport?.addEventListener('scroll', updateViewport)
+    window.addEventListener('resize', updateViewport)
     const scrollY = window.scrollY
     const previous = {
       overflow: body.style.overflow,
@@ -102,6 +113,11 @@ export default function MoneyPage({ defs = [], logs = [] }) {
       body.style.left = previous.left
       body.style.right = previous.right
       body.style.width = previous.width
+      viewport?.removeEventListener('resize', updateViewport)
+      viewport?.removeEventListener('scroll', updateViewport)
+      window.removeEventListener('resize', updateViewport)
+      document.documentElement.style.removeProperty('--money-visual-height')
+      document.documentElement.style.removeProperty('--money-visual-offset')
       window.scrollTo(0, scrollY)
     }
   }, [formOpen])
@@ -288,7 +304,7 @@ export default function MoneyPage({ defs = [], logs = [] }) {
 
       <button type="button" className="money-add-transaction" onClick={openNew}><Plus size={18}/> Add transaction</button>
 
-      {notice && <p className="money-notice" role="status">{notice}</p>}
+      {notice && <p className="money-notice money-toast" role="status">{notice}</p>}
 
       {formOpen && <div className="money-form-overlay" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) resetForm() }}>
         <section className="money-form-sheet" role="dialog" aria-modal="true" aria-labelledby="money-form-title">
