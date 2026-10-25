@@ -1539,7 +1539,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
 
 function Onboarding({ step, setStep, data, setData, onFinish }) {
   const stages = [
-    { eyebrow: 'FIRST THINGS FIRST', title: <>What should we<br /><em>call you?</em></>, copy: 'We want EVOLV to feel like your space, from the very first hello.', type: 'name' },
+    { eyebrow: 'FIRST THINGS FIRST', title: <>What should we<br /><em>call you?</em></>, type: 'name' },
     { eyebrow: 'A SPACE THAT WORKS FOR YOU', title: <>Small steps.<br /><em>Real progress.</em></>, copy: 'EVOLV helps you notice your patterns, build steadier routines, and make thoughtful changes without pressure.', type: 'approach' },
     { eyebrow: 'YOUR NEXT CHAPTER', title: <>What matters to<br /><em>you right now?</em></>, copy: 'Pick a few things you would like EVOLV to help you pay attention to. You can skip this.', type: 'goals' },
     { eyebrow: 'READY WHEN YOU ARE', title: <>You’re all set{data.name ? `, ${getFirstName(data.name)}` : ''}.<br /><em>Let’s begin.</em></>, copy: 'Your journey to becoming your next self starts here.', type: 'ready' },
@@ -1589,7 +1589,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
         <section className={`evolv-onboarding-stage evolv-onboarding-${current.type}`}>
           <span className="evolv-onboarding-eyebrow">{current.eyebrow}</span>
           <h1>{current.title}</h1>
-          <p className="evolv-onboarding-copy">{current.copy}</p>
+          {current.copy && <p className="evolv-onboarding-copy">{current.copy}</p>}
           {current.type === 'name' && (
             <label className="evolv-onboarding-name">
               <span>Your preferred name</span>
