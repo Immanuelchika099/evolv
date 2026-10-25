@@ -1892,3 +1892,9 @@
     transform-origin: center center;
   }
 }
+
+
+/* Give onboarding headlines a little more room to breathe. */
+.evolv-onboarding-stage h1 {
+  letter-spacing: -.035em;
+}
