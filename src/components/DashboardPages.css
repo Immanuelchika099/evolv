@@ -11008,3 +11008,224 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
     transition: none !important;
   }
 }
+
+
+/* EVOLV phase 8 — notification rows and confirmation surfaces */
+.dashboard-pages .notifications-page {
+  min-width: 0;
+}
+.dashboard-pages .notifications-page-hero {
+  margin-bottom: 2rem;
+}
+.dashboard-pages .notifications-page-hero h2 {
+  margin-top: .65rem;
+  font-size: clamp(2.8rem, 5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: -.055em;
+  line-height: 1.05;
+}
+.dashboard-pages .notifications-page-hero p {
+  max-width: 48rem;
+  color: rgba(255,255,255,.48);
+  font-size: 1.4rem;
+  line-height: 1.65;
+}
+.dashboard-pages .notifications-page-list {
+  display: grid;
+  gap: .8rem;
+}
+.dashboard-pages .notification-page-row {
+  display: grid;
+  grid-template-columns: 4.4rem minmax(0,1fr) 3.8rem;
+  align-items: start;
+  gap: 1.2rem;
+  padding: 1.35rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.55rem;
+  background: linear-gradient(145deg,rgba(255,255,255,.035),rgba(255,255,255,.015));
+  transition: background .18s ease,border-color .18s ease;
+}
+.dashboard-pages .notification-page-row:hover {
+  border-color: rgba(255,255,255,.13);
+  background: rgba(255,255,255,.035);
+}
+.dashboard-pages .notification-page-icon {
+  display: grid;
+  width: 4.2rem;
+  height: 4.2rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.07) !important;
+  border-radius: 1.25rem;
+  background: rgba(255,255,255,.055) !important;
+  color: rgba(255,255,255,.78) !important;
+}
+.dashboard-pages .notification-page-copy {
+  min-width: 0;
+  padding-top: .1rem;
+}
+.dashboard-pages .notification-page-copy > span {
+  display: block;
+  margin-bottom: .5rem;
+  color: rgba(255,255,255,.4);
+  font-size: 1rem;
+  letter-spacing: .08em;
+  line-height: 1.4;
+}
+.dashboard-pages .notification-page-copy > strong {
+  display: block;
+  color: rgba(255,255,255,.94);
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: -.02em;
+  line-height: 1.4;
+}
+.dashboard-pages .notification-page-copy > p {
+  margin-top: .45rem;
+  color: rgba(255,255,255,.5);
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+.dashboard-pages .notification-page-delete {
+  display: grid;
+  width: 3.6rem;
+  height: 3.6rem;
+  place-items: center;
+  border: 1px solid transparent;
+  border-radius: 1.1rem;
+  background: transparent;
+  color: rgba(255,255,255,.38);
+  transition: color .18s ease,background .18s ease,border-color .18s ease;
+}
+.dashboard-pages .notification-page-delete:hover {
+  border-color: rgba(255,255,255,.09);
+  background: rgba(255,255,255,.055);
+  color: rgba(255,255,255,.82);
+}
+.dashboard-pages .notification-page-delete:active { transform: scale(.96); }
+.dashboard-pages .notifications-empty {
+  display: grid;
+  justify-items: center;
+  gap: .8rem;
+  padding: 4rem 1.5rem;
+  border: 1px dashed rgba(255,255,255,.11);
+  border-radius: 1.7rem;
+  color: rgba(255,255,255,.42);
+  text-align: center;
+}
+.dashboard-pages .notifications-empty strong {
+  color: rgba(255,255,255,.84);
+  font-size: 1.55rem;
+  font-weight: 500;
+}
+.dashboard-pages .notifications-empty p {
+  max-width: 34rem;
+  color: rgba(255,255,255,.44);
+  font-size: 1.3rem;
+  line-height: 1.55;
+}
+.profile-modal-backdrop {
+  padding: max(1.5rem,env(safe-area-inset-top,0px)) 1.25rem max(1.5rem,env(safe-area-inset-bottom,0px));
+  background: rgba(0,0,0,.76) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(115%);
+  backdrop-filter: blur(16px) saturate(115%);
+}
+.profile-modal-backdrop > .profile-modal {
+  width: min(100%,46rem);
+  border: 1px solid rgba(255,255,255,.11) !important;
+  border-radius: 2rem !important;
+  background: #0d0d0d !important;
+  box-shadow: 0 2rem 7rem rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.profile-modal-head {
+  gap: 1rem;
+}
+.profile-modal-head h3,
+.profile-modal.confirmation-modal h3 {
+  color: #f6f6f4;
+  font-size: 2.1rem;
+  font-weight: 500;
+  letter-spacing: -.045em;
+  line-height: 1.2;
+}
+.profile-modal-head > button {
+  display: grid;
+  flex: 0 0 3.8rem;
+  width: 3.8rem;
+  height: 3.8rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.09);
+  border-radius: 1.1rem;
+  background: rgba(255,255,255,.04);
+  color: rgba(255,255,255,.78);
+}
+.profile-modal.confirmation-modal {
+  max-width: 42rem;
+  padding: 2.4rem;
+}
+.confirmation-icon {
+  display: grid;
+  width: 4.6rem;
+  height: 4.6rem;
+  place-items: center;
+  margin-bottom: 1.5rem;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 1.4rem !important;
+  background: rgba(255,255,255,.055) !important;
+  color: rgba(255,255,255,.86) !important;
+}
+.confirmation-icon.is-destructive {
+  border-color: rgba(248,113,113,.24) !important;
+  background: rgba(248,113,113,.09) !important;
+  color: #f18a8a !important;
+}
+.profile-modal.confirmation-modal > p {
+  margin-top: 1rem;
+  color: rgba(255,255,255,.54);
+  font-size: 1.35rem;
+  line-height: 1.7;
+}
+.profile-modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .8rem;
+  margin-top: 2rem;
+}
+.profile-modal-actions > button {
+  min-height: 4.4rem;
+  border-radius: 1.2rem;
+  font-size: 1.35rem;
+  transition: transform .16s ease,background .16s ease,opacity .16s ease;
+}
+.profile-modal-actions > button:active { transform: scale(.98); }
+.profile-modal-actions .settings-cancel-button {
+  border: 1px solid rgba(255,255,255,.1);
+  background: rgba(255,255,255,.035);
+  color: rgba(255,255,255,.8);
+}
+/* Logging out is intentionally neutral; only actual deletion is destructive. */
+.profile-modal.confirmation-modal .confirmation-icon:not(.is-destructive) { color: rgba(255,255,255,.84) !important; }
+.profile-modal-backdrop :is(button,input,textarea,select):focus-visible {
+  outline: 2px solid rgba(255,255,255,.72);
+  outline-offset: 3px;
+}
+@media (max-width: 520px) {
+  .dashboard-pages .notification-page-row {
+    grid-template-columns: 3.8rem minmax(0,1fr) 3.2rem;
+    gap: .85rem;
+    padding: 1.05rem;
+    border-radius: 1.35rem;
+  }
+  .dashboard-pages .notification-page-icon { width: 3.7rem; height: 3.7rem; border-radius: 1.1rem; }
+  .dashboard-pages .notification-page-delete { width: 3.2rem; height: 3.2rem; }
+  .dashboard-pages .notification-page-copy > strong { font-size: 1.4rem; }
+  .dashboard-pages .notification-page-copy > p { font-size: 1.25rem; }
+  .profile-modal.confirmation-modal { padding: 1.8rem; border-radius: 1.7rem !important; }
+  .profile-modal-actions { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); }
+  .profile-modal-actions > button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard-pages .notification-page-row,
+  .dashboard-pages .notification-page-delete,
+  .profile-modal-actions > button { transition: none !important; }
+}
