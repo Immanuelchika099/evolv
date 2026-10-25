@@ -393,14 +393,14 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
           <div className="quick-log-content quick-log-menu">
             <OptionWheel
               items={loggingOptionTitles}
-              defaultSelected={0}
+              defaultSelected={2}
               textColor="#a6a6a6"
               activeColor="#ffffff"
               side="right"
               fontSize={2.6}
-              spacing={1.4}
-              curve={1.75}
-              tilt={6}
+              spacing={1.55}
+              curve={2.35}
+              tilt={10}
               blur={2}
               fade={0.25}
               smoothing={200}
