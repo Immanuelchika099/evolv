@@ -52,13 +52,17 @@ const workoutTypeFromName = (name = '') => {
 }
 
 const loggingOptions = [
-  { id: 'workout', title: 'Workout', icon: Dumbbell },
-  { id: 'meal', title: 'Meal', icon: Utensils },
+  { id: 'workout', title: 'Workouts', icon: Dumbbell },
+  { id: 'meal', title: 'Meals', icon: Utensils },
   { id: 'sleep', title: 'Sleep', icon: Moon },
   { id: 'water', title: 'Water', icon: Droplets },
   { id: 'money', title: 'Money', icon: WalletCards },
-  { id: 'more', title: 'More', icon: MoreHorizontal },
   { id: 'ai', title: 'Ask AI', icon: Sparkles },
+  { id: 'health', title: 'Health', icon: HeartPulse, color: '#ff8f9d' },
+  { id: 'nutrition', title: 'Nutrition', icon: Apple, color: '#ffb84d' },
+  { id: 'career', title: 'Career', icon: BriefcaseBusiness, color: 'var(--color-accent-blue)' },
+  { id: 'mind', title: 'Mind', icon: Brain, color: 'var(--color-accent-blue)' },
+  { id: 'life', title: 'Life', icon: Sprout, color: '#9dd6b0' },
 ]
 
 export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSaved, initialScreen = 'menu' }) {
@@ -321,11 +325,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
       onLogWithAI('Help me log something in Evolv. Ask what I want to record, one question at a time, and save it only when you have enough information. Keep the conversation simple and do not show me a generic form.')
       return
     }
-    if (option.id === 'more') {
-      setShowMoreOptions(true)
-      return
-    }
-    if (['meal', 'sleep', 'water', 'money'].includes(option.id)) {
+    if (['meal', 'sleep', 'water', 'money', 'health', 'nutrition', 'career', 'mind', 'life'].includes(option.id)) {
       onLogManual?.(option.id)
     }
   }
@@ -374,7 +374,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
   const suggestedExercises = exercisesByWorkoutType[workoutType] || []
 
   return (
-    <div className={"quick-log-overlay" + (screen !== 'menu' ? ' quick-log-overlay-page' : '')} role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
+    <div className={"quick-log-overlay" + (screen !== 'menu' ? ' quick-log-overlay-page' : ' quick-log-wheel-mode')} role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
       <section className="quick-log-sheet" role="dialog" aria-modal="true" aria-labelledby="quick-log-title">
         <div className="quick-log-handle" />
         <header className="quick-log-header">
@@ -390,38 +390,28 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
         {screen === 'menu' && (
           <div className="quick-log-content quick-log-menu">
-                        <div className="quick-log-options">
-              {loggingOptions.map(option => {
-                if (option.id === 'more') {
-                  if (showMoreOptions) {
-                    return [
-                      { id: 'health', title: 'Health', icon: HeartPulse, color: '#ff8f9d' },
-                      { id: 'nutrition', title: 'Nutrition', icon: Apple, color: '#ffb84d' },
-                      { id: 'career', title: 'Career', icon: BriefcaseBusiness, color: 'var(--color-accent-blue)' },
-                      { id: 'mind', title: 'Mind', icon: Brain, color: 'var(--color-accent-blue)' },
-                      { id: 'life', title: 'Life', icon: Sprout, color: '#9dd6b0' },
-                    ].map(extra => {
-                      const Icon = extra.icon
-                      return <button type="button" className={"quick-log-option quick-log-option-" + extra.id} key={extra.id} onClick={() => onLogManual?.(extra.id)}>
-                        <span className="quick-log-option-icon" style={{ color: extra.color, backgroundColor: extra.color + '24' }}><Icon size={20} stroke={extra.color} color={extra.color} strokeWidth={1.8} /></span>
-                        <span className="quick-log-option-copy"><strong>{extra.title}</strong></span>
-                        <ChevronRight size={18} className="quick-log-chevron" />
-                      </button>
-                    })
-                  }
-                  const Icon = option.icon
-                  return <button type="button" className="quick-log-option quick-log-option-more" key={option.id} onClick={() => openCategory(option)}>
-                    <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
-                    <span className="quick-log-option-copy"><strong>More</strong></span>
-                    <ChevronRight size={18} className="quick-log-chevron" />
-                  </button>
-                }
+            <div className="quick-log-options quick-log-wheel-options" role="list" aria-label="Choose what to log">
+              {loggingOptions.map((option, index) => {
                 const Icon = option.icon
-                return <button type="button" className={"quick-log-option quick-log-option-" + option.id} key={option.id} onClick={() => openCategory(option)}>
-                  <span className="quick-log-option-icon"><Icon size={20} strokeWidth={1.8} /></span>
-                  <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
-                  <ChevronRight size={18} className="quick-log-chevron" />
-                </button>
+                const offset = index - (loggingOptions.length - 1) / 2
+                return (
+                  <button
+                    type="button"
+                    className={"quick-log-option quick-log-wheel-option quick-log-option-" + option.id}
+                    key={option.id}
+                    style={{
+                      '--wheel-shift': `${Math.abs(offset) * 0.12}rem`,
+                      '--wheel-rotation': `${offset * -1.05}deg`,
+                      '--wheel-opacity': Math.max(0.48, 0.94 - Math.abs(offset) * 0.055),
+                      ...(option.color ? { '--wheel-item-color': option.color } : {}),
+                    }}
+                    onClick={() => openCategory(option)}
+                  >
+                    <span className="quick-log-option-icon"><Icon size={19} strokeWidth={1.8} /></span>
+                    <span className="quick-log-option-copy"><strong>{option.title}</strong></span>
+                    <ChevronRight size={16} className="quick-log-chevron" />
+                  </button>
+                )
               })}
             </div>
           </div>
