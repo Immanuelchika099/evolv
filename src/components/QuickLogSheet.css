@@ -925,3 +925,385 @@
   color: #aab0ba;
   font-size: 1.25rem;
 }
+
+
+/* =========================================================
+   EVOLV phase 7 — Log sheet, workout and meal-entry surfaces
+   Presentation-only polish; existing save and navigation handlers stay intact.
+   ========================================================= */
+.quick-log-overlay {
+  padding: max(1rem, env(safe-area-inset-top,0px)) 1rem max(1rem, env(safe-area-inset-bottom,0px)) !important;
+  background: rgba(0,0,0,.78) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(115%) !important;
+  backdrop-filter: blur(14px) saturate(115%) !important;
+}
+.quick-log-sheet {
+  width: min(100%, 56rem) !important;
+  max-height: calc(100dvh - max(2rem, env(safe-area-inset-top,0px) + 1rem) - max(1rem, env(safe-area-inset-bottom,0px))) !important;
+  border: 1px solid rgba(255,255,255,.105) !important;
+  border-radius: 2.2rem !important;
+  background: #0b0b0b !important;
+  box-shadow: 0 2.5rem 8rem rgba(0,0,0,.68), inset 0 1px 0 rgba(255,255,255,.035) !important;
+  overscroll-behavior: contain;
+}
+.quick-log-handle {
+  width: 3.8rem !important;
+  height: .35rem !important;
+  margin: .9rem auto .6rem !important;
+  background: rgba(255,255,255,.22) !important;
+}
+.quick-log-header {
+  align-items: center !important;
+  gap: 1rem !important;
+  padding: 1.4rem 1.6rem 1.5rem !important;
+  border-bottom-color: rgba(255,255,255,.075) !important;
+  background: #0b0b0b;
+}
+.quick-log-header h2 {
+  font-size: 2.2rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.04em !important;
+}
+.quick-log-close,
+.quick-log-back {
+  flex: 0 0 4rem !important;
+  width: 4rem !important;
+  height: 4rem !important;
+  border-color: rgba(255,255,255,.09) !important;
+  background: rgba(255,255,255,.045) !important;
+  color: rgba(255,255,255,.86) !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease;
+}
+.quick-log-close:active,
+.quick-log-back:active { transform: scale(.96); }
+.quick-log-content {
+  min-height: 0;
+  padding: 1.4rem 1.6rem max(2rem, env(safe-area-inset-bottom,0px)) !important;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,.16) transparent;
+}
+.quick-log-menu .quick-log-options { gap: .65rem !important; }
+.quick-log-option {
+  grid-template-columns: 4.4rem minmax(0,1fr) 2rem !important;
+  min-height: 6.8rem !important;
+  gap: 1.15rem !important;
+  padding: 1rem 1.15rem !important;
+  border-color: rgba(255,255,255,.075) !important;
+  border-radius: 1.45rem !important;
+  background: rgba(255,255,255,.025) !important;
+  transition: background .18s ease, border-color .18s ease, transform .18s ease !important;
+}
+.quick-log-option:hover {
+  border-color: rgba(255,255,255,.13) !important;
+  background: rgba(255,255,255,.045) !important;
+}
+.quick-log-option:active { transform: scale(.99); }
+.quick-log-option-icon,
+.quick-log-history-icon {
+  width: 4.2rem !important;
+  height: 4.2rem !important;
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 1.25rem !important;
+  background: rgba(255,255,255,.055) !important;
+  color: rgba(255,255,255,.78) !important;
+}
+.quick-log-option:nth-child(n) .quick-log-option-icon {
+  background: rgba(255,255,255,.055) !important;
+  color: rgba(255,255,255,.8) !important;
+}
+.quick-log-option-copy strong {
+  font-size: 1.5rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.015em;
+}
+.quick-log-chevron { color: rgba(255,255,255,.35) !important; }
+.quick-log-history { gap: .65rem !important; }
+.quick-log-history-row {
+  min-height: 6.8rem !important;
+  padding: 1rem !important;
+  border-color: rgba(255,255,255,.075) !important;
+  border-radius: 1.4rem !important;
+  background: rgba(255,255,255,.025) !important;
+  transition: background .18s ease, border-color .18s ease;
+}
+.quick-log-history-row:hover {
+  border-color: rgba(255,255,255,.14) !important;
+  background: rgba(255,255,255,.045) !important;
+}
+.quick-log-history-copy strong { font-size: 1.45rem; font-weight: 500; }
+.quick-log-history-copy small { color: rgba(255,255,255,.46) !important; line-height: 1.45; }
+.quick-log-workout-bottom-action {
+  position: sticky;
+  bottom: calc(-1 * max(1.4rem, env(safe-area-inset-bottom,0px)));
+  z-index: 3;
+  margin: 1.2rem -1.6rem calc(-1 * max(2rem, env(safe-area-inset-bottom,0px))) !important;
+  padding: 1.1rem 1.6rem max(1.4rem, env(safe-area-inset-bottom,0px)) !important;
+  border-top: 1px solid rgba(255,255,255,.075);
+  background: rgba(11,11,11,.94);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.quick-log-primary,
+.quick-log-add-exercise,
+.quick-log-add-set {
+  min-height: 4.6rem;
+  border-radius: 1.25rem !important;
+  font-size: 1.45rem !important;
+  font-weight: 550 !important;
+  transition: transform .16s ease, opacity .16s ease, background .16s ease;
+}
+.quick-log-primary:active,
+.quick-log-add-exercise:active,
+.quick-log-add-set:active { transform: scale(.985); }
+.quick-log-primary:disabled { cursor: wait; opacity: .62; }
+.quick-log-workout-totals {
+  padding: 1.4rem !important;
+  border: 1px solid rgba(255,255,255,.08) !important;
+  border-radius: 1.55rem !important;
+  background: linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015)) !important;
+}
+.quick-log-workout-totals-heading {
+  margin-bottom: 1rem;
+}
+.quick-log-workout-totals-heading > span {
+  color: rgba(255,255,255,.48) !important;
+  font-size: 1.05rem !important;
+  letter-spacing: .1em !important;
+}
+.quick-log-workout-totals-card {
+  gap: .75rem !important;
+}
+.quick-log-workout-totals-card > div {
+  min-width: 0;
+  padding: 1rem .85rem !important;
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 1.1rem !important;
+  background: rgba(0,0,0,.18) !important;
+}
+.quick-log-workout-totals-card > div > span {
+  color: rgba(255,255,255,.45) !important;
+  font-size: 1rem !important;
+  letter-spacing: .06em;
+}
+.quick-log-workout-totals-card > div > strong {
+  overflow-wrap: anywhere;
+  font-size: 1.65rem !important;
+  font-weight: 500 !important;
+}
+.quick-log-workout-fields { gap: 1.2rem !important; }
+.quick-log-field { min-width: 0; gap: .65rem !important; }
+.quick-log-field > span {
+  color: rgba(255,255,255,.58) !important;
+  font-size: 1.25rem !important;
+  font-weight: 500 !important;
+}
+.quick-log-field input,
+.quick-log-field select,
+.quick-log-number-field input,
+.quick-log-intensity-control select {
+  min-width: 0;
+  min-height: 4.6rem !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 1.1rem !important;
+  background-color: #111 !important;
+  color: #f4f4f2 !important;
+  font-size: 16px !important;
+}
+.quick-log-field input,
+.quick-log-field select { padding: 0 1.2rem !important; }
+.quick-log-field input:focus,
+.quick-log-field select:focus,
+.quick-log-number-field input:focus,
+.quick-log-intensity-control select:focus {
+  outline: none;
+  border-color: rgba(255,255,255,.3) !important;
+  box-shadow: 0 0 0 2px rgba(255,255,255,.055) !important;
+}
+.quick-log-exercises-heading h3 {
+  font-size: 1.8rem !important;
+  font-weight: 500 !important;
+  letter-spacing: -.025em;
+}
+.quick-log-exercises { gap: 1.1rem !important; }
+.quick-log-exercise {
+  padding: 1.3rem !important;
+  border: 1px solid rgba(255,255,255,.085) !important;
+  border-radius: 1.55rem !important;
+  background: rgba(255,255,255,.022) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.02) !important;
+}
+.quick-log-exercise-heading { gap: .75rem !important; }
+.quick-log-exercise-number {
+  display: grid;
+  flex: 0 0 3.1rem;
+  width: 3.1rem;
+  height: 3.1rem;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1rem;
+  background: rgba(255,255,255,.045);
+  color: rgba(255,255,255,.58);
+  font-size: 1.15rem;
+  font-variant-numeric: tabular-nums;
+}
+.quick-log-exercise-name input {
+  min-width: 0;
+  width: 100%;
+  min-height: 4.4rem !important;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  border-radius: 1.05rem !important;
+  background: #101010 !important;
+  color: #f4f4f2 !important;
+  font-size: 16px !important;
+}
+.quick-log-icon-button {
+  width: 3.8rem !important;
+  height: 3.8rem !important;
+  border: 1px solid rgba(255,255,255,.075) !important;
+  border-radius: 1.1rem !important;
+  background: rgba(255,255,255,.035) !important;
+  color: rgba(255,255,255,.48) !important;
+}
+.quick-log-intensity-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0 .8rem;
+  color: rgba(255,255,255,.46);
+  font-size: 1.2rem;
+}
+.quick-log-intensity-control { min-width: 0; }
+.quick-log-intensity-control select {
+  min-height: 3.6rem !important;
+  padding: 0 2.8rem 0 1rem !important;
+  border-radius: .95rem !important;
+}
+.quick-log-set-head {
+  color: rgba(255,255,255,.42) !important;
+  font-size: 1.05rem !important;
+  letter-spacing: .04em;
+}
+.quick-log-set-list { gap: .55rem !important; }
+.quick-log-set-row {
+  position: relative;
+  min-width: 0;
+  gap: .55rem !important;
+  padding: .55rem !important;
+  border: 1px solid rgba(255,255,255,.055);
+  border-radius: 1.1rem !important;
+  background: rgba(0,0,0,.2) !important;
+}
+.quick-log-set-row.is-complete {
+  border-color: rgba(255,255,255,.16) !important;
+  background: rgba(255,255,255,.045) !important;
+}
+.quick-log-number-field input {
+  width: 100%;
+  padding: 0 .35rem !important;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.quick-log-set-done {
+  width: 3.5rem !important;
+  height: 3.5rem !important;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  color: #fff !important;
+}
+.quick-log-set-done.is-complete {
+  border-color: rgba(255,255,255,.75) !important;
+  background: rgba(255,255,255,.13) !important;
+}
+.quick-log-add-set {
+  min-height: 3.8rem !important;
+  margin-top: .8rem;
+  border: 1px solid rgba(255,255,255,.1) !important;
+  background: rgba(255,255,255,.035) !important;
+  color: rgba(255,255,255,.78) !important;
+}
+.quick-log-add-exercise {
+  width: 100%;
+  margin: .2rem 0 .4rem;
+  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgba(255,255,255,.04) !important;
+  color: #f5f5f2 !important;
+}
+.quick-log-editor-footer {
+  position: sticky !important;
+  bottom: calc(-1 * max(1.4rem, env(safe-area-inset-bottom,0px))) !important;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1.2rem -1.6rem calc(-1 * max(2rem, env(safe-area-inset-bottom,0px))) !important;
+  padding: 1.2rem 1.6rem max(1.4rem, env(safe-area-inset-bottom,0px)) !important;
+  border-top: 1px solid rgba(255,255,255,.085);
+  background: rgba(11,11,11,.96);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+.quick-log-editor-footer > div {
+  display: flex;
+  align-items: baseline;
+  gap: .55rem;
+  color: rgba(255,255,255,.46);
+  font-size: 1.25rem;
+}
+.quick-log-editor-footer > div > strong {
+  color: #f5f5f2;
+  font-size: 1.8rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+.quick-log-editor-footer .quick-log-primary {
+  min-width: 13rem;
+  min-height: 4.8rem;
+}
+.quick-log-notice,
+.quick-log-error {
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.15rem !important;
+}
+.quick-log-error {
+  border-color: rgba(248,113,113,.2) !important;
+}
+.quick-log-empty { padding: 3rem 1.4rem !important; }
+.quick-log-sheet :is(button,input,select,textarea):focus-visible {
+  outline: 2px solid rgba(255,255,255,.68);
+  outline-offset: 3px;
+}
+@media (max-width: 480px) {
+  .quick-log-overlay { padding-inline: .65rem !important; }
+  .quick-log-sheet {
+    max-height: calc(100dvh - max(1.3rem, env(safe-area-inset-top,0px) + .6rem) - max(.65rem, env(safe-area-inset-bottom,0px))) !important;
+    border-radius: 1.8rem !important;
+  }
+  .quick-log-header { padding-inline: 1.25rem !important; }
+  .quick-log-content { padding-inline: 1.25rem !important; }
+  .quick-log-option { min-height: 6.2rem !important; grid-template-columns: 4rem minmax(0,1fr) 1.8rem !important; gap: .9rem !important; padding: .85rem !important; }
+  .quick-log-option-icon,.quick-log-history-icon { width: 3.8rem !important; height: 3.8rem !important; }
+  .quick-log-workout-bottom-action,
+  .quick-log-editor-footer {
+    margin-left: -1.25rem !important;
+    margin-right: -1.25rem !important;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+  .quick-log-workout-totals { padding: 1rem !important; }
+  .quick-log-workout-totals-card { gap: .5rem !important; }
+  .quick-log-workout-totals-card > div { padding: .85rem .55rem !important; }
+  .quick-log-workout-totals-card > div > strong { font-size: 1.4rem !important; }
+  .quick-log-exercise { padding: 1rem !important; }
+  .quick-log-exercise-heading { grid-template-columns: 2.8rem minmax(0,1fr) 3.4rem !important; }
+  .quick-log-set-head,
+  .quick-log-set-row { grid-template-columns: 2rem minmax(0,1fr) minmax(0,1fr) 3rem !important; }
+  .quick-log-editor-footer .quick-log-primary { min-width: 11rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quick-log-option,.quick-log-primary,.quick-log-add-exercise,.quick-log-add-set,
+  .quick-log-close,.quick-log-back,.quick-log-history-row { transition: none !important; }
+}

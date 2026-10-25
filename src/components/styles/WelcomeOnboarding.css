@@ -1250,3 +1250,222 @@
   }
   .evolv-welcome .evolv-welcome-image { border-radius: 1rem; }
 }
+
+
+/* Phase 9 — first-run experience: editorial hierarchy, stable layout and safe-area comfort. */
+.evolv-welcome {
+  min-height: 100svh;
+  min-height: 100dvh;
+  background: #050505;
+}
+.evolv-welcome-header {
+  padding-top: max(2rem, env(safe-area-inset-top));
+}
+.evolv-welcome-content {
+  width: min(100% - 4.8rem, 78rem);
+  padding-top: 1.2rem;
+  padding-bottom: max(3.2rem, env(safe-area-inset-bottom));
+}
+.evolv-welcome .evolv-welcome-collage {
+  width: min(100%, 64rem);
+  grid-template-rows: clamp(14rem, 26vw, 21rem) clamp(11rem, 21vw, 17rem);
+  gap: clamp(.7rem, 1.5vw, 1.1rem);
+  margin: .4rem auto 2.4rem;
+}
+.evolv-welcome .evolv-welcome-image {
+  min-width: 0;
+  min-height: 0;
+}
+.evolv-welcome .evolv-welcome-message {
+  align-items: center;
+  text-align: center;
+}
+.evolv-welcome .evolv-welcome-content h1 {
+  max-width: 72rem;
+  margin: .5rem 0 1.5rem;
+  font-size: clamp(4.2rem, 8.5vw, 7.4rem);
+  line-height: .99;
+  letter-spacing: -.075em;
+  text-wrap: balance;
+}
+.evolv-welcome .evolv-welcome-message > p {
+  max-width: 43rem;
+  font-size: clamp(1.55rem, 2vw, 1.8rem);
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+.evolv-welcome .evolv-welcome-cta {
+  width: min(100%, 34rem);
+  min-height: 5.8rem;
+  margin-top: 2.6rem;
+  font-size: 1.55rem;
+  font-weight: 700;
+}
+.evolv-welcome .evolv-welcome-cta:focus-visible,
+.evolv-onboarding button:focus-visible,
+.evolv-onboarding-name input:focus-visible {
+  outline: 2px solid rgba(255,255,255,.92);
+  outline-offset: 4px;
+}
+.evolv-onboarding {
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.evolv-onboarding-header {
+  padding-top: max(2rem, env(safe-area-inset-top));
+}
+.evolv-onboarding-main {
+  width: min(100% - 5.6rem, 84rem);
+  padding-top: 1.8rem;
+  padding-bottom: 2.4rem;
+}
+.evolv-onboarding-stage h1 {
+  max-width: 74rem;
+  text-wrap: balance;
+}
+.evolv-onboarding-copy {
+  max-width: 58rem;
+  text-wrap: pretty;
+}
+.evolv-onboarding-name input {
+  min-height: 6.4rem;
+  border-radius: 1.6rem;
+}
+.evolv-onboarding-name input::placeholder {
+  color: #85857f;
+  opacity: 1;
+}
+.evolv-onboarding-approach-item,
+.evolv-onboarding-goal,
+.evolv-avatar-choice {
+  -webkit-tap-highlight-color: transparent;
+}
+.evolv-onboarding-goal {
+  min-height: 7.6rem;
+}
+.evolv-onboarding-goal:focus-visible,
+.evolv-avatar-choice:focus-visible {
+  outline-offset: 3px;
+}
+.evolv-onboarding-footer {
+  position: relative;
+  z-index: 4;
+  flex-shrink: 0;
+  padding-top: 2rem;
+  padding-bottom: max(.6rem, env(safe-area-inset-bottom));
+}
+.evolv-onboarding-footer .evolv-onboarding-continue {
+  min-width: 15rem;
+}
+.evolv-onboarding-ready {
+  border-color: rgba(255,255,255,.14);
+  background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+}
+.evolv-onboarding-ready > span {
+  font-size: 1.35rem;
+  line-height: 1.5;
+}
+@media (min-width: 900px) {
+  .evolv-welcome-content {
+    padding-top: 1.8rem;
+  }
+  .evolv-welcome .evolv-welcome-collage {
+    margin-bottom: 2.8rem;
+  }
+  .evolv-onboarding-main {
+    padding-top: 2.4rem;
+    padding-bottom: 3rem;
+  }
+}
+@media (max-width: 680px) {
+  .evolv-welcome-header {
+    padding-top: max(1.7rem, env(safe-area-inset-top));
+  }
+  .evolv-welcome-content {
+    width: calc(100% - 3.6rem);
+    padding-top: .4rem;
+    padding-bottom: max(2.8rem, env(safe-area-inset-bottom));
+  }
+  .evolv-welcome .evolv-welcome-collage {
+    grid-template-rows: clamp(12.5rem, 38vw, 16rem) clamp(10.5rem, 33vw, 14rem);
+    gap: .75rem;
+    margin-bottom: 2.1rem;
+  }
+  .evolv-welcome .evolv-welcome-content h1 {
+    margin-top: .4rem;
+    margin-bottom: 1.3rem;
+    font-size: clamp(3.8rem, 10.7vw, 5.2rem);
+    line-height: 1;
+  }
+  .evolv-welcome .evolv-welcome-message > p {
+    max-width: 34rem;
+    font-size: 1.55rem;
+    line-height: 1.65;
+  }
+  .evolv-welcome .evolv-welcome-cta {
+    margin-top: 2.2rem;
+  }
+  .evolv-onboarding {
+    overflow: visible;
+  }
+  .evolv-onboarding-main {
+    width: calc(100% - 3.6rem);
+    padding-top: 1.3rem;
+    padding-bottom: 1.8rem;
+  }
+  .evolv-onboarding-stage {
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+  }
+  .evolv-onboarding-footer {
+    gap: 1rem;
+    padding-top: 1.6rem;
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+  .evolv-onboarding-footer .evolv-onboarding-continue {
+    min-height: 5.6rem;
+    min-width: 14rem;
+    padding-inline: 1.8rem;
+  }
+}
+@media (max-width: 380px) {
+  .evolv-welcome .evolv-welcome-collage {
+    grid-template-rows: 12rem 10rem;
+  }
+  .evolv-welcome .evolv-welcome-content h1 {
+    font-size: clamp(3.5rem, 10.5vw, 4.1rem);
+  }
+  .evolv-onboarding-footer {
+    align-items: stretch;
+  }
+  .evolv-onboarding-footer .evolv-onboarding-continue {
+    flex: 1 1 auto;
+  }
+}
+@media (max-height: 720px) and (max-width: 680px) {
+  .evolv-onboarding-main {
+    padding-top: .8rem;
+    padding-bottom: 1rem;
+  }
+  .evolv-onboarding-stage {
+    margin-block: 0;
+    padding-block: 1rem;
+  }
+  .evolv-onboarding-stage h1 {
+    margin-top: 1rem;
+    font-size: clamp(3.4rem, 9vw, 4.5rem);
+  }
+  .evolv-onboarding-name {
+    margin-top: 1.8rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-welcome *,
+  .evolv-onboarding * {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
