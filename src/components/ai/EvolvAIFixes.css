@@ -3071,3 +3071,72 @@ html:has(.dashboard.dashboard-ai-active) {
     font-size: inherit !important;
   }
 }
+
+
+/* Phase 4 — AI chat visual polish: calm hierarchy, warm accent, and cleaner conversation rhythm. */
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  width: min(100%, 78rem);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2vw, 1.8rem);
+  padding-bottom: 3rem;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  margin-left: auto;
+  max-width: min(88%, 56rem);
+  border: 1px solid rgba(var(--ac, 229, 134, 66), .24);
+  border-radius: 2rem 2rem .65rem 2rem;
+  background: rgba(var(--ac, 229, 134, 66), .13);
+  color: rgba(255,255,255,.96);
+  box-shadow: none;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  margin-right: auto;
+  max-width: min(100%, 72rem);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  color: rgba(255,255,255,.94);
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+  font-size: 1.65rem;
+  line-height: 1.72;
+  letter-spacing: 0;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content p { margin: 0 0 1.25em; }
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content p:last-child { margin-bottom: 0; }
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h1,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
+  margin: 1.1em 0 .45em; color: #fff; font-size: 1.7rem; font-weight: 600;
+  letter-spacing: -.02em; line-height: 1.35;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ul,
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ol {
+  padding-left: 1.5em; margin: .5em 0 1.1em;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li { margin: .35em 0; }
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong { color: #fff; font-weight: 600; }
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content a {
+  color: rgb(var(--ac, 229, 134, 66)); text-decoration-color: rgba(var(--ac, 229, 134, 66), .4);
+  text-underline-offset: .2em;
+}
+.dashboard.dashboard-ai-active .ai-page button:focus-visible,
+.dashboard.dashboard-ai-active .ai-page textarea:focus-visible,
+.dashboard.dashboard-ai-active .ai-page input:focus-visible {
+  outline: 2px solid rgba(var(--ac, 229, 134, 66), .85); outline-offset: 3px;
+}
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-messages { padding-inline: .6rem; }
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user { max-width: 92%; }
+  .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
+    font-size: 1.65rem !important; line-height: 1.7 !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard.dashboard-ai-active .ai-page *,
+  .dashboard.dashboard-ai-active .ai-page *::before,
+  .dashboard.dashboard-ai-active .ai-page *::after {
+    animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important;
+  }
+}
