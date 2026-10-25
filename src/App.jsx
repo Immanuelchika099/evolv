@@ -12,6 +12,7 @@ import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
 import PatternWaves from './components/PatternWaves/PatternWaves'
+import CrystalizedBall from './components/CrystalizedBall'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
 import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
@@ -1487,33 +1488,6 @@ function getAvatarPreset(style = 'androgynous') {
 }
 
 function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
-const welcomeImages = [
-    {
-      image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1200&q=90',
-      alt: 'A focused work session at a laptop',
-      label: 'LEARN',
-      className: 'learn',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=900&q=90',
-      alt: 'A modern gym space for strength training',
-      label: 'MOVE',
-      className: 'move',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=900&q=90',
-      alt: 'A notebook and workspace ready for planning',
-      label: 'CREATE',
-      className: 'create',
-    },
-    {
-      image: 'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?auto=format&fit=crop&w=900&q=90',
-      alt: 'A calm, restful bedroom',
-      label: 'REST',
-      className: 'rest',
-    },
-  ]
-
   return (
     <div className="evolv-welcome page-enter">
       <div className="evolv-welcome-background" aria-hidden="true">
@@ -1525,15 +1499,34 @@ const welcomeImages = [
           <span>EVOLV</span>
         </button>
       </header>
-      <main className="evolv-welcome-content">
-        <div className="evolv-welcome-collage" aria-label="Small moments of learning, movement, creativity, and rest">
-          {welcomeImages.map((item) => (
-            <figure className={`evolv-welcome-image evolv-welcome-image--${item.className}`} key={item.className}>
-              <img src={item.image} alt={item.alt} loading="eager" fetchPriority="high" onError={item.className === 'create' ? (event) => { event.currentTarget.onerror = null; event.currentTarget.src = 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=900&q=90'; } : undefined} />
-              <figcaption>{item.label}</figcaption>
-            </figure>
-          ))}
-          <span className="evolv-welcome-collage-glow" aria-hidden="true" />
+      <main className="evolv-welcome-content evolv-welcome-content--cinematic">
+        <div className="evolv-welcome-visual" aria-label="A glowing orange crystal of energy">
+          <div className="evolv-welcome-visual-grain" aria-hidden="true" />
+          <CrystalizedBall
+            preset="plasma"
+            color="#E85A27"
+            size={0.7}
+            crackle={0.55}
+            fill={0.5}
+            interactive
+            hoverStrength={0.55}
+            strands={6}
+            flares={0.55}
+            glow={0.72}
+            sparks={0.38}
+            particleCount={5000}
+            motion="rise"
+            particleShape="square"
+            depth={0.6}
+            sway={0.45}
+            twinkle={0.5}
+            haze={0.58}
+            dustSpeed={0.8}
+            speed={0.72}
+            intro
+            paused={false}
+          />
+          <span className="evolv-welcome-visual-caption">GROW AT YOUR OWN PACE</span>
         </div>
         <section className="evolv-welcome-message">
           <h1>Become who<br />you’re <em>capable of.</em></h1>
