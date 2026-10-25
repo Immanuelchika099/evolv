@@ -1307,3 +1307,127 @@
   .quick-log-option,.quick-log-primary,.quick-log-add-exercise,.quick-log-add-set,
   .quick-log-close,.quick-log-back,.quick-log-history-row { transition: none !important; }
 }
+
+
+/* Compact curved selector opened from the dashboard Log action. */
+.quick-log-overlay.quick-log-wheel-mode {
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 1.2rem calc(8.6rem + env(safe-area-inset-bottom));
+  background: rgba(0, 0, 0, 0.26);
+  -webkit-backdrop-filter: blur(3px);
+  backdrop-filter: blur(3px);
+  animation: quick-log-wheel-backdrop-in 160ms ease-out both;
+}
+.quick-log-wheel-mode .quick-log-sheet {
+  width: min(30rem, calc(100vw - 2.4rem));
+  max-height: min(72dvh, 62rem);
+  min-height: 0;
+  overflow: hidden;
+  padding: 1.3rem 1.2rem 1.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2.2rem;
+  background: rgba(13, 14, 17, 0.94);
+  box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(24px);
+  transform-origin: bottom right;
+  animation: quick-log-wheel-in 220ms cubic-bezier(.2,.8,.2,1) both;
+}
+.quick-log-wheel-mode .quick-log-handle,
+.quick-log-wheel-mode .quick-log-close,
+.quick-log-wheel-mode .quick-log-header-copy > div { display: none; }
+.quick-log-wheel-mode .quick-log-header {
+  min-height: 0;
+  margin: 0;
+  padding: 0 0 .5rem .4rem;
+  border: 0;
+}
+.quick-log-wheel-mode #quick-log-title {
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -.025em;
+  color: rgba(255,255,255,.68);
+}
+.quick-log-wheel-mode .quick-log-content,
+.quick-log-wheel-mode .quick-log-menu {
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+.quick-log-wheel-mode .quick-log-content::-webkit-scrollbar { display: none; }
+.quick-log-wheel-mode .quick-log-wheel-options {
+  display: flex;
+  flex-direction: column;
+  gap: .15rem;
+  padding: .2rem 0;
+  perspective: 720px;
+}
+.quick-log-wheel-mode .quick-log-wheel-option {
+  min-height: 3.65rem;
+  flex: 0 0 auto;
+  display: grid;
+  grid-template-columns: 2.6rem minmax(0, 1fr) 1.6rem;
+  align-items: center;
+  gap: .8rem;
+  padding: .25rem .8rem;
+  border: 0;
+  border-radius: 1.1rem;
+  background: transparent;
+  color: rgba(255,255,255,.72);
+  text-align: left;
+  transform: translateX(var(--wheel-shift)) rotateY(var(--wheel-rotation));
+  transform-origin: right center;
+  opacity: var(--wheel-opacity);
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease, opacity 180ms ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.quick-log-wheel-mode .quick-log-wheel-option:hover,
+.quick-log-wheel-mode .quick-log-wheel-option:focus-visible {
+  background: rgba(255,255,255,.065);
+  color: #fff;
+  opacity: 1;
+  transform: translateX(0) rotateY(0);
+  outline: none;
+}
+.quick-log-wheel-mode .quick-log-wheel-option:active {
+  background: rgba(255,255,255,.09);
+  transform: scale(.985);
+}
+.quick-log-wheel-mode .quick-log-wheel-option .quick-log-option-icon {
+  width: 2.55rem;
+  height: 2.55rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--wheel-item-color, #fff) 16%, transparent);
+  border-radius: .95rem;
+  background: color-mix(in srgb, var(--wheel-item-color, #fff) 8%, transparent);
+  color: var(--wheel-item-color, rgba(255,255,255,.8));
+}
+.quick-log-wheel-mode .quick-log-wheel-option .quick-log-option-copy strong {
+  font-size: 1.45rem;
+  font-weight: 450;
+  letter-spacing: -.025em;
+  white-space: nowrap;
+}
+.quick-log-wheel-mode .quick-log-wheel-option .quick-log-chevron {
+  color: rgba(255,255,255,.28);
+  justify-self: end;
+}
+.quick-log-wheel-mode .quick-log-wheel-option:hover .quick-log-chevron,
+.quick-log-wheel-mode .quick-log-wheel-option:focus-visible .quick-log-chevron { color: rgba(255,255,255,.8); }
+@keyframes quick-log-wheel-in {
+  from { opacity: 0; transform: translateY(1rem) scale(.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes quick-log-wheel-backdrop-in { from { opacity: 0; } to { opacity: 1; } }
+@media (max-height: 700px) {
+  .quick-log-wheel-mode .quick-log-sheet { max-height: 76dvh; }
+  .quick-log-wheel-mode .quick-log-wheel-option { min-height: 3.2rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quick-log-overlay.quick-log-wheel-mode,
+  .quick-log-wheel-mode .quick-log-sheet { animation: none; }
+  .quick-log-wheel-mode .quick-log-wheel-option { transition: none; }
+}
