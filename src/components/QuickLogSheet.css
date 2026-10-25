@@ -1629,13 +1629,22 @@
 }
 
 
-/* Final interaction polish: keep the selector tucked in from the right,
-   enlarge the labels, and remove the floating Log control while open. */
+/* Final interaction polish: keep the overlay full-width; inset only the wheel content. */
+.quick-log-overlay.quick-log-wheel-mode {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-sheet {
+  width: 100vw !important;
+  max-width: none !important;
+}
 .quick-log-overlay.quick-log-wheel-mode .option-wheel {
-  transform: translateX(-.9rem);
+  transform: none !important;
+  box-sizing: border-box;
+  padding-right: 1.2rem !important;
 }
 .quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
-  font-size: 3rem !important;
+  font-size: 3.2rem !important;
 }
 .evolv-floating-log.is-open {
   visibility: hidden !important;
@@ -1645,7 +1654,10 @@
   transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
 }
 @media (max-width: 480px) {
+  .quick-log-overlay.quick-log-wheel-mode .option-wheel {
+    padding-right: 1.2rem !important;
+  }
   .quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
-    font-size: 3rem !important;
+    font-size: 3.2rem !important;
   }
 }
