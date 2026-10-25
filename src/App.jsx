@@ -1601,7 +1601,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           {current.type === 'name' && (
             <label className="evolv-onboarding-name">
               <span>Your preferred name</span>
-              <input autoFocus value={data.name} onChange={event => setData({ ...data, name: event.target.value })} onKeyDown={event => { if (event.key === 'Enter' && canContinue) next() }} placeholder="What should we call you?" autoComplete="given-name" maxLength={40} />
+              <input autoFocus value={data.name} onChange={event => setData({ ...data, name: event.target.value })} onKeyDown={event => { if (event.key === 'Enter' && canContinue) next() }} placeholder="e.g. Iman" autoComplete="given-name" maxLength={40} />
             </label>
           )}
           {current.type === 'approach' && (
@@ -1646,7 +1646,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
             <div className="evolv-onboarding-ready">
               <div className="evolv-onboarding-ready-mark" aria-hidden="true"><span><Check size={30} strokeWidth={1.8} /></span></div>
               <strong>{getFirstName(data.name) || 'Your next self'}</strong>
-              <span>{(data.areas || []).length ? `${data.areas.length} focus areas chosen` : 'Your journey, your pace'}</span>
+              <span>{(data.areas || []).length ? `${data.areas.length} ${(data.areas || []).length === 1 ? 'focus area' : 'focus areas'} selected` : 'Your journey, your pace'}</span>
             </div>
           )}
         </section>
