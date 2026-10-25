@@ -1431,3 +1431,16 @@
   .quick-log-wheel-mode .quick-log-sheet { animation: none; }
   .quick-log-wheel-mode .quick-log-wheel-option { transition: none; }
 }
+
+
+/* Keep the floating Log/X control above the compact selector overlay. */
+.quick-log-overlay.quick-log-wheel-mode { z-index: 200000; }
+.evolv-floating-log.is-open {
+  position: fixed !important;
+  z-index: 200002 !important;
+  pointer-events: auto !important;
+}
+.quick-log-overlay.quick-log-wheel-mode .quick-log-sheet {
+  flex: 0 1 auto;
+  margin: 0;
+}
