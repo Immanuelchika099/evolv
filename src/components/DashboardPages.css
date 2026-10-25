@@ -11543,3 +11543,36 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
   font-size: 1.3rem !important;
   line-height: 1.5 !important;
 }
+
+
+/* Explicitly exempt the confirmation panel from the seven-column day tracker rule.
+   Match that rule's specificity so the grid cannot collapse each line into a column. */
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed {
+  display: flex !important;
+  grid-template-columns: none !important;
+  grid-auto-flow: row !important;
+  grid-column: 1 / -1 !important;
+  align-items: flex-start !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed > span {
+  display: flex !important;
+  flex: 1 1 auto !important;
+  flex-direction: column !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+}
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed strong,
+.dashboard .goals-page .goal-item-content-inner .goal-habit-week > div.goal-checkin-confirmed small {
+  display: block !important;
+  width: auto !important;
+  max-width: 100% !important;
+  writing-mode: horizontal-tb !important;
+  white-space: normal !important;
+  overflow-wrap: anywhere !important;
+  word-break: normal !important;
+}
