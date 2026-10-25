@@ -376,6 +376,7 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
 
   return (
     <div className={"quick-log-overlay" + (screen === 'menu' ? ' quick-log-wheel-mode' : ' quick-log-overlay-page')} role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose() }}>
+      {screen === 'menu' && <button type="button" className="quick-log-wheel-close" onClick={onClose} aria-label="Close log menu"><X size={19} strokeWidth={2} /></button>}
       <section className="quick-log-sheet" role="dialog" aria-modal="true" aria-labelledby="quick-log-title">
         <div className="quick-log-handle" />
         <header className="quick-log-header">
