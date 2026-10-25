@@ -2028,19 +2028,21 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     setEditingEntry(null)
     if(wasEditing) setActive('logs')
   }
-  async function checkInGoal(goal){
+  async function checkInGoal(goal, rawNote = ''){
     const {data:a}=await supabase.auth.getUser()
     const u=a?.user
-    if(!u||!goal?.id)return
+    if(!u||!goal?.id)return false
     const todayKey=new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date())
     if(goalCheckins.some(item=>item.goal_id===goal.id && item.checkin_date===todayKey)){
-      setError('You’ve already logged a step for this goal today. Come back tomorrow to keep the record honest.')
-      return
+      setError('You’ve already recorded this habit today. Your progress is already up to date.')
+      return false
     }
-    const {data:entry,error:x}=await supabase.from('goal_checkins').insert({goal_id:goal.id,user_id:u.id,checkin_date:todayKey}).select('id,goal_id,user_id,checkin_date,note,created_at').single()
-    if(x){setError(x.code==='23505'?'You’ve already logged a step for this goal today. Come back tomorrow.':x.message);return}
+    const note=String(rawNote||'').trim()
+    const {data:entry,error:x}=await supabase.from('goal_checkins').insert({goal_id:goal.id,user_id:u.id,checkin_date:todayKey,note:note||null}).select('id,goal_id,user_id,checkin_date,note,created_at').single()
+    if(x){setError(x.code==='23505'?'You’ve already recorded this habit today. Your progress is already up to date.':x.message);return false}
     setGoalCheckins(current=>[entry,...current])
     setError('')
+    return true
   }
   async function addGoalMilestone(goal, rawTitle, requestedOrder){
     const title=String(rawTitle||'').trim()
