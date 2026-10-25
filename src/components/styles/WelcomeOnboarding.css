@@ -1683,3 +1683,152 @@
   height: 100%;
   overflow: hidden;
 }
+
+
+/* Crystal light is a full-screen atmosphere, never a framed illustration. */
+.evolv-welcome .evolv-welcome-content--cinematic {
+  position: relative;
+  display: block;
+  width: 100%;
+  min-height: 100svh;
+  padding: 0;
+}
+.evolv-welcome .evolv-welcome-visual {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  max-height: none;
+  aspect-ratio: auto;
+  overflow: visible;
+  isolation: auto;
+  pointer-events: none;
+}
+.evolv-welcome .evolv-welcome-visual::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: 0;
+  background:
+    radial-gradient(ellipse at 72% 48%, rgba(232,90,39,.14), rgba(232,90,39,.045) 24%, transparent 52%),
+    radial-gradient(ellipse at 50% 50%, rgba(232,90,39,.025), transparent 65%);
+  filter: blur(3.5rem);
+  animation: evolv-crystal-breathe 7s ease-in-out infinite;
+}
+.evolv-welcome .evolv-welcome-visual::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #050505 0%, rgba(5,5,5,.94) 20%, rgba(5,5,5,.58) 48%, rgba(5,5,5,.12) 78%, rgba(5,5,5,.28) 100%),
+    linear-gradient(180deg, rgba(5,5,5,.12), transparent 28%, transparent 72%, rgba(5,5,5,.32));
+}
+.evolv-welcome .crystalized-ball {
+  z-index: 1;
+  overflow: visible;
+}
+.evolv-welcome .crystalized-ball canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.evolv-welcome .evolv-welcome-visual-grain {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  opacity: .075;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+  mix-blend-mode: screen;
+}
+.evolv-welcome .evolv-welcome-visual-caption { display: none; }
+.evolv-welcome .evolv-welcome-message {
+  position: absolute;
+  z-index: 5;
+  inset: 0 auto 0 max(3rem, calc((100vw - 124rem) / 2));
+  display: flex;
+  width: min(54rem, calc(100% - 6rem));
+  min-height: 100%;
+  padding: 5rem 0 8rem;
+  justify-content: center;
+  pointer-events: none;
+}
+.evolv-welcome .evolv-welcome-message > * {
+  pointer-events: auto;
+}
+.evolv-welcome .evolv-welcome-message::before {
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .evolv-welcome .evolv-welcome-content--cinematic {
+    min-height: 100svh;
+    padding: 0;
+  }
+  .evolv-welcome .evolv-welcome-visual {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    max-height: none;
+    margin: 0;
+  }
+  .evolv-welcome .evolv-welcome-visual::before {
+    background:
+      radial-gradient(ellipse at 52% 38%, rgba(232,90,39,.14), rgba(232,90,39,.045) 28%, transparent 60%);
+    filter: blur(2.6rem);
+  }
+  .evolv-welcome .evolv-welcome-visual::after {
+    background:
+      linear-gradient(180deg, rgba(5,5,5,.16), transparent 18%, rgba(5,5,5,.12) 48%, #050505 83%),
+      linear-gradient(90deg, rgba(5,5,5,.12), transparent 50%, rgba(5,5,5,.12));
+  }
+  .evolv-welcome .evolv-welcome-message {
+    inset: auto 0 max(4rem, env(safe-area-inset-bottom));
+    width: calc(100% - 3.8rem);
+    min-height: auto;
+    margin: 0 auto;
+    padding: 0 0 1rem;
+  }
+  .evolv-welcome .evolv-welcome-message > h1 {
+    max-width: 36rem;
+  }
+  .evolv-welcome .evolv-welcome-message > p {
+    max-width: 34rem;
+  }
+}
+
+/* Keep the welcome copy readable by gently darkening the atmosphere beneath it. */
+.evolv-welcome .evolv-welcome-message::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2rem -4rem;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg,
+      #050505 0%,
+      rgba(5, 5, 5, .97) 35%,
+      rgba(5, 5, 5, .82) 58%,
+      rgba(5, 5, 5, .38) 82%,
+      transparent 100%);
+}
+
+@media (max-width: 760px) {
+  .evolv-welcome .evolv-welcome-message::after {
+    inset: -3rem -2rem -2rem;
+    background:
+      linear-gradient(180deg,
+        transparent 0%,
+        rgba(5, 5, 5, .72) 12%,
+        rgba(5, 5, 5, .94) 36%,
+        #050505 78%,
+        #050505 100%);
+  }
+}
+

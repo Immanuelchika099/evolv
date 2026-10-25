@@ -1526,7 +1526,6 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
             intro
             paused={false}
           />
-          <span className="evolv-welcome-visual-caption">GROW AT YOUR OWN PACE</span>
         </div>
         <section className="evolv-welcome-message">
           <h1>Become who<br />you’re <em>capable of.</em></h1>
