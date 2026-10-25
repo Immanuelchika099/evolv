@@ -1627,3 +1627,25 @@
 @media (prefers-reduced-motion: reduce) {
   .quick-log-overlay.quick-log-wheel-mode .option-wheel__item { transition: none; }
 }
+
+
+/* Final interaction polish: keep the selector tucked in from the right,
+   enlarge the labels, and remove the floating Log control while open. */
+.quick-log-overlay.quick-log-wheel-mode .option-wheel {
+  transform: translateX(-.9rem);
+}
+.quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
+  font-size: 3rem !important;
+}
+.evolv-floating-log.is-open {
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(.92) !important;
+  transition: opacity 140ms ease, transform 140ms ease, visibility 140ms ease;
+}
+@media (max-width: 480px) {
+  .quick-log-overlay.quick-log-wheel-mode .option-wheel__item {
+    font-size: 3rem !important;
+  }
+}
