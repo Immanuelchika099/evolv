@@ -10538,3 +10538,194 @@ html body #root .dashboard .dashboard-home.calm-home .calm-insights-section > * 
     right: -22rem;
   }
 }
+
+
+/* PHASE 2 — Home dashboard hierarchy and responsive polish */
+html body #root .dashboard .dashboard-home.calm-home {
+  width: min(100%, 112rem);
+  margin-inline: auto;
+  padding: clamp(1.8rem, 3vw, 3.2rem) clamp(1.6rem, 3.2vw, 2.4rem) 15rem;
+  color: #fff;
+  gap: clamp(2.4rem, 4vw, 3.6rem);
+}
+html body #root .dashboard .dashboard-home.calm-home > section {
+  min-width: 0;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-home-welcome {
+  min-height: 12rem;
+  display: flex;
+  align-items: flex-end;
+  padding: 1.2rem 0 0;
+  margin: 0;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-home-greeting {
+  display: block;
+  margin-bottom: .8rem;
+  color: rgba(255,255,255,.58);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: .01em;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-home-welcome h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(4rem, 5.3vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  font-weight: 400;
+}
+html body #root .dashboard .dashboard-home.calm-home h2 {
+  color: rgba(255,255,255,.96);
+  font-size: clamp(2rem, 2.5vw, 2.5rem);
+  line-height: 1.2;
+  letter-spacing: -.02em;
+  font-weight: 450;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-checkin,
+html body #root .dashboard .dashboard-home.calm-home .calm-week-card,
+html body #root .dashboard .dashboard-home.calm-home .calm-insights-section,
+html body #root .dashboard .dashboard-home.calm-home .today-card {
+  margin: 0;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-checkin {
+  padding: clamp(1.8rem, 3vw, 2.4rem);
+  border: 1px solid rgba(255,255,255,.085);
+  border-radius: 2.8rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-checkin > p {
+  margin: .7rem 0 1.8rem;
+  color: rgba(255,255,255,.52);
+  font-size: 1.4rem;
+  line-height: 1.5;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-mood-options {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: clamp(.7rem, 1.4vw, 1.4rem);
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-mood-option {
+  min-width: 0;
+  min-height: 9.4rem;
+  padding: 1.1rem .5rem .9rem;
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 1.8rem;
+  background: rgba(0,0,0,.22);
+  color: rgba(255,255,255,.78);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .9rem;
+  transition: background-color .2s ease, border-color .2s ease, transform .2s ease;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-mood-option:hover {
+  background: rgba(229,134,66,.075);
+  border-color: rgba(229,134,66,.28);
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-mood-option:active {
+  transform: scale(.98);
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-mood-avatar-wrap {
+  width: 4.6rem;
+  height: 4.6rem;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background: rgba(255,255,255,.045);
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-mood-option small {
+  max-width: 100%;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 450;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-week-card {
+  padding: clamp(1.8rem, 3vw, 2.4rem);
+  border: 1px solid rgba(255,255,255,.075);
+  border-radius: 2.8rem;
+  background: linear-gradient(145deg, rgba(255,255,255,.035), rgba(255,255,255,.012));
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-week-head {
+  gap: 1.2rem;
+  align-items: center;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-section-kicker,
+html body #root .dashboard .dashboard-home.calm-home .calm-week-period {
+  color: rgba(255,255,255,.43);
+  font-size: 1.1rem;
+  letter-spacing: .11em;
+  font-weight: 500;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-week-bar-column {
+  min-width: 0;
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-week-bar {
+  border-radius: 999px 999px .7rem .7rem;
+  background: linear-gradient(180deg, rgba(229,134,66,.95), rgba(174,78,35,.42));
+  box-shadow: 0 0 2rem rgba(229,134,66,.08);
+}
+html body #root .dashboard .dashboard-home.calm-home .calm-week-day-button {
+  min-height: 4rem;
+}
+html body #root .dashboard .dashboard-home.calm-home .today-metric {
+  border: 1px solid rgba(255,255,255,.065);
+  border-radius: 1.8rem;
+  padding: 1.2rem 1.4rem;
+  background: rgba(255,255,255,.022);
+}
+html body #root .dashboard .dashboard-home.calm-home .today-metric:hover {
+  border-color: rgba(229,134,66,.22);
+  background: rgba(255,255,255,.035);
+}
+html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
+  outline: 2px solid rgba(229,134,66,.8);
+  outline-offset: 3px;
+}
+@media (max-width: 760px) {
+  html body #root .dashboard .dashboard-home.calm-home {
+    padding: 1.6rem 1.6rem 14rem;
+    gap: 2.2rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-home-welcome {
+    min-height: 9.5rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-home-welcome h1 {
+    font-size: clamp(4rem, 11vw, 5rem);
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-checkin,
+  html body #root .dashboard .dashboard-home.calm-home .calm-week-card {
+    border-radius: 2.4rem;
+    padding: 1.8rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-mood-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .8rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-mood-option {
+    min-height: 9rem;
+  }
+}
+@media (max-width: 380px) {
+  html body #root .dashboard .dashboard-home.calm-home {
+    padding-inline: 1.2rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-mood-options {
+    gap: .6rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .calm-mood-option small {
+    font-size: 1.15rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .dashboard .dashboard-home.calm-home .calm-mood-option {
+    transition: none;
+  }
+}
