@@ -1661,3 +1661,33 @@
     font-size: 4rem !important;
   }
 }
+
+
+/* Quiet close control for the blurred quick-log wheel. */
+.quick-log-wheel-close {
+  position: fixed;
+  top: calc(1.2rem + env(safe-area-inset-top, 0px));
+  left: 1.2rem;
+  z-index: 200003;
+  display: grid;
+  place-items: center;
+  width: 4.2rem;
+  height: 4.2rem;
+  padding: 0;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 1.2rem;
+  background: #171717;
+  color: rgba(255,255,255,.9);
+  box-shadow: none;
+  -webkit-tap-highlight-color: transparent;
+}
+.quick-log-wheel-close:active {
+  background: #202020;
+}
+.quick-log-wheel-close:focus-visible {
+  outline: 2px solid rgba(255,255,255,.65);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .quick-log-wheel-close { transition: none; }
+}
