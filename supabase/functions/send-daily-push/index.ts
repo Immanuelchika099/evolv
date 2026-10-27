@@ -282,7 +282,7 @@ Deno.serve(async (req) => {
       }
 
       let notification = { title: message.title(names[row.user_id] || "there"), body: message.body }
-      if (kind === "morning") {
+      if (kind === "morning" || kind === "reflection") {
         const generated = await generatePersonalNotification(admin, row.user_id, (profiles || []).find(profile => profile.id === row.user_id), clock.date)
         if (!generated) {
           await admin.from("notification_delivery_log").delete()
