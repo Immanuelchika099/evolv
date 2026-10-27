@@ -241,8 +241,8 @@ export default function ProfileSettingsPage({pageProps}){
         </div>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Account actions</p>
           <section className="profile-settings-section profile-v2-actions" aria-label="Account actions">
-            <div className="profile-v2-action-row"><span className="profile-v2-action-icon"><LogOut size={18}/></span><span className="profile-account-action-copy"><strong>Log out</strong><small>Sign out on this device. Your data stays saved.</small></span><button type="button" className="profile-v2-row-action" onClick={()=>setConfirmAction('logout')} aria-label="Log out"><ChevronRight size={18}/></button></div>
-            <div className="profile-v2-action-row is-danger"><span className="profile-v2-action-icon"><Trash2 size={18}/></span><span className="profile-account-action-copy"><strong>Delete account</strong><small>Permanently remove your account and saved information.</small></span><button type="button" className="profile-v2-row-action" onClick={()=>setConfirmAction('delete')} aria-label="Delete account"><ChevronRight size={18}/></button></div>
+            <button type="button" className="profile-v2-action-row" onClick={()=>setConfirmAction('logout')}><span className="profile-v2-action-icon"><LogOut size={18}/></span><span className="profile-account-action-copy"><strong>Log out</strong><small>Sign out on this device. Your data stays saved.</small></span><span className="profile-v2-row-action" aria-hidden="true"><ChevronRight size={18}/></span></button>
+            <button type="button" className="profile-v2-action-row is-danger" onClick={()=>setConfirmAction('delete')}><span className="profile-v2-action-icon"><Trash2 size={18}/></span><span className="profile-account-action-copy"><strong>Delete account</strong><small>Permanently remove your account and saved information.</small></span><span className="profile-v2-row-action" aria-hidden="true"><ChevronRight size={18}/></span></button>
           </section>
         </div>
       </>}
