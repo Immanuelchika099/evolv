@@ -2823,11 +2823,9 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
           <div className="emo-step__emoji-stage" aria-hidden="true">
             <span className="emo-step__emoji" key={selectedEmotion.emoji}>{selectedEmotion.emoji}</span>
           </div>
-          <p className="emo-step__label" aria-live="polite">{selectedEmotion.label}</p>
           <div className="emo-slider">
             <input type="range" min="0" max="100" step="1" value={emotionValue} onChange={event=>chooseEmotion(event.target.value)} aria-label="How pleasant do you feel right now" aria-valuetext={selectedEmotion.label}/>
           </div>
-          <div className="emo-step__ends"><span>Very unpleasant</span><span>Very pleasant</span></div>
           <button className="emo-step__next" type="button" onClick={continueEmotion}>Next <ArrowRight size={17}/></button>
         </section>
       </> : step===2 ? <>
