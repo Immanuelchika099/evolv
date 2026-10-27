@@ -102,6 +102,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       // Conversations can add context, but must not manufacture an insight on their own.
       if (!(logs || []).length && !(meals || []).length && !(goals || []).some(goal => goal.status === 'active')) {
         setInsight(null)
+        setInsights([])
         setStatus('')
         return
       }
@@ -165,6 +166,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
 
       if (!recentLogs.length && !recentMeals.length && !activeGoals.length) {
         setInsight(null)
+        setInsights([])
         setStatus('Your insight will appear here after your first check-in.')
         return
       }
