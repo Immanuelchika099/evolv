@@ -42,7 +42,6 @@ export default function ProfileSettingsPage({pageProps}){
   const [draft,setDraft]=useState({name:profileName||'',email:profile?.email||'',bio:''})
   const [editOpen,setEditOpen]=useState(false),[saving,setSaving]=useState(false),[error,setError]=useState('')
   const [toast,setToast]=useState(''),[toastError,setToastError]=useState(false),[confirmAction,setConfirmAction]=useState(null),[resetting,setResetting]=useState(false)
-  const [testPushBusy,setTestPushBusy]=useState(false)
   const [avatarPreview,setAvatarPreview]=useState(''),[avatarBusy,setAvatarBusy]=useState(false),[localAvatar,setLocalAvatar]=useState(avatarUrl||''),[unsaved,setUnsaved]=useState(false)
   const [avatarStudioOpen,setAvatarStudioOpen]=useState(false)
   const [photoMenuOpen,setPhotoMenuOpen]=useState(false)
@@ -247,10 +246,6 @@ export default function ProfileSettingsPage({pageProps}){
               <input type="time" aria-label="Evening notification time" value={notificationTimes.reflectionTime||'20:00'} onChange={e=>saveNotificationTime?.('reflectionTime',e)}/>
             </div>}
             <p className="profile-notification-help">Changes save automatically. Turn Daily reminders on and allow notifications on your device to receive them.</p>
-            <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide">
-              <div><strong>Test a notification</strong><span>Send a sample push to this device.</span></div>
-              <button type="button" className="profile-inline-action" disabled={!notificationsEnabled||testPushBusy} onClick={async()=>{setTestPushBusy(true);try{const {data,error}=await supabase.functions.invoke('send-test-push');if(error)throw error;setToast(data?.sent?'Test notification sent. Check your device.':(data?.message||'No active push subscription found.'));setToastError(!data?.sent)}catch(error){setToast(error?.message||'Could not send a test notification.');setToastError(true)}finally{setTestPushBusy(false)}}}>{testPushBusy?'Sending…':'Send test'}</button>
-            </div>
             <SettingToggle label="Streak alerts" description="Keep a quiet nudge when a streak is at risk." checked={settings.streakAlerts} onChange={v=>updateSetting('streakAlerts',v)}/>
             <SettingToggle label="Weekly summary" description="Keep a weekly view of how consistently you showed up." checked={settings.weeklySummary} onChange={v=>updateSetting('weeklySummary',v)}/>
             <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
