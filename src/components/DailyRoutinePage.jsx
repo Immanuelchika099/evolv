@@ -237,8 +237,7 @@ export default function DailyRoutinePage({ pageProps }) {
     <div className="daily-routine-page">
       <header className="routine-heading">
         <div>
-          <span className="routine-eyebrow">YOUR DAY</span>
-          <h1>Daily routine<span>.</span></h1>
+          <h1>Daily Routine<span>.</span></h1>
         </div>
         <div className="routine-date">{new Date().toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</div>
       </header>
