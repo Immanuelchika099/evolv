@@ -195,7 +195,7 @@ function HomePage({ pageProps }) {
           <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
         </div>
         {activeGoals.length ? (
-          <div className="calm-goal-snapshot">
+          <div className="calm-goal-snapshot" role="button" tabIndex={0} aria-label="Open your goals" onClick={()=>goTo('goals')} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();goTo('goals')}}}>
             <div className="calm-goal-snapshot-top">
               <span className="calm-focus-mark"><Target size={19}/></span>
               <div className="calm-goal-snapshot-copy">
