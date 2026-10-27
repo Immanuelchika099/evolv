@@ -26,6 +26,68 @@ const DEFAULTS = {
   reflection: { title: () => "Your day, before you close it 🌙", body: "A quiet moment is waiting. How did today feel?", defaultTime: "22:30", url: "/dashboard?reflection=1" }
 }
 
+async function generatePersonalNotification(admin, userId, profile, date) {
+  const apiKey = Deno.env.get("GEMINI_API_KEY")
+  if (!apiKey) {
+    console.error("EVOLV AI notification skipped: GEMINI_API_KEY is not configured.")
+    return null
+  }
+
+  const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
+  const [goalsResult, logsResult, reflectionResult] = await Promise.all([
+    admin.from("goals").select("title,description,status,progress").eq("user_id", userId).limit(10),
+    admin.from("metric_logs").select("logged_at,value,unit,note,metric_id").eq("user_id", userId).gte("logged_at", since).order("logged_at", { ascending: false }).limit(20),
+    admin.from("daily_reflections").select("reflection_date,mood,notes").eq("user_id", userId).gte("reflection_date", date.slice(0, 7) + "-01").order("reflection_date", { ascending: false }).limit(5)
+  ])
+
+  const context = {
+    firstName: profile?.first_name || null,
+    goals: goalsResult.error ? [] : goalsResult.data || [],
+    recentLogs: logsResult.error ? [] : logsResult.data || [],
+    reflections: reflectionResult.error ? [] : reflectionResult.data || [],
+    date
+  }
+  if (!context.firstName && !context.goals.length && !context.recentLogs.length && !context.reflections.length) return null
+
+  const prompt = [
+    "Create one personalised push notification for a calm, AI-powered productivity and personal growth app.",
+    "Use only this data; never invent progress, feelings, habits, or missed activities.",
+    "Return JSON only with string keys title and body.",
+    "Title: friendly natural lowercase, 2-5 words. Body: one short sentence, ideally 8-14 words.",
+    "No app name, no brand footer, no emoji, no guilt, no generic water or meal reminders.",
+    "If there are no logs, encourage a first small step related to an actual goal if one exists.",
+    "If context is too thin to provide a genuinely useful message, return JSON with empty title and body.",
+    "User data: " + JSON.stringify(context)
+  ].join("\n")
+
+  try {
+    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.7, responseMimeType: "application/json", maxOutputTokens: 160 }
+      }),
+      signal: AbortSignal.timeout(10000)
+    })
+    if (!response.ok) {
+      console.error("EVOLV AI notification generation failed:", response.status)
+      return null
+    }
+    const result = await response.json()
+    const raw = result?.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("").trim()
+    if (!raw) return null
+    const parsed = JSON.parse(raw)
+    const title = String(parsed.title || "").replace(/[\r\n]+/g, " ").trim().slice(0, 48).toLowerCase()
+    const body = String(parsed.body || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim().slice(0, 140)
+    if (!title || !body || body.split(/\s+/).length > 22) return null
+    return { title, body }
+  } catch (error) {
+    console.error("EVOLV AI notification error:", String(error?.message || error))
+    return null
+  }
+}
+
 function localClock(timezone) {
   const parts = new Intl.DateTimeFormat("en-GB", {
     timeZone: timezone, year: "numeric", month: "2-digit", day: "2-digit",
@@ -219,9 +281,20 @@ Deno.serve(async (req) => {
         continue
       }
 
+      let notification = { title: message.title(names[row.user_id] || "there"), body: message.body }
+      if (kind === "morning") {
+        const generated = await generatePersonalNotification(admin, row.user_id, (profiles || []).find(profile => profile.id === row.user_id), clock.date)
+        if (!generated) {
+          await admin.from("notification_delivery_log").delete()
+            .eq("user_id", row.user_id).eq("delivery_date", clock.date).eq("kind", kind)
+          continue
+        }
+        notification = generated
+      }
+
       const payload = {
-        title: message.title(names[row.user_id] || "there"),
-        body: message.body,
+        title: notification.title,
+        body: notification.body,
         icon: "/evolv-mark.svg",
         badge: "/evolv-mark.svg",
         tag: "evolv-" + kind,
