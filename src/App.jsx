@@ -2406,8 +2406,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   }
 
   async function saveNotificationFrequency(value){
-    const frequency=Math.max(1,Math.min(3,Number(value)||1))
-    const next={...notificationTimes,aiNotificationFrequency:frequency,morning:true,hydration:frequency>=2,reflection:frequency>=3}
+    const frequency=Math.max(1,Math.min(6,Number(value)||1))
+    const next={...notificationTimes,aiNotificationFrequency:frequency,morning:true,hydration:frequency>=4,reflection:frequency>=3}
     persistNotificationTimes(next)
     if(notificationsEnabled){
       const synced=await syncCurrentPushSettings(next)
