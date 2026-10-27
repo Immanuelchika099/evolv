@@ -2711,7 +2711,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
 function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,type,setType,onSave,onClose}){
   const [currentTime,setCurrentTime]=useState(()=>new Date())
-  const [emotionValue,setEmotionValue]=useState(72)
+  const [emotionValue,setEmotionValue]=useState(50)
   useEffect(()=>{
     let timer
     const tick=()=>{
