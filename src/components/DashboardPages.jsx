@@ -103,24 +103,11 @@ function HomePage({ pageProps }) {
   ].slice(0, 3)
 
   function startCheckIn(selectedMood = '') {
-    const mood = String(selectedMood || '').trim().toLowerCase()
-    const moodPrompts = {
-      happy: "I checked in on EVOLV and I'm feeling happy today. Start a gentle conversation about what's been going well. Ask one question at a time and only save a mood record after confirming the details with me.",
-      normal: "I checked in on EVOLV and I'm feeling pretty normal today. Help me check in without assuming anything is wrong or unusually good. Ask one gentle question at a time and only save a mood record after confirming the details with me.",
-      mixed: "I checked in on EVOLV and have mixed feelings today. Help me unpack them gently, one question at a time, without rushing to label the day as good or bad. Only save a mood record after confirming the details with me.",
-      sad: "I checked in on EVOLV and I'm feeling sad today. Respond with warmth, without diagnosing me or trying to fix everything at once. Ask one gentle question at a time about what might be weighing on me. Only save a mood record after confirming the details with me.",
-      depressed: "I checked in on EVOLV and I'm feeling depressed today. Respond gently and without judgement or diagnosing me. Ask one question at a time about what support I need right now. Don't minimise how I feel. Only save a mood record after confirming the details with me.",
-      anxious: "I checked in on EVOLV and I'm feeling anxious today. Help me slow down and understand what's happening, one gentle question at a time. Don't assume the cause. Only save a mood record after confirming the details with me.",
-      overwhelmed: "I checked in on EVOLV and I'm feeling overwhelmed today. Help me slow things down and find one manageable next step. Ask one gentle question at a time and don't assume the cause.",
-      stressed: "I checked in on EVOLV and I'm feeling stressed today. Help me slow down and understand what's putting pressure on me. Ask one gentle question at a time, then help me find one manageable next step. Don't diagnose me or assume the cause. Only save a mood record after confirming the details with me."
-    }
-    if (mood && moodPrompts[mood]) {
-      localStorage.setItem('evolv-ai-auto-prompt', moodPrompts[mood])
-      goTo('ai')
+    if (moodMetric) {
+      openLog(metricArea[moodMetric.slug] || 'health', moodMetric)
       return
     }
-    if (moodMetric) openLog(metricArea[moodMetric.slug] || 'health', moodMetric)
-    else openLog()
+    openLog()
   }
 
   return (
