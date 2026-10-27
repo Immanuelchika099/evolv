@@ -1552,7 +1552,7 @@
 .dashboard .dashboard-pages > .daily-routine-page,
 .dashboard .dash-main > .panel-page,
 .dashboard .panel-page.settings-page{
-  padding-bottom:6.5rem!important;
+  padding-bottom:5.5rem!important;
 }
 @media(max-width:700px){
   .dashboard .dashboard-pages > .panel-page,
@@ -1560,6 +1560,6 @@
   .dashboard .dashboard-pages > .daily-routine-page,
   .dashboard .dash-main > .panel-page,
   .dashboard .panel-page.settings-page{
-    padding-bottom:5.5rem!important;
+    padding-bottom:4.5rem!important;
   }
 }
