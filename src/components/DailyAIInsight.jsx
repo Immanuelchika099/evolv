@@ -3,6 +3,15 @@ import { ArrowRight, ArrowUpRight, RefreshCw, Sparkles } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import DepthCarousel from './DepthCarousel'
 
+function hashText(value) {
+  let hash = 2166136261
+  for (let index = 0; index < value.length; index += 1) {
+    hash ^= value.charCodeAt(index)
+    hash = Math.imul(hash, 16777619)
+  }
+  return (hash >>> 0).toString(36)
+}
+
 function localDateKey(date = new Date()) {
   const year = date.getFullYear()
   const month = String(date.getMonth() + 1).padStart(2, '0')
@@ -56,6 +65,12 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
   const [refreshing, setRefreshing] = useState(false)
   const [status, setStatus] = useState('')
   const loadedOnce = useRef(false)
+  const lastInputSignature = useRef('')
+  const inputSignature = JSON.stringify({
+    goals: (goals || []).map(goal => ({ id: goal.id, title: goal.title, description: goal.description, status: goal.status, progress: goal.progress, updated_at: goal.updated_at })),
+    logs: (logs || []).map(entry => ({ id: entry.id, metric_id: entry.metric_id, value: entry.value_numeric ?? entry.value, logged_for: entry.logged_for, logged_at: entry.logged_at, note: entry.note })),
+    meals: (meals || []).map(meal => ({ id: meal.id, description: meal.description, meal_type: meal.meal_type, logged_at: meal.logged_at })),
+  })
 
   async function generateInsight(options = {}) {
     const force = Boolean(options.force)
@@ -71,7 +86,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       }
 
       const today = localDateKey()
-      const cacheKey = 'evolv-ai-insight-stack:' + userId + ':' + today
+      const cacheKey = 'evolv-ai-insight-stack:' + userId + ':' + today + ':' + hashText(inputSignature)
       if (!force) {
         try {
           const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null')
@@ -85,7 +100,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
 
       // Keep the insight genuinely empty until the user has logged something.
       // Conversations can add context, but must not manufacture an insight on their own.
-      if (!(logs || []).length && !(meals || []).length) {
+      if (!(logs || []).length && !(meals || []).length && !(goals || []).some(goal => goal.status === 'active')) {
         setInsight(null)
         setStatus('')
         return
@@ -148,7 +163,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
         description: String(goal.description || '').slice(0, 90),
       }))
 
-      if (!recentLogs.length && !recentMeals.length) {
+      if (!recentLogs.length && !recentMeals.length && !activeGoals.length) {
         setInsight(null)
         setStatus('Your insight will appear here after your first check-in.')
         return
@@ -157,6 +172,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       const promptParts = [
         'Create THREE distinct, short, evidence-based EVOLV insight cards for this user from the data below. They will rotate in a small dashboard carousel.',
         'Use only supplied context or real data returned by get_user_insights; call that tool when enough context exists. Never invent details, infer missing habits, or claim a trend from one entry.',
+        'The Active goals list is the source of truth. Never mention, reuse, or imply a goal that is absent from that list, even if it appears in conversations or previous insights. Ignore deleted, completed, archived, and cancelled goals.',
         'Make each insight meaningfully different, grounded in available records or conversation, and avoid generic encouragement. Reflect feelings carefully; never diagnose mental health or quote sensitive details unsolicited. State uncertainty when needed.',
         'Each title should be 2–5 words. Each observation must be one concise sentence (ideally under 16 words). Each suggestion must be one short action (ideally under 10 words). Keep evidence optional and very short.',
         'Return ONLY JSON: {"insights":[{"category":"sleep|mood|nutrition|money|career|routine|personal","title":"short title","observation":"one grounded sentence","suggestion":"one small action","evidence":["short factual signal"]}, ... exactly 3 distinct items]}. If evidence is insufficient return {"insufficient_data":true,"message":"one kind sentence inviting more check-ins"}.',
@@ -235,10 +251,13 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
   generateInsightRef.current = generateInsight
 
   useEffect(() => {
-    if (dataLoading || loadedOnce.current) return
+    if (dataLoading) return
+    if (lastInputSignature.current === inputSignature) return
+    const hasLoaded = loadedOnce.current
+    lastInputSignature.current = inputSignature
     loadedOnce.current = true
-    generateInsightRef.current()
-  }, [dataLoading])
+    generateInsightRef.current(hasLoaded ? { force: true } : {})
+  }, [dataLoading, inputSignature])
 
   function openConversation() {
     try {
