@@ -242,13 +242,13 @@
 
 /* Keep the fixed bottom navigation clear without leaving a large empty tail
    after the content on every dashboard destination. */
-.dashboard-pages .panel-page{padding-bottom:6.5rem!important}
-.dashboard-home{padding-bottom:6.5rem!important}
+.dashboard-pages .panel-page{padding-bottom:5.5rem!important}
+.dashboard-home{padding-bottom:5.5rem!important}
 .dashboard .settings-page,
-.dashboard .logs-page{padding-bottom:6.5rem!important}
+.dashboard .logs-page{padding-bottom:5.5rem!important}
 @media(max-width:700px){
   .dashboard-pages .panel-page,
   .dashboard-home,
   .dashboard .settings-page,
-  .dashboard .logs-page{padding-bottom:5.5rem!important}
+  .dashboard .logs-page{padding-bottom:4.5rem!important}
 }
