@@ -252,7 +252,6 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
     <section className="calm-insights-section" aria-labelledby="calm-insights-title">
       <div className="calm-focus-heading">
         <div>
-          <span className="calm-insights-eyebrow"><Sparkles size={13} /> PERSONALIZED REFLECTIONS</span>
           <h2 id="calm-insights-title">AI insights</h2>
         </div>
         {insight && <button type="button" onClick={openConversation} aria-label="Talk through today's insight"><ArrowRight size={18} /></button>}
