@@ -1140,14 +1140,14 @@ input:-webkit-autofill:focus {
 
 
 /* Daily Reflection: emoji-led Emotion step (no decorative stars or flower artwork). */
-.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 28px;overflow-x:hidden;min-height:min(560px,calc(88dvh - 24px));background:radial-gradient(ellipse 78% 46% at 50% 36%,rgba(229,134,66,.09),transparent 100%),#0a0908}
+.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 46% at 50% 36%,rgba(229,134,66,.09),transparent 100%),#0a0908}
 .emo-step{
   --mc-accent:var(--accent,#e58642);
   --mc-accent-hi:#f2812f;
   --mc-accent-deep:#c4500f;
   --mc-text:#fff4ea;
   --mc-muted:rgba(255,244,234,.55);
-  position:relative;isolation:isolate;width:100%;max-width:420px;min-height:490px;margin:0 auto;padding:0 0 4px;color:var(--mc-text);font-family:inherit;background:transparent;border-radius:24px;
+  position:relative;isolation:isolate;width:100%;max-width:420px;min-height:0;margin:0 auto;padding:0;color:var(--mc-text);font-family:inherit;background:transparent;border-radius:24px;
 }
 .emo-step *{box-sizing:border-box}\n.emo-step::before{content:"";position:absolute;z-index:-1;inset:-64px -54px -34px;pointer-events:none;background:radial-gradient(ellipse at 50% 43%,hsl(var(--emo-h,40) 88% 48% / .18),transparent 62%);filter:blur(34px);opacity:.9}
 .emo-step__bar{display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
@@ -1176,7 +1176,7 @@ input:-webkit-autofill:focus {
 .emo-mood-todo h2{margin:0;font-size:2.5rem;font-weight:500}
 .emo-mood-todo p{font-size:1.45rem;line-height:1.5;color:rgba(255,244,234,.65)}
 @media(max-width:480px){
-  .reflection-sheet-emotion{padding:20px 17px calc(24px + env(safe-area-inset-bottom));min-height:min(570px,calc(88dvh - 20px))}
+  .reflection-sheet-emotion{padding:18px 17px calc(12px + env(safe-area-inset-bottom));min-height:0}
   .emo-step{min-height:500px}\n  .emo-step__title{margin-top:20px;font-size:2.1rem}
   .emo-step__emoji-stage{width:min(100%,180px);margin-top:2px}
   .emo-step__emoji{font-size:6.5rem}
