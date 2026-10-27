@@ -1189,3 +1189,6 @@ input:-webkit-autofill:focus {
   .emo-step__emoji{animation:none}
   .emo-step__emoji-stage,.emo-step__emoji-stage::before,.emo-btn,.emo-step__next{transition:none}
 }
+
+/* Keep the selected emotion announced for assistive technology without visible text beneath the emoji. */
+.emo-step__label,.emo-step__ends{display:none}
