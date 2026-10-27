@@ -36,7 +36,7 @@ function HomePage({ pageProps }) {
   const {
     name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
     valueText, openLog, goTo, setArea, areas = {}, loading, logs = [], meals = [],
-    goals = []
+    goals = [], openReflection
   } = pageProps
 
   const firstName = String(name || '').trim().split(/\\s+/)[0] || 'there'
@@ -152,6 +152,12 @@ function HomePage({ pageProps }) {
           ))}
         </div>
       </section>
+
+      <button type="button" className="calm-reflection-entry" onClick={openReflection}>
+        <span className="calm-reflection-entry-icon"><NotebookPen size={19} /></span>
+        <span className="calm-reflection-entry-copy"><strong>Daily reflection</strong><small>Take a moment to check in with yourself.</small></span>
+        <ArrowRight size={18} />
+      </button>
 
       <section className="calm-week-card" aria-labelledby="calm-week-title">
         <div className="calm-week-head">
