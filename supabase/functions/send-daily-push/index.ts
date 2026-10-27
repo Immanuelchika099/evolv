@@ -184,7 +184,7 @@ Deno.serve(async (req) => {
 
   const [{ data: profiles }, { data: waterMetric }] = await Promise.all([
     userIds.length
-      ? admin.from("profiles").select("id,first_name").in("id", userIds)
+      ? admin.from("profiles").select("id,first_name,focus,first_goal,growth_areas").in("id", userIds)
       : Promise.resolve({ data: [] }),
     admin.from("metric_definitions").select("id").eq("slug", "water").maybeSingle()
   ])
@@ -239,7 +239,7 @@ Deno.serve(async (req) => {
     for (const [kind, message] of Object.entries(DEFAULTS)) {
       const frequency = Math.max(1, Math.min(3, Number(preferences.aiNotificationFrequency) || 1))
       const enabledForFrequency = kind === "morning" ? true : kind === "hydration" ? frequency >= 2 : frequency >= 3
-      if (!enabledForFrequency || preferences[kind] === false) continue
+      if (!enabledForFrequency) continue
 
       const timeKey = kind === "hydration" ? "aiAfternoonTime" : kind === "reflection" ? "reflectionTime" : "morningTime"
       const target = preferences[timeKey] || message.defaultTime
