@@ -8,6 +8,7 @@ import {
   Utensils, Sparkles, Send, Sunrise, X, LineChart, ChevronDown
 } from 'lucide-react'
 import './DashboardPages.css'
+import './styles/Notifications.css'
 import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
 import '../styles/tokens.css'
 import './styles/Profile.css'
@@ -756,13 +757,22 @@ function ProfilePage({ pageProps }) {
 }
 
 function NotificationsPage({ pageProps }) {
-  const { notifications = [], goTo, deleteNotification } = pageProps
+  const { notifications = [], goTo, deleteNotification, notificationTimes = {}, saveNotificationFrequency } = pageProps
   return <section className="panel-page dashboard-panel notifications-page">
         <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
         <div className="notifications-page-hero">
           <span className="section-label">YOUR NOTIFICATIONS</span>
           <h2>Notifications.</h2>
-          <p>See what EVOLV has sent you. Your reminder settings stay in Profile.</p>
+          <p>See what EVOLV has sent you and choose how often your AI coach checks in.</p>
+          <div className="notification-frequency-control">
+            <label htmlFor="ai-notification-frequency">AI notifications per day</label>
+            <select id="ai-notification-frequency" value={Number(notificationTimes.aiNotificationFrequency) || 1} onChange={event => saveNotificationFrequency?.(event.currentTarget.value)}>
+              <option value="1">1 time a day</option>
+              <option value="2">2 times a day</option>
+              <option value="3">3 times a day</option>
+            </select>
+            <small>Choose morning only, morning and afternoon, or all three daily check-ins.</small>
+          </div>
         </div>
         <div className="notifications-page-list">
           {notifications.length ? notifications.map(item=>{
