@@ -2476,7 +2476,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       user_id:u.id,
       reflection_date:reflectionDate,
       mood:({depressed:1,sad:1,numb:2,overwhelmed:2,anxious:2,mixed:3,normal:3,calm:4,hopeful:4,happy:5})[reflectionMood] ?? 3,
-      day_feeling:reflectionFeeling||null,
+      day_feeling:reflectionType==='mood'?(reflectionFeeling||null):null,
       note:reflectionNote.trim()||null,
       updated_at:new Date().toISOString()
     },{onConflict:'user_id,reflection_date'})
@@ -2498,7 +2498,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     localStorage.setItem('evolv-ai-start-new-chat', 'true')
     localStorage.setItem(
       'evolv-ai-pending-prompt',
-      `The user just completed a mood check-in and selected “${moodContext}”. ${reflectionContext}\n\nStart by responding naturally and compassionately to this mood, without saying that the user sent a message they did not type. Use their reflection context if provided. Do not diagnose, over-assume why they feel this way, or immediately turn this into productivity advice. Offer a gentle, relevant opening and ask at most one easy question. If they selected happy or hopeful, acknowledge that positively; if calm or normal, keep it relaxed; if mixed or numb, make room for uncertainty; if anxious or overwhelmed, help them slow things down; if sad or very low, prioritize empathy and connection. Keep the response concise and human. Do not claim to have saved or remembered anything beyond the completed check-in.`
+      `The user just completed a ${reflectionType==='emotion'?'current emotion check-in':'daily mood check-in'} and selected “${moodContext}”. ${reflectionContext}\n\nStart by responding naturally and compassionately to this mood, without saying that the user sent a message they did not type. Use their reflection context if provided. Do not diagnose, over-assume why they feel this way, or immediately turn this into productivity advice. Offer a gentle, relevant opening and ask at most one easy question. If they selected happy or hopeful, acknowledge that positively; if calm or normal, keep it relaxed; if mixed or numb, make room for uncertainty; if anxious or overwhelmed, help them slow things down; if sad or very low, prioritize empathy and connection. Keep the response concise and human. Do not claim to have saved or remembered anything beyond the completed check-in.`
     )
     closeReflection()
     setProfileMessage('')
@@ -2724,14 +2724,15 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
     return ()=>{window.clearTimeout(timer);document.removeEventListener('visibilitychange',onVisibility)}
   },[])
   const timeLabel=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit'}).format(currentTime)
-  const moods=[
-    {value:'happy',label:'Happy',expression:'good'},{value:'normal',label:'Feeling normal',expression:'okay'},
-    {value:'mixed',label:'Mixed feelings',expression:'neutral'},{value:'hopeful',label:'Hopeful',expression:'good'},
-    {value:'calm',label:'Calm',expression:'okay'},{value:'anxious',label:'Anxious',expression:'stressed'},
-    {value:'overwhelmed',label:'Overwhelmed',expression:'stressed'},{value:'sad',label:'Sad',expression:'low'},
-    {value:'depressed',label:'Depressed',expression:'low'},{value:'numb',label:'Numb',expression:'neutral'}
+  const levels=[
+    {value:'sad',label:'Very unpleasant',emoji:'😞',expression:'low'},
+    {value:'anxious',label:'Unpleasant',emoji:'😕',expression:'stressed'},
+    {value:'normal',label:'Neutral',emoji:'😐',expression:'neutral'},
+    {value:'happy',label:'Pleasant',emoji:'🙂',expression:'good'},
+    {value:'hopeful',label:'Very pleasant',emoji:'😄',expression:'good'}
   ]
-  const feelings=['Calm','Okay','Stressful','Energised','Heavy','Productive']
+  const selectedIndex=Math.max(0,levels.findIndex(item=>item.value===mood))
+  const selectedLevel=levels[selectedIndex]
   const characters=[
     {emoji:'😌',x:'10%',y:'8%',size:42,duration:'4.6s',delay:'0s'},
     {emoji:'😄',x:'27%',y:'0%',size:56,duration:'5.4s',delay:'.6s'},
@@ -2741,6 +2742,11 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
     {emoji:'😎',x:'69%',y:'2%',size:55,duration:'4.9s',delay:'1.4s'},
     {emoji:'😵‍💫',x:'84%',y:'43%',size:40,duration:'5.2s',delay:'.2s'},
   ]
+  function chooseLevel(index){
+    const next=levels[Math.min(levels.length-1,Math.max(0,Number(index)))]
+    setMood(next.value)
+    setFeeling(next.label)
+  }
   return <div className="reflection-overlay" role="dialog" aria-modal="true" aria-label="Daily reflection">
     <div className={'reflection-sheet'+(step===-1?' reflection-sheet-intro':'')}>
       <div className="reflection-sheet-handle"/>
@@ -2761,13 +2767,32 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
             <Check className="mood-card-check" size={23}/>
           </button>
         </div>
-        <button className="mood-card-next" type="button" onClick={()=>setStep(0)}>Next <ArrowRight size={17}/></button>
+        <button className="mood-card-next" type="button" onClick={()=>{setMood('normal');setFeeling('Neutral');setStep(0)}}>Next <ArrowRight size={17}/></button>
       </> : <>
-        <div className="reflection-sheet-head"><div><span className="section-label">DAILY REFLECTION</span><span className="reflection-step-label">{step+1} / 3</span></div><button type="button" className="reflection-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button></div>
-        {step===0&&<div className="reflection-step"><span className="reflection-kicker">{type==='emotion'?'RIGHT NOW':'CHECKING IN'}</span><h2>{type==='emotion'?'How are you feeling right now?':'What best describes how you feel?'}</h2><p>{type==='emotion'?'Take a moment to name the emotion you’re experiencing.':'Choose what feels closest. There’s no right or wrong answer.'}</p><div className="reflection-mood-grid">{moods.map(item=><button type="button" key={item.value} className={mood===item.value?'selected':''} onClick={()=>setMood(item.value)} aria-pressed={mood===item.value}><AvatarPortrait preferences={DEFAULT_AVATAR} expression={item.expression} className="reflection-mood-avatar"/><small>{item.label}</small></button>)}</div><button className="button button-primary reflection-next" type="button" disabled={!mood} onClick={()=>setStep(1)}>Continue <ArrowRight size={16}/></button></div>}
-        {step===1&&<div className="reflection-step"><span className="reflection-kicker">LOOKING BACK</span><h2>How did today feel overall?</h2><p>Pick the feeling that comes closest.</p><div className="reflection-feeling-grid">{feelings.map(item=><button type="button" key={item} className={feeling===item?'selected':''} onClick={()=>setFeeling(item)}>{item}</button>)}</div><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(0)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" disabled={!feeling} onClick={()=>setStep(2)}>Continue <ArrowRight size={16}/></button></div></div>}
-        {step===2&&<div className="reflection-step"><span className="reflection-kicker">A LITTLE SPACE</span><h2>Anything on your mind?</h2><p>Leave a note for yourself, or simply finish here.</p><textarea className="reflection-note" value={note} onChange={e=>setNote(e.target.value)} placeholder="Write anything you want to remember…" rows={5}/><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(1)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" onClick={onSave} disabled={saving}>{saving?'Saving…':'Save reflection'} {!saving&&<Check size={16}/>}</button></div></div>}
-        <div className="reflection-progress"><span className="active"/><span className={step>=1?'active':''}/><span className={step>=2?'active':''}/></div>
+        <div className="reflection-sheet-head"><div><span className="section-label">{type==='emotion'?'EMOTION CHECK-IN':'DAILY MOOD'}</span><span className="reflection-step-label">{step+1} / 2</span></div><button type="button" className="reflection-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button></div>
+        {step===0&&<div className="reflection-step">
+          <span className="reflection-kicker">{type==='emotion'?'RIGHT NOW':'LOOKING BACK'}</span>
+          <h2>{type==='emotion'?'How are you feeling right now?':'How has today felt overall?'}</h2>
+          <p>{type==='emotion'?'Slide to the feeling that fits this moment.':'Slide to the feeling that best describes your day.'}</p>
+          <div className="reflection-slider-mood" aria-live="polite">
+            <span className="reflection-slider-emoji" key={selectedLevel.emoji}>{selectedLevel.emoji}</span>
+            <strong>{selectedLevel.label}</strong>
+          </div>
+          <input className="reflection-mood-slider" aria-label={type==='emotion'?'Current emotion':'Overall mood today'} type="range" min="0" max="4" step="1" value={selectedIndex} onChange={event=>chooseLevel(event.target.value)} style={{'--mood-progress':(selectedIndex/4*100)+'%'}}/>
+          <div className="reflection-slider-labels"><span>Very unpleasant</span><span>Very pleasant</span></div>
+          <div className="reflection-step-actions">
+            <button type="button" className="reflection-back" onClick={()=>setStep(-1)}><ChevronLeft size={15}/> Back</button>
+            <button className="button button-primary reflection-next" type="button" onClick={()=>setStep(1)}>Continue <ArrowRight size={16}/></button>
+          </div>
+        </div>}
+        {step===1&&<div className="reflection-step">
+          <span className="reflection-kicker">A LITTLE SPACE</span>
+          <h2>Anything on your mind?</h2>
+          <p>{type==='emotion'?'Want to add context to how you feel right now?':'Want to leave a note about how today felt?' } This is optional.</p>
+          <textarea className="reflection-note" value={note} onChange={e=>setNote(e.target.value)} placeholder="Write anything you want to remember…" rows={5}/>
+          <div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(0)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" onClick={onSave} disabled={saving}>{saving?'Saving…':'Save reflection'} {!saving&&<Check size={16}/>}</button></div>
+        </div>}
+        <div className="reflection-progress"><span className="active"/><span className={step>=1?'active':''}/></div>
       </>}
     </div>
   </div>
