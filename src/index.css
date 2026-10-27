@@ -70,6 +70,16 @@
 *::before,
 *::after{
   box-sizing:border-box;
+  scrollbar-width:none;
+  -ms-overflow-style:none;
+}
+
+/* Hide native scrollbars globally without disabling scrolling. */
+*::-webkit-scrollbar{
+  display:none !important;
+  width:0 !important;
+  height:0 !important;
+  background:transparent !important;
 }
 
 html{
