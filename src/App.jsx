@@ -1699,7 +1699,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [profileName,setProfileName]=useState(data.name||'')
   const [profileMessage,setProfileMessage]=useState('')
   const [notificationsEnabled,setNotificationsEnabled]=useState(()=>localStorage.getItem('evolv-notifications-enabled')==='true')
-  const defaultNotificationTimes={morning:true,hydration:true,reflection:true,morningTime:'08:00',hydrationTime:'13:00',reflectionTime:'22:30',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
+  const defaultNotificationTimes={morning:true,hydration:false,reflection:false,aiNotificationFrequency:1,morningTime:'08:00',aiAfternoonTime:'14:00',reflectionTime:'20:00',quietHours:true,quietStart:'23:00',quietEnd:'07:00'}
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
   const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
   const [reflectionOpen,setReflectionOpen]=useState(()=>new URLSearchParams(window.location.search).get('reflection')==='1')
@@ -2405,6 +2405,16 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     }
   }
 
+  async function saveNotificationFrequency(value){
+    const frequency=Math.max(1,Math.min(3,Number(value)||1))
+    const next={...notificationTimes,aiNotificationFrequency:frequency,morning:true,hydration:frequency>=2,reflection:frequency>=3}
+    persistNotificationTimes(next)
+    if(notificationsEnabled){
+      const synced=await syncCurrentPushSettings(next)
+      if(!synced) setProfileMessage('Saved on this device. EVOLV could not sync the notification schedule yet.')
+    }
+  }
+
   async function toggleNotificationTime(key){
     const next={...notificationTimes,[key]:!notificationTimes[key]}
     persistNotificationTimes(next)
@@ -2683,7 +2693,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, dailyReflections, valueText, openLog,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
     updateGoal, deleteGoal, checkInGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, saveProfile,
-    toggleNotifications, toggleNotificationTime, saveNotificationTime, toggleQuietHours, saveQuietHour, deleteNotification,
+    toggleNotifications, toggleNotificationTime, saveNotificationTime, saveNotificationFrequency, toggleQuietHours, saveQuietHour, deleteNotification,
     openReflection, setReflectionOpen, deleteAccount, onLogout, onArticle, data,
     handleAvatarChange, removeAvatar, setProfileMessage,
     WeeklyProgressChart,
