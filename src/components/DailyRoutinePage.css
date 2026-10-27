@@ -1004,3 +1004,24 @@ html body #root .daily-routine-page .routine-coach-card:active { transform:scale
 @media(prefers-reduced-motion:no-preference) {
   html body #root .daily-routine-page .routine-coach-track { scroll-behavior:smooth; }
 }
+
+
+/* Mobile top clearance: keep the Routine title comfortably below the app top bar. */
+@media (max-width: 700px) {
+  html body #root .daily-routine-page {
+    padding-top: 2.6rem !important;
+  }
+  html body #root .daily-routine-page .routine-heading {
+    margin-top: .4rem;
+    margin-bottom: 2.2rem;
+  }
+  html body #root .daily-routine-page .routine-heading h1 {
+    margin-top: 0;
+    line-height: 1.12;
+  }
+}
+@media (max-width: 390px) {
+  html body #root .daily-routine-page {
+    padding-top: 2.9rem !important;
+  }
+}
