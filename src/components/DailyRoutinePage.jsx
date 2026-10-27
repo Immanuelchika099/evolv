@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Activity, AlarmClock, Apple, Bell, BookOpen, Brain, Check, ChevronRight, Clock3, Droplets, Dumbbell, Flower2, HeartPulse, Moon, RotateCcw, Sunrise, Target, Utensils, WalletCards, Waves } from 'lucide-react'
 import { supabase } from '../lib/supabase'
-import DepthCarousel from './DepthCarousel'
 import './DailyRoutinePage.css'
 
 const WEEKDAYS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
