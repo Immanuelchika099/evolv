@@ -34,29 +34,38 @@ async function generatePersonalNotification(admin, userId, profile, date) {
   }
 
   const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
-  const [goalsResult, logsResult, reflectionResult] = await Promise.all([
-    admin.from("goals").select("title,description,status,progress").eq("user_id", userId).limit(10),
+  const [goalsResult, milestonesResult, logsResult, reflectionResult, checkinsResult] = await Promise.all([
+    admin.from("goals").select("id,title,description,status,progress,due_date,goal_type,next_action,updated_at").eq("user_id", userId).order("updated_at", { ascending: false }).limit(10),
+    admin.from("goal_milestones").select("id,goal_id,title,sort_order,is_completed,created_at,completed_at").eq("user_id", userId).eq("is_completed", false).order("sort_order", { ascending: true }).limit(30),
     admin.from("metric_logs").select("logged_at,value,unit,note,metric_id").eq("user_id", userId).gte("logged_at", since).order("logged_at", { ascending: false }).limit(20),
-    admin.from("daily_reflections").select("reflection_date,mood,notes").eq("user_id", userId).gte("reflection_date", date.slice(0, 7) + "-01").order("reflection_date", { ascending: false }).limit(5)
+    admin.from("daily_reflections").select("reflection_date,mood,day_feeling,note").eq("user_id", userId).gte("reflection_date", date.slice(0, 7) + "-01").order("reflection_date", { ascending: false }).limit(5),
+    admin.from("goal_checkins").select("goal_id,checkin_date,note").eq("user_id", userId).order("checkin_date", { ascending: false }).limit(10)
   ])
 
+  const goals = goalsResult.error ? [] : goalsResult.data || []
+  const allMilestones = milestonesResult.error ? [] : milestonesResult.data || []
   const context = {
     firstName: profile?.first_name || null,
-    goals: goalsResult.error ? [] : goalsResult.data || [],
+    goals: goals.map(goal => ({
+      ...goal,
+      nextUnfinishedSteps: allMilestones.filter(step => step.goal_id === goal.id).slice(0, 4)
+    })),
     recentLogs: logsResult.error ? [] : logsResult.data || [],
     reflections: reflectionResult.error ? [] : reflectionResult.data || [],
+    recentGoalCheckins: checkinsResult.error ? [] : checkinsResult.data || [],
     date
   }
-  if (!context.firstName && !context.goals.length && !context.recentLogs.length && !context.reflections.length) return null
+  if (!context.goals.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
 
   const prompt = [
-    "Create one personalised push notification for a calm, AI-powered productivity and personal growth app.",
-    "Use only this data; never invent progress, feelings, habits, or missed activities.",
-    "Return JSON only with string keys title and body.",
-    "Title: friendly natural lowercase, 2-5 words. Body: one short sentence, ideally 8-14 words.",
-    "No app name, no brand footer, no emoji, no guilt, no generic water or meal reminders.",
-    "If there are no logs, encourage a first small step related to an actual goal if one exists.",
-    "If context is too thin to provide a genuinely useful message, return JSON with empty title and body.",
+    "Create one genuinely useful, personalised push notification for a calm AI-powered productivity and growth app.",
+    "Use the user's actual goals and unfinished AI-planned goal steps as the primary source. Choose one concrete, realistic next action from the next unfinished step when possible.",
+    "For a goal with a political, career, fitness, learning, business, or other ambition, translate its saved steps into a practical nudge that helps the user act today. Example: if a saved step says to build relationships, suggest reaching out to one relevant person; never invent that this step exists.",
+    "If the goal has no saved steps, suggest one small, relevant next action grounded in the goal description, but do not claim the user has already done anything. For fitness, avoid unsupported workout or health claims; any routine suggestion should be clearly framed as a suggestion, not an established habit.",
+    "Use only supplied data. Never invent progress, feelings, missed activities, contacts, or completed tasks. Avoid repeating generic motivational quotes.",
+    "Return JSON only with string keys title and body. Title: friendly natural lowercase, 2-5 words. Body: one concise actionable sentence, ideally 8-16 words, maximum 22 words.",
+    "No app name, brand footer, emoji, guilt, generic water or meal reminders, or paragraphs. Make the message useful enough to give the user a reason to return to the app.",
+    "If there is no meaningful user context, return JSON with empty title and body.",
     "User data: " + JSON.stringify(context)
   ].join("\n")
 
