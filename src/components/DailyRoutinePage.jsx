@@ -255,48 +255,39 @@ export default function DailyRoutinePage({ pageProps }) {
 
       <section className="routine-coach-section">
         <div className="routine-section-heading routine-coach-heading">
-          <div><h2>What’s on your mind?</h2><p>Choose an area of life to reflect on with EVOLV.</p></div>
+          <div><h2>What’s on your mind?</h2></div>
         </div>
-        <DepthCarousel
-          items={routineCoaches}
-          cardWidth={292}
-          cardHeight={224}
-          radius={20}
-          depth={76}
-          spread={26}
-          tilt={4}
-          visibleCards={2}
-          falloff={0.12}
-          blur={0.45}
-          autoplay={false}
-          loop={true}
-          showControls={false}
-          showIndicators={true}
-          className="routine-coach-carousel"
-          onCardClick={(coach) => {
-            try {
-              localStorage.setItem('evolv-ai-start-new-chat', 'true')
-              localStorage.setItem('evolv-ai-auto-prompt', coach.prompt)
-            } catch {}
-            goTo('ai')
-          }}
-          renderItem={(coach) => {
-            const Icon = coach.icon
-            return (
-              <div className="routine-coach-card" style={{ '--routine-coach-accent': coach.color }}>
-                <div className="routine-coach-card-top">
-                  <span className="routine-coach-icon"><Icon size={23} strokeWidth={1.8}/></span>
-                  <span className="routine-coach-arrow" aria-hidden="true"><ChevronRight size={17}/></span>
-                </div>
-                <div className="routine-coach-card-copy">
-                  <h3>{coach.title}</h3>
-                  <p>{coach.description}</p>
-                </div>
-                <span className="routine-coach-card-hint">Explore with AI <ChevronRight size={13}/></span>
-              </div>
-            )
-          }}
-        />
+        <div className="routine-coach-carousel" aria-label="Explore reflection topics">
+          <div className="routine-coach-track">
+            {routineCoaches.map((coach) => {
+              const Icon = coach.icon
+              return (
+                <button
+                  type="button"
+                  className="routine-coach-card"
+                  key={coach.id}
+                  onClick={() => {
+                    try {
+                      localStorage.setItem('evolv-ai-start-new-chat', 'true')
+                      localStorage.setItem('evolv-ai-auto-prompt', coach.prompt)
+                    } catch {}
+                    goTo('ai')
+                  }}
+                >
+                  <span className="routine-coach-card-top">
+                    <span className="routine-coach-icon"><Icon size={23} strokeWidth={1.8}/></span>
+                    <span className="routine-coach-arrow" aria-hidden="true"><ChevronRight size={17}/></span>
+                  </span>
+                  <span className="routine-coach-card-copy">
+                    <span className="routine-coach-card-title">{coach.title}</span>
+                    <span className="routine-coach-card-description">{coach.description}</span>
+                  </span>
+                  <span className="routine-coach-card-hint">Explore with AI <ChevronRight size={13}/></span>
+                </button>
+              )
+            })}
+          </div>
+        </div>
       </section>
 
       <section className="routine-schedule-section">
