@@ -22,11 +22,12 @@ function alarmIsDue(clock, alarm) {
 }
 
 const DEFAULTS = {
-  morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Start gently. Choose one thing that would make today feel worthwhile.", defaultTime: "08:00", url: "/dashboard" },
-  reflection: { title: () => "Your day, before you close it 🌙", body: "A quiet moment is waiting. How did today feel?", defaultTime: "22:30", url: "/dashboard?reflection=1" }
+  morning: { title: () => "", body: "", defaultTime: "08:00", url: "/dashboard" },
+  hydration: { title: () => "", body: "", defaultTime: "14:00", url: "/dashboard" },
+  reflection: { title: () => "", body: "", defaultTime: "20:00", url: "/dashboard" }
 }
 
-async function generatePersonalNotification(admin, userId, profile, date) {
+async function generatePersonalNotification(admin, userId, profile, date, slot) {
   const apiKey = Deno.env.get("GEMINI_API_KEY")
   if (!apiKey) {
     console.error("EVOLV AI notification skipped: GEMINI_API_KEY is not configured.")
@@ -46,6 +47,9 @@ async function generatePersonalNotification(admin, userId, profile, date) {
   const allMilestones = milestonesResult.error ? [] : milestonesResult.data || []
   const context = {
     firstName: profile?.first_name || null,
+    onboardingFocus: profile?.focus || null,
+    onboardingGoal: profile?.first_goal || null,
+    growthAreas: profile?.growth_areas || [],
     goals: goals.map(goal => ({
       ...goal,
       nextUnfinishedSteps: allMilestones.filter(step => step.goal_id === goal.id).slice(0, 4)
@@ -55,10 +59,11 @@ async function generatePersonalNotification(admin, userId, profile, date) {
     recentGoalCheckins: checkinsResult.error ? [] : checkinsResult.data || [],
     date
   }
-  if (!context.goals.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
+  if (!context.goals.length && !context.onboardingGoal && !context.onboardingFocus && !context.growthAreas.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
 
   const prompt = [
     "Create one genuinely useful, personalised push notification for a calm AI-powered productivity and growth app.",
+    "This is the user's " + slot + " notification. Make it distinct in purpose from other daily nudges: morning = choose a next action, afternoon = make progress on a planned step, evening = review or prepare the next step. Never imply you know whether they acted today unless the supplied logs prove it.",
     "Use the user's actual goals and unfinished AI-planned goal steps as the primary source. Choose one concrete, realistic next action from the next unfinished step when possible.",
     "For a goal with a political, career, fitness, learning, business, or other ambition, translate its saved steps into a practical nudge that helps the user act today. Example: if a saved step says to build relationships, suggest reaching out to one relevant person; never invent that this step exists.",
     "If the goal has no saved steps, suggest one small, relevant next action grounded in the goal description, but do not claim the user has already done anything. For fitness, avoid unsupported workout or health claims; any routine suggestion should be clearly framed as a suggestion, not an established habit.",
@@ -232,9 +237,12 @@ Deno.serve(async (req) => {
     if (inQuietHours(clock, preferences)) continue
 
     for (const [kind, message] of Object.entries(DEFAULTS)) {
-      if (!preferences[kind]) continue
+      const frequency = Math.max(1, Math.min(3, Number(preferences.aiNotificationFrequency) || 1))
+      const enabledForFrequency = kind === "morning" ? true : kind === "hydration" ? frequency >= 2 : frequency >= 3
+      if (!enabledForFrequency || preferences[kind] === false) continue
 
-      const target = preferences[kind + "Time"] || message.defaultTime
+      const timeKey = kind === "hydration" ? "aiAfternoonTime" : kind === "reflection" ? "reflectionTime" : "morningTime"
+      const target = preferences[timeKey] || message.defaultTime
       if (!isDue(clock, target)) continue
 
       const { error: claimError } = await admin
@@ -291,8 +299,9 @@ Deno.serve(async (req) => {
       }
 
       let notification = { title: message.title(names[row.user_id] || "there"), body: message.body }
-      if (kind === "morning" || kind === "reflection") {
-        const generated = await generatePersonalNotification(admin, row.user_id, (profiles || []).find(profile => profile.id === row.user_id), clock.date)
+      if (kind === "morning" || kind === "hydration" || kind === "reflection") {
+        const slot = kind === "hydration" ? "afternoon" : kind === "reflection" ? "evening" : "morning"
+        const generated = await generatePersonalNotification(admin, row.user_id, (profiles || []).find(profile => profile.id === row.user_id), clock.date, slot)
         if (!generated) {
           await admin.from("notification_delivery_log").delete()
             .eq("user_id", row.user_id).eq("delivery_date", clock.date).eq("kind", kind)
@@ -309,11 +318,7 @@ Deno.serve(async (req) => {
         tag: "evolv-" + kind,
         url: message.url,
         data: { reminder: kind },
-        actions: kind === "reflection"
-          ? [{ action: "open", title: "Reflect now" }]
-          : kind === "hydration"
-            ? [{ action: "open", title: "Log water" }]
-            : [{ action: "open", title: "Open EVOLV" }]
+        actions: [{ action: "open", title: "Open EVOLV" }]
       }
 
       try {
