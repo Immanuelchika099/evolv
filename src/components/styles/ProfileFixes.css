@@ -1516,3 +1516,48 @@
     border-radius: 2rem !important;
   }
 }
+
+
+/* Notification controls: visible, editable and consistent with EVOLV's dark-orange UI. */
+.dashboard .profile-v2 .profile-ai-frequency-row select,
+.dashboard .profile-v2 .profile-reminder-time-row input[type="time"]{
+  width:auto;
+  min-width:13rem;
+  min-height:4.4rem;
+  padding:.7rem 1.1rem;
+  border:1px solid rgba(229,134,66,.32);
+  border-radius:1.2rem;
+  color:#f4eee8;
+  background:#17110d;
+  color-scheme:dark;
+  font:inherit;
+}
+.dashboard .profile-v2 .profile-reminder-time-row input[type="time"]{min-width:12rem}
+.dashboard .profile-v2 .profile-notification-help{
+  margin:.4rem 0 1.2rem;
+  color:rgba(244,238,232,.48);
+  font-size:1.25rem;
+  line-height:1.55;
+}
+@media(max-width:600px){
+  .dashboard .profile-v2 .profile-ai-frequency-row,
+  .dashboard .profile-v2 .profile-reminder-time-row{align-items:flex-start;gap:1.2rem}
+  .dashboard .profile-v2 .profile-ai-frequency-row select,
+  .dashboard .profile-v2 .profile-reminder-time-row input[type="time"]{min-width:11rem;max-width:14rem}
+}
+
+/* Use the same bottom breathing room as the main dashboard on every destination. */
+.dashboard .dashboard-pages > .panel-page,
+.dashboard .dashboard-pages > .routine-page,
+.dashboard .dash-main > .panel-page,
+.dashboard .panel-page.settings-page{
+  padding-bottom:6.5rem!important;
+}
+@media(max-width:700px){
+  .dashboard .dashboard-pages > .panel-page,
+  .dashboard .dashboard-pages > .routine-page,
+  .dashboard .dash-main > .panel-page,
+  .dashboard .panel-page.settings-page{
+    padding-bottom:5.5rem!important;
+  }
+}
