@@ -151,15 +151,22 @@
 
 /* Final AI insight glass correction: the card face itself must stay translucent.
    Scope this to the dashboard insights so other DepthCarousel uses are untouched. */
-.depth-carousel.daily-ai-depth-carousel .depth-carousel__card {
-  background: linear-gradient(145deg, rgba(25, 20, 17, .20), rgba(8, 8, 8, .28)) !important;
-  background-color: rgba(10, 9, 8, .22) !important;
-  border-color: rgba(255, 255, 255, .065) !important;
-  -webkit-backdrop-filter: blur(12px) saturate(1.18) !important;
-  backdrop-filter: blur(12px) saturate(1.18) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.035) !important;
-}
+
 .depth-carousel.daily-ai-depth-carousel .depth-carousel__card::before,
 .depth-carousel.daily-ai-depth-carousel .depth-carousel__card::after {
-  content: none !important;
+  content: none;
+}
+
+
+/* AI Insights gets its surface from DashboardPages.css; keep carousel cards transparent here. */
+.depth-carousel.daily-ai-depth-carousel .depth-carousel__card {
+  background: transparent;
+  border-color: rgba(214,112,66,.14);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+  box-shadow: none;
+}
+.depth-carousel.daily-ai-depth-carousel .daily-ai-insight-panel {
+  background: transparent;
+  background-image: none;
 }
