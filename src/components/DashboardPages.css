@@ -11666,3 +11666,38 @@ html body #root .reflection-step-actions .reflection-next:hover {
   filter: brightness(1.06) !important;
   transform: translateY(-1px);
 }
+
+
+/* Home goals card: the entire snapshot is a clear, accessible navigation target. */
+.dashboard-home.calm-home .calm-goal-snapshot { cursor:pointer; -webkit-tap-highlight-color:transparent; transition:background .18s ease,border-color .18s ease,transform .18s ease; }
+.dashboard-home.calm-home .calm-goal-snapshot:focus-visible { outline:2px solid rgba(229,134,66,.78); outline-offset:4px; border-radius:1.4rem; }
+.dashboard-home.calm-home .calm-goal-snapshot:active { transform:scale(.995); }
+
+/* Account actions are full-width buttons, not tiny arrow-only targets. */
+.dashboard .profile-v2-actions .profile-v2-action-row { appearance:none;-webkit-appearance:none;display:grid;grid-template-columns:4.2rem minmax(0,1fr) 3.6rem;align-items:center;gap:1.2rem;width:100%;min-width:0;padding:1.45rem 1.5rem;margin:0;border:1px solid rgba(255,255,255,.075);border-radius:1.45rem;background:rgba(255,255,255,.025);color:inherit;font:inherit;text-align:left;cursor:pointer;transition:background .18s ease,border-color .18s ease,transform .18s ease;-webkit-tap-highlight-color:transparent; }
+.dashboard .profile-v2-actions .profile-v2-action-row + .profile-v2-action-row { margin-top:.9rem; }
+.dashboard .profile-v2-actions .profile-v2-action-row:hover { background:rgba(255,255,255,.055);border-color:rgba(255,255,255,.13); }
+.dashboard .profile-v2-actions .profile-v2-action-row:active { transform:scale(.99); }
+.dashboard .profile-v2-actions .profile-v2-action-row:focus-visible { outline:2px solid rgba(229,134,66,.8);outline-offset:3px; }
+.dashboard .profile-v2-actions .profile-v2-action-row .profile-v2-row-action { display:grid;place-items:center;justify-self:end;width:3.4rem;height:3.4rem;border:1px solid rgba(255,255,255,.08);border-radius:1.1rem;background:rgba(255,255,255,.045);color:rgba(255,255,255,.72); }
+.dashboard .profile-v2-actions .profile-v2-action-row.is-danger .profile-v2-row-action { color:#e99595;border-color:rgba(229,115,115,.16);background:rgba(229,115,115,.055); }
+.dashboard .profile-v2-actions .profile-v2-action-row.is-danger:hover { border-color:rgba(229,115,115,.24);background:rgba(229,115,115,.045); }
+.dashboard .profile-v2-actions .profile-account-action-copy { min-width:0; }
+.dashboard .profile-v2-actions .profile-account-action-copy strong,.dashboard .profile-v2-actions .profile-account-action-copy small { display:block; }
+.dashboard .profile-v2-actions .profile-account-action-copy small { line-height:1.5; }
+@media(max-width:520px) { .dashboard .profile-v2-actions .profile-v2-action-row { grid-template-columns:3.8rem minmax(0,1fr) 3.2rem;gap:.9rem;padding:1.25rem 1.1rem; } }
+
+/* Confirmation dialogs: blue-tinted outer scrim and a refined charcoal dialog surface. */
+.dashboard .profile-modal-backdrop.confirmation-backdrop { background:rgba(13,39,76,.78)!important;-webkit-backdrop-filter:blur(16px) saturate(115%)!important;backdrop-filter:blur(16px) saturate(115%)!important; }
+.dashboard .profile-modal-backdrop.confirmation-backdrop .profile-modal.confirmation-modal { width:min(42rem,100%)!important;max-width:calc(100vw - 3.2rem)!important;padding:2.6rem!important;border:1px solid rgba(255,255,255,.13)!important;border-radius:2.2rem!important;background:linear-gradient(155deg,#1c1d20 0%,#111214 72%)!important;box-shadow:0 2.8rem 8rem rgba(0,0,0,.48),inset 0 1px 0 rgba(255,255,255,.055)!important;color:#f4eee8!important; }
+.dashboard .profile-modal.confirmation-modal .section-label { display:block;margin-bottom:.8rem;color:rgba(244,238,232,.48)!important;letter-spacing:.14em;font-size:1.05rem; }
+.dashboard .profile-modal.confirmation-modal h3 { margin:0;color:#f7f4f0!important;font-size:clamp(2.1rem,5vw,2.5rem)!important;font-weight:550!important;letter-spacing:-.035em;line-height:1.2; }
+.dashboard .profile-modal.confirmation-modal > p { margin:1.1rem 0 0!important;color:rgba(244,238,232,.65)!important;font-size:1.4rem!important;line-height:1.65!important; }
+.dashboard .profile-modal.confirmation-modal .confirmation-icon { width:4.8rem;height:4.8rem;margin-bottom:1.6rem;border-radius:1.45rem!important;border:1px solid rgba(229,134,66,.22)!important;background:rgba(229,134,66,.09)!important;color:#E58642!important; }
+.dashboard .profile-modal.confirmation-modal .confirmation-icon.is-destructive { border-color:rgba(229,115,115,.24)!important;background:rgba(229,115,115,.09)!important;color:#e99595!important; }
+.dashboard .profile-modal.confirmation-modal .profile-modal-actions { display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:.9rem!important;margin-top:2.2rem!important; }
+.dashboard .profile-modal.confirmation-modal .profile-modal-actions > button { display:inline-flex;align-items:center;justify-content:center;min-width:0;min-height:4.7rem!important;border-radius:1.25rem!important;font-size:1.35rem!important;font-weight:550; }
+.dashboard .profile-modal.confirmation-modal .profile-modal-actions .settings-cancel-button { border:1px solid rgba(255,255,255,.12)!important;background:rgba(255,255,255,.045)!important;color:rgba(244,238,232,.84)!important; }
+.dashboard .profile-modal.confirmation-modal .profile-modal-actions .settings-danger-button { border:1px solid rgba(229,134,66,.65)!important;background:#E58642!important;color:#17100b!important; }
+.dashboard .profile-modal.confirmation-modal .profile-modal-actions .settings-danger-button:hover { background:#ee9858!important; }
+@media(max-width:520px) { .dashboard .profile-modal-backdrop.confirmation-backdrop .profile-modal.confirmation-modal { padding:2rem!important;border-radius:1.9rem!important; } .dashboard .profile-modal.confirmation-modal .profile-modal-actions { gap:.75rem!important; } .dashboard .profile-modal.confirmation-modal .profile-modal-actions > button { padding-inline:.7rem; } }
