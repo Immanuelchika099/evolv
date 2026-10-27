@@ -2492,7 +2492,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     }
     const moodContext = moodLabels[reflectionMood] || reflectionMood || 'uncertain'
     const reflectionContext = [
-      reflectionFeeling ? `How today felt: ${reflectionFeeling}.` : '',
+      reflectionFeeling ? (reflectionType==='mood' ? `How today felt: ${reflectionFeeling}.` : `Right now, the user feels: ${reflectionFeeling}.`) : '',
       reflectionNote.trim() ? `What the user shared: “${reflectionNote.trim().slice(0, 1200)}”` : ''
     ].filter(Boolean).join(' ')
     localStorage.setItem('evolv-ai-start-new-chat', 'true')
