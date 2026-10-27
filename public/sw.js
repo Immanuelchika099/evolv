@@ -23,7 +23,17 @@ self.addEventListener('push', event => {
 
 self.addEventListener('notificationclick', event => {
   event.notification.close()
-  const target = event.notification.data?.url || '/dashboard'
+  const notification = event.notification
+  const notificationText = [
+    notification.title || '',
+    notification.body || '',
+    ...(notification.actions || []).map(action => action.title || ''),
+    event.action || ''
+  ].join(' ')
+  const isReflectionNotification = /log how you(?:'|’)re feeling|daily reflection|reflection check.?in/i.test(notificationText)
+  const target = isReflectionNotification
+    ? '/?reflection=1'
+    : (notification.data?.url || '/dashboard')
   event.waitUntil((async () => {
     const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true })
     for (const client of windows) {
