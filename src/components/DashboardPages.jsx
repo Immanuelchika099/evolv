@@ -774,9 +774,9 @@ function NotificationsPage({ pageProps }) {
           <div className="notification-frequency-control">
             <label htmlFor="ai-notification-frequency">Daily frequency</label>
             <select id="ai-notification-frequency" value={Number(notificationTimes.aiNotificationFrequency) || 1} onChange={event => saveNotificationFrequency?.(event.currentTarget.value)}>
-              <option value="1">Once a day · 8:00 AM</option>
-              <option value="2">Twice a day · 8:00 AM & 2:00 PM</option>
-              <option value="3">Three times a day · 8:00 AM, 2:00 PM & 8:00 PM</option>
+              <option value="1">Once a day · morning</option>
+              <option value="2">Twice a day · morning & afternoon</option>
+              <option value="3">Three times a day · morning, afternoon & evening</option>
             </select>
             <small>Changes are saved automatically. Push notifications must be enabled in your Profile settings, and your device must allow notifications.</small>
           </div>
