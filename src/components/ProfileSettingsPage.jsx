@@ -230,7 +230,7 @@ export default function ProfileSettingsPage({pageProps}){
             <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-ai-frequency-row">
               <div><strong>AI notifications per day</strong><span>Choose how often your AI coach checks in.</span></div>
               <select aria-label="AI notifications per day" value={Number(notificationTimes.aiNotificationFrequency)||1} onChange={e=>saveNotificationFrequency?.(Number(e.currentTarget.value))}>
-                <option value="1">Once a day</option><option value="2">Twice a day</option><option value="3">Three times a day</option>
+                <option value="1">Once a day</option><option value="2">Twice a day</option><option value="3">Three times a day</option><option value="4">Four times a day</option><option value="5">Five times a day</option><option value="6">Six times a day</option>
               </select>
             </div>
             <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-reminder-time-row">
