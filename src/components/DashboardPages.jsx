@@ -191,7 +191,7 @@ function HomePage({ pageProps }) {
 
       <section className="calm-home-focus" aria-label="Your growth at a glance">
         <div className="calm-focus-heading">
-          <div><h2>Your goals</h2></div>
+          <button type="button" className="calm-focus-title-action" onClick={() => goTo('goals')}><h2>Your goals</h2></button>
           <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
         </div>
         {activeGoals.length ? (
