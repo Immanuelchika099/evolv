@@ -1140,7 +1140,7 @@ input:-webkit-autofill:focus {
 
 
 /* Daily Reflection: emoji-led Emotion step (no decorative stars or flower artwork). */
-.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 46% at 50% 36%,rgba(229,134,66,.09),transparent 100%),#0a0908}
+.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 34% at 50% 0%,rgba(229,134,66,.10),transparent 100px),#0a0908}
 .emo-step{
   --mc-accent:var(--accent,#e58642);
   --mc-accent-hi:#f2812f;
