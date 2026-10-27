@@ -20,7 +20,7 @@ function streaksFor(items){
   return {current,best}
 }
 function ProfileSettingsSection({label,title,children,danger=false,icon:Icon=ShieldCheck}) {
-  const [open,setOpen]=useState(false)
+  const [open,setOpen]=useState(title === 'Notifications')
   return <section className={'profile-settings-section profile-accordion '+(danger?'danger-section':'')}>
     <button type="button" className="profile-settings-section-head" aria-expanded={open} onClick={()=>setOpen(value=>!value)}>
       <span className={'profile-settings-section-icon icon-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-')+(danger?' icon-danger':'')}><Icon size={19} strokeWidth={1.9}/></span>
@@ -36,7 +36,7 @@ function SettingToggle({label,description,checked,onChange}){return <div classNa
 function SettingSelect({label,description,value,onChange,options}){return <label className="profile-setting-row profile-setting-control-row"><span className="profile-setting-copy"><strong>{label}</strong><small>{description}</small></span><select value={value} onChange={e=>onChange(e.target.value)} aria-label={label}>{options.map(option=><option key={option.value} value={option.value}>{option.label}</option>)}</select></label>}
 
 export default function ProfileSettingsPage({pageProps}){
-  const {profile,profileName,setProfileName,data,logs=[],meals=[],goals=[],avatarUrl,notificationsEnabled,toggleNotifications,notificationTimes,saveNotificationTime,toggleQuietHours,saveQuietHour,deleteAccount,deleting,onLogout,loading}=pageProps
+  const {profile,profileName,setProfileName,data,logs=[],meals=[],goals=[],avatarUrl,notificationsEnabled,toggleNotifications,notificationTimes,saveNotificationTime,saveNotificationFrequency,toggleQuietHours,saveQuietHour,deleteAccount,deleting,onLogout,loading}=pageProps
   const [user,setUser]=useState(null)
   const [settings,setSettings]=useState(DEFAULT_SETTINGS)
   const [draft,setDraft]=useState({name:profileName||'',email:profile?.email||'',bio:''})
@@ -226,10 +226,28 @@ export default function ProfileSettingsPage({pageProps}){
       </> : <>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Stay in the loop</p>
           <ProfileSettingsSection label="STAY IN THE LOOP" title="Notifications" icon={Bell}>
-            <SettingToggle label="Daily reminders" description="Your existing morning, midday and evening reminders." checked={notificationsEnabled} onChange={toggleNotifications}/>
+            <SettingToggle label="Daily reminders" description="Allow EVOLV to send personalised AI push notifications." checked={notificationsEnabled} onChange={toggleNotifications}/>
+            <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-ai-frequency-row">
+              <div><strong>AI notifications per day</strong><span>Choose how often your AI coach checks in.</span></div>
+              <select aria-label="AI notifications per day" value={Number(notificationTimes.aiNotificationFrequency)||1} onChange={e=>saveNotificationFrequency?.(Number(e.currentTarget.value))}>
+                <option value="1">Once a day</option><option value="2">Twice a day</option><option value="3">Three times a day</option>
+              </select>
+            </div>
+            <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-reminder-time-row">
+              <div><strong>Morning</strong><span>Start-of-day AI check-in</span></div>
+              <input type="time" aria-label="Morning notification time" value={notificationTimes.morningTime||'08:00'} onChange={e=>saveNotificationTime?.('morningTime',e)}/>
+            </div>
+            {(Number(notificationTimes.aiNotificationFrequency)||1)>=2 && <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-reminder-time-row">
+              <div><strong>Afternoon</strong><span>Midday follow-through</span></div>
+              <input type="time" aria-label="Afternoon notification time" value={notificationTimes.aiAfternoonTime||'14:00'} onChange={e=>saveNotificationTime?.('aiAfternoonTime',e)}/>
+            </div>}
+            {(Number(notificationTimes.aiNotificationFrequency)||1)>=3 && <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-reminder-time-row">
+              <div><strong>Evening</strong><span>Reflect and prepare for tomorrow</span></div>
+              <input type="time" aria-label="Evening notification time" value={notificationTimes.reflectionTime||'20:00'} onChange={e=>saveNotificationTime?.('reflectionTime',e)}/>
+            </div>}
+            <p className="profile-notification-help">Changes save automatically. Turn Daily reminders on and allow notifications on your device to receive them.</p>
             <SettingToggle label="Streak alerts" description="Keep a quiet nudge when a streak is at risk." checked={settings.streakAlerts} onChange={v=>updateSetting('streakAlerts',v)}/>
             <SettingToggle label="Weekly summary" description="Keep a weekly view of how consistently you showed up." checked={settings.weeklySummary} onChange={v=>updateSetting('weeklySummary',v)}/>
-            <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide"><div><strong>Reminder schedule</strong><span>Existing EVOLV reminder times.</span></div><span className="settings-value">{notificationTimes.morningTime} · {notificationTimes.hydrationTime} · {notificationTimes.reflectionTime}</span></div>
             <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
           </ProfileSettingsSection>
         </div>
