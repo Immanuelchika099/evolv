@@ -1025,3 +1025,40 @@ html body #root .daily-routine-page .routine-coach-card:active { transform:scale
     padding-top: 2.9rem !important;
   }
 }
+
+
+/* Routine editor: keep weekly controls tucked away until requested. */
+.daily-routine-page .routine-schedule-actions{display:flex;align-items:center;gap:1.2rem}
+.daily-routine-page .routine-add-button{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:3.8rem;padding:.7rem 1.2rem;border:1px solid rgba(229,134,66,.28);border-radius:999px;background:rgba(229,134,66,.08);color:#E58642;font:inherit;font-size:1.3rem;cursor:pointer}
+.daily-routine-page .routine-add-button span:last-child{font-size:1.8rem;line-height:1}
+.daily-routine-page .routine-row-copy{min-width:0}
+.daily-routine-page .routine-name-button{display:inline-flex;align-items:center;gap:.8rem;max-width:100%;padding:.25rem 0;border:0;background:transparent;color:rgba(255,255,255,.92);font:inherit;font-size:1.5rem;font-weight:450;text-align:left;cursor:pointer}
+.daily-routine-page .routine-edit-hint{color:rgba(255,255,255,.36);font-size:1.1rem;opacity:0;transition:opacity .18s ease}
+.daily-routine-page .routine-name-button:hover .routine-edit-hint,.daily-routine-page .routine-name-button:focus-visible .routine-edit-hint{opacity:1}
+.daily-routine-page .routine-inline-edit{display:flex;align-items:center;gap:.5rem;min-width:0}
+.daily-routine-page .routine-inline-edit input{width:min(100%,22rem);min-width:0;padding:.65rem .8rem;border:1px solid rgba(229,134,66,.42);border-radius:.8rem;background:#101010;color:#f4eee8;font:inherit;font-size:1.4rem}
+.daily-routine-page .routine-inline-edit button{display:grid;place-items:center;width:3rem;height:3rem;flex:0 0 auto;border:1px solid rgba(229,134,66,.25);border-radius:50%;background:rgba(229,134,66,.1);color:#E58642}
+.daily-routine-page .routine-days-disclosure{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;min-height:3.6rem;padding:.5rem .2rem .1rem;border:0;background:transparent;color:rgba(244,238,232,.52);font:inherit;font-size:1.2rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.daily-routine-page .routine-days-summary,.daily-routine-page .routine-days-edit{display:inline-flex;align-items:center;gap:.7rem;min-width:0}
+.daily-routine-page .routine-days-summary{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.daily-routine-page .routine-days-dot{width:.55rem;height:.55rem;flex:0 0 auto;border-radius:50%;background:#E58642}
+.daily-routine-page .routine-days-edit{flex:0 0 auto;color:rgba(244,238,232,.68)}
+.daily-routine-page .routine-days-edit svg{transition:transform .2s ease}
+.daily-routine-page .routine-days-edit svg.is-open{transform:rotate(180deg)}
+.daily-routine-page .routine-day-picker{padding-top:.35rem;animation:routine-days-reveal .18s ease both}
+.daily-routine-page .routine-add-form{display:grid;gap:1.2rem;margin:0 0 1.4rem;padding:1.6rem;border:1px solid rgba(255,255,255,.09);border-radius:1.8rem;background:rgba(255,255,255,.025)}
+.daily-routine-page .routine-add-form label{display:grid;gap:.65rem;min-width:0}
+.daily-routine-page .routine-add-form label>span{color:rgba(244,238,232,.55);font-size:1.15rem}
+.daily-routine-page .routine-add-form input,.daily-routine-page .routine-add-form select{box-sizing:border-box;width:100%;min-width:0;min-height:4.2rem;padding:.9rem 1rem;border:1px solid rgba(255,255,255,.1);border-radius:1.1rem;background:#101010;color:#f4eee8;font:inherit;font-size:1.4rem}
+.daily-routine-page .routine-add-form-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
+.daily-routine-page .routine-add-submit{justify-self:start;min-height:4rem;padding:.8rem 1.4rem;border:0;border-radius:999px;background:#E58642;color:#17100b;font:inherit;font-size:1.35rem;cursor:pointer}
+@keyframes routine-days-reveal{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:700px){
+ .daily-routine-page .routine-schedule-actions{gap:.8rem;flex-wrap:wrap;justify-content:flex-end}
+ .daily-routine-page .routine-add-button{min-height:3.5rem;padding:.65rem 1rem;font-size:1.2rem}
+ .daily-routine-page .routine-days-disclosure{font-size:1.15rem;min-height:3.8rem}
+ .daily-routine-page .routine-edit-hint{opacity:.65}
+ .daily-routine-page .routine-add-form{padding:1.35rem}
+}
+@media(max-width:360px){.daily-routine-page .routine-add-form-row{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.daily-routine-page .routine-day-picker{animation:none}}
