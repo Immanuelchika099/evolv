@@ -1703,7 +1703,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [notificationTimes,setNotificationTimes]=useState(()=>{try{return {...defaultNotificationTimes,...JSON.parse(localStorage.getItem('evolv-notification-times')||'{}')}}catch{return defaultNotificationTimes}})
   const [reflectionTime,setReflectionTime]=useState(()=>localStorage.getItem('evolv-reflection-time')||'22:30')
   const [reflectionOpen,setReflectionOpen]=useState(()=>new URLSearchParams(window.location.search).get('reflection')==='1')
-  const [reflectionStep,setReflectionStep]=useState(0)
+  const [reflectionStep,setReflectionStep]=useState(-1)
+  const [reflectionType,setReflectionType]=useState('mood')
   const [reflectionMood,setReflectionMood]=useState(null)
   const [reflectionFeeling,setReflectionFeeling]=useState('')
   const [reflectionNote,setReflectionNote]=useState('')
@@ -2448,7 +2449,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   }
 
   function openReflection(){
-    setReflectionStep(0)
+    setReflectionStep(-1)
+    setReflectionType('mood')
     setReflectionMood(null)
     setReflectionFeeling('')
     setReflectionNote('')
@@ -2458,7 +2460,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
   function closeReflection(){
     setReflectionOpen(false)
-    setReflectionStep(0)
+    setReflectionStep(-1)
     if(new URLSearchParams(window.location.search).get('reflection')){
       window.history.replaceState({},'',window.location.pathname)
     }
@@ -2703,11 +2705,25 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
     
-    {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} onSave={saveReflection} onClose={closeReflection}/>}
+    {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} type={reflectionType} setType={setReflectionType} onSave={saveReflection} onClose={closeReflection}/>}
   </div>
 }
 
-function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,onSave,onClose}){
+function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note,setNote,saving,type,setType,onSave,onClose}){
+  const [currentTime,setCurrentTime]=useState(()=>new Date())
+  useEffect(()=>{
+    let timer
+    const tick=()=>{
+      const now=new Date()
+      setCurrentTime(now)
+      timer=window.setTimeout(tick,60000-(now.getSeconds()*1000+now.getMilliseconds())+50)
+    }
+    const onVisibility=()=>{if(!document.hidden){window.clearTimeout(timer);tick()}}
+    tick()
+    document.addEventListener('visibilitychange',onVisibility)
+    return ()=>{window.clearTimeout(timer);document.removeEventListener('visibilitychange',onVisibility)}
+  },[])
+  const timeLabel=new Intl.DateTimeFormat(undefined,{hour:'numeric',minute:'2-digit'}).format(currentTime)
   const moods=[
     {value:'happy',label:'Happy',expression:'good'},{value:'normal',label:'Feeling normal',expression:'okay'},
     {value:'mixed',label:'Mixed feelings',expression:'neutral'},{value:'hopeful',label:'Hopeful',expression:'good'},
@@ -2716,18 +2732,46 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
     {value:'depressed',label:'Depressed',expression:'low'},{value:'numb',label:'Numb',expression:'neutral'}
   ]
   const feelings=['Calm','Okay','Stressful','Energised','Heavy','Productive']
+  const characters=[
+    {emoji:'😌',x:'10%',y:'8%',size:42,duration:'4.6s',delay:'0s'},
+    {emoji:'😄',x:'27%',y:'0%',size:56,duration:'5.4s',delay:'.6s'},
+    {emoji:'🤔',x:'2%',y:'43%',size:46,duration:'5s',delay:'1.1s'},
+    {emoji:'😴',x:'35%',y:'64%',size:36,duration:'4.2s',delay:'.3s'},
+    {emoji:'🥰',x:'42%',y:'15%',size:70,duration:'5.8s',delay:'.9s'},
+    {emoji:'😎',x:'69%',y:'2%',size:55,duration:'4.9s',delay:'1.4s'},
+    {emoji:'😵‍💫',x:'84%',y:'43%',size:40,duration:'5.2s',delay:'.2s'},
+  ]
   return <div className="reflection-overlay" role="dialog" aria-modal="true" aria-label="Daily reflection">
-    <div className="reflection-sheet">
+    <div className={'reflection-sheet'+(step===-1?' reflection-sheet-intro':'')}>
       <div className="reflection-sheet-handle"/>
-      <div className="reflection-sheet-head"><div><span className="section-label">DAILY REFLECTION</span><span className="reflection-step-label">{step+1} / 3</span></div><button type="button" className="reflection-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button></div>
-      {step===0&&<div className="reflection-step"><span className="reflection-kicker">BEFORE YOU WIND DOWN</span><h2>How are you feeling tonight?</h2><p>A small pause. No right answer. Just where you are.</p><div className="reflection-mood-grid">{moods.map(item=><button type="button" key={item.value} className={mood===item.value?'selected':''} onClick={()=>setMood(item.value)} aria-pressed={mood===item.value}><AvatarPortrait preferences={DEFAULT_AVATAR} expression={item.expression} className="reflection-mood-avatar"/><small>{item.label}</small></button>)}</div><button className="button button-primary reflection-next" type="button" disabled={!mood} onClick={()=>setStep(1)}>Continue <ArrowRight size={16}/></button></div>}
-      {step===1&&<div className="reflection-step"><span className="reflection-kicker">LOOKING BACK</span><h2>How did today feel overall?</h2><p>Pick the feeling that comes closest.</p><div className="reflection-feeling-grid">{feelings.map(item=><button type="button" key={item} className={feeling===item?'selected':''} onClick={()=>setFeeling(item)}>{item}</button>)}</div><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(0)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" disabled={!feeling} onClick={()=>setStep(2)}>Continue <ArrowRight size={16}/></button></div></div>}
-      {step===2&&<div className="reflection-step"><span className="reflection-kicker">A LITTLE SPACE</span><h2>Anything on your mind?</h2><p>Leave a note for yourself, or simply finish here.</p><textarea className="reflection-note" value={note} onChange={e=>setNote(e.target.value)} placeholder="Write anything you want to remember…" rows={5}/><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(1)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" onClick={onSave} disabled={saving}>{saving?'Saving…':'Save reflection'} {!saving&&<Check size={16}/>}</button></div></div>}
-      <div className="reflection-progress"><span className="active"/><span className={step>=1?'active':''}/><span className={step>=2?'active':''}/></div>
+      {step===-1 ? <>
+        <button type="button" className="mood-card-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button>
+        <div className="mood-card-stage" aria-hidden="true">{characters.map((item,index)=><span key={index} className="mood-card-character" style={{'--mc-x':item.x,'--mc-y':item.y,'--mc-size':item.size+'px','--mc-duration':item.duration,'--mc-delay':item.delay}}>{item.emoji}</span>)}</div>
+        <h2 className="mood-card-title">Log an Emotion<br/>or Mood</h2>
+        <div className="mood-card-options" role="radiogroup" aria-label="What do you want to log?">
+          <button type="button" role="radio" aria-checked={type==='emotion'} className={'mood-card-option'+(type==='emotion'?' selected':'')} onClick={()=>setType('emotion')}>
+            <span className="mood-card-option-label"><Activity size={17}/> Emotion</span>
+            <span className="mood-card-option-headline">How you feel right now</span>
+            <span className="mood-card-option-time">{timeLabel}</span>
+            <Check className="mood-card-check" size={23}/>
+          </button>
+          <button type="button" role="radio" aria-checked={type==='mood'} className={'mood-card-option'+(type==='mood'?' selected':'')} onClick={()=>setType('mood')}>
+            <span className="mood-card-option-label"><Sunrise size={17}/> Mood</span>
+            <span className="mood-card-option-headline">How you’ve felt overall today</span>
+            <Check className="mood-card-check" size={23}/>
+          </button>
+        </div>
+        <button className="mood-card-next" type="button" onClick={()=>setStep(0)}>Next <ArrowRight size={17}/></button>
+      </> : <>
+        <div className="reflection-sheet-head"><div><span className="section-label">DAILY REFLECTION</span><span className="reflection-step-label">{step+1} / 3</span></div><button type="button" className="reflection-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button></div>
+        {step===0&&<div className="reflection-step"><span className="reflection-kicker">{type==='emotion'?'RIGHT NOW':'CHECKING IN'}</span><h2>{type==='emotion'?'How are you feeling right now?':'What best describes how you feel?'}</h2><p>{type==='emotion'?'Take a moment to name the emotion you’re experiencing.':'Choose what feels closest. There’s no right or wrong answer.'}</p><div className="reflection-mood-grid">{moods.map(item=><button type="button" key={item.value} className={mood===item.value?'selected':''} onClick={()=>setMood(item.value)} aria-pressed={mood===item.value}><AvatarPortrait preferences={DEFAULT_AVATAR} expression={item.expression} className="reflection-mood-avatar"/><small>{item.label}</small></button>)}</div><button className="button button-primary reflection-next" type="button" disabled={!mood} onClick={()=>setStep(1)}>Continue <ArrowRight size={16}/></button></div>}
+        {step===1&&<div className="reflection-step"><span className="reflection-kicker">LOOKING BACK</span><h2>How did today feel overall?</h2><p>Pick the feeling that comes closest.</p><div className="reflection-feeling-grid">{feelings.map(item=><button type="button" key={item} className={feeling===item?'selected':''} onClick={()=>setFeeling(item)}>{item}</button>)}</div><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(0)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" disabled={!feeling} onClick={()=>setStep(2)}>Continue <ArrowRight size={16}/></button></div></div>}
+        {step===2&&<div className="reflection-step"><span className="reflection-kicker">A LITTLE SPACE</span><h2>Anything on your mind?</h2><p>Leave a note for yourself, or simply finish here.</p><textarea className="reflection-note" value={note} onChange={e=>setNote(e.target.value)} placeholder="Write anything you want to remember…" rows={5}/><div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(1)}><ChevronLeft size={15}/> Back</button><button className="button button-primary reflection-next" type="button" onClick={onSave} disabled={saving}>{saving?'Saving…':'Save reflection'} {!saving&&<Check size={16}/>}</button></div></div>}
+        <div className="reflection-progress"><span className="active"/><span className={step>=1?'active':''}/><span className={step>=2?'active':''}/></div>
+      </>}
     </div>
   </div>
 }
-
 function SpecialMetricFields({metric,values,setValues}){
   const slug=metric?.slug
   const set=(key,value)=>setValues(v=>({...v,[key]:value}))
