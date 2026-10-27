@@ -11649,3 +11649,20 @@ html body #root .dashboard .dashboard-home.calm-home button:focus-visible {
 .calm-reflection-entry-copy strong { font-size: 1.45rem; font-weight: 550; }
 .calm-reflection-entry-copy small { color: var(--text-muted, rgba(244, 238, 232, 0.62)); font-size: 1.2rem; line-height: 1.45; }
 .calm-reflection-entry > svg { color: #E58642; flex: 0 0 auto; }
+
+
+/* Reflection save action: full pill silhouette and no legacy lime hover. */
+html body #root .reflection-step-actions .reflection-next,
+html body #root .reflection-step-actions .reflection-next:hover,
+html body #root .reflection-step-actions .reflection-next:focus-visible,
+html body #root .reflection-step-actions .reflection-next:active {
+  border-radius: 9999px !important;
+  background: var(--color-accent-orange, #E58642) !important;
+  border-color: var(--color-accent-orange, #E58642) !important;
+  color: #100b08 !important;
+  box-shadow: none !important;
+}
+html body #root .reflection-step-actions .reflection-next:hover {
+  filter: brightness(1.06) !important;
+  transform: translateY(-1px);
+}
