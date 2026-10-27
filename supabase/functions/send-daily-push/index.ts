@@ -23,7 +23,7 @@ function alarmIsDue(clock, alarm) {
 
 const DEFAULTS = {
   morning: { title: () => "", body: "", defaultTime: "08:00", url: "/dashboard" },
-  hydration: { title: () => "", body: "", defaultTime: "14:00", url: "/dashboard" },
+  midday: { title: () => "", body: "", defaultTime: "14:00", url: "/dashboard" },
   reflection: { title: () => "", body: "", defaultTime: "20:00", url: "/dashboard" }
 }
 
@@ -182,11 +182,10 @@ Deno.serve(async (req) => {
     ...(alarms || []).map(alarm => alarm.user_id)
   ].filter(Boolean))]
 
-  const [{ data: profiles }, { data: waterMetric }] = await Promise.all([
+  const [{ data: profiles }] = await Promise.all([
     userIds.length
       ? admin.from("profiles").select("id,first_name,focus,first_goal,growth_areas").in("id", userIds)
-      : Promise.resolve({ data: [] }),
-    admin.from("metric_definitions").select("id").eq("slug", "water").maybeSingle()
+      : Promise.resolve({ data: [] })
   ])
 
   const names = Object.fromEntries((profiles || []).map(profile => [
@@ -238,10 +237,10 @@ Deno.serve(async (req) => {
 
     for (const [kind, message] of Object.entries(DEFAULTS)) {
       const frequency = Math.max(1, Math.min(3, Number(preferences.aiNotificationFrequency) || 1))
-      const enabledForFrequency = kind === "morning" ? true : kind === "hydration" ? frequency >= 2 : frequency >= 3
+      const enabledForFrequency = kind === "morning" ? true : kind === "midday" ? frequency >= 2 : frequency >= 3
       if (!enabledForFrequency) continue
 
-      const timeKey = kind === "hydration" ? "aiAfternoonTime" : kind === "reflection" ? "reflectionTime" : "morningTime"
+      const timeKey = kind === "midday" ? "aiAfternoonTime" : kind === "reflection" ? "reflectionTime" : "morningTime"
       const target = preferences[timeKey] || message.defaultTime
       if (!isDue(clock, target)) continue
 
@@ -269,19 +268,6 @@ Deno.serve(async (req) => {
 
       let skip = false
 
-      if (kind === "hydration" && waterMetric?.id) {
-        const since = new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
-        const { data: recentWater } = await admin
-          .from("metric_logs")
-          .select("id")
-          .eq("user_id", row.user_id)
-          .eq("metric_id", waterMetric.id)
-          .gte("logged_at", since)
-          .limit(1)
-
-        if (recentWater?.length) skip = true
-      }
-
       if (kind === "reflection") {
         const { data: reflection } = await admin
           .from("daily_reflections")
@@ -299,8 +285,8 @@ Deno.serve(async (req) => {
       }
 
       let notification = { title: message.title(names[row.user_id] || "there"), body: message.body }
-      if (kind === "morning" || kind === "hydration" || kind === "reflection") {
-        const slot = kind === "hydration" ? "afternoon" : kind === "reflection" ? "evening" : "morning"
+      if (kind === "morning" || kind === "midday" || kind === "reflection") {
+        const slot = kind === "midday" ? "afternoon" : kind === "reflection" ? "evening" : "morning"
         const generated = await generatePersonalNotification(admin, row.user_id, (profiles || []).find(profile => profile.id === row.user_id), clock.date, slot)
         if (!generated) {
           await admin.from("notification_delivery_log").delete()
