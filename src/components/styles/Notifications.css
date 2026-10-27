@@ -194,3 +194,61 @@
   .notification-frequency-control{grid-template-columns:1fr;padding:1.5rem}
   .notification-frequency-control small{grid-column:auto}
 }
+
+
+/* Clear, discoverable AI notification frequency settings. */
+.dashboard .notification-frequency-card{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:1.8rem;
+  margin:0 0 2.4rem;
+  padding:2.2rem;
+  border:1px solid rgba(229,134,66,.2);
+  border-radius:2rem;
+  background:linear-gradient(135deg,rgba(229,134,66,.075),rgba(255,255,255,.018) 65%);
+}
+.dashboard .notification-frequency-heading .section-label{display:block;margin-bottom:.9rem;color:rgba(229,134,66,.85)}
+.dashboard .notification-frequency-heading h3{margin:0;color:#f4eee8;font-size:2rem;font-weight:500;letter-spacing:-.035em;line-height:1.25}
+.dashboard .notification-frequency-heading p{margin:.75rem 0 0;color:rgba(244,238,232,.53);font-size:1.35rem;line-height:1.55}
+.dashboard .notification-frequency-control{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(20rem,32rem);
+  gap:.9rem 1.6rem;
+  align-items:center;
+  margin:0;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.dashboard .notification-frequency-control label{color:rgba(244,238,232,.8);font-size:1.4rem}
+.dashboard .notification-frequency-control select{
+  min-width:0;
+  min-height:4.8rem;
+  padding:0 1.2rem;
+  border:1px solid rgba(229,134,66,.35);
+  border-radius:1.2rem;
+  color:#f4eee8;
+  background:#17110d;
+  font:inherit;
+}
+.dashboard .notification-frequency-control small{grid-column:1/-1;color:rgba(244,238,232,.43);font-size:1.2rem;line-height:1.55}
+@media(max-width:600px){
+  .dashboard .notification-frequency-card{gap:1.5rem;padding:1.7rem}
+  .dashboard .notification-frequency-heading h3{font-size:1.85rem}
+  .dashboard .notification-frequency-control{grid-template-columns:1fr;gap:.8rem}
+  .dashboard .notification-frequency-control small{grid-column:auto}
+}
+
+/* Keep the fixed bottom navigation clear without leaving a large empty tail
+   after the content on every dashboard destination. */
+.dashboard-pages .panel-page{padding-bottom:6.5rem!important}
+.dashboard-home{padding-bottom:6.5rem!important}
+.dashboard .settings-page,
+.dashboard .logs-page{padding-bottom:6.5rem!important}
+@media(max-width:700px){
+  .dashboard-pages .panel-page,
+  .dashboard-home,
+  .dashboard .settings-page,
+  .dashboard .logs-page{padding-bottom:5.5rem!important}
+}
