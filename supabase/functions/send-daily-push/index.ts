@@ -23,9 +23,6 @@ function alarmIsDue(clock, alarm) {
 
 const DEFAULTS = {
   morning: { title: (name) => "Good morning, " + name + " 🌱", body: "Start gently. Choose one thing that would make today feel worthwhile.", defaultTime: "08:00", url: "/dashboard" },
-  lunch: { title: (name) => "Time for lunch, " + name + " 🍽️", body: "Pause for a proper meal and give yourself a little energy for the rest of the day.", defaultTime: "12:30", url: "/dashboard?log=meal" },
-  dinner: { title: (name) => "Time for your evening meal, " + name + " 🍲", body: "Take a pause for dinner and give yourself some energy for the rest of your evening.", defaultTime: "19:00", url: "/dashboard?log=meal" },
-  hydration: { title: () => "A little reset 💧", body: "Take a moment, have some water, and check in with yourself.", defaultTime: "13:00", url: "/dashboard?log=water" },
   reflection: { title: () => "Your day, before you close it 🌙", body: "A quiet moment is waiting. How did today feel?", defaultTime: "22:30", url: "/dashboard?reflection=1" }
 }
 
@@ -164,10 +161,7 @@ Deno.serve(async (req) => {
     if (inQuietHours(clock, preferences)) continue
 
     for (const [kind, message] of Object.entries(DEFAULTS)) {
-      // Lunch and dinner remain independent of the three daily check-in reminders.
-      if (kind === "lunch" ? preferences.lunch === false : kind === "dinner" ? preferences.dinner === false : !preferences[kind]) continue
-      // The editable Daily Routine dinner reminder takes precedence to avoid duplicate dinner alerts.
-      if (kind === "dinner" && Array.isArray(preferences.routineReminders) && preferences.routineReminders.some(reminder => reminder?.id === "dinner")) continue
+      if (!preferences[kind]) continue
 
       const target = preferences[kind + "Time"] || message.defaultTime
       if (!isDue(clock, target)) continue
