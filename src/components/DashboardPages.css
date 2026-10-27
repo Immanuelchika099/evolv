@@ -11701,3 +11701,28 @@ html body #root .reflection-step-actions .reflection-next:hover {
 .dashboard .profile-modal.confirmation-modal .profile-modal-actions .settings-danger-button { border:1px solid rgba(229,134,66,.65)!important;background:#E58642!important;color:#17100b!important; }
 .dashboard .profile-modal.confirmation-modal .profile-modal-actions .settings-danger-button:hover { background:#ee9858!important; }
 @media(max-width:520px) { .dashboard .profile-modal-backdrop.confirmation-backdrop .profile-modal.confirmation-modal { padding:2rem!important;border-radius:1.9rem!important; } .dashboard .profile-modal.confirmation-modal .profile-modal-actions { gap:.75rem!important; } .dashboard .profile-modal.confirmation-modal .profile-modal-actions > button { padding-inline:.7rem; } }
+
+
+/* The goals heading is an active target too; no need to aim for the small arrow. */
+.dashboard-home.calm-home .calm-focus-title-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-self: start !important;
+  min-width: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: inherit !important;
+  text-align: left !important;
+  cursor: pointer !important;
+}
+.dashboard-home.calm-home .calm-focus-title-action h2 {
+  margin: 0 !important;
+  font: inherit !important;
+  color: inherit !important;
+}
+.dashboard-home.calm-home .calm-focus-title-action:focus-visible {
+  outline: 2px solid rgba(255,255,255,.7) !important;
+  outline-offset: 4px !important;
+  border-radius: .4rem !important;
+}
