@@ -1140,28 +1140,26 @@ input:-webkit-autofill:focus {
 
 
 /* Daily Reflection: emoji-led Emotion step (no decorative stars or flower artwork). */
-.reflection-sheet-emotion{padding:18px 20px 24px;overflow-x:hidden}
+.reflection-sheet-emotion{padding:22px 20px 28px;overflow-x:hidden;min-height:min(650px,calc(92dvh - 24px))}
 .emo-step{
   --mc-accent:var(--accent,#e58642);
   --mc-accent-hi:#f2812f;
   --mc-accent-deep:#c4500f;
   --mc-text:#fff4ea;
   --mc-muted:rgba(255,244,234,.55);
-  position:relative;width:100%;max-width:420px;margin:0 auto;padding:0;color:var(--mc-text);font-family:inherit;
-  background:radial-gradient(110% 55% at 50% 42%,hsl(var(--emo-h,40) 90% 50% / var(--emo-glow,.25)),transparent 68%);
-  border-radius:24px;
+  position:relative;isolation:isolate;width:100%;max-width:420px;min-height:570px;margin:0 auto;padding:0 0 4px;color:var(--mc-text);font-family:inherit;background:transparent;border-radius:24px;
 }
-.emo-step *{box-sizing:border-box}
+.emo-step *{box-sizing:border-box}\n.emo-step::before{content:"";position:absolute;z-index:-1;inset:-64px -54px -34px;pointer-events:none;background:radial-gradient(ellipse at 50% 43%,hsl(var(--emo-h,40) 88% 48% / .18),transparent 62%);filter:blur(34px);opacity:.9}
 .emo-step__bar{display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
 .emo-step__bartitle{text-align:center;font-size:1.7rem;font-weight:600}
 .emo-btn{width:44px;height:44px;padding:0;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,190,140,.14);background:rgba(255,244,234,.07);color:var(--mc-text);cursor:pointer;transition:background .2s}
 .emo-btn:hover{background:rgba(255,244,234,.14)}
-.emo-step__title{margin:25px 0 0;text-align:center;font-size:clamp(2.4rem,6vw,2.8rem);line-height:1.17;font-weight:500;letter-spacing:-.025em}
-.emo-step__emoji-stage{position:relative;display:grid;place-items:center;width:min(100%,250px);aspect-ratio:1;margin:12px auto 0;border-radius:50%;background:radial-gradient(circle,hsl(var(--emo-h,40) 85% 55% / .14),transparent 68%);transition:background .25s ease}
+.emo-step__title{margin:24px 0 0;text-align:center;font-size:clamp(2rem,5vw,2.25rem);line-height:1.25;font-weight:500;letter-spacing:-.02em}
+.emo-step__emoji-stage{position:relative;display:grid;place-items:center;width:min(100%,236px);aspect-ratio:1;margin:8px auto 0;border-radius:50%;background:radial-gradient(circle,hsl(var(--emo-h,40) 85% 55% / .14),transparent 68%);transition:background .25s ease}
 .emo-step__emoji-stage::before{content:"";position:absolute;width:68%;height:68%;border-radius:50%;background:radial-gradient(circle,hsl(var(--emo-h,40) 95% 58% / .17),transparent 72%);filter:blur(14px);transform:scale(var(--emo-scale,.95));transition:transform .25s ease,background .25s ease}
 .emo-step__emoji{position:relative;display:grid;place-items:center;width:116px;height:116px;border-radius:50%;font-size:7.2rem;line-height:1;filter:drop-shadow(0 8px 20px hsl(var(--emo-h,40) 90% 50% / .24));animation:emo-emoji-pop .24s ease-out}
 @keyframes emo-emoji-pop{from{transform:scale(.82);opacity:.65}to{transform:scale(1);opacity:1}}
-.emo-step__label{margin:2px 0 22px;min-height:1.2em;text-align:center;font-size:3.2rem;line-height:1.2;font-weight:600;letter-spacing:-.02em}
+.emo-step__label{margin:0 0 18px;min-height:1.3em;text-align:center;font-size:2rem;line-height:1.3;font-weight:500;letter-spacing:-.015em;color:rgba(255,244,234,.92)}
 .emo-slider{padding:3px;border-radius:999px;background:rgba(255,244,234,.08)}
 .emo-slider:focus-within{outline:2px solid var(--mc-accent-hi);outline-offset:3px}
 .emo-slider input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:50px;margin:0;background:transparent;cursor:pointer;outline:none;touch-action:pan-y}
@@ -1169,20 +1167,20 @@ input:-webkit-autofill:focus {
 .emo-slider input::-moz-range-track{height:50px;background:transparent}
 .emo-slider input::-webkit-slider-thumb{-webkit-appearance:none;width:50px;height:50px;border:0;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
 .emo-slider input::-moz-range-thumb{width:50px;height:50px;border:0;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
-.emo-step__ends{display:flex;justify-content:space-between;gap:12px;margin:12px 0 0;padding:0 6px;font-size:1.1rem;font-weight:500;letter-spacing:.01em;text-transform:uppercase;color:var(--mc-muted)}
+.emo-step__ends{display:flex;justify-content:space-between;gap:12px;margin:10px 0 0;padding:0 6px;font-size:1.05rem;font-weight:400;letter-spacing:.01em;color:var(--mc-muted)}
 .emo-step__ends span:last-child{text-align:right}
-.emo-step__next{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;margin-top:26px;font:inherit;font-size:1.7rem;font-weight:600;color:#fff;border-radius:999px;cursor:pointer;border:1px solid rgba(255,190,140,.35);background:linear-gradient(180deg,var(--mc-accent-hi),var(--mc-accent-deep));box-shadow:0 10px 24px rgba(224,102,31,.22);transition:transform .15s,box-shadow .2s}
+.emo-step__next{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;margin-top:28px;font:inherit;font-size:1.7rem;font-weight:600;color:#fff;border-radius:999px;cursor:pointer;border:1px solid rgba(255,190,140,.35);background:linear-gradient(180deg,var(--mc-accent-hi),var(--mc-accent-deep));box-shadow:0 10px 24px rgba(224,102,31,.22);transition:transform .15s,box-shadow .2s}
 .emo-step__next:active{transform:scale(.985);box-shadow:0 6px 16px rgba(224,102,31,.2)}
 .emo-step button:focus-visible{outline:2px solid var(--mc-accent-hi);outline-offset:3px}
 .emo-mood-todo{padding:20px 2px 4px}
 .emo-mood-todo h2{margin:0;font-size:2.5rem;font-weight:500}
 .emo-mood-todo p{font-size:1.45rem;line-height:1.5;color:rgba(255,244,234,.65)}
 @media(max-width:480px){
-  .reflection-sheet-emotion{padding:18px 17px calc(20px + env(safe-area-inset-bottom))}
-  .emo-step__title{margin-top:22px;font-size:2.5rem}
-  .emo-step__emoji-stage{width:min(100%,225px);margin-top:8px}
+  .reflection-sheet-emotion{padding:20px 17px calc(24px + env(safe-area-inset-bottom));min-height:min(680px,calc(100dvh - 20px))}
+  .emo-step{min-height:590px}\n  .emo-step__title{margin-top:20px;font-size:2.1rem}
+  .emo-step__emoji-stage{width:min(100%,210px);margin-top:4px}
   .emo-step__emoji{font-size:6.5rem}
-  .emo-step__label{font-size:3rem;margin-bottom:20px}
+  .emo-step__label{font-size:1.85rem;margin-bottom:16px}
   .emo-step__ends{font-size:1rem;gap:8px}
 }
 @media(prefers-reduced-motion:reduce){
@@ -1190,5 +1188,3 @@ input:-webkit-autofill:focus {
   .emo-step__emoji-stage,.emo-step__emoji-stage::before,.emo-btn,.emo-step__next{transition:none}
 }
 
-/* Keep the selected emotion announced for assistive technology without visible text beneath the emoji. */
-.emo-step__label,.emo-step__ends{display:none}
