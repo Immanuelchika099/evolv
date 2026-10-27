@@ -43,8 +43,15 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     admin.from("goal_checkins").select("goal_id,checkin_date,note").eq("user_id", userId).order("checkin_date", { ascending: false }).limit(10)
   ])
 
-  const goals = goalsResult.error ? [] : goalsResult.data || []
-  const allMilestones = milestonesResult.error ? [] : milestonesResult.data || []
+  // Only coach from goals that still exist and are not completed/archived.
+  // Deleted goals are absent from this query; orphaned milestones/check-ins are never used.
+  const goals = (goalsResult.error ? [] : goalsResult.data || []).filter(goal => {
+    const status = String(goal.status || "active").toLowerCase()
+    return !["completed", "archived", "deleted", "cancelled", "canceled"].includes(status)
+  })
+  const activeGoalIds = new Set(goals.map(goal => goal.id))
+  const allMilestones = (milestonesResult.error ? [] : milestonesResult.data || [])
+    .filter(step => activeGoalIds.has(step.goal_id) && !step.is_completed)
   const context = {
     firstName: profile?.first_name || null,
     onboardingFocus: profile?.focus || null,
@@ -56,7 +63,8 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     })),
     recentLogs: logsResult.error ? [] : logsResult.data || [],
     reflections: reflectionResult.error ? [] : reflectionResult.data || [],
-    recentGoalCheckins: checkinsResult.error ? [] : checkinsResult.data || [],
+    recentGoalCheckins: (checkinsResult.error ? [] : checkinsResult.data || [])
+      .filter(checkin => activeGoalIds.has(checkin.goal_id)),
     date
   }
   if (!context.goals.length && !context.onboardingGoal && !context.onboardingFocus && !context.growthAreas.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
@@ -64,6 +72,8 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
   const prompt = [
     "Create one genuinely useful, personalised push notification for a calm AI-powered productivity and growth app.",
     "This is the user's " + slot + " notification. Make it distinct in purpose from other daily nudges: morning = choose a next action, afternoon = make progress on a planned step, evening = review or prepare the next step. Never imply you know whether they acted today unless the supplied logs prove it.",
+    "Use only the saved Goals section, its unfinished goal milestones, goal check-ins, metric logs, daily reflections, and onboarding focus/goals supplied in the context. Never use or infer from AI chatbot conversations or chatbot messages.",
+    "Never mention a goal or its milestones unless it appears in the current eligible goals list. Ignore deleted, completed, archived, or cancelled goals and any orphaned milestones/check-ins.",
     "Use the user's actual goals and unfinished AI-planned goal steps as the primary source. Choose one concrete, realistic next action from the next unfinished step when possible.",
     "For a goal with a political, career, fitness, learning, business, or other ambition, translate its saved steps into a practical nudge that helps the user act today. Example: if a saved step says to build relationships, suggest reaching out to one relevant person; never invent that this step exists.",
     "If the goal has no saved steps, suggest one small, relevant next action grounded in the goal description, but do not claim the user has already done anything. For fitness, avoid unsupported workout or health claims; any routine suggestion should be clearly framed as a suggestion, not an established habit.",
