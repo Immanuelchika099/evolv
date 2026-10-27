@@ -1549,6 +1549,7 @@
 /* Use the same bottom breathing room as the main dashboard on every destination. */
 .dashboard .dashboard-pages > .panel-page,
 .dashboard .dashboard-pages > .routine-page,
+.dashboard .dashboard-pages > .daily-routine-page,
 .dashboard .dash-main > .panel-page,
 .dashboard .panel-page.settings-page{
   padding-bottom:6.5rem!important;
@@ -1556,6 +1557,7 @@
 @media(max-width:700px){
   .dashboard .dashboard-pages > .panel-page,
   .dashboard .dashboard-pages > .routine-page,
+  .dashboard .dashboard-pages > .daily-routine-page,
   .dashboard .dash-main > .panel-page,
   .dashboard .panel-page.settings-page{
     padding-bottom:5.5rem!important;
