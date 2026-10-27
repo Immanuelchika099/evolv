@@ -764,16 +764,23 @@ function NotificationsPage({ pageProps }) {
           <span className="section-label">YOUR NOTIFICATIONS</span>
           <h2>Notifications.</h2>
           <p>See what EVOLV has sent you and choose how often your AI coach checks in.</p>
-          <div className="notification-frequency-control">
-            <label htmlFor="ai-notification-frequency">AI notifications per day</label>
-            <select id="ai-notification-frequency" value={Number(notificationTimes.aiNotificationFrequency) || 1} onChange={event => saveNotificationFrequency?.(event.currentTarget.value)}>
-              <option value="1">1 time a day</option>
-              <option value="2">2 times a day</option>
-              <option value="3">3 times a day</option>
-            </select>
-            <small>Choose morning only, morning and afternoon, or all three daily check-ins.</small>
-          </div>
         </div>
+        <section className="notification-frequency-card" aria-labelledby="ai-notification-frequency-heading">
+          <div className="notification-frequency-heading">
+            <span className="section-label">AI COACH</span>
+            <h3 id="ai-notification-frequency-heading">How often should EVOLV check in?</h3>
+            <p>Choose how many personalised AI notifications you receive each day.</p>
+          </div>
+          <div className="notification-frequency-control">
+            <label htmlFor="ai-notification-frequency">Daily frequency</label>
+            <select id="ai-notification-frequency" value={Number(notificationTimes.aiNotificationFrequency) || 1} onChange={event => saveNotificationFrequency?.(event.currentTarget.value)}>
+              <option value="1">Once a day · 8:00 AM</option>
+              <option value="2">Twice a day · 8:00 AM & 2:00 PM</option>
+              <option value="3">Three times a day · 8:00 AM, 2:00 PM & 8:00 PM</option>
+            </select>
+            <small>Changes are saved automatically. Push notifications must be enabled in your Profile settings, and your device must allow notifications.</small>
+          </div>
+        </section>
         <div className="notifications-page-list">
           {notifications.length ? notifications.map(item=>{
             const copy={
