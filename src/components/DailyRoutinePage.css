@@ -884,3 +884,123 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* Reflection topics: clean charcoal swipe row, with no brown/category-tinted card surfaces. */
+html body #root .daily-routine-page .routine-coach-heading p { display:none !important; }
+html body #root .daily-routine-page .routine-coach-carousel {
+  height:auto !important;
+  min-height:0 !important;
+  margin:1.2rem -0.2rem .8rem !important;
+  overflow:visible !important;
+}
+html body #root .daily-routine-page .routine-coach-track {
+  display:grid;
+  grid-auto-columns:minmax(25rem, 29.2rem);
+  grid-auto-flow:column;
+  gap:1.2rem;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:.15rem .2rem 1.2rem;
+  scroll-snap-type:x mandatory;
+  scroll-padding-inline:.2rem;
+  overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+html body #root .daily-routine-page .routine-coach-track::-webkit-scrollbar { display:none; }
+html body #root .daily-routine-page .routine-coach-card {
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  width:100%;
+  min-width:0;
+  height:22.4rem;
+  padding:1.9rem;
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:2.1rem;
+  background:#101010 !important;
+  color:#f4eee8;
+  text-align:left;
+  font:inherit;
+  cursor:pointer;
+  overflow:hidden;
+  scroll-snap-align:start;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025) !important;
+  -webkit-tap-highlight-color:transparent;
+}
+html body #root .daily-routine-page .routine-coach-card::before,
+html body #root .daily-routine-page .routine-coach-card::after { content:none !important; display:none !important; }
+html body #root .daily-routine-page .routine-coach-card-top {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+html body #root .daily-routine-page .routine-coach-icon {
+  display:grid;
+  place-items:center;
+  width:4.2rem;
+  height:4.2rem;
+  border:0 !important;
+  border-radius:0 !important;
+  background:transparent !important;
+  color:#E58642 !important;
+  filter:none !important;
+}
+html body #root .daily-routine-page .routine-coach-arrow {
+  display:grid;
+  place-items:center;
+  width:2.8rem;
+  height:2.8rem;
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:50%;
+  color:rgba(244,238,232,.7);
+  background:rgba(255,255,255,.025);
+}
+html body #root .daily-routine-page .routine-coach-card-copy {
+  display:flex;
+  flex-direction:column;
+  gap:.6rem;
+}
+html body #root .daily-routine-page .routine-coach-card-title {
+  display:block;
+  color:#f4eee8;
+  font-size:2.35rem;
+  line-height:1.2;
+  font-weight:450;
+  letter-spacing:-.04em;
+}
+html body #root .daily-routine-page .routine-coach-card-description {
+  display:block;
+  color:rgba(244,238,232,.58);
+  font-size:1.45rem;
+  line-height:1.5;
+}
+html body #root .daily-routine-page .routine-coach-card-hint {
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  color:#E58642 !important;
+  font-size:1.35rem;
+  font-weight:450;
+}
+html body #root .daily-routine-page .routine-coach-card:focus-visible {
+  outline:2px solid #E58642;
+  outline-offset:3px;
+}
+html body #root .daily-routine-page .routine-coach-card:active { transform:scale(.985); }
+@media(max-width:640px) {
+  html body #root .daily-routine-page .routine-coach-track {
+    grid-auto-columns:min(78vw, 29.2rem);
+    gap:1rem;
+  }
+  html body #root .daily-routine-page .routine-coach-card {
+    height:22.4rem;
+    padding:1.7rem;
+    border-radius:1.9rem;
+  }
+}
+@media(prefers-reduced-motion:no-preference) {
+  html body #root .daily-routine-page .routine-coach-track { scroll-behavior:smooth; }
+}
