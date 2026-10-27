@@ -205,7 +205,7 @@ export default function DailyRoutinePage({ pageProps }) {
   function updateItem(id, changes) {
     const nextItems = items.map(item => item.id === id ? { ...item, ...changes } : item)
     persist(nextItems)
-    if (Object.prototype.hasOwnProperty.call(changes, 'time') || Object.prototype.hasOwnProperty.call(changes, 'enabled') || Object.prototype.hasOwnProperty.call(changes, 'days')) syncRoutineReminders(nextItems)
+    if (Object.prototype.hasOwnProperty.call(changes, 'label') || Object.prototype.hasOwnProperty.call(changes, 'time') || Object.prototype.hasOwnProperty.call(changes, 'enabled') || Object.prototype.hasOwnProperty.call(changes, 'days')) syncRoutineReminders(nextItems)
   }
 
   function saveItemLabel(id) {
