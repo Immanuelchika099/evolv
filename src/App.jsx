@@ -2774,7 +2774,19 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
     // TODO: Design the dedicated Mood screen. Keep the user's selection intact meanwhile.
     setStep(2)
   }
+  function emitEmotionEvent(name,detail){
+    window.dispatchEvent(new CustomEvent(name,{detail,bubbles:true}))
+  }
+  function goBackToChoice(){
+    emitEmotionEvent('emotionstep:back')
+    setStep(-1)
+  }
+  function closeReflection(){
+    emitEmotionEvent('emotionstep:close')
+    onClose()
+  }
   function continueEmotion(){
+    emitEmotionEvent('emotionstep:next',{value:emotionValue,label:selectedEmotion.label,emoji:selectedEmotion.emoji})
     setMood(selectedEmotion.mood)
     setFeeling(selectedEmotion.label)
     setStep(1)
@@ -2783,7 +2795,7 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
     <div className={'reflection-sheet'+(step===-1?' reflection-sheet-intro':'')+(step===0?' reflection-sheet-emotion':'')}>
       <div className="reflection-sheet-handle"/>
       {step===-1 ? <>
-        <button type="button" className="mood-card-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button>
+        <button type="button" className="mood-card-close" onClick={closeReflection} aria-label="Close reflection"><X size={18}/></button>
         <div className="mood-card-stage" aria-hidden="true">{characters.map((item,index)=><span key={index} className="mood-card-character" style={{'--mc-x':item.x,'--mc-y':item.y,'--mc-size':item.size+'px','--mc-duration':item.duration,'--mc-delay':item.delay}}>{item.emoji}</span>)}</div>
         <h2 className="mood-card-title">Log an Emotion<br/>or Mood</h2>
         <div className="mood-card-options" role="radiogroup" aria-label="What do you want to log?">
@@ -2803,9 +2815,9 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
       </> : step===0 ? <>
         <section className="emo-step" aria-labelledby="emo-title" style={{'--emo-h':emotionHue,'--emo-glow':(0.12+emotionValue/100*0.18).toFixed(3),'--emo-scale':(0.84+emotionValue/100*0.16).toFixed(3)}}>
           <header className="emo-step__bar">
-            <button className="emo-btn" type="button" onClick={()=>setStep(-1)} aria-label="Back"><ChevronLeft size={20}/></button>
+            <button className="emo-btn" type="button" onClick={goBackToChoice} aria-label="Back"><ChevronLeft size={20}/></button>
             <span className="emo-step__bartitle">Emotion</span>
-            <button className="emo-btn" type="button" onClick={onClose} aria-label="Close"><X size={18}/></button>
+            <button className="emo-btn" type="button" onClick={closeReflection} aria-label="Close"><X size={18}/></button>
           </header>
           <h3 className="emo-step__title" id="emo-title">Choose how you’re<br className="emo-title-break"/> feeling right now</h3>
           <div className="emo-step__emoji-stage" aria-hidden="true">
@@ -2829,7 +2841,7 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
           <h2>The Mood check-in</h2>
           <p>This screen is not designed yet. Your Mood selection is still selected, so you can go back without losing it.</p>
           {/* TODO: Design the separate Mood screen; do not reuse the Emotion check-in. */}
-          <div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={()=>setStep(-1)}><ChevronLeft size={15}/> Back</button></div>
+          <div className="reflection-step-actions"><button type="button" className="reflection-back" onClick={goBackToChoice}><ChevronLeft size={15}/> Back</button></div>
         </div>
       </> : <>
         <div className="reflection-sheet-head"><div><span className="section-label">EMOTION CHECK-IN</span><span className="reflection-step-label">2 / 2</span></div><button type="button" className="reflection-close" onClick={onClose} aria-label="Close reflection"><X size={18}/></button></div>
