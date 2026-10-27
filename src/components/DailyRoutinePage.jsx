@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Activity, AlarmClock, Apple, Bell, BookOpen, Brain, Check, ChevronRight, Clock3, Droplets, Dumbbell, Flower2, HeartPulse, Moon, RotateCcw, Sunrise, Target, Utensils, WalletCards, Waves } from 'lucide-react'
+import { Activity, AlarmClock, Apple, Bell, BookOpen, Brain, Check, ChevronDown, ChevronRight, Clock3, Droplets, Dumbbell, Flower2, HeartPulse, Moon, RotateCcw, Sunrise, Target, Utensils, WalletCards, Waves } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './DailyRoutinePage.css'
 
@@ -119,6 +119,13 @@ export default function DailyRoutinePage({ pageProps }) {
   const [items, setItems] = useState(defaults)
   const [completed, setCompleted] = useState({})
   const [saved, setSaved] = useState(false)
+  const [expandedDays, setExpandedDays] = useState({})
+  const [editingId, setEditingId] = useState(null)
+  const [labelDraft, setLabelDraft] = useState('')
+  const [showAddRoutine, setShowAddRoutine] = useState(false)
+  const [newLabel, setNewLabel] = useState('')
+  const [newTime, setNewTime] = useState('09:00')
+  const [newGroup, setNewGroup] = useState('Morning')
   const [leadMinutes, setLeadMinutes] = useState(() => {
     try { const prefs = JSON.parse(localStorage.getItem('evolv-notification-times') || '{}'); return Math.min(720, Math.max(0, Number(prefs.routineReminderLeadMinutes ?? 10))) } catch { return 10 }
   })
@@ -199,6 +206,27 @@ export default function DailyRoutinePage({ pageProps }) {
     const nextItems = items.map(item => item.id === id ? { ...item, ...changes } : item)
     persist(nextItems)
     if (Object.prototype.hasOwnProperty.call(changes, 'time') || Object.prototype.hasOwnProperty.call(changes, 'enabled') || Object.prototype.hasOwnProperty.call(changes, 'days')) syncRoutineReminders(nextItems)
+  }
+
+  function saveItemLabel(id) {
+    const label = labelDraft.trim()
+    if (label) updateItem(id, { label })
+    setEditingId(null)
+  }
+
+  function addRoutine(event) {
+    event.preventDefault()
+    const label = newLabel.trim()
+    if (!label) return
+    const group = newGroup
+    const icon = group === 'Morning' ? 'sunrise' : group === 'Meals' ? 'meal' : 'moon'
+    const item = { id: 'custom-' + Date.now(), label, time: newTime || '09:00', group, enabled: true, days: [...WEEKDAYS], icon }
+    const nextItems = [...items, item]
+    persist(nextItems)
+    syncRoutineReminders(nextItems)
+    setNewLabel('')
+    setNewTime('09:00')
+    setShowAddRoutine(false)
   }
 
   function toggleCompleted(id) {
@@ -289,7 +317,12 @@ export default function DailyRoutinePage({ pageProps }) {
       </section>
 
       <section className="routine-schedule-section">
-        <div className="routine-section-heading"><div><span className="routine-label">YOUR SCHEDULE</span><h2>Set your rhythm.</h2></div><span className="routine-saved-state">{saved ? <><Check size={13}/> Saved</> : null}</span></div>
+        <div className="routine-section-heading"><div><span className="routine-label">YOUR SCHEDULE</span><h2>Set your rhythm.</h2></div><div className="routine-schedule-actions"><span className="routine-saved-state">{saved ? <><Check size={13}/> Saved</> : null}</span><button type="button" className="routine-add-button" onClick={() => setShowAddRoutine(value => !value)}><span>{showAddRoutine ? 'Cancel' : 'Add routine'}</span>{showAddRoutine ? null : <span aria-hidden="true">+</span>}</button></div></div>
+        {showAddRoutine && <form className="routine-add-form" onSubmit={addRoutine}>
+          <label><span>What do you want to add?</span><input autoFocus value={newLabel} onChange={event => setNewLabel(event.target.value)} placeholder="e.g. Read for 20 minutes" maxLength={60} required /></label>
+          <div className="routine-add-form-row"><label><span>Time</span><input type="time" value={newTime} onChange={event => setNewTime(event.target.value)} required /></label><label><span>Part of day</span><select value={newGroup} onChange={event => setNewGroup(event.target.value)}><option>Morning</option><option>Meals</option><option>Evening</option></select></label></div>
+          <button type="submit" className="routine-add-submit">Add to my routine</button>
+        </form>}
         <div className="routine-schedule-list">
           {['Morning', 'Meals', 'Evening'].map(group => {
             const groupItems = items.filter(item => item.group === group).sort((a, b) => a.time.localeCompare(b.time))
@@ -301,11 +334,16 @@ export default function DailyRoutinePage({ pageProps }) {
                   <div className="routine-row-main">
                     <button type="button" className="routine-check" aria-label={(completed[item.id] ? 'Mark ' + item.label + ' incomplete' : 'Complete ' + item.label)} onClick={() => toggleCompleted(item.id)} disabled={!item.enabled}>{completed[item.id] ? <Check size={15}/> : <span/>}</button>
                     <span className="routine-row-icon"><Icon size={17}/></span>
-                    <div className="routine-row-copy"><strong>{item.label}</strong></div>
+                    <div className="routine-row-copy">
+                      {editingId === item.id ? <form className="routine-inline-edit" onSubmit={event => { event.preventDefault(); saveItemLabel(item.id) }}><input aria-label="Routine name" autoFocus maxLength={60} value={labelDraft} onChange={event => setLabelDraft(event.target.value)} onBlur={() => saveItemLabel(item.id)} /><button type="submit" aria-label="Save routine name"><Check size={15}/></button></form> : <button type="button" className="routine-name-button" onClick={() => { setEditingId(item.id); setLabelDraft(item.label) }} aria-label={'Edit ' + item.label}>{item.label}<span className="routine-edit-hint">Edit</span></button>}
+                    </div>
                     <label className="routine-time"><span className="sr-only">{item.label} time</span><input type="time" value={item.time} onChange={event => updateItem(item.id, { time: event.target.value })} /></label>
                     <button type="button" className={'routine-toggle' + (item.enabled ? ' is-on' : '')} aria-pressed={item.enabled} aria-label={(item.enabled ? 'Disable ' : 'Enable ') + item.label} onClick={() => updateItem(item.id, { enabled: !item.enabled })}><span/></button>
                   </div>
-                  <div className="routine-day-picker" aria-label={item.label + ' scheduled days'}>{WEEKDAYS.map(day => <button key={day} type="button" className={(item.days || WEEKDAYS).includes(day) ? 'is-selected' : ''} aria-pressed={(item.days || WEEKDAYS).includes(day)} onClick={() => { const current = item.days || WEEKDAYS; const nextDays = current.includes(day) ? current.filter(value => value !== day) : [...current, day]; updateItem(item.id, { days: nextDays }) }}>{day}</button>)}</div>
+                  <button type="button" className="routine-days-disclosure" aria-expanded={!!expandedDays[item.id]} onClick={() => setExpandedDays(current => ({ ...current, [item.id]: !current[item.id] }))}>
+                    <span className="routine-days-summary"><span className="routine-days-dot" />{(item.days || WEEKDAYS).length === 7 ? 'Every day' : (item.days || []).length ? (item.days || []).join(' · ') : 'No days selected'}</span><span className="routine-days-edit">{expandedDays[item.id] ? 'Hide days' : 'Choose days'}<ChevronDown size={15} className={expandedDays[item.id] ? 'is-open' : ''}/></span>
+                  </button>
+                  {expandedDays[item.id] && <div className="routine-day-picker" aria-label={item.label + ' scheduled days'}>{WEEKDAYS.map(day => <button key={day} type="button" className={(item.days || WEEKDAYS).includes(day) ? 'is-selected' : ''} aria-pressed={(item.days || WEEKDAYS).includes(day)} onClick={() => { const current = item.days || WEEKDAYS; const nextDays = current.includes(day) ? current.filter(value => value !== day) : [...current, day]; updateItem(item.id, { days: nextDays }) }}>{day}</button>)}</div>}
                 </article>
               })}
             </div>
