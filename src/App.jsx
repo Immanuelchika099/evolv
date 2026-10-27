@@ -2775,7 +2775,7 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
     setStep(2)
   }
   function emitEmotionEvent(name,detail){
-    window.dispatchEvent(new CustomEvent(name,{detail,bubbles:true}))
+    document.dispatchEvent(new CustomEvent(name,{detail,bubbles:true}))
   }
   function goBackToChoice(){
     emitEmotionEvent('emotionstep:back')
