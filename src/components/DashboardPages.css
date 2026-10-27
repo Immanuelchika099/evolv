@@ -8069,19 +8069,19 @@ html body #root .dashboard button.settings-toggle.active > span {
 .daily-ai-insight-back-one { transform: translateY(.7rem) scale(.985); background: #101010; }
 .daily-ai-insight-back-two { inset: 0 2.2rem -1rem; transform: translateY(1.35rem) scale(.965); background: #0c0c0c; opacity: .9; }
 .daily-ai-insight-card {
-  margin-top: 0 !important;
+  margin-top: 0;
   min-height: 24rem;
-  border-color: rgba(255,255,255,.09) !important;
-  border-radius: 1.8rem !important;
-  background: linear-gradient(145deg, #191919 0%, #111111 58%, #0d0d0d 100%) !important;
+  border-color: rgba(255,255,255,.09);
+  border-radius: 1.8rem;
+  background: linear-gradient(145deg, #191919 0%, #111111 58%, #0d0d0d 100%);
   box-shadow: 0 2.2rem 5rem rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.025);
   animation: daily-ai-cinematic-enter .7s cubic-bezier(.2,.7,.2,1) both;
 }
-.daily-ai-insight-card::before { background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,0)) !important; width: 1px !important; }
+.daily-ai-insight-card::before { background: linear-gradient(180deg, rgba(255,255,255,.24), rgba(255,255,255,0)); width: 1px; }
 .daily-ai-insight-category { color: rgba(255,255,255,.46) !important; letter-spacing: .13em !important; }
 .daily-ai-insight-index { color: rgba(255,255,255,.62); font: 500 1.1rem/1.3 'DM Mono', monospace; letter-spacing: .08em; }
 .daily-ai-insight-index span { color: rgba(255,255,255,.25); padding: 0 .25rem; }
-.daily-ai-insight-card h3 { color: #f4f3f0 !important; font-size: clamp(2.2rem, 4.2vw, 3rem) !important; letter-spacing: -.045em !important; }
+.daily-ai-insight-card h3 { color: #f4f3f0; font-size: clamp(2.2rem, 4.2vw, 3rem); letter-spacing: -.045em; }
 .daily-ai-insight-observation { max-width: 48rem; color: rgba(255,255,255,.7) !important; font-size: 1.5rem !important; line-height: 1.65 !important; }
 .daily-ai-insight-suggestion { margin-top: 2rem !important; padding: 1.15rem 0 0 !important; border: 0 !important; border-top: 1px solid rgba(255,255,255,.08) !important; border-radius: 0 !important; background: transparent !important; }
 .daily-ai-insight-suggestion > span { color: rgba(255,255,255,.38) !important; font-size: 1rem !important; letter-spacing: .12em !important; }
@@ -8101,12 +8101,12 @@ html body #root .dashboard button.settings-toggle.active > span {
   .daily-ai-insight-stack { padding-bottom: .75rem; }
   .daily-ai-insight-back { border-radius: 1.5rem; }
   .daily-ai-insight-back-two { inset: 0 1.6rem -.8rem; }
-  .daily-ai-insight-card { min-height: 23rem; padding: 1.8rem !important; }
-  .daily-ai-insight-card h3 { font-size: 2.35rem !important; }
+  .daily-ai-insight-card { min-height: 23rem; padding: 1.8rem; }
+  .daily-ai-insight-card h3 { font-size: 2.35rem; }
   .daily-ai-insight-observation { font-size: 1.4rem !important; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .daily-ai-insight-card, .daily-ai-insight-back, .daily-ai-insight-dots span { animation:none !important; transition:none !important; }
+  .daily-ai-insight-card, .daily-ai-insight-back, .daily-ai-insight-dots span { animation:none; transition:none; }
 }
 
 
@@ -8199,13 +8199,13 @@ html body #root .dashboard button.settings-toggle.active > span {
 }
 .daily-ai-depth-carousel .depth-carousel__stage { overflow: visible; }
 .daily-ai-depth-carousel .depth-carousel__card {
-  background: #111111 !important;
-  border-color: rgba(255,255,255,.14) !important;
-  box-shadow: 0 2.8rem 7rem rgba(0,0,0,.78), 0 1rem 2.6rem rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.035) !important;
+  background: transparent;
+  border-color: rgba(255,255,255,.14);
+  box-shadow: 0 2.8rem 7rem rgba(0,0,0,.78), 0 1rem 2.6rem rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.035);
 }
 .daily-ai-depth-carousel .daily-ai-insight-panel {
-  background: #111111 !important;
-  background-image: linear-gradient(155deg, #191919 0%, #121212 48%, #0e0e0e 100%) !important;
+  background: transparent;
+  background-image: linear-gradient(155deg, #191919 0%, #121212 48%, #0e0e0e 100%);
   padding: 2.3rem;
 }
 .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
@@ -8252,14 +8252,14 @@ html body #root .dashboard button.settings-toggle.active > span {
 /* Final AI carousel override: near-black cards and truly tiny pagination dots.
    Explicit button resets prevent shared button styles inflating the indicators. */
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
-  background: #050505 !important;
-  background-color: #050505 !important;
-  background-image: none !important;
+  background: transparent;
+  background: transparent;
+  background-image: none;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
-  background: #050505 !important;
-  background-color: #050505 !important;
-  background-image: none !important;
+  background: transparent;
+  background: transparent;
+  background-image: none;
 }
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__dots {
   height: 5px !important;
@@ -8302,24 +8302,24 @@ html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot.i
 /* AI insight cards: keep every visible card fully opaque during the swipe.
    A subtle blue/cyan atmospheric glow adds life without turning the surface loud. */
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
-  background: #080a0e !important;
-  background-color: #080a0e !important;
-  background-image: none !important;
-  border-color: color-mix(in srgb, var(--color-accent-blue) 20%, transparent) !important;
+  background: transparent;
+  background: transparent;
+  background-image: none;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
   box-shadow:
     0 2.8rem 7rem rgba(0,0,0,.72),
     0 0 2.4rem color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent),
-    inset 0 1px 0 rgba(255,255,255,.055) !important;
+    inset 0 1px 0 rgba(255,255,255,.055);
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-color: #080a0e !important;
+  background: transparent;
   background-image:
     radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--color-accent-blue) 20%, transparent), transparent 48%),
     radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--color-accent-blue) 10.5%, transparent), transparent 42%),
-    linear-gradient(145deg, #10141d 0%, #090b10 58%, #08090c 100%) !important;
+    linear-gradient(145deg, #10141d 0%, #090b10 58%, #08090c 100%);
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel::before {
   content: "";
@@ -8336,21 +8336,21 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
 
 /* AI insight cards: subtle color and glow, while keeping each visible card opaque. */
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
-  background: #080a0e !important;
-  background-color: #080a0e !important;
-  background-image: none !important;
-  border-color: color-mix(in srgb, var(--color-accent-blue) 20%, transparent) !important;
-  box-shadow: 0 2.8rem 7rem rgba(0,0,0,.72), 0 0 2.4rem color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent), inset 0 1px 0 rgba(255,255,255,.055) !important;
+  background: transparent;
+  background: transparent;
+  background-image: none;
+  border-color: color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
+  box-shadow: 0 2.8rem 7rem rgba(0,0,0,.72), 0 0 2.4rem color-mix(in srgb, var(--color-accent-blue) 7.5%, transparent), inset 0 1px 0 rgba(255,255,255,.055);
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  background-color: #080a0e !important;
+  background: transparent;
   background-image:
     radial-gradient(ellipse at 100% 0%, color-mix(in srgb, var(--color-accent-blue) 20%, transparent), transparent 48%),
     radial-gradient(ellipse at 0% 100%, color-mix(in srgb, var(--color-accent-blue) 10.5%, transparent), transparent 42%),
-    linear-gradient(145deg, #10141d 0%, #090b10 58%, #08090c 100%) !important;
+    linear-gradient(145deg, #10141d 0%, #090b10 58%, #08090c 100%);
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
   text-shadow: 0 0 2.5rem color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
@@ -8361,84 +8361,84 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
 html body #root .dashboard .daily-ai-insight-card,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
   box-sizing: border-box;
-  padding: 2.2rem !important;
+  padding: 2.2rem;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-category,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-category {
-  font-size: 1.2rem !important;
-  line-height: 1.45 !important;
-  letter-spacing: .09em !important;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  letter-spacing: .09em;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-index,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-index {
-  font-size: 1.3rem !important;
-  line-height: 1.4 !important;
+  font-size: 1.3rem;
+  line-height: 1.4;
   white-space: nowrap;
 }
 html body #root .dashboard .daily-ai-insight-card h3,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
-  margin: 0 0 1.2rem !important;
-  font-size: clamp(2.4rem, 4.8vw, 2.8rem) !important;
-  line-height: 1.2 !important;
-  letter-spacing: -.035em !important;
+  margin: 0 0 1.2rem;
+  font-size: clamp(2.4rem, 4.8vw, 2.8rem);
+  line-height: 1.2;
+  letter-spacing: -.035em;
   overflow-wrap: anywhere;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-observation,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
-  margin: 0 !important;
-  font-size: 1.55rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0 !important;
+  margin: 0;
+  font-size: 1.55rem;
+  line-height: 1.6;
+  letter-spacing: 0;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion {
-  margin-top: auto !important;
-  padding-top: 1.5rem !important;
+  margin-top: auto;
+  padding-top: 1.5rem;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion > span,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion > span {
   display: block;
-  margin-bottom: .7rem !important;
-  font-size: 1.2rem !important;
-  line-height: 1.4 !important;
-  letter-spacing: .1em !important;
+  margin-bottom: .7rem;
+  font-size: 1.2rem;
+  line-height: 1.4;
+  letter-spacing: .1em;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion p,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
-  margin: 0 !important;
-  font-size: 1.6rem !important;
-  line-height: 1.5 !important;
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-action,
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-action {
-  min-height: 3.8rem !important;
-  margin-top: 1.3rem !important;
-  padding: .9rem 1.2rem !important;
-  gap: .7rem !important;
-  font-size: 1.4rem !important;
-  line-height: 1.35 !important;
+  min-height: 3.8rem;
+  margin-top: 1.3rem;
+  padding: .9rem 1.2rem;
+  gap: .7rem;
+  font-size: 1.4rem;
+  line-height: 1.35;
 }
 @media (max-width: 640px) {
   html body #root .dashboard .daily-ai-insight-card,
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
-    padding: 2rem !important;
+    padding: 2rem;
   }
   html body #root .dashboard .daily-ai-insight-card h3,
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
-    font-size: 2.45rem !important;
-    line-height: 1.2 !important;
-    margin-bottom: 1.1rem !important;
+    font-size: 2.45rem;
+    line-height: 1.2;
+    margin-bottom: 1.1rem;
   }
   html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-observation,
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
-    font-size: 1.5rem !important;
-    line-height: 1.55 !important;
+    font-size: 1.5rem;
+    line-height: 1.55;
   }
   html body #root .dashboard .daily-ai-insight-card .daily-ai-insight-suggestion p,
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
-    font-size: 1.55rem !important;
-    line-height: 1.5 !important;
+    font-size: 1.55rem;
+    line-height: 1.5;
   }
 }
 
@@ -9704,14 +9704,14 @@ html body #root .dashboard .goals-page .goal-ai-plan .goal-apply-plan {
   overflow: visible;
 }
 html body #root .dashboard .daily-ai-depth-carousel .depth-carousel__card {
-  background: var(--color-surface, #101010) !important;
-  background-color: var(--color-surface, #101010) !important;
-  background-image: none !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
-  border-radius: 3.2rem !important;
+  background: transparent;
+  background: transparent;
+  background-image: none;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 3.2rem;
   box-shadow:
     0 2.4rem 4.8rem -2.6rem rgba(0,0,0,.92),
-    inset 0 1px 0 rgba(255,255,255,.055) !important;
+    inset 0 1px 0 rgba(255,255,255,.055);
   backface-visibility: hidden;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
@@ -9719,23 +9719,23 @@ html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
   display: flex;
   flex-direction: column;
   height: 100%;
-  padding: 2.6rem !important;
+  padding: 2.6rem;
   overflow: hidden;
   border-radius: inherit;
-  background: var(--color-surface, #101010) !important;
-  background-color: var(--color-surface, #101010) !important;
-  background-image: none !important;
+  background: transparent;
+  background: transparent;
+  background-image: none;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel::before {
-  content: none !important;
-  display: none !important;
+  content: none;
+  display: none;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
-  margin: 0 0 1.2rem !important;
-  color: var(--color-text-primary, #f4f4f1) !important;
-  text-shadow: none !important;
-  font-weight: var(--font-weight-regular) !important;
-  line-height: 1.2 !important;
+  margin: 0 0 1.2rem;
+  color: var(--color-text-primary, #f4f4f1);
+  text-shadow: none;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.2;
 }
 html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation {
   max-width: none;
@@ -9795,10 +9795,10 @@ html body #root .dashboard .daily-ai-depth-carousel button.depth-carousel__dot.i
     margin-top: 1.1rem;
   }
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel {
-    padding: 2.2rem !important;
+    padding: 2.2rem;
   }
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-panel h3 {
-    font-size: 2.35rem !important;
+    font-size: 2.35rem;
   }
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-observation,
   html body #root .dashboard .daily-ai-depth-carousel .daily-ai-insight-suggestion p {
@@ -9843,25 +9843,25 @@ html body #root .dashboard .calm-insights-section .daily-ai-depth-carousel .dept
 /* AI insight cards: translucent glass treatment from the supplied reference.
    Intentionally no surrounding halo or external background glow. */
 .calm-insights-section .daily-ai-depth-carousel .depth-carousel__card {
-  background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.05)) !important;
-  border: 1px solid rgba(190,230,226,.22) !important;
+  background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+  border: 1px solid rgba(190,230,226,.22);
   -webkit-backdrop-filter: blur(22px) saturate(1.2);
   backdrop-filter: blur(22px) saturate(1.2);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 28px 50px -26px rgba(0,0,0,.8) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 28px 50px -26px rgba(0,0,0,.8);
 }
 .calm-insights-section .daily-ai-depth-carousel .daily-ai-insight-panel {
-  background: transparent !important;
-  background-image: none !important;
+  background: transparent;
+  background-image: none;
 }
 .calm-insights-section .daily-ai-insight-card {
-  background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.05)) !important;
-  border: 1px solid rgba(190,230,226,.22) !important;
+  background: linear-gradient(160deg, rgba(255,255,255,.13), rgba(255,255,255,.05));
+  border: 1px solid rgba(190,230,226,.22);
   -webkit-backdrop-filter: blur(22px) saturate(1.2);
   backdrop-filter: blur(22px) saturate(1.2);
   box-shadow: inset 0 1px 0 rgba(255,255,255,.14), 0 28px 50px -26px rgba(0,0,0,.8);
 }
 .calm-insights-section .daily-ai-insight-card::before {
-  display: none !important;
+  display: none;
 }
 
 
@@ -10278,17 +10278,17 @@ html body #root .dashboard .dashboard-home.calm-home::after {
     rgba(255, 255, 255, .045) 0%,
     rgba(255, 255, 255, .018) 55%,
     rgba(255, 255, 255, .012) 100%
-  ) !important;
-  border-color: rgba(214, 112, 66, .13) !important;
-  -webkit-backdrop-filter: blur(22px) saturate(1.08) !important;
-  backdrop-filter: blur(22px) saturate(1.08) !important;
+  );
+  border-color: rgba(214, 112, 66, .13);
+  -webkit-backdrop-filter: blur(22px) saturate(1.08);
+  backdrop-filter: blur(22px) saturate(1.08);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, .055),
-    0 2.2rem 5rem rgba(0, 0, 0, .22) !important;
+    0 2.2rem 5rem rgba(0, 0, 0, .22);
 }
 .dashboard .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel {
-  background: transparent !important;
-  background-image: none !important;
+  background: transparent;
+  background-image: none;
 }
 .dashboard .dashboard-home.calm-home .daily-ai-insight-back-one {
   background: rgba(15, 12, 11, .78) !important;
@@ -11725,4 +11725,19 @@ html body #root .reflection-step-actions .reflection-next:hover {
   outline: 2px solid rgba(255,255,255,.7) !important;
   outline-offset: 4px !important;
   border-radius: .4rem !important;
+}
+
+
+/* EVOLV AI insight glass surface — one clear, non-opaque treatment. */
+.dashboard .dashboard-home.calm-home .daily-ai-depth-carousel .depth-carousel__card,
+.dashboard .dashboard-home.calm-home .daily-ai-insight-card {
+  background: linear-gradient(145deg, rgba(255,255,255,.055), rgba(255,255,255,.018));
+  border: 1px solid rgba(214,112,66,.14);
+  -webkit-backdrop-filter: blur(22px) saturate(1.08);
+  backdrop-filter: blur(22px) saturate(1.08);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.05), 0 2.2rem 5rem rgba(0,0,0,.22);
+}
+.dashboard .dashboard-home.calm-home .daily-ai-depth-carousel .daily-ai-insight-panel {
+  background: transparent;
+  background-image: none;
 }
