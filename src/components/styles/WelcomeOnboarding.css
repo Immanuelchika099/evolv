@@ -2021,3 +2021,72 @@
   }
   .evolv-onboarding-goal-text strong { font-size: 1.4rem; }
 }
+
+
+/* Mobile goals step: stack the heading above a full-width card grid. */
+@media (max-width: 680px) {
+  .evolv-onboarding-stage.evolv-onboarding-goals,
+  .evolv-onboarding-stage.evolv-onboarding-goals-step,
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) h1 {
+    width: 100%;
+    max-width: 100%;
+    margin: 1.8rem 0 0;
+    font-size: clamp(3.5rem, 10vw, 4.8rem);
+    line-height: 1.02;
+    letter-spacing: -.045em;
+    text-wrap: balance;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goals {
+    display: grid;
+    width: 100%;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 2.4rem;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal {
+    min-width: 0;
+    min-height: 11.2rem;
+    padding: 1.35rem;
+    border-radius: 2rem;
+    gap: 1.2rem;
+    overflow: hidden;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal-symbol {
+    flex: 0 0 3.5rem;
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal-text {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal-text strong {
+    display: block;
+    overflow-wrap: anywhere;
+    font-size: 1.45rem;
+    line-height: 1.25;
+  }
+}
+
+@media (max-width: 380px) {
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal {
+    padding: 1.1rem;
+    min-height: 10.4rem;
+  }
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal-text strong {
+    font-size: 1.35rem;
+  }
+}
