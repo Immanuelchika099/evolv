@@ -3140,3 +3140,89 @@ html:has(.dashboard.dashboard-ai-active) {
     animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important;
   }
 }
+
+/* iOS keyboard stability: use one viewport owner for the AI screen.
+   The JS visualViewport listener resizes the dashboard to the visible area.
+   Keep the composer absolutely anchored inside that resized canvas; mixing
+   fixed positioning, safe-area height expansion, and visualViewport sizing
+   causes WebKit to leave a stale black layer over the input during keyboard
+   open/close transitions. */
+.dashboard.dashboard-ai-active {
+  position: fixed !important;
+  top: var(--evolv-ai-viewport-top, 0px) !important;
+  right: 0 !important;
+  bottom: auto !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: var(--evolv-ai-viewport-height, 100dvh) !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .dash-main {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  overflow: hidden !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  padding-bottom: 0 !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+  position: absolute !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  top: auto !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin: 0 !important;
+  padding: .7rem .9rem calc(.7rem + env(safe-area-inset-bottom, 0px)) !important;
+  transform: none !important;
+  z-index: 100501 !important;
+  box-sizing: border-box !important;
+  pointer-events: auto !important;
+}
+
+/* When the keyboard is open, visualViewport already ends at the keyboard edge.
+   Do not add the Home Screen safe-area inset a second time. */
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus),
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell:has(.prompt-bar__input:focus-visible) {
+  padding-bottom: .2rem !important;
+  margin-bottom: 0 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell::before {
+  pointer-events: none !important;
+  z-index: -1 !important;
+}
+
+@media (display-mode: standalone) {
+  .dashboard.dashboard-ai-active {
+    height: var(--evolv-ai-viewport-height, 100dvh) !important;
+  }
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+    padding-left: .9rem !important;
+    padding-right: .9rem !important;
+  }
+}
