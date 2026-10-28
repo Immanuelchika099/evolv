@@ -1898,3 +1898,126 @@
 .evolv-onboarding-stage h1 {
   letter-spacing: -.035em;
 }
+
+
+/* EVOLV onboarding refresh — segmented progress and minimal focus tiles */
+.evolv-onboarding-progress {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: .55rem;
+  height: .55rem;
+  width: calc(100% - 4.8rem);
+  max-width: 72rem;
+  margin: 1.8rem auto 0;
+  background: transparent;
+  overflow: visible;
+}
+.evolv-onboarding-progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 999px;
+  background: rgba(255,255,255,.12);
+  box-shadow: none;
+  transition: background .28s ease;
+}
+.evolv-onboarding-progress i.is-complete { background: #fff; }
+
+.evolv-onboarding-goals {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.2rem;
+  margin-top: 3rem;
+}
+.evolv-onboarding-goal {
+  min-height: 15rem;
+  padding: 1.8rem 1.5rem;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 2.2rem;
+  background: #10100f;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1.3rem;
+  color: #f5f2ec;
+  text-align: left;
+  box-shadow: none;
+  transition: background .2s ease, border-color .2s ease, transform .2s ease;
+}
+.evolv-onboarding-goal:hover {
+  background: #171512;
+  border-color: rgba(229,134,66,.5);
+  transform: translateY(-2px);
+}
+.evolv-onboarding-goal.is-selected {
+  border-color: #E58642;
+  background: rgba(229,134,66,.12);
+  box-shadow: none;
+}
+.evolv-onboarding-goal-symbol {
+  width: 3.8rem;
+  height: 3.8rem;
+  display: grid;
+  place-items: center;
+  color: #f1e9df;
+  background: rgba(255,255,255,.055);
+  border-radius: 1.2rem;
+}
+.evolv-onboarding-goal-dollar {
+  font-size: 2.8rem;
+  line-height: 1;
+  font-weight: 500;
+}
+.evolv-onboarding-goal-text { display: block; }
+.evolv-onboarding-goal-text strong {
+  font-size: 1.55rem;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -.025em;
+}
+.evolv-onboarding-goal { position: relative; }
+.evolv-onboarding-goal-check {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.2rem;
+  opacity: 0;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+}
+.evolv-onboarding-goal.is-selected .evolv-onboarding-goal-check {
+  opacity: 1;
+  background: #E58642;
+  border-color: #E58642;
+  color: #0a0908;
+}
+
+@media (max-width: 600px) {
+  .evolv-onboarding-progress {
+    width: calc(100% - 3.6rem);
+    gap: .45rem;
+    height: .45rem;
+    margin-top: 1.6rem;
+  }
+  .evolv-onboarding-goals {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: .9rem;
+    margin-top: 2.5rem;
+  }
+  .evolv-onboarding-goal {
+    min-height: 12.6rem;
+    padding: 1.5rem 1.3rem;
+    border-radius: 1.8rem;
+    gap: 1.2rem;
+  }
+  .evolv-onboarding-goal-symbol {
+    width: 3.4rem;
+    height: 3.4rem;
+    border-radius: 1rem;
+  }
+  .evolv-onboarding-goal-text strong { font-size: 1.4rem; }
+}
