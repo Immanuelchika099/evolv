@@ -136,7 +136,7 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     if (!raw) return fallbackNotification
     const parsed = JSON.parse(raw)
     const titleRaw = String(parsed.title || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim().slice(0, 42)
-    const title = titleRaw.toLocaleLowerCase().replace(/(^|\s)\p{L}/gu, letter => letter.toLocaleUpperCase())
+    const title = titleRaw.toLocaleLowerCase()
     const body = String(parsed.body || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim()
     if (!title || !body || body.length > 75 || body.split(/\\s+/).length > 10) return fallbackNotification
     return { title, body }
