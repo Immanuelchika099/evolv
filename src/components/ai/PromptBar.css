@@ -234,3 +234,14 @@
     border-radius: 2.8rem !important;
   }
 }
+
+
+/* Give the composer placeholder and typed text a little more breathing room
+   inside the pill, without changing the overall composer size or button layout. */
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input,
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input::placeholder {
+  box-sizing: border-box !important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+  padding-inline: .45rem !important;
+}
