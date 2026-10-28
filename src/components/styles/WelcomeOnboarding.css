@@ -2090,3 +2090,84 @@
     font-size: 1.35rem;
   }
 }
+
+
+/* Final mobile goals polish: vertical actions, tighter heading, expressive icons. */
+@media (max-width: 680px) {
+  .evolv-onboarding-main {
+    padding-top: .4rem;
+    padding-bottom: 1.2rem;
+  }
+
+  .evolv-onboarding-main > .evolv-onboarding-back {
+    margin-bottom: .6rem;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) {
+    padding-top: .25rem;
+    padding-bottom: 1rem;
+    margin-top: 0;
+  }
+
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) h1 {
+    margin-top: .6rem;
+  }
+
+  .evolv-onboarding-footer:has(.evolv-onboarding-skip) {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 1.2rem;
+    padding-top: 1.2rem;
+  }
+
+  .evolv-onboarding-footer .evolv-onboarding-skip {
+    order: 2;
+    align-self: center;
+    text-align: center;
+    padding: .6rem 1rem;
+  }
+
+  .evolv-onboarding-footer:has(.evolv-onboarding-skip) .evolv-onboarding-continue {
+    order: 1;
+    width: 100%;
+    flex: none;
+  }
+
+  /* Individual restrained icon colors; selected card state remains dark orange. */
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal:nth-child(1) .evolv-onboarding-goal-symbol {
+    color: #E9B47A;
+    background: rgba(233,180,122,.12);
+  }
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal:nth-child(2) .evolv-onboarding-goal-symbol {
+    color: #E58B83;
+    background: rgba(229,139,131,.12);
+  }
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal:nth-child(3) .evolv-onboarding-goal-symbol {
+    color: #D6A0E8;
+    background: rgba(214,160,232,.12);
+  }
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal:nth-child(4) .evolv-onboarding-goal-symbol {
+    color: #8FB9F4;
+    background: rgba(143,185,244,.12);
+  }
+  .evolv-onboarding-stage:has(.evolv-onboarding-goals) .evolv-onboarding-goal:nth-child(5) .evolv-onboarding-goal-symbol {
+    color: #8ED3B0;
+    background: rgba(142,211,176,.12);
+  }
+}
+
+@media (min-width: 681px) {
+  .evolv-onboarding-footer:has(.evolv-onboarding-skip) {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: stretch;
+    gap: 1rem;
+  }
+  .evolv-onboarding-footer:has(.evolv-onboarding-skip) .evolv-onboarding-continue {
+    width: 100%;
+  }
+  .evolv-onboarding-footer .evolv-onboarding-skip {
+    align-self: center;
+  }
+}
