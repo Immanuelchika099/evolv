@@ -49,11 +49,9 @@ export default function DesktopSidebar({ active, onNavigate, open, onToggle }) {
               >
                 <Icon size={18} strokeWidth={1.8}/>
                 <span>{label}</span>
-                {active === page && <i aria-hidden="true" />}
               </button>
             ))}
           </nav>
-          <div className="evolv-desktop-sidebar-foot">A little better, every day.</div>
         </aside>
       </>}
     </div>
