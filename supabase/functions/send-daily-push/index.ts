@@ -23,7 +23,10 @@ function alarmIsDue(clock, alarm) {
 
 const DEFAULTS = {
   morning: { title: () => "", body: "", defaultTime: "08:00", url: "/dashboard" },
-  midday: { title: () => "", body: "", defaultTime: "14:00", url: "/dashboard" },
+  hydration: { title: () => "", body: "", defaultTime: "11:00", url: "/dashboard" },
+  lunch: { title: () => "", body: "", defaultTime: "14:00", url: "/dashboard" },
+  dinner: { title: () => "", body: "", defaultTime: "17:00", url: "/dashboard" },
+  weekly_summary: { title: () => "", body: "", defaultTime: "18:00", url: "/dashboard" },
   reflection: { title: () => "", body: "", defaultTime: "20:00", url: "/dashboard" }
 }
 
@@ -68,47 +71,78 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     date
   }
   if (!context.goals.length && !context.onboardingGoal && !context.onboardingFocus && !context.growthAreas.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
+  // Fallbacks stay human and context-aware; never paste a saved goal or milestone into a notification.
+  const fallbackNotification = (() => {
+    const hasRecentActivity = context.recentLogs.length > 0 || context.recentGoalCheckins.length > 0
+    const hasReflection = context.reflections.length > 0
+    if (slot === "evening") {
+      if (hasReflection) return { title: "A moment to reflect", body: "What from today is worth carrying into tomorrow?" }
+      if (hasRecentActivity) return { title: "What today held", body: "Take a moment to notice what your time went toward today." }
+      return { title: "Leave room for tomorrow", body: "What is one thing you want to make room for tomorrow?" }
+    }
+    if (slot === "afternoon" || slot === "late afternoon") {
+      if (hasRecentActivity) return { title: "A quick check-in", body: "Does what matters most still have room in your day?" }
+      return { title: "Still your priority?", body: "Pause for a moment and choose what deserves your attention next." }
+    }
+    if (slot === "late morning") return { title: "A little breathing room", body: "You can pause, reset, and choose what needs your attention." }
+    if (slot === "early evening") return { title: "Before the day ends", body: "What would make the rest of today feel worthwhile?" }
+    return { title: "Set your own pace", body: "What is one thing you want to give your attention to today?" }
+  })()
 
   const prompt = [
-    "Write one thoughtful, natural push notification for a calm AI-powered productivity and personal-growth app. It should feel like a perceptive companion noticing a meaningful part of someone's life, not a task manager or chatbot.",
-    "The notification slot is " + slot + ". Morning can help the user set or reconnect with an intention; afternoon can invite a gentle check-in on priorities; evening can help the user reflect or make sense of the day. Do not force these patterns if the supplied context suggests a more relevant angle.",
-    "Most important: use the saved data as CONTEXT, not copy. Never paste a goal title, milestone title, next_action, metric label, or onboarding goal into the body as a task. Do not say 'take one small step on [goal]' or 'choose your next step'. Translate the meaning into a natural observation, thoughtful question, or specific gentle invitation.",
-    "Choose the best message angle from the evidence available: (1) acknowledge a recorded milestone or check-in, without exaggerating it; (2) connect a recent log or reflection to the user's broader intention; (3) invite the user to reconsider a priority; (4) offer a grounded perspective on an active goal; or (5) if context is thin, send a simple useful reflection that does not pretend to know their day.",
-    "Only describe something as completed, attempted, felt, delayed, or consistent if the supplied records explicitly support that claim. Never pretend to know how the user's day went, what they are feeling, what they did offline, or whether they made progress. When evidence is limited, use an open question or possibility rather than an assumption.",
-    "Use only the supplied eligible goals, unfinished milestones, goal check-ins, metric logs, daily reflections, and onboarding focus/goals. Never use or infer from AI chatbot conversations. Ignore completed, archived, deleted, or cancelled goals and orphaned milestones/check-ins.",
-    "Do not make the notification a disguised to-do list. Avoid quoting database fields. Mention a concrete goal only when it makes the message meaningfully more personal, and even then do not repeat its title verbatim. Prefer insight, perspective, or a human-sounding check-in over instructions.",
-    "Voice: quietly observant, warm, specific, emotionally intelligent, understated. No corporate wellness language, forced inspiration, generic motivational quotes, productivity jargon, fake intimacy, excessive positivity, guilt, pressure, or artificial urgency. Do not imitate or quote any other app's notifications.",
-    "Return JSON only with string keys title and body. Title: natural, friendly, lowercase, 2-5 words; it may be a small observation or question, not a command. Body: one concise, conversational sentence, ideally 9-18 words and maximum 22 words. Avoid repeating the title in the body.",
-    "No app name, brand footer, emoji, generic water/meal reminders, paragraphs, or 'From EVOLV'. The message must make sense on its own as a phone notification.",
+    "Write one thoughtful, natural push notification for a calm AI-powered productivity and personal-growth app. It should feel observant and human, not like a task manager or chatbot.",
+    "This is the user's " + slot + " notification. Let the time of day guide the angle, but do not force a formula if another angle is more relevant.",
+    "CRITICAL: saved data is context, not copy. Never paste a goal title, milestone title, next_action, metric label, or onboarding goal into the notification body. Never write 'take one small step on [goal]' or turn a database field into an instruction.",
+    "Choose a useful angle supported by the records: acknowledge a recorded milestone/check-in; connect a recent log or reflection to a broader intention; invite the user to reconsider a priority; offer a grounded perspective on an active goal; or ask a thoughtful question when the data is limited.",
+    "Only describe something as completed, attempted, felt, delayed, or consistent when the supplied records explicitly support it. Never pretend to know what the user did offline, how their day went, or what they feel. When evidence is limited, use an open question or possibility rather than an assumption.",
+    "Use only the supplied eligible goals, unfinished milestones, goal check-ins, metric logs, daily reflections, and onboarding focus/goals. Never use AI chatbot conversations. Ignore completed, archived, deleted, or cancelled goals and orphaned milestones/check-ins.",
+    "Do not make this a disguised to-do list. Avoid quoting database fields. Mention a goal only if it adds real personal relevance, and paraphrase its meaning instead of repeating its title. Prefer a small observation, perspective, or natural check-in over a command.",
+    "Voice: quietly observant, warm, specific, emotionally intelligent, understated. No corporate wellness language, forced inspiration, generic motivational quotes, fake intimacy, excessive positivity, guilt, pressure, or artificial urgency. Do not imitate or quote another app's notifications.",
+    "Return JSON only with string keys title and body. Title: friendly, natural, lowercase, 2-5 words. Body: one concise conversational sentence, ideally 9-18 words and maximum 22 words. Do not repeat the title in the body.",
+    "No app name, brand footer, emoji, generic water/meal reminders, paragraphs, or 'From EVOLV'. The notification must make sense on its own.",
     "If no meaningful user context exists, return JSON with empty title and body. Never fabricate personalization just to fill a notification.",
     "User data: " + JSON.stringify(context)
   ].join("\n")
 
   try {
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent", {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, responseMimeType: "application/json", maxOutputTokens: 160 }
-      }),
-      signal: AbortSignal.timeout(10000)
-    })
-    if (!response.ok) {
-      console.error("EVOLV AI notification generation failed:", response.status)
-      return null
+    let result = null
+    const models = ["gemini-3.8-flash"]
+
+    for (const model of models) {
+      try {
+        const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "x-goog-api-key": apiKey },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.7, responseMimeType: "application/json", maxOutputTokens: 160 }
+          }),
+          signal: AbortSignal.timeout(20000)
+        })
+        if (!response.ok) {
+          const detail = (await response.text()).slice(0, 300)
+          console.error("EVOLV AI notification model failed:", model, response.status, detail)
+          continue
+        }
+        result = await response.json()
+        break
+      } catch (modelError) {
+        console.error("EVOLV AI notification model error:", model, String(modelError?.message || modelError))
+      }
     }
-    const result = await response.json()
+
+    if (!result) return fallbackNotification
     const raw = result?.candidates?.[0]?.content?.parts?.map(part => part.text || "").join("").trim()
-    if (!raw) return null
+    if (!raw) return fallbackNotification
     const parsed = JSON.parse(raw)
-    const title = String(parsed.title || "").replace(/[\r\n]+/g, " ").trim().slice(0, 48).toLowerCase()
-    const body = String(parsed.body || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim().slice(0, 140)
-    if (!title || !body || body.split(/\s+/).length > 22) return null
+    const titleRaw = String(parsed.title || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim().slice(0, 42)
+    const title = titleRaw.toLocaleLowerCase().replace(/(^|\s)\p{L}/gu, letter => letter.toLocaleUpperCase())
+    const body = String(parsed.body || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim()
+    if (!title || !body || body.length > 75 || body.split(/\\s+/).length > 10) return fallbackNotification
     return { title, body }
   } catch (error) {
     console.error("EVOLV AI notification error:", String(error?.message || error))
-    return null
+    return fallbackNotification
   }
 }
 
@@ -246,12 +280,19 @@ Deno.serve(async (req) => {
     if (inQuietHours(clock, preferences)) continue
 
     for (const [kind, message] of Object.entries(DEFAULTS)) {
-      const frequency = Math.max(1, Math.min(3, Number(preferences.aiNotificationFrequency) || 1))
-      const enabledForFrequency = kind === "morning" ? true : kind === "midday" ? frequency >= 2 : frequency >= 3
+      const frequency = Math.max(1, Math.min(6, Number(preferences.aiNotificationFrequency) || 1))
+      const enabledForFrequency = {
+        morning: true,
+        lunch: frequency >= 2,
+        reflection: frequency >= 3,
+        hydration: frequency >= 4,
+        dinner: frequency >= 5,
+        weekly_summary: frequency >= 6
+      }[kind]
       if (!enabledForFrequency) continue
 
-      const timeKey = kind === "midday" ? "aiAfternoonTime" : kind === "reflection" ? "reflectionTime" : "morningTime"
-      const target = preferences[timeKey] || message.defaultTime
+      const timeKey = kind === "lunch" ? "aiAfternoonTime" : kind === "reflection" ? "reflectionTime" : kind === "morning" ? "morningTime" : null
+      const target = (timeKey && preferences[timeKey]) || message.defaultTime
       if (!isDue(clock, target)) continue
 
       const { error: claimError } = await admin
@@ -276,27 +317,12 @@ Deno.serve(async (req) => {
         continue
       }
 
-      let skip = false
-
-      if (kind === "reflection") {
-        const { data: reflection } = await admin
-          .from("daily_reflections")
-          .select("id")
-          .eq("user_id", row.user_id)
-          .eq("reflection_date", clock.date)
-          .maybeSingle()
-
-        if (reflection) skip = true
-      }
-
-      if (skip) {
-        lastSent[kind] = clock.date
-        continue
-      }
+      // Do not suppress the scheduled evening AI notification when a reflection
+      // already exists. The evening nudge can still help the user review or plan ahead.
 
       let notification = { title: message.title(names[row.user_id] || "there"), body: message.body }
-      if (kind === "morning" || kind === "midday" || kind === "reflection") {
-        const slot = kind === "midday" ? "afternoon" : kind === "reflection" ? "evening" : "morning"
+      if (["morning", "hydration", "lunch", "dinner", "weekly_summary", "reflection"].includes(kind)) {
+        const slot = kind === "morning" ? "morning" : kind === "reflection" ? "evening" : kind === "lunch" ? "afternoon" : kind === "hydration" ? "late morning" : kind === "dinner" ? "late afternoon" : "early evening"
         const generated = await generatePersonalNotification(admin, row.user_id, (profiles || []).find(profile => profile.id === row.user_id), clock.date, slot)
         if (!generated) {
           await admin.from("notification_delivery_log").delete()
