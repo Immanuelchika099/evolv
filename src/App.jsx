@@ -1496,7 +1496,6 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
       <header className="evolv-welcome-header">
         <button className="evolv-welcome-wordmark" type="button" onClick={onExplore} aria-label="Explore EVOLV website">
           <img src="/evolv-mark.svg" alt="EVOLV" />
-          <span>EVOLV</span>
         </button>
       </header>
       <main className="evolv-welcome-content evolv-welcome-content--cinematic">
