@@ -252,3 +252,96 @@
   .dashboard .settings-page,
   .dashboard .logs-page{padding-bottom:4.5rem!important}
 }
+
+
+/* Bulk selection and deletion for notification history. */
+.dashboard .notifications-bulk-actions{
+  display:flex;
+  align-items:center;
+  gap:1.2rem;
+  margin:0 0 1.4rem;
+  padding:1.2rem 1.4rem;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:1.5rem;
+  background:rgba(255,255,255,.025);
+}
+.dashboard .notifications-bulk-actions > span{
+  flex:1;
+  min-width:0;
+  color:rgba(244,238,232,.42);
+  font-size:1.2rem;
+}
+.dashboard .notifications-select-all,
+.dashboard .notifications-delete-selected{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.65rem;
+  min-height:3.8rem;
+  padding:0 1.2rem;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:1.1rem;
+  color:#f4eee8;
+  background:rgba(255,255,255,.045);
+  font:inherit;
+  font-size:1.25rem;
+  cursor:pointer;
+  white-space:nowrap;
+}
+.dashboard .notifications-delete-selected{
+  border-color:rgba(239,91,91,.22);
+  color:#ff8a83;
+  background:rgba(239,91,91,.07);
+}
+.dashboard .notifications-delete-selected:disabled{
+  opacity:.35;
+  cursor:not-allowed;
+}
+.dashboard .notification-page-row{
+  grid-template-columns:2.2rem 4.8rem minmax(0,1fr) auto;
+  align-items:center;
+  transition:border-color .18s ease,background .18s ease;
+}
+.dashboard .notification-page-row.is-selected{
+  border-color:rgba(229,134,66,.42);
+  background:rgba(229,134,66,.045);
+}
+.dashboard .notification-page-select{
+  display:grid;
+  place-items:center;
+  width:2.2rem;
+  height:2.8rem;
+  cursor:pointer;
+}
+.dashboard .notification-page-select input{
+  position:absolute;
+  width:1px;
+  height:1px;
+  opacity:0;
+}
+.dashboard .notification-page-select > span{
+  display:block;
+  width:1.8rem;
+  height:1.8rem;
+  margin:0!important;
+  border:1px solid rgba(255,255,255,.28);
+  border-radius:.55rem;
+  background:#111;
+  transition:background .15s ease,border-color .15s ease;
+}
+.dashboard .notification-page-select input:checked + span{
+  border-color:#E58642;
+  background:#E58642;
+  box-shadow:inset 0 0 0 4px #111;
+}
+.dashboard .notification-page-select input:focus-visible + span{
+  outline:2px solid #E58642;
+  outline-offset:3px;
+}
+@media(max-width:700px){
+  .dashboard .notifications-bulk-actions{flex-wrap:wrap;gap:.8rem;padding:1rem}
+  .dashboard .notifications-bulk-actions > span{order:3;flex-basis:100%;padding:0 .2rem}
+  .dashboard .notifications-select-all,.dashboard .notifications-delete-selected{min-height:3.6rem;padding:0 .9rem;font-size:1.15rem}
+  .dashboard .notification-page-row{grid-template-columns:2rem 4.2rem minmax(0,1fr) auto;gap:.8rem}
+  .dashboard .notification-page-delete{grid-column:4;grid-row:1}
+}
