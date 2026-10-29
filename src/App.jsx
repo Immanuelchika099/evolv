@@ -279,11 +279,16 @@ function StreakWidget() {
     return () => { cancelled = true; window.removeEventListener('evolv-streak-updated', refresh) }
   }, [])
   useEffect(() => {
-    if (!open) return
+    document.body.classList.toggle('streak-modal-open', open)
+    if (!open) return () => document.body.classList.remove('streak-modal-open')
     const onKey = event => { if (event.key === 'Escape') setOpen(false) }
     document.addEventListener('keydown', onKey)
     document.body.style.overflow = 'hidden'
-    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      document.body.style.overflow = ''
+      document.body.classList.remove('streak-modal-open')
+    }
   }, [open])
   const appCurrent = streakCurrent(days.app)
   const reflectionCurrent = streakCurrent(days.reflection)
