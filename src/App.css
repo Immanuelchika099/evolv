@@ -3092,3 +3092,99 @@ body:has(.dashboard-home) .dashboard-home {
     min-height: 4.5rem;
   }
 }
+
+
+/* Dashboard streak chip + bottom sheet */
+.dashboard .streak-chip{
+  display:inline-flex;
+  flex:0 0 auto;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  min-width:3.6rem;
+  min-height:3.8rem;
+  padding:.6rem .75rem;
+  border:0;
+  border-radius:1.2rem;
+  background:transparent;
+  color:#f4eee8;
+  font:500 1.45rem/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  -webkit-tap-highlight-color:transparent;
+}
+.dashboard .streak-chip svg{width:1.9rem;height:1.9rem;color:#E58642}
+.dashboard .streak-chip:active{background:rgba(229,134,66,.08)}
+.dashboard .streak-chip:focus-visible,
+.streak-sheet button:focus-visible{outline:2px solid #E58642;outline-offset:2px}
+.streak-overlay{
+  position:fixed;
+  inset:0;
+  z-index:1090;
+  width:100%;
+  height:100%;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:rgba(0,0,0,.64);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .25s ease;
+}
+.streak-overlay.open{opacity:1;pointer-events:auto}
+.streak-sheet{
+  position:fixed;
+  left:0;
+  right:0;
+  bottom:0;
+  z-index:1091;
+  width:min(100%,52rem);
+  max-height:92%;
+  margin:0 auto;
+  overflow-y:auto;
+  padding:0 2rem calc(2.8rem + env(safe-area-inset-bottom,0px));
+  border:1px solid rgba(255,255,255,.075);
+  border-bottom:0;
+  border-radius:2.6rem 2.6rem 0 0;
+  background:#171513;
+  color:#f2efeb;
+  font:400 1.6rem/1.4 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  transform:translateY(105%);
+  visibility:hidden;
+  transition:transform .34s cubic-bezier(.2,.8,.2,1),visibility 0s linear .34s;
+}
+.streak-sheet.open{transform:translateY(0);visibility:visible;transition:transform .34s cubic-bezier(.2,.8,.2,1),visibility 0s}
+.streak-head{padding-top:1rem}
+.streak-grab{width:4.4rem;height:.5rem;margin:0 auto .6rem;border-radius:3px;background:rgba(255,255,255,.22)}
+.streak-tools{display:flex;justify-content:flex-end;gap:.4rem}
+.streak-tools button{width:4rem;height:4rem;display:grid;place-items:center;padding:0;border:0;border-radius:50%;background:transparent;color:#f2efeb}
+.streak-tools button:active{background:rgba(255,255,255,.07)}
+.streak-tools svg{width:2.1rem;height:2.1rem}
+.streak-sheet h2{margin:.6rem 1.2rem 0;text-align:center;font-size:2.9rem;line-height:1.2;font-weight:500;letter-spacing:-.045em;text-wrap:balance}
+.streak-help{margin:1.4rem .8rem 0;text-align:center;color:#8d877f;font-size:1.4rem;line-height:1.6}
+.streak-stats{display:grid;grid-template-columns:1fr 1fr;margin-top:3rem}
+.streak-stat{text-align:center;padding:.4rem .8rem}
+.streak-stat+.streak-stat{border-left:1px solid rgba(255,255,255,.1)}
+.streak-now{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;font-size:4.4rem;line-height:1;font-weight:500}
+.streak-now>svg{width:3.2rem;height:3.2rem;color:#E58642}
+.streak-name{margin-top:.8rem;color:#8d877f;font-size:1.5rem}
+.streak-best{margin-top:1.2rem;display:inline-flex;align-items:center;gap:.6rem;color:#8d877f;font-size:1.5rem}
+.streak-best svg{width:1.8rem;height:1.8rem;color:#E58642}
+.streak-best b{color:#f2efeb;font-weight:500;font-size:2rem}
+.streak-ring-icon{width:3rem;height:3rem;display:grid;place-items:center;border:2px solid #E58642;border-radius:50%}
+.streak-ring-icon>span{width:1.1rem;height:1.1rem;border:1.5px solid #E58642;border-radius:50%}
+.streak-ring-small{width:1.5rem;height:1.5rem;border:1.5px solid #E58642;border-radius:50%}
+.streak-weeks{margin:3rem 0 0;text-align:center;font-size:1.9rem}
+.streak-year{margin:1.4rem 0 0;text-align:center;color:#8d877f;font-size:1.7rem}
+.streak-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));margin-top:2.8rem;text-align:center}
+.streak-week .name{font-size:1.35rem;color:#f2efeb}
+.streak-week .cell{position:relative;width:4.4rem;height:4.4rem;margin:1rem auto 0;display:grid;place-items:center;border-radius:50%;color:#8d877f;font-size:1.6rem}
+.streak-week .cell.active::before{content:"";position:absolute;top:.1rem;left:50%;width:.6rem;height:.6rem;margin-left:-.3rem;border-radius:50%;background:#f2efeb}
+.streak-week .cell.today{background:#E58642;color:#fff}
+.streak-week .cell.today::before{top:.4rem;background:#fff}
+@media(max-width:380px){
+  .streak-sheet{padding-inline:1.4rem}
+  .streak-sheet h2{font-size:2.55rem}
+  .streak-week .cell{width:3.8rem;height:3.8rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .streak-overlay,.streak-sheet{transition:none}
+}
