@@ -188,11 +188,25 @@ function readStreakDays(kind) {
   try { const value = JSON.parse(localStorage.getItem(STREAK_KEYS[kind]) || '[]'); return new Set(Array.isArray(value) ? value : []) }
   catch { return new Set() }
 }
-function recordStreakDay(kind) {
+async function recordStreakDay(kind) {
   const days = readStreakDays(kind)
-  days.add(streakDate())
+  const today = streakDate()
+  days.add(today)
   try { localStorage.setItem(STREAK_KEYS[kind], JSON.stringify([...days].sort())) } catch {}
   window.dispatchEvent(new CustomEvent('evolv-streak-updated'))
+  try {
+    const { data: { user } } = await supabase.auth.getUser()
+    if (!user) return
+    const { error } = await supabase.from('streak_activity_days').insert({
+      user_id: user.id,
+      activity_type: kind,
+      activity_date: today
+    })
+    // A duplicate means this activity was already recorded today.
+    if (error && error.code !== '23505') console.error('EVOLV streak sync failed:', error)
+  } catch (error) {
+    console.error('EVOLV streak sync failed:', error)
+  }
 }
 function streakCurrent(days) {
   let date = new Date()
@@ -219,9 +233,35 @@ function StreakWidget() {
   const monday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - ((today.getDay() + 6) % 7))
   const refresh = () => setDays({ app: readStreakDays('app'), reflection: readStreakDays('reflection') })
   useEffect(() => {
-    recordStreakDay('app'); refresh()
+    let cancelled = false
+    const loadRemoteStreaks = async () => {
+      try {
+        const { data: { user } } = await supabase.auth.getUser()
+        if (!user) { recordStreakDay('app'); refresh(); return }
+        const { data, error } = await supabase
+          .from('streak_activity_days')
+          .select('activity_type,activity_date')
+          .eq('user_id', user.id)
+        if (error) throw error
+        if (cancelled) return
+        const merged = { app: readStreakDays('app'), reflection: readStreakDays('reflection') }
+        for (const row of data || []) {
+          if (row.activity_type === 'app' || row.activity_type === 'reflection') merged[row.activity_type].add(row.activity_date)
+        }
+        for (const kind of ['app', 'reflection']) {
+          try { localStorage.setItem(STREAK_KEYS[kind], JSON.stringify([...merged[kind]].sort())) } catch {}
+        }
+        setDays(merged)
+        await recordStreakDay('app')
+        refresh()
+      } catch (error) {
+        console.error('EVOLV streak load failed:', error)
+        if (!cancelled) { recordStreakDay('app'); refresh() }
+      }
+    }
+    loadRemoteStreaks()
     window.addEventListener('evolv-streak-updated', refresh)
-    return () => window.removeEventListener('evolv-streak-updated', refresh)
+    return () => { cancelled = true; window.removeEventListener('evolv-streak-updated', refresh) }
   }, [])
   useEffect(() => {
     if (!open) return
