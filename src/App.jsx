@@ -337,6 +337,20 @@ function StreakWidget() {
 
 function App() {
   const root = useRef(null)
+  const [ambientSoundEnabled, setAmbientSoundEnabled] = useState(() => {
+    try { return localStorage.getItem('evolv-ambient-sound-enabled') !== 'false' } catch { return true }
+  })
+
+  useEffect(() => {
+    const syncAmbientSound = event => {
+      if (typeof event.detail?.enabled === 'boolean') setAmbientSoundEnabled(event.detail.enabled)
+      else {
+        try { setAmbientSoundEnabled(localStorage.getItem('evolv-ambient-sound-enabled') !== 'false') } catch {}
+      }
+    }
+    window.addEventListener('evolv-ambient-sound-updated', syncAmbientSound)
+    return () => window.removeEventListener('evolv-ambient-sound-updated', syncAmbientSound)
+  }, [])
   const [view, setView] = useState(() => {
     const path = window.location.pathname.replace(/\/+$/, '') || '/'
     const savedView = localStorage.getItem('evolv-view')
@@ -747,7 +761,7 @@ function App() {
 
   return (
     <main ref={root} className="app">
-      <AmbientSound active={view === 'welcome' || view === 'onboarding' || view === 'auth' || view === 'dashboard'} />
+      <AmbientSound active={ambientSoundEnabled && (view === 'welcome' || view === 'onboarding' || view === 'auth' || view === 'dashboard')} />
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && view !== 'legal' && (
