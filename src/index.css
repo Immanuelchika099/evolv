@@ -1199,3 +1199,21 @@ input:-webkit-autofill:focus {
   .emo-step__emoji-stage,.emo-step__emoji-stage::before,.emo-btn,.emo-step__next{transition:none}
 }
 
+
+
+/* Reduce the dead space at the end of dashboard pages while keeping a safe
+   scroll clearance above the fixed bottom dock. */
+html body #root .dashboard .dash-main {
+  padding-bottom: calc(7.6rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+html body #root .dashboard .daily-routine-page {
+  padding-bottom: 1rem !important;
+}
+@media (max-width: 800px) {
+  html body #root .dashboard .dash-main {
+    padding-bottom: calc(7.6rem + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  html body #root .dashboard .daily-routine-page {
+    padding-bottom: .8rem !important;
+  }
+}
