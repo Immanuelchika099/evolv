@@ -783,13 +783,12 @@ function NotificationsPage({ pageProps }) {
         <div className="notifications-page-hero">
           <span className="section-label">YOUR NOTIFICATIONS</span>
           <h2>Notifications.</h2>
-          <p>See what EVOLV has sent you and choose which reminders to keep.</p>
         </div>
         {notifications.length > 0 && <div className="notifications-bulk-actions">
           <button type="button" className="notifications-select-all" onClick={() => setSelectedIds(allSelected ? [] : notifications.map(item => item.id))} aria-pressed={allSelected}>
             {allSelected ? 'Deselect all' : 'Select all'}
           </button>
-          <span>{selectedCount ? `${selectedCount} selected` : 'Select notifications to remove'}</span>
+          {selectedCount > 0 && <span>{selectedCount} selected</span>}
           <button type="button" className="notifications-delete-selected" onClick={deleteSelected} disabled={!selectedCount}>
             <Trash2 size={15}/><span>Delete selected</span>
           </button>
