@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings, Compass } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings, Compass, Volume2 } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
 import '../styles/tokens.css'
@@ -39,6 +39,7 @@ export default function ProfileSettingsPage({pageProps}){
   const {profile,profileName,setProfileName,data,logs=[],meals=[],goals=[],avatarUrl,notificationsEnabled,toggleNotifications,notificationTimes,saveNotificationTime,saveNotificationFrequency,toggleQuietHours,saveQuietHour,deleteAccount,deleting,onLogout,loading}=pageProps
   const [user,setUser]=useState(null)
   const [settings,setSettings]=useState(DEFAULT_SETTINGS)
+  const [ambientSoundEnabled,setAmbientSoundEnabled]=useState(()=>{try{return localStorage.getItem('evolv-ambient-sound-enabled')!=='false'}catch{return true}})
   const [draft,setDraft]=useState({name:profileName||'',email:profile?.email||'',bio:''})
   const [editOpen,setEditOpen]=useState(false),[saving,setSaving]=useState(false),[error,setError]=useState('')
   const [toast,setToast]=useState(''),[toastError,setToastError]=useState(false),[confirmAction,setConfirmAction]=useState(null),[resetting,setResetting]=useState(false)
@@ -72,6 +73,12 @@ export default function ProfileSettingsPage({pageProps}){
   useEffect(()=>()=>{if(avatarPreview)URL.revokeObjectURL(avatarPreview)},[avatarPreview])
 
   function showToast(message,isError=false){setToastError(isError);setToast(message)}
+  function toggleAmbientSound(enabled){
+    setAmbientSoundEnabled(enabled)
+    try { localStorage.setItem('evolv-ambient-sound-enabled',String(enabled)) } catch {}
+    window.dispatchEvent(new CustomEvent('evolv-ambient-sound-updated',{detail:{enabled}}))
+    showToast(enabled?'Ambient sound turned on.':'Ambient sound turned off.')
+  }
   function updateAvatarStyle(updated){setAvatarStyle(updated);try{localStorage.setItem('evolv-avatar-preferences',JSON.stringify(updated))}catch{};window.dispatchEvent(new CustomEvent('evolv-avatar-updated'))}
   function updateSetting(key,value){const next={...settings,[key]:value};setSettings(next);if(settingsKey)localStorage.setItem(settingsKey,JSON.stringify(next));if(key==='animations')document.documentElement.classList.toggle('evolv-reduced-motion',value===false);window.dispatchEvent(new CustomEvent('evolv-settings-updated',{detail:next}));try{const stored=JSON.parse(localStorage.getItem('evolv-notification-times')||'{}');const preferences={...stored,streakAlerts:next.streakAlerts,weeklySummary:next.weeklySummary};localStorage.setItem('evolv-notification-times',JSON.stringify(preferences));if(localStorage.getItem('evolv-notifications-enabled')==='true'){(async()=>{const registration=await navigator.serviceWorker?.ready;const subscription=await registration?.pushManager?.getSubscription();if(!subscription)return;const result=await supabase.functions.invoke('save-push-subscription',{body:{subscription:subscription.toJSON(),timezone:Intl.DateTimeFormat().resolvedOptions().timeZone||'Africa/Lagos',preferences,enabled:true}});if(result.error)throw result.error})().catch(error=>{console.error('Could not save notification preferences:',error);showToast('Preference saved, but push sync failed.',true)})}}catch(error){console.error('Could not save notification preferences:',error)}showToast('Preference saved.')}
   function beginEdit(){setDraft({name:profileName||'',email:user?.email||profile?.email||'',bio:user?.user_metadata?.bio||''});setError('');setUnsaved(false);setEditOpen(true)}
@@ -224,6 +231,11 @@ export default function ProfileSettingsPage({pageProps}){
           </ProfileSettingsSection>
         </div>
       </> : <>
+        <div className="profile-v2-group"><p className="profile-v2-group-label">Your experience</p>
+          <ProfileSettingsSection label="YOUR EXPERIENCE" title="Sound" icon={Volume2}>
+            <SettingToggle label="Ambient sound" description="Play the soft, airy background sound in EVOLV. You can turn it off anytime." checked={ambientSoundEnabled} onChange={toggleAmbientSound}/>
+          </ProfileSettingsSection>
+        </div>
         <div className="profile-v2-group"><p className="profile-v2-group-label">Stay in the loop</p>
           <ProfileSettingsSection label="STAY IN THE LOOP" title="Notifications" icon={Bell}>
             <SettingToggle label="Daily reminders" description="Allow EVOLV to send personalised AI push notifications." checked={notificationsEnabled} onChange={toggleNotifications}/>
