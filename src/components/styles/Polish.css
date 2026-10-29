@@ -1217,7 +1217,7 @@ html body #root .evolv-onboarding .evolv-onboarding-approach-item {
   -webkit-tap-highlight-color: transparent;
   transition: background .2s ease, border-color .2s ease, transform .2s ease;
 }
-.streak-chip svg { width: 1.85rem; height: 1.85rem; color: #d99a65; }
+.streak-chip svg { width: 1.85rem; height: 1.85rem; color: #fff; }
 .streak-chip:hover { background: rgba(255,255,255,.075); border-color: rgba(255,255,255,.12); }
 .streak-chip:active { transform: scale(.96); }
 .streak-chip:focus-visible, .streak-sheet button:focus-visible { outline: 2px solid rgba(217,154,101,.75); outline-offset: 3px; }
