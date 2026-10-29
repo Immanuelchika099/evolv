@@ -242,3 +242,10 @@
     font-size: 1.15rem;
   }
 }
+
+
+/* Keep Routine and Notifications icons white like the rest of the menu. */
+.evolv-desktop-sidebar-links button > svg.evolv-sidebar-icon-white,
+.evolv-desktop-sidebar-links button.is-active > svg.evolv-sidebar-icon-white {
+  color: #fff !important;
+}
