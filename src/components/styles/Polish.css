@@ -1313,3 +1313,12 @@ html body #root .evolv-onboarding .evolv-onboarding-approach-item {
   .streak-week .cell { width: 3.4rem; height: 3.4rem; }
 }
 @media (prefers-reduced-motion: reduce) { .streak-overlay, .streak-sheet, .streak-chip { transition: none; } }
+
+
+/* Keep the floating Log action out of the way while the streak sheet is open. */
+body.streak-modal-open .evolv-floating-log {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(1rem) scale(.96) !important;
+}
