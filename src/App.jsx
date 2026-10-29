@@ -245,8 +245,23 @@ function StreakWidget() {
         if (error) throw error
         if (cancelled) return
         const merged = { app: readStreakDays('app'), reflection: readStreakDays('reflection') }
+        const remoteKeys = new Set()
         for (const row of data || []) {
-          if (row.activity_type === 'app' || row.activity_type === 'reflection') merged[row.activity_type].add(row.activity_date)
+          if (row.activity_type === 'app' || row.activity_type === 'reflection') {
+            merged[row.activity_type].add(row.activity_date)
+            remoteKeys.add(row.activity_type + ':' + row.activity_date)
+          }
+        }
+        // Preserve any streak history previously stored on this device by syncing missing dates.
+        const missingRows = []
+        for (const kind of ['app', 'reflection']) {
+          for (const date of merged[kind]) {
+            if (!remoteKeys.has(kind + ':' + date)) missingRows.push({ user_id: user.id, activity_type: kind, activity_date: date })
+          }
+        }
+        if (missingRows.length) {
+          const { error: backfillError } = await supabase.from('streak_activity_days').insert(missingRows)
+          if (backfillError && backfillError.code !== '23505') console.error('EVOLV streak history sync failed:', backfillError)
         }
         for (const kind of ['app', 'reflection']) {
           try { localStorage.setItem(STREAK_KEYS[kind], JSON.stringify([...merged[kind]].sort())) } catch {}
