@@ -197,13 +197,12 @@ async function recordStreakDay(kind) {
   try {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return
-    const { error } = await supabase.from('streak_activity_days').insert({
+    const { error } = await supabase.from('streak_activity_days').upsert({
       user_id: user.id,
       activity_type: kind,
       activity_date: today
-    })
-    // A duplicate means this activity was already recorded today.
-    if (error && error.code !== '23505') console.error('EVOLV streak sync failed:', error)
+    }, { onConflict: 'user_id,activity_type,activity_date', ignoreDuplicates: true })
+    if (error) console.error('EVOLV streak sync failed:', error)
   } catch (error) {
     console.error('EVOLV streak sync failed:', error)
   }
