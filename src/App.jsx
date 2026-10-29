@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { ArrowRight, Asterisk, Bell, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
+import { ArrowRight, Asterisk, Bell, Flame, CircleHelp, Camera, Upload, Check, ChevronLeft, Home, LineChart, LogOut, Plus, Settings, Sparkles, Target, TrendingUp, UserRound, Pencil, Trash2, Bot, Send, ArrowUp, ClipboardPlus, Copy, Volume2, VolumeX, Share2, HeartPulse, Apple, WalletCards, BriefcaseBusiness, Brain, Sprout, Moon, Droplets, Dumbbell, Footprints, Zap, Scale, Smile, Focus, NotebookPen, Receipt, PiggyBank, ArrowDownLeft, ArrowDownRight, ArrowUpRight, Activity, BookOpen, History, MoreHorizontal, Users, CheckCircle2, X, ChevronRight, Utensils, ExternalLink, Sunrise, CalendarClock } from 'lucide-react'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import LegalPage from './components/LegalPage'
@@ -176,6 +176,104 @@ function AmbientSound({ active }) {
   }, [active])
 
   return null
+}
+
+
+const STREAK_KEYS = { app: 'evolv:streak:app', reflection: 'evolv:streak:reflection' }
+function streakDate(date = new Date()) {
+  const local = new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+  return local.toISOString().slice(0, 10)
+}
+function readStreakDays(kind) {
+  try { const value = JSON.parse(localStorage.getItem(STREAK_KEYS[kind]) || '[]'); return new Set(Array.isArray(value) ? value : []) }
+  catch { return new Set() }
+}
+function recordStreakDay(kind) {
+  const days = readStreakDays(kind)
+  days.add(streakDate())
+  try { localStorage.setItem(STREAK_KEYS[kind], JSON.stringify([...days].sort())) } catch {}
+  window.dispatchEvent(new CustomEvent('evolv-streak-updated'))
+}
+function streakCurrent(days) {
+  let date = new Date()
+  if (!days.has(streakDate(date))) date.setDate(date.getDate() - 1)
+  let count = 0
+  while (days.has(streakDate(date))) { count += 1; date.setDate(date.getDate() - 1) }
+  return count
+}
+function streakBest(days) {
+  let best = 0, run = 0, previous = null
+  for (const key of [...days].sort()) {
+    const [year, month, day] = key.split('-').map(Number)
+    const date = new Date(year, month - 1, day)
+    run = previous && Math.round((date - previous) / 86400000) === 1 ? run + 1 : 1
+    best = Math.max(best, run); previous = date
+  }
+  return best
+}
+function StreakWidget() {
+  const [open, setOpen] = useState(false)
+  const [helpOpen, setHelpOpen] = useState(false)
+  const [days, setDays] = useState(() => ({ app: readStreakDays('app'), reflection: readStreakDays('reflection') }))
+  const today = new Date()
+  const monday = new Date(today.getFullYear(), today.getMonth(), today.getDate() - ((today.getDay() + 6) % 7))
+  const refresh = () => setDays({ app: readStreakDays('app'), reflection: readStreakDays('reflection') })
+  useEffect(() => {
+    recordStreakDay('app'); refresh()
+    window.addEventListener('evolv-streak-updated', refresh)
+    return () => window.removeEventListener('evolv-streak-updated', refresh)
+  }, [])
+  useEffect(() => {
+    if (!open) return
+    const onKey = event => { if (event.key === 'Escape') setOpen(false) }
+    document.addEventListener('keydown', onKey)
+    document.body.style.overflow = 'hidden'
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = '' }
+  }, [open])
+  const appCurrent = streakCurrent(days.app)
+  const reflectionCurrent = streakCurrent(days.reflection)
+  const yearDays = [...days.app].filter(day => day.startsWith(String(today.getFullYear()))).length
+  const hasWeek = offset => Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(monday); date.setDate(date.getDate() + i - offset * 7)
+    return days.app.has(streakDate(date))
+  }).some(Boolean)
+  let weekCount = 0
+  for (let offset = 0; offset < 60 && hasWeek(offset); offset++) weekCount++
+  async function shareStreak() {
+    const text = 'I’m on a ' + appCurrent + '-day streak on EVOLV.'
+    try {
+      if (navigator.share) await navigator.share({ title: 'EVOLV streak', text })
+      else if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text)
+    } catch {}
+  }
+  return <>
+    <button className="streak-chip" type="button" onClick={() => setOpen(true)} aria-label={'Open streaks. Current app streak: ' + appCurrent} aria-haspopup="dialog">
+      <Flame size={19} strokeWidth={1.8} aria-hidden="true" /><span>{appCurrent}</span>
+    </button>
+    {open && createPortal(<div className="streak-modal-root">
+      <button className="streak-overlay open" type="button" aria-label="Close streaks" onClick={() => setOpen(false)} />
+      <section className="streak-sheet open" role="dialog" aria-modal="true" aria-label="Streaks">
+        <div className="streak-head"><div className="streak-grab" /><div className="streak-tools">
+          <button type="button" aria-label="How streaks work" aria-expanded={helpOpen} onClick={() => setHelpOpen(v => !v)}><CircleHelp size={21}/></button>
+          <button type="button" aria-label="Share your streak" onClick={shareStreak}><Share2 size={21}/></button>
+          <button type="button" aria-label="Close streaks" onClick={() => setOpen(false)}><X size={21}/></button>
+        </div></div>
+        <h2>Streaks help you build your daily habit.</h2>
+        {helpOpen && <p className="streak-help">Your app streak counts consecutive days you open EVOLV. Your reflection streak counts consecutive days you save a Daily Reflection. Miss a day and the count starts again.</p>}
+        <div className="streak-stats">
+          <div className="streak-stat"><div className="streak-now"><Flame size={30}/><span>{appCurrent}</span></div><div className="streak-name">App streak</div><div className="streak-best"><Flame size={16}/><b>{streakBest(days.app)}</b> Best</div></div>
+          <div className="streak-stat"><div className="streak-now"><span className="streak-ring-icon"><span/></span><span>{reflectionCurrent}</span></div><div className="streak-name">Reflection streak</div><div className="streak-best"><span className="streak-ring-small"/><b>{streakBest(days.reflection)}</b> Best</div></div>
+        </div>
+        {weekCount > 0 && <p className="streak-weeks">{weekCount} {weekCount === 1 ? 'week' : 'weeks'} in a row</p>}
+        <p className="streak-year">{yearDays} {yearDays === 1 ? 'day' : 'days'} in EVOLV this year</p>
+        <div className="streak-week">{['Mon','Tue','Wed','Thu','Fri','Sat','Sun'].map((name, index) => {
+          const date = new Date(monday); date.setDate(monday.getDate() + index)
+          const key = streakDate(date), isToday = key === streakDate(today)
+          return <div key={name}><div className="name">{name}</div><div className={'cell' + (days.app.has(key) ? ' active' : '') + (isToday ? ' today' : '')}>{date.getDate()}</div></div>
+        })}</div>
+      </section>
+    </div>, document.body)}
+  </>
 }
 
 function App() {
@@ -2493,6 +2591,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       setProfileMessage('Your reflection could not be saved. Please try again.')
       return
     }
+    recordStreakDay('reflection')
     closeReflection()
     setProfileMessage('Reflection saved.')
 
@@ -2684,7 +2783,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
   return <div className={`page-enter dashboard ${active==='ai'?'dashboard-ai-active':''}`}>
     <DesktopSidebar active={active} onNavigate={goTo} open={desktopSidebarOpen} onToggle={setDesktopSidebarOpen}/>
-    {active !== 'ai' && active !== 'profile' && <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>}
+    {active !== 'ai' && active !== 'profile' && <header className="app-topbar"><button className="app-logo-button" onClick={()=>goTo('overview')} aria-label="Go to home"><Brand/></button><div className="app-topbar-actions"><button className="routine-nav-button" onClick={()=>goTo('routine')} aria-label="Open daily routine" title="Daily routine"><CalendarClock size={18}/><span>Routine</span></button><StreakWidget/><button className="notification-button" onClick={()=>goTo('notifications')} aria-label="Open notifications" title="Notifications"><Bell size={17}/></button></div></header>}
     <main className="dash-main">
       {error&&<p className="auth-error" role="alert">{error}</p>}
       {active==='ai'
