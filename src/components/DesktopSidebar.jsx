@@ -47,7 +47,7 @@ export default function DesktopSidebar({ active, onNavigate, open, onToggle }) {
                 aria-current={active === page ? 'page' : undefined}
                 onClick={() => { onNavigate(page); onToggle(false) }}
               >
-                <Icon size={18} strokeWidth={1.8} className={page === 'routine' || page === 'notifications' ? 'evolv-sidebar-icon-white' : undefined}/>
+                <Icon size={18} strokeWidth={1.8}/>
                 <span>{label}</span>
               </button>
             ))}
