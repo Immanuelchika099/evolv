@@ -757,14 +757,43 @@ function ProfilePage({ pageProps }) {
 }
 
 function NotificationsPage({ pageProps }) {
-  const { notifications = [], goTo, deleteNotification, notificationTimes = {}, saveNotificationFrequency } = pageProps
+  const { notifications = [], goTo, deleteNotification } = pageProps
+  const [selectedIds, setSelectedIds] = useState([])
+  const allSelected = notifications.length > 0 && notifications.every(item => selectedIds.includes(item.id))
+  const selectedCount = notifications.filter(item => selectedIds.includes(item.id)).length
+
+  useEffect(() => {
+    setSelectedIds(current => current.filter(id => notifications.some(item => item.id === id)))
+  }, [notifications])
+
+  function toggleSelected(id) {
+    setSelectedIds(current => current.includes(id) ? current.filter(value => value !== id) : [...current, id])
+  }
+
+  async function deleteSelected() {
+    const selected = notifications.filter(item => selectedIds.includes(item.id))
+    if (!selected.length) return
+    if (!window.confirm(`Delete ${selected.length} selected notification${selected.length === 1 ? '' : 's'}?`)) return
+    for (const item of selected) await deleteNotification?.(item)
+    setSelectedIds([])
+  }
+
   return <section className="panel-page dashboard-panel notifications-page">
         <button className="area-back" onClick={()=>goTo('overview')}><ChevronLeft size={16}/> Home</button>
         <div className="notifications-page-hero">
           <span className="section-label">YOUR NOTIFICATIONS</span>
           <h2>Notifications.</h2>
-          <p>See what EVOLV has sent you and choose how often your AI coach checks in.</p>
+          <p>See what EVOLV has sent you and choose which reminders to keep.</p>
         </div>
+        {notifications.length > 0 && <div className="notifications-bulk-actions">
+          <button type="button" className="notifications-select-all" onClick={() => setSelectedIds(allSelected ? [] : notifications.map(item => item.id)} aria-pressed={allSelected}>
+            {allSelected ? 'Deselect all' : 'Select all'}
+          </button>
+          <span>{selectedCount ? `${selectedCount} selected` : 'Select notifications to remove'}</span>
+          <button type="button" className="notifications-delete-selected" onClick={deleteSelected} disabled={!selectedCount}>
+            <Trash2 size={15}/><span>Delete selected</span>
+          </button>
+        </div>}
         <div className="notifications-page-list">
           {notifications.length ? notifications.map(item=>{
             const copy={
@@ -772,7 +801,12 @@ function NotificationsPage({ pageProps }) {
               hydration:{title:'Take a small reset.',body:'A gentle moment to drink some water, breathe and check in with how your day is going.'},
               reflection:{title:'Time to wind down.',body:'Your evening reflection is ready. Take a quiet moment to notice how today felt.'}
             }[item.kind]||{title:'A note from EVOLV.',body:'You have a new reminder from EVOLV.'}
-            return <article className="notification-page-row" key={item.id}>
+            const selected = selectedIds.includes(item.id)
+            return <article className={'notification-page-row' + (selected ? ' is-selected' : '')} key={item.id}>
+              <label className="notification-page-select" aria-label={`Select notification: ${copy.title}`}>
+                <input type="checkbox" checked={selected} onChange={() => toggleSelected(item.id)} />
+                <span aria-hidden="true"/>
+              </label>
               <span className="notification-page-icon"><Bell size={17}/></span>
               <div className="notification-page-copy"><span>{item.kind.toUpperCase()} · {new Date(item.delivery_date+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'})}</span><strong>{copy.title}</strong><p>{copy.body}</p></div>
               <button type="button" className="notification-page-delete" onClick={()=>deleteNotification?.(item)} aria-label="Delete notification" title="Delete notification"><Trash2 size={16}/></button>
