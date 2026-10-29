@@ -2914,13 +2914,13 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
   const selectedEmotion=emotionLevels[emotionIndex]
   const emotionHue=hueAt(emotionValue)
   const characters=[
-    {emoji:'😌',x:'10%',y:'8%',size:42,duration:'4.6s',delay:'0s'},
-    {emoji:'😄',x:'27%',y:'0%',size:56,duration:'5.4s',delay:'.6s'},
-    {emoji:'🤔',x:'2%',y:'43%',size:46,duration:'5s',delay:'1.1s'},
-    {emoji:'😴',x:'35%',y:'64%',size:36,duration:'4.2s',delay:'.3s'},
-    {emoji:'🥰',x:'42%',y:'15%',size:70,duration:'5.8s',delay:'.9s'},
-    {emoji:'😎',x:'69%',y:'2%',size:55,duration:'4.9s',delay:'1.4s'},
-    {emoji:'😵‍💫',x:'84%',y:'43%',size:40,duration:'5.2s',delay:'.2s'},
+    {face:'calm',x:'10%',y:'8%',size:42,duration:'4.6s',delay:'0s'},
+    {face:'happy',x:'27%',y:'0%',size:56,duration:'5.4s',delay:'.6s'},
+    {face:'anxious',x:'2%',y:'43%',size:46,duration:'5s',delay:'1.1s'},
+    {face:'tired',x:'35%',y:'64%',size:36,duration:'4.2s',delay:'.3s'},
+    {face:'grateful',x:'42%',y:'15%',size:70,duration:'5.8s',delay:'.9s'},
+    {face:'hopeful',x:'69%',y:'2%',size:55,duration:'4.9s',delay:'1.4s'},
+    {face:'sad',x:'84%',y:'43%',size:40,duration:'5.2s',delay:'.2s'},
   ]
   function chooseEmotion(value){
     const nextValue=Math.max(0,Math.min(100,Number(value)))
@@ -2960,7 +2960,7 @@ function DailyReflectionSheet({step,setStep,mood,setMood,feeling,setFeeling,note
       <div className="reflection-sheet-handle"/>
       {step===-1 ? <>
         <button type="button" className="mood-card-close" onClick={closeReflection} aria-label="Close reflection"><X size={18}/></button>
-        <div className="mood-card-stage" aria-hidden="true">{characters.map((item,index)=><span key={index} className="mood-card-character" style={{'--mc-x':item.x,'--mc-y':item.y,'--mc-size':item.size+'px','--mc-duration':item.duration,'--mc-delay':item.delay}}>{item.emoji}</span>)}</div>
+        <div className="mood-card-stage" aria-hidden="true">{characters.map((item,index)=><span key={index} className="mood-card-character" style={{'--mc-x':item.x,'--mc-y':item.y,'--mc-size':item.size+'px','--mc-duration':item.duration,'--mc-delay':item.delay}}><svg viewBox="0 0 100 100" aria-hidden="true"><use href={'/mood-characters.svg#'+item.face}/></svg></span>)}</div>
         <h2 className="mood-card-title">Log an Emotion<br/>or Mood</h2>
         <div className="mood-card-options" role="radiogroup" aria-label="What do you want to log?">
           <button type="button" role="radio" aria-checked={type==='emotion'} className={'mood-card-option'+(type==='emotion'?' selected':'')} onClick={()=>setType('emotion')}>
