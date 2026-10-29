@@ -316,7 +316,6 @@ function StreakWidget() {
         <div className="streak-head"><div className="streak-grab" /><div className="streak-tools">
           <button type="button" aria-label="How streaks work" aria-expanded={helpOpen} onClick={() => setHelpOpen(v => !v)}><CircleHelp size={21}/></button>
           <button type="button" aria-label="Share your streak" onClick={shareStreak}><Share2 size={21}/></button>
-          <button type="button" aria-label="Close streaks" onClick={() => setOpen(false)}><X size={21}/></button>
         </div></div>
         <h2>Streaks help you build your daily habit.</h2>
         {helpOpen && <p className="streak-help">Your app streak counts consecutive days you open EVOLV. Your reflection streak counts consecutive days you save a Daily Reflection. Miss a day and the count starts again.</p>}
