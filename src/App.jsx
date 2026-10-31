@@ -2006,7 +2006,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       supabase.from('metric_definitions').select('id,slug,name,area,unit,value_type,icon,color').eq('is_active',true).order('area').order('name'),
       supabase.from('metric_logs').select('id,metric_id,value,unit,note,metadata,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(500),
       supabase.from('meal_logs').select('id,meal_type,description,calories,protein_g,carbs_g,fat_g,water_ml,note,logged_at,created_at').eq('user_id',u.id).order('logged_at',{ascending:false}).limit(200),
-      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').order('created_at',{ascending:false}),
+      supabase.from('goals').select('id,title,description,status,progress,due_date,created_at,updated_at,goal_type,next_action').eq('user_id',u.id).order('created_at',{ascending:false}),
       supabase.from('notification_delivery_log').select('id,delivery_date,kind,created_at').eq('user_id',u.id).order('created_at',{ascending:false}).limit(50),
       supabase.from('goal_checkins').select('id,goal_id,user_id,checkin_date,note,created_at').eq('user_id',u.id).order('checkin_date',{ascending:false}).limit(2000),
       supabase.from('goal_milestones').select('id,goal_id,user_id,title,sort_order,is_completed,created_at,completed_at').eq('user_id',u.id).order('sort_order',{ascending:true}),
