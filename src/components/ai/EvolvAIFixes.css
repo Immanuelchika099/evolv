@@ -3288,3 +3288,10 @@ html:has(.dashboard.dashboard-ai-active) {
     max-width: 80% !important;
   }
 }
+
+
+/* Keep AI top controls as high as possible while respecting the device safe area. */
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  top: env(safe-area-inset-top, 0px) !important;
+  margin-top: 0 !important;
+}
