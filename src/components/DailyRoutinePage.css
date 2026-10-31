@@ -1177,3 +1177,87 @@ html body #root .daily-routine-page .routine-add-submit {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+
+/* iPhone-specific routine form and action control corrections. */
+html body #root .daily-routine-page .routine-add-form {
+  display: grid !important;
+  gap: 1.6rem !important;
+}
+html body #root .daily-routine-page .routine-add-form-row {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+  align-items: start !important;
+  column-gap: 1.4rem !important;
+  row-gap: 1.2rem !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+html body #root .daily-routine-page .routine-add-form-row > label {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  gap: .8rem !important;
+}
+html body #root .daily-routine-page .routine-add-form-row > label > input,
+html body #root .daily-routine-page .routine-add-form-row > label > select {
+  display: block !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+}
+html body #root .daily-routine-page .routine-add-submit {
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+}
+html body #root .daily-routine-page .routine-row-main .routine-delete-button {
+  box-sizing: border-box !important;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 3.6rem !important;
+  width: 3.6rem !important;
+  min-width: 3.6rem !important;
+  max-width: 3.6rem !important;
+  height: 3.6rem !important;
+  min-height: 0 !important;
+  max-height: 3.6rem !important;
+  aspect-ratio: 1 / 1 !important;
+  padding: 0 !important;
+  line-height: 0 !important;
+  border-radius: 50% !important;
+  align-self: center !important;
+  overflow: hidden !important;
+}
+html body #root .daily-routine-page .routine-row-main .routine-delete-button svg {
+  display: block;
+  width: 1.6rem;
+  height: 1.6rem;
+}
+@media (max-width: 700px) {
+  html body #root .daily-routine-page .routine-add-form-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
+    column-gap: 1.1rem !important;
+  }
+  html body #root .daily-routine-page .routine-add-form-row > label > input,
+  html body #root .daily-routine-page .routine-add-form-row > label > select {
+    min-height: 4.8rem !important;
+    padding-inline: .9rem !important;
+    font-size: 1.35rem !important;
+  }
+  html body #root .daily-routine-page .routine-row-main .routine-delete-button {
+    flex-basis: 3.4rem !important;
+    width: 3.4rem !important;
+    min-width: 3.4rem !important;
+    max-width: 3.4rem !important;
+    height: 3.4rem !important;
+    max-height: 3.4rem !important;
+  }
+}
+@media (max-width: 350px) {
+  html body #root .daily-routine-page .routine-add-form-row {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
