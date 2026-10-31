@@ -931,10 +931,9 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     const safeAttachments = Array.isArray(attachments) ? attachments : []
     if (!cleanText && safeAttachments.length === 0 || sending) return
 
-    const attachmentSummary = safeAttachments.length
-      ? safeAttachments.map(file => `[Attached: ${file.name || 'file'}]`).join(' ')
-      : ''
-    const visibleUserContent = [cleanText, attachmentSummary].filter(Boolean).join(' ')
+    // Keep attachment filenames out of the visible chat bubble. Images are
+    // rendered from the attachment data and sent separately to the AI service.
+    const visibleUserContent = cleanText
     const storedUserContent = hiddenPrompt ? `[[EVOLV_HIDDEN_PROMPT]]${visibleUserContent}` : visibleUserContent
     shouldAutoScrollRef.current = true
     const nextMessages = [...messages, { role: 'user', content: visibleUserContent, attachments: safeAttachments, ...(hiddenPrompt ? { hidden: true } : {}) }]
