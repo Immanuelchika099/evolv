@@ -1283,3 +1283,14 @@ html body #root .daily-routine-page .routine-time input::-webkit-calendar-picker
   filter: invert(1);
   opacity: .75;
 }
+
+
+/* Subtle same-accent glow on the routine progress fill. */
+html body #root .daily-routine-page .routine-progress-track {
+  overflow: visible;
+}
+html body #root .daily-routine-page .routine-progress-track span {
+  box-shadow:
+    0 0 5px color-mix(in srgb, var(--color-accent-blue) 38%, transparent),
+    0 0 10px color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
+}
