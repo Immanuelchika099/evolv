@@ -1336,3 +1336,34 @@ html body #root .auth-page p.auth-legal button {
     transition: none;
   }
 }
+
+
+/* Email OTP verification */
+.auth-page .auth-otp-step .auth-step-copy strong {
+  color: var(--text);
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.auth-page .auth-otp-step input[autocomplete="one-time-code"] {
+  text-align: center;
+  letter-spacing: .42em;
+  font-size: 2.2rem !important;
+  font-variant-numeric: tabular-nums;
+}
+.auth-page .auth-resend-code {
+  justify-self: center;
+  margin: 2px auto 0;
+  padding: 8px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font: 500 14px/1.5 inherit;
+  cursor: pointer;
+}
+.auth-page .auth-resend-code:not(:disabled):hover {
+  color: var(--text);
+}
+.auth-page .auth-resend-code:disabled {
+  opacity: .55;
+  cursor: wait;
+}
