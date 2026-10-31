@@ -36,7 +36,7 @@ export function DashboardPages({ active, pageProps }) {
 function HomePage({ pageProps }) {
   const {
     name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
-    valueText, openLog, goTo, setArea, areas = {}, loading, logs = [], meals = [],
+    valueText, openLog, openMoodCheckIn, goTo, setArea, areas = {}, loading, logs = [], meals = [],
     goals = [], openReflection
   } = pageProps
 
@@ -104,6 +104,10 @@ function HomePage({ pageProps }) {
   ].slice(0, 3)
 
   function startCheckIn(selectedMood = '') {
+    if (openMoodCheckIn) {
+      openMoodCheckIn(selectedMood)
+      return
+    }
     if (moodMetric) {
       openLog(metricArea[moodMetric.slug] || 'health', moodMetric)
       return
