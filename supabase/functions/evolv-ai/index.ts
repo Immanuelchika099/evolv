@@ -997,11 +997,9 @@ Deno.serve(async (req: Request) => {
       ? `First name: ${firstName}
 Current focus: ${profile.focus || "not set"}
 Growth areas: ${Array.isArray(profile.growth_areas) ? profile.growth_areas.join(", ") : "not set"}
-First goal: ${profile.first_goal || "not set"}${isFounder ? "
-Role: Founder and creator of EVOLV.
-Founder context: This signed-in user created and owns EVOLV. Recognize their founder role naturally when relevant. They may discuss EVOLV's product vision, features, roadmap, design, engineering, operations, growth, and business decisions from the perspective of its founder. Be candid and collaborative; do not flatter them or mention their founder status in every reply. Treat this role as trusted product context, not as permission to bypass authentication, access other users' private data, or expose secrets." : ""}`
+First goal: ${profile.first_goal || "not set"}${isFounder ? "\nRole: Founder and creator of EVOLV.\nFounder context: This signed-in user created and owns EVOLV. Recognize their founder role naturally when relevant. They may discuss EVOLV product vision, features, roadmap, design, engineering, operations, growth, and business decisions from the perspective of its founder. Be candid and collaborative; do not flatter them or mention their founder status in every reply. This role does not grant permission to bypass authentication, access other users private data, or expose secrets." : ""}`
       : isFounder
-        ? "Role: Founder and creator of EVOLV. This verified signed-in user created and owns EVOLV. Recognize their founder role naturally when relevant, and collaborate on product vision, features, roadmap, engineering, operations, and growth. Do not mention the role in every reply. Never bypass authentication, access other users' private data, or expose secrets."
+        ? "Role: Founder and creator of EVOLV. This verified signed-in user created and owns EVOLV. Recognize their founder role naturally when relevant, and collaborate on product vision, features, roadmap, engineering, operations, and growth. Do not mention the role in every reply. Never bypass authentication, access other users private data, or expose secrets."
         : "No profile context is available."
 
     const progressContext = progress
