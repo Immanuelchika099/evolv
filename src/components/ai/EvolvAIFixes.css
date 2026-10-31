@@ -3256,3 +3256,17 @@ html:has(.dashboard.dashboard-ai-active) {
   width: 1.5rem !important;
   height: 1.5rem !important;
 }
+
+/* Keep sent-message bubbles content-sized instead of stretching across the chat. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  display: inline-block !important;
+  width: fit-content !important;
+  max-width: min(78%, 48rem) !important;
+  align-self: flex-end !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+    max-width: min(88%, 32rem) !important;
+  }
+}
