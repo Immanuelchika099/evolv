@@ -2062,6 +2062,27 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   },[defs])
 
   function valueText(log,d){if(!log)return '—';const v=Number(log.value);if(d.slug==='sleep'){const total=Math.max(0,Math.round(v*60)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='duration'){const total=Math.max(0,Math.round(v)),h=Math.floor(total/60),m=total%60;if(h&&m)return h+'h '+m+'m';if(h)return h+'h';return m+'m'}if(d.value_type==='scale')return v+'/5';if(d.unit==='NGN')return '₦'+v.toLocaleString();return v.toLocaleString()+(d.unit?' '+d.unit:'')}
+  function openMoodCheckIn(mood){
+    const selectedMood=String(mood||'').trim().toLowerCase()
+    const moodPrompts={
+      happy:'I checked in on EVOLV and said I am feeling happy. Acknowledge that gently and help me notice what is contributing to that feeling. Ask one natural question at a time. Do not turn this into a productivity task.',
+      normal:'I checked in on EVOLV and said I am feeling normal. Help me reflect briefly on how today is going, without assuming anything is wrong or pushing me to do more. Ask one gentle question at a time.',
+      'mixed feelings':'I checked in on EVOLV and said I have mixed feelings. Give me room to explain without trying to fix everything immediately. Ask one gentle, open question at a time and help me find clarity only if I want it.',
+      sad:'I checked in on EVOLV and said I am feeling sad. Respond with warmth and without judgement. Do not minimise the feeling, diagnose me, or rush into advice. Ask one gentle question about what has been weighing on me, and let me choose whether I want to talk, reflect, or find one small source of support.',
+      depressed:'I checked in on EVOLV and said I am feeling depressed. Respond with particular care, warmth and patience. Do not diagnose me, minimise how I feel, or turn this into a productivity task. Acknowledge that things may feel heavy, then ask one gentle question about what I need right now. If I mention being in immediate danger or thinking about harming myself, prioritise my immediate safety and encourage me to reach a trusted person and urgent local support.',
+      anxious:'I checked in on EVOLV and said I am feeling anxious. Respond calmly and without judgement. Do not overwhelm me with a long list of advice. Ask one gentle question about what is on my mind, then offer a simple grounding step only if it feels welcome.'
+    }
+    const prompt=moodPrompts[selectedMood]||'I want to check in on how I am feeling today. Make space for an honest answer, ask one gentle question at a time, and do not turn this into a productivity task.'
+    localStorage.setItem('evolv-ai-start-new-chat','true')
+    localStorage.setItem('evolv-ai-pending-prompt',prompt)
+    window.dispatchEvent(new CustomEvent('evolv:start-new-chat'))
+    setLogOpen(false)
+    setEditingEntry(null)
+    setSelectedEntry(null)
+    goTo('ai')
+    setError('')
+  }
+
   function openLog(a=null,m=null){
     const selected = m || (a ? defs.find(item => item.area === a) : null)
     let prompt = 'Help me check in on my day. Ask me one question at a time, understand what I tell you, and update my Evolv progress only when you have enough information. Do not give me a generic form.'
@@ -2849,7 +2870,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     reflectionMood, reflectionFeeling, reflectionNote, reflectionSaving, avatarUrl, avatarUploading,
     avatarInputRef, deleting, error, progressRange, setProgressRange, progressMetric,
     setProgressMetric, selectedEntry, editingEntry, manageLogsOpen, setManageLogsOpen, dashboardMainRef,
-    goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, dailyReflections, valueText, openLog,
+    goTo, areas, metricArea, icons, name, latest, today, todayLogs, todayMeals, dailyReflections, valueText, openLog, openMoodCheckIn,
     openEntry, startEditEntry, deleteEntry, handleLogSaved, createGoal, beginGoalEdit, saveGoalEdit,
     updateGoal, deleteGoal, checkInGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, saveProfile,
     toggleNotifications, toggleNotificationTime, saveNotificationTime, saveNotificationFrequency, toggleQuietHours, saveQuietHour, deleteNotification,
