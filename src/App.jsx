@@ -1857,7 +1857,14 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [quickLogInitialScreen,setQuickLogInitialScreen]=useState('menu')
 
   useEffect(()=>{
-    const openDashboardNavigation=()=>setDesktopSidebarOpen(true)
+    const openDashboardNavigation=()=>{
+      setDesktopSidebarOpen(false)
+      setActive('overview')
+      setArea(null)
+      setMetric(null)
+      const nextUrl=window.location.pathname+window.location.search+'#dashboard=overview'
+      window.history.pushState({evolvDashboard:true,page:'overview'},'',nextUrl)
+    }
     window.addEventListener('evolv-open-dashboard-navigation',openDashboardNavigation)
     return()=>window.removeEventListener('evolv-open-dashboard-navigation',openDashboardNavigation)
   },[])
