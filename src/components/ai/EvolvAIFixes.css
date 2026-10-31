@@ -3316,3 +3316,17 @@ html:has(.dashboard.dashboard-ai-active) {
     animation-delay: 5s;
   }
 }
+
+
+/* Pin the transient AI service error directly beneath the fixed AI controls. */
+.dashboard.dashboard-ai-active .ai-page > .auth-error {
+  position: fixed !important;
+  top: calc(env(safe-area-inset-top, 0px) + 6.4rem) !important;
+  left: 1.2rem !important;
+  right: 1.2rem !important;
+  z-index: 100499 !important;
+  width: auto !important;
+  max-width: 56rem !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
