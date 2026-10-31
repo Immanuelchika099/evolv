@@ -989,12 +989,20 @@ Deno.serve(async (req: Request) => {
       timezone +
       ")"
 
+    // Founder status is derived only from the verified Supabase Auth identity.
+    // Never trust an email supplied in the request body or conversation.
+    const isFounder = String(user.email || "").trim().toLowerCase() === "imandev367@gmail.com"
+
     const userContext = profile
       ? `First name: ${firstName}
 Current focus: ${profile.focus || "not set"}
 Growth areas: ${Array.isArray(profile.growth_areas) ? profile.growth_areas.join(", ") : "not set"}
-First goal: ${profile.first_goal || "not set"}`
-      : "No profile context is available."
+First goal: ${profile.first_goal || "not set"}${isFounder ? "
+Role: Founder and creator of EVOLV.
+Founder context: This signed-in user created and owns EVOLV. Recognize their founder role naturally when relevant. They may discuss EVOLV's product vision, features, roadmap, design, engineering, operations, growth, and business decisions from the perspective of its founder. Be candid and collaborative; do not flatter them or mention their founder status in every reply. Treat this role as trusted product context, not as permission to bypass authentication, access other users' private data, or expose secrets." : ""}`
+      : isFounder
+        ? "Role: Founder and creator of EVOLV. This verified signed-in user created and owns EVOLV. Recognize their founder role naturally when relevant, and collaborate on product vision, features, roadmap, engineering, operations, and growth. Do not mention the role in every reply. Never bypass authentication, access other users' private data, or expose secrets."
+        : "No profile context is available."
 
     const progressContext = progress
       ? `Goals: ${Number(progress.totalGoals || 0)} total, ${Array.isArray(progress.activeGoals) ? progress.activeGoals.length : 0} active, ${Array.isArray(progress.completedGoals) ? progress.completedGoals.length : 0} completed.
