@@ -380,10 +380,21 @@ function ProgressPage({ pageProps }) {
     return map
   }, {})
 
-  // The graph reflects deliberate, saved goal check-ins rather than edits.
-  const goalActivityByDay = (pageProps.goalCheckins || []).reduce((map, item) => {
-    const key = item.checkin_date || (item.created_at ? dateKey(new Date(item.created_at)) : '')
-    if (key) map[key] = (map[key] || 0) + 1
+  // Count real, dated goal actions: saved check-ins and completed milestones.
+  // Do not infer activity from goal edits or current progress percentages.
+  const goalActivityEvents = [
+    ...(pageProps.goalCheckins || []).map(item => ({
+      date: item.checkin_date || item.created_at
+    })),
+    ...(pageProps.goalMilestones || [])
+      .filter(item => item.is_completed && item.completed_at)
+      .map(item => ({ date: item.completed_at }))
+  ].filter(item => item.date && !Number.isNaN(new Date(item.date).getTime()))
+  const goalActivityByDay = goalActivityEvents.reduce((map, item) => {
+    const key = /^\d{4}-\d{2}-\d{2}$/.test(item.date)
+      ? item.date
+      : dateKey(new Date(item.date))
+    map[key] = (map[key] || 0) + 1
     return map
   }, {})
   const goalGraphDays = (() => {
@@ -489,14 +500,14 @@ function ProgressPage({ pageProps }) {
               <div className="home-heatmap-total"><strong>{goalActiveDays}</strong><span>active days</span></div>
             </div>
             <div className="goal-heatmap-toolbar">
-              <div className="goal-heatmap-summary"><strong>{goalActionsInRange}</strong><span>goal check-ins</span></div>
+              <div className="goal-heatmap-summary"><strong>{goalActionsInRange}</strong><span>goal actions</span></div>
               <div className="goal-heatmap-range" role="group" aria-label="Goal activity time range">
                 {['week', 'month', 'year'].map(range => <button key={range} type="button" className={goalGraphRange === range ? 'is-active' : ''} aria-pressed={goalGraphRange === range} onClick={() => setGoalGraphRange(range)}>{range.charAt(0).toUpperCase() + range.slice(1)}</button>)}
               </div>
             </div>
             <div className={`goal-heatmap-scroll ${goalGraphRange === 'year' ? 'is-year' : ''}`}>
               <div className={`goal-heatmap-grid goal-heatmap-${goalGraphRange}`} role="group" aria-label={`Goal activity over the past ${goalGraphRange === 'week' ? '7 days' : goalGraphRange === 'month' ? '30 days' : 'year'}`}>
-                {goalGraphDays.map(day => <span key={day.key} className={`goal-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : day.count <= 4 ? 3 : 4}`} title={`${day.count} goal check-in${day.count === 1 ? '' : 's'} · ${day.date.toLocaleDateString()}`} aria-label={`${day.count} goal check-in${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString()}`} />)}
+                {goalGraphDays.map(day => <span key={day.key} className={`goal-heatmap-cell level-${day.count === 0 ? 0 : day.count === 1 ? 1 : day.count === 2 ? 2 : day.count <= 4 ? 3 : 4}`} title={`${day.count} goal action${day.count === 1 ? '' : 's'} · ${day.date.toLocaleDateString()}`} aria-label={`${day.count} goal action${day.count === 1 ? '' : 's'} on ${day.date.toLocaleDateString()}`} />)}
               </div>
             </div>
             <div className="goal-heatmap-footer"><span>{goalGraphDays[0]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – {goalGraphDays[goalGraphDays.length - 1]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span><span className="goal-heatmap-legend">Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span></div>
