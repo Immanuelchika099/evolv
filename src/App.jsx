@@ -1828,6 +1828,29 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
 
 function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [active,setActive]=useState('overview')
+  const [returningAfterBreak,setReturningAfterBreak]=useState(false)
+
+  useEffect(()=>{
+    let cancelled=false
+    async function checkReturningSession(){
+      try{
+        const {data:authData}=await supabase.auth.getUser()
+        const userId=authData?.user?.id
+        if(!userId)return
+        const key='evolv:last-active:'+userId
+        const previous=Number(localStorage.getItem(key)||0)
+        const now=Date.now()
+        if(previous>0 && now-previous>=14*24*60*60*1000 && !cancelled){
+          setReturningAfterBreak(true)
+        }
+        localStorage.setItem(key,String(now))
+      }catch(error){
+        console.warn('EVOLV could not check the previous session:',error)
+      }
+    }
+    void checkReturningSession()
+    return()=>{cancelled=true}
+  },[])
   const [desktopSidebarOpen,setDesktopSidebarOpen]=useState(false)
   const [logOpen,setLogOpen]=useState(false)
   const [quickLogOpen,setQuickLogOpen]=useState(false)
@@ -2863,6 +2886,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
   const pageProps = {
     active, setActive, area, setArea, metric, setMetric, defs, logs, meals, goals, goalCheckins, goalMilestones, goalPlans, goalCoachLoading, goalMilestoneDrafts, setGoalMilestoneDrafts, goalType, setGoalType, goalNextAction, setGoalNextAction, profile,
+    returningAfterBreak, dismissReturnWelcome:()=>setReturningAfterBreak(false),
     loading, notifications, saving, goalTitle, setGoalTitle, goalDescription, setGoalDescription,
     goalDueDate, setGoalDueDate, editingGoal, setEditingGoal, profileName, setProfileName,
     profileMessage,
