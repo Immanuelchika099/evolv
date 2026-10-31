@@ -39,8 +39,8 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
 
   const since = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString()
   const [goalsResult, milestonesResult, logsResult, reflectionResult, checkinsResult] = await Promise.all([
-    admin.from("goals").select("id,title,description,status,progress,due_date,goal_type,next_action,updated_at").eq("user_id", userId).order("updated_at", { ascending: false }).limit(10),
-    admin.from("goal_milestones").select("id,goal_id,title,sort_order,is_completed,created_at,completed_at").eq("user_id", userId).eq("is_completed", false).order("sort_order", { ascending: true }).limit(30),
+    admin.from("goals").select("id,title,description,status,progress,due_date,goal_type,next_action,created_at,updated_at").eq("user_id", userId).order("updated_at", { ascending: false }).limit(10),
+    admin.from("goal_milestones").select("id,goal_id,title,sort_order,is_completed,created_at,completed_at").eq("user_id", userId).order("completed_at", { ascending: false }).limit(40),
     admin.from("metric_logs").select("logged_at,value,unit,note,metric_id").eq("user_id", userId).gte("logged_at", since).order("logged_at", { ascending: false }).limit(20),
     admin.from("daily_reflections").select("reflection_date,mood,day_feeling,note").eq("user_id", userId).gte("reflection_date", date.slice(0, 7) + "-01").order("reflection_date", { ascending: false }).limit(5),
     admin.from("goal_checkins").select("goal_id,checkin_date,note").eq("user_id", userId).order("checkin_date", { ascending: false }).limit(10)
@@ -53,8 +53,12 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     return !["completed", "archived", "deleted", "cancelled", "canceled"].includes(status)
   })
   const activeGoalIds = new Set(goals.map(goal => goal.id))
-  const allMilestones = (milestonesResult.error ? [] : milestonesResult.data || [])
-    .filter(step => activeGoalIds.has(step.goal_id) && !step.is_completed)
+  const goalMilestones = (milestonesResult.error ? [] : milestonesResult.data || [])
+    .filter(step => activeGoalIds.has(step.goal_id))
+  const allMilestones = goalMilestones.filter(step => !step.is_completed)
+  const recentlyCompletedMilestones = goalMilestones
+    .filter(step => step.is_completed && step.completed_at)
+    .slice(0, 8)
   const context = {
     firstName: profile?.first_name || null,
     onboardingFocus: profile?.focus || null,
@@ -62,8 +66,10 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     growthAreas: profile?.growth_areas || [],
     goals: goals.map(goal => ({
       ...goal,
-      nextUnfinishedSteps: allMilestones.filter(step => step.goal_id === goal.id).slice(0, 4)
+      nextUnfinishedSteps: allMilestones.filter(step => step.goal_id === goal.id).slice(0, 4),
+      recentlyCompletedSteps: recentlyCompletedMilestones.filter(step => step.goal_id === goal.id).slice(0, 3)
     })),
+    recentlyCompletedMilestones,
     recentLogs: logsResult.error ? [] : logsResult.data || [],
     reflections: reflectionResult.error ? [] : reflectionResult.data || [],
     recentGoalCheckins: (checkinsResult.error ? [] : checkinsResult.data || [])
@@ -71,36 +77,48 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     date
   }
   if (!context.goals.length && !context.onboardingGoal && !context.onboardingFocus && !context.growthAreas.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
-  // Fallbacks stay human and context-aware; never paste a saved goal or milestone into a notification.
+  // A useful goal-aware fallback keeps notifications personal even if Gemini is temporarily unavailable.
   const fallbackNotification = (() => {
+    const primaryGoal = context.goals[0]
+    const goalTitle = String(primaryGoal?.title || "").trim()
+    const goalDomain = goalTitle.toLowerCase()
+    if (primaryGoal && /politic|public office|governance|civic|policy/.test(goalDomain)) {
+      return { title: "A thought for your ambition", body: "What public issue have you taken time to understand more deeply this week?" }
+    }
+    if (primaryGoal) {
+      if (primaryGoal.next_action) return { title: "Keep the bigger picture", body: "What would make progress on " + goalTitle.slice(0, 42) + " feel meaningful today?" }
+      return { title: "Your goal, in focus", body: "What is one part of " + goalTitle.slice(0, 42) + " you want to understand or move forward today?" }
+    }
     const hasRecentActivity = context.recentLogs.length > 0 || context.recentGoalCheckins.length > 0
     const hasReflection = context.reflections.length > 0
     if (slot === "evening") {
       if (hasReflection) return { title: "A moment to reflect", body: "What from today is worth carrying into tomorrow?" }
-      if (hasRecentActivity) return { title: "What today held", body: "Take a moment to notice what your time went toward today." }
+      if (hasRecentActivity) return { title: "What today held", body: "What deserves more of your attention tomorrow?" }
       return { title: "Leave room for tomorrow", body: "What is one thing you want to make room for tomorrow?" }
     }
     if (slot === "afternoon" || slot === "late afternoon") {
       if (hasRecentActivity) return { title: "A quick check-in", body: "Does what matters most still have room in your day?" }
-      return { title: "Still your priority?", body: "Pause for a moment and choose what deserves your attention next." }
+      return { title: "Still your priority?", body: "What deserves your attention next?" }
     }
-    if (slot === "late morning") return { title: "A little breathing room", body: "You can pause, reset, and choose what needs your attention." }
+    if (slot === "late morning") return { title: "A little breathing room", body: "What needs your attention, and what can wait?" }
     if (slot === "early evening") return { title: "Before the day ends", body: "What would make the rest of today feel worthwhile?" }
-    return { title: "Set your own pace", body: "What is one thing you want to give your attention to today?" }
+    return { title: "Set your own pace", body: "What do you want to give your attention to today?" }
   })()
 
   const prompt = [
-    "Write one thoughtful, natural push notification for a calm AI-powered productivity and personal-growth app. It should feel observant and human, not like a task manager or chatbot.",
-    "This is the user's " + slot + " notification. Let the time of day guide the angle, but do not force a formula if another angle is more relevant.",
-    "CRITICAL: saved data is context, not copy. Never paste a goal title, milestone title, next_action, metric label, or onboarding goal into the notification body. Never write 'take one small step on [goal]' or turn a database field into an instruction.",
-    "Choose a useful angle supported by the records: acknowledge a recorded milestone/check-in; connect a recent log or reflection to a broader intention; invite the user to reconsider a priority; offer a grounded perspective on an active goal; or ask a thoughtful question when the data is limited.",
-    "Only describe something as completed, attempted, felt, delayed, or consistent when the supplied records explicitly support it. Never pretend to know what the user did offline, how their day went, or what they feel. When evidence is limited, use an open question or possibility rather than an assumption.",
-    "Use only the supplied eligible goals, unfinished milestones, goal check-ins, metric logs, daily reflections, and onboarding focus/goals. Never use AI chatbot conversations. Ignore completed, archived, deleted, or cancelled goals and orphaned milestones/check-ins.",
-    "Do not make this a disguised to-do list. Avoid quoting database fields. Mention a goal only if it adds real personal relevance, and paraphrase its meaning instead of repeating its title. Prefer a small observation, perspective, or natural check-in over a command.",
-    "Voice: quietly observant, warm, specific, emotionally intelligent, understated. No corporate wellness language, forced inspiration, generic motivational quotes, fake intimacy, excessive positivity, guilt, pressure, or artificial urgency. Do not imitate or quote another app's notifications.",
-    "Return JSON only with string keys title and body. Title: friendly, natural, lowercase, 2-5 words. Body: one concise conversational sentence, ideally 9-18 words and maximum 22 words. Do not repeat the title in the body.",
-    "No app name, brand footer, emoji, generic water/meal reminders, paragraphs, or 'From EVOLV'. The notification must make sense on its own.",
-    "If no meaningful user context exists, return JSON with empty title and body. Never fabricate personalization just to fill a notification.",
+    "Write one thoughtful, highly personal push notification for a calm AI-powered productivity and personal-growth app. It should feel like a perceptive coach who remembers what this person is working towards.",
+    "This is the user's " + slot + " notification. Let the time of day guide the angle, but choose the most relevant active goal when one exists.",
+    "PRIORITISE GOAL RELEVANCE. Read each active goal's title, description, goal_type, next_action, due date, progress and milestones. Understand the real-world domain behind it, then make the notification genuinely relevant to that domain. Do not default to generic productivity language.",
+    "Use the goal's actual subject when helpful. A goal about entering politics could lead to a thoughtful nudge about understanding public policy, local government, civic institutions, community needs, public speaking, or building a record of service. Choose only a relevant angle; do not assume the user's party, ideology, political views, country, connections or experience unless the records say so. Other goal domains should receive equally domain-specific insight.",
+    "A saved goal is not just a label. Connect it to a useful question, perspective, timely opportunity, relevant skill, or next action. Use next_action and unfinished milestones to make the message concrete when available. If a milestone was recently completed, acknowledge that exact progress naturally.",
+    "Use saved data as evidence, not as a script. You MAY naturally mention or paraphrase a goal or milestone when it makes the message more personal. Never invent actions, progress, feelings, achievements, deadlines or life circumstances.",
+    "Choose a useful angle supported by the records: a relevant idea to explore, a skill to develop, a grounded question, a next step, a milestone acknowledgement, a deadline-aware nudge, or a reflection on a recorded check-in. Sometimes make an observation instead of asking a question.",
+    "Only describe something as completed, attempted, felt, delayed or consistent when supplied records explicitly support it. Never pretend to know what the user did offline. Ignore completed, archived, deleted or cancelled goals as active goals, and ignore orphaned milestones/check-ins.",
+    "If there are several active goals, select the one with the strongest timely signal (due date, unfinished milestone, recent check-in, or clear next action). Do not cram several goals into one notification.",
+    "Voice: quietly observant, warm, intelligent, specific, conversational and understated. It may be gently challenging, but never guilt-inducing, preachy, corporate, artificially inspirational or urgent. Do not imitate or quote another app.",
+    "Return JSON only with string keys title and body. Title: natural, lowercase, 2-5 words. Body: one concise conversational sentence, 9-22 words, maximum 140 characters. Do not repeat the title in the body.",
+    "No app name, brand footer, emoji, generic water/meal reminders, paragraphs or 'From EVOLV'. The notification must make sense on its own.",
+    "If there is meaningful goal context, use it. Return empty title and body only when there is genuinely no useful personal context.",
     "User data: " + JSON.stringify(context)
   ].join("\n")
 
@@ -138,7 +156,7 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     const titleRaw = String(parsed.title || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim().slice(0, 42)
     const title = titleRaw.toLocaleLowerCase()
     const body = String(parsed.body || "").replace(/[\r\n]+/g, " ").replace(/\s{2,}/g, " ").trim()
-    if (!title || !body || body.length > 75 || body.split(/\\s+/).length > 10) return fallbackNotification
+    if (!title || !body || body.length > 140 || body.split(/\s+/).length > 22) return fallbackNotification
     return { title, body }
   } catch (error) {
     console.error("EVOLV AI notification error:", String(error?.message || error))
