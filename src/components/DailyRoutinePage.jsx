@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Activity, AlarmClock, Apple, Bell, BookOpen, Brain, Check, ChevronDown, ChevronRight, Clock3, Droplets, Dumbbell, Flower2, HeartPulse, Moon, RotateCcw, Sunrise, Target, Utensils, WalletCards, Waves } from 'lucide-react'
+import { Activity, AlarmClock, Apple, Bell, BookOpen, Brain, Check, ChevronDown, ChevronRight, Clock3, Droplets, Dumbbell, Flower2, HeartPulse, Moon, RotateCcw, Sunrise, Target, Trash2, Utensils, WalletCards, Waves } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import './DailyRoutinePage.css'
 
@@ -229,6 +229,22 @@ export default function DailyRoutinePage({ pageProps }) {
     setShowAddRoutine(false)
   }
 
+  function deleteRoutine(id) {
+    const item = items.find(entry => entry.id === id)
+    if (!item || !String(item.id).startsWith('custom-')) return
+    if (!window.confirm(`Delete “${item.label}” from your routine?`)) return
+    const nextItems = items.filter(entry => entry.id !== id)
+    const nextCompleted = { ...completed }
+    delete nextCompleted[id]
+    persist(nextItems, nextCompleted)
+    syncRoutineReminders(nextItems)
+    setExpandedDays(current => {
+      const next = { ...current }
+      delete next[id]
+      return next
+    })
+  }
+
   function toggleCompleted(id) {
     persist(items, { ...completed, [id]: !completed[id] })
   }
@@ -339,6 +355,7 @@ export default function DailyRoutinePage({ pageProps }) {
                     </div>
                     <label className="routine-time"><span className="sr-only">{item.label} time</span><input type="time" value={item.time} onChange={event => updateItem(item.id, { time: event.target.value })} /></label>
                     <button type="button" className={'routine-toggle' + (item.enabled ? ' is-on' : '')} aria-pressed={item.enabled} aria-label={(item.enabled ? 'Disable ' : 'Enable ') + item.label} onClick={() => updateItem(item.id, { enabled: !item.enabled })}><span/></button>
+                    {String(item.id).startsWith('custom-') && <button type="button" className="routine-delete-button" aria-label={'Delete ' + item.label} title="Delete routine" onClick={() => deleteRoutine(item.id)}><Trash2 size={16}/></button>}
                   </div>
                   <button type="button" className="routine-days-disclosure" aria-expanded={!!expandedDays[item.id]} onClick={() => setExpandedDays(current => ({ ...current, [item.id]: !current[item.id] }))}>
                     <span className="routine-days-summary">{(item.days || WEEKDAYS).length === 7 ? '' : (item.days || []).length ? (item.days || []).join(' · ') : 'No days selected'}</span><span className="routine-days-edit"><ChevronDown size={15} className={expandedDays[item.id] ? 'is-open' : ''}/></span>
