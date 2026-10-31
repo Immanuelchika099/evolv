@@ -1357,7 +1357,10 @@ html body #root .auth-page p.auth-legal button {
   border: 0;
   background: transparent;
   color: var(--muted);
-  font: 500 14px/1.5 inherit;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
   cursor: pointer;
 }
 .auth-page .auth-resend-code:not(:disabled):hover {
