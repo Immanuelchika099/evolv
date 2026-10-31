@@ -1261,3 +1261,25 @@ html body #root .daily-routine-page .routine-row-main .routine-delete-button svg
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+
+
+/* Keep native time/number controls from showing stacked accent focus rings. */
+html body #root .daily-routine-page .routine-time input,
+html body #root .daily-routine-page .routine-lead-time input {
+  outline: none !important;
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  appearance: none;
+}
+html body #root .daily-routine-page .routine-time input:focus,
+html body #root .daily-routine-page .routine-time input:focus-visible,
+html body #root .daily-routine-page .routine-lead-time input:focus,
+html body #root .daily-routine-page .routine-lead-time input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+  border-color: rgba(255,255,255,.22) !important;
+}
+html body #root .daily-routine-page .routine-time input::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: .75;
+}
