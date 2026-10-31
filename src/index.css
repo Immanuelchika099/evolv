@@ -1217,3 +1217,12 @@ html body #root .dashboard .daily-routine-page {
     padding-bottom: .8rem !important;
   }
 }
+
+
+/* Installed-app sizing: prevent pinch scaling while preserving normal panning. */
+html,
+body,
+#root {
+  touch-action: pan-x pan-y;
+  -webkit-text-size-adjust: 100%;
+}
