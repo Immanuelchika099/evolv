@@ -1294,3 +1294,9 @@ html body #root .daily-routine-page .routine-progress-track span {
     0 0 5px color-mix(in srgb, var(--color-accent-blue) 38%, transparent),
     0 0 10px color-mix(in srgb, var(--color-accent-blue) 20%, transparent);
 }
+
+
+/* Daily Routine title punctuation is neutral white, not the page accent. */
+html body #root .daily-routine-page .routine-heading h1 span {
+  color: #fff !important;
+}
