@@ -450,6 +450,15 @@ function App() {
           else console.info('EVOLV founder notification test result:', testResult)
         }
 
+        const emailSignupAt = Number(localStorage.getItem('evolv-email-signup-intent') || 0)
+        const isRecentEmailSignup = emailSignupAt > 0 && Date.now() - emailSignupAt < 7 * 24 * 60 * 60 * 1000
+        if (isRecentEmailSignup) {
+          localStorage.removeItem('evolv-email-signup-intent')
+          await finishAuth(user, 'signup')
+          return
+        }
+        if (emailSignupAt) localStorage.removeItem('evolv-email-signup-intent')
+
         const oauthIntent = sessionStorage.getItem('evolv-oauth-intent')
 
         if (oauthIntent === 'login') {
@@ -802,7 +811,6 @@ function EvolvLoader() {
 function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [otp, setOtp] = useState('')
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(() => {
     const storedError = sessionStorage.getItem('evolv-auth-error')
@@ -883,65 +891,6 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
     setMessage('Password reset instructions have been sent to your email.')
   }
 
-  async function sendSignupCode(cleanEmail) {
-    setSending(true)
-    setError('')
-    setMessage('')
-    const { error: otpError } = await supabase.auth.signInWithOtp({
-      email: cleanEmail,
-      options: { shouldCreateUser: true },
-    })
-    setSending(false)
-    if (otpError) {
-      const code = otpError.code || ''
-      setError(code === 'over_email_send_rate_limit'
-        ? 'Too many codes requested. Please wait a moment and try again.'
-        : otpError.message || 'We could not send your verification code. Please try again.')
-      return
-    }
-    setOtp('')
-    setAuthStage('otp')
-    setMessage('We sent a six-digit verification code to your email.')
-  }
-
-  async function verifySignupCode(event) {
-    event.preventDefault()
-    const token = otp.replace(/\s/g, '')
-    if (!/^\d{6}$/.test(token)) {
-      setError('Enter the six-digit code from your email.')
-      return
-    }
-    setSending(true)
-    setError('')
-    setMessage('')
-    try {
-      const { data, error: verifyError } = await supabase.auth.verifyOtp({
-        email: email.trim(),
-        token,
-        type: 'email',
-      })
-      if (verifyError) {
-        setError(verifyError.message || 'That code is invalid or has expired. Request a new one.')
-        return
-      }
-      if (!data?.user) {
-        setError('We could not verify your account. Please request a new code.')
-        return
-      }
-      void supabase.functions.invoke('founder-user-notifications', {
-        body: { action: 'auth_signup', user_id: data.user.id },
-      }).then(({ error: notificationError }) => {
-        if (notificationError) console.warn('EVOLV founder signup notification failed:', notificationError.message)
-      }).catch((notificationError) => console.warn('EVOLV founder signup notification request failed:', notificationError))
-      await onSuccess(data.user, 'signup')
-    } catch (verifyException) {
-      console.error('EVOLV email verification failed:', verifyException)
-      setError(verifyException?.message || 'We could not verify that code. Please try again.')
-    } finally {
-      setSending(false)
-    }
-  }
-
   async function submit(event) {
     event.preventDefault()
     const cleanEmail = email.trim()
@@ -956,11 +905,15 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
     setMessage('')
 
     try {
+      if (mode === 'signup') {
+        localStorage.setItem('evolv-email-signup-intent', String(Date.now()))
+      }
+
       const result = mode === 'signup'
         ? await supabase.auth.signUp({
           email: cleanEmail,
           password,
-          options: { emailRedirectTo: window.location.origin },
+          options: { emailRedirectTo: `${window.location.origin}/` },
         })
         : await supabase.auth.signInWithPassword({
           email: cleanEmail,
@@ -968,6 +921,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
         })
 
       if (result.error) {
+        if (mode === 'signup') localStorage.removeItem('evolv-email-signup-intent')
         console.error('EVOLV auth error:', {
           message: result.error.message,
           code: result.error.code,
@@ -993,16 +947,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
       }
 
       if (mode === 'signup' && !result.data.session) {
-        if (result.data.user) {
-          void supabase.functions.invoke('founder-user-notifications', {
-            body: { action: 'auth_signup', user_id: result.data.user.id },
-          }).then(({ error }) => {
-            if (error) console.warn('EVOLV founder signup notification failed:', error.message)
-          }).catch((error) => {
-            console.warn('EVOLV founder signup notification request failed:', error)
-          })
-        }
-        setMessage('Your account was created. Check your email to confirm it, then come back and sign in.')
+        setMessage('Your account is almost ready. Open the confirmation link we sent to your email and EVOLV will take you straight into your account.')
         return
       }
 
@@ -1084,10 +1029,6 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
             }
             setError('')
             setMessage('')
-            if (mode === 'signup') {
-              void sendSignupCode(email.trim())
-              return
-            }
             setAuthStage('email')
           }}>
             <label htmlFor="auth-work-email">Work email</label>
@@ -1097,39 +1038,6 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
               <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </button>
           </form>
-        ) : authStage === 'otp' ? (
-          <section className="auth-email-step auth-otp-step">
-            <button className="auth-step-back" type="button" onClick={() => { setAuthStage('choices'); setOtp(''); setError(''); setMessage('') }}>
-              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              Change email
-            </button>
-            <h2>Check your inbox</h2>
-            <p className="auth-step-copy">Enter the six-digit code we sent to <strong>{email}</strong>.</p>
-            <form className="auth-form" onSubmit={verifySignupCode}>
-              <label>
-                <span>Verification code</span>
-                <input
-                  type="text"
-                  inputMode="numeric"
-                  autoComplete="one-time-code"
-                  pattern="[0-9]{6}"
-                  maxLength={6}
-                  value={otp}
-                  onChange={event => setOtp(event.target.value.replace(/\D/g, '').slice(0, 6))}
-                  placeholder="000000"
-                  aria-label="Six-digit verification code"
-                  autoFocus
-                  required
-                />
-              </label>
-              {error && <p className="auth-error" role="alert">{error}</p>}
-              <button className="auth-continue-button" type="submit" disabled={sending || otp.length !== 6}>
-                <span>{sending ? 'Verifying…' : 'Verify email'}</span>
-                {!sending && <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>}
-              </button>
-              <button className="auth-resend-code" type="button" disabled={sending} onClick={() => sendSignupCode(email.trim())}>Send a new code</button>
-            </form>
-          </section>
         ) : (
           <section className="auth-email-step">
             <button className="auth-step-back" type="button" onClick={() => { setAuthStage('choices'); setError(''); setMessage('') }}>
