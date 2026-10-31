@@ -121,7 +121,6 @@ function HomePage({ pageProps }) {
       </section>
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
         <h2 id="calm-checkin-title">How are you feeling?</h2>
-        <p>Choose what feels closest.</p>
         <div className="calm-mood-options">
           {[
             { label: 'Happy', mood: 'happy', note: 'Feeling good' },
@@ -143,7 +142,7 @@ function HomePage({ pageProps }) {
 
       <button type="button" className="calm-reflection-entry" onClick={openReflection}>
         <span className="calm-reflection-entry-icon"><NotebookPen size={19} /></span>
-        <span className="calm-reflection-entry-copy"><strong>Daily reflection</strong><small>Take a moment to check in with yourself.</small></span>
+        <span className="calm-reflection-entry-copy"><strong>Daily reflection</strong></span>
         <ArrowRight size={18} />
       </button>
 
@@ -326,7 +325,7 @@ function LogsPage({ pageProps }) {
         }
         return <section className="panel-page dashboard-panel logs-page">
           <button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button>
-          <div className="logs-page-hero"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2><p>A quiet record of the things you chose to notice. Open an entry for the full story.</p></div>
+          <div className="logs-page-hero"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2></div>
           <div className="logs-page-toolbar">
             <div><strong>{items.length}</strong><span>{items.length===1?'saved entry':'saved entries'}</span></div>
             <div className="logs-page-toolbar-actions"><span>Newest first</span><button type="button" className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button></div>
@@ -334,7 +333,7 @@ function LogsPage({ pageProps }) {
           {items.length ? <div className="logs-page-list">{items.map((item,index)=>{
             const def=item.type==='log'?metricById[item.entry.metric_id]:null,label=item.type==='meal'?(item.entry.meal_type||'Meal'):def?.name||'Entry',M=item.type==='meal'?Utensils:(icons[def?.slug]||Activity)
             return <button type="button" className="logs-page-row" key={item.type+'-'+(item.entry.id||index)} onClick={()=>openEntry(item)}><span className="logs-page-icon"><M size={18}/></span><span className="logs-page-copy"><small>{item.type==='meal'?'NUTRITION':(def?.area||'LOG').toUpperCase()}</small><strong>{label}</strong><span>{formatValue(item)}</span></span><time>{item.date.toLocaleDateString(undefined,{month:'short',day:'numeric'})}<br/>{item.date.toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</time><ChevronRight size={18}/></button>
-          })}</div> : <div className="logs-page-empty"><NotebookPen size={24}/><strong>No previous logs yet.</strong><p>Your saved health, life, money and meal entries will appear here.</p></div>}
+          })}</div> : <div className="logs-page-empty"><NotebookPen size={24}/><strong>No previous logs yet.</strong></div>}
         </section>
       })()
 }
@@ -470,7 +469,6 @@ function ProgressPage({ pageProps }) {
           <div className="progress-heading">
             <span className="section-label">PROGRESS</span>
             <h2>Your progress.</h2>
-            <p>See the few things that matter most.</p>
             <button type="button" className="manage-logs-button" onClick={()=>goTo('logs')}>
               <span className="manage-logs-button-icon"><NotebookPen size={17}/></span>
               <span className="manage-logs-button-copy"><strong>Previous logs</strong><small>View, edit or delete</small></span>
@@ -496,7 +494,7 @@ function ProgressPage({ pageProps }) {
 
           <section className="home-heatmap-card goal-heatmap-card" aria-label="Goal contribution graph">
             <div className="home-heatmap-heading goal-heatmap-heading">
-              <div><h2>Goal activity</h2><p>Small steps, recorded over time.</p></div>
+              <div><h2>Goal activity</h2></div>
               <div className="home-heatmap-total"><strong>{goalActiveDays}</strong><span>active days</span></div>
             </div>
             <div className="goal-heatmap-toolbar">
@@ -536,7 +534,7 @@ function ProgressPage({ pageProps }) {
             ) : (
               <div className="progress-empty-inline">
                 <Target size={22}/>
-                <div><strong>No goals yet.</strong><p>Add a goal when you are ready.</p></div>
+                <div><strong>No goals yet.</strong></div>
                 <button type="button" className="button button-primary" onClick={()=>goTo('goals')}><Plus size={15}/> Add goal</button>
               </div>
             )}
@@ -645,7 +643,6 @@ function ProfilePage({ pageProps }) {
     <div className="settings-heading">
       <span className="section-label">YOUR SPACE</span>
       <h2>Profile.</h2>
-      <p>A home for the person behind your EVOLV journey.</p>
     </div>
 
     <div className="profile-summary-card">
