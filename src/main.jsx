@@ -16,6 +16,13 @@ if (Capacitor.getPlatform() === 'ios') {
   void Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(() => {})
 }
 
+// Keep the installed web app at a fixed scale. These guards target browser
+// zoom gestures only; normal one-finger scrolling and app controls remain usable.
+const preventZoomGesture = (event) => event.preventDefault()
+document.addEventListener('gesturestart', preventZoomGesture, { passive: false })
+document.addEventListener('gesturechange', preventZoomGesture, { passive: false })
+document.addEventListener('gestureend', preventZoomGesture, { passive: false })
+
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch(() => {})
