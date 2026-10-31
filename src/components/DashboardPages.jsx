@@ -500,7 +500,7 @@ function ProgressPage({ pageProps }) {
               </div>
             </div>
             <div className="goal-heatmap-footer"><span>{goalGraphDays[0]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – {goalGraphDays[goalGraphDays.length - 1]?.date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}</span><span className="goal-heatmap-legend">Less <i className="level-0"/><i className="level-1"/><i className="level-2"/><i className="level-3"/><i className="level-4"/> More</span></div>
-            <p className="goal-heatmap-note">Tracks the days you deliberately checked in on a goal. Earlier activity isn’t backfilled.</p>
+            <p className="goal-heatmap-note"></p>
           </section>
 
           <section className="progress-section-card progress-goals-card">
