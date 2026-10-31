@@ -315,7 +315,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       ) : (
         <article key={insight?.title || insight?.id || insight?.insight_date || (status ? 'empty-status' : 'empty')} className="daily-ai-insight-card" aria-live="polite">
           {loading ? (
-            <div className="daily-ai-insight-state"><span className="daily-ai-insight-shimmer" /><span className="daily-ai-insight-shimmer short" /><small>Finding a useful pattern from your recent days…</small></div>
+            <div className="daily-ai-insight-state"><span className="daily-ai-insight-shimmer" /><span className="daily-ai-insight-shimmer short" /></div>
           ) : insight ? (
             <>
               <div className="daily-ai-insight-topline">
@@ -329,7 +329,7 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
           ) : (
             <div className="daily-ai-insight-state">
               <Sparkles size={20} />
-              <p>{status || 'Your insight will appear when there is something useful to notice.'}</p>
+              <p>{status || 'Not enough activity to spot a pattern yet.'}</p>
               <div className="daily-ai-insight-state-actions">
                 <button type="button" className="daily-ai-insight-action" onClick={() => generateInsight({ force: true })} disabled={refreshing}>
                   <RefreshCw size={14} className={refreshing ? 'daily-ai-spin' : ''} /> Try again
