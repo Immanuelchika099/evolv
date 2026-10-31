@@ -202,12 +202,12 @@ export default function ProfileSettingsPage({pageProps}){
     </div>
     <div key={profileTab} className="profile-v2-tab-content">
       {profileTab==='account' ? <>
-        <div className="profile-v2-group"><p className="profile-v2-group-label">Your journey</p>
+        <div className="profile-v2-group">
           <ProfileSettingsSection label="YOUR JOURNEY" title="Streak & stats" icon={Activity}>
             <section className="profile-stat-grid profile-v2-stat-details" aria-label="Detailed EVOLV statistics"><article><span>STREAK</span><strong>{streaks.current}</strong><small>current days</small></article><article><span>COMPLETED</span><strong>{completed}</strong><small>saved entries</small></article><article><span>BEST STREAK</span><strong>{streaks.best}</strong><small>best run</small></article><article><span>MEMBER SINCE</span><strong>{memberSince}</strong><small>your EVOLV start</small></article></section>
           </ProfileSettingsSection>
         </div>
-        <div className="profile-v2-group"><p className="profile-v2-group-label">Your details</p>
+        <div className="profile-v2-group">
           <ProfileSettingsSection label="YOUR DETAILS" title="Account" icon={UserRound}>
             <div className="profile-setting-row"><div><strong>Name</strong><span>Your display name across EVOLV.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
             <div className="profile-setting-row profile-setting-row-wide"><div><strong>Email</strong><span>Managed securely by your EVOLV account.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>{user?.email||'Add email'} <ChevronRight size={15}/></button></div>
@@ -215,7 +215,7 @@ export default function ProfileSettingsPage({pageProps}){
             <div className="profile-setting-row"><div><strong>Edit profile</strong><span>Update your name and personal details.</span></div><button type="button" className="settings-inline-action" onClick={beginEdit}>Edit <ChevronRight size={15}/></button></div>
           </ProfileSettingsSection>
         </div>
-        <div className="profile-v2-group"><p className="profile-v2-group-label">Your routine</p>
+        <div className="profile-v2-group">
           <section className="profile-settings-section profile-v2-focus-section" aria-label="Focus and growth areas">
             <button type="button" className="profile-setting-row profile-v2-focus-row" aria-expanded={focusExpanded} onClick={()=>setFocusExpanded(value=>!value)}><span className="profile-v2-focus-icon" aria-hidden="true"><Compass size={19}/></span><span className="profile-v2-focus-copy"><strong>Focus &amp; growth areas</strong><small>Choose your direction · {growthAreas.length||0} selected</small></span><ChevronDown size={18} className={focusExpanded?"profile-v2-focus-chevron is-open":"profile-v2-focus-chevron"}/></button>
             <div className={focusExpanded?"profile-v2-focus-more is-open":"profile-v2-focus-more"} aria-hidden={!focusExpanded} inert={!focusExpanded}><div className="profile-v2-direction-editor">
@@ -231,12 +231,12 @@ export default function ProfileSettingsPage({pageProps}){
           </ProfileSettingsSection>
         </div>
       </> : <>
-        <div className="profile-v2-group"><p className="profile-v2-group-label">Your experience</p>
+        <div className="profile-v2-group">
           <ProfileSettingsSection label="YOUR EXPERIENCE" title="Sound" icon={Volume2}>
             <SettingToggle label="Ambient sound" description="Play the soft, airy background sound in EVOLV. You can turn it off anytime." checked={ambientSoundEnabled} onChange={toggleAmbientSound}/>
           </ProfileSettingsSection>
         </div>
-        <div className="profile-v2-group"><p className="profile-v2-group-label">Stay in the loop</p>
+        <div className="profile-v2-group">
           <ProfileSettingsSection label="STAY IN THE LOOP" title="Notifications" icon={Bell}>
             <SettingToggle label="Daily reminders" description="Allow EVOLV to send personalised AI push notifications." checked={notificationsEnabled} onChange={toggleNotifications}/>
             <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide profile-ai-frequency-row">
@@ -262,7 +262,7 @@ export default function ProfileSettingsPage({pageProps}){
             <div className="profile-setting-row profile-setting-row-nested profile-setting-row-wide"><div><strong>Quiet hours</strong><span>EVOLV will not interrupt this window.</span></div><div className="settings-quiet-control"><input type="time" value={notificationTimes.quietStart||'23:00'} onChange={e=>saveQuietHour('quietStart',e)} aria-label="Quiet hours start"/><span>to</span><input type="time" value={notificationTimes.quietEnd||'07:00'} onChange={e=>saveQuietHour('quietEnd',e)} aria-label="Quiet hours end"/><button type="button" className={notificationTimes.quietHours?'settings-toggle active':'settings-toggle'} onClick={toggleQuietHours} aria-pressed={notificationTimes.quietHours} aria-label="Toggle quiet hours"><span/></button></div></div>
           </ProfileSettingsSection>
         </div>
-        <div className="profile-v2-group"><p className="profile-v2-group-label">Your information</p>
+        <div className="profile-v2-group">
           <ProfileSettingsSection label="YOUR INFORMATION" title="Privacy & data" icon={ShieldCheck}>
             <div className="profile-setting-row"><div><strong>Export my data</strong><span>Download your tracked EVOLV data as JSON.</span></div><button type="button" className="settings-inline-action" onClick={exportData}><Download size={15}/> Export</button></div>
             <div className="profile-setting-row danger-row"><div><strong>Reset all habit data</strong><span>Remove logs, meals, goals and reflections without deleting your account.</span></div><button type="button" className="settings-danger-button" onClick={()=>setConfirmAction('reset')}>Reset data</button></div>
