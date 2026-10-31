@@ -2198,7 +2198,13 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions {
-  margin-top: .9rem;
+  margin-top: .25rem;
+  gap: 0;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button {
+  width: 24px;
+  height: 24px;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.user {

@@ -37,7 +37,7 @@ function HomePage({ pageProps }) {
   const {
     name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
     valueText, openLog, openMoodCheckIn, goTo, setArea, areas = {}, loading, logs = [], meals = [],
-    goals = [], openReflection
+    goals = [], openReflection, returningAfterBreak = false, dismissReturnWelcome
   } = pageProps
 
   const firstName = String(name || '').trim().split(/\\s+/)[0] || 'there'
@@ -123,6 +123,15 @@ function HomePage({ pageProps }) {
           <h1>{firstName}</h1>
         </div>
       </section>
+      {returningAfterBreak && (
+        <section className="calm-return-welcome" aria-label="Welcome back">
+          <div>
+            <strong>Welcome back. 🤍</strong>
+            <p>You don't need to catch up on anything. We can begin with today, one small step at a time.</p>
+          </div>
+          <button type="button" onClick={dismissReturnWelcome} aria-label="Dismiss welcome back message"><X size={17}/></button>
+        </section>
+      )}
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
         <h2 id="calm-checkin-title">How are you feeling?</h2>
         <div className="calm-mood-options">
