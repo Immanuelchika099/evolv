@@ -906,8 +906,8 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
 
   async function verifySignupCode(event) {
     event.preventDefault()
-    const token = otp.replace(/\\s/g, '')
-    if (!/^\\d{6}$/.test(token)) {
+    const token = otp.replace(/\s/g, '')
+    if (!/^\d{6}$/.test(token)) {
       setError('Enter the six-digit code from your email.')
       return
     }
@@ -1115,7 +1115,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
                   pattern="[0-9]{6}"
                   maxLength={6}
                   value={otp}
-                  onChange={event => setOtp(event.target.value.replace(/\\D/g, '').slice(0, 6))}
+                  onChange={event => setOtp(event.target.value.replace(/\D/g, '').slice(0, 6))}
                   placeholder="000000"
                   aria-label="Six-digit verification code"
                   autoFocus
