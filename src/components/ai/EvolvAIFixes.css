@@ -3270,3 +3270,21 @@ html:has(.dashboard.dashboard-ai-active) {
     max-width: min(88%, 32rem) !important;
   }
 }
+
+
+/* User bubble width fix: cap long sent messages while preserving content sizing. */
+.dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user > p {
+  display: block !important;
+  width: fit-content !important;
+  max-width: min(80%, 560px) !important;
+  align-self: flex-end !important;
+  margin-left: auto !important;
+  box-sizing: border-box !important;
+  overflow-wrap: anywhere !important;
+}
+
+@media (max-width: 800px) {
+  .dashboard.dashboard-ai-active .ai-page .ai-messages > .ai-message.user > p {
+    max-width: 80% !important;
+  }
+}
