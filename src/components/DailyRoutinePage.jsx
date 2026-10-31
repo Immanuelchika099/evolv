@@ -292,7 +292,7 @@ export default function DailyRoutinePage({ pageProps }) {
           <strong>{progress}%</strong>
         </div>
         <div className="routine-progress-track"><span style={{ width: progress + '%' }} /></div>
-        <div className="routine-progress-bottom"><span>{completedCount} of {enabledItems.length} routine steps complete</span><button type="button" onClick={resetToday}><RotateCcw size={14}/> Reset today</button></div>
+        <div className="routine-progress-bottom"><span aria-hidden="true"></span><button type="button" onClick={resetToday}><RotateCcw size={14}/> Reset today</button></div>
       </section>
 
       <section className="routine-coach-section">
