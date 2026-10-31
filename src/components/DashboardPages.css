@@ -11741,3 +11741,42 @@ html body #root .reflection-step-actions .reflection-next:hover {
   background: transparent;
   background-image: none;
 }
+
+
+/* A gentle return message for people reopening EVOLV after a longer break. */
+.calm-return-welcome {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:1.4rem;
+  margin:0 0 1.8rem;
+  padding:1.7rem 1.9rem;
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:1.8rem;
+  background:linear-gradient(120deg,rgba(229,134,66,.075),rgba(255,255,255,.018));
+}
+.calm-return-welcome > div { min-width:0; }
+.calm-return-welcome strong {
+  display:block;
+  color:#f4eee8;
+  font-size:1.55rem;
+  font-weight:var(--font-weight-medium);
+}
+.calm-return-welcome p {
+  margin:.55rem 0 0;
+  color:#a8aaa3;
+  font-size:1.4rem;
+  line-height:1.55;
+}
+.calm-return-welcome button {
+  flex:0 0 3.2rem;
+  width:3.2rem;
+  height:3.2rem;
+  display:grid;
+  place-items:center;
+  border:0;
+  border-radius:50%;
+  background:rgba(255,255,255,.045);
+  color:#a8aaa3;
+  cursor:pointer;
+}
