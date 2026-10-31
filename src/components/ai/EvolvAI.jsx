@@ -1011,7 +1011,11 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
         },
         signal: controller.current.signal,
         body: JSON.stringify({
-          messages: nextMessages,
+          messages: nextMessages.map((message,index)=>(
+            index===nextMessages.length-1 && message.role==='user'
+              ? {...message,content:message.content+"\n\n[EVOLV response-style preference: Use 2–4 fitting emojis naturally in most friendly, personal, reflective, encouraging, or celebratory replies. Let them add warmth and expression rather than decoration. Avoid emoji spam, do not force emojis into technical explanations or serious safety conversations, and do not use star or flower emojis.]"}
+              : message
+          )),
           profile: profile ? { ...profile, first_name: firstName } : profile,
           progress: progressContext,
           model: model?.key || null,
