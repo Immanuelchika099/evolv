@@ -3232,3 +3232,27 @@ html:has(.dashboard.dashboard-ai-active) {
     padding-right: .9rem !important;
   }
 }
+
+/* Final compact spacing for assistant response actions. */
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0 !important;
+  column-gap: 0 !important;
+  margin-top: .1rem !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button {
+  width: 2.6rem !important;
+  min-width: 2.6rem !important;
+  height: 2.6rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button svg {
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+}
