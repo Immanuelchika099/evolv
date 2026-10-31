@@ -22,7 +22,7 @@ export default function OptionWheel({
   blur = 2,
   fade = 0.25,
   minOpacity = 0.05,
-  smoothing = 200,
+  smoothing = 135,
   inset = 80,
   loop = false,
   draggable = true,
@@ -198,7 +198,7 @@ export default function OptionWheel({
     // Slightly damp the gesture so a short swipe doesn't skip past the
     // option the user is aiming for. The release then snaps to the nearest row.
     if (dragMovedRef.current) {
-      const sensitivity = 0.82
+      const sensitivity = 1
       applyTarget(drag.start - (deltaY * sensitivity) / cfgRef.current.rowH, false, false)
     }
   }, [applyTarget])
