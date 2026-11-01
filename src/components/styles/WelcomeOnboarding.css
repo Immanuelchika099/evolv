@@ -2171,3 +2171,10 @@
     align-self: center;
   }
 }
+
+
+/* Final welcome CTA typography override. */
+.evolv-welcome .evolv-welcome-cta {
+  font-size: 1.8rem !important;
+  font-weight: 400 !important;
+}
