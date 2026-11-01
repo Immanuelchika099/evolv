@@ -1596,7 +1596,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
           onAdded={() => setPendingCalendarEvent(null)}
         />
       )}
-      <div className="ai-promptbar-shell">
+      {!historyOpen && <div className="ai-promptbar-shell">
         <PromptBar
           placeholder="Ask anything"
           sources={[
@@ -1628,7 +1628,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
           tilt={8}
           pressScale={0.96}
         />
-      </div>
+      </div>}
       {error && <p className="auth-error" role="alert">{error}</p>}
     </section>
   )
