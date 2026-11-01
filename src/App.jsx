@@ -1703,7 +1703,7 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
         <section className="evolv-welcome-message">
           <h1>Become who<br />you’re <em>capable of.</em></h1>
           <p>Build better habits, understand yourself, and make progress at your own pace.</p>
-          <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started <ArrowRight size={18} /></button>
+          <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started</button>
         </section>
       </main>
     </div>
