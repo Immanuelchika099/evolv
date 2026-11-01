@@ -3332,3 +3332,20 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
+
+
+/* The three-dot button is the actual tap target. Open the native select picker
+   from its click handler instead of relying on a transparent select overlay,
+   which can fail to receive taps in mobile Safari/WebViews. */
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-wrap .ai-more-button {
+  position: relative !important;
+  z-index: 3 !important;
+  pointer-events: auto !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-more-native-select {
+  pointer-events: none !important;
+  width: 1px !important;
+  height: 1px !important;
+  min-width: 0 !important;
+  opacity: 0 !important;
+}
