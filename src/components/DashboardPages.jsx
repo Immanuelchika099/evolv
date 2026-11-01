@@ -599,7 +599,7 @@ function GoalsPage({ pageProps }) {
   const dateKey = date => new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date)
   return <section className="panel-page dashboard-panel goals-page">
 
-<h2 style={{ paddingTop: "96px" }}>Goals</h2>
+<h2 style={{ paddingTop: "40px" }}>Goals</h2>
     <form className="goal-create-form" onSubmit={editingGoal?saveGoalEdit:createGoal}>
       <div className="goal-type-choice" role="group" aria-label="Goal structure">
         <button type="button" className={goalType==='project'?'is-active':''} aria-pressed={goalType==='project'} onClick={()=>setGoalType('project')}><BriefcaseBusiness size={17}/><span><strong>Project</strong></span></button>
