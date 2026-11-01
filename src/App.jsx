@@ -1031,7 +1031,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
             setMessage('')
             setAuthStage('email')
           }}>
-            <label htmlFor="auth-work-email">Work email</label>
+            <label htmlFor="auth-work-email">Email</label>
             <input id="auth-work-email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="name@company.com" autoComplete="email" required />
             <button className="auth-continue-button" type="submit" disabled={sending}>
               <span>Continue</span>
