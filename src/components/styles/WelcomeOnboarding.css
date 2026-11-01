@@ -141,7 +141,7 @@
   border-radius: 99rem;
   background: var(--color-accent-blue);
   color: #ffffff;
-  font: inherit; font-size: 1.55rem; font-weight: var(--font-weight-extrabold); line-height: 1;
+  font: inherit; font-size: 1.55rem; font-weight: 400; line-height: 1;
   cursor: pointer;
   box-shadow: 0 0 2.5rem color-mix(in srgb, var(--color-accent-blue) 7%, transparent);
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
