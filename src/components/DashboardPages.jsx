@@ -597,9 +597,9 @@ function GoalsPage({ pageProps }) {
   const { goTo, goalTitle, setGoalTitle, goalDescription, setGoalDescription, goalDueDate, setGoalDueDate, goalType, setGoalType, goalNextAction, setGoalNextAction, createGoal, editingGoal, setEditingGoal, saving, saveGoalEdit, goals, goalCheckins = [], goalMilestones = [], goalPlans = {}, goalCoachLoading = {}, goalMilestoneDrafts = {}, setGoalMilestoneDrafts, updateGoal, beginGoalEdit, deleteGoal, addGoalMilestone, toggleGoalMilestone, deleteGoalMilestone, generateGoalPlan, applyGoalPlan, checkInGoal } = pageProps
   const resetForm = () => { setEditingGoal(null); setGoalTitle(''); setGoalDescription(''); setGoalDueDate(''); setGoalType('project'); setGoalNextAction('') }
   const dateKey = date => new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date)
-  return <section className="panel-page dashboard-panel goals-page" style={{ marginTop: "96px", paddingTop: 0 }}>
+  return <section className="panel-page dashboard-panel goals-page">
 
-<h2>Goals</h2>
+<h2 style={{ paddingTop: "96px" }}>Goals</h2>
     <form className="goal-create-form" onSubmit={editingGoal?saveGoalEdit:createGoal}>
       <div className="goal-type-choice" role="group" aria-label="Goal structure">
         <button type="button" className={goalType==='project'?'is-active':''} aria-pressed={goalType==='project'} onClick={()=>setGoalType('project')}><BriefcaseBusiness size={17}/><span><strong>Project</strong></span></button>
