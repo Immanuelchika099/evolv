@@ -373,6 +373,8 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   const [historyOpen, setHistoryOpen] = useState(false)
   const [historyLoading, setHistoryLoading] = useState(false)
   const [pressedChatId, setPressedChatId] = useState('')
+  const [historySelectionMode, setHistorySelectionMode] = useState(false)
+  const [selectedHistoryIds, setSelectedHistoryIds] = useState([])
   const historyPressTimerRef = useRef(null)
   const bottomRef = useRef(null)
   const messagesRef = useRef(null)
@@ -654,6 +656,67 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
     setHistoryLoading(true)
     setHistoryOpen(true)
     loadChatHistory().finally(() => setHistoryLoading(false))
+  }
+
+  function toggleHistorySelection(id) {
+    setSelectedHistoryIds(current => current.includes(id)
+      ? current.filter(selectedId => selectedId !== id)
+      : [...current, id])
+  }
+
+  function closeHistorySelection() {
+    setHistorySelectionMode(false)
+    setSelectedHistoryIds([])
+  }
+
+  async function deleteSelectedHistoryChats() {
+    const ids = [...selectedHistoryIds]
+    if (!ids.length) return
+    const confirmed = window.confirm(`Permanently delete ${ids.length} selected ${ids.length === 1 ? 'conversation' : 'conversations'}? This cannot be undone.`)
+    if (!confirmed) return
+
+    const userId = (await supabase.auth.getUser()).data.user?.id
+    if (!userId) {
+      setError('Please sign in again to delete these chats.')
+      return
+    }
+
+    const [messagesResult, titlesResult] = await Promise.all([
+      supabase.from('ai_messages').delete().eq('user_id', userId).in('chat_id', ids),
+      supabase.from('ai_chat_titles').delete().eq('user_id', userId).in('chat_id', ids),
+    ])
+
+    if (messagesResult.error || titlesResult.error) {
+      console.error('EVOLV AI bulk chat deletion failed:', messagesResult.error || titlesResult.error)
+      setError('Could not delete the selected chats. Please try again.')
+      return
+    }
+
+    setChatHistory(current => current.filter(chat => !ids.includes(chat.chatId)))
+    const nextPinned = pinnedChat.filter(id => !ids.includes(id))
+    setPinnedChat(nextPinned)
+    localStorage.setItem('evolv-ai-pinned-chats', JSON.stringify(nextPinned))
+    closeHistorySelection()
+    if (ids.includes(chatId)) startNewChat()
+  }
+
+  function archiveSelectedHistoryChats() {
+    const ids = [...selectedHistoryIds]
+    if (!ids.length) return
+    try {
+      const archived = JSON.parse(localStorage.getItem('evolv-ai-archived-chats') || '[]')
+      localStorage.setItem('evolv-ai-archived-chats', JSON.stringify([...new Set([...archived, ...ids])]))
+    } catch {
+      setError('Could not archive the selected chats. Please try again.')
+      return
+    }
+    setChatHistory(current => current.filter(chat => !ids.includes(chat.chatId)))
+    closeHistorySelection()
+    if (ids.includes(chatId)) startNewChat()
+  }
+
+  function selectAllHistoryChats() {
+    setSelectedHistoryIds(chatHistory.map(chat => chat.chatId))
   }
 
   function selectChatFromHistory(id) {
@@ -1348,8 +1411,19 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
         >
           <section className="ai-history-sheet">
             <div className="ai-history-head">
-              <div><h3>Previous chats.</h3></div>
-              <button type="button" className="ai-history-close" onClick={() => setHistoryOpen(false)} aria-label="Close chat history"><X size={18}/></button>
+              <div><h3>{historySelectionMode ? `${selectedHistoryIds.length} selected.` : 'Previous chats.'}</h3></div>
+              <div className="ai-history-head-actions">
+                {chatHistory.length > 0 && !historySelectionMode && (
+                  <button type="button" className="ai-history-select-toggle" onClick={() => { setHistorySelectionMode(true); setSelectedHistoryIds([]) }}>Select</button>
+                )}
+                {historySelectionMode && (
+                  <>
+                    <button type="button" className="ai-history-select-toggle" onClick={selectAllHistoryChats}>Select all</button>
+                    <button type="button" className="ai-history-select-toggle" onClick={closeHistorySelection}>Cancel</button>
+                  </>
+                )}
+                <button type="button" className="ai-history-close" onClick={() => { closeHistorySelection(); setHistoryOpen(false) }} aria-label="Close chat history"><X size={18}/></button>
+              </div>
             </div>
             <div className="ai-history-list">
               {historyLoading ? (
@@ -1359,7 +1433,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
                 </div>
               ) : chatHistory.length ? chatHistory.map(chat => (
                 <div
-                  className={chat.chatId === chatId ? 'ai-history-row active' : 'ai-history-row'}
+                  className={`ai-history-row${chat.chatId === chatId ? ' active' : ''}${selectedHistoryIds.includes(chat.chatId) ? ' selected' : ''}`}
                   key={chat.chatId}
                   onPointerDown={() => beginHistoryPress(chat.chatId)}
                   onPointerUp={endHistoryPress}
@@ -1370,13 +1444,14 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
                     setPressedChatId(chat.chatId)
                   }}
                 >
-                  <button type="button" className="ai-history-row-select" onClick={() => selectChatFromHistory(chat.chatId)}>
+                  <button type="button" className="ai-history-row-select" onClick={() => historySelectionMode ? toggleHistorySelection(chat.chatId) : selectChatFromHistory(chat.chatId)}>
+                    {historySelectionMode && <span className={selectedHistoryIds.includes(chat.chatId) ? 'ai-history-checkbox checked' : 'ai-history-checkbox'} aria-hidden="true">{selectedHistoryIds.includes(chat.chatId) ? <Check size={13} /> : null}</span>}
                     <span className="ai-history-row-copy">
                       <strong>{chat.title || chat.preview || 'Untitled chat'}</strong>
                       <small>{new Date(chat.updatedAt).toLocaleDateString(undefined,{month:'short',day:'numeric'})} · {new Date(chat.updatedAt).toLocaleTimeString(undefined,{hour:'numeric',minute:'2-digit'})}</small>
                     </span>
                   </button>
-                  <button
+                  {!historySelectionMode && <button
                     type="button"
                     className={pressedChatId === chat.chatId ? 'ai-history-delete visible' : 'ai-history-delete'}
                     aria-label="Delete chat"
@@ -1387,12 +1462,18 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
                     }}
                   >
                     <MoreHorizontal size={17}/>
-                  </button>
+                  </button>}
                 </div>
               )) : (
                 <div className="ai-history-empty"><History size={22}/><strong>No previous chats yet.</strong><p>Your AI conversations will appear here after you send a message.</p></div>
               )}
             </div>
+            {historySelectionMode && selectedHistoryIds.length > 0 && (
+              <div className="ai-history-bulk-actions">
+                <button type="button" className="ai-history-bulk-archive" onClick={archiveSelectedHistoryChats}>Archive</button>
+                <button type="button" className="ai-history-bulk-delete" onClick={deleteSelectedHistoryChats}>Delete</button>
+              </div>
+            )}
           </section>
         </div>
       )}
