@@ -598,7 +598,7 @@ function GoalsPage({ pageProps }) {
   const resetForm = () => { setEditingGoal(null); setGoalTitle(''); setGoalDescription(''); setGoalDueDate(''); setGoalType('project'); setGoalNextAction('') }
   const dateKey = date => new Intl.DateTimeFormat('en-CA',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date)
   return <section className="panel-page dashboard-panel goals-page">
-    <button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button>
+
     <span className="section-label">YOUR GOALS</span><h2>Goals</h2>
     <form className="goal-create-form" onSubmit={editingGoal?saveGoalEdit:createGoal}>
       <div className="goal-type-choice" role="group" aria-label="Goal structure">
