@@ -82,12 +82,24 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     const primaryGoal = context.goals[0]
     const goalTitle = String(primaryGoal?.title || "").trim()
     const goalDomain = goalTitle.toLowerCase()
+    const fitGoalTitle = (prefix, suffix) => {
+      const available = Math.max(1, 140 - prefix.length - suffix.length)
+      if (goalTitle.length <= available) return goalTitle
+      // Keep the final word intact instead of cutting a goal title mid-word.
+      return goalTitle.slice(0, available + 1).replace(/\\s+\\S*$/, "").trim() || goalTitle.slice(0, available).trim()
+    }
     if (primaryGoal && /politic|public office|governance|civic|policy/.test(goalDomain)) {
       return { title: "A thought for your ambition", body: "What public issue have you taken time to understand more deeply this week?" }
     }
     if (primaryGoal) {
-      if (primaryGoal.next_action) return { title: "Keep the bigger picture", body: "What would make progress on " + goalTitle.slice(0, 42) + " feel meaningful today?" }
-      return { title: "Your goal, in focus", body: "What is one part of " + goalTitle.slice(0, 42) + " you want to understand or move forward today?" }
+      if (primaryGoal.next_action) {
+        const prefix = "What would make progress on "
+        const suffix = " feel meaningful today?"
+        return { title: "Keep the bigger picture", body: prefix + fitGoalTitle(prefix, suffix) + suffix }
+      }
+      const prefix = "What is one part of "
+      const suffix = " you want to understand or move forward today?"
+      return { title: "Your goal, in focus", body: prefix + fitGoalTitle(prefix, suffix) + suffix }
     }
     const hasRecentActivity = context.recentLogs.length > 0 || context.recentGoalCheckins.length > 0
     const hasReflection = context.reflections.length > 0
