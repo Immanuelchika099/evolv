@@ -708,7 +708,8 @@
 .dashboard .today-action-strip p{margin:0;color:rgba(244,241,234,.42);font-size:13px}
 .dashboard .today-action-strip .button{white-space:nowrap}
 .dashboard .evolv-empty-insight{margin-top:70px!important;padding:60px 0 80px!important}
-.dashboard .area-detail-page,.dashboard .progress-page,.dashboard .goals-page{max-width:980px;margin:0 auto;padding-top:36px;padding-bottom:130px}
+.dashboard .area-detail-page,.dashboard .progress-page{max-width:980px;margin:0 auto;padding-top:36px;padding-bottom:130px}
+.dashboard .goals-page{max-width:980px;margin:0 auto;padding-top:96px;padding-bottom:130px}
 .dashboard .area-back{display:inline-flex;align-items:center;gap:7px;border:0;background:none;color:rgba(244,241,234,.42);font-size:12px;padding:0;margin-bottom:55px;cursor:pointer}
 .dashboard .area-back:hover{color:var(--color-accent-blue)}
 .dashboard .area-detail-head{padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:0}
