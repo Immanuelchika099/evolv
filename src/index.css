@@ -1226,3 +1226,9 @@ body,
   touch-action: pan-x pan-y;
   -webkit-text-size-adjust: 100%;
 }
+
+
+/* Keep the welcome CTA label at a normal weight despite global button styles. */
+html body #root .evolv-welcome .evolv-welcome-cta {
+  font-weight: 400 !important;
+}
