@@ -3349,3 +3349,72 @@ html:has(.dashboard.dashboard-ai-active) {
   min-width: 0 !important;
   opacity: 0 !important;
 }
+
+
+/* Multi-select chat history actions. */
+.dashboard.dashboard-ai-active .ai-history-head-actions {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+}
+.dashboard.dashboard-ai-active .ai-history-select-toggle {
+  border: 0;
+  background: transparent;
+  color: rgba(255,255,255,.76);
+  font: inherit;
+  font-size: 1.3rem;
+  padding: .8rem .5rem;
+  cursor: pointer;
+}
+.dashboard.dashboard-ai-active .ai-history-row.selected {
+  background: rgba(229,134,66,.11);
+  border-color: rgba(229,134,66,.28);
+}
+.dashboard.dashboard-ai-active .ai-history-row-select {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+}
+.dashboard.dashboard-ai-active .ai-history-checkbox {
+  display: inline-flex;
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255,255,255,.32);
+  border-radius: 50%;
+  color: #17110d;
+  background: transparent;
+  box-sizing: border-box;
+}
+.dashboard.dashboard-ai-active .ai-history-checkbox.checked {
+  background: #E58642;
+  border-color: #E58642;
+}
+.dashboard.dashboard-ai-active .ai-history-bulk-actions {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  gap: .9rem;
+  padding: 1.2rem 0 calc(1rem + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(180deg, rgba(10,9,8,0), #0a0908 24%);
+}
+.dashboard.dashboard-ai-active .ai-history-bulk-actions button {
+  flex: 1;
+  min-height: 4.4rem;
+  border-radius: 1.2rem;
+  font: inherit;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.dashboard.dashboard-ai-active .ai-history-bulk-archive {
+  color: #f4eee8;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+}
+.dashboard.dashboard-ai-active .ai-history-bulk-delete {
+  color: #fff;
+  border: 1px solid rgba(220,75,65,.38);
+  background: rgba(160,45,38,.2);
+}
