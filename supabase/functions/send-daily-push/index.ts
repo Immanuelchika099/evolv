@@ -82,24 +82,12 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     const primaryGoal = context.goals[0]
     const goalTitle = String(primaryGoal?.title || "").trim()
     const goalDomain = goalTitle.toLowerCase()
-    const fitGoalTitle = (prefix, suffix) => {
-      const available = Math.max(1, 140 - prefix.length - suffix.length)
-      if (goalTitle.length <= available) return goalTitle
-      // Keep the final word intact instead of cutting a goal title mid-word.
-      return goalTitle.slice(0, available + 1).replace(/\\s+\\S*$/, "").trim() || goalTitle.slice(0, available).trim()
-    }
     if (primaryGoal && /politic|public office|governance|civic|policy/.test(goalDomain)) {
       return { title: "A thought for your ambition", body: "What public issue have you taken time to understand more deeply this week?" }
     }
     if (primaryGoal) {
-      if (primaryGoal.next_action) {
-        const prefix = "What would make progress on "
-        const suffix = " feel meaningful today?"
-        return { title: "Keep the bigger picture", body: prefix + fitGoalTitle(prefix, suffix) + suffix }
-      }
-      const prefix = "What is one part of "
-      const suffix = " you want to understand or move forward today?"
-      return { title: "Your goal, in focus", body: prefix + fitGoalTitle(prefix, suffix) + suffix }
+      if (primaryGoal.next_action) return { title: "Keep the bigger picture", body: "What would make progress on this ambition feel meaningful today?" }
+      return { title: "Your goal, in focus", body: "What part of this ambition would you like to understand or move forward today?" }
     }
     const hasRecentActivity = context.recentLogs.length > 0 || context.recentGoalCheckins.length > 0
     const hasReflection = context.reflections.length > 0
@@ -122,13 +110,13 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     "This is the user's " + slot + " notification. Let the time of day guide the angle, but choose the most relevant active goal when one exists.",
     "PRIORITISE GOAL RELEVANCE. Read each active goal's title, description, goal_type, next_action, due date, progress and milestones. Understand the real-world domain behind it, then make the notification genuinely relevant to that domain. Do not default to generic productivity language.",
     "Use the goal's actual subject when helpful. A goal about entering politics could lead to a thoughtful nudge about understanding public policy, local government, civic institutions, community needs, public speaking, or building a record of service. Choose only a relevant angle; do not assume the user's party, ideology, political views, country, connections or experience unless the records say so. Other goal domains should receive equally domain-specific insight.",
-    "A saved goal is not just a label. Connect it to a useful question, perspective, timely opportunity, relevant skill, or next action. Use next_action and unfinished milestones to make the message concrete when available. If a milestone was recently completed, acknowledge that exact progress naturally.",
+    "A saved goal is context, not copy to paste. Understand the ambition behind its title and express it in natural, concise language. Do not mechanically repeat the full goal title or insert a long title into a sentence. Prefer a meaningful short reference such as 'getting to the UNGA', 'building your startup', or 'developing your engineering skills' when supported by the goal details. Preserve important proper nouns and the user's intended meaning. Connect the message to a useful question, perspective, timely opportunity, relevant skill, or next action. Use next_action and unfinished milestones to make the message concrete when available. If a milestone was recently completed, acknowledge that exact progress naturally.",
     "Use saved data as evidence, not as a script. You MAY naturally mention or paraphrase a goal or milestone when it makes the message more personal. Never invent actions, progress, feelings, achievements, deadlines or life circumstances.",
     "Choose a useful angle supported by the records: a relevant idea to explore, a skill to develop, a grounded question, a next step, a milestone acknowledgement, a deadline-aware nudge, or a reflection on a recorded check-in. Sometimes make an observation instead of asking a question.",
     "Only describe something as completed, attempted, felt, delayed or consistent when supplied records explicitly support it. Never pretend to know what the user did offline. Ignore completed, archived, deleted or cancelled goals as active goals, and ignore orphaned milestones/check-ins.",
     "If there are several active goals, select the one with the strongest timely signal (due date, unfinished milestone, recent check-in, or clear next action). Do not cram several goals into one notification.",
     "Voice: quietly observant, warm, intelligent, specific, conversational and understated. It may be gently challenging, but never guilt-inducing, preachy, corporate, artificially inspirational or urgent. Do not imitate or quote another app.",
-    "Return JSON only with string keys title and body. Title: natural, lowercase, 2-5 words. Body: one concise conversational sentence, 9-22 words, maximum 140 characters. Do not repeat the title in the body.",
+    "Return JSON only with string keys title and body. Title: natural, lowercase, 2-5 words. Body: one concise conversational sentence, 9-22 words, maximum 140 characters. Do not repeat the title in the body. Never use the full saved goal heading verbatim as a sentence fragment; paraphrase it naturally.",
     "No app name, brand footer, emoji, generic water/meal reminders, paragraphs or 'From EVOLV'. The notification must make sense on its own.",
     "If there is meaningful goal context, use it. Return empty title and body only when there is genuinely no useful personal context.",
     "User data: " + JSON.stringify(context)
