@@ -337,8 +337,7 @@ function LogsPage({ pageProps }) {
           return value.toLocaleString()+(def.unit?' '+def.unit:'')
         }
         return <section className="panel-page dashboard-panel logs-page">
-          <button className="area-back" onClick={()=>goTo('progress')}><ChevronLeft size={16}/> Progress</button>
-          <div className="logs-page-hero"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2></div>
+                <div className="logs-page-hero"><span className="section-label">YOUR HISTORY</span><h2>Previous logs.</h2></div>
           <div className="logs-page-toolbar">
             <div><strong>{items.length}</strong><span>{items.length===1?'saved entry':'saved entries'}</span></div>
             <div className="logs-page-toolbar-actions"><span>Newest first</span><button type="button" className="button button-primary" onClick={()=>openLog()}><Plus size={15}/> Log something</button></div>
