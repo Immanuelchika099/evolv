@@ -378,6 +378,7 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
   const messagesRef = useRef(null)
   const shouldAutoScrollRef = useRef(false)
   const controller = useRef(null)
+  const chatOptionsSelectRef = useRef(null)
 
   useEffect(() => {
     localStorage.setItem('evolv-ai-chat-id', chatId)
@@ -1262,10 +1263,26 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
             <span>New chat</span>
           </button>
           <div className="ai-more-native-wrap">
-            <button className="ai-more-button" type="button" aria-label="More chat options" tabIndex={-1}>
+            <button
+              className="ai-more-button"
+              type="button"
+              aria-label="More chat options"
+              onClick={() => {
+                const select = chatOptionsSelectRef.current
+                if (!select) return
+                try {
+                  if (typeof select.showPicker === 'function') select.showPicker()
+                  else { select.focus(); select.click() }
+                } catch {
+                  select.focus()
+                  select.click()
+                }
+              }}
+            >
               <MoreHorizontal size={20} aria-hidden="true" />
             </button>
             <select
+              ref={chatOptionsSelectRef}
               className="ai-more-native-select"
               aria-label="Chat options"
               value=""
