@@ -77,32 +77,86 @@ async function generatePersonalNotification(admin, userId, profile, date, slot) 
     date
   }
   if (!context.goals.length && !context.onboardingGoal && !context.onboardingFocus && !context.growthAreas.length && !context.recentLogs.length && !context.reflections.length && !context.recentGoalCheckins.length) return null
-  // A useful goal-aware fallback keeps notifications personal even if Gemini is temporarily unavailable.
+  // A data-aware fallback is used only when the AI provider fails. Rotate its angle
+  // by local date + slot, and use real goal activity so fallback messages do not repeat.
   const fallbackNotification = (() => {
     const primaryGoal = context.goals[0]
     const goalTitle = String(primaryGoal?.title || "").trim()
-    const goalDomain = goalTitle.toLowerCase()
-    if (primaryGoal && /politic|public office|governance|civic|policy/.test(goalDomain)) {
-      return { title: "A thought for your ambition", body: "What public issue have you taken time to understand more deeply this week?" }
-    }
-    if (primaryGoal) {
-      if (primaryGoal.next_action) return { title: "Keep the bigger picture", body: "What would make progress on this ambition feel meaningful today?" }
-      return { title: "Your goal, in focus", body: "What part of this ambition would you like to understand or move forward today?" }
-    }
+    const nextAction = String(primaryGoal?.next_action || "").trim().replace(/\s+/g, " ").slice(0, 90)
+    const nextMilestone = allMilestones.find(step => step.goal_id === primaryGoal?.id)
+    const completedStep = recentlyCompletedMilestones.find(step => step.goal_id === primaryGoal?.id)
+    const progress = Number.isFinite(Number(primaryGoal?.progress)) ? Math.max(0, Math.min(100, Number(primaryGoal.progress))) : null
+    const dueDate = String(primaryGoal?.due_date || "").slice(0, 10)
+    const daysUntilDue = dueDate ? Math.round((new Date(dueDate + "T12:00:00Z").getTime() - new Date(date + "T12:00:00Z").getTime()) / 86400000) : null
     const hasRecentActivity = context.recentLogs.length > 0 || context.recentGoalCheckins.length > 0
-    const hasReflection = context.reflections.length > 0
+    const latestCheckin = context.recentGoalCheckins[0]
+    const latestReflection = context.reflections[0]
+    const seed = [date, slot, goalTitle, nextAction, nextMilestone?.title || "", progress ?? ""].join("|")
+    let hash = 0
+    for (let index = 0; index < seed.length; index += 1) hash = (hash * 31 + seed.charCodeAt(index)) | 0
+    const variant = Math.abs(hash) % 4
+
+    if (primaryGoal) {
+      if (completedStep && variant === 0) {
+        return { title: "notice your progress", body: "You recently completed “" + String(completedStep.title).slice(0, 65) + "”. What did that make easier?" }
+      }
+      if (nextMilestone && variant === 1) {
+        return { title: "one step at a time", body: "Could “" + String(nextMilestone.title).slice(0, 65) + "” be the next useful piece to move forward?" }
+      }
+      if (nextAction && variant === 2) {
+        return { title: "make it concrete", body: "If you get a small window today, consider this next step: " + nextAction.replace(/[.!?]+$/, "") + "." }
+      }
+      if (daysUntilDue !== null && daysUntilDue >= 0 && daysUntilDue <= 7) {
+        return { title: "keep the timing in view", body: daysUntilDue === 0 ? "Your goal is due today. What is the most useful thing you can realistically finish?" : "Your goal is due in " + daysUntilDue + (daysUntilDue === 1 ? " day." : " days.") + " What would help you feel prepared?" }
+      }
+      if (progress !== null && variant === 3) {
+        return { title: "check your direction", body: "You’ve marked this goal at " + Math.round(progress) + "% progress. What would a meaningful next bit of progress look like?" }
+      }
+      if (nextAction) {
+        return { title: slot === "evening" ? "set up tomorrow" : "choose your next move", body: variant === 0 ? "What would make “" + nextAction.replace(/[.!?]+$/, "").slice(0, 65) + "” easier to begin?" : "When could you give your next step a little focused attention?" }
+      }
+      if (goalTitle) {
+        return { title: variant % 2 ? "keep your goal close" : "find the next step", body: variant % 2 ? "What new idea or skill would help you move your current goal forward?" : "What is one small, specific action that could bring your main goal closer?" }
+      }
+    }
+
+    if (latestCheckin && variant === 0) {
+      return { title: "build on your check-in", body: "You checked in recently. What would help you keep that momentum in a way that feels realistic?" }
+    }
+    if (latestReflection && variant === 1) {
+      return { title: "carry a lesson forward", body: "Looking back at your recent reflection, what is one thing you want to approach differently today?" }
+    }
+    if (hasRecentActivity) {
+      const activityMessages = [
+        { title: "choose what matters", body: "Looking at what you’ve been tracking, what deserves your attention next?" },
+        { title: "make space for progress", body: "What is one useful thing you can move forward with the time you have today?" },
+        { title: "check your priorities", body: "Does your next step still match what matters most to you right now?" },
+        { title: "keep it manageable", body: "What would make today feel like steady progress rather than a packed day?" }
+      ]
+      return activityMessages[variant]
+    }
     if (slot === "evening") {
-      if (hasReflection) return { title: "A moment to reflect", body: "What from today is worth carrying into tomorrow?" }
-      if (hasRecentActivity) return { title: "What today held", body: "What deserves more of your attention tomorrow?" }
-      return { title: "Leave room for tomorrow", body: "What is one thing you want to make room for tomorrow?" }
+      return [
+        { title: "close the day gently", body: "What is one thing from today worth carrying into tomorrow?" },
+        { title: "make tomorrow easier", body: "Is there one small choice you can make tonight to give tomorrow a calmer start?" },
+        { title: "take stock", body: "What took more energy than expected today, and what can wait until later?" },
+        { title: "leave room to reset", body: "What would help you begin tomorrow with a little more clarity?" }
+      ][variant]
     }
     if (slot === "afternoon" || slot === "late afternoon") {
-      if (hasRecentActivity) return { title: "A quick check-in", body: "Does what matters most still have room in your day?" }
-      return { title: "Still your priority?", body: "What deserves your attention next?" }
+      return [
+        { title: "a midday reset", body: "What still matters most for the rest of today?" },
+        { title: "revisit your focus", body: "Is your attention going where you intended, or is one adjustment needed?" },
+        { title: "pick one thing", body: "What is one useful task you can realistically finish before the day ends?" },
+        { title: "make room for what matters", body: "What deserves your attention next, and what can wait?" }
+      ][variant]
     }
-    if (slot === "late morning") return { title: "A little breathing room", body: "What needs your attention, and what can wait?" }
-    if (slot === "early evening") return { title: "Before the day ends", body: "What would make the rest of today feel worthwhile?" }
-    return { title: "Set your own pace", body: "What do you want to give your attention to today?" }
+    return [
+      { title: "start with intention", body: "What would you like to make meaningful progress on today?" },
+      { title: "choose a direction", body: "What is one thing worth giving your attention to first today?" },
+      { title: "begin where you are", body: "What is a small, realistic step that would make today feel worthwhile?" },
+      { title: "set your own pace", body: "What deserves a little more attention in your life this week?" }
+    ][variant]
   })()
 
   const prompt = [
