@@ -178,7 +178,12 @@ export default function OptionWheel({
 
   const handlePointerDown = useCallback((event) => {
     if (!cfgRef.current.draggable) return
-    dragRef.current = { y: event.clientY, start: targetRef.current, id: event.pointerId }
+    // Stop unfinished easing before capturing the gesture; otherwise the wheel
+    // can keep moving toward its previous target and appear to reverse on Android.
+    if (rafRef.current != null) cancelAnimationFrame(rafRef.current)
+    rafRef.current = null
+    targetRef.current = posRef.current
+    dragRef.current = { y: event.clientY, start: posRef.current, id: event.pointerId }
     dragMovedRef.current = false
     suppressClickRef.current = false
     if (suppressClickTimerRef.current) clearTimeout(suppressClickTimerRef.current)
