@@ -21,18 +21,46 @@ function localDateKey(date = new Date()) {
 
 function parseInsight(reply) {
   const text = String(reply || '').trim()
-  const match = text.match(/\{[\s\S]*\}/)
-  if (!match) return null
+  if (!text) return null
+
+  // Models sometimes wrap JSON in markdown fences or add a short prefix.
+  // Parse the first balanced JSON object instead of greedily matching braces.
+  const start = text.indexOf('{')
+  if (start < 0) return null
+  let depth = 0
+  let inString = false
+  let escaped = false
+  let end = -1
+  for (let index = start; index < text.length; index += 1) {
+    const char = text[index]
+    if (inString) {
+      if (escaped) escaped = false
+      else if (char === '\\') escaped = true
+      else if (char === '"') inString = false
+      continue
+    }
+    if (char === '"') inString = true
+    else if (char === '{') depth += 1
+    else if (char === '}') {
+      depth -= 1
+      if (depth === 0) { end = index + 1; break }
+    }
+  }
+  if (end < 0) return null
+
   try {
-    const parsed = JSON.parse(match[0])
+    const parsed = JSON.parse(text.slice(start, end))
     if (parsed.insufficient_data) return { insufficient: true, message: String(parsed.message || '').slice(0, 250) }
     const normalize = item => {
       if (!item?.title || !item?.observation || !item?.suggestion) return null
+      const observation = String(item.observation).trim()
+      const suggestion = String(item.suggestion).trim()
+      if (/insufficient_data|\bjson\b|^\s*[{[]/i.test(observation) || /insufficient_data|^\s*[{[]/i.test(suggestion)) return null
       return {
         category: String(item.category || 'personal').slice(0, 40),
         title: String(item.title).trim().slice(0, 70),
-        observation: String(item.observation).trim().slice(0, 220),
-        suggestion: String(item.suggestion).trim().slice(0, 160),
+        observation: observation.slice(0, 220),
+        suggestion: suggestion.slice(0, 160),
         evidence: Array.isArray(item.evidence) ? item.evidence.slice(0, 2).map(value => String(value).slice(0, 100)) : [],
       }
     }
@@ -46,7 +74,9 @@ function parseInsight(reply) {
 
 function buildFallbackInsight(reply) {
   const text = String(reply || '').trim().replace(/^#+\s*/gm, '').slice(0, 900)
-  if (!text || /not enough (information|data)|no (relevant )?(records|data|conversations)/i.test(text)) return null
+  // Structured output or insufficient-data responses should never become insight prose.
+  if (!text || /insufficient_data|\bjson\b|^\s*[\`{[]/i.test(text) ||
+      /not enough (information|data)|no (relevant )?(records|data|conversations)/i.test(text)) return null
   const sentences = text.split(/(?<=[.!?])\s+/).filter(Boolean)
   if (sentences.length < 2) return null
   return {
