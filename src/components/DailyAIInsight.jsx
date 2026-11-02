@@ -120,10 +120,16 @@ export default function DailyAIInsight({ dataLoading = false, name, defs = [], l
       if (!force) {
         try {
           const cached = JSON.parse(localStorage.getItem(cacheKey) || 'null')
-          if (Array.isArray(cached) && cached.length) {
-            setInsights(cached)
-            setInsight(cached[0])
-            return
+          const validCached = Array.isArray(cached) ? cached.filter(item =>
+            item && item.title && item.observation && item.suggestion &&
+            !/insufficient_data|\\bjson\\b|^\\s*[{[]/i.test(String(item.observation)) &&
+            !/insufficient_data|^\\s*[{[]/i.test(String(item.suggestion))
+          ) : []
+          if (validCached.length) {
+            setInsights(validCached)
+            setInsight(validCached[0])
+            if (validCached.length === cached.length) return
+            try { localStorage.setItem(cacheKey, JSON.stringify(validCached)) } catch {}
           }
         } catch {}
       }
