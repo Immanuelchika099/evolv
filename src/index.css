@@ -1232,3 +1232,17 @@ body,
 html body #root .evolv-welcome .evolv-welcome-cta {
   font-weight: 400 !important;
 }
+
+
+/* Keep iOS/Safari autofill from painting the onboarding name field yellow. */
+.evolv-onboarding-name input:-webkit-autofill,
+.evolv-onboarding-name input:-webkit-autofill:hover,
+.evolv-onboarding-name input:-webkit-autofill:focus,
+.evolv-onboarding-name input:-webkit-autofill:active {
+  -webkit-text-fill-color: #f7f7ef !important;
+  caret-color: #f7f7ef;
+  -webkit-box-shadow: 0 0 0 1000px #0f0f0f inset !important;
+  box-shadow: 0 0 0 1000px #0f0f0f inset !important;
+  background-color: #0f0f0f !important;
+  transition: background-color 99999s ease-out 0s;
+}
