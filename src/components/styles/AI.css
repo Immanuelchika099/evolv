@@ -10,7 +10,7 @@
 .ai-message{max-width:78%;display:grid;gap:6px}
 .ai-message.user{justify-self:end;text-align:right}
 .ai-message-role{font:8px 'DM Mono';letter-spacing:.13em;color:var(--t3)}
-.ai-message p{margin:0;padding:13px 15px;border:1px solid color-mix(in srgb, var(--edge) 6%, transparent);background:color-mix(in srgb, var(--surface-1) 2%, transparent);color:var(--t1);font-size:13px;line-height:1.75;var(--t1)-space:pre-wrap}
+.ai-message p{margin:0;padding:13px 15px;border:1px solid color-mix(in srgb, var(--edge) 6%, transparent);background:color-mix(in srgb, var(--surface-1) 2%, transparent);color:var(--t1);font-size:13px;line-height:1.75;white-space:pre-wrap}
 .ai-message.user p{background:var(--color-accent-blue);color:var(--t3);border-color:var(--color-accent-blue)}
 .ai-typing{color:var(--t2)!important}
 .ai-input{display:flex;gap:10px;padding:14px;border-top:1px solid color-mix(in srgb, var(--edge) 6%, transparent)}
@@ -234,14 +234,14 @@
 .dashboard .ai-page{max-width:none;width:100%;padding-left:0;padding-right:0}
 .dashboard .ai-heading{display:flex;align-items:center;padding:0 0 14px;border-bottom:1px solid color-mix(in srgb, var(--edge) 8%, transparent)}
 .dashboard .ai-heading h2{font-size:clamp(1.8rem,3vw,2.7rem)!important;line-height:1.05;letter-spacing:-.05em;margin:0}
-.dashboard .ai-status{display:inline-flex;align-items:center;gap:8px;var(--t1)-space:nowrap;color:color-mix(in srgb, var(--color-accent-blue) 70%, transparent);font-size:.85rem;letter-spacing:.08em}
+.dashboard .ai-status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap;color:color-mix(in srgb, var(--color-accent-blue) 70%, transparent);font-size:.85rem;letter-spacing:.08em}
 .dashboard .ai-status i{width:7px;height:7px;border-radius:50%;background:var(--color-accent-blue);box-shadow:0 0 14px color-mix(in srgb, var(--color-accent-blue) 45%, transparent)}
 .dashboard .ai-context-strip{display:flex;gap:10px;overflow-x:auto;padding:18px 0;border-bottom:1px solid color-mix(in srgb, var(--edge) 7%, transparent);scrollbar-width:none}
 .dashboard .ai-context-strip::-webkit-scrollbar{display:none}
-.dashboard .ai-context-strip span{var(--t1)-space:nowrap;padding:9px 13px;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent);border-radius:999px;color:color-mix(in srgb, var(--t1) 42%, transparent);font-size:.9rem;background:color-mix(in srgb, var(--surface-1) 2%, transparent)}
+.dashboard .ai-context-strip span{white-space:nowrap;padding:9px 13px;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent);border-radius:999px;color:color-mix(in srgb, var(--t1) 42%, transparent);font-size:.9rem;background:color-mix(in srgb, var(--surface-1) 2%, transparent)}
 .dashboard .ai-starters{display:flex;gap:8px;overflow-x:auto;padding:16px 0;scrollbar-width:none}
 .dashboard .ai-starters::-webkit-scrollbar{display:none}
-.dashboard .ai-starters button{var(--t1)-space:nowrap;border:1px solid color-mix(in srgb, var(--color-accent-blue) 20%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 3.5000000000000004%, transparent);color:color-mix(in srgb, var(--color-accent-blue) 80%, transparent);border-radius:999px;padding:10px 14px;font-size:.9rem;cursor:pointer;transition:.2s ease}
+.dashboard .ai-starters button{white-space:nowrap;border:1px solid color-mix(in srgb, var(--color-accent-blue) 20%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 3.5000000000000004%, transparent);color:color-mix(in srgb, var(--color-accent-blue) 80%, transparent);border-radius:999px;padding:10px 14px;font-size:.9rem;cursor:pointer;transition:.2s ease}
 .dashboard .ai-starters button:hover{background:color-mix(in srgb, var(--color-accent-blue) 8%, transparent);border-color:color-mix(in srgb, var(--color-accent-blue) 38%, transparent);transform:translateY(-1px)}
 .dashboard .ai-chat{position:relative;margin-top:0;height:calc(100vh - 190px);min-height:500px;display:flex;flex-direction:column;border:0;border-radius:0;background:transparent;overflow:hidden}
 .dashboard .ai-context-strip{flex:0 0 auto;padding:14px 18px;border-bottom:1px solid color-mix(in srgb, var(--edge) 7%, transparent)}
@@ -256,7 +256,7 @@
 .dashboard .ai-message-role{display:block;margin-bottom:9px;color:color-mix(in srgb, var(--color-accent-blue) 62%, transparent);font-size:.78rem;letter-spacing:.12em;font-weight:700}
 .dashboard .ai-message.user{margin-left:auto;padding-left:22%;text-align:right}
 .dashboard .ai-message.user .ai-message-role{color:color-mix(in srgb, var(--t1) 30%, transparent)}
-.dashboard .ai-message p{margin:0;var(--t1)-space:pre-wrap;font-size:1.15rem;line-height:1.75;color:color-mix(in srgb, var(--t1) 78%, transparent)}
+.dashboard .ai-message p{margin:0;white-space:pre-wrap;font-size:1.15rem;line-height:1.75;color:color-mix(in srgb, var(--t1) 78%, transparent)}
 .dashboard .ai-message.assistant p{font-size:1.6rem;color:var(--t1)}
 .dashboard .ai-cursor{display:inline-block;color:var(--color-accent-blue);margin-left:3px;animation:aiBlink 1s steps(1,end) infinite}
 @keyframes aiBlink{50%{opacity:0}}
@@ -729,7 +729,7 @@
 .dashboard-ai-active .ai-topbar-caption{
   color:color-mix(in srgb, var(--t1) 32%, transparent);
   font:10px 'Manrope';
-  var(--t1)-space:nowrap;
+  white-space:nowrap;
 }
 .dashboard-ai-active .ai-new-chat{
   display:inline-flex;
@@ -1602,7 +1602,7 @@
   color:color-mix(in srgb, var(--t1) 90%, transparent) !important;
   font:400 1.6rem/1.72 'Manrope',sans-serif !important;
   letter-spacing:-.012em !important;
-  var(--t1)-space:pre-wrap !important;
+  white-space:pre-wrap !important;
 }
 
 .dashboard .ai-page .ai-message.user{
@@ -2068,7 +2068,7 @@
   display:block !important;
   overflow:hidden !important;
   text-overflow:ellipsis !important;
-  var(--t1)-space:nowrap !important;
+  white-space:nowrap !important;
   font-size:1.5rem !important;
 }
 .dashboard .ai-history-row-copy small{
@@ -2317,7 +2317,7 @@
   margin:0 !important;
   overflow:hidden !important;
   text-overflow:ellipsis !important;
-  var(--t1)-space:nowrap !important;
+  white-space:nowrap !important;
   color:var(--t1) !important;
   font:600 1.55rem/1.3 'Manrope',sans-serif !important;
 }
@@ -2732,7 +2732,7 @@
   color:var(--t1) !important;
   opacity:1 !important;
   visibility:visible !important;
-  var(--t1)-space:nowrap !important;
+  white-space:nowrap !important;
 }
 
 .dashboard .ai-page .ai-new-chat:hover,
@@ -2871,7 +2871,7 @@
   display:block !important;
   overflow:hidden !important;
   text-overflow:ellipsis !important;
-  var(--t1)-space:nowrap !important;
+  white-space:nowrap !important;
   font:500 1.5rem/1.35 'Manrope',sans-serif !important;
   color:color-mix(in srgb, var(--t1) 82%, transparent) !important;
 }
