@@ -6,7 +6,7 @@
   display:grid;
   place-items:center;
   padding:20px;
-  background:#101010b8;
+  background:rgb(var(--theme-shadow-rgb) / 0.7215686274509804);
   backdrop-filter:blur(18px);
 }
 .contact-modal{
@@ -15,10 +15,10 @@
   max-height:min(760px,calc(100vh - 40px));
   overflow:auto;
   padding:42px;
-  border:1px solid #ffffff18;
+  border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius:28px;
-  background:linear-gradient(145deg,#101010f5,#101010f5);
-  box-shadow:0 35px 120px #000b;
+  background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.9607843137254902),rgb(var(--theme-shadow-rgb) / 0.9607843137254902));
+  box-shadow:0 35px 120px rgb(var(--theme-shadow-rgb) / 0.7333333333333333);
 }
 .contact-close{
   position:absolute;
@@ -26,10 +26,10 @@
   right:19px;
   width:34px;
   height:34px;
-  border:1px solid #ffffff14;
+  border:1px solid color-mix(in srgb, var(--edge) 8%, transparent);
   border-radius:50%;
-  background:#ffffff08;
-  color:#aaa;
+  background:color-mix(in srgb, var(--surface-1) 3%, transparent);
+  color:var(--t2);
   font-size:24px;
   line-height:1;
   cursor:pointer;
@@ -41,11 +41,11 @@
 }
 .contact-modal h2 em{
   font-style:normal;
-  color:#6f7770;
+  color:var(--t2);
 }
 .contact-copy{
   max-width:430px;
-  color:#777e78;
+  color:var(--t2);
   font-size:13px;
   line-height:1.8;
   margin:0 0 28px;
@@ -60,7 +60,7 @@
 }
 .contact-fields label span{
   font:9px 'DM Mono';
-  color:#666e68;
+  color:var(--t2);
   letter-spacing:.12em;
   text-transform:uppercase;
 }
@@ -68,10 +68,10 @@
 .contact-fields textarea{
   width:100%;
   box-sizing:border-box;
-  border:1px solid #ffffff12;
+  border:1px solid color-mix(in srgb, var(--edge) 7%, transparent);
   border-radius:13px;
-  background:#ffffff06;
-  color:#f2f1eb;
+  background:color-mix(in srgb, var(--surface-1) 2%, transparent);
+  color:var(--t1);
   padding:13px 14px;
   outline:none;
   font:13px 'Manrope';
@@ -81,10 +81,10 @@
 .contact-fields input:focus,
 .contact-fields textarea:focus{
   border-color:color-mix(in srgb, var(--color-accent-blue) 28%, transparent);
-  background:#ffffff09;
+  background:color-mix(in srgb, var(--surface-1) 4%, transparent);
 }
 .contact-fields input::placeholder,
-.contact-fields textarea::placeholder{color:#505650}
+.contact-fields textarea::placeholder{color:var(--t3)}
 .contact-submit{margin-top:22px}
 .contact-success{text-align:center;padding:35px 0 15px}
 .contact-success-mark{
@@ -102,7 +102,7 @@
 .contact-success p{
   max-width:410px;
   margin:0 auto 28px;
-  color:#777e78;
+  color:var(--t2);
   font-size:13px;
   line-height:1.8;
 }
