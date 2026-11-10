@@ -46,7 +46,7 @@ export default function ProfileSettingsPage({pageProps}){
   const [avatarStudioOpen,setAvatarStudioOpen]=useState(false)
   const [photoMenuOpen,setPhotoMenuOpen]=useState(false)
   const [profileTab,setProfileTab]=useState('account')
-  const [themePreference,setThemePreference]=useState(()=>{try{return localStorage.getItem('evolv-theme-preference')||'system'}catch{return 'system'}})
+  const [themePreference,setThemePreference]=useState(()=>{try{const saved=localStorage.getItem('evolv-theme-preference');return ['system','light','dark'].includes(saved)?saved:'system'}catch{return 'system'}})
   const [systemDark,setSystemDark]=useState(()=>window.matchMedia?.('(prefers-color-scheme: dark)').matches??true)
   const [focusExpanded,setFocusExpanded]=useState(false)
   const [focusDraft,setFocusDraft]=useState(profile?.focus||data?.focus||'')
