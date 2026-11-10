@@ -22,8 +22,8 @@
     transition: background .2s ease, border-color .2s ease, transform .2s ease;
   }
   .evolv-desktop-menu-toggle:hover {
-    background: color-mix(in srgb, var(--accent) 34%, transparent);
-    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    background: color-mix(in srgb, var(--danger) 34%, transparent);
+    border-color: color-mix(in srgb, var(--danger) 35%, transparent);
   }
   .evolv-desktop-menu-toggle:active { transform: scale(.96); }
   .evolv-desktop-sidebar-scrim {
@@ -66,7 +66,7 @@
     font-weight: 650;
     letter-spacing: -.08em;
   }
-  .evolv-desktop-sidebar-brand span { color: var(--accent); }
+  .evolv-desktop-sidebar-brand span { color: var(--danger); }
   .evolv-desktop-sidebar-close {
     width: 3.6rem;
     height: 3.6rem;
@@ -111,8 +111,8 @@
   }
   .evolv-desktop-sidebar-links button.is-active {
     color: var(--t1);
-    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
-    background: linear-gradient(100deg, color-mix(in srgb, var(--accent) 24%, transparent);
+    border-color: color-mix(in srgb, var(--danger) 18%, transparent);
+    background: linear-gradient(100deg, color-mix(in srgb, var(--danger) 24%, transparent), color-mix(in srgb, var(--danger) 7%, transparent));
   }
   .evolv-desktop-sidebar-links button.is-active > svg { color: var(--accent); }
   .evolv-desktop-sidebar-links button i {
@@ -120,8 +120,8 @@
     height: .45rem;
     margin-left: auto;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--accent) 60%, transparent);
+    background: var(--danger);
+    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--danger) 60%, transparent);
   }
   .evolv-desktop-sidebar-foot {
     margin-top: auto;
@@ -182,7 +182,7 @@
     font-weight: 650;
     letter-spacing: -.08em;
   }
-  .evolv-desktop-sidebar-brand span { color: var(--accent); }
+  .evolv-desktop-sidebar-brand span { color: var(--danger); }
   .evolv-desktop-sidebar-close {
     width: 3.8rem;
     height: 3.8rem;
@@ -222,8 +222,8 @@
   }
   .evolv-desktop-sidebar-links button.is-active {
     color: var(--t1);
-    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
-    background: linear-gradient(100deg, color-mix(in srgb, var(--accent) 24%, transparent);
+    border-color: color-mix(in srgb, var(--danger) 18%, transparent);
+    background: linear-gradient(100deg, color-mix(in srgb, var(--danger) 24%, transparent), color-mix(in srgb, var(--danger) 7%, transparent));
   }
   .evolv-desktop-sidebar-links button.is-active > svg { color: var(--accent); }
   .evolv-desktop-sidebar-links button i {
@@ -231,8 +231,8 @@
     height: .45rem;
     margin-left: auto;
     border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--accent) 60%, transparent);
+    background: var(--danger);
+    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--danger) 60%, transparent);
   }
   .evolv-desktop-sidebar-foot {
     margin-top: auto;
