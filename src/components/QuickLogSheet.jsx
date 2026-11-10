@@ -59,11 +59,11 @@ const loggingOptions = [
   { id: 'water', title: 'Water', icon: Droplets },
   { id: 'money', title: 'Money', icon: WalletCards },
   { id: 'ai', title: 'Ask AI', icon: Sparkles },
-  { id: 'health', title: 'Health', icon: HeartPulse, color: '#ff8f9d' },
-  { id: 'nutrition', title: 'Nutrition', icon: Apple, color: '#ffb84d' },
+  { id: 'health', title: 'Health', icon: HeartPulse, color: 'var(--metric-health)' },
+  { id: 'nutrition', title: 'Nutrition', icon: Apple, color: 'var(--metric-nutrition)' },
   { id: 'career', title: 'Career', icon: BriefcaseBusiness, color: 'var(--color-accent-blue)' },
   { id: 'mind', title: 'Mind', icon: Brain, color: 'var(--color-accent-blue)' },
-  { id: 'life', title: 'Life', icon: Sprout, color: '#9dd6b0' },
+  { id: 'life', title: 'Life', icon: Sprout, color: 'var(--metric-life)' },
 ]
 const loggingOptionTitles = loggingOptions.map((option) => option.title)
 
@@ -395,8 +395,8 @@ export default function QuickLogSheet({ onClose, onLogWithAI, onLogManual, onSav
             <OptionWheel
               items={loggingOptionTitles}
               defaultSelected={2}
-              textColor="#a6a6a6"
-              activeColor="#ffffff"
+              textColor="var(--t2)"
+              activeColor="var(--t1)"
               side="right"
               fontSize={4}
               spacing={1.22}
