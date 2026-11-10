@@ -15,7 +15,7 @@
     border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
     border-radius: 1.35rem;
     color: color-mix(in srgb, var(--t1) 88%, transparent);
-    background: rgb(var(--theme-shadow-rgb) / 0.72);
+    background: color-mix(in srgb, var(--surface-2) 72%, transparent);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     cursor: pointer;
@@ -47,7 +47,7 @@
     flex-direction: column;
     padding: 2.2rem 1.7rem 1.8rem;
     border-right: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
-    background: rgb(var(--theme-shadow-rgb) / 0.94);
+    background: color-mix(in srgb, var(--surface-1) 94%, transparent);
     box-shadow: 1.5rem 0 5rem rgb(var(--theme-shadow-rgb) / 0.32);
     -webkit-backdrop-filter: blur(28px) saturate(130%);
     backdrop-filter: blur(28px) saturate(130%);
@@ -163,7 +163,7 @@
     flex-direction: column;
     padding: calc(env(safe-area-inset-top, 0px) + 2.4rem) 1.7rem calc(env(safe-area-inset-bottom, 0px) + 1.8rem);
     border-right: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
-    background: rgb(var(--theme-shadow-rgb) / 0.97);
+    background: color-mix(in srgb, var(--surface-1) 97%, transparent);
     box-shadow: 1.5rem 0 5rem rgb(var(--theme-shadow-rgb) / 0.4);
     -webkit-backdrop-filter: blur(28px) saturate(130%);
     backdrop-filter: blur(28px) saturate(130%);
