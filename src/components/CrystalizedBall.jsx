@@ -112,7 +112,7 @@ export default function CrystalizedBall({
         cx - radius * 0.25, cy - radius * 0.34, radius * 0.02,
         cx, cy, radius * 1.05
       )
-      sphereGlow.addColorStop(0, `rgba(255, 213, 178, ${0.18 * glow})`)
+      sphereGlow.addColorStop(0, highlight(0.18 * glow))
       sphereGlow.addColorStop(0.3, orange(0.1 * glow))
       sphereGlow.addColorStop(0.68, orange(0.035 * glow))
       sphereGlow.addColorStop(1, orange(0))
@@ -126,10 +126,10 @@ export default function CrystalizedBall({
       context.arc(cx, cy, radius, 0, Math.PI * 2)
       context.clip()
       const core = context.createRadialGradient(cx - radius * 0.28, cy - radius * 0.35, 0, cx, cy, radius)
-      core.addColorStop(0, `rgba(255, 226, 201, ${0.12 * fill})`)
+      core.addColorStop(0, highlight(0.12 * fill))
       core.addColorStop(0.32, orange(0.07 * fill))
       core.addColorStop(0.76, orange(0.015 * fill))
-      core.addColorStop(1, 'rgba(0,0,0,0)')
+      core.addColorStop(1, 'transparent')
       context.fillStyle = core
       context.fillRect(cx - radius, cy - radius, radius * 2, radius * 2)
 
@@ -155,7 +155,7 @@ export default function CrystalizedBall({
         const py = cy + point.y * radius
         const particleSize = Math.max(0.55, point.particle.scale * (0.55 + front * 0.65))
         context.globalAlpha = alpha
-        context.fillStyle = front > 0.78 ? `rgba(255, 225, 199, ${0.72 + flares * 0.28})` : orange(0.9)
+        context.fillStyle = front > 0.78 ? highlight(0.72 + flares * 0.28) : orange(0.9)
         if (particleShape === 'square') context.fillRect(px, py, particleSize, particleSize)
         else {
           context.beginPath()
@@ -195,7 +195,7 @@ export default function CrystalizedBall({
         const y = cy + Math.sin(angle) * radius * spark.radius * 0.86 - rise * radius * 0.35
         const alpha = (0.15 + ((Math.sin(elapsed * 2 + spark.phase) + 1) * 0.5) * 0.55) * sparks
         context.globalAlpha = alpha
-        context.fillStyle = spark.phase > 2 ? '#FFD6BD' : orange(1)
+        context.fillStyle = spark.phase > 2 ? highlight(1) : orange(1)
         context.fillRect(x, y, spark.size, spark.size * 1.7)
       }
       context.globalAlpha = 1
