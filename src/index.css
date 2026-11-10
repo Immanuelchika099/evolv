@@ -61,7 +61,7 @@
   background:var(--bg);
   --muted:var(--t2);
   --line:var(--edge);
-  --accent: var(--color-accent-blue);
+  --accent: #E58642;
   --mint:var(--pos);
   -webkit-font-smoothing:antialiased;
 }
@@ -1199,20 +1199,33 @@ html body #root .evolv-welcome .evolv-welcome-cta {
 
 /* EVOLV appearance system — canonical theme tokens live only in index.css. */
 :root,:root[data-theme="dark"] {
- color-scheme:dark; --bg:var(--t3); --app-bg:var(--t3); --t1:var(--t1); --t2:color-mix(in srgb, var(--t1) 66%, transparent); --t3:color-mix(in srgb, var(--t1) 42%, transparent);
+ color-scheme:dark;
+ --bg:#0a0908; --app-bg:var(--bg);
+ --t1:#f4eee8; --t2:rgba(244,238,232,.72); --t3:rgba(244,238,232,.48);
  --edge:rgba(255,255,255,.09); --surface-1:#151311; --surface-2:#1b1815; --surface-3:#211c17; --field-bg:#11100e;
- --accent-rgb:229,134,66; --ac:var(--accent-rgb);--metric-health:#ff8f87; --metric-nutrition:#ffd66b; --metric-money:#34d399; --metric-life:#4ade80; --metric-sleep:#f5b84b; --metric-steps:#f59e0b; --metric-exercise:#ff6b6b; --metric-energy:#facc15; --metric-weight:#2dd4bf; --metric-mood:#fb7185; --metric-stress:#f97316; --metric-outreach:#f472b6; --metric-applications:#fbbf24; --metric-skills:#34d399; --metric-income:#34d399; --metric-spending:#fb7185; --metric-savings:#2dd4bf; --metric-bills:#fbbf24; --metric-habits:#a3e635; --metric-social:#f472b6; --metric-personal:#2dd4bf; --metric-meals:#fb923c; --avatar-hair-dark:#171311; --avatar-hair-deep:#211812; --on-accent:var(--accent-foreground); --highlight-warm:#B77926; --highlight-pink:#C65A79; --highlight-peach:#BD684E; --on-accent:var(--accent-foreground); --highlight-warm:#F1CE70; --highlight-pink:#FF91A8; --highlight-peach:#FFAD91; --theme-on-rgb:244 238 232; --theme-highlight-rgb:255 213 178; --theme-shadow-rgb:0 0 0; --theme-shadow-color:#000000; --accent:#E58642; --accent-soft:rgba(229,134,66,.14); --ai-surface:#653218;
- --shadow-theme:0 12px 36px rgba(0,0,0,.22); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
+ --accent-rgb:229,134,66; --ac:var(--accent-rgb);
+ --metric-health:#ff8f87; --metric-nutrition:#ffd66b; --metric-money:#34d399; --metric-life:#4ade80; --metric-sleep:#f5b84b; --metric-steps:#f59e0b; --metric-exercise:#ff6b6b; --metric-energy:#facc15; --metric-weight:#2dd4bf; --metric-mood:#fb7185; --metric-stress:#f97316; --metric-outreach:#f472b6; --metric-applications:#fbbf24; --metric-skills:#34d399; --metric-income:#34d399; --metric-spending:#fb7185; --metric-savings:#2dd4bf; --metric-bills:#fbbf24; --metric-habits:#a3e635; --metric-social:#f472b6; --metric-personal:#2dd4bf; --metric-meals:#fb923c;
+ --avatar-hair-dark:#171311; --avatar-hair-deep:#211812;
+ --on-accent:var(--accent-foreground); --highlight-warm:#F1CE70; --highlight-pink:#FF91A8; --highlight-peach:#FFAD91;
+ --theme-on-rgb:244 238 232; --theme-highlight-rgb:255 213 178; --theme-shadow-rgb:0 0 0; --theme-shadow-color:#000000;
+ --accent:#E58642; --accent-soft:rgba(229,134,66,.14); --ai-surface:#653218;
+ --shadow-theme:0 12px 36px rgba(0,0,0,.22);
+ --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
  --color-text-primary:var(--t1); --color-text-secondary:var(--t2); --color-text-muted:var(--t3); --color-border-subtle:var(--edge); --color-border:var(--edge);
  --color-accent-blue:var(--accent); --color-accent-lime:var(--accent); --blue-accent:var(--accent); --evolv-blue:var(--accent); --ai-bubble-blue:var(--ai-surface);
  --graph-blue:var(--accent); --danger:#e0766a; --pos:#8fd0a8; --neg:#e0766a; --line:var(--edge); --muted:var(--t2);
  background-color:var(--bg); color:var(--t1);
 }
 :root[data-theme="light"] {
- color-scheme:light; --bg:var(--t1); --app-bg:var(--t1); --t1:var(--t3); --t2:var(--t2); --t3:var(--t2);
+ color-scheme:light;
+ --bg:#F7F5F2; --app-bg:var(--bg);
+ --t1:#24211E; --t2:#655F58; --t3:#827B74;
  --edge:rgba(36,33,30,.10); --surface-1:#FFFFFF; --surface-2:#F0EDE9; --surface-3:#E8E3DD; --field-bg:#FFFFFF;
- --accent-rgb:229,134,66; --ac:var(--accent-rgb); --theme-on-rgb:36 33 30; --theme-highlight-rgb:255 255 255; --theme-shadow-rgb:48 38 28; --theme-shadow-color:#30261c; --accent:#E58642; --accent-soft:rgba(190,94,35,.10); --ai-surface:#F3E6DC;
- --shadow-theme:0 12px 36px rgba(48,38,28,.08); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
+ --accent-rgb:229,134,66; --ac:var(--accent-rgb);
+ --theme-on-rgb:36 33 30; --theme-highlight-rgb:255 255 255; --theme-shadow-rgb:48 38 28; --theme-shadow-color:#30261c;
+ --accent:#E58642; --accent-soft:rgba(190,94,35,.10); --ai-surface:#F3E6DC;
+ --shadow-theme:0 12px 36px rgba(48,38,28,.08);
+ --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
  --color-text-primary:var(--t1); --color-text-secondary:var(--t2); --color-text-muted:var(--t3); --color-border-subtle:var(--edge); --color-border:var(--edge);
  --color-accent-blue:var(--accent); --color-accent-lime:var(--accent); --blue-accent:var(--accent); --evolv-blue:var(--accent); --ai-bubble-blue:var(--ai-surface);
  --graph-blue:var(--accent); --danger:#B94740; --pos:#347D55; --neg:#B94740; --line:var(--edge); --muted:var(--t2);
