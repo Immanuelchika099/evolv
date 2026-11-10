@@ -928,7 +928,7 @@ html body #root .article-page .article-resources {
   background-image: none !important;
 }
 html body #root .article-page .article-nav {
-  background: rgb(var(--theme-shadow-rgb) / 0.94) !important;
+  background: color-mix(in srgb, var(--surface-1) 94%, transparent) !important;
   border-color: color-mix(in srgb, var(--t1) 12%, transparent) !important;
 }
 html body #root .article-page .article-visual {
@@ -1004,8 +1004,8 @@ html body #root .dashboard .settings-page button.settings-toggle:active,
 html body #root .dashboard .profile-settings-column button.settings-toggle,
 html body #root .dashboard .profile-settings-column button.settings-toggle:hover {
   border: 1px solid var(--edge) !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.35) !important;
-  background-color: rgb(var(--theme-shadow-rgb) / 0.35) !important;
+  background: color-mix(in srgb, var(--surface-3) 35%, transparent) !important;
+  background-color: color-mix(in srgb, var(--surface-3) 35%, transparent) !important;
   background-image: none !important;
   box-shadow: none !important;
   outline: none !important;
@@ -1017,8 +1017,8 @@ html body #root .dashboard .profile-settings-column button.settings-toggle > spa
 html body #root .dashboard .settings-page button.settings-toggle.active,
 html body #root .dashboard .profile-settings-column button.settings-toggle.active {
   border-color: var(--t1) !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.35) !important;
-  background-color: rgb(var(--theme-shadow-rgb) / 0.35) !important;
+  background: color-mix(in srgb, var(--surface-3) 35%, transparent) !important;
+  background-color: color-mix(in srgb, var(--surface-3) 35%, transparent) !important;
   background-image: none !important;
 }
 html body #root .dashboard .settings-page button.settings-toggle.active > span,
@@ -1034,8 +1034,8 @@ html body #root .dashboard .daily-routine-page button.routine-toggle:active,
 html body #root .dashboard .daily-routine-page button.routine-toggle.is-on,
 html body #root .dashboard .daily-routine-page button.routine-toggle.is-on:hover {
   border: 1px solid var(--edge) !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.35) !important;
-  background-color: rgb(var(--theme-shadow-rgb) / 0.35) !important;
+  background: color-mix(in srgb, var(--surface-3) 35%, transparent) !important;
+  background-color: color-mix(in srgb, var(--surface-3) 35%, transparent) !important;
   background-image: none !important;
   box-shadow: none !important;
   outline: none !important;
