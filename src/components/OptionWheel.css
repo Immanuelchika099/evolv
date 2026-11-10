@@ -1,6 +1,6 @@
 .option-wheel {
-  --ow-text-color: #a6a6a6;
-  --ow-active-color: #ffffff;
+  --ow-text-color: var(--t2);
+  --ow-active-color: var(--t1);
   --ow-font-size: 3rem;
   --ow-inset: 80px;
 
@@ -22,7 +22,7 @@
   position: absolute;
   top: 50%;
   left: var(--ow-inset);
-  white-space: nowrap;
+  var(--t1)-space: nowrap;
   font-size: var(--ow-font-size);
   line-height: 1;
   font-weight: 200;
