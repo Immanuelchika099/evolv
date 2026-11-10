@@ -63,7 +63,7 @@
   border-radius:1.6rem;
   background:var(--surface-1);
   color:var(--t3);
-  box-shadow:0 12px 34px rgb(var(--theme-shadow-rgb) / 0.2);
+  box-shadow:0 12px 34px rgb(var(--theme-shadow-rgb) / 0.2),inset 0 1px 0 color-mix(in srgb, var(--t1) 95%, transparent);
   transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .3s ease,background .3s ease,box-shadow .3s ease;
 }
 
@@ -609,7 +609,7 @@
   --accent-tint: color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent);
   --disabled-bg: var(--t3);
   --radius: 16px;
-  --error: var(--accent);
+  --error: var(--danger);
   box-sizing: border-box;
   display: block;
   width: 100%;
@@ -683,7 +683,7 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  border: 1px solid color-mix(in srgb, var(--accent) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pos) 15%, transparent);
   border-radius: 14px;
   background: var(--accent-tint);
   color: var(--accent);
@@ -711,8 +711,8 @@
 }
 
 .auth-page .auth-signup-banner:hover {
-  background: color-mix(in srgb, var(--accent) 16%, transparent);
-  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--pos) 16%, transparent);
+  border-color: color-mix(in srgb, var(--pos) 30%, transparent);
 }
 
 .auth-page .auth-signup-banner:active {
@@ -826,9 +826,9 @@
 
 .auth-page .auth-quick-form input:focus,
 .auth-page .auth-form input:focus {
-  border-color: color-mix(in srgb, var(--accent) 75%, transparent);
+  border-color: color-mix(in srgb, var(--pos) 75%, transparent);
   background: var(--bg);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 8%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--pos) 8%, transparent);
 }
 
 .auth-page .auth-continue-button {
