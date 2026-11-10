@@ -10,7 +10,6 @@ import {
 import './DashboardPages.css'
 import './styles/Notifications.css'
 import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
-import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
 import ProfileSettingsPage from './ProfileSettingsPage'
