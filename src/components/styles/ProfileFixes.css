@@ -723,12 +723,12 @@
 .dashboard .settings-page.profile-v2 .profile-v2-identity{position:static!important;flex:1 1 auto!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:4px!important}
 .dashboard .settings-page.profile-v2 .profile-v2-identity h2{
   position:static!important;margin:0!important;padding:0!important;font-size:22px!important;line-height:1.15!important;
-  font-weight:300!important;letter-spacing:-.035em!important;color:var(--t1)!important;var(--t1)-space:nowrap!important;
+  font-weight:300!important;letter-spacing:-.035em!important;color:var(--t1)!important;white-space:nowrap!important;
   overflow:hidden!important;text-overflow:ellipsis!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-identity p{
   position:static!important;margin:0!important;padding:0!important;font-size:14px!important;line-height:1.35!important;
-  font-weight:300!important;color:var(--t2)!important;var(--t1)-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  font-weight:300!important;color:var(--t2)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-bio,
 .dashboard .settings-page.profile-v2 .profile-v2-edit,
@@ -742,9 +742,9 @@
 .dashboard .settings-page.profile-v2 .profile-v2-stats .l{text-align:left!important;align-items:flex-start!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats .c{text-align:center!important;align-items:center!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats .r{text-align:right!important;align-items:flex-end!important}
-.dashboard .settings-page.profile-v2 .profile-v2-stats strong{display:block!important;margin:0!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;var(--t1)-space:nowrap!important}
+.dashboard .settings-page.profile-v2 .profile-v2-stats strong{display:block!important;margin:0!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;white-space:nowrap!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats strong small{font-size:13px!important;font-weight:300!important;color:var(--t2)!important}
-.dashboard .settings-page.profile-v2 .profile-v2-stats span{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:0!important;text-transform:none!important;color:var(--t2)!important;var(--t1)-space:nowrap!important}
+.dashboard .settings-page.profile-v2 .profile-v2-stats span{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:0!important;text-transform:none!important;color:var(--t2)!important;white-space:nowrap!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats i{align-self:stretch!important;width:1px!important;margin:2px 12px!important;background:linear-gradient(transparent,color-mix(in srgb, var(--t1) 45%, transparent),transparent)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-tabs{margin:18px 0!important;padding:4px!important;min-height:52px!important;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent)!important;background:color-mix(in srgb, var(--surface-1) 5%, transparent)!important;border-radius:999px!important}
 .dashboard .settings-page.profile-v2 .profile-v2-tabs button{position:relative!important;z-index:1!important;font-size:16px!important;font-weight:400!important;letter-spacing:0!important;text-transform:none!important;color:var(--t1)!important;background:transparent!important;-webkit-text-fill-color:var(--t1)!important}
@@ -960,7 +960,7 @@
   font-weight: 300 !important;
   line-height: 1.2 !important;
   letter-spacing: 0 !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -973,7 +973,7 @@
   font-size: 14px !important;
   font-weight: 300 !important;
   line-height: 1.35 !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -1083,7 +1083,7 @@
   justify-content: center !important;
   gap: 6px !important;
   max-width: 100% !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -1105,7 +1105,7 @@
   padding: 0 16px !important;
   border-radius: 99px !important;
   background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
 }
 .dashboard .settings-page.profile-v2 .profile-setting-row-wide > .settings-value {
   display: block !important;
@@ -1113,7 +1113,7 @@
   line-height: 44px !important;
   border-radius: 99px !important;
   background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -1135,7 +1135,7 @@
 }
 .dashboard .settings-page.profile-v2 .settings-quiet-control > span {
   margin: 0 !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
   font-size: 13px !important;
 }
 .dashboard .settings-page.profile-v2 .profile-setting-control-row select,
@@ -1310,7 +1310,7 @@
 .dashboard .settings-page.profile-v2 .profile-stat-grid article{box-sizing:border-box!important;min-width:0!important;padding:14px 16px!important;border:1px solid color-mix(in srgb, var(--edge) 6%, transparent)!important;border-radius:20px!important;background:color-mix(in srgb, var(--surface-1) 4%, transparent)!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article:last-child{grid-column:1/-1!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article>span{display:block!important;font-size:12px!important;font-weight:400!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:var(--t3)!important}
-.dashboard .settings-page.profile-v2 .profile-stat-grid article>strong{display:block!important;margin-top:6px!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;var(--t1)-space:nowrap!important;overflow-wrap:normal!important}
+.dashboard .settings-page.profile-v2 .profile-stat-grid article>strong{display:block!important;margin-top:6px!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;white-space:nowrap!important;overflow-wrap:normal!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article>small{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:300!important;line-height:1.4!important;color:var(--t2)!important}
 .dashboard .evolv-floating-log{right:18px!important;bottom:calc(86px + env(safe-area-inset-bottom))!important;background:rgba(var(--ac),.14)!important;border:1px solid rgba(var(--ac),.45)!important;-webkit-backdrop-filter:blur(14px)!important;backdrop-filter:blur(14px)!important}
 .dashboard .evolv-floating-log span{display:none!important}
