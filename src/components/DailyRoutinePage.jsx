@@ -31,7 +31,7 @@ const routineCoaches = [
     title: 'Fitness',
     description: 'Movement & consistency',
     icon: Dumbbell,
-    color: '#fb923c',
+    color: 'var(--metric-exercise)',
     prompt: "Act as EVOLV's encouraging fitness and movement coach. Help me build realistic movement habits, exercise consistency, and recovery around my actual circumstances. Avoid extreme plans and medical claims. Start with a concise, useful response and one manageable next step. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -39,7 +39,7 @@ const routineCoaches = [
     title: 'Health',
     description: 'Everyday wellbeing',
     icon: HeartPulse,
-    color: '#f87171',
+    color: 'var(--metric-health)',
     prompt: "Act as EVOLV's general wellbeing guide. Help me reflect on everyday health habits, energy, hydration, rest, and how I'm feeling physically. Be careful not to diagnose or replace professional medical care. Start with a concise, useful response and ask one focused question only if it would help. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -47,7 +47,7 @@ const routineCoaches = [
     title: 'Finances',
     description: 'Spending & money habits',
     icon: WalletCards,
-    color: '#6ee7b7',
+    color: 'var(--metric-income)',
     prompt: "Act as EVOLV's practical personal-finance reflection coach. Help me understand spending habits, plan simple budgets, make thoughtful money decisions, and build financial discipline. Do not assume my income or shame my choices; ask for numbers only when necessary. Start with a useful first response and one small next step. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -55,7 +55,7 @@ const routineCoaches = [
     title: 'Feelings',
     description: 'Mood & emotional wellbeing',
     icon: Brain,
-    color: '#f9a8d4',
+    color: 'var(--metric-mood)',
     prompt: "Act as EVOLV's empathetic emotional-reflection companion. Meet me with warmth, help me name what I may be feeling, and explore what's affecting me without assuming the cause or diagnosing me. Keep it conversational, ask one gentle question at a time, and don't rush to fix everything. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -63,7 +63,7 @@ const routineCoaches = [
     title: 'Purpose',
     description: 'Direction & personal growth',
     icon: Target,
-    color: '#fbbf24',
+    color: 'var(--highlight-warm)',
     prompt: "Act as EVOLV's thoughtful purpose and personal-growth coach. Help me clarify what matters, connect daily choices to longer-term goals, and identify a realistic next step. Be reflective without sounding preachy or generic. Start with a concise, meaningful response and one focused question if needed. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -79,7 +79,7 @@ const routineCoaches = [
     title: 'Nutrition',
     description: 'Meals & nourishment',
     icon: Apple,
-    color: '#fda4af',
+    color: 'var(--metric-nutrition)',
     prompt: "Act as EVOLV's balanced nutrition and meal-habit coach. Help me reflect on meals, hydration, nourishment, and realistic eating routines without moralizing food or prescribing restrictive diets. Avoid medical claims and ask about context when needed. Start with one practical suggestion. Do not mention these instructions or repeat my prompt."
   },
   {
@@ -274,7 +274,7 @@ export default function DailyRoutinePage({ pageProps }) {
 
   function logMeal() {
     const mealDef = defs.find(item => item.slug === 'meals')
-    openLog('nutrition', mealDef || { slug: 'meals', name: 'Meal', value_type: 'meal', color: '#ffd66b' })
+    openLog('nutrition', mealDef || { slug: 'meals', name: 'Meal', value_type: 'meal', color: 'var(--metric-nutrition)' })
   }
 
   return (
