@@ -1481,3 +1481,52 @@ html,body,#root,.dashboard,.dashboard .dash-main,.dashboard .dashboard-pages {
 .dashboard :is(input,textarea,select) { accent-color:var(--accent); }
 :root[data-theme="light"] .dashboard .ai-page .ai-message.user p,
 :root[data-theme="light"] .dashboard.dashboard-ai-active .ai-page .ai-message.user p { color:var(--ai-ink)!important; }
+
+
+/* Auth and onboarding screens share the same appearance system. */
+.auth-page,.auth-direct-page,.onboarding,.evolv-welcome {
+  color:var(--t1);
+  background-color:var(--bg);
+}
+.auth-page :is(.auth-content,.auth-card,.auth-panel,.auth-form-card),
+.auth-direct-page :is(.auth-content,.auth-card,.auth-panel,.auth-form-card),
+.onboarding :is(.onboard-card,.choice,.ready-card,.onboard-step-card) {
+  color:var(--t1);
+  background-color:var(--panel);
+  border-color:var(--edge);
+}
+.auth-page :is(h1,h2,h3,label,strong),
+.auth-direct-page :is(h1,h2,h3,label,strong),
+.onboarding :is(h1,h2,h3,label,strong) { color:var(--t1); }
+.auth-page :is(p,small,.auth-subtitle,.auth-helper),
+.auth-direct-page :is(p,small,.auth-subtitle,.auth-helper),
+.onboarding :is(p,small,.onboard-description,.choice-description) { color:var(--t2); }
+.auth-page :is(input,textarea,select),
+.auth-direct-page :is(input,textarea,select),
+.onboarding :is(input,textarea,select) {
+  color:var(--t1)!important; background:var(--field)!important; border-color:var(--edge)!important;
+}
+.auth-page :is(input,textarea,select)::placeholder,
+.auth-direct-page :is(input,textarea,select)::placeholder,
+.onboarding :is(input,textarea,select)::placeholder { color:var(--t3)!important; }
+:root[data-theme="light"] .onboarding .choice[aria-pressed="true"],
+:root[data-theme="light"] .onboarding .choice.selected,
+:root[data-theme="light"] .onboarding .choice.active {
+  color:var(--t1); background:var(--accent-soft); border-color:color-mix(in srgb,var(--accent) 55%,var(--edge));
+}
+:root[data-theme="light"] .auth-page .auth-google-button,
+:root[data-theme="light"] .auth-page .google-auth-button,
+:root[data-theme="light"] .auth-direct-page .auth-google-button {
+  color:var(--t1); background:var(--surface-1); border-color:var(--edge);
+}
+.auth-page :is(.auth-submit,.primary,.primary-button),
+.auth-direct-page :is(.auth-submit,.primary,.primary-button),
+.onboarding :is(.onboard-continue,.onboarding-next,.primary-button) {
+  color:var(--accent-foreground);
+}
+:root[data-theme="light"] .dashboard .profile-v2 .profile-appearance-option[aria-pressed="true"] {
+  color:var(--accent); border-color:color-mix(in srgb,var(--accent) 58%,var(--edge));
+}
+:root[data-theme="light"] .dashboard .profile-v2 .profile-appearance-option:not([aria-pressed="true"]) {
+  color:var(--t2);
+}
