@@ -17,7 +17,7 @@
   padding:42px;
   border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius:28px;
-  background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.9607843137254902),rgb(var(--theme-shadow-rgb) / 0.9607843137254902));
+  background:linear-gradient(145deg,color-mix(in srgb, var(--surface-1) 96%, transparent),color-mix(in srgb, var(--surface-1) 96%, transparent));
   box-shadow:0 35px 120px rgb(var(--theme-shadow-rgb) / 0.7333333333333333);
 }
 .contact-close{
