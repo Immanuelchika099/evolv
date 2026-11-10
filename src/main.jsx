@@ -12,6 +12,23 @@ import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
 import './index.css' // Global design tokens and theme overrides load last
 
+const syncThemeColor = () => {
+  const meta = document.querySelector('meta[name="theme-color"]')
+  const canvasColor = getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+  if (meta && canvasColor) meta.setAttribute('content', canvasColor)
+}
+syncThemeColor()
+const themeMedia = window.matchMedia('(prefers-color-scheme: dark)')
+const syncSystemThemeColor = () => {
+  if ((localStorage.getItem('evolv-theme-preference') || 'system') === 'system') {
+    requestAnimationFrame(syncThemeColor)
+  }
+}
+themeMedia.addEventListener?.('change', syncSystemThemeColor)
+window.addEventListener('storage', event => {
+  if (event.key === 'evolv-theme-preference') requestAnimationFrame(syncThemeColor)
+})
+
 if (Capacitor.getPlatform() === 'ios') {
   void Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(() => {})
 }
