@@ -67,7 +67,7 @@
 .quick-log-workout-toolbar .quick-log-primary { justify-self: stretch; }
 .quick-log-notice, .quick-log-error { display: flex; align-items: flex-start; gap: .8rem; padding: 1.1rem 1.2rem; margin: 0 0 1.2rem; border-radius: 1.2rem; font-size: 1.35rem; line-height: 1.5; }
 .quick-log-notice { background: color-mix(in srgb, var(--color-accent-blue) 12%, transparent); color: var(--color-accent-blue); }
-.quick-log-error { background: color-mix(in srgb, var(--accent) 10%, transparent); color: var(--accent); }
+.quick-log-error { background: color-mix(in srgb, var(--danger) 10%, transparent); color: var(--danger); }
 .quick-log-loading { display: flex; align-items: center; gap: 1rem; padding: 2.4rem 0; color: color-mix(in srgb, var(--t1) 58%, transparent); font-size: 1.4rem; }
 .quick-log-spinner { display: inline-block; width: 1.6rem; height: 1.6rem; flex: 0 0 1.6rem; border: 2px solid color-mix(in srgb, var(--edge) 30%, transparent); border-top-color: var(--t1); border-radius: 50%; animation: quick-log-spin .7s linear infinite; }
 @keyframes quick-log-spin { to { transform: rotate(360deg); } }
@@ -135,7 +135,7 @@
 .quick-log-detail-set strong { font-size: 1.35rem; font-weight: var(--font-weight-medium); }
 .quick-log-detail-set small { color: color-mix(in srgb, var(--t1) 54%, transparent); font-size: 1.35rem; var(--t1)-space: nowrap; }
 .quick-log-detail-actions { display: flex; gap: 1rem; margin-top: 2rem; }
-.quick-log-secondary-danger { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 4.6rem; padding: 0 1.4rem; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 1.2rem; background: transparent; color: var(--accent); font-size: 1.4rem; }
+.quick-log-secondary-danger { display: inline-flex; align-items: center; justify-content: center; gap: .7rem; min-height: 4.6rem; padding: 0 1.4rem; border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); border-radius: 1.2rem; background: transparent; color: var(--danger); font-size: 1.4rem; }
 .quick-log-detail-actions .quick-log-primary { flex: 1; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); var(--t1)-space: nowrap; border: 0; }
 @media (max-width: 390px) {
@@ -161,14 +161,14 @@
 .quick-log-option-water .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 15%, transparent); }
 .quick-log-option-money .quick-log-option-icon { color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); }
 .quick-log-option-ai .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 18%, transparent); }
-.quick-log-option-health .quick-log-option-icon { color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); }
+.quick-log-option-health .quick-log-option-icon { color:var(--danger); background:color-mix(in srgb, var(--danger) 14%, transparent); }
 .quick-log-option-nutrition .quick-log-option-icon { color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); }
 .quick-log-option-career .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
 .quick-log-option-mind .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
 .quick-log-option-life .quick-log-option-icon { color:var(--pos); background:color-mix(in srgb, var(--pos) 12%, transparent); }
 
 .quick-log-options .quick-log-option-ai .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 18%, transparent); }
-.quick-log-options .quick-log-option-health .quick-log-option-icon { color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); }
+.quick-log-options .quick-log-option-health .quick-log-option-icon { color:var(--danger); background:color-mix(in srgb, var(--danger) 14%, transparent); }
 .quick-log-options .quick-log-option-nutrition .quick-log-option-icon { color:var(--accent); background:color-mix(in srgb, var(--accent) 14%, transparent); }
 .quick-log-options .quick-log-option-career .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
 .quick-log-options .quick-log-option-mind .quick-log-option-icon { color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 14.000000000000002%, transparent); }
@@ -272,7 +272,7 @@
 }
 .quick-log-overlay-page .quick-log-header {
   border-bottom: 1px solid color-mix(in srgb, var(--edge) 7%, transparent);
-  background: linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0.98) !important;
+  background: linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0.98), rgb(var(--theme-shadow-rgb) / 0.84)) !important;
 }
 .quick-log-overlay-page .quick-log-content {
   min-width: 0;
@@ -295,8 +295,8 @@
 .quick-log-overlay-page .quick-log-exercise-card,
 .quick-log-overlay-page .quick-log-history-card {
   border-color: color-mix(in srgb, var(--t1) 9%, transparent) !important;
-  background: linear-gradient(145deg, rgb(var(--theme-shadow-rgb) / 0.96) !important;
-  box-shadow: 0 1.6rem 4rem rgb(var(--theme-shadow-rgb) / 0.2);
+  background: linear-gradient(145deg, rgb(var(--theme-shadow-rgb) / 0.96), rgb(var(--theme-shadow-rgb) / 0.98)) !important;
+  box-shadow: 0 1.6rem 4rem rgb(var(--theme-shadow-rgb) / 0.2), inset 0 1px 0 color-mix(in srgb, var(--t1) 3%, transparent);
 }
 .quick-log-overlay-page h1,
 .quick-log-overlay-page h2,
@@ -313,7 +313,7 @@
   font-size: max(1.4rem, 14px);
 }
 .quick-log-overlay-page .quick-log-workout-bottom-action {
-  background: linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0.78) !important;
+  background: linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0.78), rgb(var(--theme-shadow-rgb) / 0.98)) !important;
   border-top-color: color-mix(in srgb, var(--t1) 8%, transparent);
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
@@ -943,7 +943,7 @@
   border: 1px solid color-mix(in srgb, var(--edge) 11%, transparent) !important;
   border-radius: 2.2rem !important;
   background: var(--bg) !important;
-  box-shadow: 0 2.5rem 8rem rgb(var(--theme-shadow-rgb) / 0.68) !important;
+  box-shadow: 0 2.5rem 8rem rgb(var(--theme-shadow-rgb) / 0.68), inset 0 1px 0 color-mix(in srgb, var(--t1) 4%, transparent) !important;
   overscroll-behavior: contain;
 }
 .quick-log-handle {
@@ -1061,7 +1061,7 @@
   padding: 1.4rem !important;
   border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent) !important;
   border-radius: 1.55rem !important;
-  background: linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent) !important;
+  background: linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent),color-mix(in srgb, var(--t1) 2%, transparent)) !important;
 }
 .quick-log-workout-totals-heading {
   margin-bottom: 1rem;
@@ -1269,7 +1269,7 @@
   border-radius: 1.15rem !important;
 }
 .quick-log-error {
-  border-color: color-mix(in srgb, var(--accent) 20%, transparent) !important;
+  border-color: color-mix(in srgb, var(--danger) 20%, transparent) !important;
 }
 .quick-log-empty { padding: 3rem 1.4rem !important; }
 .quick-log-sheet :is(button,input,select,textarea):focus-visible {
@@ -1328,7 +1328,7 @@
   border: 1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius: 2.2rem;
   background: rgb(var(--theme-shadow-rgb) / 0.94);
-  box-shadow: 0 2rem 6rem rgb(var(--theme-shadow-rgb) / 0.48);
+  box-shadow: 0 2rem 6rem rgb(var(--theme-shadow-rgb) / 0.48), inset 0 1px 0 color-mix(in srgb, var(--t1) 4%, transparent);
   -webkit-backdrop-filter: blur(24px);
   backdrop-filter: blur(24px);
   transform-origin: bottom right;
@@ -1402,7 +1402,7 @@
   border: 1px solid color-mix(in srgb, var(--wheel-item-color, var(--edge)) 16%, transparent);
   border-radius: .95rem;
   background: color-mix(in srgb, var(--wheel-item-color, var(--t1)) 8%, transparent);
-  color: var(--wheel-item-color, color-mix(in srgb, var(--t1) 80%, transparent);
+  color: var(--wheel-item-color, color-mix(in srgb, var(--t1) 80%, transparent));
 }
 .quick-log-wheel-mode .quick-log-wheel-option .quick-log-option-copy strong {
   font-size: 1.45rem;
