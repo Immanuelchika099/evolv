@@ -108,8 +108,8 @@
 }
 .depth-carousel__card {
   background: linear-gradient(155deg,
-    rgb(var(--theme-shadow-rgb) / 0.58),
-    rgb(var(--theme-shadow-rgb) / 0.68)) !important;
+    color-mix(in srgb, var(--surface-2) 58%, transparent),
+    color-mix(in srgb, var(--surface-2) 68%, transparent)) !important;
   border: 1px solid color-mix(in srgb, var(--accent) 19%, transparent) !important;
   -webkit-backdrop-filter: blur(22px) saturate(1.08);
   backdrop-filter: blur(22px) saturate(1.08);
@@ -143,7 +143,7 @@
    insight stack, especially on the cards peeking out before a swipe. */
 .depth-carousel__card {
   border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent) !important;
-  background: linear-gradient(155deg, rgb(var(--theme-shadow-rgb) / 0.48), rgb(var(--theme-shadow-rgb) / 0.58)) !important;
+  background: linear-gradient(155deg, color-mix(in srgb, var(--surface-3) 48%, transparent), color-mix(in srgb, var(--surface-2) 58%, transparent)) !important;
   -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
   backdrop-filter: blur(18px) saturate(1.12) !important;
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent) !important;
