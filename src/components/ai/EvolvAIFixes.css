@@ -56,7 +56,7 @@
   justify-content:center;
   padding:1.2rem 2rem 1.4rem;
   pointer-events:none;
-  background:linear-gradient(to top,rgba(0,0,0,.96) 0%,rgba(0,0,0,.88) 58%,rgba(0,0,0,0) 100%);
+  background:linear-gradient(to top,rgb(var(--theme-shadow-rgb) / 0.96);
 }
 
 .dashboard .ai-promptbar-shell .prompt-bar{
@@ -128,7 +128,7 @@ body:has(.dashboard.dashboard-ai-active){
   right:0;
   width:100%;
   z-index:100000;
-  background:rgba(5,8,6,.92);
+  background:rgb(var(--theme-shadow-rgb) / 0.92);
   backdrop-filter:blur(1.6rem) saturate(125%);
   -webkit-backdrop-filter:blur(1.6rem) saturate(125%);
 }
@@ -138,31 +138,31 @@ body:has(.dashboard.dashboard-ai-active){
   }
 }
 .ai-message-attachments{display:flex;flex-wrap:wrap;gap:.7rem;margin:.5rem 0 .8rem}
-.ai-message-image{width:min(18rem,70vw);height:13rem;overflow:hidden;border-radius:1.2rem;border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.03)}
+.ai-message-image{width:min(18rem,70vw);height:13rem;overflow:hidden;border-radius:1.2rem;border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);background:color-mix(in srgb, var(--surface-1) 3%, transparent)}
 .ai-message-image img{display:block;width:100%;height:100%;object-fit:cover}
 @media(max-width:40rem){.ai-message-image{width:16rem;height:11.5rem}}
 
 
-/* AI page: neutral black/ash only — no Evolv green tint. */
+/* AI page: neutral var(--bg)/ash only — no Evolv green tint. */
 .dashboard.dashboard-ai-active .ai-page,
 .dashboard.dashboard-ai-active .ai-page .ai-chat,
 .dashboard.dashboard-ai-active .ai-page .ai-messages{
-  background:#050505;
-  background-color:#050505;
-  color:#f5f5f5;
+  background:var(--bg);
+  background-color:var(--t3);
+  color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar{
-  background:rgba(18,18,18,.94);
-  background-color:rgba(18,18,18,.94);
-  border-bottom:1px solid rgba(255,255,255,.08);
-  box-shadow:0 .6rem 2rem rgba(0,0,0,.28);
+  background:rgb(var(--theme-shadow-rgb) / 0.94);
+  background-color:rgb(var(--theme-shadow-rgb) / 0.94);
+  border-bottom:1px solid color-mix(in srgb, var(--edge) 8%, transparent);
+  box-shadow:0 .6rem 2rem rgb(var(--theme-shadow-rgb) / 0.28);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar button{
-  background-color:rgba(255,255,255,.06);
-  color:#f2f2f2;
+  background-color:color-mix(in srgb, var(--t1) 6%, transparent);
+  color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar button:hover{
-  background-color:rgba(255,255,255,.1);
+  background-color:color-mix(in srgb, var(--t1) 10%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-empty,
 .dashboard.dashboard-ai-active .ai-page .ai-starters{
@@ -173,13 +173,13 @@ body:has(.dashboard.dashboard-ai-active){
 /* History drawer: neutral dark/ash, with no Evolv-green tint. */
 .dashboard.dashboard-ai-active .ai-history-sheet,
 .dashboard.dashboard-ai-active .ai-history-overlay{
-  background:#0a0a0a;
-  background-color:#0a0a0a;
-  color:#f3f3f3;
+  background:var(--bg);
+  background-color:var(--t3);
+  color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-history-sheet{
-  border-right:1px solid rgba(255,255,255,.08);
-  box-shadow:1.2rem 0 3rem rgba(0,0,0,.38);
+  border-right:1px solid color-mix(in srgb, var(--edge) 8%, transparent);
+  box-shadow:1.2rem 0 3rem rgb(var(--theme-shadow-rgb) / 0.38);
 }
 .dashboard.dashboard-ai-active .ai-history-head,
 .dashboard.dashboard-ai-active .ai-history-list,
@@ -248,14 +248,14 @@ body:has(.dashboard.dashboard-ai-active){
   line-height:1.05;
   font-weight:var(--font-weight-regular);
   letter-spacing:-.045em;
-  color:#f5f5f5;
+  color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-welcome h3 span{
   font-weight:var(--font-weight-regular);
 }
 .dashboard.dashboard-ai-active .ai-welcome h3 strong{
   font-weight:var(--font-weight-bold);
-  color:#fff;
+  color:var(--t1);
 }
 @media(max-width:800px){
   .dashboard.dashboard-ai-active .ai-welcome{
@@ -415,12 +415,12 @@ html:has(.dashboard.dashboard-ai-active) {
 
 /* EVOLV AI — same material language, but intentionally more conversational */
 .dashboard.dashboard-ai-active .ai-page{
-  background:#070707;
-  color:#f3f1ea;
+  background:var(--bg);
+  color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar{
-  background:rgba(7,7,7,.78);
-  border-bottom:1px solid rgba(255,255,255,.055);
+  background:rgb(var(--theme-shadow-rgb) / 0.78);
+  border-bottom:1px solid color-mix(in srgb, var(--edge) 6%, transparent);
   box-shadow:none;
   backdrop-filter:blur(2rem) saturate(110%);
   -webkit-backdrop-filter:blur(2rem) saturate(110%);
@@ -438,13 +438,13 @@ html:has(.dashboard.dashboard-ai-active) {
   margin-bottom:1.2rem;
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell{
-  background:linear-gradient(to top,rgba(7,7,7,.97),rgba(7,7,7,.8) 55%,transparent);
+  background:linear-gradient(to top,rgb(var(--theme-shadow-rgb) / 0.97);
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field{
-  border:1px solid rgba(255,255,255,.09);
+  border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius:1.8rem;
-  background:rgba(18,18,18,.92);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.045),0 1rem 3rem rgba(0,0,0,.25);
+  background:rgb(var(--theme-shadow-rgb) / 0.92);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent);
   backdrop-filter:blur(1.8rem);
   -webkit-backdrop-filter:blur(1.8rem);
 }
@@ -491,7 +491,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding:1rem 1.2rem calc(1rem + env(safe-area-inset-bottom, 0px));
   z-index:100001;
   align-items:flex-end;
-  background:linear-gradient(to top,rgba(0,0,0,.99) 0%,rgba(0,0,0,.96) 70%,transparent 100%);
+  background:linear-gradient(to top,rgb(var(--theme-shadow-rgb) / 0.99);
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar{
   width:min(60rem,100%);
@@ -506,14 +506,14 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* FINAL AI CANVAS RESET — pure black. */
+/* FINAL AI CANVAS RESET — pure var(--bg). */
 .dashboard.dashboard-ai-active,
 .dashboard.dashboard-ai-active .dash-main,
 .dashboard.dashboard-ai-active .ai-page,
 .dashboard.dashboard-ai-active .ai-page .ai-chat,
 .dashboard.dashboard-ai-active .ai-page .ai-messages{
-  background:#000;
-  background-color:#000;
+  background:var(--bg);
+  background-color:var(--t3);
   background-image:none;
 }
 
@@ -650,7 +650,7 @@ html:has(.dashboard.dashboard-ai-active) {
   bottom: 0;
   margin: 0;
   padding: .45rem 1rem calc(.35rem + env(safe-area-inset-bottom, 0px));
-  background: #000;
+  background: var(--bg);
   box-sizing: border-box;
   transform: none;
 }
@@ -734,7 +734,7 @@ html:has(.dashboard.dashboard-ai-active) {
   overscroll-behavior-y: contain;
   touch-action: pan-y;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,.18) transparent;
+  scrollbar-color: color-mix(in srgb, var(--t1) 18%, transparent) transparent;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.user {
@@ -757,13 +757,13 @@ html:has(.dashboard.dashboard-ai-active) {
   max-width: min(100%, 48rem);
   margin: 0;
   padding: 1.15rem 1.6rem;
-  border: 1px solid rgba(255,255,255,.045);
+  border: 1px solid color-mix(in srgb, var(--edge) 5%, transparent);
   border-radius: 2rem;
-  background: #202020;
-  color: #f5f5f5;
+  background: var(--bg);
+  color: var(--t1);
   font-size: 1.65rem;
   line-height: 1.55;
-  white-space: pre-wrap;
+  var(--t1)-space: pre-wrap;
   overflow-wrap: anywhere;
 }
 
@@ -818,12 +818,12 @@ html:has(.dashboard.dashboard-ai-active) {
   border: 0;
   border-radius: 1.2rem;
   background: transparent;
-  color: rgba(245,245,245,.68);
+  color: color-mix(in srgb, var(--t1) 68%, transparent);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-user-message-menu-trigger:active {
-  background: rgba(255,255,255,.09);
+  background: color-mix(in srgb, var(--surface-1) 9%, transparent);
 }
 /* Allow iOS Safari to select sent-message text and show its native callout. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user,
@@ -881,7 +881,7 @@ html:has(.dashboard.dashboard-ai-active) {
   align-items:center;
   justify-content:center;
   gap:1rem;
-  color:rgba(255,255,255,.48);
+  color:color-mix(in srgb, var(--t1) 48%, transparent);
   font-size:1.25rem;
 }
 .dashboard.dashboard-ai-active .ai-history-spinner{
@@ -889,8 +889,8 @@ html:has(.dashboard.dashboard-ai-active) {
   width:1.5rem;
   height:1.5rem;
   box-sizing:border-box;
-  border:.16rem solid rgba(255,255,255,.18);
-  border-top-color:rgba(255,255,255,.9);
+  border:.16rem solid color-mix(in srgb, var(--edge) 18%, transparent);
+  border-top-color:color-mix(in srgb, var(--t1) 90%, transparent);
   border-radius:50%;
   animation:evolv-history-spin .75s linear infinite;
 }
@@ -923,7 +923,7 @@ html:has(.dashboard.dashboard-ai-active) {
 
 /* Editorial, easy-to-scan AI answers: real markdown hierarchy and generous rhythm. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content{
-  color:#f5f5f2;
+  color:var(--t1);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
   font-size:1.7rem;
   font-weight:var(--font-weight-regular);
@@ -935,19 +935,19 @@ html:has(.dashboard.dashboard-ai-active) {
   padding:0;
   font:inherit;
   line-height:inherit;
-  white-space:normal;
+  var(--t1)-space:normal;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content > p:last-child{
   margin-bottom:0;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3{
-  color:#fff;
+  color:var(--t1);
   font-family:inherit;
   font-weight:var(--font-weight-bold);
   letter-spacing:-.025em;
   line-height:1.3;
-  white-space:normal;
+  var(--t1)-space:normal;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2{
   margin:2.6rem 0 1.15rem;
@@ -962,7 +962,7 @@ html:has(.dashboard.dashboard-ai-active) {
   margin-top:0;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong{
-  color:#fff;
+  color:var(--t1);
   font-weight:var(--font-weight-bold);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ul,
@@ -976,13 +976,13 @@ html:has(.dashboard.dashboard-ai-active) {
   line-height:1.72;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li::marker{
-  color:rgba(255,255,255,.7);
+  color:color-mix(in srgb, var(--t1) 70%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote{
   margin:1.5rem 0 1.8rem;
   padding:.25rem 0 .25rem 1.4rem;
-  border-left:.25rem solid rgba(255,255,255,.35);
-  color:rgba(245,245,242,.82);
+  border-left:.25rem solid color-mix(in srgb, var(--edge) 35%, transparent);
+  color:color-mix(in srgb, var(--t1) 82%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote p{
   margin:.4rem 0;
@@ -992,10 +992,10 @@ html:has(.dashboard.dashboard-ai-active) {
   margin:1.3rem 0 1.8rem;
   padding:1.4rem;
   overflow-x:auto;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius:1.2rem;
-  background:#111;
-  white-space:pre;
+  background:var(--bg);
+  var(--t1)-space:pre;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content pre code{
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
@@ -1005,20 +1005,20 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content :not(pre) > code{
   padding:.12rem .45rem;
   border-radius:.4rem;
-  background:rgba(255,255,255,.09);
+  background:color-mix(in srgb, var(--surface-1) 9%, transparent);
   font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
   font-size:.92em;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content a{
-  color:#fff;
+  color:var(--t1);
   text-decoration:underline;
-  text-decoration-color:rgba(255,255,255,.45);
+  text-decoration-color:color-mix(in srgb, var(--t1) 45%, transparent);
   text-underline-offset:.2em;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content hr{
   margin:1.8rem 0;
   border:0;
-  border-top:1px solid rgba(255,255,255,.13);
+  border-top:1px solid color-mix(in srgb, var(--edge) 13%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-cursor{
   display:inline-block;
@@ -1090,11 +1090,11 @@ html:has(.dashboard.dashboard-ai-active) {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  color: #f5f5f5;
-  background: #202022;
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  color: var(--t1);
+  background: var(--bg);
+  border: 1px solid color-mix(in srgb, var(--edge) 11%, transparent);
   border-radius: 13px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.48);
+  box-shadow: 0 12px 36px rgb(var(--theme-shadow-rgb) / 0.48);
   animation: ai-prompt-menu-in 140ms ease-out both;
 }
 
@@ -1118,13 +1118,13 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .ai-prompt-menu button:hover,
 .ai-prompt-menu button:focus-visible {
-  background: rgba(255, 255, 255, 0.08);
+  background: color-mix(in srgb, var(--surface-1) 8%, transparent);
   outline: none;
 }
 
 .ai-prompt-menu button svg {
   flex: 0 0 auto;
-  color: rgba(245, 245, 245, 0.76);
+  color: color-mix(in srgb, var(--t1) 76%, transparent);
 }
 
 @keyframes ai-prompt-menu-in {
@@ -1303,9 +1303,9 @@ html:has(.dashboard.dashboard-ai-active) {
   height: auto;
   margin: 0;
   padding: .2rem 0;
-  color: #f5f5f5;
-  -webkit-text-fill-color: #f5f5f5;
-  caret-color: #f5f5f5;
+  color: var(--t1);
+  -webkit-text-fill-color: var(--t1);
+  caret-color: var(--t1);
   font-size: 16px;
   line-height: 1.5;
   text-align: left;
@@ -1417,8 +1417,8 @@ html:has(.dashboard.dashboard-ai-active) {
   text-decoration: none;
   border-radius: 1.2rem;
   scroll-snap-align: start;
-  background: rgba(255,255,255,.035);
-  border: 1px solid rgba(255,255,255,.09);
+  background: color-mix(in srgb, var(--surface-1) 4%, transparent);
+  border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
 }
 .ai-response-content .ai-image-card img {
   display: block;
@@ -1426,7 +1426,7 @@ html:has(.dashboard.dashboard-ai-active) {
   height: 12rem;
   object-fit: cover;
   border-radius: 1.05rem;
-  background: #111;
+  background: var(--bg);
 }
 .ai-response-content .ai-image-card span {
   font-size: 1.2rem;
@@ -1511,8 +1511,8 @@ html:has(.dashboard.dashboard-ai-active) {
   display:block;
   border-radius:1.15rem;
   scroll-snap-align:start;
-  background:#101114;
-  border:1px solid rgba(255,255,255,.09);
+  background:var(--bg);
+  border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   cursor:pointer;
   font:inherit;
   font-weight:var(--font-weight-regular);
@@ -1539,7 +1539,7 @@ html:has(.dashboard.dashboard-ai-active) {
   align-items:center;
   justify-content:center;
   padding:2rem;
-  background:rgba(0,0,0,.82);
+  background:rgb(var(--theme-shadow-rgb) / 0.82);
   backdrop-filter:blur(12px);
 }
 .ai-image-lightbox-panel {
@@ -1547,9 +1547,9 @@ html:has(.dashboard.dashboard-ai-active) {
   width:min(100%,44rem);
   max-height:90dvh;
   overflow:auto;
-  border:1px solid rgba(255,255,255,.12);
+  border:1px solid color-mix(in srgb, var(--edge) 12%, transparent);
   border-radius:1.5rem;
-  background:#0b0c0f;
+  background:var(--bg);
   padding:1rem;
 }
 .ai-image-lightbox-panel > img {
@@ -1568,8 +1568,8 @@ html:has(.dashboard.dashboard-ai-active) {
   height:3.2rem;
   border:0;
   border-radius:50%;
-  background:rgba(0,0,0,.75);
-  color:#fff;
+  background:rgb(var(--theme-shadow-rgb) / 0.75);
+  color:var(--t1);
   font-size:2.4rem;
   line-height:1;
   cursor:pointer;
@@ -1580,7 +1580,7 @@ html:has(.dashboard.dashboard-ai-active) {
   justify-content:space-between;
   gap:1rem;
   padding:1rem .3rem .2rem;
-  color:#f5f5f5;
+  color:var(--t1);
   font-size:1.3rem;
   font-weight:var(--font-weight-regular);
 }
@@ -1604,16 +1604,16 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card {
   display: block; width: 13.2rem; height: 10.2rem; max-width: min(13.2rem, 72vw);
   padding: 0; margin: 1rem 0 1.2rem; overflow: hidden;
-  border: 1px solid rgba(255,255,255,.12); border-radius: 1.2rem;
-  background: #101114; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent); border-radius: 1.2rem;
+  background: var(--bg); cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content .ai-image-card img {
-  display: block; width: 100%; height: 100%; object-fit: cover; background: #101114;
+  display: block; width: 100%; height: 100%; object-fit: cover; background: var(--bg);
 }
 .ai-image-lightbox {
   position: fixed; inset: 0; z-index: 2147483000;
   display: flex; align-items: center; justify-content: center; padding: 2rem;
-  background: rgba(0,0,0,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  background: rgb(var(--theme-shadow-rgb) / 0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .ai-image-lightbox-panel {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -1622,22 +1622,22 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 .ai-image-lightbox-panel > img {
   display: block; width: auto; height: auto; max-width: min(100%, 82vw);
-  max-height: 70dvh; object-fit: contain; border-radius: .6rem; background: #0b0c0f;
+  max-height: 70dvh; object-fit: contain; border-radius: .6rem; background: var(--bg);
 }
 .ai-image-lightbox-close {
   position: absolute; top: max(1.5rem, env(safe-area-inset-top, 0px));
   right: max(1.5rem, env(safe-area-inset-right, 0px)); z-index: 2;
   display: grid; place-items: center; width: 4rem; height: 4rem; padding: 0;
-  border: 1px solid rgba(255,255,255,.18); border-radius: 50%;
-  background: rgba(32,32,34,.92); color: #fff; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  border: 1px solid color-mix(in srgb, var(--edge) 18%, transparent); border-radius: 50%;
+  background: color-mix(in srgb, var(--bg) 92%, transparent); color: var(--t1); cursor: pointer; -webkit-tap-highlight-color: transparent;
 }
 .ai-image-lightbox-close:hover, .ai-image-lightbox-close:focus-visible {
-  background: #303034; outline: 2px solid rgba(255,255,255,.35); outline-offset: 2px;
+  background: var(--bg); outline: 2px solid color-mix(in srgb, var(--t1) 35%, transparent); outline-offset: 2px;
 }
 .ai-image-source {
   display: flex; align-items: center; justify-content: space-between; gap: 1.2rem;
   width: 100%; max-width: 100%; padding: 1.2rem .2rem 0;
-  color: rgba(255,255,255,.82); font-size: 1.25rem; line-height: 1.4;
+  color: color-mix(in srgb, var(--t1) 82%, transparent); font-size: 1.25rem; line-height: 1.4;
 }
 .ai-image-source a { flex: 0 0 auto; color: var(--color-accent-blue); text-decoration: none; }
 @media (max-width: 600px) {
@@ -1670,7 +1670,7 @@ html:has(.dashboard.dashboard-ai-active) {
   overflow: hidden;
   overscroll-behavior: none;
   box-sizing: border-box;
-  background: #000;
+  background: var(--bg);
 }
 
 .dashboard.dashboard-ai-active > .app-topbar {
@@ -1703,8 +1703,8 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: calc(env(safe-area-inset-top, 0px) + 7.2rem) 0 0;
   overflow: hidden;
   box-sizing: border-box;
-  background: #000;
-  color: #f3f1ea;
+  background: var(--bg);
+  color: var(--t1);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-topbar {
@@ -1720,8 +1720,8 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: 0 1.2rem;
   box-sizing: border-box;
   z-index: 100500;
-  background: rgba(7, 7, 7, .82);
-  border-bottom: 1px solid rgba(255, 255, 255, .055);
+  background: rgb(var(--theme-shadow-rgb) / 0.82);
+  border-bottom: 1px solid color-mix(in srgb, var(--edge) 6%, transparent);
   box-shadow: none;
   backdrop-filter: blur(2rem) saturate(110%);
   -webkit-backdrop-filter: blur(2rem) saturate(110%);
@@ -1800,7 +1800,7 @@ html:has(.dashboard.dashboard-ai-active) {
   opacity: 1;
   pointer-events: auto;
   box-sizing: border-box;
-  background: linear-gradient(to top, rgba(0,0,0,.99) 0%, rgba(0,0,0,.92) 65%, transparent 100%);
+  background: linear-gradient(to top, rgb(var(--theme-shadow-rgb) / 0.99);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar {
@@ -1828,10 +1828,10 @@ html:has(.dashboard.dashboard-ai-active) {
   visibility: visible;
   opacity: 1;
   box-sizing: border-box;
-  border: 1px solid rgba(255,255,255,.09);
+  border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius: 1.8rem;
-  background: rgba(18,18,18,.96);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 1rem 3rem rgba(0,0,0,.25);
+  background: rgb(var(--theme-shadow-rgb) / 0.96);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent);
   backdrop-filter: blur(1.8rem);
   -webkit-backdrop-filter: blur(1.8rem);
 }
@@ -1847,9 +1847,9 @@ html:has(.dashboard.dashboard-ai-active) {
   height: auto;
   margin: 0;
   padding: .2rem 0;
-  color: #f5f5f5;
-  -webkit-text-fill-color: #f5f5f5;
-  caret-color: #f5f5f5;
+  color: var(--t1);
+  -webkit-text-fill-color: var(--t1);
+  caret-color: var(--t1);
   font-size: 16px;
   line-height: 1.5;
   text-align: left;
@@ -1867,12 +1867,12 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__send[data-armed] {
   background: var(--color-accent-blue);
-  color: #fff;
+  color: var(--t1);
 }
 
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__send[data-armed] svg,
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__send[data-armed] path {
-  color: #fff;
+  color: var(--t1);
   fill: currentColor;
   stroke: currentColor;
 }
@@ -1922,13 +1922,13 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.user p {
   background: var(--color-accent-blue);
   border-color: var(--color-accent-blue);
-  color: #ffffff;
+  color: var(--t1);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
-  background: #121212;
-  border-color: rgba(255, 255, 255, .09);
+  background: var(--bg);
+  border-color: color-mix(in srgb, var(--t1) 9%, transparent);
   box-shadow: none;
 }
 
@@ -2004,32 +2004,32 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-top-blur-layer-1 {
   -webkit-backdrop-filter: blur(1px);
   backdrop-filter: blur(1px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 54%, transparent 88%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 54%, transparent 88%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 54%, transparent 88%);
+  mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 54%, transparent 88%);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-top-blur-layer-2 {
   -webkit-backdrop-filter: blur(3px);
   backdrop-filter: blur(3px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 76%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 38%, transparent 76%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 38%, transparent 76%);
+  mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 38%, transparent 76%);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-top-blur-layer-3 {
   -webkit-backdrop-filter: blur(6px);
   backdrop-filter: blur(6px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 22%, transparent 64%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 22%, transparent 64%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 22%, transparent 64%);
+  mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 22%, transparent 64%);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-top-blur-layer-4 {
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 8%, transparent 50%);
-  mask-image: linear-gradient(to bottom, #000 0%, #000 8%, transparent 50%);
+  -webkit-mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 8%, transparent 50%);
+  mask-image: linear-gradient(to bottom, var(--t3) 0%, var(--t3) 8%, transparent 50%);
 }
 
-/* The solid-to-clear tint matches the AI canvas (#000); its long fade avoids
+/* The solid-to-clear tint matches the AI canvas (var(--t3)); its long fade avoids
    a visible seam where the blur layers taper away. This is also the fallback. */
 .dashboard.dashboard-ai-active .ai-page .ai-top-progressive-blur::after {
   content: "";
@@ -2039,12 +2039,7 @@ html:has(.dashboard.dashboard-ai-active) {
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, .92) 0%,
-    rgba(0, 0, 0, .76) 28%,
-    rgba(0, 0, 0, .42) 58%,
-    rgba(0, 0, 0, .16) 78%,
-    rgba(0, 0, 0, 0) 100%
-  );
+    rgb(var(--theme-shadow-rgb) / 0.92);
 }
 
 @supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
@@ -2084,7 +2079,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: 0;
   box-sizing: border-box;
   overflow-wrap: anywhere;
-  color: #f3f3f3;
+  color: var(--t1);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-role {
@@ -2094,7 +2089,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
   width: 100%;
   max-width: 100%;
-  color: #f1f1f1;
+  color: var(--t1);
   font-size: 1.7rem;
   line-height: 1.72;
   letter-spacing: 0;
@@ -2114,7 +2109,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
   margin: 1.65em 0 .65em;
-  color: #fff;
+  color: var(--t1);
   font-weight: var(--font-weight-semibold);
   line-height: 1.3;
   letter-spacing: -.025em;
@@ -2141,19 +2136,19 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li::marker {
-  color: #9ca3af;
+  color: var(--t2);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong {
-  color: #fff;
+  color: var(--t1);
   font-weight: var(--font-weight-semibold);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote {
   margin: 1.15em 0 1.45em;
   padding: .15em 0 .15em 1.2em;
-  border-left: .25rem solid rgba(255,255,255,.25);
-  color: #d4d4d4;
+  border-left: .25rem solid color-mix(in srgb, var(--edge) 25%, transparent);
+  color: var(--t1);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content blockquote p {
@@ -2169,9 +2164,9 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content code {
   padding: .12em .35em;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius: .45rem;
-  background: rgba(255,255,255,.07);
+  background: color-mix(in srgb, var(--surface-1) 7%, transparent);
   font-size: .9em;
 }
 
@@ -2180,9 +2175,9 @@ html:has(.dashboard.dashboard-ai-active) {
   overflow-x: auto;
   margin: 1em 0 1.4em;
   padding: 1.2rem;
-  border: 1px solid rgba(255,255,255,.09);
+  border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius: 1rem;
-  background: #101010;
+  background: var(--bg);
   line-height: 1.55;
 }
 
@@ -2190,7 +2185,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: 0;
   border: 0;
   background: transparent;
-  white-space: pre;
+  var(--t1)-space: pre;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content hr {
@@ -2269,11 +2264,11 @@ html:has(.dashboard.dashboard-ai-active) {
   margin: 0 !important;
   padding: 1rem 1.35rem !important;
   box-sizing: border-box !important;
-  border: 1px solid #9E3D1C !important;
+  border: 1px solid var(--accent) !important;
   border-radius: 1.8rem !important;
-  background: #9E3D1C !important;
-  background-color: #9E3D1C !important;
-  color: #ffffff !important;
+  background: var(--accent) !important;
+  background-color: var(--accent) !important;
+  color: var(--t1) !important;
 }
 
 /* If the message contains other paragraph/content wrappers, they must not
@@ -2282,7 +2277,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.user .ai-response-content p {
   background: transparent !important;
   background-color: transparent !important;
-  color: #ffffff !important;
+  color: var(--t1) !important;
 }
 
 
@@ -2293,8 +2288,8 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: 1.5rem;
   border: 1px solid color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
   border-radius: 1.8rem;
-  background: linear-gradient(145deg, rgba(20,29,45,.78), rgba(13,13,13,.96) 62%);
-  color: #f5f7fb;
+  background: linear-gradient(145deg, rgb(var(--theme-shadow-rgb) / 0.78);
+  color: var(--t1);
 }
 .ai-workout-card-eyebrow {
   display: flex;
@@ -2315,14 +2310,14 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 .ai-workout-logged-card h3 {
   margin: 1.1rem 0 .4rem;
-  color: #fff;
+  color: var(--t1);
   font-size: 1.9rem;
   font-weight: var(--font-weight-semibold);
   letter-spacing: -.035em;
 }
 .ai-workout-card-summary {
   margin: 0 0 1.2rem;
-  color: rgba(255,255,255,.53);
+  color: color-mix(in srgb, var(--t1) 53%, transparent);
   font-size: 1.3rem;
 }
 .ai-workout-card-exercises {
@@ -2333,21 +2328,21 @@ html:has(.dashboard.dashboard-ai-active) {
   display: grid;
   gap: .3rem;
   padding: .9rem 0;
-  border-top: 1px solid rgba(255,255,255,.075);
+  border-top: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
 }
 .ai-workout-card-exercise strong {
-  color: rgba(255,255,255,.92);
+  color: color-mix(in srgb, var(--t1) 92%, transparent);
   font-size: 1.4rem;
   font-weight: var(--font-weight-semibold);
 }
 .ai-workout-card-exercise small {
-  color: rgba(255,255,255,.54);
+  color: color-mix(in srgb, var(--t1) 54%, transparent);
   font-size: 1.25rem;
   line-height: 1.5;
 }
 .ai-workout-card-more {
   margin: 0;
-  color: rgba(255,255,255,.48);
+  color: color-mix(in srgb, var(--t1) 48%, transparent);
   font-size: 1.2rem;
 }
 .ai-workout-card-open {
@@ -2375,7 +2370,7 @@ html:has(.dashboard.dashboard-ai-active) {
   background-color: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
-  color: rgba(245, 245, 247, 0.88) !important;
+  color: color-mix(in srgb, var(--t1) 88%, transparent) !important;
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
@@ -2401,8 +2396,8 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button {
   position: relative !important;
   z-index: 51 !important;
-  background: rgba(18,18,18,.58) !important;
-  background-color: rgba(18,18,18,.58) !important;
+  background: rgb(var(--theme-shadow-rgb) / 0.58) !important;
+  background-color: rgb(var(--theme-shadow-rgb) / 0.58) !important;
   -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
   backdrop-filter: blur(22px) saturate(135%) !important;
   border: 0 !important;
@@ -2411,14 +2406,14 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat:hover,
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button:hover {
-  background: rgba(156, 163, 175, 0.08) !important;
-  background-color: rgba(156, 163, 175, 0.08) !important;
-  border-color: rgba(156, 163, 175, 0.58) !important;
+  background: color-mix(in srgb, var(--surface-2) 8%, transparent) !important;
+  background-color: color-mix(in srgb, var(--t2) 8%, transparent) !important;
+  border-color: color-mix(in srgb, var(--t2) 58%, transparent) !important;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-new-chat:active,
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button:active {
-  background: rgba(156, 163, 175, 0.12) !important;
-  background-color: rgba(156, 163, 175, 0.12) !important;
+  background: color-mix(in srgb, var(--surface-2) 12%, transparent) !important;
+  background-color: color-mix(in srgb, var(--t2) 12%, transparent) !important;
 }
 
 /* AI response typography and action controls — modest ChatGPT-like sizing. */
@@ -2475,7 +2470,7 @@ html:has(.dashboard.dashboard-ai-active) {
 }
 
 
-/* Final AI chat polish: tighter sent bubble, white response actions, and dark glass composer. */
+/* Final AI chat polish: tighter sent bubble, var(--t1) response actions, and dark glass composer. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user > p {
   max-width: min(76%, 42rem) !important;
 }
@@ -2487,18 +2482,18 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button svg {
-  color: #fff !important;
-  stroke: #fff !important;
+  color: var(--t1) !important;
+  stroke: var(--t1) !important;
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button:hover,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button:focus-visible,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-message-actions button:active {
-  background: rgba(255,255,255,.08) !important;
-  background-color: rgba(255,255,255,.08) !important;
-  border-color: rgba(255,255,255,.12) !important;
+  background: color-mix(in srgb, var(--surface-1) 8%, transparent) !important;
+  background-color: color-mix(in srgb, var(--t1) 8%, transparent) !important;
+  border-color: color-mix(in srgb, var(--t1) 12%, transparent) !important;
   box-shadow: none !important;
-  color: #fff !important;
+  color: var(--t1) !important;
 }
 
 /* The fixed composer wrapper stays visually clear; only the actual input field
@@ -2525,19 +2520,15 @@ html:has(.dashboard.dashboard-ai-active) {
   pointer-events: none !important;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0) 0%,
-    rgba(0,0,0,.22) 38%,
-    rgba(0,0,0,.62) 72%,
-    rgba(0,0,0,.88) 100%
-  ) !important;
+    rgb(var(--theme-shadow-rgb) / 0) !important;
 }
 
 /* Dark blurred glass belongs to the input container only, never the outer fade. */
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
-  background: rgba(18,18,18,.68) !important;
-  background-color: rgba(18,18,18,.68) !important;
-  border: 1px solid rgba(255,255,255,.12) !important;
+  background: rgb(var(--theme-shadow-rgb) / 0.68) !important;
+  background-color: rgb(var(--theme-shadow-rgb) / 0.68) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent) !important;
   box-shadow: none !important;
   -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
   backdrop-filter: blur(22px) saturate(135%) !important;
@@ -2545,7 +2536,7 @@ html:has(.dashboard.dashboard-ai-active) {
 
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:hover,
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
-  border-color: rgba(255,255,255,.16) !important;
+  border-color: color-mix(in srgb, var(--t1) 16%, transparent) !important;
 }
 
 
@@ -2581,8 +2572,8 @@ html:has(.dashboard.dashboard-ai-active) {
 
 /* EVOLV AI sent-message bubble — requested dark brown accent. */
 .dashboard.dashboard-ai-active .ai-page .ai-message.user p {
-  background: #653218 !important;
-  border-color: rgba(255,255,255,.08) !important;
+  background: var(--accent) !important;
+  border-color: color-mix(in srgb, var(--t1) 8%, transparent) !important;
 }
 
 
@@ -2598,10 +2589,10 @@ html:has(.dashboard.dashboard-ai-active) {
     height: 4.6rem;
     place-items: center;
     margin-right: .6rem;
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
     border-radius: 1.35rem;
-    color: #f2f2f2;
-    background: rgba(255,255,255,.045);
+    color: var(--t1);
+    background: color-mix(in srgb, var(--surface-1) 5%, transparent);
     cursor: pointer;
   }
   .dashboard.dashboard-ai-active .ai-mobile-navigation-button svg {
@@ -2627,7 +2618,7 @@ html:has(.dashboard.dashboard-ai-active) {
     display: flex;
     align-items: center;
     gap: .8rem;
-    background: rgba(0, 0, 0, .72);
+    background: rgb(var(--theme-shadow-rgb) / 0.72);
     border: 0;
     box-shadow: none;
     backdrop-filter: blur(2rem) saturate(115%);
@@ -2655,7 +2646,7 @@ html:has(.dashboard.dashboard-ai-active) {
     border: 0;
     border-radius: 1.4rem;
     background: transparent;
-    color: rgba(255,255,255,.88);
+    color: color-mix(in srgb, var(--t1) 88%, transparent);
   }
 
   .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions {
@@ -2689,7 +2680,7 @@ html:has(.dashboard.dashboard-ai-active) {
 
   .dashboard.dashboard-ai-active .ai-promptbar-shell {
     padding: 1rem 2rem calc(1.4rem + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, rgba(0,0,0,.98) 0%, rgba(0,0,0,.9) 65%, transparent 100%);
+    background: linear-gradient(to top, rgb(var(--theme-shadow-rgb) / 0.98);
   }
 
   .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar {
@@ -3092,7 +3083,7 @@ html:has(.dashboard.dashboard-ai-active) {
   border: 1px solid rgba(var(--ac, 229, 134, 66), .24);
   border-radius: 2rem 2rem .65rem 2rem;
   background: rgba(var(--ac, 229, 134, 66), .13);
-  color: rgba(255,255,255,.96);
+  color: color-mix(in srgb, var(--t1) 96%, transparent);
   box-shadow: none;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
@@ -3102,7 +3093,7 @@ html:has(.dashboard.dashboard-ai-active) {
   border-radius: 0;
   background: transparent;
   box-shadow: none;
-  color: rgba(255,255,255,.94);
+  color: color-mix(in srgb, var(--t1) 94%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content {
   font-size: 1.65rem;
@@ -3114,7 +3105,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h1,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h2,
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content h3 {
-  margin: 1.1em 0 .45em; color: #fff; font-size: 1.7rem; font-weight: 600;
+  margin: 1.1em 0 .45em; color: var(--t1); font-size: 1.7rem; font-weight: 600;
   letter-spacing: -.02em; line-height: 1.35;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content ul,
@@ -3122,7 +3113,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding-left: 1.5em; margin: .5em 0 1.1em;
 }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content li { margin: .35em 0; }
-.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong { color: #fff; font-weight: 600; }
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content strong { color: var(--t1); font-weight: 600; }
 .dashboard.dashboard-ai-active .ai-page .ai-message.assistant .ai-response-content a {
   color: rgb(var(--ac, 229, 134, 66)); text-decoration-color: rgba(var(--ac, 229, 134, 66), .4);
   text-underline-offset: .2em;
@@ -3151,7 +3142,7 @@ html:has(.dashboard.dashboard-ai-active) {
    The JS visualViewport listener resizes the dashboard to the visible area.
    Keep the composer absolutely anchored inside that resized canvas; mixing
    fixed positioning, safe-area height expansion, and visualViewport sizing
-   causes WebKit to leave a stale black layer over the input during keyboard
+   causes WebKit to leave a stale var(--bg) layer over the input during keyboard
    open/close transitions. */
 .dashboard.dashboard-ai-active {
   position: fixed !important;
@@ -3360,15 +3351,15 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-history-select-toggle {
   border: 0;
   background: transparent;
-  color: rgba(255,255,255,.76);
+  color: color-mix(in srgb, var(--t1) 76%, transparent);
   font: inherit;
   font-size: 1.3rem;
   padding: .8rem .5rem;
   cursor: pointer;
 }
 .dashboard.dashboard-ai-active .ai-history-row.selected {
-  background: rgba(229,134,66,.11);
-  border-color: rgba(229,134,66,.28);
+  background: color-mix(in srgb, var(--accent) 11%, transparent);
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-history-row-select {
   display: flex;
@@ -3382,15 +3373,15 @@ html:has(.dashboard.dashboard-ai-active) {
   height: 2rem;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255,255,255,.32);
+  border: 1px solid color-mix(in srgb, var(--edge) 32%, transparent);
   border-radius: 50%;
-  color: #17110d;
+  color: var(--t3);
   background: transparent;
   box-sizing: border-box;
 }
 .dashboard.dashboard-ai-active .ai-history-checkbox.checked {
-  background: #E58642;
-  border-color: #E58642;
+  background: var(--accent);
+  border-color: var(--accent);
 }
 .dashboard.dashboard-ai-active .ai-history-bulk-actions {
   position: sticky;
@@ -3398,7 +3389,7 @@ html:has(.dashboard.dashboard-ai-active) {
   display: flex;
   gap: .9rem;
   padding: 1.2rem 0 calc(1rem + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(180deg, rgba(10,9,8,0), #0a0908 24%);
+  background: linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0);
 }
 .dashboard.dashboard-ai-active .ai-history-bulk-actions button {
   flex: 1;
@@ -3409,12 +3400,12 @@ html:has(.dashboard.dashboard-ai-active) {
   cursor: pointer;
 }
 .dashboard.dashboard-ai-active .ai-history-bulk-archive {
-  color: #f4eee8;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(255,255,255,.06);
+  color: var(--t1);
+  border: 1px solid color-mix(in srgb, var(--edge) 16%, transparent);
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent);
 }
 .dashboard.dashboard-ai-active .ai-history-bulk-delete {
-  color: #fff;
-  border: 1px solid rgba(220,75,65,.38);
-  background: rgba(160,45,38,.2);
+  color: var(--t1);
+  border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  background: color-mix(in srgb, var(--accent) 20%, transparent);
 }
