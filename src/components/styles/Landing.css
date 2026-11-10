@@ -14,7 +14,7 @@
 
 
 .landing #story,
-.landing #features,
+.landing var(--accent)tures,
 .landing #areas,
 .landing #faq{
   scroll-margin-top: 7rem;
@@ -685,7 +685,7 @@ body,
   isolation: isolate;
   overflow: hidden;
   background:
-    radial-gradient(circle at 74% 46%, color-mix(in srgb, var(--t1) 6%, transparent),
+    radial-gradient(circle at 74% 46%, color-mix(in srgb, var(--t1) 6%, transparent), transparent 28%),
     var(--t3);
 }
 .ev-hero-grid {
@@ -694,7 +694,8 @@ body,
   z-index: -2;
   opacity: .34;
   background-image:
-    linear-gradient(color-mix(in srgb, var(--t1) 5%, transparent);
+    linear-gradient(color-mix(in srgb, var(--t1) 5%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--t1) 5%, transparent) 1px, transparent 1px);
   background-size: 8rem 8rem;
   mask-image: linear-gradient(to bottom, transparent, var(--bg) 15%, var(--bg) 80%, transparent);
 }
@@ -705,7 +706,7 @@ body,
   right: -12vw;
   top: 12%;
   border-radius: 50%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--t1) 8%, transparent);
+  background: radial-gradient(circle, color-mix(in srgb, var(--t1) 8%, transparent), transparent 63%);
   filter: blur(8px);
   z-index: -1;
 }
@@ -787,7 +788,7 @@ body,
   transform: translateY(-42%);
   padding: 2.2rem;
   border: 1px solid color-mix(in srgb, var(--edge) 14%, transparent);
-  background: linear-gradient(145deg, rgb(var(--theme-shadow-rgb) / 0.96);
+  background: linear-gradient(145deg, rgb(var(--theme-shadow-rgb) / 0.96), rgb(var(--theme-shadow-rgb) / 0.94));
   box-shadow: 0 4rem 9rem rgb(var(--theme-shadow-rgb) / 0.55);
   z-index: 1;
 }
@@ -1166,7 +1167,7 @@ body,
   isolation:isolate;
 }
 .landing-v2:before{
-  background:linear-gradient(180deg,transparent 0%,color-mix(in srgb, var(--t1) 1%, transparent)!important;
+  background:linear-gradient(180deg,transparent 0%,color-mix(in srgb, var(--t1) 1%, transparent) 40%,transparent 72%)!important;
 }
 .landing-v2 .landing-nav{
   top:20px!important;
@@ -1192,7 +1193,7 @@ body,
 .landing-v2 .ev-hero-grid{
   inset:0!important;
   opacity:.42;
-  background-image:linear-gradient(color-mix(in srgb, var(--t1) 4%, transparent)!important;
+  background-image:linear-gradient(color-mix(in srgb, var(--t1) 4%, transparent) 1px,transparent 1px),linear-gradient(90deg,color-mix(in srgb, var(--t1) 4%, transparent) 1px,transparent 1px)!important;
   background-size:76px 76px!important;
   mask-image:linear-gradient(to bottom,var(--bg),transparent 90%);
 }
@@ -1260,7 +1261,7 @@ body,
   position:relative!important;align-self:flex-end!important;
   width:min(360px,36vw)!important;margin-top:50px!important;margin-right:2vw!important;
   padding:19px!important;border:1px solid color-mix(in srgb, var(--edge) 16%, transparent)!important;
-  border-radius:24px!important;background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.91)!important;
+  border-radius:24px!important;background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.91),rgb(var(--theme-shadow-rgb) / 0.82))!important;
   box-shadow:0 35px 100px rgb(var(--theme-shadow-rgb) / 0.28)!important;
   backdrop-filter:blur(18px)!important;
 }
@@ -1333,11 +1334,11 @@ body,
 .landing-v2 .ev-system-card{
   min-height:290px!important;padding:27px!important;border-radius:24px!important;
   border:1px solid color-mix(in srgb, var(--edge) 12%, transparent)!important;
-  background:linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent)!important;
+  background:linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent),color-mix(in srgb, var(--t1) 1%, transparent))!important;
   display:flex!important;flex-direction:column!important;align-items:flex-start!important;
   position:relative;transition:transform .35s cubic-bezier(.2,.8,.2,1),border-color .35s ease,background .35s ease!important;
 }
-.landing-v2 .ev-system-card:hover{transform:translateY(-5px)!important;border-color:color-mix(in srgb, var(--color-accent-blue) 34%, transparent)!important;background:linear-gradient(145deg,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),color-mix(in srgb, var(--t1) 1%, transparent)!important}
+.landing-v2 .ev-system-card:hover{transform:translateY(-5px)!important;border-color:color-mix(in srgb, var(--color-accent-blue) 34%, transparent)!important;background:linear-gradient(145deg,color-mix(in srgb, var(--color-accent-blue) 5.5%, transparent),color-mix(in srgb, var(--t1) 1%, transparent))!important}
 .landing-v2 .ev-card-num{color:color-mix(in srgb, var(--t1) 35%, transparent)!important;font:10px 'DM Mono',monospace!important;margin-bottom:38px!important}
 .landing-v2 .ev-system-card>svg{color:var(--ev-accent)!important;margin-bottom:20px!important}
 .landing-v2 .ev-system-card h3{font-size:clamp(24px,3vw,34px)!important;letter-spacing:-.05em!important;font-weight:var(--font-weight-medium)!important;margin:0 0 10px!important}
@@ -1574,7 +1575,7 @@ body,
   padding: 2.3rem !important;
   border: 1px solid var(--ev-border) !important;
   border-radius: 1.8rem !important;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--t1) 4%, transparent) !important;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--t1) 4%, transparent), color-mix(in srgb, var(--t1) 1%, transparent)) !important;
   transition: border-color .25s ease, background .25s ease, transform .25s ease !important;
 }
 .landing-v2 .ev-system-steps > div > span {
@@ -1598,7 +1599,7 @@ body,
   .landing-v2 .ev-system-steps > div:hover {
     transform: translateY(-3px);
     border-color: color-mix(in srgb, var(--color-accent-blue) 28%, transparent) !important;
-    background: linear-gradient(145deg, color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent), color-mix(in srgb, var(--t1) 1%, transparent) !important;
+    background: linear-gradient(145deg, color-mix(in srgb, var(--color-accent-blue) 4.5%, transparent), color-mix(in srgb, var(--t1) 1%, transparent)) !important;
   }
 }
 .landing-v2 .ev-experience {
@@ -2343,7 +2344,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
 .landing-v2 .ev-hero-grid {
   opacity: .22 !important;
   background-size: 84px 84px !important;
-  mask-image: linear-gradient(to bottom, rgb(var(--theme-shadow-rgb) / 0.55);
+  mask-image: linear-gradient(to bottom, rgb(var(--theme-shadow-rgb) / 0.55), transparent 78%);
 }
 .landing-v2 .ev-hero::after {
   content: "";
@@ -2357,8 +2358,11 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
       135deg,
       transparent 0,
       transparent 76px,
-      color-mix(in srgb, var(--t1) 4%, transparent);
-  mask-image: linear-gradient(to right, transparent 0%, rgb(var(--theme-shadow-rgb) / 0.65);
+      color-mix(in srgb, var(--t1) 4%, transparent) 77px,
+      transparent 78px,
+      transparent 154px
+    );
+  mask-image: linear-gradient(to right, transparent 0%, rgb(var(--theme-shadow-rgb) / 0.65) 42%, rgb(var(--theme-shadow-rgb) / 0.25) 100%);
 }
 
 
@@ -2437,7 +2441,8 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 52% 42%, transparent 0%, rgb(var(--theme-shadow-rgb) / 0.25);
+    radial-gradient(ellipse at 52% 42%, transparent 0%, rgb(var(--theme-shadow-rgb) / 0.25) 38%, rgb(var(--theme-shadow-rgb) / 0.72) 100%),
+    linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0.18), transparent 30%, rgb(var(--theme-shadow-rgb) / 0.3));
 }
 .landing-v2 .ev-hero-grid,
 .landing-v2 .ev-hero-glow,
