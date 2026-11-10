@@ -1286,3 +1286,151 @@ body {background:var(--bg)!important}
 :root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-settings-section-icon,:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-v2-action-icon,:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-v2-focus-icon {color:var(--t1)!important;background:var(--surface-2)!important}
 :root[data-theme="light"] .dashboard .profile-v2 .profile-ai-frequency-row select,:root[data-theme="light"] .dashboard .profile-v2 .profile-reminder-time-row input[type="time"] {color:var(--t1)!important;background:var(--surface-1)!important;border-color:var(--edge)!important;color-scheme:light}
 @media(prefers-reduced-motion:reduce){.profile-appearance-option{transition:none}}
+
+
+/* --------------------------------------------------------------------------
+   Theme adaptation layer for every authenticated EVOLV screen.
+   Component sheets own layout; these tokens own colour. Keep this layer last.
+   -------------------------------------------------------------------------- */
+:root[data-theme="dark"] {
+  --page:var(--bg); --panel:var(--surface-1); --panel-raised:var(--surface-2);
+  --panel-soft:var(--surface-3); --ink:var(--t1); --ink-muted:var(--t2);
+  --ink-subtle:var(--t3); --stroke:var(--edge); --field:var(--field-bg);
+  --overlay:rgba(0,0,0,.72); --overlay-soft:rgba(0,0,0,.42);
+  --control-hover:rgba(255,255,255,.055); --control-active:rgba(255,255,255,.085);
+  --chart-grid:rgba(255,255,255,.09); --chart-track:rgba(255,255,255,.10);
+}
+:root[data-theme="light"] {
+  --page:var(--bg); --panel:var(--surface-1); --panel-raised:var(--surface-2);
+  --panel-soft:var(--surface-3); --ink:var(--t1); --ink-muted:var(--t2);
+  --ink-subtle:var(--t3); --stroke:var(--edge); --field:var(--field-bg);
+  --overlay:rgba(35,29,24,.38); --overlay-soft:rgba(35,29,24,.18);
+  --control-hover:rgba(36,33,30,.045); --control-active:rgba(36,33,30,.075);
+  --chart-grid:rgba(36,33,30,.09); --chart-track:rgba(36,33,30,.10);
+}
+html,body,#root { background:var(--page)!important; color:var(--ink); }
+body { color:var(--ink); }
+.dashboard,.dashboard .dash-main,.dashboard .dashboard-pages,
+.dashboard .panel-page,.dashboard .settings-page,.dashboard .goals-page,
+.dashboard .progress-page,.dashboard .calendar-page,.dashboard .schedule-page,
+.dashboard .daily-routine-page,.dashboard .money-page,.dashboard .notifications-page,
+.dashboard .log-page,.dashboard .ai-page {
+  color:var(--ink);
+}
+.dashboard .panel-page,.dashboard .settings-page,.dashboard .goals-page,
+.dashboard .progress-page,.dashboard .calendar-page,.dashboard .schedule-page,
+.dashboard .daily-routine-page,.dashboard .money-page,.dashboard .notifications-page,
+.dashboard .log-page {
+  background:transparent!important; background-color:transparent!important;
+}
+.dashboard :is(.glass-card,.dash-card,.dashboard-card,.stat-card,.metric-card,
+.goal-card,.goal-item,.goal-accordion,.progress-card,.chart-card,.routine-card,
+.routine-task-card,.calendar-card,.schedule-card,.notification-card,
+.notification-page-row,.money-summary,.money-transaction,.money-filter-tabs,
+.profile-settings-section,.profile-stat-grid>article,.profile-v2-summary,
+.profile-v2-focus-row,.profile-v2-action-row,.log-card,.log-form-card,
+.log-choice-card,.log-metric-card,.reflection-card,.empty-state-card) {
+  color:var(--ink);
+  border-color:var(--stroke)!important;
+  background-color:var(--panel)!important;
+  box-shadow:var(--shadow-theme);
+}
+.dashboard :is(.glass-card,.dash-card,.dashboard-card,.stat-card,.metric-card,
+.goal-card,.goal-item,.goal-accordion,.progress-card,.chart-card,.routine-card,
+.routine-task-card,.calendar-card,.schedule-card,.notification-card,
+.notification-page-row,.money-summary,.money-transaction,.profile-settings-section,
+.profile-stat-grid>article,.profile-v2-summary,.profile-v2-focus-row,
+.profile-v2-action-row,.log-card,.log-form-card,.log-choice-card,
+.log-metric-card,.reflection-card,.empty-state-card) :is(h1,h2,h3,h4,strong,label) {
+  color:var(--ink);
+}
+.dashboard :is(p,small,.muted,.subtext,.description,.helper-text,.section-description) {
+  color:var(--ink-muted);
+}
+.dashboard :is(input,textarea,select,[contenteditable="true"]) {
+  color:var(--ink)!important;
+  background-color:var(--field)!important;
+  border-color:var(--stroke)!important;
+  caret-color:var(--accent);
+}
+.dashboard :is(input,textarea,select)::placeholder { color:var(--ink-subtle)!important; opacity:1; }
+.dashboard :is(input,textarea,select):focus {
+  border-color:color-mix(in srgb,var(--accent) 58%,var(--stroke))!important;
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 12%,transparent)!important;
+}
+.dashboard :is(button,.button,.icon-button):not(.primary):not(.primary-button):not(.btn-primary):not(.bottom-active):not([data-armed]) {
+  border-color:var(--stroke);
+}
+.dashboard :is(.divider,.separator,hr) { border-color:var(--stroke)!important; }
+.dashboard :is(.chart-grid line,.recharts-cartesian-grid line,.recharts-cartesian-axis line) {
+  stroke:var(--chart-grid)!important;
+}
+.dashboard :is(.chart-track,.progress-track,.progress-rail) { background:var(--chart-track); }
+.dashboard .ai-page :is(.ai-chat,.ai-messages,.ai-history-sheet) {
+  color:var(--ink); background:var(--panel)!important;
+}
+.dashboard .ai-page :is(.ai-message,.ai-bubble,.ai-response,.ai-assistant-message) {
+  color:var(--ink); background:var(--panel-raised);
+}
+.dashboard .ai-page :is(.ai-input,.ai-input-wrap,.ai-composer) {
+  background:var(--panel)!important; border-color:var(--stroke)!important;
+}
+.dashboard .ai-page :is(.ai-input input,.ai-composer textarea) {
+  color:var(--ink)!important; background:transparent!important;
+}
+.dashboard .ai-page :is(.ai-heading,.ai-history-header,.ai-history-toolbar) {
+  color:var(--ink); border-color:var(--stroke)!important;
+}
+.dashboard .evolv-bottom-nav,.dashboard .evolv-desktop-sidebar {
+  color:var(--ink); background:var(--panel)!important; border-color:var(--stroke)!important;
+}
+.dashboard .evolv-bottom-nav :is(button,small,span) { color:inherit; }
+.dashboard .evolv-bottom-nav .bottom-active { color:var(--accent-foreground)!important; }
+.dashboard .profile-v2-tabs button[aria-selected="true"],
+.dashboard .profile-v2-tabs button[aria-pressed="true"] {
+  color:var(--ink); background:var(--panel-raised);
+}
+.dashboard .notification-frequency-control,
+.dashboard .notification-master-row,.dashboard .notification-preference,
+.dashboard .notification-quiet-row {
+  color:var(--ink); border-color:var(--stroke)!important; background:transparent!important;
+}
+.dashboard .routine-day-picker button,.dashboard .routine-nav-button,
+.dashboard .money-filter-tabs button,.dashboard .goal-heatmap-range button {
+  color:var(--ink); border-color:var(--stroke)!important; background:var(--panel-raised)!important;
+}
+.dashboard .routine-day-picker button[aria-pressed="true"],
+.dashboard .money-filter-tabs button[aria-pressed="true"],
+.dashboard .goal-heatmap-range button[aria-pressed="true"] {
+  color:var(--accent-foreground)!important; background:var(--accent)!important;
+}
+.dashboard :is(.modal,.sheet,.bottom-sheet,.dialog,.popover,.dropdown-menu,
+.ai-history-sheet,.quick-log-sheet,.reflection-sheet) {
+  color:var(--ink); background:var(--panel)!important; border-color:var(--stroke)!important;
+}
+.dashboard :is(.modal-backdrop,.sheet-backdrop,.dialog-backdrop,.overlay) {
+  background:var(--overlay)!important;
+}
+.dashboard :is(.skeleton,.skeleton-line,.loading-placeholder) {
+  background:linear-gradient(90deg,var(--panel-raised),var(--panel-soft),var(--panel-raised))!important;
+}
+:root[data-theme="light"] .dashboard :is(.ai-message-user,.ai-user-message) {
+  color:#fff!important; background:#653218!important;
+}
+:root[data-theme="light"] .dashboard :is(.primary,.primary-button,.btn-primary,.button-primary,
+.primary-cta,.auth-submit,.onboard-continue,.onboarding-next,.bottom-active,
+.ai-send-button,.prompt-bar__send[data-armed]) {
+  color:#fff!important;
+}
+:root[data-theme="light"] .dashboard :is(.primary,.primary-button,.btn-primary,.button-primary,
+.primary-cta,.auth-submit,.onboard-continue,.onboarding-next,.bottom-active,
+.ai-send-button,.prompt-bar__send[data-armed]) :is(svg,path) { color:inherit; }
+:root[data-theme="light"] .evolv-loader { background:var(--bg)!important; color:var(--t1)!important; }
+:root[data-theme="light"] .evolv-onboarding-name input:-webkit-autofill,
+:root[data-theme="light"] .evolv-onboarding-name input:-webkit-autofill:hover,
+:root[data-theme="light"] .evolv-onboarding-name input:-webkit-autofill:focus,
+:root[data-theme="light"] .evolv-onboarding-name input:-webkit-autofill:active {
+  -webkit-text-fill-color:var(--t1)!important; caret-color:var(--t1);
+  -webkit-box-shadow:0 0 0 1000px var(--field) inset!important;
+  box-shadow:0 0 0 1000px var(--field) inset!important; background-color:var(--field)!important;
+}
