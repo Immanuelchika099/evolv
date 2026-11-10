@@ -1,9 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings, Compass, Volume2 } from 'lucide-react'
+import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings, Compass, Volume2, Sun, Moon, Monitor } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
-import '../styles/tokens.css'
 import './styles/ProfileFixes.css'
 
 const DEFAULT_SETTINGS = {weeklyGoalTarget:3,weekStart:'monday',streakAlerts:true,weeklySummary:true,units:'metric',animations:true,language:'English'}
@@ -47,6 +46,8 @@ export default function ProfileSettingsPage({pageProps}){
   const [avatarStudioOpen,setAvatarStudioOpen]=useState(false)
   const [photoMenuOpen,setPhotoMenuOpen]=useState(false)
   const [profileTab,setProfileTab]=useState('account')
+  const [themePreference,setThemePreference]=useState(()=>{try{return localStorage.getItem('evolv-theme-preference')||'system'}catch{return 'system'}})
+  const [systemDark,setSystemDark]=useState(()=>window.matchMedia?.('(prefers-color-scheme: dark)').matches??true)
   const [focusExpanded,setFocusExpanded]=useState(false)
   const [focusDraft,setFocusDraft]=useState(profile?.focus||data?.focus||'')
   const [growthDraft,setGrowthDraft]=useState(profile?.growth_areas||data?.areas||[])
@@ -54,6 +55,28 @@ export default function ProfileSettingsPage({pageProps}){
   const [avatarStyle,setAvatarStyle]=useState(()=>{try{return {...DEFAULT_AVATAR,...JSON.parse(localStorage.getItem('evolv-avatar-preferences')||'{}')}}catch{return {...DEFAULT_AVATAR}}})
   const settingsKey=user?.id?'evolv-profile-settings-'+user.id:null
 
+  useEffect(()=>{
+    const media=window.matchMedia?.('(prefers-color-scheme: dark)')
+    if(!media)return
+    const sync=event=>setSystemDark(event.matches)
+    setSystemDark(media.matches)
+    media.addEventListener?.('change',sync)
+    return()=>media.removeEventListener?.('change',sync)
+  },[])
+  useEffect(()=>{
+    const resolved=themePreference==='system'?(systemDark?'dark':'light'):themePreference
+    document.documentElement.dataset.theme=resolved
+    document.documentElement.dataset.themePreference=themePreference
+    const meta=document.querySelector('meta[name=theme-color]')
+    if(meta)meta.setAttribute('content',resolved==='light'?'#F7F5F2':'#0a0908')
+    try{localStorage.setItem('evolv-theme-preference',themePreference)}catch{}
+  },[themePreference,systemDark])
+  useEffect(()=>{
+    const onStorage=event=>{if(event.key==='evolv-theme-preference'&&['system','light','dark'].includes(event.newValue))setThemePreference(event.newValue)}
+    window.addEventListener('storage',onStorage)
+    return()=>window.removeEventListener('storage',onStorage)
+  },[])
+  function chooseTheme(value){setThemePreference(value);try{localStorage.setItem('evolv-theme-preference',value)}catch{}}
   useEffect(()=>{let mounted=true;(async()=>{const {data:a}=await supabase.auth.getUser();if(!mounted||!a?.user)return;const current=a.user;const {data:p}=await supabase.from('profiles').select('id,first_name,growth_areas,focus,first_goal,created_at,avatar_url').eq('id',current.id).maybeSingle();if(!mounted)return;setUser(current);setDraft({name:p?.first_name||profileName||'',email:current.email||'',bio:current.user_metadata?.bio||''});setLocalAvatar(p?.avatar_url||current.user_metadata?.avatar_url||avatarUrl||'')})();return()=>{mounted=false}},[])
   useEffect(()=>{setFocusDraft(profile?.focus||data?.focus||'');setGrowthDraft(profile?.growth_areas||data?.areas||[])},[profile?.focus,profile?.growth_areas,data?.focus,data?.areas])
   useEffect(()=>{if(!settingsKey)return;try{const next={...DEFAULT_SETTINGS,...JSON.parse(localStorage.getItem(settingsKey)||'{}')};setSettings(next);document.documentElement.classList.toggle('evolv-reduced-motion',next.animations===false)}catch{}},[settingsKey])
@@ -231,6 +254,16 @@ export default function ProfileSettingsPage({pageProps}){
           </ProfileSettingsSection>
         </div>
       </> : <>
+        <div className="profile-v2-group">
+          <ProfileSettingsSection label="PERSONALISE EVOLV" title="Appearance" icon={Sun}>
+            <div className="profile-setting-row profile-setting-row-wide"><div><strong>App theme</strong><span>Choose how EVOLV looks across your devices.</span></div></div>
+            <div className="profile-appearance-options" role="group" aria-label="Appearance preference">
+              <button type="button" className="profile-appearance-option" aria-pressed={themePreference==='light'} onClick={()=>chooseTheme('light')}><Sun aria-hidden="true"/><span>Light</span></button>
+              <button type="button" className="profile-appearance-option" aria-pressed={themePreference==='dark'} onClick={()=>chooseTheme('dark')}><Moon aria-hidden="true"/><span>Dark</span></button>
+              <button type="button" className="profile-appearance-option" aria-pressed={themePreference==='system'} onClick={()=>chooseTheme('system')}><Monitor aria-hidden="true"/><span>System</span></button>
+            </div>
+          </ProfileSettingsSection>
+        </div>
         <div className="profile-v2-group">
           <ProfileSettingsSection label="YOUR EXPERIENCE" title="Sound" icon={Volume2}>
             <SettingToggle label="Ambient sound" description="Play the soft, airy background sound in EVOLV. You can turn it off anytime." checked={ambientSoundEnabled} onChange={toggleAmbientSound}/>
