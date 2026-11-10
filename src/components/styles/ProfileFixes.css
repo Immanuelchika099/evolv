@@ -17,13 +17,13 @@
   color: var(--t1) !important;
 }
 .dashboard .settings-page .settings-danger-button {
-  border-color: var(--t1) !important;
-  background: rgba(185, 28, 28, .09) !important;
-  color: var(--t1) !important;
+  border-color: color-mix(in srgb, var(--accent) 24%, transparent) !important;
+  background: color-mix(in srgb, var(--accent) 9%, transparent) !important;
+  color: var(--accent) !important;
 }
 .dashboard .settings-page .settings-danger-button:hover:not(:disabled) {
-  border-color: var(--t1) !important;
-  background: rgba(185, 28, 28, .18) !important;
+  border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important;
+  background: color-mix(in srgb, var(--accent) 18%, transparent) !important;
   color: var(--t1) !important;
 }
 .dashboard .settings-page .settings-danger-button:disabled {
@@ -56,7 +56,7 @@
   border-radius: 50% !important;
   background: var(--graph-blue-bright) !important;
   color: var(--t1) !important;
-  box-shadow: 0 5px 18px rgb(var(--theme-shadow-rgb) / .48) !important;
+  box-shadow: 0 5px 18px rgb(var(--theme-shadow-rgb) / 0.48) !important;
   pointer-events: none;
 }
 .dashboard .settings-page .profile-avatar-camera svg {
@@ -80,12 +80,12 @@
 
 /* Keep destructive actions red rather than inheriting the old green theme. */
 .dashboard .settings-page .profile-modal .settings-danger-button {
-  border-color: var(--t1) !important;
-  background: rgba(185, 28, 28, .12) !important;
-  color: var(--t1) !important;
+  border-color: color-mix(in srgb, var(--accent) 28%, transparent) !important;
+  background: color-mix(in srgb, var(--accent) 12%, transparent) !important;
+  color: var(--accent) !important;
 }
 .dashboard .settings-page .profile-modal .settings-danger-button:hover:not(:disabled) {
-  background: rgba(185, 28, 28, .2) !important;
+  background: color-mix(in srgb, var(--accent) 20%, transparent) !important;
 }
 
 
@@ -94,11 +94,11 @@
   margin: 0 !important;
   padding: 0 !important;
   border: 0 !important;
-  border-bottom: 1px solid var(--edge) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--edge) 12%, transparent) !important;
   background: transparent !important;
 }
 .dashboard .settings-page .profile-settings-section:first-of-type {
-  border-top: 1px solid var(--edge) !important;
+  border-top: 1px solid color-mix(in srgb, var(--edge) 12%, transparent) !important;
 }
 .dashboard .settings-page .profile-settings-section-head {
   width: 100%;
@@ -132,8 +132,8 @@
 }
 .dashboard .settings-page .profile-settings-section:nth-of-type(1) .profile-settings-section-icon { color: var(--graph-blue-light); }
 .dashboard .settings-page .profile-settings-section:nth-of-type(2) .profile-settings-section-icon { color: var(--color-accent-blue); }
-.dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color: var(--t1); }
-.dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color: var(--t1); }
+.dashboard .settings-page .profile-settings-section:nth-of-type(3) .profile-settings-section-icon { color: var(--accent); }
+.dashboard .settings-page .profile-settings-section:nth-of-type(4) .profile-settings-section-icon { color: var(--pos); }
 .dashboard .settings-page .profile-settings-section-heading {
   display: grid;
   gap: 5px;
@@ -141,7 +141,7 @@
   flex: 1;
 }
 .dashboard .settings-page .profile-settings-section-heading .section-label {
-  color: var(--t1) !important;
+  color: color-mix(in srgb, var(--t1) 42%, transparent) !important;
   font: 500 1.05rem/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   letter-spacing: .1em;
 }
@@ -152,7 +152,7 @@
 }
 .dashboard .settings-page .profile-settings-chevron {
   flex: 0 0 auto;
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 56%, transparent);
   transition: transform .22s ease, color .22s ease;
 }
 .dashboard .settings-page .profile-settings-chevron.is-open {
@@ -178,14 +178,14 @@
   padding-bottom: 18px;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row {
-  border-bottom: 1px solid var(--edge) !important;
+  border-bottom: 1px solid color-mix(in srgb, var(--edge) 9%, transparent) !important;
   background: transparent !important;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row:last-child {
   border-bottom: 0 !important;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row strong {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 94%, transparent);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 .dashboard .settings-page .profile-settings-list .profile-setting-row span,
@@ -195,13 +195,13 @@
 .dashboard .settings-page .profile-account-actions {
   margin-top: 34px;
   padding-top: 4px;
-  border-top: 1px solid var(--edge);
+  border-top: 1px solid color-mix(in srgb, var(--edge) 12%, transparent);
 }
 .dashboard .settings-page .profile-account-actions-heading {
   padding: 22px 2px 12px;
 }
 .dashboard .settings-page .profile-account-actions-heading .section-label {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 42%, transparent);
 }
 .dashboard .settings-page .profile-account-actions-heading h3 {
   margin: 7px 0 0;
@@ -215,7 +215,7 @@
   gap: 14px;
   padding: 17px 2px;
   border: 0;
-  border-bottom: 1px solid var(--edge);
+  border-bottom: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius: 0;
   background: transparent;
   color: inherit;
@@ -224,7 +224,7 @@
 }
 .dashboard .settings-page .profile-account-action:last-child { border-bottom: 0; }
 .dashboard .settings-page .profile-account-action .logout-icon { color: var(--graph-blue-light); }
-.dashboard .settings-page .profile-account-action .delete-icon { color: var(--t1); }
+.dashboard .settings-page .profile-account-action .delete-icon { color: var(--accent); }
 .dashboard .settings-page .profile-account-action-copy {
   flex: 1;
   min-width: 0;
@@ -236,18 +236,18 @@
   font: 600 1.55rem/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-account-action-copy small {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 48%, transparent);
   font: 400 1.3rem/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-account-action-arrow {
   flex: 0 0 auto;
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 42%, transparent);
 }
 .dashboard .settings-page .profile-account-action:hover .profile-account-action-arrow {
   color: color-mix(in srgb, var(--color-accent-blue) 90%, transparent);
 }
 .dashboard .settings-page .profile-account-action.delete-account-action:hover .profile-account-action-arrow {
-  color: var(--t1);
+  color: var(--accent);
 }
 @media (max-width: 650px) {
   .dashboard .settings-page .profile-settings-section-head { min-height: 72px; gap: 11px; }
@@ -263,8 +263,8 @@
 /* Distinct, tasteful icon colours for each expandable settings category. */
 .dashboard .settings-page .profile-settings-section-icon.icon-account { color: var(--graph-blue-light) !important; }
 .dashboard .settings-page .profile-settings-section-icon.icon-goals-habits { color: var(--color-accent-blue) !important; }
-.dashboard .settings-page .profile-settings-section-icon.icon-notifications { color: var(--t1) !important; }
-.dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color: var(--t1) !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-notifications { color: var(--accent) !important; }
+.dashboard .settings-page .profile-settings-section-icon.icon-privacy-data { color: var(--pos) !important; }
 
 
 /* Profile photo picker action sheet */
@@ -274,10 +274,10 @@
 .dashboard .settings-page .profile-photo-menu {
   width: min(100% - 32px, 390px);
   padding: 22px;
-  border: 1px solid var(--edge);
+  border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent);
   border-radius: 22px;
-  background: #0b0d11;
-  box-shadow: 0 24px 80px rgb(var(--theme-shadow-rgb) / .65);
+  background: var(--bg);
+  box-shadow: 0 24px 80px rgb(var(--theme-shadow-rgb) / 0.65);
 }
 .dashboard .settings-page .profile-photo-menu .profile-modal-head {
   margin-bottom: 14px;
@@ -294,7 +294,7 @@
   gap: 14px;
   padding: 15px 2px;
   border: 0;
-  border-top: 1px solid var(--edge);
+  border-top: 1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   background: transparent;
   color: var(--graph-blue-pale);
   text-align: left;
@@ -311,17 +311,17 @@
   font: 600 1.5rem/1.3 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-photo-menu-option small {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 55%, transparent);
   font: 400 1.25rem/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 .dashboard .settings-page .profile-photo-menu-option > svg:last-child {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 40%, transparent);
 }
 .dashboard .settings-page .profile-photo-menu-option:hover {
   background: color-mix(in srgb, var(--color-accent-blue) 8%, transparent);
 }
 .dashboard .settings-page .profile-photo-menu-option.profile-photo-remove-option {
-  color: var(--t1);
+  color: var(--accent);
 }
 
 
@@ -408,8 +408,8 @@
   border-radius: 2.6rem !important;
   background:
     radial-gradient(ellipse at 92% 0%, color-mix(in srgb, var(--ai-bubble-blue) 25%, transparent), transparent 50%),
-    linear-gradient(145deg, color-mix(in srgb, var(--ai-bubble-blue) 13%, transparent), rgb(var(--theme-on-rgb) / .018) 74%) !important;
-  box-shadow: inset 0 1px 0 rgb(var(--theme-on-rgb) / .055), 0 2.2rem 5.4rem rgb(var(--theme-shadow-rgb) / .2) !important;
+    linear-gradient(145deg, color-mix(in srgb, var(--ai-bubble-blue) 13%, transparent), color-mix(in srgb, var(--t1) 2%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 6%, transparent) !important;
 }
 .dashboard .settings-page .profile-summary-top {
   display: flex;
@@ -433,7 +433,7 @@
 }
 .dashboard .settings-page .profile-summary-copy > p {
   margin: 0;
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 58%, transparent);
   font-size: 1.35rem;
   overflow-wrap: anywhere;
 }
@@ -443,7 +443,7 @@
   gap: .65rem;
   width: fit-content;
   margin-top: .35rem;
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 65%, transparent);
   font-size: 1.2rem;
 }
 .dashboard .settings-page .profile-summary-status i {
@@ -458,13 +458,13 @@
   box-shadow: 0 0 0 4px color-mix(in srgb, var(--ai-bubble-blue) 12%, transparent) !important;
 }
 .dashboard .settings-page .profile-avatar {
-  background: linear-gradient(145deg, color-mix(in srgb, var(--ai-bubble-blue) 34%, transparent), rgb(var(--theme-on-rgb) / .04)) !important;
-  color: var(--t1) !important;
+  background: linear-gradient(145deg, color-mix(in srgb, var(--ai-bubble-blue) 34%, transparent), color-mix(in srgb, var(--t1) 4%, transparent) !important;
+  color: var(--accent) !important;
 }
 .dashboard .settings-page .profile-avatar-camera {
   background: var(--ai-bubble-blue) !important;
   color: var(--t1) !important;
-  border-color: var(--t1) !important;
+  border-color: var(--t3) !important;
 }
 .dashboard .settings-page .profile-photo-actions button,
 .dashboard .settings-page .profile-edit-button,
@@ -478,15 +478,15 @@
 .dashboard .settings-page .profile-settings-section {
   margin: 0 !important;
   padding: 0 1.4rem !important;
-  border: 1px solid var(--edge) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent) !important;
   border-radius: 2rem !important;
-  background: linear-gradient(150deg, rgb(var(--theme-on-rgb) / .032), rgb(var(--theme-on-rgb) / .012)) !important;
+  background: linear-gradient(150deg, color-mix(in srgb, var(--t1) 3%, transparent) !important;
 }
 .dashboard .settings-page .profile-settings-section + .profile-settings-section {
   margin-top: 1rem !important;
 }
 .dashboard .settings-page .profile-settings-section:first-of-type {
-  border-top: 1px solid var(--edge) !important;
+  border-top: 1px solid color-mix(in srgb, var(--edge) 8%, transparent) !important;
 }
 .dashboard .settings-page .profile-settings-section-head {
   min-height: 7rem;
@@ -499,20 +499,20 @@
   flex-basis: 4rem;
   border: 1px solid color-mix(in srgb, var(--ai-bubble-blue) 35%, transparent);
   border-radius: 1.25rem;
-  color: color-mix(in srgb, var(--ai-bubble-blue) 78%, white) !important;
+  color: color-mix(in srgb, var(--ai-bubble-blue) 78%, var(--t1)) !important;
   background: color-mix(in srgb, var(--ai-bubble-blue) 14%, transparent) !important;
 }
 .dashboard .settings-page .profile-settings-section-heading .section-label {
-  color: var(--t1) !important;
+  color: color-mix(in srgb, var(--t1) 43%, transparent) !important;
 }
 .dashboard .settings-page .profile-settings-section-heading strong {
   font-size: 1.6rem;
 }
 .dashboard .settings-page .profile-settings-chevron {
-  color: var(--t1) !important;
+  color: color-mix(in srgb, var(--t1) 46%, transparent) !important;
 }
 .dashboard .settings-page .profile-settings-chevron.is-open {
-  color: color-mix(in srgb, var(--ai-bubble-blue) 76%, white) !important;
+  color: color-mix(in srgb, var(--ai-bubble-blue) 76%, var(--t1)) !important;
 }
 .dashboard .settings-page .profile-settings-accordion-content > .profile-settings-list {
   padding: 0 0 0 5.2rem;
@@ -531,7 +531,7 @@
 }
 .dashboard .settings-page .profile-account-details-form label > span,
 .dashboard .settings-page .profile-account-email > span {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 52%, transparent);
   font-size: 1.25rem;
 }
 .dashboard .settings-page .profile-account-details-form input {
@@ -543,7 +543,7 @@
   gap: .55rem;
 }
 .dashboard .settings-page .profile-account-email strong {
-  color: var(--t1);
+  color: color-mix(in srgb, var(--t1) 90%, transparent);
   overflow-wrap: anywhere;
 }
 .dashboard .settings-page .profile-account-details-form .button-primary {
@@ -556,20 +556,20 @@
 }
 .dashboard .settings-page .profile-reminder-list .notification-master-row {
   padding: 1.5rem 0;
-  border-bottom: 1px solid var(--edge);
+  border-bottom: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
 }
 .dashboard .settings-page .settings-toggle.active {
   background: var(--ai-bubble-blue) !important;
 }
 .dashboard .settings-page .settings-toggle.active span {
-  background: #fff !important;
+  background: var(--surface-1) !important;
 }
 .dashboard .settings-page .profile-account-actions {
   margin-top: 2.6rem;
   padding: 0 1.4rem;
-  border: 1px solid var(--edge);
+  border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
   border-radius: 2rem;
-  background: linear-gradient(150deg, rgb(var(--theme-on-rgb) / .025), rgb(var(--theme-on-rgb) / .01));
+  background: linear-gradient(150deg, color-mix(in srgb, var(--t1) 3%, transparent);
 }
 .dashboard .settings-page .profile-account-actions-heading {
   padding: 1.8rem 0 1rem;
@@ -638,66 +638,66 @@
 .dashboard .settings-page.profile-v2 .settings-heading{display:none!important}
 .profile-v2-topbar{display:grid;grid-template-columns:44px 1fr 44px;align-items:center;min-height:44px;margin:0 0 2.2rem}
 .profile-v2-title{margin:0;color:var(--t1);font:400 2rem/1.2 var(--font-ui,system-ui,sans-serif);text-align:center;letter-spacing:-.035em}
-.profile-v2-icon-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid var(--edge);border-radius:50%;background:rgba(20,17,15,.8);color:var(--t1);cursor:pointer}
-.profile-v2-icon-button:hover{background:rgba(var(--ac),.13);border-color:var(--t1)}
-.profile-v2-summary{position:relative;isolation:isolate;overflow:visible;padding:2.2rem 1.8rem 1.8rem;border:1px solid var(--edge);border-radius:3.4rem;background:linear-gradient(150deg,rgba(var(--ac),.14),rgba(var(--ac),.22));box-shadow:inset 0 1px 0 rgb(var(--theme-on-rgb) / .08),0 2rem 5rem rgb(var(--theme-shadow-rgb) / .18)}
+.profile-v2-icon-button{display:grid;place-items:center;width:44px;height:44px;padding:0;border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);border-radius:50%;background:rgb(var(--theme-shadow-rgb) / 0.8);color:var(--t1);cursor:pointer}
+.profile-v2-icon-button:hover{background:rgba(var(--ac),.13);border-color:rgba(var(--ac),.45)}
+.profile-v2-summary{position:relative;isolation:isolate;overflow:visible;padding:2.2rem 1.8rem 1.8rem;border:1px solid rgba(var(--ac),.22);border-radius:3.4rem;background:linear-gradient(150deg,rgba(var(--ac),.14),rgba(var(--ac),.22));box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 8%, transparent)}
 .profile-v2-summary:before,.profile-v2-summary:after{content:"";position:absolute;z-index:-1;pointer-events:none;border-radius:50%}
 .profile-v2-summary:before{left:22%;top:35%;width:100%;height:90%;background:radial-gradient(closest-side,rgba(var(--ac),.36),rgba(var(--ac),.12) 55%,transparent)}
 .profile-v2-summary:after{left:-10%;top:-3%;width:60%;height:70%;background:radial-gradient(closest-side,rgba(var(--ac),.2),transparent)}
 .profile-v2-summary-main{display:flex;align-items:center;gap:1.6rem;min-width:0}
 .profile-v2-avatar-wrap{flex:0 0 7.6rem;width:7.6rem;height:7.6rem}
-.dashboard .settings-page.profile-v2 .profile-v2-avatar-button{width:7.6rem;height:7.6rem;padding:4px;border:2px solid var(--edge)!important;border-radius:50%;background:#18120e!important;box-shadow:0 0 0 1px rgba(var(--ac),.16)!important}
+.dashboard .settings-page.profile-v2 .profile-v2-avatar-button{width:7.6rem;height:7.6rem;padding:4px;border:2px solid rgba(var(--ac),.9)!important;border-radius:50%;background:var(--bg)!important;box-shadow:0 0 0 1px rgba(var(--ac),.16)!important}
 .dashboard .settings-page.profile-v2 .profile-avatar-image,.dashboard .settings-page.profile-v2 .profile-avatar{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.dashboard .settings-page.profile-v2 .profile-avatar-camera{right:-.4rem!important;bottom:-.3rem!important;width:2.8rem!important;height:2.8rem!important;border:2px solid var(--edge)!important;background:#f4e8dd!important;color:var(--t1)!important;box-shadow:0 3px 12px rgb(var(--theme-shadow-rgb) / .32)!important}
+.dashboard .settings-page.profile-v2 .profile-avatar-camera{right:-.4rem!important;bottom:-.3rem!important;width:2.8rem!important;height:2.8rem!important;border:2px solid var(--edge)!important;background:var(--surface-1)!important;color:var(--t3)!important;box-shadow:0 3px 12px rgb(var(--theme-shadow-rgb) / 0.32)!important}
 .profile-v2-identity{min-width:0;display:grid;gap:.55rem}.profile-v2-identity h2{margin:0;color:var(--t1);font-size:2.3rem;font-weight:300;line-height:1.1;letter-spacing:-.045em;overflow-wrap:anywhere}
-.profile-v2-identity p,.profile-v2-bio{margin:0;color:var(--t1);font-size:1.4rem;line-height:1.4;overflow-wrap:anywhere}.profile-v2-bio{font-size:1.3rem}
-.profile-v2-edit{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;min-height:3.8rem;margin-top:1.8rem;padding:0 1.3rem;border:1px solid var(--edge);border-radius:99px;background:rgba(18,13,10,.32);color:var(--t1);font:400 1.3rem/1 var(--font-ui,system-ui,sans-serif);cursor:pointer}
-.profile-v2-focus{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.7rem;padding-top:1.5rem;border-top:1px solid var(--edge)}.profile-v2-focus span{min-width:0;display:grid;gap:.5rem}.profile-v2-focus small{color:var(--t1);font-size:1.05rem;letter-spacing:.1em}.profile-v2-focus strong{color:var(--t1);font-size:1.3rem;font-weight:400;overflow-wrap:anywhere}
-.profile-v2-stats{display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr);align-items:center;gap:1.1rem;margin-top:2rem;padding:1.6rem 1.5rem;border:1px solid var(--edge);border-radius:2.4rem;background:linear-gradient(145deg,rgb(var(--theme-on-rgb) / .045),rgb(var(--theme-on-rgb) / .018))}
-.profile-v2-stats>div{display:grid;gap:.7rem;min-width:0}.profile-v2-stats>div:nth-of-type(2){text-align:center}.profile-v2-stats>div:nth-of-type(3){text-align:right}.profile-v2-stats span{color:var(--t1);font-size:.95rem;letter-spacing:.07em;line-height:1.25}.profile-v2-stats strong{color:var(--t1);font-size:2.2rem;font-weight:300;line-height:1;letter-spacing:-.04em}.profile-v2-stats strong small{color:var(--t1);font-size:1.15rem}.profile-v2-stats>i{width:1px;height:3.5rem;background:rgb(var(--theme-on-rgb) / .1)}
-.profile-v2-tabs{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-top:1.8rem;padding:.6rem;border:1px solid var(--edge);border-radius:99px;background:#161311}
-.profile-v2-tabs button{position:relative;z-index:1;min-height:4.8rem;border:0;border-radius:99px;background:transparent;color:var(--t1);font:400 1.5rem/1 var(--font-ui,system-ui,sans-serif);cursor:pointer;transition:color .35s ease}.profile-v2-tabs button.is-active{color:var(--t1)}
+.profile-v2-identity p,.profile-v2-bio{margin:0;color:color-mix(in srgb, var(--t1) 66%, transparent);font-size:1.4rem;line-height:1.4;overflow-wrap:anywhere}.profile-v2-bio{font-size:1.3rem}
+.profile-v2-edit{display:inline-flex;align-items:center;justify-content:center;gap:.7rem;min-height:3.8rem;margin-top:1.8rem;padding:0 1.3rem;border:1px solid rgba(var(--ac),.3);border-radius:99px;background:rgb(var(--theme-shadow-rgb) / 0.32);color:var(--t1);font:400 1.3rem/1 var(--font-ui,system-ui,sans-serif);cursor:pointer}
+.profile-v2-focus{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:1.7rem;padding-top:1.5rem;border-top:1px solid color-mix(in srgb, var(--edge) 10%, transparent)}.profile-v2-focus span{min-width:0;display:grid;gap:.5rem}.profile-v2-focus small{color:color-mix(in srgb, var(--t1) 46%, transparent);font-size:1.05rem;letter-spacing:.1em}.profile-v2-focus strong{color:color-mix(in srgb, var(--t1) 90%, transparent);font-size:1.3rem;font-weight:400;overflow-wrap:anywhere}
+.profile-v2-stats{display:grid;grid-template-columns:minmax(0,1fr) 1px minmax(0,1fr) 1px minmax(0,1fr);align-items:center;gap:1.1rem;margin-top:2rem;padding:1.6rem 1.5rem;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent);border-radius:2.4rem;background:linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent)}
+.profile-v2-stats>div{display:grid;gap:.7rem;min-width:0}.profile-v2-stats>div:nth-of-type(2){text-align:center}.profile-v2-stats>div:nth-of-type(3){text-align:right}.profile-v2-stats span{color:color-mix(in srgb, var(--t1) 48%, transparent);font-size:.95rem;letter-spacing:.07em;line-height:1.25}.profile-v2-stats strong{color:var(--t1);font-size:2.2rem;font-weight:300;line-height:1;letter-spacing:-.04em}.profile-v2-stats strong small{color:color-mix(in srgb, var(--t1) 42%, transparent);font-size:1.15rem}.profile-v2-stats>i{width:1px;height:3.5rem;background:color-mix(in srgb, var(--surface-1) 10%, transparent)}
+.profile-v2-tabs{position:relative;display:grid;grid-template-columns:1fr 1fr;margin-top:1.8rem;padding:.6rem;border:1px solid color-mix(in srgb, var(--edge) 6%, transparent);border-radius:99px;background:var(--bg)}
+.profile-v2-tabs button{position:relative;z-index:1;min-height:4.8rem;border:0;border-radius:99px;background:transparent;color:color-mix(in srgb, var(--t1) 56%, transparent);font:400 1.5rem/1 var(--font-ui,system-ui,sans-serif);cursor:pointer;transition:color .35s ease}.profile-v2-tabs button.is-active{color:var(--t3)}
 .profile-v2-tab-indicator{position:absolute;z-index:0;top:.6rem;left:.6rem;width:calc(50% - .6rem);height:4.8rem;border-radius:99px;background:rgb(var(--ac,158,61,28));box-shadow:0 6px 22px -6px rgba(var(--ac),.6);transition:transform .5s cubic-bezier(.2,.8,.2,1)}.profile-v2-tab-indicator.is-preferences{transform:translateX(100%)}
-.profile-v2-tab-content{display:grid;gap:1.4rem;margin-top:1.4rem;animation:profileV2Fade .45s ease both}.profile-v2-group{min-width:0}.profile-v2-group-label{margin:0 0 .9rem .5rem;color:var(--t1);font-size:1.1rem;font-weight:400;letter-spacing:.1em}
-.dashboard .settings-page.profile-v2 .profile-settings-section,.dashboard .settings-page.profile-v2 .profile-v2-actions{margin:0!important;padding:.6rem .8rem 1rem!important;border:1px solid var(--edge)!important;border-radius:3.2rem!important;background:linear-gradient(150deg,rgb(var(--theme-on-rgb) / .04),rgb(var(--theme-on-rgb) / .015))!important;box-shadow:inset 0 1px 0 rgb(var(--theme-on-rgb) / .025)}
+.profile-v2-tab-content{display:grid;gap:1.4rem;margin-top:1.4rem;animation:profileV2Fade .45s ease both}.profile-v2-group{min-width:0}.profile-v2-group-label{margin:0 0 .9rem .5rem;color:color-mix(in srgb, var(--t1) 43%, transparent);font-size:1.1rem;font-weight:400;letter-spacing:.1em}
+.dashboard .settings-page.profile-v2 .profile-settings-section,.dashboard .settings-page.profile-v2 .profile-v2-actions{margin:0!important;padding:.6rem .8rem 1rem!important;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent)!important;border-radius:3.2rem!important;background:linear-gradient(150deg,color-mix(in srgb, var(--t1) 4%, transparent)!important;box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 3%, transparent)}
 .dashboard .settings-page.profile-v2 .profile-settings-section-head{min-height:6.4rem;gap:1.2rem;margin:0!important;padding:1rem .8rem!important;border:0!important;border-radius:2.4rem!important;background:transparent!important}
-.dashboard .settings-page.profile-v2 .profile-settings-section-icon{width:4.4rem;height:4.4rem;flex:0 0 4.4rem;border:1px solid var(--edge);border-radius:1.5rem;color:var(--t1)!important;background:rgba(var(--ac),.09)!important}
+.dashboard .settings-page.profile-v2 .profile-settings-section-icon{width:4.4rem;height:4.4rem;flex:0 0 4.4rem;border:1px solid rgba(var(--ac),.18);border-radius:1.5rem;color:var(--accent)!important;background:rgba(var(--ac),.09)!important}
 .dashboard .settings-page.profile-v2 .profile-settings-section-heading .section-label{display:none!important}.dashboard .settings-page.profile-v2 .profile-settings-section-heading strong{color:var(--t1);font-size:1.65rem;font-weight:300;letter-spacing:-.02em}
-.dashboard .settings-page.profile-v2 .profile-settings-chevron{color:var(--t1)!important;transition:transform .4s cubic-bezier(.2,.8,.2,1),color .25s ease}.dashboard .settings-page.profile-v2 .profile-settings-chevron.is-open{transform:rotate(90deg);color:var(--t1)!important}
+.dashboard .settings-page.profile-v2 .profile-settings-chevron{color:color-mix(in srgb, var(--t1) 48%, transparent)!important;transition:transform .4s cubic-bezier(.2,.8,.2,1),color .25s ease}.dashboard .settings-page.profile-v2 .profile-settings-chevron.is-open{transform:rotate(90deg);color:rgb(var(--ac))!important}
 .dashboard .settings-page.profile-v2 .profile-settings-accordion-content{display:grid;grid-template-rows:0fr;opacity:0;transition:grid-template-rows .4s cubic-bezier(.2,.8,.2,1),opacity .3s ease}.dashboard .settings-page.profile-v2 .profile-settings-accordion-content.is-open{grid-template-rows:1fr;opacity:1}
 .dashboard .settings-page.profile-v2 .profile-settings-accordion-content>.profile-settings-list{min-height:0;overflow:hidden;padding:0 1rem 0 5.8rem}.dashboard .settings-page.profile-v2 .profile-settings-accordion-content.is-open>.profile-settings-list{padding-bottom:1rem}
-.dashboard .settings-page.profile-v2 .profile-setting-row{min-height:6.4rem;display:flex;align-items:center;gap:1.2rem;padding:1.1rem .4rem;border:0!important;border-radius:0!important;background:transparent!important}.dashboard .settings-page.profile-v2 .profile-setting-row>div:first-child{min-width:0;flex:1}.dashboard .settings-page.profile-v2 .profile-setting-row strong{color:var(--t1);font-size:1.5rem;font-weight:300}.dashboard .settings-page.profile-v2 .profile-setting-row span,.dashboard .settings-page.profile-v2 .profile-setting-row small{color:var(--t1);font-size:1.25rem;line-height:1.45}
-.dashboard .settings-page.profile-v2 .profile-setting-row select,.dashboard .settings-page.profile-v2 .profile-setting-row input[type=time]{max-width:14rem;min-height:3.8rem;border:1px solid var(--edge);border-radius:1.2rem;background:#181411;color:var(--t1);padding:.5rem .8rem}
-.dashboard .settings-page.profile-v2 .settings-inline-action{flex:0 0 auto;min-height:3.8rem;padding:0 1rem;border:1px solid var(--edge)!important;border-radius:99px;background:rgba(var(--ac),.08)!important;color:var(--t1)!important}
-.dashboard .settings-page.profile-v2 .settings-toggle.active{background:rgb(var(--ac))!important}.dashboard .settings-page.profile-v2 .settings-toggle.active span{background:#fff!important}
-.dashboard .settings-page.profile-v2 .profile-stat-grid{grid-template-columns:1fr 1fr;gap:.8rem;padding:1rem 0 0}.dashboard .settings-page.profile-v2 .profile-stat-grid article{padding:1.2rem;border:1px solid var(--edge);border-radius:1.6rem;background:rgb(var(--theme-shadow-rgb) / .12)}.dashboard .settings-page.profile-v2 .profile-stat-grid article span{color:var(--t1);font-size:1rem}.dashboard .settings-page.profile-v2 .profile-stat-grid article strong{color:var(--t1);font-size:2.1rem;font-weight:300}.dashboard .settings-page.profile-v2 .profile-stat-grid article small{color:var(--t1);font-size:1.15rem}
-.dashboard .settings-page.profile-v2 .profile-v2-actions{padding:1rem 1.4rem!important}.profile-v2-action-row{display:flex;align-items:center;gap:1.2rem;min-height:6.8rem}.profile-v2-action-row+.profile-v2-action-row{border-top:1px solid var(--edge)}.profile-v2-action-icon{display:grid;place-items:center;width:4rem;height:4rem;flex:0 0 4rem;border-radius:1.3rem;background:rgb(var(--theme-on-rgb) / .04);color:var(--t1)}.profile-v2-action-row .profile-account-action-copy{flex:1;min-width:0;display:grid;gap:.4rem}.profile-v2-action-row .profile-account-action-copy strong{color:var(--t1);font-size:1.5rem;font-weight:300}.profile-v2-action-row .profile-account-action-copy small{color:var(--t1);font-size:1.2rem;line-height:1.4}.profile-v2-row-action{display:grid;place-items:center;width:3.8rem;height:3.8rem;border:0;border-radius:50%;background:transparent;color:var(--t1);cursor:pointer}.profile-v2-action-row.is-danger .profile-v2-action-icon,.profile-v2-action-row.is-danger .profile-account-action-copy strong,.profile-v2-action-row.is-danger .profile-v2-row-action{color:var(--t1)}
+.dashboard .settings-page.profile-v2 .profile-setting-row{min-height:6.4rem;display:flex;align-items:center;gap:1.2rem;padding:1.1rem .4rem;border:0!important;border-radius:0!important;background:transparent!important}.dashboard .settings-page.profile-v2 .profile-setting-row>div:first-child{min-width:0;flex:1}.dashboard .settings-page.profile-v2 .profile-setting-row strong{color:var(--t1);font-size:1.5rem;font-weight:300}.dashboard .settings-page.profile-v2 .profile-setting-row span,.dashboard .settings-page.profile-v2 .profile-setting-row small{color:color-mix(in srgb, var(--t1) 48%, transparent);font-size:1.25rem;line-height:1.45}
+.dashboard .settings-page.profile-v2 .profile-setting-row select,.dashboard .settings-page.profile-v2 .profile-setting-row input[type=time]{max-width:14rem;min-height:3.8rem;border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);border-radius:1.2rem;background:var(--bg);color:var(--t1);padding:.5rem .8rem}
+.dashboard .settings-page.profile-v2 .settings-inline-action{flex:0 0 auto;min-height:3.8rem;padding:0 1rem;border:1px solid rgba(var(--ac),.22)!important;border-radius:99px;background:rgba(var(--ac),.08)!important;color:var(--t1)!important}
+.dashboard .settings-page.profile-v2 .settings-toggle.active{background:rgb(var(--ac))!important}.dashboard .settings-page.profile-v2 .settings-toggle.active span{background:var(--surface-1)!important}
+.dashboard .settings-page.profile-v2 .profile-stat-grid{grid-template-columns:1fr 1fr;gap:.8rem;padding:1rem 0 0}.dashboard .settings-page.profile-v2 .profile-stat-grid article{padding:1.2rem;border:1px solid color-mix(in srgb, var(--edge) 5%, transparent);border-radius:1.6rem;background:rgb(var(--theme-shadow-rgb) / 0.12)}.dashboard .settings-page.profile-v2 .profile-stat-grid article span{color:color-mix(in srgb, var(--t1) 42%, transparent);font-size:1rem}.dashboard .settings-page.profile-v2 .profile-stat-grid article strong{color:var(--t1);font-size:2.1rem;font-weight:300}.dashboard .settings-page.profile-v2 .profile-stat-grid article small{color:color-mix(in srgb, var(--t1) 45%, transparent);font-size:1.15rem}
+.dashboard .settings-page.profile-v2 .profile-v2-actions{padding:1rem 1.4rem!important}.profile-v2-action-row{display:flex;align-items:center;gap:1.2rem;min-height:6.8rem}.profile-v2-action-row+.profile-v2-action-row{border-top:1px solid color-mix(in srgb, var(--edge) 5%, transparent)}.profile-v2-action-icon{display:grid;place-items:center;width:4rem;height:4rem;flex:0 0 4rem;border-radius:1.3rem;background:color-mix(in srgb, var(--surface-1) 4%, transparent);color:var(--accent)}.profile-v2-action-row .profile-account-action-copy{flex:1;min-width:0;display:grid;gap:.4rem}.profile-v2-action-row .profile-account-action-copy strong{color:var(--t1);font-size:1.5rem;font-weight:300}.profile-v2-action-row .profile-account-action-copy small{color:color-mix(in srgb, var(--t1) 48%, transparent);font-size:1.2rem;line-height:1.4}.profile-v2-row-action{display:grid;place-items:center;width:3.8rem;height:3.8rem;border:0;border-radius:50%;background:transparent;color:color-mix(in srgb, var(--t1) 50%, transparent);cursor:pointer}.profile-v2-action-row.is-danger .profile-v2-action-icon,.profile-v2-action-row.is-danger .profile-account-action-copy strong,.profile-v2-action-row.is-danger .profile-v2-row-action{color:var(--accent)}
 .dashboard .settings-page.profile-v2 .profile-stat-grid{margin:0}.dashboard .settings-page.profile-v2 .profile-setting-row-nested{align-items:flex-start}.dashboard .settings-page.profile-v2 .settings-quiet-control{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;justify-content:flex-end}.dashboard .settings-page.profile-v2 .settings-quiet-control input{width:8rem}
-.dashboard .settings-page.profile-v2 .danger-row strong,.dashboard .settings-page.profile-v2 .danger-row .settings-danger-button{color:var(--t1)!important}
-.dashboard .settings-page.profile-v2 .profile-photo-menu{width:min(100% - 32px,390px);padding:2.2rem;border:1px solid var(--edge);border-radius:2.6rem;background:linear-gradient(145deg,#1a1511,#0b0a09)}
-.dashboard .settings-page.profile-v2 .profile-photo-menu-option{width:100%;display:flex;align-items:center;gap:1.2rem;min-height:6rem;padding:1.2rem 0;border:0;border-top:1px solid var(--edge);background:transparent;color:var(--t1);text-align:left;cursor:pointer}
-.dashboard .settings-page.profile-v2 .profile-photo-menu-option>span{flex:1;display:grid;gap:.4rem}.dashboard .settings-page.profile-v2 .profile-photo-menu-option strong{color:var(--t1);font-size:1.5rem;font-weight:300}.dashboard .settings-page.profile-v2 .profile-photo-menu-option small{color:var(--t1);font-size:1.2rem}.dashboard .settings-page.profile-v2 .profile-photo-remove-option{color:var(--t1)}
-.dashboard .settings-page.profile-v2 .profile-modal{background:linear-gradient(145deg,#1b1511,#0b0908);border-color:var(--t1)}.dashboard .settings-page.profile-v2 .profile-modal input,.dashboard .settings-page.profile-v2 .profile-modal textarea{background:rgb(var(--theme-shadow-rgb) / .24);border-color:var(--t1);color:var(--t1)}
-.profile-v2-icon-button:focus-visible,.profile-v2-edit:focus-visible,.profile-v2-tabs button:focus-visible{outline:2px solid var(--edge);outline-offset:3px}
+.dashboard .settings-page.profile-v2 .danger-row strong,.dashboard .settings-page.profile-v2 .danger-row .settings-danger-button{color:var(--accent)!important}
+.dashboard .settings-page.profile-v2 .profile-photo-menu{width:min(100% - 32px,390px);padding:2.2rem;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:2.6rem;background:linear-gradient(145deg,var(--t3),var(--t3))}
+.dashboard .settings-page.profile-v2 .profile-photo-menu-option{width:100%;display:flex;align-items:center;gap:1.2rem;min-height:6rem;padding:1.2rem 0;border:0;border-top:1px solid color-mix(in srgb, var(--edge) 7%, transparent);background:transparent;color:var(--accent);text-align:left;cursor:pointer}
+.dashboard .settings-page.profile-v2 .profile-photo-menu-option>span{flex:1;display:grid;gap:.4rem}.dashboard .settings-page.profile-v2 .profile-photo-menu-option strong{color:var(--t1);font-size:1.5rem;font-weight:300}.dashboard .settings-page.profile-v2 .profile-photo-menu-option small{color:color-mix(in srgb, var(--t1) 48%, transparent);font-size:1.2rem}.dashboard .settings-page.profile-v2 .profile-photo-remove-option{color:var(--accent)}
+.dashboard .settings-page.profile-v2 .profile-modal{background:linear-gradient(145deg,var(--t3),var(--t3));border-color:rgba(var(--ac),.18)}.dashboard .settings-page.profile-v2 .profile-modal input,.dashboard .settings-page.profile-v2 .profile-modal textarea{background:rgb(var(--theme-shadow-rgb) / 0.24);border-color:color-mix(in srgb, var(--t1) 10%, transparent);color:var(--t1)}
+.profile-v2-icon-button:focus-visible,.profile-v2-edit:focus-visible,.profile-v2-tabs button:focus-visible{outline:2px solid rgba(var(--ac,158,61,28),.85);outline-offset:3px}
 @keyframes profileV2Fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:380px){.dashboard .settings-page.profile-v2{padding-left:1.6rem!important;padding-right:1.6rem!important}.profile-v2-stats{gap:.7rem;padding:1.4rem 1rem}.profile-v2-stats span{font-size:.85rem;letter-spacing:.035em}.profile-v2-stats strong{font-size:1.9rem}.profile-v2-summary{padding:1.8rem 1.4rem}.profile-v2-identity h2{font-size:2rem}}
 @media(prefers-reduced-motion:reduce){.profile-v2-tab-content,.profile-v2-tabs button,.profile-v2-tab-indicator,.dashboard .settings-page.profile-v2 .profile-settings-accordion-content,.dashboard .settings-page.profile-v2 .profile-settings-chevron{animation:none!important;transition:none!important}}
 @media(min-width:700px){.dashboard .settings-page.profile-v2{padding-top:2rem!important}}
 
 /* Photo actions render through a portal, so style the sheet outside the dashboard tree. */
-.profile-photo-menu-backdrop .profile-photo-menu{width:min(100% - 32px,390px);padding:2.2rem;border:1px solid var(--edge);border-radius:2.6rem;background:linear-gradient(145deg,#1a1511,#0b0a09);box-shadow:0 24px 80px rgb(var(--theme-shadow-rgb) / .65)}
-.profile-photo-menu-backdrop .profile-photo-menu-option{width:100%;display:flex;align-items:center;gap:1.2rem;min-height:6rem;padding:1.2rem 0;border:0;border-top:1px solid var(--edge);background:transparent;color:var(--t1);text-align:left;cursor:pointer}
+.profile-photo-menu-backdrop .profile-photo-menu{width:min(100% - 32px,390px);padding:2.2rem;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:2.6rem;background:linear-gradient(145deg,var(--t3),var(--t3));box-shadow:0 24px 80px rgb(var(--theme-shadow-rgb) / 0.65)}
+.profile-photo-menu-backdrop .profile-photo-menu-option{width:100%;display:flex;align-items:center;gap:1.2rem;min-height:6rem;padding:1.2rem 0;border:0;border-top:1px solid color-mix(in srgb, var(--edge) 7%, transparent);background:transparent;color:var(--accent);text-align:left;cursor:pointer}
 .profile-photo-menu-backdrop .profile-photo-menu-option>span{flex:1;min-width:0;display:grid;gap:.4rem}
 .profile-photo-menu-backdrop .profile-photo-menu-option strong{color:var(--t1);font-size:1.5rem;font-weight:300}
-.profile-photo-menu-backdrop .profile-photo-menu-option small{color:var(--t1);font-size:1.2rem}
-.profile-photo-menu-backdrop .profile-photo-remove-option{color:var(--t1)}
-.profile-photo-menu-backdrop .profile-photo-menu-option:focus-visible{outline:2px solid var(--edge);outline-offset:3px}
+.profile-photo-menu-backdrop .profile-photo-menu-option small{color:color-mix(in srgb, var(--t1) 48%, transparent);font-size:1.2rem}
+.profile-photo-menu-backdrop .profile-photo-remove-option{color:var(--accent)}
+.profile-photo-menu-backdrop .profile-photo-menu-option:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 85%, transparent);outline-offset:3px}
 
 
 /* Profile v2 precision pass — compact type, shared panels and iPhone safe areas. */
 .dashboard .settings-page.profile-v2{
-  --t2:rgb(var(--theme-on-rgb) / .62);
-  --t3:rgb(var(--theme-on-rgb) / .4);
+  --t2:color-mix(in srgb, var(--t1) 62%, transparent);
+  --t3:color-mix(in srgb, var(--t1) 40%, transparent);
   color:var(--t1)!important;
   padding-left:22px!important;
   padding-right:22px!important;
@@ -708,14 +708,14 @@
   position:fixed;top:0;left:0;right:0;
   height:calc(env(safe-area-inset-top,0px) + 14px);
   z-index:30;pointer-events:none;
-  background:linear-gradient(var(--app-bg,#000),transparent);
+  background:linear-gradient(var(--app-bg,var(--t3)),transparent);
 }
 .dashboard .settings-page.profile-v2 .profile-v2-topbar{min-height:44px;margin:0 0 18px;padding:0!important}
 .dashboard .settings-page.profile-v2 .profile-v2-title{font-size:18px!important;font-weight:400!important;letter-spacing:0!important;color:var(--t1)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-summary{
   display:flex!important;flex-direction:column!important;gap:0!important;margin:0!important;padding:18px!important;
-  border:1px solid var(--edge)!important;border-radius:30px!important;
-  background:linear-gradient(145deg,rgb(var(--theme-on-rgb) / .075),rgb(var(--theme-on-rgb) / .025))!important;
+  border:1px solid color-mix(in srgb, var(--edge) 10%, transparent)!important;border-radius:30px!important;
+  background:linear-gradient(145deg,color-mix(in srgb, var(--t1) 8%, transparent)!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-summary-main{display:flex!important;align-items:center!important;gap:16px!important;min-width:0!important;width:100%!important}
 .dashboard .settings-page.profile-v2 .profile-v2-avatar-wrap{flex:0 0 76px!important;width:76px!important;min-width:76px!important;margin:0!important}
@@ -723,12 +723,12 @@
 .dashboard .settings-page.profile-v2 .profile-v2-identity{position:static!important;flex:1 1 auto!important;min-width:0!important;display:flex!important;flex-direction:column!important;gap:4px!important}
 .dashboard .settings-page.profile-v2 .profile-v2-identity h2{
   position:static!important;margin:0!important;padding:0!important;font-size:22px!important;line-height:1.15!important;
-  font-weight:300!important;letter-spacing:-.035em!important;color:var(--t1)!important;white-space:nowrap!important;
+  font-weight:300!important;letter-spacing:-.035em!important;color:var(--t1)!important;var(--t1)-space:nowrap!important;
   overflow:hidden!important;text-overflow:ellipsis!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-identity p{
   position:static!important;margin:0!important;padding:0!important;font-size:14px!important;line-height:1.35!important;
-  font-weight:300!important;color:var(--t2)!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
+  font-weight:300!important;color:var(--t2)!important;var(--t1)-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-bio,
 .dashboard .settings-page.profile-v2 .profile-v2-edit,
@@ -736,23 +736,23 @@
 .dashboard .settings-page.profile-v2 .profile-v2-stats{
   display:grid!important;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr) auto minmax(0,1fr)!important;
   align-items:center!important;gap:0!important;width:100%!important;margin:18px 0 0!important;padding:14px 18px!important;
-  border-radius:24px!important;background:rgb(var(--theme-on-rgb) / .07)!important;border:1px solid var(--edge)!important;
+  border-radius:24px!important;background:color-mix(in srgb, var(--surface-1) 7%, transparent)!important;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent)!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-stats>div{display:flex!important;flex-direction:column!important;gap:0!important;min-width:0!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats .l{text-align:left!important;align-items:flex-start!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats .c{text-align:center!important;align-items:center!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats .r{text-align:right!important;align-items:flex-end!important}
-.dashboard .settings-page.profile-v2 .profile-v2-stats strong{display:block!important;margin:0!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;white-space:nowrap!important}
+.dashboard .settings-page.profile-v2 .profile-v2-stats strong{display:block!important;margin:0!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;var(--t1)-space:nowrap!important}
 .dashboard .settings-page.profile-v2 .profile-v2-stats strong small{font-size:13px!important;font-weight:300!important;color:var(--t2)!important}
-.dashboard .settings-page.profile-v2 .profile-v2-stats span{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:0!important;text-transform:none!important;color:var(--t2)!important;white-space:nowrap!important}
-.dashboard .settings-page.profile-v2 .profile-v2-stats i{align-self:stretch!important;width:1px!important;margin:2px 12px!important;background:linear-gradient(transparent,rgb(var(--theme-on-rgb) / .45),transparent)!important}
-.dashboard .settings-page.profile-v2 .profile-v2-tabs{margin:18px 0!important;padding:4px!important;min-height:52px!important;border:1px solid var(--edge)!important;background:rgb(var(--theme-on-rgb) / .045)!important;border-radius:999px!important}
+.dashboard .settings-page.profile-v2 .profile-v2-stats span{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:0!important;text-transform:none!important;color:var(--t2)!important;var(--t1)-space:nowrap!important}
+.dashboard .settings-page.profile-v2 .profile-v2-stats i{align-self:stretch!important;width:1px!important;margin:2px 12px!important;background:linear-gradient(transparent,color-mix(in srgb, var(--t1) 45%, transparent)!important}
+.dashboard .settings-page.profile-v2 .profile-v2-tabs{margin:18px 0!important;padding:4px!important;min-height:52px!important;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent)!important;background:color-mix(in srgb, var(--surface-1) 5%, transparent)!important;border-radius:999px!important}
 .dashboard .settings-page.profile-v2 .profile-v2-tabs button{position:relative!important;z-index:1!important;font-size:16px!important;font-weight:400!important;letter-spacing:0!important;text-transform:none!important;color:var(--t1)!important;background:transparent!important;-webkit-text-fill-color:var(--t1)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-tabs button.is-active{font-weight:500!important;color:var(--t1)!important;-webkit-text-fill-color:var(--t1)!important}
-.dashboard .settings-page.profile-v2 .profile-v2-tab-indicator{background:var(--ai-bubble-blue,#9E3D1C)!important;color:var(--t1)!important}
+.dashboard .settings-page.profile-v2 .profile-v2-tab-indicator{background:var(--ai-bubble-blue,var(--accent))!important;color:var(--t1)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-tab-content{
-  display:block!important;margin:0!important;padding:6px 8px 12px!important;border:1px solid var(--edge)!important;
-  border-radius:32px!important;background:linear-gradient(150deg,rgb(var(--theme-on-rgb) / .045),rgb(var(--theme-on-rgb) / .018))!important;overflow:hidden!important;
+  display:block!important;margin:0!important;padding:6px 8px 12px!important;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent)!important;
+  border-radius:32px!important;background:linear-gradient(150deg,color-mix(in srgb, var(--t1) 5%, transparent)!important;overflow:hidden!important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-group{margin:0!important;padding:0!important;border:0!important;background:transparent!important}
 .dashboard .settings-page.profile-v2 .profile-v2-group-label{margin:0!important;padding:18px 14px 6px!important;font-size:13px!important;font-weight:400!important;line-height:1.2!important;letter-spacing:0!important;text-transform:none!important;color:var(--t3)!important}
@@ -765,8 +765,8 @@
 }
 .dashboard .settings-page.profile-v2 .profile-settings-section-icon{
   width:44px!important;height:44px!important;flex:0 0 44px!important;border-radius:50%!important;display:grid!important;place-items:center!important;
-  background:rgb(var(--theme-on-rgb) / .06)!important;color:var(--ai-bubble-blue,#9E3D1C)!important;
-  border:1px solid color-mix(in srgb,var(--ai-bubble-blue,var(--edge)) 35%,transparent)!important;
+  background:color-mix(in srgb, var(--surface-1) 6%, transparent)!important;color:var(--ai-bubble-blue,var(--accent))!important;
+  border:1px solid color-mix(in srgb,var(--ai-bubble-blue,var(--accent)) 35%,transparent)!important;
 }
 .dashboard .settings-page.profile-v2 .profile-settings-section-heading{display:block!important;min-width:0!important}
 .dashboard .settings-page.profile-v2 .profile-settings-section-heading .section-label{display:none!important}
@@ -799,19 +799,19 @@
 .dashboard .settings-page.profile-v2 .profile-v2-focus-more p span{font-size:13px!important;color:var(--t3)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-more p strong{font-size:15px!important;font-weight:300!important;color:var(--t2)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-action-row{display:grid!important;grid-template-columns:44px minmax(0,1fr) 18px!important;align-items:center!important;column-gap:14px!important;min-height:64px!important;height:auto!important;padding:10px 12px 10px 14px!important;border:0!important;border-radius:22px!important;background:transparent!important}
-.dashboard .settings-page.profile-v2 .profile-v2-action-icon{width:44px!important;height:44px!important;display:grid!important;place-items:center!important;border-radius:50%!important;background:rgb(var(--theme-on-rgb) / .06)!important;color:var(--t1)!important;border:1px solid var(--edge)!important}
+.dashboard .settings-page.profile-v2 .profile-v2-action-icon{width:44px!important;height:44px!important;display:grid!important;place-items:center!important;border-radius:50%!important;background:color-mix(in srgb, var(--surface-1) 6%, transparent)!important;color:var(--t1)!important;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent)!important}
 .dashboard .settings-page.profile-v2 .profile-account-action-copy{display:grid!important;gap:2px!important;min-width:0!important}
 .dashboard .settings-page.profile-v2 .profile-account-action-copy strong{font-size:17px!important;font-weight:400!important;line-height:1.3!important;color:var(--t1)!important}
 .dashboard .settings-page.profile-v2 .profile-account-action-copy small{font-size:13px!important;font-weight:300!important;line-height:1.4!important;color:var(--t2)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-action-row.is-danger .profile-v2-action-icon,
-.dashboard .settings-page.profile-v2 .profile-v2-action-row.is-danger .profile-account-action-copy strong{color:var(--t1)!important}
+.dashboard .settings-page.profile-v2 .profile-v2-action-row.is-danger .profile-account-action-copy strong{color:var(--accent)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-row-action{width:18px!important;height:18px!important;color:var(--t3)!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article{padding:14px!important}
 .dashboard .evolv-floating-log{
   width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important;padding:0!important;
   display:grid!important;place-items:center!important;right:18px!important;bottom:calc(86px + env(safe-area-inset-bottom,0px))!important;
-  border-radius:50%!important;border:1px solid color-mix(in srgb,var(--ai-bubble-blue,var(--edge)) 45%,transparent)!important;
-  background:rgba(18,18,18,.8)!important;backdrop-filter:blur(18px)!important;color:var(--t1)!important;gap:0!important;
+  border-radius:50%!important;border:1px solid color-mix(in srgb,var(--ai-bubble-blue,var(--accent)) 45%,transparent)!important;
+  background:rgb(var(--theme-shadow-rgb) / 0.8)!important;backdrop-filter:blur(18px)!important;color:var(--t1)!important;gap:0!important;
 }
 .dashboard .evolv-floating-log span{display:none!important}
 @media(max-width:380px){
@@ -827,16 +827,16 @@
 .dashboard .settings-page.profile-v2 .profile-v2-focus-select{display:grid;gap:8px}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-select>span,
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options legend{font-size:13px;font-weight:400;color:var(--t3)}
-.dashboard .settings-page.profile-v2 .profile-v2-focus-select select{width:100%;min-height:46px;padding:0 14px;border:1px solid var(--edge);border-radius:14px;background:rgb(var(--theme-on-rgb) / .045);color:var(--t1);font-size:15px;font-weight:300;line-height:1.3;font-family:inherit}
-.dashboard .settings-page.profile-v2 .profile-v2-focus-select option{background:#171717;color:var(--t1)}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select select{width:100%;min-height:46px;padding:0 14px;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:14px;background:color-mix(in srgb, var(--surface-1) 5%, transparent);color:var(--t1);font-size:15px;font-weight:300;line-height:1.3;font-family:inherit}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-select option{background:var(--bg);color:var(--t1)}
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;border:0;min-width:0}
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options legend{margin-bottom:8px;padding:0}
-.dashboard .settings-page.profile-v2 .profile-v2-growth-options label{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid var(--edge);border-radius:999px;background:rgb(var(--theme-on-rgb) / .035);color:var(--t2);font-size:13px;font-weight:300;cursor:pointer}
-.dashboard .settings-page.profile-v2 .profile-v2-growth-options label.is-selected{border-color:color-mix(in srgb,var(--ai-bubble-blue,var(--edge)) 65%,transparent);background:color-mix(in srgb,var(--ai-bubble-blue,#9E3D1C) 18%,transparent);color:var(--t1)}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options label{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:999px;background:color-mix(in srgb, var(--surface-1) 4%, transparent);color:var(--t2);font-size:13px;font-weight:300;cursor:pointer}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options label.is-selected{border-color:color-mix(in srgb,var(--ai-bubble-blue,var(--accent)) 65%,transparent);background:color-mix(in srgb,var(--ai-bubble-blue,var(--accent)) 18%,transparent);color:var(--t1)}
 .dashboard .settings-page.profile-v2 .profile-v2-growth-options input{position:absolute;width:1px;height:1px;opacity:0}
-.dashboard .settings-page.profile-v2 .profile-v2-direction-save{justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border:1px solid color-mix(in srgb,var(--ai-bubble-blue,var(--edge)) 45%,transparent);border-radius:999px;background:var(--ai-bubble-blue,#9E3D1C);color:var(--t1);font-size:14px;font-weight:400}
+.dashboard .settings-page.profile-v2 .profile-v2-direction-save{justify-self:start;display:inline-flex;align-items:center;gap:8px;min-height:42px;padding:0 16px;border:1px solid color-mix(in srgb,var(--ai-bubble-blue,var(--accent)) 45%,transparent);border-radius:999px;background:var(--ai-bubble-blue,var(--accent));color:var(--t1);font-size:14px;font-weight:400}
 .dashboard .settings-page.profile-v2 .profile-v2-direction-save:disabled{opacity:.6}
-.dashboard .settings-page.profile-v2 .profile-v2-growth-options label:focus-within{outline:2px solid color-mix(in srgb,var(--ai-bubble-blue,var(--edge)) 65%,transparent);outline-offset:2px}
+.dashboard .settings-page.profile-v2 .profile-v2-growth-options label:focus-within{outline:2px solid color-mix(in srgb,var(--ai-bubble-blue,var(--accent)) 65%,transparent);outline-offset:2px}
 
 
 /* Profile pass 2 — mobile layout corrections; styling only. */
@@ -863,11 +863,11 @@
   height: calc(env(safe-area-inset-top, 0px) + 16px) !important;
   z-index: 40 !important;
   pointer-events: none !important;
-  background: linear-gradient(to bottom, rgba(10,9,8,.92) 55%, transparent) !important;
+  background: linear-gradient(to bottom, rgb(var(--theme-shadow-rgb) / 0.92) !important;
   -webkit-backdrop-filter: blur(14px) !important;
   backdrop-filter: blur(14px) !important;
-  -webkit-mask-image: linear-gradient(#000 60%, transparent) !important;
-  mask-image: linear-gradient(#000 60%, transparent) !important;
+  -webkit-mask-image: linear-gradient(var(--t3) 60%, transparent) !important;
+  mask-image: linear-gradient(var(--t3) 60%, transparent) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-summary {
   margin: 0 !important;
@@ -902,7 +902,7 @@
   padding: 4px !important;
   margin: 0 !important;
   flex: none !important;
-  border: 2px solid var(--edge) !important;
+  border: 2px solid rgb(var(--ac)) !important;
   border-radius: 50% !important;
   outline: 0 !important;
   box-shadow: none !important;
@@ -960,7 +960,7 @@
   font-weight: 300 !important;
   line-height: 1.2 !important;
   letter-spacing: 0 !important;
-  white-space: nowrap !important;
+  var(--t1)-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -973,7 +973,7 @@
   font-size: 14px !important;
   font-weight: 300 !important;
   line-height: 1.35 !important;
-  white-space: nowrap !important;
+  var(--t1)-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -1031,7 +1031,7 @@
   background: transparent !important;
 }
 .dashboard .settings-page.profile-v2 .profile-setting-row + .profile-setting-row {
-  border-top: 1px solid var(--edge) !important;
+  border-top: 1px solid color-mix(in srgb, var(--edge) 6%, transparent) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-setting-row > div:first-child,
 .dashboard .settings-page.profile-v2 .profile-setting-copy {
@@ -1083,7 +1083,7 @@
   justify-content: center !important;
   gap: 6px !important;
   max-width: 100% !important;
-  white-space: nowrap !important;
+  var(--t1)-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -1104,16 +1104,16 @@
   min-height: 44px !important;
   padding: 0 16px !important;
   border-radius: 99px !important;
-  background: rgb(var(--theme-on-rgb) / .055) !important;
-  white-space: nowrap !important;
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
+  var(--t1)-space: nowrap !important;
 }
 .dashboard .settings-page.profile-v2 .profile-setting-row-wide > .settings-value {
   display: block !important;
   padding: 0 16px !important;
   line-height: 44px !important;
   border-radius: 99px !important;
-  background: rgb(var(--theme-on-rgb) / .055) !important;
-  white-space: nowrap !important;
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
+  var(--t1)-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
 }
@@ -1135,7 +1135,7 @@
 }
 .dashboard .settings-page.profile-v2 .settings-quiet-control > span {
   margin: 0 !important;
-  white-space: nowrap !important;
+  var(--t1)-space: nowrap !important;
   font-size: 13px !important;
 }
 .dashboard .settings-page.profile-v2 .profile-setting-control-row select,
@@ -1157,14 +1157,14 @@
   padding: 3px !important;
   border: 0 !important;
   border-radius: 99px !important;
-  background: rgb(var(--theme-on-rgb) / .1) !important;
+  background: color-mix(in srgb, var(--surface-1) 10%, transparent) !important;
 }
 .dashboard .settings-page.profile-v2 .settings-toggle > span {
   display: block !important;
   width: 20px !important;
   height: 20px !important;
   border-radius: 50% !important;
-  background: rgb(var(--theme-on-rgb) / .42) !important;
+  background: color-mix(in srgb, var(--surface-1) 42%, transparent) !important;
   transform: translateX(0) !important;
   transition: transform .2s ease, background .2s ease !important;
 }
@@ -1172,7 +1172,7 @@
   background: rgb(var(--ac)) !important;
 }
 .dashboard .settings-page.profile-v2 .settings-toggle.active > span {
-  background: #fff !important;
+  background: var(--surface-1) !important;
   transform: translateX(18px) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-focus-row {
@@ -1189,9 +1189,9 @@
   width: 44px !important;
   height: 44px !important;
   border-radius: 50% !important;
-  background: rgb(var(--theme-on-rgb) / .06) !important;
-  color: var(--t1) !important;
-  border: 1px solid var(--edge) !important;
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
+  color: rgb(var(--ac)) !important;
+  border: 1px solid rgba(var(--ac),.35) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-focus-copy {
   display: grid !important;
@@ -1258,7 +1258,7 @@
   right: 18px !important;
   bottom: calc(86px + env(safe-area-inset-bottom, 0px)) !important;
   padding: 0 !important;
-  border: 1px solid var(--edge) !important;
+  border: 1px solid rgba(var(--ac), .45) !important;
   border-radius: 50% !important;
   background: rgba(var(--ac), .14) !important;
   color: var(--t1) !important;
@@ -1288,7 +1288,7 @@
 /* Pass 3: profile geometry, status fade, and compact accordion tiles. */
 .dashboard .settings-page.profile-v2{box-sizing:border-box!important;padding-top:calc(env(safe-area-inset-top,0px) + 8px)!important;padding-bottom:160px!important;margin-top:0!important;background:transparent!important}
 .dashboard .settings-page.profile-v2 .profile-v2-topbar{margin-top:0!important;margin-bottom:18px!important}
-.profile-v2-top-scrim.status-scrim{position:fixed!important;top:0!important;left:0!important;right:0!important;height:calc(env(safe-area-inset-top,0px) + 24px)!important;z-index:60!important;pointer-events:none!important;-webkit-backdrop-filter:blur(16px)!important;backdrop-filter:blur(16px)!important;background:linear-gradient(to bottom,rgba(10,9,8,.7),rgba(10,9,8,0))!important;-webkit-mask-image:linear-gradient(#000 50%,transparent)!important;mask-image:linear-gradient(#000 50%,transparent)!important}
+.profile-v2-top-scrim.status-scrim{position:fixed!important;top:0!important;left:0!important;right:0!important;height:calc(env(safe-area-inset-top,0px) + 24px)!important;z-index:60!important;pointer-events:none!important;-webkit-backdrop-filter:blur(16px)!important;backdrop-filter:blur(16px)!important;background:linear-gradient(to bottom,rgb(var(--theme-shadow-rgb) / 0.7)!important;-webkit-mask-image:linear-gradient(var(--t3) 50%,transparent)!important;mask-image:linear-gradient(var(--t3) 50%,transparent)!important}
 .dashboard .settings-page.profile-v2 .profile-v2-summary-main{align-items:center!important}
 .dashboard .settings-page.profile-v2 .profile-v2-avatar-wrap{position:relative!important;flex:0 0 80px!important;align-self:center!important;width:80px!important;height:80px!important;min-width:80px!important;min-height:80px!important;margin:0!important;overflow:visible!important}
 .dashboard .settings-page.profile-v2 .profile-v2-avatar-button{box-sizing:border-box!important;position:relative!important;display:block!important;flex:none!important;width:80px!important;height:80px!important;min-width:80px!important;min-height:80px!important;aspect-ratio:1/1!important;padding:4px!important;border-radius:50%!important;overflow:hidden!important}
@@ -1302,20 +1302,20 @@
 .dashboard .settings-page.profile-v2 .profile-v2-group-label{padding:14px 14px 6px!important}
 .dashboard .settings-page.profile-v2 .profile-settings-section-head{min-height:64px!important;height:64px!important}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-row{grid-template-columns:44px minmax(0,1fr) 18px!important;padding:10px 12px 10px 14px!important;min-height:64px!important;height:64px!important;width:100%!important;text-align:left!important;color:var(--t1)!important}
-.dashboard .settings-page.profile-v2 .profile-v2-focus-icon{color:var(--t1)!important}
+.dashboard .settings-page.profile-v2 .profile-v2-focus-icon{color:rgb(var(--ac))!important}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-copy{display:grid!important;gap:2px!important;min-width:0!important}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-copy strong{font-size:16px!important;font-weight:400!important;line-height:1.3!important}
 .dashboard .settings-page.profile-v2 .profile-v2-focus-copy small{display:block!important;font-size:13px!important;font-weight:300!important;line-height:1.45!important;color:var(--t2)!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;grid-auto-rows:auto!important;gap:10px!important;width:auto!important;min-width:0!important;margin:0!important;padding:2px 14px 14px!important;border:0!important;border-radius:0!important;background:transparent!important;box-sizing:border-box!important}
-.dashboard .settings-page.profile-v2 .profile-stat-grid article{box-sizing:border-box!important;min-width:0!important;padding:14px 16px!important;border:1px solid var(--edge)!important;border-radius:20px!important;background:rgb(var(--theme-on-rgb) / .04)!important}
+.dashboard .settings-page.profile-v2 .profile-stat-grid article{box-sizing:border-box!important;min-width:0!important;padding:14px 16px!important;border:1px solid color-mix(in srgb, var(--edge) 6%, transparent)!important;border-radius:20px!important;background:color-mix(in srgb, var(--surface-1) 4%, transparent)!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article:last-child{grid-column:1/-1!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article>span{display:block!important;font-size:12px!important;font-weight:400!important;letter-spacing:.08em!important;text-transform:uppercase!important;color:var(--t3)!important}
-.dashboard .settings-page.profile-v2 .profile-stat-grid article>strong{display:block!important;margin-top:6px!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;white-space:nowrap!important;overflow-wrap:normal!important}
+.dashboard .settings-page.profile-v2 .profile-stat-grid article>strong{display:block!important;margin-top:6px!important;font-size:26px!important;font-weight:300!important;line-height:1.1!important;color:var(--t1)!important;var(--t1)-space:nowrap!important;overflow-wrap:normal!important}
 .dashboard .settings-page.profile-v2 .profile-stat-grid article>small{display:block!important;margin-top:4px!important;font-size:13px!important;font-weight:300!important;line-height:1.4!important;color:var(--t2)!important}
-.dashboard .evolv-floating-log{right:18px!important;bottom:calc(86px + env(safe-area-inset-bottom))!important;background:rgba(var(--ac),.14)!important;border:1px solid var(--edge)!important;-webkit-backdrop-filter:blur(14px)!important;backdrop-filter:blur(14px)!important}
+.dashboard .evolv-floating-log{right:18px!important;bottom:calc(86px + env(safe-area-inset-bottom))!important;background:rgba(var(--ac),.14)!important;border:1px solid rgba(var(--ac),.45)!important;-webkit-backdrop-filter:blur(14px)!important;backdrop-filter:blur(14px)!important}
 .dashboard .evolv-floating-log span{display:none!important}
 
-/* Profile icon pass: white icons and no orange rings around icon tiles. */
+/* Profile icon pass: var(--t1) icons and no orange rings around icon tiles. */
 .dashboard .settings-page.profile-v2 .profile-settings-section-icon,
 .dashboard .settings-page.profile-v2 .profile-v2-focus-icon,
 .dashboard .settings-page.profile-v2 .profile-v2-action-icon,
@@ -1326,17 +1326,17 @@
 }
 .dashboard .settings-page.profile-v2 .profile-settings-section-icon {
   border: 0 !important;
-  background: rgb(var(--theme-on-rgb) / .06) !important;
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-action-icon {
   border: 0 !important;
-  background: rgb(var(--theme-on-rgb) / .06) !important;
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-focus-icon {
   color: var(--t1) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-action-row.is-danger .profile-v2-action-icon {
-  color: var(--t1) !important;
+  color: var(--accent) !important;
 }
 
 
@@ -1369,7 +1369,7 @@
   text-align: left !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-focus-section > .profile-v2-focus-row:focus-visible {
-  outline: 1px solid var(--edge) !important;
+  outline: 1px solid color-mix(in srgb, var(--t1) 28%, transparent) !important;
   outline-offset: -2px !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-focus-section .profile-v2-focus-icon {
@@ -1382,7 +1382,7 @@
   outline: 0 !important;
   box-shadow: none !important;
   border-radius: 50% !important;
-  background: rgb(var(--theme-on-rgb) / .06) !important;
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent) !important;
   color: var(--t1) !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-focus-section .profile-v2-focus-copy {
@@ -1424,9 +1424,9 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 
-/* Confirmation dialog: calm blue surround, refined dark surface, and clean white logout mark. */
+/* Confirmation dialog: calm blue surround, refined dark surface, and clean var(--t1) logout mark. */
 .confirmation-backdrop {
-  background: rgb(var(--theme-shadow-rgb) / .82) !important;
+  background: rgb(var(--theme-shadow-rgb) / 0.82) !important;
   -webkit-backdrop-filter: blur(18px) saturate(115%) !important;
   backdrop-filter: blur(18px) saturate(115%) !important;
 }
@@ -1434,10 +1434,10 @@
   box-sizing: border-box !important;
   width: min(100%, 42rem) !important;
   padding: 2.8rem !important;
-  border: 1px solid var(--edge) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent) !important;
   border-radius: 2.4rem !important;
-  background: linear-gradient(160deg, #151515 0%, #0d0d0d 58%, #080808 100%) !important;
-  box-shadow: 0 2.8rem 8rem rgb(var(--theme-shadow-rgb) / .48), inset 0 1px 0 rgb(var(--theme-on-rgb) / .055) !important;
+  background: linear-gradient(160deg, var(--t3) 0%, var(--t3) 58%, var(--t3) 100%) !important;
+  box-shadow: 0 2.8rem 8rem rgb(var(--theme-shadow-rgb) / 0.48) !important;
   color: var(--t1) !important;
 }
 .confirmation-backdrop .confirmation-modal .confirmation-icon:not(.is-destructive) {
@@ -1445,9 +1445,9 @@
   height: 4.8rem !important;
   display: grid !important;
   place-items: center !important;
-  border: 1px solid var(--edge) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 20%, transparent) !important;
   border-radius: 1.5rem !important;
-  background: rgb(var(--theme-on-rgb) / .075) !important;
+  background: color-mix(in srgb, var(--surface-1) 8%, transparent) !important;
   color: var(--t1) !important;
   box-shadow: none !important;
 }
@@ -1455,12 +1455,12 @@
   width: 2rem !important;
   height: 2rem !important;
   color: var(--t1) !important;
-  stroke: #fff !important;
+  stroke: var(--t1) !important;
 }
 .confirmation-backdrop .confirmation-modal .section-label {
   display: block !important;
   margin-top: 1.8rem !important;
-  color: var(--t1) !important;
+  color: color-mix(in srgb, var(--t1) 48%, transparent) !important;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
   font-size: 1.1rem !important;
   font-weight: 500 !important;
@@ -1476,7 +1476,7 @@
   line-height: 1.25 !important;
 }
 .confirmation-backdrop .confirmation-modal #profile-confirm-copy {
-  color: var(--t1) !important;
+  color: color-mix(in srgb, var(--t1) 68%, transparent) !important;
   font-size: 1.45rem !important;
   font-weight: 400 !important;
   line-height: 1.6 !important;
@@ -1493,9 +1493,9 @@
   font-weight: 500 !important;
 }
 .confirmation-backdrop .confirmation-modal .settings-cancel-button {
-  border: 1px solid var(--edge) !important;
-  background: rgb(var(--theme-on-rgb) / .045) !important;
-  color: var(--t1) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent) !important;
+  background: color-mix(in srgb, var(--surface-1) 5%, transparent) !important;
+  color: color-mix(in srgb, var(--t1) 86%, transparent) !important;
 }
 .confirmation-backdrop .confirmation-modal .settings-danger-button:not(:disabled) {
   box-shadow: none !important;
@@ -1507,7 +1507,7 @@
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
 }
 .dashboard .settings-page.profile-v2 .profile-v2-action-row:focus-visible {
-  outline: 2px solid var(--edge) !important;
+  outline: 2px solid color-mix(in srgb, var(--t1) 75%, transparent) !important;
   outline-offset: 3px !important;
 }
 @media (max-width: 520px) {
@@ -1525,17 +1525,17 @@
   min-width:13rem;
   min-height:4.4rem;
   padding:.7rem 1.1rem;
-  border:1px solid var(--edge);
+  border:1px solid color-mix(in srgb, var(--accent) 32%, transparent);
   border-radius:1.2rem;
   color:var(--t1);
-  background:#17110d;
+  background:var(--bg);
   color-scheme:dark;
   font:inherit;
 }
 .dashboard .profile-v2 .profile-reminder-time-row input[type="time"]{min-width:12rem}
 .dashboard .profile-v2 .profile-notification-help{
   margin:.4rem 0 1.2rem;
-  color:var(--t1);
+  color:color-mix(in srgb, var(--t1) 48%, transparent);
   font-size:1.25rem;
   line-height:1.55;
 }
