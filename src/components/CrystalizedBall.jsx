@@ -72,6 +72,8 @@ export default function CrystalizedBall({
       return [(number >> 16) & 255, (number >> 8) & 255, number & 255]
     })()
     const orange = (alpha) => `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`
+    const highlightRgb = getComputedStyle(document.documentElement).getPropertyValue('--theme-highlight-rgb').trim().replace(/\s+/g, ', ')
+    const highlight = (alpha) => `rgba(${highlightRgb}, ${alpha})`
     let disposed = false
 
     function resize() {
