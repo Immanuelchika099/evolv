@@ -1677,7 +1677,6 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           <div className="evolv-welcome-visual-grain" aria-hidden="true" />
           <CrystalizedBall
             preset="plasma"
-            color="#E85A27"
             size={0.7}
             crackle={0.55}
             fill={0.5}
