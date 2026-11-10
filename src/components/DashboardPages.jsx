@@ -265,11 +265,11 @@ function AreaPage({ pageProps }) {
   const current = areas[currentArea]
   const AreaIcon = current?.icon || Activity
   const metricIconColors = {
-    sleep:'#F5B84B',water:'var(--color-accent-blue)',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
-    mood:'#FB7185',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'#F97316',
-    learning:'var(--color-accent-blue)',building:'var(--color-accent-blue)',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
-    income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
-    habits:'#A3E635',reading:'var(--color-accent-blue)',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+    sleep:'var(--metric-sleep)',water:'var(--color-accent-blue)',steps:'var(--metric-steps)',exercise:'var(--metric-exercise)',energy:'var(--metric-energy)',weight:'var(--metric-weight)',
+    mood:'var(--metric-mood)',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'var(--metric-stress)',
+    learning:'var(--color-accent-blue)',building:'var(--color-accent-blue)',outreach:'var(--metric-outreach)',applications:'var(--metric-applications)',skills:'var(--metric-income)',
+    income:'var(--metric-income)',spending:'var(--metric-mood)',savings:'var(--metric-weight)',bills:'var(--metric-applications)',
+    habits:'var(--metric-habits)',reading:'var(--color-accent-blue)',social:'var(--metric-outreach)',personal:'var(--metric-weight)',meals:'var(--metric-meals)'
   }
   const trackers = defs.filter(def => metricArea[def.slug] === currentArea)
   const recentMeals = meals.length
@@ -285,7 +285,7 @@ function AreaPage({ pageProps }) {
       <div className="area-options-list">
         {currentArea === 'nutrition' && (
           <button type="button" className="area-option-row" onClick={() => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })}>
-            <span className="metric-row-icon area-option-icon" style={{ '--metric-color': '#ffb86b' }}><Utensils size={18} /></span>
+            <span className="metric-row-icon area-option-icon" style={{ '--metric-color': 'var(--metric-meals)' }}><Utensils size={18} /></span>
             <span className="area-option-copy"><strong>Meals</strong><small>{recentMeals ? `${recentMeals} ${recentMeals === 1 ? 'meal' : 'meals'} logged` : 'Add a meal'}</small></span>
             <Plus size={17} className="area-option-action" />
           </button>
@@ -728,10 +728,10 @@ function ProfilePage({ pageProps }) {
         <div><strong>Sign out</strong><span>Sign out of EVOLV on this device.</span></div>
         <HoldButton
           doneLabel="Signed out"
-          backgroundColor="#27272a"
-          fillColor="#ffffff"
-          textColor="#f5f5f5"
-          fillTextColor="#050505"
+          backgroundColor="var(--surface-2)"
+          fillColor="var(--t1)"
+          textColor="var(--t1)"
+          fillTextColor="var(--bg)"
           size="md"
           radius={14}
           fillDirection="right"
@@ -751,10 +751,10 @@ function ProfilePage({ pageProps }) {
         <div><strong>Delete account</strong><span>Hold to permanently remove your account and saved information.</span></div>
         <HoldButton
           doneLabel="Deleted"
-          backgroundColor="#27272a"
-          fillColor="#EF4444"
-          textColor="#f5f5f5"
-          fillTextColor="#ffffff"
+          backgroundColor="var(--surface-2)"
+          fillColor="var(--danger)"
+          textColor="var(--t1)"
+          fillTextColor="var(--t1)"
           size="md"
           radius={14}
           fillDirection="right"
