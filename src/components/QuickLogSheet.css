@@ -118,7 +118,7 @@
 .quick-log-add-set { display: inline-flex; align-items: center; gap: .6rem; margin-top: 1rem; padding: .6rem .2rem; border: 0; background: transparent; color: var(--color-accent-blue); font-size: 1.35rem; font-weight: var(--font-weight-semibold); }
 .quick-log-add-exercise { width: 100%; margin-top: 1.2rem; background: transparent; border-color: color-mix(in srgb, var(--color-accent-blue) 55.00000000000001%, transparent); color: var(--color-accent-blue); }
 .quick-log-add-exercise svg { color: var(--color-accent-blue); stroke: currentColor; }
-.quick-log-editor-footer { position: sticky; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; margin: 1.6rem -1.8rem 0; padding: 1.2rem 1.8rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); border-top: 1px solid color-mix(in srgb, var(--edge) 9%, transparent); background: rgb(var(--theme-shadow-rgb) / 0.97); }
+.quick-log-editor-footer { position: sticky; bottom: 0; display: flex; align-items: center; justify-content: space-between; gap: 1.2rem; margin: 1.6rem -1.8rem 0; padding: 1.2rem 1.8rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); border-top: 1px solid color-mix(in srgb, var(--edge) 9%, transparent); background: color-mix(in srgb, var(--surface-1) 97%, transparent); }
 .quick-log-editor-footer > div { display: grid; gap: .2rem; }
 .quick-log-editor-footer strong { font-size: 1.7rem; }
 .quick-log-editor-footer span { color: color-mix(in srgb, var(--t1) 45%, transparent); font-size: 1.4rem; }
@@ -1040,7 +1040,7 @@
   margin: 1.2rem -1.6rem calc(-1 * max(2rem, env(safe-area-inset-bottom,0px))) !important;
   padding: 1.1rem 1.6rem max(1.4rem, env(safe-area-inset-bottom,0px)) !important;
   border-top: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
-  background: rgb(var(--theme-shadow-rgb) / 0.94);
+  background: color-mix(in srgb, var(--surface-1) 94%, transparent);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
 }
@@ -1079,7 +1079,7 @@
   padding: 1rem .85rem !important;
   border: 1px solid color-mix(in srgb, var(--edge) 6%, transparent);
   border-radius: 1.1rem !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.18) !important;
+  background: color-mix(in srgb, var(--surface-3) 18%, transparent) !important;
 }
 .quick-log-workout-totals-card > div > span {
   color: color-mix(in srgb, var(--t1) 45%, transparent) !important;
@@ -1193,7 +1193,7 @@
   padding: .55rem !important;
   border: 1px solid color-mix(in srgb, var(--edge) 6%, transparent);
   border-radius: 1.1rem !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.2) !important;
+  background: color-mix(in srgb, var(--surface-3) 20%, transparent) !important;
 }
 .quick-log-set-row.is-complete {
   border-color: color-mix(in srgb, var(--t1) 16%, transparent) !important;
@@ -1242,7 +1242,7 @@
   margin: 1.2rem -1.6rem calc(-1 * max(2rem, env(safe-area-inset-bottom,0px))) !important;
   padding: 1.2rem 1.6rem max(1.4rem, env(safe-area-inset-bottom,0px)) !important;
   border-top: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
-  background: rgb(var(--theme-shadow-rgb) / 0.96);
+  background: color-mix(in srgb, var(--surface-1) 96%, transparent);
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 }
@@ -1327,7 +1327,7 @@
   padding: 1.3rem 1.2rem 1.4rem;
   border: 1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius: 2.2rem;
-  background: rgb(var(--theme-shadow-rgb) / 0.94);
+  background: color-mix(in srgb, var(--surface-1) 94%, transparent);
   box-shadow: 0 2rem 6rem rgb(var(--theme-shadow-rgb) / 0.48), inset 0 1px 0 color-mix(in srgb, var(--t1) 4%, transparent);
   -webkit-backdrop-filter: blur(24px);
   backdrop-filter: blur(24px);
