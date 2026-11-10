@@ -10,19 +10,19 @@
   --space-12: 48px;
 
   /* Shared surfaces, borders, and accent */
-  --color-canvas: #090909;
-  --color-surface: #101010;
-  --color-surface-raised: #141414;
-  --color-text-primary: #f4f4f1;
-  --color-text-secondary: rgba(255,255,255,.66);
-  --color-text-muted: rgba(255,255,255,.44);
-  --color-border-subtle: rgba(255,255,255,.085);
-  --color-border: rgba(255,255,255,.12);
-  --color-accent-blue: #E85A27;
+  --color-canvas: var(--bg);
+  --color-surface: var(--surface-1);
+  --color-surface-raised: var(--surface-2);
+  --color-text-primary: var(--t1);
+  --color-text-secondary: var(--t2);
+  --color-text-muted: var(--t3);
+  --color-border-subtle: var(--edge);
+  --color-border: var(--edge);
+  --color-accent-blue: var(--accent);
   --color-glow-red: rgba(143, 38, 56, 0.16);
   --color-glow-brown: rgba(84, 43, 39, 0.07);
   --blue-accent: var(--color-accent-blue);
-  --ai-bubble-blue: #9E3D1C;
+  --ai-bubble-blue: var(--ai-surface);
   --graph-blue: var(--color-accent-blue);
   --graph-blue-deep: color-mix(in srgb, var(--color-accent-blue) 78%, black);
   --graph-blue-bright: color-mix(in srgb, var(--color-accent-blue) 88%, white);
@@ -57,8 +57,8 @@
   --type-caption: 1.2rem;
 
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  color:#f4f1ea;
-  background:#000;
+  color:var(--t1);
+  background:var(--bg);
   --muted:#85837f;
   --line:#ffffff1c;
   --accent: var(--color-accent-blue);
@@ -95,8 +95,8 @@ body,
 
 body{
   margin:0;
-  background:#000;
-  color:inherit;
+  background:var(--bg);
+  color:var(--t1);
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 
@@ -131,8 +131,7 @@ video{
 
 /* Single source of truth for the application canvas. */
 :root {
-  --app-bg: #000000;
-  color-scheme: dark;
+  --app-bg: var(--bg);
   background-color: var(--app-bg);
 }
 html,
@@ -1434,3 +1433,101 @@ body { color:var(--ink); }
   -webkit-box-shadow:0 0 0 1000px var(--field) inset!important;
   box-shadow:0 0 0 1000px var(--field) inset!important; background-color:var(--field)!important;
 }
+
+
+/* Exact screen-level surfaces: each app area consumes the shared theme tokens. */
+:root { --ai-ink:var(--t1); --accent-foreground:#fff; }
+:root[data-theme="light"] { --ai-ink:#653218; }
+html,body,#root,.dashboard,.dashboard .dash-main,.dashboard .dashboard-pages {
+  transition:background-color .24s ease,color .24s ease;
+}
+.dashboard .dashboard-home,.dashboard .home-page,.dashboard .home-dashboard,
+.dashboard .goals-page,.dashboard .progress-page,.dashboard .calendar-page,
+.dashboard .schedule-page,.dashboard .daily-routine-page,.dashboard .money-page,
+.dashboard .notifications-page,.dashboard .log-overlay.log-page-mode {
+  color:var(--t1);
+}
+.dashboard .dashboard-home :is(.home-stat-card,.home-stat,.home-today-card,.home-area-card,.home-focus-card),
+.dashboard .progress-page :is(.progress-summary-card,.progress-stat-card,.progress-chart-card,.progress-insight-card),
+.dashboard .goals-page :is(.goal-item,.goal-card,.goal-summary,.goal-milestone-card,.goal-checkin-card),
+.dashboard .daily-routine-page :is(.routine-task,.routine-task-card,.routine-reminder-note,.routine-coach-card,.routine-add-form),
+.dashboard .calendar-page :is(.calendar-day,.calendar-event,.calendar-week-card),
+.dashboard .schedule-page :is(.schedule-item,.schedule-event),
+.dashboard .money-page :is(.money-summary,.money-transaction,.money-form-sheet,.money-notice),
+.dashboard .notifications-page :is(.notification-page-row,.notification-empty,.notification-preference),
+.dashboard .log-overlay.log-page-mode :is(.log-sheet,.log-metric-card,.log-choice-card,.log-card,.log-form-card) {
+  color:var(--t1)!important;
+  background:var(--panel)!important;
+  border-color:var(--edge)!important;
+}
+.dashboard .dashboard-home :is(.home-stat-card,.home-stat,.home-today-card,.home-area-card,.home-focus-card),
+.dashboard .progress-page :is(.progress-summary-card,.progress-stat-card,.progress-chart-card,.progress-insight-card),
+.dashboard .goals-page :is(.goal-item,.goal-card,.goal-summary,.goal-milestone-card,.goal-checkin-card),
+.dashboard .daily-routine-page :is(.routine-task,.routine-task-card,.routine-reminder-note,.routine-coach-card,.routine-add-form),
+.dashboard .calendar-page :is(.calendar-day,.calendar-event,.calendar-week-card),
+.dashboard .schedule-page :is(.schedule-item,.schedule-event),
+.dashboard .money-page :is(.money-summary,.money-transaction,.money-form-sheet,.money-notice),
+.dashboard .notifications-page :is(.notification-page-row,.notification-empty,.notification-preference),
+.dashboard .log-overlay.log-page-mode :is(.log-sheet,.log-metric-card,.log-choice-card,.log-card,.log-form-card) :is(h1,h2,h3,h4,strong,label) {
+  color:var(--t1)!important;
+}
+.dashboard .dashboard-home :is(.home-stat-card,.home-stat,.home-today-card,.home-area-card,.home-focus-card) :is(p,small,span),
+.dashboard .progress-page :is(.progress-summary-card,.progress-stat-card,.progress-chart-card,.progress-insight-card) :is(p,small,span),
+.dashboard .goals-page :is(.goal-item,.goal-card,.goal-summary,.goal-milestone-card,.goal-checkin-card) :is(p,small,span),
+.dashboard .daily-routine-page :is(.routine-task,.routine-task-card,.routine-reminder-note,.routine-coach-card) :is(p,small,span) {
+  color:var(--t2);
+}
+.dashboard .progress-page :is(.progress-range-switch button,.progress-filter button) {
+  color:var(--t2); background:var(--panel-raised); border-color:var(--edge);
+}
+.dashboard .progress-page :is(.progress-range-switch button.active,.progress-range-switch button[aria-pressed="true"],.progress-filter button.active) {
+  color:var(--accent-foreground); background:var(--accent); border-color:var(--accent);
+}
+.dashboard .progress-page :is(.progress-chart-grid line,.progress-chart-grid path,.recharts-cartesian-grid line) {
+  stroke:var(--chart-grid);
+}
+.dashboard .goals-page :is(.goal-list>article.goal-item,.goal-accordion,.goal-create-form) {
+  background:var(--panel)!important; color:var(--t1)!important; border-color:var(--edge)!important;
+}
+.dashboard .goals-page :is(.goal-create-form input,.goal-create-form textarea,.goal-create-form select) {
+  background:var(--field)!important; color:var(--t1)!important; border-color:var(--edge)!important;
+}
+.dashboard .daily-routine-page :is(.routine-add-form input,.routine-add-form select,.routine-inline-edit input,.routine-time input) {
+  background:var(--field)!important; color:var(--t1)!important; border-color:var(--edge)!important;
+}
+.dashboard .money-page :is(.money-form-sheet,.money-form-overlay) { color:var(--t1); }
+.dashboard .money-page :is(.money-amount-field input,.money-form-field input,.money-form-field select,.money-form-field textarea) {
+  color:var(--t1)!important; background:var(--field)!important; border-color:var(--edge)!important;
+}
+.dashboard .log-overlay.log-page-mode :is(.log-sheet-head h2,.log-card-title strong,.log-metric-card strong) { color:var(--t1)!important; }
+.dashboard .log-overlay.log-page-mode :is(.log-sheet-head p,.log-input-label span,.log-sheet-footer>div small) { color:var(--t2)!important; }
+.dashboard .ai-page .ai-message.user p,
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  color:var(--ai-ink)!important; background:var(--ai-surface)!important;
+}
+.dashboard .ai-page .ai-message.assistant,
+.dashboard .ai-page .ai-message.assistant .ai-response-content { color:var(--t1)!important; }
+.dashboard .ai-page .ai-history-sheet,
+.dashboard .ai-page .ai-history-row,
+.dashboard .ai-page .ai-promptbar-shell,
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__field {
+  color:var(--t1)!important; background:var(--panel)!important; border-color:var(--edge)!important;
+}
+.dashboard .evolv-bottom-nav,.dashboard .evolv-desktop-sidebar {
+  color:var(--t1)!important; background:var(--panel)!important; border-color:var(--edge)!important;
+}
+.dashboard .profile-v2 .profile-settings-section,
+.dashboard .profile-v2 .profile-stat-grid article,
+.dashboard .profile-v2 .profile-v2-focus-row,
+.dashboard .profile-v2 .profile-v2-action-row {
+  background:var(--panel)!important; color:var(--t1)!important; border-color:var(--edge)!important;
+}
+.dashboard .profile-v2 :is(.profile-settings-section-heading strong,.profile-v2-focus-copy strong,.profile-stat-grid article>strong) { color:var(--t1)!important; }
+.dashboard .profile-v2 :is(.profile-settings-section-heading .section-label,.profile-v2-focus-copy small,.profile-stat-grid article>small) { color:var(--t2)!important; }
+.dashboard :is(.modal,.sheet,.bottom-sheet,.dialog,.popover,.dropdown-menu,.confirmation-modal) {
+  background:var(--panel)!important; color:var(--t1)!important; border-color:var(--edge)!important;
+}
+.dashboard :is(.modal-backdrop,.sheet-backdrop,.dialog-backdrop,.confirmation-backdrop) { background:var(--overlay)!important; }
+.dashboard :is(input,textarea,select) { accent-color:var(--accent); }
+:root[data-theme="light"] .dashboard .ai-page .ai-message.user p,
+:root[data-theme="light"] .dashboard.dashboard-ai-active .ai-page .ai-message.user p { color:var(--ai-ink)!important; }
