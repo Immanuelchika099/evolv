@@ -7,8 +7,8 @@ import './HoldButton.css';
 export default function HoldButton({
   children = 'Delete account',
   icon = null,
-  backgroundColor = '#27272a',
-  textColor = '#f5f5f5',
+  backgroundColor = 'var(--surface-2)',
+  textColor = 'var(--t1)',
   size = 'md',
   radius = 14,
   disabled = false,
