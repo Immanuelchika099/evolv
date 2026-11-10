@@ -3431,7 +3431,7 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
     mood:'var(--metric-mood)',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'var(--metric-stress)',
     learning:'var(--graph-blue-cyan)',building:'var(--graph-blue-light)',outreach:'var(--metric-outreach)',applications:'var(--metric-applications)',skills:'var(--metric-skills)',
     income:'var(--metric-income)',spending:'var(--metric-spending)',savings:'var(--metric-savings)',bills:'var(--metric-bills)',
-    habits:'#A3E635',reading:'var(--color-accent-blue)',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
+    habits:'var(--metric-habits)',reading:'var(--color-accent-blue)',social:'var(--metric-social)',personal:'var(--metric-personal)',meals:'var(--metric-meals)'
   }
 
   const rows=definitions.filter(d=>metricArea[d.slug]===area && d.slug!=='exercise')
@@ -3777,8 +3777,8 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
                   <button className="log-health-card log-metric-card" type="button" onClick={()=>selectMetric({slug:'meals',name:'Meal',value_type:'meal'})}>
                     <span className="log-card-top">
                       <span className="log-card-title">
-                        <span className="log-choice-icon" style={{'--area-color':'#ffb84d'}}><Utensils size={22}/></span>
-                        <strong style={{'--card-color':'#ffb84d'}}>Meal</strong>
+                        <span className="log-choice-icon" style={{'--area-color':'var(--metric-nutrition)'}}><Utensils size={22}/></span>
+                        <strong style={{'--card-color':'var(--metric-nutrition)'}}>Meal</strong>
                       </span>
                       <span className="log-card-date">LOG</span>
                       <ChevronRight className="log-card-chevron" size={22}/>
