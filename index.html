@@ -11,6 +11,7 @@
           var media=window.matchMedia("(prefers-color-scheme: dark)");
           function apply(){
             var preference=localStorage.getItem(key)||"system";
+            if(["system","light","dark"].indexOf(preference)===-1)preference="system";
             var resolved=preference==="system"?(media.matches?"dark":"light"):preference;
             document.documentElement.dataset.theme=resolved;
             document.documentElement.dataset.themePreference=preference;
