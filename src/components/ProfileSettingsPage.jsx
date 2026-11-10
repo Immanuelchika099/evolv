@@ -19,7 +19,7 @@ function streaksFor(items){
   return {current,best}
 }
 function ProfileSettingsSection({label,title,children,danger=false,icon:Icon=ShieldCheck}) {
-  const [open,setOpen]=useState(title === 'Notifications')
+  const [open,setOpen]=useState(title === 'Notifications' || title === 'Appearance')
   return <section className={'profile-settings-section profile-accordion '+(danger?'danger-section':'')}>
     <button type="button" className="profile-settings-section-head" aria-expanded={open} onClick={()=>setOpen(value=>!value)}>
       <span className={'profile-settings-section-icon icon-'+title.toLowerCase().replace(/[^a-z0-9]+/g,'-')+(danger?' icon-danger':'')}><Icon size={19} strokeWidth={1.9}/></span>
