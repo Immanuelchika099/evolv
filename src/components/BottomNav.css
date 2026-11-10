@@ -15,7 +15,7 @@
   border: 0;
   border-top: 1px solid color-mix(in srgb, var(--t1) 9%, transparent);
   border-radius: 0;
-  background: rgb(var(--theme-shadow-rgb) / 0.68);
+  background: color-mix(in srgb, var(--surface-2) 68%, transparent);
   box-shadow: 0 -1px 0 color-mix(in srgb, var(--t1) 3%, transparent), 0 -14px 34px rgb(var(--theme-shadow-rgb) / 0.22);
   backdrop-filter: blur(30px) saturate(145%);
   -webkit-backdrop-filter: blur(30px) saturate(145%);
@@ -145,7 +145,7 @@ html.evolv-android .evolv-bottom-nav {
   gap: .2rem !important;
   border: 1px solid color-mix(in srgb, var(--t1) 10%, transparent) !important;
   border-radius: 2.2rem 2.2rem 0 0 !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.94) !important;
+  background: color-mix(in srgb, var(--surface-1) 94%, transparent) !important;
   box-shadow: 0 1.8rem 5rem rgb(var(--theme-shadow-rgb) / 0.42), inset 0 1px 0 color-mix(in srgb, var(--t1) 6%, transparent) !important;
   backdrop-filter: blur(1.8rem) saturate(110%) !important;
   -webkit-backdrop-filter: blur(1.8rem) saturate(110%) !important;
@@ -311,8 +311,8 @@ html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
 
 /* Final navigation treatment: translucent glass, never a solid accent fill. */
 html body #root .dashboard .evolv-bottom-nav {
-  background: rgb(var(--theme-shadow-rgb) / 0.58) !important;
-  background-color: rgb(var(--theme-shadow-rgb) / 0.58) !important;
+  background: color-mix(in srgb, var(--surface-2) 58%, transparent) !important;
+  background-color: color-mix(in srgb, var(--surface-2) 58%, transparent) !important;
   background-image: none !important;
   -webkit-backdrop-filter: blur(24px) saturate(135%) !important;
   backdrop-filter: blur(24px) saturate(135%) !important;
