@@ -286,7 +286,7 @@
   font:inherit;
   font-size:1.25rem;
   cursor:pointer;
-  var(--t1)-space:nowrap;
+  white-space:nowrap;
 }
 .dashboard .notifications-delete-selected{
   border-color:color-mix(in srgb, var(--danger) 22%, transparent);
