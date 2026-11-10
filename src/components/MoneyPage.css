@@ -38,7 +38,7 @@
 .money-notice{margin:1rem 0;color:var(--pos);font-size:1.35rem}
 .money-form-overlay{position:fixed;inset:0;z-index:200010;display:flex;align-items:flex-end;justify-content:center;padding:1rem 1rem calc(1rem + env(safe-area-inset-bottom,0px));background:rgb(var(--theme-shadow-rgb) / 0.74);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px)}
 .money-form-sheet{display:flex;flex-direction:column;width:min(100%,52rem);max-height:calc(100dvh - 2rem - env(safe-area-inset-top,0px));overflow:auto;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:2.1rem;background:var(--bg);color:var(--t1);box-shadow:0 2rem 7rem rgb(var(--theme-shadow-rgb) / 0.55);-webkit-overflow-scrolling:touch}
-.money-form-heading{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.7rem 1.8rem;border-bottom:1px solid color-mix(in srgb, var(--edge) 8%, transparent);background:rgb(var(--theme-shadow-rgb) / 0.97)}
+.money-form-heading{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.7rem 1.8rem;border-bottom:1px solid color-mix(in srgb, var(--edge) 8%, transparent);background:color-mix(in srgb, var(--surface-1) 97%, transparent)}
 .money-form-heading h2{margin:.35rem 0 0;font-size:2.15rem;font-weight:var(--font-weight-semibold);letter-spacing:-.04em}
 .money-form-heading>button{display:grid;flex:0 0 4rem;width:4rem;height:4rem;place-items:center;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:50%;background:var(--bg);color:var(--t1)}
 .money-form{display:grid;gap:1.35rem;padding:1.6rem 1.8rem 2rem}
@@ -166,7 +166,7 @@
   transform: translateX(-50%);
   border: 1px solid color-mix(in srgb, var(--edge) 13%, transparent);
   border-radius: 1.25rem;
-  background: rgb(var(--theme-shadow-rgb) / 0.96);
+  background: color-mix(in srgb, var(--surface-1) 96%, transparent);
   color: var(--t1) !important;
   box-shadow: 0 1rem 3rem rgb(var(--theme-shadow-rgb) / 0.36);
   font-size: 1.35rem;
