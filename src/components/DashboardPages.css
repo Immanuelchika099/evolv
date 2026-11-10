@@ -1771,7 +1771,7 @@
   border:1px solid rgba(239,68,68,.25);
   border-radius:999rem;
   background:rgba(239,68,68,.07);
-  color:var(--t1);
+  color:var(--danger);
   font:500 1.15rem/1 var(--font-ui);
 }
 .settings-danger-button:hover{
@@ -1882,7 +1882,7 @@
   border:1px solid rgba(239,68,68,.25);
   border-radius:1.3rem;
   background:rgba(239,68,68,.08);
-  color:var(--t1);
+  color:var(--danger);
 }
 .confirmation-modal p{
   max-width:52rem;
