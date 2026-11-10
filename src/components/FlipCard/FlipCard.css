@@ -63,7 +63,14 @@
   inset: 0;
   background: radial-gradient(
     circle farthest-side at var(--fc-gx, 50%) var(--fc-gy, 50%),
-    color-mix(in srgb, var(--t1) 0%, transparent);
+    rgba(255, 255, 255, var(--fc-glare)) 0%,
+    rgba(255, 255, 255, calc(var(--fc-glare) * 0.76)) 12%,
+    rgba(255, 255, 255, calc(var(--fc-glare) * 0.5)) 26%,
+    rgba(255, 255, 255, calc(var(--fc-glare) * 0.28)) 42%,
+    rgba(255, 255, 255, calc(var(--fc-glare) * 0.12)) 60%,
+    rgba(255, 255, 255, calc(var(--fc-glare) * 0.04)) 78%,
+    color-mix(in srgb, var(--t1) 0%, transparent) 100%
+  );
   opacity: var(--fc-sheen, 0);
   pointer-events: none;
 }
