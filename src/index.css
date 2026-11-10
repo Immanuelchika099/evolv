@@ -1553,3 +1553,21 @@ html, body, #root,
     animation-duration: .01ms !important;
   }
 }
+
+
+/* Light-mode modal scrims and sheet footers retain clear depth without dark panels. */
+:root[data-theme="light"] :is(
+  .profile-modal-backdrop,
+  .settings-delete-overlay,
+  .log-overlay,
+  .ai-history-overlay,
+  .entry-detail-overlay,
+  .log-history-overlay,
+  .evolv-avatar-backdrop
+) {
+  background: var(--overlay) !important;
+}
+:root[data-theme="light"] .dashboard .log-overlay.log-page-mode .log-sheet-footer {
+  background: var(--surface-1) !important;
+  border-color: var(--edge) !important;
+}
