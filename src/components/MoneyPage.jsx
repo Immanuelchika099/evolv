@@ -6,23 +6,23 @@ import './MoneyPage.css'
 const categories = {
   income: [
     { value: 'Freelance', icon: Laptop, color: 'var(--color-accent-blue)' },
-    { value: 'Salary', icon: BriefcaseBusiness, color: '#62e6bd' },
+    { value: 'Salary', icon: BriefcaseBusiness, color: 'var(--metric-income)' },
     { value: 'Business', icon: WalletCards, color: 'var(--color-accent-blue)' },
     { value: 'Gift', icon: Gift, color: 'var(--color-accent-blue)' },
-    { value: 'Other income', icon: ArrowDownLeft, color: '#62e6bd' },
+    { value: 'Other income', icon: ArrowDownLeft, color: 'var(--metric-income)' },
   ],
   expense: [
-    { value: 'Food', icon: Utensils, color: '#ffb86b' },
+    { value: 'Food', icon: Utensils, color: 'var(--metric-meals)' },
     { value: 'Transport', icon: Bus, color: 'var(--color-accent-blue)' },
     { value: 'Shopping', icon: ShoppingBag, color: 'var(--color-accent-blue)' },
-    { value: 'Bills', icon: Receipt, color: '#ff8f87' },
-    { value: 'Home', icon: Home, color: '#f1cc75' },
-    { value: 'Health', icon: Heart, color: '#ff8f9d' },
+    { value: 'Bills', icon: Receipt, color: 'var(--metric-health)' },
+    { value: 'Home', icon: Home, color: 'var(--metric-nutrition)' },
+    { value: 'Health', icon: Heart, color: 'var(--metric-mood)' },
     { value: 'Subscriptions', icon: CreditCard, color: 'var(--color-accent-blue)' },
-    { value: 'Other expense', icon: WalletCards, color: '#a9a9b2' },
+    { value: 'Other expense', icon: WalletCards, color: 'var(--t2)' },
   ],
-  savings: [{ value: 'Savings', icon: PiggyBank, color: '#62e6bd' }],
-  bill: [{ value: 'Bills', icon: Receipt, color: '#ff8f87' }],
+  savings: [{ value: 'Savings', icon: PiggyBank, color: 'var(--metric-income)' }],
+  bill: [{ value: 'Bills', icon: Receipt, color: 'var(--metric-health)' }],
 }
 
 function dateKey(date = new Date()) {
