@@ -802,7 +802,7 @@ function EvolvLoader() {
   return (
     <div className="evolv-loader" aria-label="Loading EVOLV">
       <div className="evolv-loader-core">
-        <span className="evolv-loader-wordmark" style={{ fontSize: "1.15rem", fontWeight: 500, letterSpacing: "0.08em", color: "rgba(255,255,255,0.82)", textTransform: "lowercase" }}>[evolv]</span>
+        <span className="evolv-loader-wordmark" style={{ fontSize: "1.15rem", fontWeight: 500, letterSpacing: "0.08em", color: "var(--t1)", textTransform: "lowercase" }}>[evolv]</span>
       </div>
     </div>
   )
@@ -1207,7 +1207,7 @@ function Landing({onStart, onExplore, onArticle, onPricing, onContact, onLegal})
             pattern="line"
             wave="silk"
             color="var(--color-accent-blue)"
-            backgroundColor="#050505"
+            backgroundColor="var(--bg)"
             opacity={0.12}
             fade="center"
             fadeSize={0.82}
@@ -1652,9 +1652,9 @@ const onboardingGoals = [
 ]
 
 const avatarStylePresets = {
-  masculine: { presentation: 'masculine', face: 'angular', hair: 'fade', hairColor: '#171311', accessory: 'none' },
-  feminine: { presentation: 'feminine', face: 'oval', hair: 'long', hairColor: '#211812', accessory: 'earrings' },
-  androgynous: { presentation: 'androgynous', face: 'oval', hair: 'curls', hairColor: '#211812', accessory: 'none' },
+  masculine: { presentation: 'masculine', face: 'angular', hair: 'fade', hairColor: 'var(--avatar-hair-dark)', accessory: 'none' },
+  feminine: { presentation: 'feminine', face: 'oval', hair: 'long', hairColor: 'var(--avatar-hair-deep)', accessory: 'earrings' },
+  androgynous: { presentation: 'androgynous', face: 'oval', hair: 'curls', hairColor: 'var(--avatar-hair-deep)', accessory: 'none' },
 }
 
 function getAvatarPreset(style = 'androgynous') {
@@ -1738,7 +1738,7 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
           pattern="line"
           wave="silk"
           color="var(--color-accent-blue)"
-          backgroundColor="#050505"
+          backgroundColor="var(--bg)"
           opacity={0.12}
           fade="center"
           fadeSize={0.82}
@@ -1987,8 +1987,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   },[])
 
   const areas={
-    health:{title:'Health',icon:HeartPulse,color:'#ff8f87'},
-    nutrition:{title:'Nutrition',icon:Apple,color:'#ffd66b'},
+    health:{title:'Health',icon:HeartPulse,color:'var(--metric-health)'},
+    nutrition:{title:'Nutrition',icon:Apple,color:'var(--metric-nutrition)'},
     money:{title:'Money',icon:WalletCards,color:'var(--color-accent-blue)'},
     career:{title:'Career',icon:BriefcaseBusiness,color:'var(--color-accent-blue)'},
     mind:{title:'Mind',icon:Brain,color:'var(--color-accent-blue)'},
@@ -2211,7 +2211,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
 
     if(item.type==='meal'){
       setArea('nutrition')
-      setMetric({slug:'meals',name:'Meal',value_type:'meal',color:'#ffb84d'})
+      setMetric({slug:'meals',name:'Meal',value_type:'meal',color:'var(--metric-nutrition)'})
     }else{
       setArea(metricArea[definition.slug]||definition.area)
       setMetric(definition)
@@ -3402,12 +3402,12 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   },[])
 
   const areaMeta={
-    health:{title:'Health',icon:HeartPulse,color:'#ff6b72',description:'Sleep, movement, hydration and everyday wellbeing.'},
-    nutrition:{title:'Nutrition',icon:Apple,color:'#F5B84B',description:'Meals, nourishment and the details you want to remember.'},
-    money:{title:'Money',icon:WalletCards,color:'#34D399',description:'Income, spending, savings and the bills you need to stay on top of.'},
+    health:{title:'Health',icon:HeartPulse,color:'var(--metric-health)',description:'Sleep, movement, hydration and everyday wellbeing.'},
+    nutrition:{title:'Nutrition',icon:Apple,color:'var(--metric-nutrition)',description:'Meals, nourishment and the details you want to remember.'},
+    money:{title:'Money',icon:WalletCards,color:'var(--metric-money)',description:'Income, spending, savings and the bills you need to stay on top of.'},
     career:{title:'Career',icon:BriefcaseBusiness,color:'var(--color-accent-blue)',description:'Applications, learning, projects, skills and outreach.'},
     mind:{title:'Mind',icon:Brain,color:'var(--color-accent-blue)',description:'Mood, focus, reflection and the moments that shape your inner life.'},
-    life:{title:'Life',icon:Sprout,color:'#4ADE80',description:'Habits, reading, people and time spent on yourself.'}
+    life:{title:'Life',icon:Sprout,color:'var(--metric-life)',description:'Habits, reading, people and time spent on yourself.'}
   }
 
   const metricArea={
@@ -3427,10 +3427,10 @@ function LogSheet({area,metric,definitions,saving,setSaving,editEntry,onArea,onM
   }
 
   const metricIconColors={
-    sleep:'#F5B84B',water:'var(--color-accent-blue)',steps:'#F59E0B',exercise:'#FF6B6B',energy:'#FACC15',weight:'#2DD4BF',
-    mood:'#FB7185',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'#F97316',
-    learning:'var(--graph-blue-cyan)',building:'var(--graph-blue-light)',outreach:'#F472B6',applications:'#FBBF24',skills:'#34D399',
-    income:'#34D399',spending:'#FB7185',savings:'#2DD4BF',bills:'#FBBF24',
+    sleep:'var(--metric-sleep)',water:'var(--color-accent-blue)',steps:'var(--metric-steps)',exercise:'var(--metric-exercise)',energy:'var(--metric-energy)',weight:'var(--metric-weight)',
+    mood:'var(--metric-mood)',focus:'var(--color-accent-blue)',reflection:'var(--color-accent-blue)',stress:'var(--metric-stress)',
+    learning:'var(--graph-blue-cyan)',building:'var(--graph-blue-light)',outreach:'var(--metric-outreach)',applications:'var(--metric-applications)',skills:'var(--metric-skills)',
+    income:'var(--metric-income)',spending:'var(--metric-spending)',savings:'var(--metric-savings)',bills:'var(--metric-bills)',
     habits:'#A3E635',reading:'var(--color-accent-blue)',social:'#F472B6',personal:'#2DD4BF',meals:'#FB923C'
   }
 
