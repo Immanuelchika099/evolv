@@ -1201,7 +1201,7 @@ html body #root .evolv-welcome .evolv-welcome-cta {
 :root,:root[data-theme="dark"] {
  color-scheme:dark; --bg:#0a0908; --app-bg:#0a0908; --t1:#f4eee8; --t2:rgba(244,238,232,.66); --t3:rgba(244,238,232,.42);
  --edge:rgba(255,255,255,.09); --surface-1:#151311; --surface-2:#1b1815; --surface-3:#211c17; --field-bg:#11100e;
- --accent-rgb:229,134,66; --ac:var(--accent-rgb); --theme-on-rgb:244 238 232; --theme-shadow-rgb:0 0 0; --accent:#E58642; --accent-soft:rgba(229,134,66,.14); --ai-surface:#653218;
+ --accent-rgb:229,134,66; --ac:var(--accent-rgb); --on-accent:var(--accent-foreground); --highlight-warm:#B77926; --highlight-pink:#C65A79; --highlight-peach:#BD684E; --on-accent:var(--accent-foreground); --highlight-warm:#F1CE70; --highlight-pink:#FF91A8; --highlight-peach:#FFAD91; --theme-on-rgb:244 238 232; --theme-shadow-rgb:0 0 0; --accent:#E58642; --accent-soft:rgba(229,134,66,.14); --ai-surface:#653218;
  --shadow-theme:0 12px 36px rgba(0,0,0,.22); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
  --color-text-primary:var(--t1); --color-text-secondary:var(--t2); --color-text-muted:var(--t3); --color-border-subtle:var(--edge); --color-border:var(--edge);
  --color-accent-blue:var(--accent); --color-accent-lime:var(--accent); --blue-accent:var(--accent); --evolv-blue:var(--accent); --ai-bubble-blue:var(--ai-surface);
