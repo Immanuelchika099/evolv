@@ -1,56 +1,56 @@
-/* Daily Routine — restrained black canvas, clear hierarchy, lime reserved for progress and actions. */
-.daily-routine-page { width: 100%; max-width: 104rem; margin: 0 auto; padding: 1.2rem clamp(1.8rem, 4vw, 4.2rem) 3.6rem; color: #f3f3ef; box-sizing: border-box; }
+/* Daily Routine — restrained var(--bg) canvas, clear hierarchy, lime reserved for progress and actions. */
+.daily-routine-page { width: 100%; max-width: 104rem; margin: 0 auto; padding: 1.2rem clamp(1.8rem, 4vw, 4.2rem) 3.6rem; color: var(--t1); box-sizing: border-box; }
 .routine-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:2rem; margin:0 0 2.6rem; }
-.routine-eyebrow,.routine-label { display:block; color:#999b94; font-size:1.1rem; font-weight:var(--font-weight-semibold); letter-spacing:.13em; }
+.routine-eyebrow,.routine-label { display:block; color:var(--t2); font-size:1.1rem; font-weight:var(--font-weight-semibold); letter-spacing:.13em; }
 .routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:var(--font-weight-semibold); }
 .routine-heading h1 span { color:var(--color-accent-blue); }
-.routine-heading p,.routine-section-heading p { margin:0; color:#a0a19b; font-size:1.45rem; line-height:1.65; }
-.routine-date { padding:.9rem 1.2rem; border:1px solid #292a2e; border-radius:999px; color:#d5d6ce; font-size:1.2rem; white-space:nowrap; }
-.routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid #292a2e; border-radius:1.8rem; background:linear-gradient(120deg,#101114,#08090b 75%); }
+.routine-heading p,.routine-section-heading p { margin:0; color:var(--t2); font-size:1.45rem; line-height:1.65; }
+.routine-date { padding:.9rem 1.2rem; border:1px solid var(--edge); border-radius:999px; color:var(--t1); font-size:1.2rem; var(--t1)-space:nowrap; }
+.routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid var(--edge); border-radius:1.8rem; background:linear-gradient(120deg,var(--t3),var(--t3) 75%); }
 .routine-progress-top { display:flex; align-items:center; justify-content:space-between; gap:1.4rem; }
 .routine-progress-top h2 { margin:.8rem 0 0; font-size:2rem; font-weight:var(--font-weight-medium); letter-spacing:-.035em; }
 .routine-progress-top>strong { font-size:2.8rem; font-weight:var(--font-weight-semibold); letter-spacing:-.05em; color:var(--color-accent-blue); }
-.routine-progress-track { height:.6rem; margin:1.8rem 0 1.2rem; overflow:hidden; border-radius:99px; background:#292a25; }
+.routine-progress-track { height:.6rem; margin:1.8rem 0 1.2rem; overflow:hidden; border-radius:99px; background:var(--bg); }
 .routine-progress-track span { display:block; height:100%; border-radius:inherit; background:var(--color-accent-blue); transition:width .25s ease; }
-.routine-progress-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; color:#9b9d96; font-size:1.2rem; }
+.routine-progress-bottom { display:flex; align-items:center; justify-content:space-between; gap:1rem; color:var(--t2); font-size:1.2rem; }
 .routine-progress-bottom button,.routine-insight-card>button,.routine-reminder-note>button { display:inline-flex; align-items:center; gap:.5rem; color:var(--color-accent-blue); background:none; border:0; font:inherit; cursor:pointer; }
 .routine-insight-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.4rem; margin:1.5rem 0 3.4rem; }
-.routine-insight-card { min-width:0; padding:2rem; border:1px solid #282a30; border-radius:1.6rem; background:#0b0c0a; }
+.routine-insight-card { min-width:0; padding:2rem; border:1px solid var(--edge); border-radius:1.6rem; background:var(--bg); }
 .routine-insight-icon { display:grid; place-items:center; width:3.8rem; height:3.8rem; margin-bottom:1.8rem; border:1px solid color-mix(in srgb, var(--color-accent-blue) 24%, transparent); border-radius:1.1rem; color:var(--color-accent-blue); }
-.routine-insight-icon.meal-icon { color:#e5d2a1; border-color:#383329; }
+.routine-insight-icon.meal-icon { color:var(--accent); border-color:var(--t3); }
 .routine-insight-card>strong { display:block; margin:.9rem 0 .4rem; font-size:2.8rem; font-weight:var(--font-weight-semibold); letter-spacing:-.05em; }
-.routine-insight-card>strong small { color:#a0a19b; font-size:1.35rem; font-weight:var(--font-weight-regular); letter-spacing:0; }
-.routine-insight-card>p { min-height:3.6rem; margin:0 0 1.5rem; color:#999b94; font-size:1.3rem; line-height:1.55; }
+.routine-insight-card>strong small { color:var(--t2); font-size:1.35rem; font-weight:var(--font-weight-regular); letter-spacing:0; }
+.routine-insight-card>p { min-height:3.6rem; margin:0 0 1.5rem; color:var(--t2); font-size:1.3rem; line-height:1.55; }
 .routine-insight-card>button { padding:0; font-size:1.25rem; font-weight:var(--font-weight-medium); }
 .routine-section-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:1.5rem; margin-bottom:1.5rem; }
 .routine-section-heading h2 { margin:.7rem 0 .5rem; font-size:2.5rem; font-weight:var(--font-weight-medium); letter-spacing:-.05em; }
-.routine-saved-state { display:inline-flex; align-items:center; gap:.4rem; color:#9b9d96; font-size:1.1rem; white-space:nowrap; }
+.routine-saved-state { display:inline-flex; align-items:center; gap:.4rem; color:var(--t2); font-size:1.1rem; var(--t1)-space:nowrap; }
 .routine-schedule-list { display:grid; grid-template-columns:1fr; gap:1.4rem; }
-.routine-group { padding:1.6rem; border:1px solid #252622; border-radius:1.5rem; background:#08090b; }
-.routine-group>h3 { margin:0 0 .7rem; padding:0 .2rem .8rem; color:#92948d; font-size:1.15rem; font-weight:var(--font-weight-semibold); letter-spacing:.1em; text-transform:uppercase; }
-.routine-row { display:flex; align-items:center; gap:1.2rem; min-height:7rem; padding:1rem .2rem; border-top:1px solid #1f201d; transition:opacity .2s ease; }
+.routine-group { padding:1.6rem; border:1px solid var(--edge); border-radius:1.5rem; background:var(--bg); }
+.routine-group>h3 { margin:0 0 .7rem; padding:0 .2rem .8rem; color:var(--t2); font-size:1.15rem; font-weight:var(--font-weight-semibold); letter-spacing:.1em; text-transform:uppercase; }
+.routine-row { display:flex; align-items:center; gap:1.2rem; min-height:7rem; padding:1rem .2rem; border-top:1px solid var(--edge); transition:opacity .2s ease; }
 .routine-row-disabled { opacity:.48; }
-.routine-row-complete .routine-row-copy strong { color:#aeb0a8; text-decoration:line-through; text-decoration-color:#77796f; }
-.routine-check { flex:0 0 2.5rem; display:grid; place-items:center; width:2.5rem; height:2.5rem; border:1px solid color-mix(in srgb, var(--color-accent-blue) 48%, transparent); border-radius:50%; background:transparent; color:#10120b; cursor:pointer; }
+.routine-row-complete .routine-row-copy strong { color:var(--t2); text-decoration:line-through; text-decoration-color:var(--t2); }
+.routine-check { flex:0 0 2.5rem; display:grid; place-items:center; width:2.5rem; height:2.5rem; border:1px solid color-mix(in srgb, var(--color-accent-blue) 48%, transparent); border-radius:50%; background:transparent; color:var(--t3); cursor:pointer; }
 .routine-row-complete .routine-check { border-color:var(--color-accent-blue); background:var(--color-accent-blue); }
-.routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:#151612; color:var(--color-accent-blue); }
+.routine-row-icon { flex:0 0 3.5rem; display:grid; place-items:center; width:3.5rem; height:3.5rem; border-radius:1rem; background:var(--bg); color:var(--color-accent-blue); }
 .routine-row-copy { display:flex; flex:1 1 auto; flex-direction:column; gap:.45rem; min-width:0; }
 .routine-row-copy strong { font-size:1.45rem; font-weight:var(--font-weight-medium); }
-.routine-row-copy small { color:#8e9088; font-size:1.15rem; line-height:1.4; }
-.routine-time input { width:10.5rem; padding:.8rem .7rem; color:#e9eae3; color-scheme:dark; border:1px solid #2e3029; border-radius:.8rem; background:#101114; font:inherit; font-size:1.2rem; }
-.routine-toggle { flex:0 0 4.1rem; width:4.1rem; height:2.4rem; padding:.25rem; border:1px solid #41423b; border-radius:99px; background:#20211d; cursor:pointer; }
-.routine-toggle span { display:block; width:1.6rem; height:1.6rem; border-radius:50%; background:#8d8f86; transition:transform .2s ease,background .2s ease; }
+.routine-row-copy small { color:var(--t2); font-size:1.15rem; line-height:1.4; }
+.routine-time input { width:10.5rem; padding:.8rem .7rem; color:var(--t1); color-scheme:dark; border:1px solid var(--edge); border-radius:.8rem; background:var(--bg); font:inherit; font-size:1.2rem; }
+.routine-toggle { flex:0 0 4.1rem; width:4.1rem; height:2.4rem; padding:.25rem; border:1px solid var(--edge); border-radius:99px; background:var(--bg); cursor:pointer; }
+.routine-toggle span { display:block; width:1.6rem; height:1.6rem; border-radius:50%; background:var(--surface-2); transition:transform .2s ease,background .2s ease; }
 .routine-toggle.is-on { border-color:var(--color-accent-blue); background:color-mix(in srgb, var(--color-accent-blue) 22%, transparent); }
 .routine-toggle.is-on span { transform:translateX(1.55rem); background:var(--color-accent-blue); }
-.routine-next-step { display:flex; align-items:center; gap:1.5rem; margin-top:1.6rem; padding:1.8rem; border:1px solid #282a30; border-radius:1.4rem; background:#0b0c0a; }
-.routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:#181a13; color:var(--color-accent-blue); }
+.routine-next-step { display:flex; align-items:center; gap:1.5rem; margin-top:1.6rem; padding:1.8rem; border:1px solid var(--edge); border-radius:1.4rem; background:var(--bg); }
+.routine-next-icon { display:grid; flex:0 0 4.2rem; place-items:center; width:4.2rem; height:4.2rem; border-radius:1.1rem; background:var(--bg); color:var(--color-accent-blue); }
 .routine-next-step h2 { margin:.6rem 0 .35rem; font-size:1.8rem; font-weight:var(--font-weight-medium); }
-.routine-next-step p { margin:0; color:#999b94; font-size:1.25rem; line-height:1.55; }
-.routine-reminder-note { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.7rem; border:1px solid #272823; border-radius:1.4rem; }
-.routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:#151612; color:var(--color-accent-blue); }
+.routine-next-step p { margin:0; color:var(--t2); font-size:1.25rem; line-height:1.55; }
+.routine-reminder-note { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.7rem; border:1px solid var(--edge); border-radius:1.4rem; }
+.routine-reminder-icon { display:grid; flex:0 0 3.8rem; place-items:center; width:3.8rem; height:3.8rem; border-radius:1rem; background:var(--bg); color:var(--color-accent-blue); }
 .routine-reminder-note>div:nth-child(2) { flex:1; min-width:0; }
 .routine-reminder-note strong { font-size:1.3rem; font-weight:var(--font-weight-medium); }
-.routine-reminder-note p { margin:.5rem 0 0; color:#92948d; font-size:1.15rem; line-height:1.55; }
+.routine-reminder-note p { margin:.5rem 0 0; color:var(--t2); font-size:1.15rem; line-height:1.55; }
 .routine-reminder-note>button { flex:0 0 auto; font-size:1.15rem; }
 @media(max-width:700px) {
  .daily-routine-page { padding:1rem 1.6rem 2.8rem; }
@@ -104,11 +104,11 @@
 .routine-row-copy { justify-content:center; }
 .routine-row-copy strong { font-size:1.55rem; }
 .routine-row-copy small { display:none; }
-.routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid #272823; border-radius:1.4rem; background:#0b0c0a; }
-.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:#151612; color:var(--color-accent-blue); }
+.routine-reminder-control { display:flex; align-items:center; gap:1.2rem; margin-top:1.6rem; padding:1.5rem 1.7rem; border:1px solid var(--edge); border-radius:1.4rem; background:var(--bg); }
+.routine-reminder-control-icon { flex:0 0 3.8rem; width:3.8rem; height:3.8rem; display:grid; place-items:center; border-radius:1rem; background:var(--bg); color:var(--color-accent-blue); }
 .routine-reminder-control>div { display:flex; flex:1; min-width:0; flex-direction:column; gap:.35rem; }
 .routine-reminder-control strong { font-size:1.45rem; font-weight:var(--font-weight-semibold); }
-.routine-reminder-control small { color:#999b94; font-size:1.25rem; }
+.routine-reminder-control small { color:var(--t2); font-size:1.25rem; }
 .routine-reminder-control .routine-toggle { flex:0 0 4.1rem; }
 .routine-reminder-note { padding:1.5rem 1.7rem; }
 .routine-reminder-note p { font-size:1.3rem; }
@@ -186,8 +186,8 @@
 
 
 /* Adjustable lead time for routine reminders. */
-.routine-lead-time { display:flex; align-items:center; gap:.7rem; color:#a4a69e; font-size:1.15rem; white-space:nowrap; }
-.routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid #34362f; border-radius:.9rem; background:#101114; color:#f5f6f1; font:inherit; font-size:1.35rem; text-align:center; }
+.routine-lead-time { display:flex; align-items:center; gap:.7rem; color:var(--t2); font-size:1.15rem; var(--t1)-space:nowrap; }
+.routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid var(--edge); border-radius:.9rem; background:var(--bg); color:var(--t1); font:inherit; font-size:1.35rem; text-align:center; }
 .routine-lead-time input:focus { outline:1px solid var(--color-accent-blue); border-color:var(--color-accent-blue); }
 @media(max-width:700px) {
   .routine-reminder-control { flex-wrap:wrap; }
@@ -213,7 +213,7 @@
 .daily-routine-page .routine-next-icon,
 .daily-routine-page .routine-reminder-icon,
 .daily-routine-page .routine-reminder-control-icon { background: color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important; }
-.daily-routine-page .routine-row-complete .routine-check { border-color: var(--color-accent-blue) !important; background: var(--color-accent-blue) !important; color: #fff !important; }
+.daily-routine-page .routine-row-complete .routine-check { border-color: var(--color-accent-blue) !important; background: var(--color-accent-blue) !important; color: var(--t1) !important; }
 .daily-routine-page .routine-toggle.is-on { border-color: color-mix(in srgb, var(--color-accent-blue) 75%, transparent) !important; background: color-mix(in srgb, var(--color-accent-blue) 22%, transparent) !important; }
 .daily-routine-page .routine-toggle.is-on span { background: var(--color-accent-blue) !important; }
 .daily-routine-page .routine-lead-time input:focus { outline-color: var(--color-accent-blue) !important; border-color: var(--color-accent-blue) !important; }
@@ -304,7 +304,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
 .daily-routine-page .routine-coach-heading p {
   margin: 0;
   max-width: 42rem;
-  color: #92949d;
+  color: var(--t2);
   font-size: 1.4rem;
   line-height: 1.6;
 }
@@ -318,9 +318,9 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   overflow: visible;
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__card {
-  background: #0b0c0f;
-  border-color: rgba(255,255,255,.11);
-  box-shadow: 0 22px 54px -34px rgba(0,0,0,.95), inset 0 1px 0 rgba(255,255,255,.035);
+  background: var(--bg);
+  border-color: color-mix(in srgb, var(--t1) 11%, transparent);
+  box-shadow: 0 22px 54px -34px rgb(var(--theme-shadow-rgb) / 0.95);
   user-select: none;
   -webkit-user-select: none;
 }
@@ -331,8 +331,8 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--routine-coach-accent, #fff) 10%, transparent), transparent 62%),
-    linear-gradient(145deg, rgba(255,255,255,.025), transparent 58%);
+    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--routine-coach-accent, var(--t1)) 10%, transparent), transparent 62%),
+    linear-gradient(145deg, color-mix(in srgb, var(--t1) 3%, transparent);
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__card::after {
   content: "";
@@ -352,7 +352,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   height: 100%;
   padding: 1.9rem;
   box-sizing: border-box;
-  color: #f5f5f6;
+  color: var(--t1);
   overflow: hidden;
 }
 .daily-routine-page .routine-coach-card-top {
@@ -373,10 +373,10 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   place-items: center;
   width: 2.8rem;
   height: 2.8rem;
-  border: 1px solid rgba(255,255,255,.12);
+  border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent);
   border-radius: 50%;
-  color: #c4c5cc;
-  background: rgba(255,255,255,.025);
+  color: var(--t1);
+  background: color-mix(in srgb, var(--surface-1) 3%, transparent);
 }
 .daily-routine-page .routine-coach-card-copy h3 {
   margin: 0 0 .5rem;
@@ -386,7 +386,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
 }
 .daily-routine-page .routine-coach-card-copy p {
   margin: 0;
-  color: #a1a3ac;
+  color: var(--t2);
   font-size: 1.35rem;
   line-height: 1.5;
 }
@@ -395,7 +395,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   align-items: center;
   gap: .35rem;
   align-self: flex-start;
-  color: #d1d3db;
+  color: var(--t1);
   font-size: 1.15rem;
   font-weight: var(--font-weight-medium);
 }
@@ -472,26 +472,26 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
 }
 
 
-/* Daily Routine — keep the Today progress percentage white. */
+/* Daily Routine — keep the Today progress percentage var(--t1). */
 html body #root .daily-routine-page .routine-progress-top > strong {
-  color: #fff !important;
+  color: var(--t1) !important;
 }
 
 
 /* Notification status card — match the other routine cards and improve readability. */
 html body #root .daily-routine-page .routine-reminder-note {
-  background: #0b0c0f !important;
-  border-color: rgba(255,255,255,.11) !important;
+  background: var(--bg) !important;
+  border-color: color-mix(in srgb, var(--t1) 11%, transparent) !important;
 }
 html body #root .daily-routine-page .routine-reminder-note strong {
   font-size: 1.6rem !important;
   line-height: 1.4 !important;
-  color: #f5f5f6 !important;
+  color: var(--t1) !important;
 }
 html body #root .daily-routine-page .routine-reminder-note p {
   font-size: 1.5rem !important;
   line-height: 1.65 !important;
-  color: #b2b4bd !important;
+  color: var(--t2) !important;
 }
 html body #root .daily-routine-page .routine-reminder-note > button {
   font-size: 1.45rem !important;
@@ -544,7 +544,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 }
 
 /* Weekly routine scheduling */
-.routine-day-picker{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.routine-day-picker button{min-width:2.7rem;padding:.35rem .5rem;border:1px solid #303030;border-radius:999px;background:#101114;color:#858995;font:inherit;font-size:1rem;line-height:1.2;cursor:pointer}.routine-day-picker button.is-selected{border-color:color-mix(in srgb, var(--color-accent-blue) 65%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 20%, transparent);color:var(--color-accent-blue)}
+.routine-day-picker{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.55rem}.routine-day-picker button{min-width:2.7rem;padding:.35rem .5rem;border:1px solid var(--edge);border-radius:999px;background:var(--bg);color:var(--t2);font:inherit;font-size:1rem;line-height:1.2;cursor:pointer}.routine-day-picker button.is-selected{border-color:color-mix(in srgb, var(--color-accent-blue) 65%, transparent);background:color-mix(in srgb, var(--color-accent-blue) 20%, transparent);color:var(--color-accent-blue)}
 @media(max-width:560px){.routine-row{flex-wrap:wrap;gap:.8rem}.routine-row-copy{flex:1 1 calc(100% - 8rem);order:2}.routine-row-icon{order:1}.routine-check{order:0}.routine-time{margin-left:auto;order:3}.routine-toggle{order:4}.routine-day-picker button{min-width:2.5rem;padding:.35rem .4rem}}
 
 
@@ -590,14 +590,14 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   min-height: 3.6rem;
   padding: .5rem .15rem;
   box-sizing: border-box;
-  border: 1px solid #303030;
+  border: 1px solid var(--edge);
   border-radius: .95rem;
-  background: #101114;
-  color: #9296a2;
+  background: var(--bg);
+  color: var(--t2);
   font-size: 1.15rem;
   font-weight: var(--font-weight-medium);
   line-height: 1;
-  white-space: nowrap;
+  var(--t1)-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 .daily-routine-page .routine-day-picker button.is-selected {
@@ -630,7 +630,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 .daily-routine-page {
   max-width: 112rem;
   padding: 1.6rem clamp(1.6rem, 3.2vw, 3.2rem) 16rem;
-  color: var(--t1, #fff);
+  color: var(--t1, var(--t1));
 }
 .daily-routine-page .routine-heading {
   align-items: center;
@@ -647,16 +647,16 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 }
 .daily-routine-page .routine-eyebrow,
 .daily-routine-page .routine-label {
-  color: var(--t3, rgba(255,255,255,.4));
+  color: var(--t3, color-mix(in srgb, var(--t1) 40%, transparent);
   font-size: 1.15rem;
   letter-spacing: .11em;
 }
 .daily-routine-page .routine-date {
-  border: 1px solid var(--edge, rgba(255,255,255,.09));
-  background: rgba(255,255,255,.035);
+  border: 1px solid var(--edge, color-mix(in srgb, var(--edge) 9%, transparent);
+  background: color-mix(in srgb, var(--surface-1) 4%, transparent);
   border-radius: 999px;
   padding: .85rem 1.2rem;
-  color: var(--t2, rgba(255,255,255,.62));
+  color: var(--t2, color-mix(in srgb, var(--t1) 62%, transparent);
 }
 .daily-routine-page .routine-progress-panel,
 .daily-routine-page .routine-group,
@@ -664,10 +664,10 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 .daily-routine-page .routine-reminder-control,
 .daily-routine-page .routine-next-step,
 .daily-routine-page .routine-reminder-note {
-  border: 1px solid var(--edge, rgba(255,255,255,.09)) !important;
+  border: 1px solid var(--edge, color-mix(in srgb, var(--edge) 9%, transparent) !important;
   border-radius: 2.2rem;
-  background: linear-gradient(155deg, rgba(255,255,255,.045), rgba(255,255,255,.018)) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+  background: linear-gradient(155deg, color-mix(in srgb, var(--t1) 5%, transparent) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 3%, transparent);
 }
 .daily-routine-page .routine-progress-panel {
   padding: 2.2rem;
@@ -679,13 +679,13 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   letter-spacing: -.035em;
 }
 .daily-routine-page .routine-progress-top > strong {
-  color: #fff !important;
+  color: var(--t1) !important;
   font-size: 2.8rem;
   font-variant-numeric: tabular-nums;
 }
 .daily-routine-page .routine-progress-track {
   height: .65rem;
-  background: rgba(255,255,255,.09);
+  background: color-mix(in srgb, var(--surface-1) 9%, transparent);
   border-radius: 999px;
 }
 .daily-routine-page .routine-progress-track span {
@@ -707,7 +707,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 }
 .daily-routine-page .routine-coach-heading h2,
 .daily-routine-page .routine-section-heading h2 {
-  color: #fff;
+  color: var(--t1);
   font-size: clamp(2.25rem, 3vw, 2.8rem);
   font-weight: 450;
   letter-spacing: -.04em;
@@ -715,15 +715,15 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 }
 .daily-routine-page .routine-coach-heading p,
 .daily-routine-page .routine-section-heading p {
-  color: var(--t2, rgba(255,255,255,.62));
+  color: var(--t2, color-mix(in srgb, var(--t1) 62%, transparent);
   font-size: 1.45rem;
   line-height: 1.55;
 }
 .daily-routine-page .routine-coach-card {
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius: 2.2rem;
-  background: linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.018));
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--t1) 7%, transparent);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 4%, transparent);
 }
 .daily-routine-page .routine-coach-icon {
   color: rgb(var(--ac, 229, 134, 66));
@@ -731,13 +731,13 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   background: rgba(var(--ac, 229, 134, 66), .09);
 }
 .daily-routine-page .routine-coach-card-copy h3 {
-  color: #fff;
+  color: var(--t1);
   font-weight: 450;
   letter-spacing: -.035em;
 }
 .daily-routine-page .routine-coach-card-copy p,
 .daily-routine-page .routine-coach-card-hint {
-  color: var(--t2, rgba(255,255,255,.62));
+  color: var(--t2, color-mix(in srgb, var(--t1) 62%, transparent);
 }
 .daily-routine-page .routine-schedule-section {
   margin-top: 2.8rem;
@@ -749,16 +749,16 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   padding: 1.8rem 2rem;
 }
 .daily-routine-page .routine-group > h3 {
-  color: var(--t3, rgba(255,255,255,.4));
-  border-bottom: 1px solid rgba(255,255,255,.07);
+  color: var(--t3, color-mix(in srgb, var(--t1) 40%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--edge) 7%, transparent);
   font-size: 1.15rem;
   letter-spacing: .1em;
 }
 .daily-routine-page .routine-row {
-  border-top-color: rgba(255,255,255,.065);
+  border-top-color: color-mix(in srgb, var(--t1) 7%, transparent);
 }
 .daily-routine-page .routine-row-copy strong {
-  color: rgba(255,255,255,.92);
+  color: color-mix(in srgb, var(--t1) 92%, transparent);
   font-size: 1.5rem;
   font-weight: 450;
 }
@@ -771,17 +771,17 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   background: rgba(var(--ac, 229, 134, 66), .08) !important;
 }
 .daily-routine-page .routine-check {
-  border-color: rgba(255,255,255,.22);
+  border-color: color-mix(in srgb, var(--t1) 22%, transparent);
 }
 .daily-routine-page .routine-row-complete .routine-check {
-  color: #16110c !important;
+  color: var(--t3) !important;
   border-color: rgb(var(--ac, 229, 134, 66)) !important;
   background: rgb(var(--ac, 229, 134, 66)) !important;
 }
 .daily-routine-page .routine-day-picker button {
-  border-color: rgba(255,255,255,.09);
-  background: rgba(255,255,255,.025);
-  color: var(--t2, rgba(255,255,255,.62));
+  border-color: color-mix(in srgb, var(--t1) 9%, transparent);
+  background: color-mix(in srgb, var(--surface-1) 3%, transparent);
+  color: var(--t2, color-mix(in srgb, var(--t1) 62%, transparent);
 }
 .daily-routine-page .routine-day-picker button.is-selected {
   border-color: rgba(var(--ac, 229, 134, 66), .42);
@@ -791,10 +791,10 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 .daily-routine-page .routine-time input,
 .daily-routine-page .routine-lead-time input {
   min-height: 4.2rem;
-  border-color: rgba(255,255,255,.1);
+  border-color: color-mix(in srgb, var(--t1) 10%, transparent);
   border-radius: 1.2rem;
-  background: rgba(255,255,255,.035);
-  color: #fff;
+  background: color-mix(in srgb, var(--surface-1) 4%, transparent);
+  color: var(--t1);
   font-size: 1.4rem;
 }
 .daily-routine-page .routine-toggle.is-on {
@@ -809,7 +809,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   padding: 1.8rem 2rem;
 }
 .daily-routine-page .routine-next-step h2 {
-  color: #fff;
+  color: var(--t1);
   font-size: 1.9rem;
   font-weight: 450;
   letter-spacing: -.025em;
@@ -817,7 +817,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 .daily-routine-page .routine-next-step p,
 .daily-routine-page .routine-reminder-control small,
 .daily-routine-page .routine-reminder-note p {
-  color: var(--t2, rgba(255,255,255,.62));
+  color: var(--t2, color-mix(in srgb, var(--t1) 62%, transparent);
   font-size: 1.35rem;
   line-height: 1.55;
 }
@@ -828,7 +828,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
 }
 .daily-routine-page .routine-reminder-control strong,
 .daily-routine-page .routine-reminder-note strong {
-  color: #fff;
+  color: var(--t1);
   font-size: 1.5rem;
   font-weight: 450;
 }
@@ -918,16 +918,16 @@ html body #root .daily-routine-page .routine-coach-card {
   min-width:0;
   height:22.4rem;
   padding:1.9rem;
-  border:1px solid rgba(255,255,255,.10);
+  border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius:2.1rem;
-  background:#101010 !important;
-  color:#f4eee8;
+  background:var(--bg) !important;
+  color:var(--t1);
   text-align:left;
   font:inherit;
   cursor:pointer;
   overflow:hidden;
   scroll-snap-align:start;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.025) !important;
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 3%, transparent) !important;
   -webkit-tap-highlight-color:transparent;
 }
 html body #root .daily-routine-page .routine-coach-card::before,
@@ -945,7 +945,7 @@ html body #root .daily-routine-page .routine-coach-icon {
   border:0 !important;
   border-radius:0 !important;
   background:transparent !important;
-  color:#E58642 !important;
+  color:var(--accent) !important;
   filter:none !important;
 }
 html body #root .daily-routine-page .routine-coach-arrow {
@@ -953,10 +953,10 @@ html body #root .daily-routine-page .routine-coach-arrow {
   place-items:center;
   width:2.8rem;
   height:2.8rem;
-  border:1px solid rgba(255,255,255,.1);
+  border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);
   border-radius:50%;
-  color:rgba(244,238,232,.7);
-  background:rgba(255,255,255,.025);
+  color:color-mix(in srgb, var(--t1) 70%, transparent);
+  background:color-mix(in srgb, var(--surface-1) 3%, transparent);
 }
 html body #root .daily-routine-page .routine-coach-card-copy {
   display:flex;
@@ -965,7 +965,7 @@ html body #root .daily-routine-page .routine-coach-card-copy {
 }
 html body #root .daily-routine-page .routine-coach-card-title {
   display:block;
-  color:#f4eee8;
+  color:var(--t1);
   font-size:2.35rem;
   line-height:1.2;
   font-weight:450;
@@ -973,7 +973,7 @@ html body #root .daily-routine-page .routine-coach-card-title {
 }
 html body #root .daily-routine-page .routine-coach-card-description {
   display:block;
-  color:rgba(244,238,232,.58);
+  color:color-mix(in srgb, var(--t1) 58%, transparent);
   font-size:1.45rem;
   line-height:1.5;
 }
@@ -981,12 +981,12 @@ html body #root .daily-routine-page .routine-coach-card-hint {
   display:inline-flex;
   align-items:center;
   gap:.45rem;
-  color:#E58642 !important;
+  color:var(--accent) !important;
   font-size:1.35rem;
   font-weight:450;
 }
 html body #root .daily-routine-page .routine-coach-card:focus-visible {
-  outline:2px solid #E58642;
+  outline:2px solid var(--accent);
   outline-offset:3px;
 }
 html body #root .daily-routine-page .routine-coach-card:active { transform:scale(.985); }
@@ -1029,29 +1029,29 @@ html body #root .daily-routine-page .routine-coach-card:active { transform:scale
 
 /* Routine editor: keep weekly controls tucked away until requested. */
 .daily-routine-page .routine-schedule-actions{display:flex;align-items:center;gap:1.2rem}
-.daily-routine-page .routine-add-button{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:3.8rem;padding:.7rem 1.2rem;border:1px solid rgba(229,134,66,.28);border-radius:999px;background:rgba(229,134,66,.08);color:#E58642;font:inherit;font-size:1.3rem;cursor:pointer}
+.daily-routine-page .routine-add-button{display:inline-flex;align-items:center;justify-content:center;gap:.8rem;min-height:3.8rem;padding:.7rem 1.2rem;border:1px solid color-mix(in srgb, var(--accent) 28%, transparent);border-radius:999px;background:color-mix(in srgb, var(--accent) 8%, transparent);color:var(--accent);font:inherit;font-size:1.3rem;cursor:pointer}
 .daily-routine-page .routine-add-button span:last-child{font-size:1.8rem;line-height:1}
 .daily-routine-page .routine-row-copy{min-width:0}
-.daily-routine-page .routine-name-button{display:inline-flex;align-items:center;gap:.8rem;max-width:100%;padding:.25rem 0;border:0;background:transparent;color:rgba(255,255,255,.92);font:inherit;font-size:1.5rem;font-weight:450;text-align:left;cursor:pointer}
-.daily-routine-page .routine-edit-hint{color:rgba(255,255,255,.36);font-size:1.1rem;opacity:0;transition:opacity .18s ease}
+.daily-routine-page .routine-name-button{display:inline-flex;align-items:center;gap:.8rem;max-width:100%;padding:.25rem 0;border:0;background:transparent;color:color-mix(in srgb, var(--t1) 92%, transparent);font:inherit;font-size:1.5rem;font-weight:450;text-align:left;cursor:pointer}
+.daily-routine-page .routine-edit-hint{color:color-mix(in srgb, var(--t1) 36%, transparent);font-size:1.1rem;opacity:0;transition:opacity .18s ease}
 .daily-routine-page .routine-name-button:hover .routine-edit-hint,.daily-routine-page .routine-name-button:focus-visible .routine-edit-hint{opacity:1}
 .daily-routine-page .routine-inline-edit{display:flex;align-items:center;gap:.5rem;min-width:0}
-.daily-routine-page .routine-inline-edit input{width:min(100%,22rem);min-width:0;padding:.65rem .8rem;border:1px solid rgba(229,134,66,.42);border-radius:.8rem;background:#101010;color:#f4eee8;font:inherit;font-size:1.4rem}
-.daily-routine-page .routine-inline-edit button{display:grid;place-items:center;width:3rem;height:3rem;flex:0 0 auto;border:1px solid rgba(229,134,66,.25);border-radius:50%;background:rgba(229,134,66,.1);color:#E58642}
-.daily-routine-page .routine-days-disclosure{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;min-height:3.6rem;padding:.5rem .2rem .1rem;border:0;background:transparent;color:rgba(244,238,232,.52);font:inherit;font-size:1.2rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.daily-routine-page .routine-inline-edit input{width:min(100%,22rem);min-width:0;padding:.65rem .8rem;border:1px solid color-mix(in srgb, var(--accent) 42%, transparent);border-radius:.8rem;background:var(--bg);color:var(--t1);font:inherit;font-size:1.4rem}
+.daily-routine-page .routine-inline-edit button{display:grid;place-items:center;width:3rem;height:3rem;flex:0 0 auto;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:50%;background:color-mix(in srgb, var(--accent) 10%, transparent);color:var(--accent)}
+.daily-routine-page .routine-days-disclosure{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;min-height:3.6rem;padding:.5rem .2rem .1rem;border:0;background:transparent;color:color-mix(in srgb, var(--t1) 52%, transparent);font:inherit;font-size:1.2rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .daily-routine-page .routine-days-summary,.daily-routine-page .routine-days-edit{display:inline-flex;align-items:center;gap:.7rem;min-width:0}
-.daily-routine-page .routine-days-summary{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.daily-routine-page .routine-days-dot{width:.55rem;height:.55rem;flex:0 0 auto;border-radius:50%;background:#E58642}
-.daily-routine-page .routine-days-edit{flex:0 0 auto;color:rgba(244,238,232,.68)}
+.daily-routine-page .routine-days-summary{overflow:hidden;text-overflow:ellipsis;var(--t1)-space:nowrap}
+.daily-routine-page .routine-days-dot{width:.55rem;height:.55rem;flex:0 0 auto;border-radius:50%;background:var(--accent)}
+.daily-routine-page .routine-days-edit{flex:0 0 auto;color:color-mix(in srgb, var(--t1) 68%, transparent)}
 .daily-routine-page .routine-days-edit svg{transition:transform .2s ease}
 .daily-routine-page .routine-days-edit svg.is-open{transform:rotate(180deg)}
 .daily-routine-page .routine-day-picker{padding-top:.35rem;animation:routine-days-reveal .18s ease both}
-.daily-routine-page .routine-add-form{display:grid;gap:1.2rem;margin:0 0 1.4rem;padding:1.6rem;border:1px solid rgba(255,255,255,.09);border-radius:1.8rem;background:rgba(255,255,255,.025)}
+.daily-routine-page .routine-add-form{display:grid;gap:1.2rem;margin:0 0 1.4rem;padding:1.6rem;border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);border-radius:1.8rem;background:color-mix(in srgb, var(--surface-1) 3%, transparent)}
 .daily-routine-page .routine-add-form label{display:grid;gap:.65rem;min-width:0}
-.daily-routine-page .routine-add-form label>span{color:rgba(244,238,232,.55);font-size:1.15rem}
-.daily-routine-page .routine-add-form input,.daily-routine-page .routine-add-form select{box-sizing:border-box;width:100%;min-width:0;min-height:4.2rem;padding:.9rem 1rem;border:1px solid rgba(255,255,255,.1);border-radius:1.1rem;background:#101010;color:#f4eee8;font:inherit;font-size:1.4rem}
+.daily-routine-page .routine-add-form label>span{color:color-mix(in srgb, var(--t1) 55%, transparent);font-size:1.15rem}
+.daily-routine-page .routine-add-form input,.daily-routine-page .routine-add-form select{box-sizing:border-box;width:100%;min-width:0;min-height:4.2rem;padding:.9rem 1rem;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:1.1rem;background:var(--bg);color:var(--t1);font:inherit;font-size:1.4rem}
 .daily-routine-page .routine-add-form-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1rem}
-.daily-routine-page .routine-add-submit{justify-self:start;min-height:4rem;padding:.8rem 1.4rem;border:0;border-radius:999px;background:#E58642;color:#17100b;font:inherit;font-size:1.35rem;cursor:pointer}
+.daily-routine-page .routine-add-submit{justify-self:start;min-height:4rem;padding:.8rem 1.4rem;border:0;border-radius:999px;background:var(--accent);color:var(--t3);font:inherit;font-size:1.35rem;cursor:pointer}
 @keyframes routine-days-reveal{from{opacity:0;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}
 @media(max-width:700px){
  .daily-routine-page .routine-schedule-actions{gap:.8rem;flex-wrap:wrap;justify-content:flex-end}
@@ -1067,7 +1067,7 @@ html body #root .daily-routine-page .routine-coach-card:active { transform:scale
 /* Final routine editing refinements: quiet, borderless inline editing and arrow-only day disclosure. */
 html body #root .daily-routine-page .routine-days-dot,
 html body #root .daily-routine-page .routine-edit-hint { display:none !important; }
-html body #root .daily-routine-page .routine-days-edit { gap:0; color:rgba(244,238,232,.48); }
+html body #root .daily-routine-page .routine-days-edit { gap:0; color:color-mix(in srgb, var(--t1) 48%, transparent); }
 html body #root .daily-routine-page .routine-inline-edit input,
 html body #root .daily-routine-page .routine-inline-edit input:focus,
 html body #root .daily-routine-page .routine-inline-edit input:focus-visible {
@@ -1088,15 +1088,15 @@ html body #root .daily-routine-page .routine-add-form {
   gap: 1.5rem;
   margin: 0 0 1.6rem;
   padding: 1.8rem;
-  border: 1px solid rgba(255,255,255,.085);
+  border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius: 2rem;
-  background: linear-gradient(155deg, rgba(255,255,255,.045), rgba(255,255,255,.018));
+  background: linear-gradient(155deg, color-mix(in srgb, var(--t1) 5%, transparent);
 }
 html body #root .daily-routine-page .routine-add-form label {
   gap: .8rem;
 }
 html body #root .daily-routine-page .routine-add-form label > span {
-  color: rgba(244,238,232,.58);
+  color: color-mix(in srgb, var(--t1) 58%, transparent);
   font-size: 1.25rem;
   line-height: 1.4;
 }
@@ -1104,9 +1104,9 @@ html body #root .daily-routine-page .routine-add-form input,
 html body #root .daily-routine-page .routine-add-form select {
   min-height: 5rem;
   padding: 1rem 1.25rem;
-  border: 1px solid rgba(255,255,255,.11);
+  border: 1px solid color-mix(in srgb, var(--edge) 11%, transparent);
   border-radius: 1.25rem;
-  background: rgba(255,255,255,.035);
+  background: color-mix(in srgb, var(--surface-1) 4%, transparent);
   font-size: 1.5rem;
 }
 html body #root .daily-routine-page .routine-add-form-row {
@@ -1129,24 +1129,24 @@ html body #root .daily-routine-page .routine-add-submit {
   width: 3.8rem;
   height: 3.8rem;
   padding: 0;
-  border: 1px solid rgba(255,255,255,.09);
+  border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius: 50%;
-  background: rgba(255,255,255,.025);
-  color: rgba(244,238,232,.48);
+  background: color-mix(in srgb, var(--surface-1) 3%, transparent);
+  color: color-mix(in srgb, var(--t1) 48%, transparent);
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   transition: color .18s ease, border-color .18s ease, background .18s ease;
 }
 .daily-routine-page .routine-delete-button:active {
-  border-color: rgba(229,134,66,.35);
-  background: rgba(229,134,66,.08);
-  color: #E58642;
+  border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  color: var(--accent);
 }
 @media (hover:hover) {
   .daily-routine-page .routine-delete-button:hover {
-    border-color: rgba(229,134,66,.35);
-    background: rgba(229,134,66,.08);
-    color: #E58642;
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
+    background: color-mix(in srgb, var(--accent) 8%, transparent);
+    color: var(--accent);
   }
 }
 @media(max-width:700px) {
@@ -1210,8 +1210,8 @@ html body #root .daily-routine-page .routine-add-form-row > label > select {
   margin: 0 !important;
 }
 html body #root .daily-routine-page .routine-add-submit {
-  color: #fff !important;
-  -webkit-text-fill-color: #fff !important;
+  color: var(--t1) !important;
+  -webkit-text-fill-color: var(--t1) !important;
 }
 html body #root .daily-routine-page .routine-row-main .routine-delete-button {
   box-sizing: border-box !important;
@@ -1277,7 +1277,7 @@ html body #root .daily-routine-page .routine-lead-time input:focus,
 html body #root .daily-routine-page .routine-lead-time input:focus-visible {
   outline: none !important;
   box-shadow: none !important;
-  border-color: rgba(255,255,255,.22) !important;
+  border-color: color-mix(in srgb, var(--t1) 22%, transparent) !important;
 }
 html body #root .daily-routine-page .routine-time input::-webkit-calendar-picker-indicator {
   filter: invert(1);
@@ -1296,7 +1296,7 @@ html body #root .daily-routine-page .routine-progress-track span {
 }
 
 
-/* Daily Routine title punctuation is neutral white, not the page accent. */
+/* Daily Routine title punctuation is neutral var(--t1), not the page accent. */
 html body #root .daily-routine-page .routine-heading h1 span {
-  color: #fff !important;
+  color: var(--t1) !important;
 }
