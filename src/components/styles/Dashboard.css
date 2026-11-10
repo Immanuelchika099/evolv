@@ -7,7 +7,7 @@ button,input,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:
 
 
 
-.landing{background:radial-gradient(circle at 73% 10%,color-mix(in srgb, var(--surface-3) 13%, transparent) 0,transparent 28%),radial-gradient(circle at 15% 40%,color-mix(in srgb, var(--surface-3) 9%, transparent) 0,transparent 30%),var(--t3)}.hero-aura{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 12.5%, transparent),transparent 62%)}.orb-glow{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 37.6%, transparent),color-mix(in srgb, var(--color-accent-blue) 5.1%, transparent) 42%,transparent 70%)}.orb-ring{border-color:color-mix(in srgb, var(--color-accent-blue) 14.5%, transparent);border-right-color:color-mix(in srgb, var(--color-accent-blue) 50.2%, transparent)}.orb-dot{background:var(--accent);box-shadow:0 0 12px color-mix(in srgb, var(--color-accent-blue) 40%, transparent)}.progress-line i,.mini-progress i{background:var(--accent);box-shadow:0 0 9px color-mix(in srgb, var(--color-accent-blue) 37.6%, transparent)}.panel-bottom b{color:var(--accent)}.final-cta{background:radial-gradient(circle,color-mix(in srgb, var(--surface-3) 22%, transparent),transparent 65%)}
+.landing{background:radial-gradient(circle at 73% 10%,color-mix(in srgb, var(--surface-3) 13%, transparent) 0,transparent 28%),radial-gradient(circle at 15% 40%,var(--surface-2) 0,transparent 30%),var(--t3)}.hero-aura{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 12.5%, transparent),transparent 62%)}.orb-glow{background:radial-gradient(circle,color-mix(in srgb, var(--color-accent-blue) 37.6%, transparent),color-mix(in srgb, var(--color-accent-blue) 5.1%, transparent) 42%,transparent 70%)}.orb-ring{border-color:color-mix(in srgb, var(--color-accent-blue) 14.5%, transparent);border-right-color:color-mix(in srgb, var(--color-accent-blue) 50.2%, transparent)}.orb-dot{background:var(--accent);box-shadow:0 0 12px color-mix(in srgb, var(--color-accent-blue) 40%, transparent)}.progress-line i,.mini-progress i{background:var(--accent);box-shadow:0 0 9px color-mix(in srgb, var(--color-accent-blue) 37.6%, transparent)}.panel-bottom b{color:var(--accent)}.final-cta{background:radial-gradient(circle,color-mix(in srgb, var(--surface-3) 22%, transparent),transparent 65%)}
 .mobile-menu{z-index:30}.landing-nav{z-index:40}
 
 
@@ -85,8 +85,8 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   position:relative;
   isolation:isolate;
   background:
-    radial-gradient(ellipse 70% 55% at 78% 0%, color-mix(in srgb, var(--color-accent-blue) 12%, transparent), transparent 62%),
-    radial-gradient(ellipse 58% 48% at 5% 32%, color-mix(in srgb, var(--color-accent-blue) 10%, transparent), transparent 64%),
+    radial-gradient(ellipse 70% 55% at 78% 0%, var(--accent-soft), transparent 62%),
+    radial-gradient(ellipse 58% 48% at 5% 32%, var(--accent-soft), transparent 64%),
     radial-gradient(ellipse 65% 52% at 58% 92%, color-mix(in srgb, var(--surface-3) 9%, transparent), transparent 66%),
     linear-gradient(135deg,var(--t3) 0%,var(--t3) 42%,var(--t3) 72%,var(--t3) 100%);
 }
@@ -97,7 +97,7 @@ html,body,#root{max-width:100%;overflow-x:hidden}
   z-index:-1;
   pointer-events:none;
   background:
-    radial-gradient(ellipse 32% 22% at 82% 14%, color-mix(in srgb, var(--color-accent-blue) 9%, transparent), transparent 70%),
+    radial-gradient(ellipse 32% 22% at 82% 14%, var(--accent-soft), transparent 70%),
     radial-gradient(ellipse 28% 24% at 14% 76%, color-mix(in srgb, var(--color-accent-blue) 7.000000000000001%, transparent), transparent 72%);
   filter:blur(24px);
 }
