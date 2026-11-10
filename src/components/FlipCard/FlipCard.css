@@ -2,9 +2,9 @@
   --fc-w: 300px;
   --fc-h: 400px;
   --fc-radius: 22px;
-  --fc-bg: var(--t3);
-  --fc-ink: var(--t1);
-  --fc-shadow: var(--t3);
+  --fc-bg: #27272a;
+  --fc-ink: #f5f5f5;
+  --fc-shadow: #000000;
   --fc-shadow-o: 0.45;
   --fc-glare: 0.22;
 
@@ -63,13 +63,13 @@
   inset: 0;
   background: radial-gradient(
     circle farthest-side at var(--fc-gx, 50%) var(--fc-gy, 50%),
-    rgba(255, 255, 255, var(--fc-glare)) 0%,
-    rgba(255, 255, 255, calc(var(--fc-glare) * 0.76)) 12%,
-    rgba(255, 255, 255, calc(var(--fc-glare) * 0.5)) 26%,
+    rgb(var(--theme-on-rgb) / var(--fc-glare)) 0%,
+    rgb(var(--theme-on-rgb) / calc(var(--fc-glare) * 0.76)) 12%,
+    rgb(var(--theme-on-rgb) / calc(var(--fc-glare) * 0.5)) 26%,
     rgba(255, 255, 255, calc(var(--fc-glare) * 0.28)) 42%,
     rgba(255, 255, 255, calc(var(--fc-glare) * 0.12)) 60%,
     rgba(255, 255, 255, calc(var(--fc-glare) * 0.04)) 78%,
-    color-mix(in srgb, var(--t1) 0%, transparent) 100%
+    rgba(255, 255, 255, 0) 100%
   );
   opacity: var(--fc-sheen, 0);
   pointer-events: none;
