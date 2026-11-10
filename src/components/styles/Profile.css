@@ -39,8 +39,8 @@
   border:1px solid color-mix(in srgb, var(--pos) 11%, transparent);
   border-radius:20px;
   padding:22px;
-  background:linear-gradient(120deg,color-mix(in srgb, var(--pos) 6%, transparent);
-  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--pos) 5%, transparent);
+  background:linear-gradient(120deg,color-mix(in srgb, var(--pos) 6%, transparent),color-mix(in srgb, var(--t1) 2%, transparent)),rgb(var(--theme-shadow-rgb) / 0.58);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--pos) 5%, transparent),0 18px 50px rgb(var(--theme-shadow-rgb) / 0.18);
   backdrop-filter:blur(22px);
 }
 .dashboard .settings-card form{
@@ -139,12 +139,12 @@
   color:var(--t1);
 }
 .dashboard .settings-delete-button{
-  border:1px solid color-mix(in srgb, var(--accent) 20%, transparent);
-  background:color-mix(in srgb, var(--accent) 7%, transparent);
-  color:var(--accent);
+  border:1px solid color-mix(in srgb, var(--danger) 20%, transparent);
+  background:color-mix(in srgb, var(--danger) 7%, transparent);
+  color:var(--danger);
 }
 .dashboard .settings-delete-button:hover{
-  background:color-mix(in srgb, var(--accent) 13%, transparent);
+  background:color-mix(in srgb, var(--danger) 13%, transparent);
 }
 .dashboard .settings-delete-overlay{
   position:fixed;
@@ -161,8 +161,8 @@
   padding:28px;
   border:1px solid color-mix(in srgb, var(--pos) 14%, transparent);
   border-radius:22px;
-  background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.97);
-  box-shadow:0 30px 90px rgb(var(--theme-shadow-rgb) / 0.6);
+  background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.97),rgb(var(--theme-shadow-rgb) / 0.98));
+  box-shadow:0 30px 90px rgb(var(--theme-shadow-rgb) / 0.6),0 0 50px color-mix(in srgb, var(--pos) 12%, transparent);
 }
 .dashboard .settings-delete-modal h3{
   margin:10px 0 9px;
@@ -193,9 +193,9 @@
   font-size:12px;
 }
 .dashboard .settings-delete-actions .settings-delete-confirm{
-  border-color:color-mix(in srgb, var(--accent) 20%, transparent);
-  background:color-mix(in srgb, var(--accent) 12%, transparent);
-  color:var(--accent);
+  border-color:color-mix(in srgb, var(--danger) 20%, transparent);
+  background:color-mix(in srgb, var(--danger) 12%, transparent);
+  color:var(--danger);
 }
 
 @media(max-width:800px){
@@ -211,7 +211,8 @@
 
 .dashboard{
   background:
-    radial-gradient(760px 460px at 78% 0%, color-mix(in srgb, var(--pos) 5%, transparent),
+    radial-gradient(760px 460px at 78% 0%, color-mix(in srgb, var(--pos) 5%, transparent), transparent 68%),
+    radial-gradient(680px 500px at 12% 52%, color-mix(in srgb, var(--t1) 1%, transparent), transparent 72%),
     var(--t3) !important;
 }
 .dashboard .dashboard-home{
@@ -421,8 +422,10 @@
   border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius:30px;
   background:
-    radial-gradient(circle at 88% 20%,color-mix(in srgb, var(--pos) 9%, transparent);
-  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 6%, transparent);
+    radial-gradient(circle at 88% 20%,color-mix(in srgb, var(--pos) 9%, transparent),transparent 34%),
+    linear-gradient(145deg,color-mix(in srgb, var(--t1) 6%, transparent),color-mix(in srgb, var(--t1) 1%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.68);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 6%, transparent),0 24px 70px rgb(var(--theme-shadow-rgb) / 0.22);
   overflow:hidden;
 }
 .dashboard .profile-avatar{
@@ -432,10 +435,10 @@
   place-items:center;
   border-radius:28px;
   border:1px solid color-mix(in srgb, var(--pos) 25%, transparent);
-  background:linear-gradient(145deg,color-mix(in srgb, var(--pos) 18%, transparent);
+  background:linear-gradient(145deg,color-mix(in srgb, var(--pos) 18%, transparent),color-mix(in srgb, var(--pos) 4%, transparent));
   color:var(--pos);
   font:650 3rem/1 'Space Grotesk';
-  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 7%, transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 7%, transparent),0 14px 36px rgb(var(--theme-shadow-rgb) / 0.18);
 }
 .dashboard .profile-hero-copy{
   min-width:0;
@@ -530,7 +533,8 @@
   border:1px solid color-mix(in srgb, var(--edge) 8%, transparent) !important;
   border-radius:24px !important;
   background:
-    linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent) !important;
+    linear-gradient(145deg,color-mix(in srgb, var(--t1) 5%, transparent),color-mix(in srgb, var(--t1) 1%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.58) !important;
 }
 .dashboard .settings-page .settings-card form{
   max-width:none;
@@ -712,15 +716,15 @@
 }
 .dashboard .profile-avatar{
   border:1px solid color-mix(in srgb, var(--pos) 28%, transparent);
-  background:linear-gradient(145deg,color-mix(in srgb, var(--pos) 20%, transparent);
+  background:linear-gradient(145deg,color-mix(in srgb, var(--pos) 20%, transparent),color-mix(in srgb, var(--pos) 4%, transparent));
   color:var(--pos);
   font:650 3rem/1 'Space Grotesk';
-  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 8%, transparent);
+  box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 8%, transparent),0 16px 40px rgb(var(--theme-shadow-rgb) / 0.22);
 }
 .dashboard .profile-avatar-image{
   object-fit:cover;
   border:1px solid color-mix(in srgb, var(--edge) 16%, transparent);
-  box-shadow:inset 0 0 0 2px color-mix(in srgb, var(--t1) 4%, transparent);
+  box-shadow:inset 0 0 0 2px color-mix(in srgb, var(--t1) 4%, transparent),0 16px 40px rgb(var(--theme-shadow-rgb) / 0.25);
 }
 .dashboard .profile-avatar-camera{
   position:absolute;
@@ -842,7 +846,8 @@
 
 .dashboard .profile-hero-card{
   background:
-    linear-gradient(145deg,color-mix(in srgb, var(--t1) 6%, transparent) !important;
+    linear-gradient(145deg,color-mix(in srgb, var(--t1) 6%, transparent),color-mix(in srgb, var(--t1) 1%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.68) !important;
 }
 
 
@@ -1622,10 +1627,10 @@ body,
   --evolv-lime: var(--color-accent-blue);
   --home-lime: var(--color-accent-blue);
   --evolv-accent: var(--color-accent-blue);
-  --evolv-accent-dim: color-mix(in srgb, var(--accent) 12%, transparent);
+  --evolv-accent-dim: color-mix(in srgb, var(--pos) 12%, transparent);
   --color-accent-start: var(--color-accent-blue);
   --color-accent-end: var(--color-accent-blue);
-  --color-accent-dim: color-mix(in srgb, var(--accent) 16%, transparent);
+  --color-accent-dim: color-mix(in srgb, var(--pos) 16%, transparent);
 }
 .dashboard .dashboard-home-redesign {
   --evolv-lime: var(--color-accent-blue);
@@ -1642,17 +1647,17 @@ body,
 .dashboard .button-primary:hover:not(:disabled),
 .dashboard .goal-item-actions .goal-checkin-button:hover:not(:disabled),
 .dashboard .goal-checkin-button:hover:not(:disabled) {
-  background: var(--accent) !important;
-  border-color: var(--accent) !important;
+  background: var(--pos) !important;
+  border-color: var(--pos) !important;
   color: var(--t3) !important;
 }
 .dashboard .home-add-button {
-  border-color: color-mix(in srgb, var(--accent) 42%, transparent) !important;
+  border-color: color-mix(in srgb, var(--pos) 42%, transparent) !important;
   background: var(--color-accent-blue) !important;
   color: var(--t3) !important;
 }
 .dashboard .home-progress-ring {
-  background: conic-gradient(from -90deg, var(--color-accent-blue) var(--home-progress), color-mix(in srgb, var(--t1) 9%, transparent) !important;
+  background: conic-gradient(from -90deg, var(--color-accent-blue) var(--home-progress), color-mix(in srgb, var(--t1) 9%, transparent) var(--home-progress)) !important;
   box-shadow: 0 0 2.2rem color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important;
 }
 .dashboard .home-progress-segments i.is-filled,
@@ -1745,7 +1750,7 @@ body,
 /* Keep destructive actions red; lime is the shared product accent, not a danger state. */
 .dashboard .settings-danger-button,
 .dashboard .danger-row .settings-danger-button {
-  color: var(--accent);
+  color: var(--danger);
 }
 
 
@@ -1831,15 +1836,15 @@ body,
   height: 44px;
   display: grid;
   place-items: center;
-  border: 1px solid color-mix(in srgb, var(--accent) 24%, transparent);
+  border: 1px solid color-mix(in srgb, var(--pos) 24%, transparent);
   border-radius: 14px;
-  background: color-mix(in srgb, var(--accent) 9%, transparent);
+  background: color-mix(in srgb, var(--pos) 9%, transparent);
   color: var(--color-accent-blue);
 }
 .profile-modal-backdrop .confirmation-icon.is-destructive {
-  border-color: color-mix(in srgb, var(--accent) 28%, transparent);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  color: var(--accent);
+  border-color: color-mix(in srgb, var(--danger) 28%, transparent);
+  background: color-mix(in srgb, var(--danger) 10%, transparent);
+  color: var(--danger);
 }
 .profile-modal-backdrop .profile-modal-actions {
   width: 100%;
@@ -1863,8 +1868,8 @@ body,
   color: var(--t1);
 }
 .profile-modal-backdrop .settings-danger-button {
-  border: 1px solid var(--accent);
-  background: var(--accent);
+  border: 1px solid var(--danger);
+  background: var(--danger);
   color: var(--t1);
 }
 .profile-modal-backdrop .settings-danger-button:disabled {
@@ -1904,7 +1909,7 @@ body,
 .dashboard .goal-item-actions .goal-checkin-button *,
 .dashboard .goal-checkin-button *,
 .dashboard .home-add-button * { color:var(--t1) !important; fill:var(--t1) !important; stroke:var(--t1) !important; -webkit-text-fill-color:var(--t1) !important; }
-.dashboard .home-progress-ring { background: conic-gradient(from -90deg, var(--color-accent-blue) var(--home-progress), color-mix(in srgb, var(--t1) 9%, transparent) !important; box-shadow: 0 0 2.2rem color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important; }
+.dashboard .home-progress-ring { background: conic-gradient(from -90deg, var(--color-accent-blue) var(--home-progress), color-mix(in srgb, var(--t1) 9%, transparent) var(--home-progress)) !important; box-shadow: 0 0 2.2rem color-mix(in srgb, var(--color-accent-blue) 9%, transparent) !important; }
 .dashboard .home-progress-segments i.is-filled,
 .dashboard .home-week-bar-track i,
 .dashboard .home-today-bar i,
@@ -1989,4 +1994,4 @@ html body #root .dashboard .profile-settings-page [style*="214, 250, 75"] { colo
 html body #root .dashboard .profile-page button.active,
 html body #root .dashboard .profile-settings-page button.active,
 html body #root .dashboard .settings-toggle.active { color:var(--color-accent-blue) !important; background:color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important; border-color:color-mix(in srgb, var(--color-accent-blue) 40%, transparent) !important; }
-html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,var(--color-accent-blue) var(--home-progress),color-mix(in srgb, var(--t1) 9%, transparent) !important; }
+html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,var(--color-accent-blue) var(--home-progress),color-mix(in srgb, var(--t1) 9%, transparent) var(--home-progress)) !important; }
