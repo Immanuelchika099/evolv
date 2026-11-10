@@ -17,7 +17,7 @@
   margin: 1.8rem 0 .2rem;
 }
 .depth-carousel:active { cursor: grabbing; }
-.depth-carousel:focus-visible { outline: 1px solid rgba(255,255,255,.22); outline-offset: 4px; border-radius: 14px; }
+.depth-carousel:focus-visible { outline: 1px solid color-mix(in srgb, var(--t1) 22%, transparent); outline-offset: 4px; border-radius: 14px; }
 .depth-carousel__stage { position:absolute; inset:0; transform-style:preserve-3d; overflow:visible; }
 .depth-carousel__card {
   position:absolute;
@@ -25,9 +25,9 @@
   left:50%;
   transform-origin:center center;
   overflow:hidden;
-  background:#050505;
-  border:1px solid rgba(255,255,255,.13);
-  box-shadow:0 24px 60px -28px rgba(0,0,0,.96), 0 6px 20px rgba(0,0,0,.3), inset 0 1px 0 rgba(255,255,255,.025);
+  background:var(--bg);
+  border:1px solid color-mix(in srgb, var(--edge) 13%, transparent);
+  box-shadow:0 24px 60px -28px rgb(var(--theme-shadow-rgb) / 0.96);
   will-change:transform,opacity,filter;
   cursor:pointer;
   backface-visibility:hidden;
@@ -36,8 +36,8 @@
 .depth-carousel__arrow {
   position:absolute; top:50%; transform:translateY(-50%); z-index:3000;
   width:36px; height:36px; display:grid; place-items:center;
-  border:1px solid rgba(255,255,255,.13); border-radius:50%;
-  background:#080808; color:#f5f5f5; font-size:2.3rem; line-height:1; cursor:pointer;
+  border:1px solid color-mix(in srgb, var(--edge) 13%, transparent); border-radius:50%;
+  background:var(--bg); color:var(--t1); font-size:2.3rem; line-height:1; cursor:pointer;
 }
 .depth-carousel__arrow--prev { left:8px; }
 .depth-carousel__arrow--next { right:8px; }
@@ -59,7 +59,7 @@
   height:3px !important; min-height:3px !important; max-height:3px !important;
   margin:0 !important; padding:0 !important; border:0 !important;
   border-radius:999px !important; line-height:0 !important; font-size:0 !important;
-  background:rgba(255,255,255,.28) !important; box-shadow:none !important;
+  background:color-mix(in srgb, var(--surface-1) 28%, transparent) !important; box-shadow:none !important;
   cursor:pointer; transition:width .25s ease,background .25s ease;
 }
 .depth-carousel__dot.is-active,
@@ -67,9 +67,9 @@
 .depth-carousel__dot.is-active:focus,
 .depth-carousel__dot.is-active:active {
   width:8px !important; min-width:8px !important; max-width:8px !important;
-  background:rgba(255,255,255,.82) !important;
+  background:color-mix(in srgb, var(--surface-1) 82%, transparent) !important;
 }
-.depth-carousel__content { height:100%; padding:2rem; color:#f4f3f0; }
+.depth-carousel__content { height:100%; padding:2rem; color:var(--t1); }
 @media (max-width:640px) {
   .depth-carousel { height:var(--dc-card-height,390px); min-height:370px; margin-top:1.2rem; margin-bottom:0; }
   .depth-carousel__card { max-width:calc(100vw - 2.8rem); }
@@ -100,28 +100,23 @@
   top: -6%;
   border-radius: 50%;
   background: radial-gradient(ellipse at 72% 56%,
-    rgba(229,134,66,.17) 0%,
-    rgba(229,134,66,.105) 34%,
-    rgba(229,134,66,.045) 61%,
-    transparent 82%);
+    color-mix(in srgb, var(--accent) 17%, transparent);
   filter: blur(2.8rem);
 }
 .depth-carousel__card {
   background: linear-gradient(155deg,
-    rgba(28,19,14,.58),
-    rgba(11,10,9,.68)) !important;
-  border: 1px solid rgba(229,134,66,.19) !important;
+    rgb(var(--theme-shadow-rgb) / 0.58) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 19%, transparent) !important;
   -webkit-backdrop-filter: blur(22px) saturate(1.08);
   backdrop-filter: blur(22px) saturate(1.08);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.075),
-    0 28px 55px -28px rgba(0,0,0,.82) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 8%, transparent) !important;
 }
 .depth-carousel__dot.is-active,
 .depth-carousel__dot.is-active:hover,
 .depth-carousel__dot.is-active:focus,
 .depth-carousel__dot.is-active:active {
-  background: #e58642 !important;
-  box-shadow: 0 0 12px rgba(229,134,66,.22) !important;
+  background: var(--accent) !important;
+  box-shadow: 0 0 12px color-mix(in srgb, var(--accent) 22%, transparent) !important;
 }
 @media (max-width: 640px) {
   .depth-carousel::before {
@@ -130,10 +125,7 @@
     left: -39%;
     top: -8%;
     background: radial-gradient(ellipse at 74% 58%,
-      rgba(229,134,66,.16) 0%,
-      rgba(229,134,66,.095) 35%,
-      rgba(229,134,66,.04) 62%,
-      transparent 83%);
+      color-mix(in srgb, var(--accent) 16%, transparent);
     filter: blur(2.5rem);
   }
 }
@@ -142,11 +134,11 @@
 /* Shared glass finish: let the page's warm ambient glow show through the
    insight stack, especially on the cards peeking out before a swipe. */
 .depth-carousel__card {
-  border: 1px solid rgba(255,255,255,.075) !important;
-  background: linear-gradient(155deg, rgba(31,27,24,.48), rgba(12,12,12,.58)) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent) !important;
+  background: linear-gradient(155deg, rgb(var(--theme-shadow-rgb) / 0.48) !important;
   -webkit-backdrop-filter: blur(18px) saturate(1.12) !important;
   backdrop-filter: blur(18px) saturate(1.12) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.045) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent) !important;
 }
 
 /* Final AI insight glass correction: the card face itself must stay translucent.
@@ -161,7 +153,7 @@
 /* AI Insights gets its surface from DashboardPages.css; keep carousel cards transparent here. */
 .depth-carousel.daily-ai-depth-carousel .depth-carousel__card {
   background: transparent;
-  border-color: rgba(214,112,66,.14);
+  border-color: color-mix(in srgb, var(--accent) 14%, transparent);
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
   box-shadow: none;
