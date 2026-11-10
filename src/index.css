@@ -157,8 +157,8 @@ body {
   isolation: isolate;
 }
 
-/* Blue accent controls always need white foregrounds for contrast.
-   Keep this shared rule after component styles so icons inherit white too. */
+/* Blue accent controls always need var(--t1) foregrounds for contrast.
+   Keep this shared rule after component styles so icons inherit var(--t1) too. */
 :root {
   --accent-foreground: #ffffff;
 }
@@ -175,7 +175,7 @@ button.chat-send-button,
 [aria-label="Send"],
 [title="Send message"],
 [title="Send"] {
-  color: #ffffff !important;
+  color: var(--accent-foreground) !important;
 }
 .bottom-nav .bottom-active svg,
 .bottom-active svg,
@@ -190,13 +190,13 @@ button.chat-send-button svg,
 [aria-label="Send"] svg,
 [title="Send message"] svg,
 [title="Send"] svg {
-  color: #ffffff !important;
+  color: var(--accent-foreground) !important;
   stroke: currentColor;
 }
 
 
 
-/* FINAL GLOBAL CONTRAST PASS — all blue primary/accent buttons keep white content. */
+/* FINAL GLOBAL CONTRAST PASS — all blue primary/accent buttons keep var(--t1) content. */
 :root {
   --accent-foreground: #ffffff !important;
   --color-accent-foreground: #ffffff !important;
@@ -226,8 +226,8 @@ a.button-primary,
 .auth-direct-page .auth-submit,
 .onboarding button.primary,
 .dashboard button.primary {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: var(--accent-foreground) !important;
+  -webkit-text-fill-color: var(--accent-foreground) !important;
 }
 
 button.bottom-active *,
@@ -252,52 +252,52 @@ a.button-primary *,
 .auth-direct-page .auth-submit *,
 .onboarding button.primary *,
 .dashboard button.primary * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  color: var(--accent-foreground) !important;
+  -webkit-text-fill-color: var(--accent-foreground) !important;
+  fill:var(--accent-foreground) !important;
+  stroke:var(--accent-foreground) !important;
 }
 
 /* Remove leftover violet/purple styling from the routine navigation controls. */
 .routine-nav-button,
 .routine-nav-button:hover,
 .routine-nav-button:focus-visible {
-  color: #ffffff !important;
-  border-color: #292a2e !important;
-  background: #0b0c0f !important;
+  color: var(--accent-foreground) !important;
+  border-color: var(--t3) !important;
+  background: var(--bg) !important;
 }
 .routine-nav-button:focus-visible {
   outline-color: color-mix(in srgb, var(--color-accent-blue) 70%, transparent) !important;
 }
 
 
-/* EVOLV boot loader: pure black canvas, consistently white wordmark. */
+/* EVOLV boot loader: pure var(--bg) canvas, consistently var(--t1) wordmark. */
 html body #root .evolv-loader,
 html body #root .evolv-loader .evolv-loader-core {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: var(--bg) !important;
+  background-color: var(--t3) !important;
   background-image: none !important;
 }
 html body #root .evolv-loader {
-  color: #ffffff !important;
+  color: var(--accent-foreground) !important;
   box-shadow: none !important;
 }
 html body #root .evolv-loader .evolv-loader-wordmark {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: var(--accent-foreground) !important;
+  -webkit-text-fill-color: var(--accent-foreground) !important;
 }
 html body #root .evolv-loader::before,
 html body #root .evolv-loader::after,
 html body #root .evolv-loader .evolv-loader-core::before,
 html body #root .evolv-loader .evolv-loader-core::after {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: var(--bg) !important;
+  background-color: var(--t3) !important;
   background-image: none !important;
   box-shadow: none !important;
 }
 
 
-/* Onboarding CTA contrast: blue accent backgrounds, always white text and icons. */
+/* Onboarding CTA contrast: blue accent backgrounds, always var(--t1) text and icons. */
 html body #root .evolv-welcome-cta,
 html body #root .evolv-onboarding-continue,
 html body #root .onboarding .onboard-footer .button,
@@ -310,8 +310,8 @@ html body #root .onboarding .btn-primary {
   background-color: var(--color-accent-blue) !important;
   background-image: none !important;
   border-color: var(--color-accent-blue) !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
+  color: var(--accent-foreground) !important;
+  -webkit-text-fill-color: var(--accent-foreground) !important;
   box-shadow: none !important;
 }
 html body #root .evolv-welcome-cta *,
@@ -322,10 +322,10 @@ html body #root .onboarding .onboarding-next *,
 html body #root .onboarding button[type="submit"] *,
 html body #root .onboarding .primary-button *,
 html body #root .onboarding .btn-primary * {
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  fill: #ffffff !important;
-  stroke: #ffffff !important;
+  color: var(--accent-foreground) !important;
+  -webkit-text-fill-color: var(--accent-foreground) !important;
+  fill:var(--accent-foreground) !important;
+  stroke:var(--accent-foreground) !important;
 }
 
 
@@ -342,7 +342,7 @@ html body #root .onboarding .btn-primary * {
   .evolv-floating-log-intro { animation: none; }
 }
 
-/* EVOLV — public and standalone pages use a true black canvas.
+/* EVOLV — public and standalone pages use a true var(--bg) canvas.
    Keep the landing hero's silk-line canvas and the ash footer intact. */
 .auth-shell,
 .auth-page,
@@ -354,7 +354,7 @@ html body #root .onboarding .btn-primary * {
 .forgot-password-page,
 .public-page,
 .standalone-page {
-  background-color: #000000 !important;
+  background-color: var(--t3) !important;
   background-image: none !important;
 }
 .auth-shell::before,
@@ -368,7 +368,7 @@ html body #root .onboarding .btn-primary * {
 }
 
 
-/* HOTFIX: every standalone/external account page must use a pure-black canvas.
+/* HOTFIX: every standalone/external account page must use a pure-var(--bg) canvas.
    Remove legacy violet/blue glow layers without changing the blue primary buttons. */
 html body #root .auth-page,
 html body #root .auth-shell,
@@ -382,8 +382,8 @@ html body #root .standalone-page,
 html body #root .auth-page main,
 html body #root .auth-shell main,
 html body #root .auth-direct-page main {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: var(--bg) !important;
+  background-color: var(--t3) !important;
   background-image: none !important;
 }
 
@@ -417,18 +417,18 @@ html body #root .auth-page .auth-content,
 html body #root .auth-shell .auth-content,
 html body #root .auth-direct-page .auth-content-compact,
 html body #root .auth-direct-page .auth-flow-content {
-  background-color: #000000 !important;
+  background-color: var(--t3) !important;
   background-image: none !important;
 }
 
 
-/* FINAL NAV OVERRIDE: keep the dock's outer liquid glass, but no white active
+/* FINAL NAV OVERRIDE: keep the dock's outer liquid glass, but no var(--t1) active
    label/icon treatment and no separate active-tab pill. */
 html body #root .dashboard .evolv-bottom-nav button.bottom-active,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:hover,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:focus,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
-  color: rgba(255,255,255,.38) !important;
+  color: color-mix(in srgb, var(--accent-foreground) 38%, transparent) !important;
   -webkit-text-fill-color: currentColor !important;
   background: transparent !important;
   background-color: transparent !important;
@@ -440,13 +440,13 @@ html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
 html body #root .dashboard .evolv-bottom-nav button.bottom-active > span,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
-  color: rgba(255,255,255,.38) !important;
+  color: color-mix(in srgb, var(--accent-foreground) 38%, transparent) !important;
   -webkit-text-fill-color: currentColor !important;
   fill: none !important;
   stroke: currentColor !important;
 }
 html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(255,255,255,.12) !important;
+  border-color: color-mix(in srgb, var(--accent-foreground) 12%, transparent) !important;
 }
 
 
@@ -509,40 +509,40 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
   width: 100%;
   min-height: 6.4rem;
   padding: 1.8rem 2rem;
-  color: #f7f7f8 !important;
-  -webkit-text-fill-color: #f7f7f8;
-  caret-color: #f7f7f8;
+  color: var(--accent-foreground) !important;
+  -webkit-text-fill-color: var(--accent-foreground);
+  caret-color: var(--accent-foreground);
   font: inherit;
   font-size: clamp(1.8rem, 2.4vw, 2.2rem);
   letter-spacing: -0.025em;
   background:
-    linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.018) 58%, rgba(255,255,255,.035)),
-    rgba(9, 10, 12, .88) !important;
-  border: 1px solid rgba(255,255,255,.13) !important;
+    linear-gradient(135deg, color-mix(in srgb, var(--t1) 6%, transparent), color-mix(in srgb, var(--t1) 2%, transparent) 58%, color-mix(in srgb, var(--t1) 4%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.88) !important;
+  border: 1px solid color-mix(in srgb, var(--edge) 13%, transparent) !important;
   border-radius: 1.8rem;
   outline: none !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.045), 0 1.8rem 4.8rem rgba(0,0,0,.22) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent), 0 1.8rem 4.8rem rgb(var(--theme-shadow-rgb) / 0.22) !important;
   transition: border-color .28s ease, background .28s ease, box-shadow .28s ease, transform .28s ease;
 }
 
 .evolv-onboarding-name input::placeholder {
-  color: rgba(245,245,247,.38) !important;
-  -webkit-text-fill-color: rgba(245,245,247,.38);
+  color: color-mix(in srgb, var(--accent-foreground) 38%, transparent) !important;
+  -webkit-text-fill-color: color-mix(in srgb, var(--accent-foreground) 38%, transparent);
   opacity: 1;
 }
 
 .evolv-onboarding-name input:hover {
-  border-color: rgba(255,255,255,.22) !important;
+  border-color: color-mix(in srgb, var(--accent-foreground) 22%, transparent) !important;
 }
 
 .evolv-onboarding-name input:focus,
 .evolv-onboarding-name input:focus-visible {
-  border-color: rgba(255,255,255,.3) !important;
+  border-color: color-mix(in srgb, var(--accent-foreground) 30%, transparent) !important;
   outline: none !important;
   background:
-    linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025) 58%, rgba(255,255,255,.04)),
-    rgba(9, 10, 12, .96) !important;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 3px rgba(255,255,255,.025), 0 2rem 5rem rgba(0,0,0,.28) !important;
+    linear-gradient(135deg, color-mix(in srgb, var(--t1) 7%, transparent), color-mix(in srgb, var(--t1) 3%, transparent) 58%, color-mix(in srgb, var(--t1) 4%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.96) !important;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 6%, transparent), 0 0 0 3px color-mix(in srgb, var(--t1) 3%, transparent), 0 2rem 5rem rgb(var(--theme-shadow-rgb) / 0.28) !important;
   transform: translateY(-1px);
 }
 
@@ -612,11 +612,11 @@ html::before {
   height: calc(env(safe-area-inset-top, 0px) + 24px);
   pointer-events: none;
   z-index: 10000;
-  background: linear-gradient(to bottom, rgba(10,9,8,.7), transparent);
+  background: linear-gradient(to bottom, rgb(var(--theme-shadow-rgb) / 0.7), transparent);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent);
-  mask-image: linear-gradient(to bottom, #000 35%, transparent);
+  -webkit-mask-image: linear-gradient(to bottom, var(--t3) 35%, transparent);
+  mask-image: linear-gradient(to bottom, var(--t3) 35%, transparent);
 }
 
 /* A single typography scale. Page-specific classes may set size, never heavier weight. */
@@ -722,11 +722,11 @@ html::before {
 }
 .btn-primary {
   background: rgb(var(--ac));
-  color: #fff;
+  color: var(--accent-foreground);
   box-shadow: 0 10px 30px -10px rgba(var(--ac), .6);
 }
 .btn-ghost {
-  background: rgba(255,255,255,.05);
+  background: color-mix(in srgb, var(--surface-1) 5%, transparent);
   border: 1px solid var(--edge);
   color: var(--t1);
 }
@@ -759,7 +759,7 @@ html::before {
   justify-content: center;
   border: 1px solid var(--edge);
   border-radius: 50%;
-  background: rgba(255,255,255,.04);
+  background: color-mix(in srgb, var(--surface-1) 4%, transparent);
   color: var(--t1);
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
@@ -773,7 +773,7 @@ html::before {
   justify-content: center;
   border: 1px solid var(--edge);
   border-radius: 50%;
-  background: rgba(255,255,255,.06);
+  background: color-mix(in srgb, var(--surface-1) 6%, transparent);
   color: rgb(var(--ac));
 }
 .icon-tile svg { stroke-width: 1.4; }
@@ -782,7 +782,7 @@ html::before {
 .glass-panel {
   border: 1px solid var(--edge);
   border-radius: var(--r-card);
-  background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.025));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--t1) 5%, transparent), color-mix(in srgb, var(--t1) 3%, transparent));
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
 }
@@ -811,7 +811,7 @@ html::before {
   border: 1px solid var(--edge);
   border-radius: var(--r-input);
   outline: 0;
-  background: rgba(255,255,255,.04);
+  background: color-mix(in srgb, var(--surface-1) 4%, transparent);
   color: var(--t1);
   font: inherit;
   font-size: 16px;
@@ -832,9 +832,9 @@ textarea.input {
 }
 input:-webkit-autofill,
 input:-webkit-autofill:focus {
-  -webkit-text-fill-color: #fff;
-  caret-color: #fff;
-  -webkit-box-shadow: 0 0 0 1000px #151311 inset;
+  -webkit-text-fill-color: var(--accent-foreground);
+  caret-color: var(--accent-foreground);
+  -webkit-box-shadow: 0 0 0 1000px var(--t3) inset;
   transition: background-color 9999s;
 }
 
@@ -847,7 +847,7 @@ input:-webkit-autofill:focus {
   z-index: 40;
   border: 1px solid var(--edge);
   border-radius: 999px;
-  background: rgba(20,18,16,.78);
+  background: rgb(var(--theme-shadow-rgb) / 0.78);
   -webkit-backdrop-filter: blur(22px);
   backdrop-filter: blur(22px);
 }
@@ -928,73 +928,73 @@ input:-webkit-autofill:focus {
 /* Daily reflection entry card — scoped to the reflection sheet. */
 .reflection-overlay{
   position:fixed;inset:0;z-index:10050;display:flex;align-items:center;justify-content:center;
-  padding:20px;background:rgba(0,0,0,.76);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  padding:20px;background:rgb(var(--theme-shadow-rgb) / 0.76);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
   overflow-y:auto;overscroll-behavior:contain;
 }
 .reflection-sheet{
   position:relative;width:min(100%,480px);max-height:min(92dvh,900px);overflow-y:auto;overscroll-behavior:contain;
-  padding:22px;border:1px solid rgba(229,134,66,.16);border-radius:30px;color:#f4eee8;
-  background:radial-gradient(120% 70% at 50% 0%,rgba(229,134,66,.15),transparent 65%),linear-gradient(180deg,#17110d 0%,#0d0b09 100%);
-  box-shadow:0 28px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,210,170,.05);
+  padding:22px;border:1px solid color-mix(in srgb, var(--accent) 16%, transparent);border-radius:30px;color:var(--accent-foreground);
+  background:radial-gradient(120% 70% at 50% 0%,color-mix(in srgb, var(--accent) 15%, transparent),transparent 65%),linear-gradient(180deg,var(--t3) 0%,var(--t3) 100%);
+  box-shadow:0 28px 80px rgb(var(--theme-shadow-rgb) / 0.55),inset 0 1px 0 color-mix(in srgb, var(--accent) 5%, transparent);
 }
-.reflection-sheet-handle{width:38px;height:4px;border-radius:99px;background:rgba(255,244,234,.22);margin:0 auto 18px}
+.reflection-sheet-handle{width:38px;height:4px;border-radius:99px;background:color-mix(in srgb, var(--surface-1) 22%, transparent);margin:0 auto 18px}
 .reflection-sheet-intro{padding:18px 20px 22px}
 .mood-card-close{
   position:absolute;top:18px;right:18px;width:38px;height:38px;display:grid;place-items:center;padding:0;
-  color:#fff4ea;border:1px solid rgba(255,190,140,.14);border-radius:50%;background:rgba(255,244,234,.07);z-index:3;
+  color:var(--accent-foreground);border:1px solid color-mix(in srgb, var(--accent) 14%, transparent);border-radius:50%;background:color-mix(in srgb, var(--surface-1) 7%, transparent);z-index:3;
 }
-.mood-card-close:hover{background:rgba(255,244,234,.14)}
+.mood-card-close:hover{background:color-mix(in srgb, var(--surface-1) 14%, transparent)}
 .mood-card-stage{position:relative;height:160px;margin:22px 0 8px;overflow:hidden}
 .mood-card-character{
   position:absolute;left:var(--mc-x);top:var(--mc-y);width:var(--mc-size);height:var(--mc-size);
   display:grid;place-items:center;line-height:1;
-  filter:drop-shadow(0 8px 10px rgba(0,0,0,.4));pointer-events:none;
+  filter:drop-shadow(0 8px 10px rgb(var(--theme-shadow-rgb) / 0.4));pointer-events:none;
   animation:mood-card-float var(--mc-duration) ease-in-out var(--mc-delay) infinite alternate;
 }
 .mood-card-character img{display:block;width:100%;height:100%;object-fit:contain;overflow:visible;user-select:none;-webkit-user-drag:none}
 @keyframes mood-card-float{from{transform:translate3d(0,0,0) rotate(-3deg)}to{transform:translate3d(0,-9px,0) rotate(3deg)}}
-.mood-card-title{margin:12px 0 22px;text-align:center;font-size:clamp(2.5rem,6vw,3rem);line-height:1.12;font-weight:500;letter-spacing:-.035em;color:#fff4ea}
+.mood-card-title{margin:12px 0 22px;text-align:center;font-size:clamp(2.5rem,6vw,3rem);line-height:1.12;font-weight:500;letter-spacing:-.035em;color:var(--accent-foreground)}
 .mood-card-options{display:grid;gap:11px}
 .mood-card-option{
   position:relative;display:flex;flex-direction:column;align-items:flex-start;width:100%;min-height:102px;padding:15px 54px 14px 17px;
-  text-align:left;color:#fff4ea;border:1px solid rgba(255,190,140,.1);border-radius:22px;background:rgba(255,244,234,.045);
+  text-align:left;color:var(--accent-foreground);border:1px solid color-mix(in srgb, var(--accent) 10%, transparent);border-radius:22px;background:color-mix(in srgb, var(--surface-1) 5%, transparent);
   transition:background .2s,border-color .2s,transform .15s;
 }
 .mood-card-option:active{transform:scale(.99)}
-.mood-card-option.selected{background:rgba(229,134,66,.12);border-color:rgba(229,134,66,.9)}
-.mood-card-option-label{display:flex;align-items:center;gap:8px;color:rgba(255,244,234,.6);font-size:1.35rem;font-weight:500}
+.mood-card-option.selected{background:color-mix(in srgb, var(--accent) 12%, transparent);border-color:color-mix(in srgb, var(--accent) 90%, transparent)}
+.mood-card-option-label{display:flex;align-items:center;gap:8px;color:color-mix(in srgb, var(--accent-foreground) 60%, transparent);font-size:1.35rem;font-weight:500}
 .mood-card-option-headline{margin-top:5px;font-size:1.7rem;line-height:1.3;font-weight:500}
-.mood-card-option-time{margin-top:5px;min-height:1.6rem;font-size:1.35rem;font-variant-numeric:tabular-nums;color:rgba(255,244,234,.55)}
-.mood-card-check{position:absolute;right:18px;top:50%;transform:translateY(-50%) scale(.7);opacity:0;color:#f2812f;transition:opacity .2s,transform .25s}
+.mood-card-option-time{margin-top:5px;min-height:1.6rem;font-size:1.35rem;font-variant-numeric:tabular-nums;color:color-mix(in srgb, var(--accent-foreground) 55%, transparent)}
+.mood-card-check{position:absolute;right:18px;top:50%;transform:translateY(-50%) scale(.7);opacity:0;color:var(--accent);transition:opacity .2s,transform .25s}
 .mood-card-option.selected .mood-card-check{opacity:1;transform:translateY(-50%) scale(1)}
 .mood-card-next{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:52px;margin-top:22px;padding:0 20px;
-  border:1px solid rgba(255,190,140,.25);border-radius:999px;background:linear-gradient(180deg,#f2812f,#c4500f);color:#fff;font-size:1.6rem;font-weight:600;
-  box-shadow:0 9px 22px rgba(224,102,31,.2);transition:transform .15s,filter .2s}
+  border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:999px;background:linear-gradient(180deg,var(--accent),var(--danger));color:var(--accent-foreground);font-size:1.6rem;font-weight:600;
+  box-shadow:0 9px 22px color-mix(in srgb, var(--accent) 20%, transparent);transition:transform .15s,filter .2s}
 .mood-card-next:active{transform:scale(.985);filter:brightness(.95)}
-.mood-card-close:focus-visible,.mood-card-option:focus-visible,.mood-card-next:focus-visible{outline:2px solid #f2812f;outline-offset:3px}
+.mood-card-close:focus-visible,.mood-card-option:focus-visible,.mood-card-next:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .reflection-sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:24px}
 .reflection-sheet-head>div{display:flex;align-items:center;gap:12px}
-.reflection-step-label{font-size:1.25rem;color:rgba(255,244,234,.5)}
-.reflection-close{width:36px;height:36px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.1);border-radius:50%;background:rgba(255,255,255,.05);color:#fff4ea}
+.reflection-step-label{font-size:1.25rem;color:color-mix(in srgb, var(--accent-foreground) 50%, transparent)}
+.reflection-close{width:36px;height:36px;display:grid;place-items:center;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:50%;background:color-mix(in srgb, var(--surface-1) 5%, transparent);color:var(--accent-foreground)}
 .reflection-step{display:flex;flex-direction:column;gap:14px}
-.reflection-kicker{font-size:1.15rem;letter-spacing:.12em;color:#e58642}
+.reflection-kicker{font-size:1.15rem;letter-spacing:.12em;color:var(--accent)}
 .reflection-step h2{margin:0;font-size:clamp(2.3rem,5vw,3rem);line-height:1.15;font-weight:500;letter-spacing:-.025em}
-.reflection-step>p{margin:0;color:rgba(255,244,234,.58);font-size:1.45rem;line-height:1.5}
+.reflection-step>p{margin:0;color:color-mix(in srgb, var(--accent-foreground) 58%, transparent);font-size:1.45rem;line-height:1.5}
 .reflection-mood-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:5px 0}
-.reflection-mood-grid>button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:95px;padding:10px 5px;border:1px solid rgba(255,255,255,.09);border-radius:17px;background:rgba(255,255,255,.035);color:#f4eee8}
-.reflection-mood-grid>button.selected{border-color:#e58642;background:rgba(229,134,66,.12)}
+.reflection-mood-grid>button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;min-height:95px;padding:10px 5px;border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);border-radius:17px;background:color-mix(in srgb, var(--surface-1) 4%, transparent);color:var(--accent-foreground)}
+.reflection-mood-grid>button.selected{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 12%, transparent)}
 .reflection-mood-grid small{font-size:1.25rem;text-align:center}
 .reflection-mood-avatar{width:42px;height:42px}
 .reflection-feeling-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-.reflection-feeling-grid button{min-height:46px;padding:10px;border:1px solid rgba(255,255,255,.1);border-radius:14px;background:rgba(255,255,255,.04);color:#f4eee8;font-size:1.4rem}
-.reflection-feeling-grid button.selected{border-color:#e58642;background:rgba(229,134,66,.12)}
-.reflection-note{width:100%;resize:vertical;min-height:120px;padding:14px;border:1px solid rgba(255,255,255,.12);border-radius:16px;background:rgba(255,255,255,.04);color:#f4eee8;font-size:1.45rem;line-height:1.5}
+.reflection-feeling-grid button{min-height:46px;padding:10px;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:14px;background:color-mix(in srgb, var(--surface-1) 4%, transparent);color:var(--accent-foreground);font-size:1.4rem}
+.reflection-feeling-grid button.selected{border-color:var(--accent);background:color-mix(in srgb, var(--accent) 12%, transparent)}
+.reflection-note{width:100%;resize:vertical;min-height:120px;padding:14px;border:1px solid color-mix(in srgb, var(--edge) 12%, transparent);border-radius:16px;background:color-mix(in srgb, var(--surface-1) 4%, transparent);color:var(--accent-foreground);font-size:1.45rem;line-height:1.5}
 .reflection-step-actions{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .reflection-next{display:flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 17px;border-radius:999px}
-.reflection-back{display:flex;align-items:center;gap:5px;border:0;background:transparent;color:rgba(255,244,234,.7);font-size:1.35rem}
+.reflection-back{display:flex;align-items:center;gap:5px;border:0;background:transparent;color:color-mix(in srgb, var(--accent-foreground) 70%, transparent);font-size:1.35rem}
 .reflection-progress{display:flex;justify-content:center;gap:6px;margin-top:22px}
-.reflection-progress span{width:18px;height:3px;border-radius:99px;background:rgba(255,255,255,.13)}
-.reflection-progress span.active{background:#e58642}
+.reflection-progress span{width:18px;height:3px;border-radius:99px;background:color-mix(in srgb, var(--surface-1) 13%, transparent)}
+.reflection-progress span.active{background:var(--accent)}
 @media(max-width:480px){
   .reflection-overlay{align-items:flex-end;padding:10px}
   .reflection-sheet{width:100%;max-height:calc(100dvh - 20px);padding:20px 17px calc(18px + env(safe-area-inset-bottom));border-radius:27px}
@@ -1017,15 +1017,15 @@ input:-webkit-autofill:focus {
   place-items: center;
   width: 112px;
   height: 112px;
-  border: 1px solid rgba(229, 134, 66, .2);
+  border: 1px solid color-mix(in srgb, var(--accent) 20%, transparent);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(229, 134, 66, .14), rgba(255, 255, 255, .025) 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 14%, transparent), color-mix(in srgb, var(--t1) 3%, transparent) 68%);
   font-size: 5.4rem;
   line-height: 1;
   animation: reflectionEmojiSettle .2s ease-out;
 }
 .reflection-slider-mood strong {
-  color: #f4eee8;
+  color: var(--accent-foreground);
   font-size: 1.7rem;
   font-weight: 550;
 }
@@ -1043,17 +1043,17 @@ input:-webkit-autofill:focus {
 .reflection-mood-slider::-webkit-slider-runnable-track {
   height: 10px;
   border-radius: 999px;
-  background: linear-gradient(to right, #E58642 0%, #E58642 var(--mood-progress, 50%), rgba(255,255,255,.13) var(--mood-progress, 50%), rgba(255,255,255,.13) 100%);
+  background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--mood-progress, 50%), color-mix(in srgb, var(--t1) 13%, transparent) var(--mood-progress, 50%), color-mix(in srgb, var(--t1) 13%, transparent) 100%);
 }
 .reflection-mood-slider::-moz-range-track {
   height: 10px;
   border-radius: 999px;
-  background: rgba(255,255,255,.13);
+  background: color-mix(in srgb, var(--surface-1) 13%, transparent);
 }
 .reflection-mood-slider::-moz-range-progress {
   height: 10px;
   border-radius: 999px;
-  background: #E58642;
+  background: var(--accent);
 }
 .reflection-mood-slider::-webkit-slider-thumb {
   appearance: none;
@@ -1061,25 +1061,25 @@ input:-webkit-autofill:focus {
   width: 24px;
   height: 24px;
   margin-top: -7px;
-  border: 3px solid #f4eee8;
+  border: 3px solid var(--edge);
   border-radius: 50%;
-  background: #E58642;
-  box-shadow: 0 0 0 4px rgba(229,134,66,.14);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
 }
 .reflection-mood-slider::-moz-range-thumb {
   width: 18px;
   height: 18px;
-  border: 3px solid #f4eee8;
+  border: 3px solid var(--edge);
   border-radius: 50%;
-  background: #E58642;
-  box-shadow: 0 0 0 4px rgba(229,134,66,.14);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 14%, transparent);
 }
-.reflection-mood-slider:focus-visible { outline: 2px solid #E58642; outline-offset: 6px; border-radius: 99px; }
+.reflection-mood-slider:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; border-radius: 99px; }
 .reflection-slider-labels {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  color: rgba(255,244,234,.48);
+  color: color-mix(in srgb, var(--accent-foreground) 48%, transparent);
   font-size: 1.05rem;
   letter-spacing: .035em;
   text-transform: uppercase;
@@ -1100,7 +1100,7 @@ input:-webkit-autofill:focus {
 
 
 /* Daily Reflection: emoji-led Emotion step (no decorative stars or flower artwork). */
-.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 34% at 50% 0%,rgba(229,134,66,.10),transparent 100px),#0a0908}
+.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 34% at 50% 0%,color-mix(in srgb, var(--accent) 10%, transparent),transparent 100px),var(--t3)}
 .emo-step{
   --mc-accent:var(--accent,#e58642);
   --mc-accent-hi:#f2812f;
@@ -1112,29 +1112,29 @@ input:-webkit-autofill:focus {
 .emo-step *{box-sizing:border-box}\n.emo-step::before{content:"";position:absolute;z-index:-1;inset:-64px -54px -34px;pointer-events:none;background:radial-gradient(ellipse at 50% 43%,hsl(var(--emo-h,40) 88% 48% / .18),transparent 62%);filter:blur(34px);opacity:.9}
 .emo-step__bar{display:grid;grid-template-columns:44px 1fr 44px;align-items:center}
 .emo-step__bartitle{text-align:center;font-size:1.7rem;font-weight:600}
-.emo-btn{width:44px;height:44px;padding:0;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,190,140,.14);background:rgba(255,244,234,.07);color:var(--mc-text);cursor:pointer;transition:background .2s}
-.emo-btn:hover{background:rgba(255,244,234,.14)}
+.emo-btn{width:44px;height:44px;padding:0;display:grid;place-items:center;border-radius:50%;border:1px solid color-mix(in srgb, var(--accent) 14%, transparent);background:color-mix(in srgb, var(--surface-1) 7%, transparent);color:var(--mc-text);cursor:pointer;transition:background .2s}
+.emo-btn:hover{background:color-mix(in srgb, var(--surface-1) 14%, transparent)}
 .emo-step__title{margin:16px 0 0;text-align:center;font-size:clamp(2rem,5vw,2.25rem);line-height:1.25;font-weight:500;letter-spacing:-.02em}
 .emo-step__emoji-stage{position:relative;display:grid;place-items:center;width:min(100%,190px);aspect-ratio:1;margin:2px auto 0;border-radius:50%;background:radial-gradient(circle,hsl(var(--emo-h,40) 85% 55% / .14),transparent 68%);transition:background .25s ease}
 .emo-step__emoji-stage::before{content:"";position:absolute;width:68%;height:68%;border-radius:50%;background:radial-gradient(circle,hsl(var(--emo-h,40) 95% 58% / .17),transparent 72%);filter:blur(14px);transform:scale(var(--emo-scale,.95));transition:transform .25s ease,background .25s ease}
 .emo-step__emoji{position:relative;display:grid;place-items:center;width:116px;height:116px;border-radius:50%;font-size:7.2rem;line-height:1;filter:drop-shadow(0 8px 20px hsl(var(--emo-h,40) 90% 50% / .24));animation:emo-emoji-pop .24s ease-out}
 @keyframes emo-emoji-pop{from{transform:scale(.82);opacity:.65}to{transform:scale(1);opacity:1}}
-.emo-step__label{margin:0 0 12px;min-height:1.3em;text-align:center;font-size:2rem;line-height:1.3;font-weight:500;letter-spacing:-.015em;color:rgba(255,244,234,.92)}
-.emo-slider{padding:3px;border-radius:999px;background:rgba(255,244,234,.08)}
+.emo-step__label{margin:0 0 12px;min-height:1.3em;text-align:center;font-size:2rem;line-height:1.3;font-weight:500;letter-spacing:-.015em;color:color-mix(in srgb, var(--accent-foreground) 92%, transparent)}
+.emo-slider{padding:3px;border-radius:999px;background:color-mix(in srgb, var(--surface-1) 8%, transparent)}
 .emo-slider:focus-within{outline:2px solid var(--mc-accent-hi);outline-offset:3px}
 .emo-slider input{-webkit-appearance:none;appearance:none;display:block;width:100%;height:50px;margin:0;background:transparent;cursor:pointer;outline:none;touch-action:pan-y}
 .emo-slider input::-webkit-slider-runnable-track{height:50px;background:transparent}
 .emo-slider input::-moz-range-track{height:50px;background:transparent}
-.emo-slider input::-webkit-slider-thumb{-webkit-appearance:none;width:50px;height:50px;border:0;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
-.emo-slider input::-moz-range-thumb{width:50px;height:50px;border:0;border-radius:50%;background:#fff;box-shadow:0 4px 14px rgba(0,0,0,.35)}
+.emo-slider input::-webkit-slider-thumb{-webkit-appearance:none;width:50px;height:50px;border:0;border-radius:50%;background:var(--surface-1);box-shadow:0 4px 14px rgb(var(--theme-shadow-rgb) / 0.35)}
+.emo-slider input::-moz-range-thumb{width:50px;height:50px;border:0;border-radius:50%;background:var(--surface-1);box-shadow:0 4px 14px rgb(var(--theme-shadow-rgb) / 0.35)}
 .emo-step__ends{display:flex;justify-content:space-between;gap:12px;margin:10px 0 0;padding:0 6px;font-size:1.05rem;font-weight:400;letter-spacing:.01em;color:var(--mc-muted)}
 .emo-step__ends span:last-child{text-align:right}
-.emo-step__next{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;margin-top:18px;font:inherit;font-size:1.7rem;font-weight:600;color:#fff;border-radius:999px;cursor:pointer;border:1px solid rgba(255,190,140,.35);background:linear-gradient(180deg,var(--mc-accent-hi),var(--mc-accent-deep));box-shadow:0 10px 24px rgba(224,102,31,.22);transition:transform .15s,box-shadow .2s}
-.emo-step__next:active{transform:scale(.985);box-shadow:0 6px 16px rgba(224,102,31,.2)}
+.emo-step__next{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:54px;margin-top:18px;font:inherit;font-size:1.7rem;font-weight:600;color:var(--accent-foreground);border-radius:999px;cursor:pointer;border:1px solid color-mix(in srgb, var(--accent) 35%, transparent);background:linear-gradient(180deg,var(--mc-accent-hi),var(--mc-accent-deep));box-shadow:0 10px 24px color-mix(in srgb, var(--accent) 22%, transparent);transition:transform .15s,box-shadow .2s}
+.emo-step__next:active{transform:scale(.985);box-shadow:0 6px 16px color-mix(in srgb, var(--accent) 20%, transparent)}
 .emo-step button:focus-visible{outline:2px solid var(--mc-accent-hi);outline-offset:3px}
 .emo-mood-todo{padding:20px 2px 4px}
 .emo-mood-todo h2{margin:0;font-size:2.5rem;font-weight:500}
-.emo-mood-todo p{font-size:1.45rem;line-height:1.5;color:rgba(255,244,234,.65)}
+.emo-mood-todo p{font-size:1.45rem;line-height:1.5;color:color-mix(in srgb, var(--accent-foreground) 65%, transparent)}
 @media(max-width:480px){
   .reflection-sheet-emotion{padding:18px 17px calc(12px + env(safe-area-inset-bottom));min-height:0}
   .emo-step{min-height:500px}\n  .emo-step__title{margin-top:20px;font-size:2.1rem}
@@ -1188,18 +1188,18 @@ html body #root .evolv-welcome .evolv-welcome-cta {
 .evolv-onboarding-name input:-webkit-autofill:hover,
 .evolv-onboarding-name input:-webkit-autofill:focus,
 .evolv-onboarding-name input:-webkit-autofill:active {
-  -webkit-text-fill-color: #f7f7ef !important;
-  caret-color: #f7f7ef;
-  -webkit-box-shadow: 0 0 0 1000px #0f0f0f inset !important;
-  box-shadow: 0 0 0 1000px #0f0f0f inset !important;
-  background-color: #0f0f0f !important;
+  -webkit-text-fill-color: var(--accent-foreground) !important;
+  caret-color: var(--accent-foreground);
+  -webkit-box-shadow: 0 0 0 1000px var(--t3) inset !important;
+  box-shadow: 0 0 0 1000px var(--t3) inset !important;
+  background-color: var(--t3) !important;
   transition: background-color 99999s ease-out 0s;
 }
 
 
 /* EVOLV appearance system — canonical theme tokens live only in index.css. */
 :root,:root[data-theme="dark"] {
- color-scheme:dark; --bg:#0a0908; --app-bg:#0a0908; --t1:#f4eee8; --t2:rgba(244,238,232,.66); --t3:rgba(244,238,232,.42);
+ color-scheme:dark; --bg:var(--t3); --app-bg:var(--t3); --t1:var(--t1); --t2:color-mix(in srgb, var(--t1) 66%, transparent); --t3:color-mix(in srgb, var(--t1) 42%, transparent);
  --edge:rgba(255,255,255,.09); --surface-1:#151311; --surface-2:#1b1815; --surface-3:#211c17; --field-bg:#11100e;
  --accent-rgb:229,134,66; --ac:var(--accent-rgb);--metric-health:#ff8f87; --metric-nutrition:#ffd66b; --metric-money:#34d399; --metric-life:#4ade80; --metric-sleep:#f5b84b; --metric-steps:#f59e0b; --metric-exercise:#ff6b6b; --metric-energy:#facc15; --metric-weight:#2dd4bf; --metric-mood:#fb7185; --metric-stress:#f97316; --metric-outreach:#f472b6; --metric-applications:#fbbf24; --metric-skills:#34d399; --metric-income:#34d399; --metric-spending:#fb7185; --metric-savings:#2dd4bf; --metric-bills:#fbbf24; --metric-habits:#a3e635; --metric-social:#f472b6; --metric-personal:#2dd4bf; --metric-meals:#fb923c; --avatar-hair-dark:#171311; --avatar-hair-deep:#211812; --on-accent:var(--accent-foreground); --highlight-warm:#B77926; --highlight-pink:#C65A79; --highlight-peach:#BD684E; --on-accent:var(--accent-foreground); --highlight-warm:#F1CE70; --highlight-pink:#FF91A8; --highlight-peach:#FFAD91; --theme-on-rgb:244 238 232; --theme-highlight-rgb:255 213 178; --theme-shadow-rgb:0 0 0; --theme-shadow-color:#000000; --accent:#E58642; --accent-soft:rgba(229,134,66,.14); --ai-surface:#653218;
  --shadow-theme:0 12px 36px rgba(0,0,0,.22); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
@@ -1209,7 +1209,7 @@ html body #root .evolv-welcome .evolv-welcome-cta {
  background-color:var(--bg); color:var(--t1);
 }
 :root[data-theme="light"] {
- color-scheme:light; --bg:#F7F5F2; --app-bg:#F7F5F2; --t1:#24211E; --t2:#756E67; --t3:#918980;
+ color-scheme:light; --bg:var(--t1); --app-bg:var(--t1); --t1:var(--t3); --t2:var(--t2); --t3:var(--t2);
  --edge:rgba(36,33,30,.10); --surface-1:#FFFFFF; --surface-2:#F0EDE9; --surface-3:#E8E3DD; --field-bg:#FFFFFF;
  --accent-rgb:229,134,66; --ac:var(--accent-rgb); --theme-on-rgb:36 33 30; --theme-highlight-rgb:255 255 255; --theme-shadow-rgb:48 38 28; --theme-shadow-color:#30261c; --accent:#E58642; --accent-soft:rgba(190,94,35,.10); --ai-surface:#F3E6DC;
  --shadow-theme:0 12px 36px rgba(48,38,28,.08); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
@@ -1364,12 +1364,12 @@ body { color:var(--ink); }
   background:linear-gradient(90deg,var(--panel-raised),var(--panel-soft),var(--panel-raised))!important;
 }
 :root[data-theme="light"] .dashboard :is(.ai-message-user,.ai-user-message) {
-  color:#fff!important; background:#653218!important;
+  color:var(--accent-foreground)!important; background:var(--danger)!important;
 }
 :root[data-theme="light"] .dashboard :is(.primary,.primary-button,.btn-primary,.button-primary,
 .primary-cta,.auth-submit,.onboard-continue,.onboarding-next,.bottom-active,
 .ai-send-button,.prompt-bar__send[data-armed]) {
-  color:#fff!important;
+  color:var(--accent-foreground)!important;
 }
 :root[data-theme="light"] .dashboard :is(.primary,.primary-button,.btn-primary,.button-primary,
 .primary-cta,.auth-submit,.onboard-continue,.onboarding-next,.bottom-active,
@@ -1386,8 +1386,8 @@ body { color:var(--ink); }
 
 
 /* Exact screen-level surfaces: each app area consumes the shared theme tokens. */
-:root { --ai-ink:var(--t1); --accent-foreground:#fff; }
-:root[data-theme="light"] { --ai-ink:#653218; }
+:root { --ai-ink:var(--t1); --accent-foreground:var(--t1); }
+:root[data-theme="light"] { --ai-ink:var(--danger); }
 html,body,#root,.dashboard,.dashboard .dash-main,.dashboard .dashboard-pages {
   transition:background-color .24s ease,color .24s ease;
 }
