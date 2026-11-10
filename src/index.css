@@ -160,7 +160,7 @@ body {
 /* Blue accent controls always need var(--t1) foregrounds for contrast.
    Keep this shared rule after component styles so icons inherit var(--t1) too. */
 :root {
-  --accent-foreground: #ffffff;
+  --accent-foreground: var(--t1);
 }
 .bottom-nav .bottom-active,
 .bottom-active,
@@ -198,9 +198,9 @@ button.chat-send-button svg,
 
 /* FINAL GLOBAL CONTRAST PASS — all blue primary/accent buttons keep var(--t1) content. */
 :root {
-  --accent-foreground: #ffffff !important;
-  --color-accent-foreground: #ffffff !important;
-  --button-primary-foreground: #ffffff !important;
+  --accent-foreground: var(--t1) !important;
+  --color-accent-foreground: var(--t1) !important;
+  --button-primary-foreground: var(--t1) !important;
 }
 
 /* Cover primary actions across landing, auth, onboarding, dashboard, goals and AI. */
@@ -1102,11 +1102,11 @@ input:-webkit-autofill:focus {
 /* Daily Reflection: emoji-led Emotion step (no decorative stars or flower artwork). */
 .reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 34% at 50% 0%,color-mix(in srgb, var(--accent) 10%, transparent),transparent 100px),var(--t3)}
 .emo-step{
-  --mc-accent:var(--accent,#e58642);
-  --mc-accent-hi:#f2812f;
-  --mc-accent-deep:#c4500f;
-  --mc-text:#fff4ea;
-  --mc-muted:rgba(255,244,234,.55);
+  --mc-accent:var(--accent);
+  --mc-accent-hi:color-mix(in srgb,var(--accent) 82%,var(--t1));
+  --mc-accent-deep:color-mix(in srgb,var(--accent) 72%,var(--bg));
+  --mc-text:var(--t1);
+  --mc-muted:var(--t2);
   position:relative;isolation:isolate;width:100%;max-width:420px;min-height:0;margin:0 auto;padding:0;color:var(--mc-text);font-family:inherit;background:transparent;border-radius:24px;
 }
 .emo-step *{box-sizing:border-box}\n.emo-step::before{content:"";position:absolute;z-index:-1;inset:-64px -54px -34px;pointer-events:none;background:radial-gradient(ellipse at 50% 43%,hsl(var(--emo-h,40) 88% 48% / .18),transparent 62%);filter:blur(34px);opacity:.9}
