@@ -2,18 +2,18 @@
 .auth-page{min-height:100vh;display:grid;grid-template-rows:auto 1fr auto}
 .auth-brand{background:none;border:0;padding:0;color:inherit;cursor:pointer}
 .auth-content{width:min(620px,calc(100% - 40px));margin:0 auto;padding:110px 0 90px;align-self:center}
-.auth-content>p{max-width:510px;color:#747c75;line-height:1.7;margin:20px 0 38px}
+.auth-content>p{max-width:510px;color:var(--t2);line-height:1.7;margin:20px 0 38px}
 .auth-form{display:grid;gap:18px}
 .auth-form label{display:grid;gap:8px}
-.auth-form label span{font:9px 'DM Mono';letter-spacing:.14em;color:#59615b;text-transform:uppercase}
-.auth-form input{width:100%;box-sizing:border-box;background:#ffffff05;border:1px solid #ffffff12;border-radius:12px;padding:16px 17px;color:var(--color-accent-blue);outline:none;font:14px 'Manrope'}
+.auth-form label span{font:9px 'DM Mono';letter-spacing:.14em;color:var(--t2);text-transform:uppercase}
+.auth-form input{width:100%;box-sizing:border-box;background:color-mix(in srgb, var(--surface-1) 2%, transparent);border:1px solid color-mix(in srgb, var(--edge) 7%, transparent);border-radius:12px;padding:16px 17px;color:var(--color-accent-blue);outline:none;font:14px 'Manrope'}
 .auth-form input:focus{border-color:color-mix(in srgb, var(--color-accent-blue) 38%, transparent);box-shadow:0 0 0 3px color-mix(in srgb, var(--color-accent-blue) 6%, transparent)}
 .auth-submit{margin-top:6px;width:max-content}
-.auth-switch,.auth-back{background:none;border:0;color:#7d857e;cursor:pointer}
+.auth-switch,.auth-back{background:none;border:0;color:var(--t2);cursor:pointer}
 .auth-switch{font:11px 'DM Mono';margin-top:22px}
 .auth-switch:hover,.auth-back:hover{color:var(--color-accent-blue)}
 .auth-back{display:flex;align-items:center;gap:.6rem;font:1.2rem 'DM Mono';margin-top:5rem;padding:0}
-.auth-error{margin:0;color:#ff8f8f;font:11px 'DM Mono'}
+.auth-error{margin:0;color:var(--accent);font:11px 'DM Mono'}
 .auth-message{margin:0;color:var(--color-accent-blue);font:11px 'DM Mono';line-height:1.6}
 @media(max-width:800px){
   .auth-content{padding:90px 0 70px}
@@ -116,7 +116,7 @@
   gap:10px;
   border:1px solid color-mix(in srgb, var(--color-accent-blue) 12%, transparent);
   border-radius:12px;
-  background:rgba(255,255,255,.035);
+  background:color-mix(in srgb, var(--surface-1) 4%, transparent);
   color:var(--color-accent-blue);
   font:inherit;
   font-size:13px;
@@ -147,30 +147,30 @@
 }
 
 /* EVOLV AUTH — final typography and spacing pass */
-.auth-page{min-height:100svh;background:#030303;color:#f3f3ef}
+.auth-page{min-height:100svh;background:var(--bg);color:var(--t1)}
 .auth-page .onboard-head{width:min(118rem,calc(100% - 8rem));margin:0 auto;padding:3.2rem 0;display:flex;align-items:center;justify-content:space-between}
-.auth-page .step-count{color:#666;font:500 1.05rem/1 'DM Mono',monospace;letter-spacing:.14em}
+.auth-page .step-count{color:var(--t2);font:500 1.05rem/1 'DM Mono',monospace;letter-spacing:.14em}
 .auth-page .auth-content{width:min(76rem,calc(100% - 8rem));max-width:none;margin:0 auto;padding:8rem 0 10rem;align-self:start}
-.auth-page .section-label{display:block;margin-bottom:2.8rem;color:#707070;font:500 1.05rem/1 'DM Mono',monospace;letter-spacing:.16em}
-.auth-page .auth-content h1{margin:0;max-width:72rem;color:#f4f4f0;font-size:clamp(5.6rem,8vw,10.5rem);line-height:.86;letter-spacing:-.075em;font-weight:620}
-.auth-page .auth-content h1 em{color:#777;font-style:normal}
-.auth-page .auth-content>p{max-width:54rem;margin:3.5rem 0 4.5rem;color:#929292;font-size:1.65rem;line-height:1.65}
+.auth-page .section-label{display:block;margin-bottom:2.8rem;color:var(--t2);font:500 1.05rem/1 'DM Mono',monospace;letter-spacing:.16em}
+.auth-page .auth-content h1{margin:0;max-width:72rem;color:var(--t1);font-size:clamp(5.6rem,8vw,10.5rem);line-height:.86;letter-spacing:-.075em;font-weight:620}
+.auth-page .auth-content h1 em{color:var(--t2);font-style:normal}
+.auth-page .auth-content>p{max-width:54rem;margin:3.5rem 0 4.5rem;color:var(--t2);font-size:1.65rem;line-height:1.65}
 .auth-page .google-auth-primary,.auth-page .auth-divider,.auth-page .auth-form,.auth-page .auth-error,.auth-page .auth-message{width:min(100%,62rem)}
-.auth-page .google-auth-button-primary{min-height:7.2rem;justify-content:flex-start;padding:1.2rem 1.5rem;gap:1.5rem;border:1px solid rgba(255,255,255,.14);border-radius:1.8rem;background:#0d0d0d;text-align:left}
-.auth-page .google-auth-button-primary:hover:not(:disabled){background:#121212;border-color:rgba(255,255,255,.25);transform:translateY(-2px)}
+.auth-page .google-auth-button-primary{min-height:7.2rem;justify-content:flex-start;padding:1.2rem 1.5rem;gap:1.5rem;border:1px solid color-mix(in srgb, var(--edge) 14%, transparent);border-radius:1.8rem;background:var(--bg);text-align:left}
+.auth-page .google-auth-button-primary:hover:not(:disabled){background:var(--bg);border-color:color-mix(in srgb, var(--t1) 25%, transparent);transform:translateY(-2px)}
 .auth-page .google-auth-button-primary .google-provider-logo{width:2.2rem;height:2.2rem;margin-left:.3rem}
 .auth-page .google-auth-copy{min-width:0;flex:1;display:grid;gap:.45rem}
-.auth-page .google-auth-copy strong{color:#f1f1ee;font:600 1.55rem/1.2 'Manrope',sans-serif}
-.auth-page .google-auth-copy small{color:#6f6f6f;font:400 1.15rem/1.35 'Manrope',sans-serif}
-.auth-page .google-auth-badge{flex:0 0 auto;color:#707070;font:500 .9rem/1 'DM Mono',monospace;letter-spacing:.1em}
-.auth-page .auth-divider{margin:3.2rem 0 2rem;gap:1.4rem;color:#555;font:500 .95rem/1 'DM Mono',monospace;letter-spacing:.14em}
+.auth-page .google-auth-copy strong{color:var(--t1);font:600 1.55rem/1.2 'Manrope',sans-serif}
+.auth-page .google-auth-copy small{color:var(--t2);font:400 1.15rem/1.35 'Manrope',sans-serif}
+.auth-page .google-auth-badge{flex:0 0 auto;color:var(--t2);font:500 .9rem/1 'DM Mono',monospace;letter-spacing:.1em}
+.auth-page .auth-divider{margin:3.2rem 0 2rem;gap:1.4rem;color:var(--t3);font:500 .95rem/1 'DM Mono',monospace;letter-spacing:.14em}
 .auth-page .auth-form{gap:1.6rem}
 .auth-page .auth-form label{gap:.8rem}
-.auth-page .auth-form label>span{color:#696969;font:500 1rem/1 'DM Mono',monospace;letter-spacing:.12em}
-.auth-page .auth-form input{min-height:5.8rem;padding:0 1.7rem;border:1px solid rgba(255,255,255,.1);border-radius:1.35rem;background:#090909;color:#f2f2ef;font:400 1.45rem/1 'Manrope',sans-serif}
-.auth-page .auth-form input:focus{border-color:rgba(255,255,255,.3);box-shadow:0 0 0 3px rgba(255,255,255,.035)}
+.auth-page .auth-form label>span{color:var(--t2);font:500 1rem/1 'DM Mono',monospace;letter-spacing:.12em}
+.auth-page .auth-form input{min-height:5.8rem;padding:0 1.7rem;border:1px solid color-mix(in srgb, var(--edge) 10%, transparent);border-radius:1.35rem;background:var(--bg);color:var(--t1);font:400 1.45rem/1 'Manrope',sans-serif}
+.auth-page .auth-form input:focus{border-color:color-mix(in srgb, var(--t1) 30%, transparent);box-shadow:0 0 0 3px color-mix(in srgb, var(--t1) 4%, transparent)}
 .auth-page .auth-submit{min-height:5.6rem;margin-top:.5rem;padding:0 2.4rem;border-radius:999px;font-size:1.4rem}
-.auth-page .auth-switch{margin-top:2.5rem;color:#777;font:500 1.25rem/1.4 'Manrope',sans-serif}
+.auth-page .auth-switch{margin-top:2.5rem;color:var(--t2);font:500 1.25rem/1.4 'Manrope',sans-serif}
 .auth-page .auth-error,.auth-page .auth-message{margin-top:1.6rem;font:400 1.25rem/1.55 'Manrope',sans-serif}
 .auth-page .forgot-password{font-size:1.2rem}
 @media(max-width:800px){
@@ -195,11 +195,11 @@
  .auth-page .google-auth-copy strong{font-size:1.3rem}.auth-page .google-auth-copy small{font-size:1rem}
 }
 
-/* Auth legal consent: crisp white links and compact, grounded typography. */
+/* Auth legal consent: crisp var(--t1) links and compact, grounded typography. */
 .auth-page .auth-legal {
   width: min(100%, 62rem);
   margin: 1.8rem 0 0;
-  color: #8a8a8a;
+  color: var(--t2);
   font: 400 1.2rem/1.35 'Manrope', sans-serif;
   letter-spacing: 0;
   text-align: left;
@@ -213,18 +213,18 @@
   border-radius: 0;
   background: transparent !important;
   box-shadow: none !important;
-  color: #fff !important;
+  color: var(--t1) !important;
   font: 600 1.2rem/1.35 'Manrope', sans-serif;
   letter-spacing: 0;
   text-decoration: underline;
-  text-decoration-color: rgba(255,255,255,.55);
+  text-decoration-color: color-mix(in srgb, var(--t1) 55%, transparent);
   text-underline-offset: .2em;
   cursor: pointer;
   vertical-align: baseline;
 }
 .auth-page .auth-legal button:hover {
-  color: #fff !important;
-  text-decoration-color: #fff;
+  color: var(--t1) !important;
+  text-decoration-color: var(--t1);
 }
 @media (max-width: 800px) {
   .auth-page .auth-legal {
