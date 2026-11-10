@@ -36,8 +36,8 @@
   padding:clamp(2.8rem,6vw,4.4rem);
   border:1px solid color-mix(in srgb, var(--edge) 11%, transparent);
   border-radius:2.4rem;
-  background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.96);
-  box-shadow:0 2.8rem 9rem rgb(var(--theme-shadow-rgb) / 0.32);
+  background:linear-gradient(145deg,rgb(var(--theme-shadow-rgb) / 0.96),rgb(var(--theme-shadow-rgb) / 0.96));
+  box-shadow:0 2.8rem 9rem rgb(var(--theme-shadow-rgb) / 0.32),inset 0 1px 0 color-mix(in srgb, var(--t1) 4%, transparent);
   backdrop-filter:blur(18px);
 }
 .auth-direct-page .auth-flow-content::before{
