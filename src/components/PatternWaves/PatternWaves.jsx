@@ -106,8 +106,9 @@ const parseColor = (value, fallback) => {
   try {
     const ctx = document.createElement('canvas').getContext('2d');
     if (!ctx) return fallback;
-    ctx.fillStyle = '#000000';
-    ctx.fillStyle = value;
+    const token = typeof value === 'string' ? value.match(/^var\((--[^)]+)\)$/)?.[1] : null
+    const resolvedValue = token ? getComputedStyle(document.documentElement).getPropertyValue(token).trim() : value
+    ctx.fillStyle = resolvedValue || 'transparent';
     const resolved = ctx.fillStyle;
     if (resolved.startsWith('#')) {
       const n = parseInt(resolved.slice(1), 16);
@@ -130,7 +131,7 @@ const buildAtlas = characters => {
   canvas.height = lines * ATLAS_TILE;
   const ctx = canvas.getContext('2d');
   if (!ctx) return null;
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--t1').trim() || 'currentColor';
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
   ctx.font = `500 ${Math.round(ATLAS_TILE * 0.86)}px ${GLYPH_FONT}`;
@@ -429,8 +430,8 @@ const PatternWaves = ({
   speed,
   scale,
   direction,
-  color = '#ffffff',
-  backgroundColor = '#000000',
+  color = 'var(--t1)',
+  backgroundColor = 'var(--bg)',
   opacity = 1,
   fade = 'edges',
   fadeSize = 0.5,
