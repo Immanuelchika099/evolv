@@ -56,7 +56,7 @@
   justify-content:center;
   padding:1.2rem 2rem 1.4rem;
   pointer-events:none;
-  background:linear-gradient(to top,rgb(var(--theme-shadow-rgb) / 0.96) 0%,rgb(var(--theme-shadow-rgb) / 0.88) 58%,rgb(var(--theme-shadow-rgb) / 0) 100%);
+  background:linear-gradient(to top,color-mix(in srgb, var(--surface-1) 96%, transparent) 0%,color-mix(in srgb, var(--surface-2) 88%, transparent) 58%,color-mix(in srgb, var(--surface-3) 0%, transparent) 100%);
 }
 
 .dashboard .ai-promptbar-shell .prompt-bar{
@@ -128,7 +128,7 @@ body:has(.dashboard.dashboard-ai-active){
   right:0;
   width:100%;
   z-index:100000;
-  background:rgb(var(--theme-shadow-rgb) / 0.92);
+  background:color-mix(in srgb, var(--surface-1) 92%, transparent);
   backdrop-filter:blur(1.6rem) saturate(125%);
   -webkit-backdrop-filter:blur(1.6rem) saturate(125%);
 }
@@ -152,8 +152,8 @@ body:has(.dashboard.dashboard-ai-active){
   color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar{
-  background:rgb(var(--theme-shadow-rgb) / 0.94);
-  background-color:rgb(var(--theme-shadow-rgb) / 0.94);
+  background:color-mix(in srgb, var(--surface-1) 94%, transparent);
+  background-color:color-mix(in srgb, var(--surface-1) 94%, transparent);
   border-bottom:1px solid color-mix(in srgb, var(--edge) 8%, transparent);
   box-shadow:0 .6rem 2rem rgb(var(--theme-shadow-rgb) / 0.28);
 }
@@ -419,7 +419,7 @@ html:has(.dashboard.dashboard-ai-active) {
   color:var(--t1);
 }
 .dashboard.dashboard-ai-active .ai-page .ai-topbar{
-  background:rgb(var(--theme-shadow-rgb) / 0.78);
+  background:color-mix(in srgb, var(--surface-2) 78%, transparent);
   border-bottom:1px solid color-mix(in srgb, var(--edge) 6%, transparent);
   box-shadow:none;
   backdrop-filter:blur(2rem) saturate(110%);
@@ -438,12 +438,12 @@ html:has(.dashboard.dashboard-ai-active) {
   margin-bottom:1.2rem;
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell{
-  background:linear-gradient(to top,rgb(var(--theme-shadow-rgb) / 0.97),rgb(var(--theme-shadow-rgb) / 0.8) 55%,transparent);
+  background:linear-gradient(to top,color-mix(in srgb, var(--surface-1) 97%, transparent),color-mix(in srgb, var(--surface-2) 80%, transparent) 55%,transparent);
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field{
   border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius:1.8rem;
-  background:rgb(var(--theme-shadow-rgb) / 0.92);
+  background:color-mix(in srgb, var(--surface-1) 92%, transparent);
   box-shadow:inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent),0 1rem 3rem rgb(var(--theme-shadow-rgb) / 0.25);
   backdrop-filter:blur(1.8rem);
   -webkit-backdrop-filter:blur(1.8rem);
@@ -491,7 +491,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding:1rem 1.2rem calc(1rem + env(safe-area-inset-bottom, 0px));
   z-index:100001;
   align-items:flex-end;
-  background:linear-gradient(to top,rgb(var(--theme-shadow-rgb) / 0.99) 0%,rgb(var(--theme-shadow-rgb) / 0.96) 70%,transparent 100%);
+  background:linear-gradient(to top,color-mix(in srgb, var(--surface-1) 99%, transparent) 0%,color-mix(in srgb, var(--surface-1) 96%, transparent) 70%,transparent 100%);
 }
 .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar{
   width:min(60rem,100%);
@@ -1539,7 +1539,7 @@ html:has(.dashboard.dashboard-ai-active) {
   align-items:center;
   justify-content:center;
   padding:2rem;
-  background:rgb(var(--theme-shadow-rgb) / 0.82);
+  background:color-mix(in srgb, var(--surface-2) 82%, transparent);
   backdrop-filter:blur(12px);
 }
 .ai-image-lightbox-panel {
@@ -1568,7 +1568,7 @@ html:has(.dashboard.dashboard-ai-active) {
   height:3.2rem;
   border:0;
   border-radius:50%;
-  background:rgb(var(--theme-shadow-rgb) / 0.75);
+  background:color-mix(in srgb, var(--surface-2) 75%, transparent);
   color:var(--t1);
   font-size:2.4rem;
   line-height:1;
@@ -1613,7 +1613,7 @@ html:has(.dashboard.dashboard-ai-active) {
 .ai-image-lightbox {
   position: fixed; inset: 0; z-index: 2147483000;
   display: flex; align-items: center; justify-content: center; padding: 2rem;
-  background: rgb(var(--theme-shadow-rgb) / 0.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  background: color-mix(in srgb, var(--surface-1) 94%, transparent); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
 }
 .ai-image-lightbox-panel {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -1720,7 +1720,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: 0 1.2rem;
   box-sizing: border-box;
   z-index: 100500;
-  background: rgb(var(--theme-shadow-rgb) / 0.82);
+  background: color-mix(in srgb, var(--surface-2) 82%, transparent);
   border-bottom: 1px solid color-mix(in srgb, var(--edge) 6%, transparent);
   box-shadow: none;
   backdrop-filter: blur(2rem) saturate(110%);
@@ -1800,7 +1800,7 @@ html:has(.dashboard.dashboard-ai-active) {
   opacity: 1;
   pointer-events: auto;
   box-sizing: border-box;
-  background: linear-gradient(to top, rgb(var(--theme-shadow-rgb) / 0.99) 0%, rgb(var(--theme-shadow-rgb) / 0.92) 65%, transparent 100%);
+  background: linear-gradient(to top, color-mix(in srgb, var(--surface-1) 99%, transparent) 0%, color-mix(in srgb, var(--surface-1) 92%, transparent) 65%, transparent 100%);
 }
 
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar {
@@ -1830,7 +1830,7 @@ html:has(.dashboard.dashboard-ai-active) {
   box-sizing: border-box;
   border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius: 1.8rem;
-  background: rgb(var(--theme-shadow-rgb) / 0.96);
+  background: color-mix(in srgb, var(--surface-1) 96%, transparent);
   box-shadow: inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent), 0 1rem 3rem rgb(var(--theme-shadow-rgb) / 0.25);
   backdrop-filter: blur(1.8rem);
   -webkit-backdrop-filter: blur(1.8rem);
@@ -2039,11 +2039,11 @@ html:has(.dashboard.dashboard-ai-active) {
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgb(var(--theme-shadow-rgb) / 0.92) 0%,
-    rgb(var(--theme-shadow-rgb) / 0.76) 28%,
-    rgb(var(--theme-shadow-rgb) / 0.42) 58%,
-    rgb(var(--theme-shadow-rgb) / 0.16) 78%,
-    rgb(var(--theme-shadow-rgb) / 0) 100%
+    color-mix(in srgb, var(--surface-1) 92%, transparent) 0%,
+    color-mix(in srgb, var(--surface-2) 76%, transparent) 28%,
+    color-mix(in srgb, var(--surface-3) 42%, transparent) 58%,
+    color-mix(in srgb, var(--surface-3) 16%, transparent) 78%,
+    color-mix(in srgb, var(--surface-3) 0%, transparent) 100%
   );
 }
 
@@ -2293,7 +2293,7 @@ html:has(.dashboard.dashboard-ai-active) {
   padding: 1.5rem;
   border: 1px solid color-mix(in srgb, var(--color-accent-blue) 22%, transparent);
   border-radius: 1.8rem;
-  background: linear-gradient(145deg, rgb(var(--theme-shadow-rgb) / 0.78), rgb(var(--theme-shadow-rgb) / 0.96) 62%);
+  background: linear-gradient(145deg, color-mix(in srgb, var(--surface-2) 78%, transparent), color-mix(in srgb, var(--surface-1) 96%, transparent) 62%);
   color: var(--t1);
 }
 .ai-workout-card-eyebrow {
@@ -2401,8 +2401,8 @@ html:has(.dashboard.dashboard-ai-active) {
 .dashboard.dashboard-ai-active .ai-page .ai-topbar-actions .ai-more-button {
   position: relative !important;
   z-index: 51 !important;
-  background: rgb(var(--theme-shadow-rgb) / 0.58) !important;
-  background-color: rgb(var(--theme-shadow-rgb) / 0.58) !important;
+  background: color-mix(in srgb, var(--surface-2) 58%, transparent) !important;
+  background-color: color-mix(in srgb, var(--surface-2) 58%, transparent) !important;
   -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
   backdrop-filter: blur(22px) saturate(135%) !important;
   border: 0 !important;
@@ -2525,18 +2525,18 @@ html:has(.dashboard.dashboard-ai-active) {
   pointer-events: none !important;
   background: linear-gradient(
     to bottom,
-    rgb(var(--theme-shadow-rgb) / 0) 0%,
-    rgb(var(--theme-shadow-rgb) / 0.22) 38%,
-    rgb(var(--theme-shadow-rgb) / 0.62) 72%,
-    rgb(var(--theme-shadow-rgb) / 0.88) 100%
+    color-mix(in srgb, var(--surface-3) 0%, transparent) 0%,
+    color-mix(in srgb, var(--surface-3) 22%, transparent) 38%,
+    color-mix(in srgb, var(--surface-2) 62%, transparent) 72%,
+    color-mix(in srgb, var(--surface-2) 88%, transparent) 100%
   ) !important;
 }
 
 /* Dark blurred glass belongs to the input container only, never the outer fade. */
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field,
 .dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field:focus-within {
-  background: rgb(var(--theme-shadow-rgb) / 0.68) !important;
-  background-color: rgb(var(--theme-shadow-rgb) / 0.68) !important;
+  background: color-mix(in srgb, var(--surface-2) 68%, transparent) !important;
+  background-color: color-mix(in srgb, var(--surface-2) 68%, transparent) !important;
   border: 1px solid color-mix(in srgb, var(--edge) 12%, transparent) !important;
   box-shadow: none !important;
   -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
@@ -2627,7 +2627,7 @@ html:has(.dashboard.dashboard-ai-active) {
     display: flex;
     align-items: center;
     gap: .8rem;
-    background: rgb(var(--theme-shadow-rgb) / 0.72);
+    background: color-mix(in srgb, var(--surface-2) 72%, transparent);
     border: 0;
     box-shadow: none;
     backdrop-filter: blur(2rem) saturate(115%);
@@ -2689,7 +2689,7 @@ html:has(.dashboard.dashboard-ai-active) {
 
   .dashboard.dashboard-ai-active .ai-promptbar-shell {
     padding: 1rem 2rem calc(1.4rem + env(safe-area-inset-bottom, 0px));
-    background: linear-gradient(to top, rgb(var(--theme-shadow-rgb) / 0.98) 0%, rgb(var(--theme-shadow-rgb) / 0.9) 65%, transparent 100%);
+    background: linear-gradient(to top, color-mix(in srgb, var(--surface-1) 98%, transparent) 0%, color-mix(in srgb, var(--surface-1) 90%, transparent) 65%, transparent 100%);
   }
 
   .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar {
@@ -3398,7 +3398,7 @@ html:has(.dashboard.dashboard-ai-active) {
   display: flex;
   gap: .9rem;
   padding: 1.2rem 0 calc(1rem + env(safe-area-inset-bottom, 0px));
-  background: linear-gradient(180deg, rgb(var(--theme-shadow-rgb) / 0), var(--t3) 24%);
+  background: linear-gradient(180deg, color-mix(in srgb, var(--surface-3) 0%, transparent), var(--t3) 24%);
 }
 .dashboard.dashboard-ai-active .ai-history-bulk-actions button {
   flex: 1;
