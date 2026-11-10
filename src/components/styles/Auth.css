@@ -13,7 +13,7 @@
 .auth-switch{font:11px 'DM Mono';margin-top:22px}
 .auth-switch:hover,.auth-back:hover{color:var(--color-accent-blue)}
 .auth-back{display:flex;align-items:center;gap:.6rem;font:1.2rem 'DM Mono';margin-top:5rem;padding:0}
-.auth-error{margin:0;color:var(--accent);font:11px 'DM Mono'}
+.auth-error{margin:0;color:var(--danger);font:11px 'DM Mono'}
 .auth-message{margin:0;color:var(--color-accent-blue);font:11px 'DM Mono';line-height:1.6}
 @media(max-width:800px){
   .auth-content{padding:90px 0 70px}
