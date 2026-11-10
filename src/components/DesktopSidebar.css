@@ -12,18 +12,18 @@
     height: 4.2rem;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,.09);
+    border: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
     border-radius: 1.35rem;
-    color: rgba(255,255,255,.88);
-    background: rgba(16,16,16,.72);
+    color: color-mix(in srgb, var(--t1) 88%, transparent);
+    background: rgb(var(--theme-shadow-rgb) / 0.72);
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
     cursor: pointer;
     transition: background .2s ease, border-color .2s ease, transform .2s ease;
   }
   .evolv-desktop-menu-toggle:hover {
-    background: rgba(101,50,24,.34);
-    border-color: rgba(222,126,72,.35);
+    background: color-mix(in srgb, var(--accent) 34%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 35%, transparent);
   }
   .evolv-desktop-menu-toggle:active { transform: scale(.96); }
   .evolv-desktop-sidebar-scrim {
@@ -31,7 +31,7 @@
     inset: 0;
     z-index: 100010;
     border: 0;
-    background: rgba(0,0,0,.42);
+    background: rgb(var(--theme-shadow-rgb) / 0.42);
     -webkit-backdrop-filter: blur(3px);
     backdrop-filter: blur(3px);
     cursor: default;
@@ -46,9 +46,9 @@
     display: flex;
     flex-direction: column;
     padding: 2.2rem 1.7rem 1.8rem;
-    border-right: 1px solid rgba(255,255,255,.09);
-    background: rgba(12,12,12,.94);
-    box-shadow: 1.5rem 0 5rem rgba(0,0,0,.32);
+    border-right: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
+    background: rgb(var(--theme-shadow-rgb) / 0.94);
+    box-shadow: 1.5rem 0 5rem rgb(var(--theme-shadow-rgb) / 0.32);
     -webkit-backdrop-filter: blur(28px) saturate(130%);
     backdrop-filter: blur(28px) saturate(130%);
     animation: evolv-sidebar-in .22s cubic-bezier(.2,.75,.25,1) both;
@@ -61,27 +61,27 @@
     padding: 0 .4rem 2.2rem;
   }
   .evolv-desktop-sidebar-brand {
-    color: #fff;
+    color: var(--t1);
     font-size: 2.5rem;
     font-weight: 650;
     letter-spacing: -.08em;
   }
-  .evolv-desktop-sidebar-brand span { color: #d97843; }
+  .evolv-desktop-sidebar-brand span { color: var(--accent); }
   .evolv-desktop-sidebar-close {
     width: 3.6rem;
     height: 3.6rem;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
     border-radius: 1.1rem;
-    color: rgba(255,255,255,.75);
-    background: rgba(255,255,255,.035);
+    color: color-mix(in srgb, var(--t1) 75%, transparent);
+    background: color-mix(in srgb, var(--surface-1) 4%, transparent);
     cursor: pointer;
   }
   .evolv-desktop-sidebar-label {
     margin: 0 0 1.1rem;
     padding: 0 .9rem;
-    color: rgba(255,255,255,.38);
+    color: color-mix(in srgb, var(--t1) 38%, transparent);
     font-size: 1.05rem;
     font-weight: 650;
     letter-spacing: .15em;
@@ -97,7 +97,7 @@
     padding: 0 1.2rem;
     border: 1px solid transparent;
     border-radius: 1.25rem;
-    color: rgba(255,255,255,.64);
+    color: color-mix(in srgb, var(--t1) 64%, transparent);
     background: transparent;
     text-align: left;
     font: inherit;
@@ -106,28 +106,28 @@
     transition: color .18s ease, background .18s ease, border-color .18s ease;
   }
   .evolv-desktop-sidebar-links button:hover {
-    color: #fff;
-    background: rgba(255,255,255,.045);
+    color: var(--t1);
+    background: color-mix(in srgb, var(--surface-1) 5%, transparent);
   }
   .evolv-desktop-sidebar-links button.is-active {
-    color: #fff;
-    border-color: rgba(217,120,67,.18);
-    background: linear-gradient(100deg, rgba(150,73,37,.24), rgba(150,73,37,.07));
+    color: var(--t1);
+    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+    background: linear-gradient(100deg, color-mix(in srgb, var(--accent) 24%, transparent);
   }
-  .evolv-desktop-sidebar-links button.is-active > svg { color: #e08a57; }
+  .evolv-desktop-sidebar-links button.is-active > svg { color: var(--accent); }
   .evolv-desktop-sidebar-links button i {
     width: .45rem;
     height: .45rem;
     margin-left: auto;
     border-radius: 50%;
-    background: #df8653;
-    box-shadow: 0 0 1.2rem rgba(223,134,83,.6);
+    background: var(--accent);
+    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--accent) 60%, transparent);
   }
   .evolv-desktop-sidebar-foot {
     margin-top: auto;
     padding: 1.5rem .9rem .5rem;
-    border-top: 1px solid rgba(255,255,255,.07);
-    color: rgba(255,255,255,.38);
+    border-top: 1px solid color-mix(in srgb, var(--edge) 7%, transparent);
+    color: color-mix(in srgb, var(--t1) 38%, transparent);
     font-size: 1.15rem;
   }
 }
@@ -148,7 +148,7 @@
     width: 100%;
     height: 100%;
     border: 0;
-    background: rgba(0,0,0,.5);
+    background: rgb(var(--theme-shadow-rgb) / 0.5);
     -webkit-backdrop-filter: blur(4px);
     backdrop-filter: blur(4px);
   }
@@ -162,9 +162,9 @@
     display: flex;
     flex-direction: column;
     padding: calc(env(safe-area-inset-top, 0px) + 2.4rem) 1.7rem calc(env(safe-area-inset-bottom, 0px) + 1.8rem);
-    border-right: 1px solid rgba(255,255,255,.09);
-    background: rgba(12,12,12,.97);
-    box-shadow: 1.5rem 0 5rem rgba(0,0,0,.4);
+    border-right: 1px solid color-mix(in srgb, var(--edge) 9%, transparent);
+    background: rgb(var(--theme-shadow-rgb) / 0.97);
+    box-shadow: 1.5rem 0 5rem rgb(var(--theme-shadow-rgb) / 0.4);
     -webkit-backdrop-filter: blur(28px) saturate(130%);
     backdrop-filter: blur(28px) saturate(130%);
     animation: evolv-sidebar-in .22s cubic-bezier(.2,.75,.25,1) both;
@@ -177,27 +177,27 @@
     padding: 0 .4rem 2.2rem;
   }
   .evolv-desktop-sidebar-brand {
-    color: #fff;
+    color: var(--t1);
     font-size: 2.5rem;
     font-weight: 650;
     letter-spacing: -.08em;
   }
-  .evolv-desktop-sidebar-brand span { color: #d97843; }
+  .evolv-desktop-sidebar-brand span { color: var(--accent); }
   .evolv-desktop-sidebar-close {
     width: 3.8rem;
     height: 3.8rem;
     display: grid;
     place-items: center;
-    border: 1px solid rgba(255,255,255,.08);
+    border: 1px solid color-mix(in srgb, var(--edge) 8%, transparent);
     border-radius: 1.1rem;
-    color: rgba(255,255,255,.8);
-    background: rgba(255,255,255,.045);
+    color: color-mix(in srgb, var(--t1) 80%, transparent);
+    background: color-mix(in srgb, var(--surface-1) 5%, transparent);
     cursor: pointer;
   }
   .evolv-desktop-sidebar-label {
     margin: 0 0 1.1rem;
     padding: 0 .9rem;
-    color: rgba(255,255,255,.38);
+    color: color-mix(in srgb, var(--t1) 38%, transparent);
     font-size: 1.05rem;
     font-weight: 650;
     letter-spacing: .15em;
@@ -213,7 +213,7 @@
     padding: 0 1.2rem;
     border: 1px solid transparent;
     border-radius: 1.25rem;
-    color: rgba(255,255,255,.68);
+    color: color-mix(in srgb, var(--t1) 68%, transparent);
     background: transparent;
     text-align: left;
     font: inherit;
@@ -221,24 +221,24 @@
     cursor: pointer;
   }
   .evolv-desktop-sidebar-links button.is-active {
-    color: #fff;
-    border-color: rgba(217,120,67,.18);
-    background: linear-gradient(100deg, rgba(150,73,37,.24), rgba(150,73,37,.07));
+    color: var(--t1);
+    border-color: color-mix(in srgb, var(--accent) 18%, transparent);
+    background: linear-gradient(100deg, color-mix(in srgb, var(--accent) 24%, transparent);
   }
-  .evolv-desktop-sidebar-links button.is-active > svg { color: #e08a57; }
+  .evolv-desktop-sidebar-links button.is-active > svg { color: var(--accent); }
   .evolv-desktop-sidebar-links button i {
     width: .45rem;
     height: .45rem;
     margin-left: auto;
     border-radius: 50%;
-    background: #df8653;
-    box-shadow: 0 0 1.2rem rgba(223,134,83,.6);
+    background: var(--accent);
+    box-shadow: 0 0 1.2rem color-mix(in srgb, var(--accent) 60%, transparent);
   }
   .evolv-desktop-sidebar-foot {
     margin-top: auto;
     padding: 1.5rem .9rem .5rem;
-    border-top: 1px solid rgba(255,255,255,.07);
-    color: rgba(255,255,255,.38);
+    border-top: 1px solid color-mix(in srgb, var(--edge) 7%, transparent);
+    color: color-mix(in srgb, var(--t1) 38%, transparent);
     font-size: 1.15rem;
   }
 }
