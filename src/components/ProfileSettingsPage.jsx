@@ -68,7 +68,8 @@ export default function ProfileSettingsPage({pageProps}){
     document.documentElement.dataset.theme=resolved
     document.documentElement.dataset.themePreference=themePreference
     const meta=document.querySelector('meta[name=theme-color]')
-    if(meta)meta.setAttribute('content',resolved==='light'?'#F7F5F2':'#0a0908')
+    const canvasColor=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()
+    if(meta&&canvasColor)meta.setAttribute('content',canvasColor)
     try{localStorage.setItem('evolv-theme-preference',themePreference)}catch{}
   },[themePreference,systemDark])
   useEffect(()=>{
