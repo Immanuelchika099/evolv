@@ -19,16 +19,16 @@
   --color-border-subtle: var(--edge);
   --color-border: var(--edge);
   --color-accent-blue: var(--accent);
-  --color-glow-red: rgba(143, 38, 56, 0.16);
-  --color-glow-brown: rgba(84, 43, 39, 0.07);
+  --color-glow-red: var(--accent-soft);
+  --color-glow-brown: var(--accent-soft);
   --blue-accent: var(--color-accent-blue);
   --ai-bubble-blue: var(--ai-surface);
   --graph-blue: var(--color-accent-blue);
-  --graph-blue-deep: color-mix(in srgb, var(--color-accent-blue) 78%, black);
-  --graph-blue-bright: color-mix(in srgb, var(--color-accent-blue) 88%, white);
-  --graph-blue-light: color-mix(in srgb, var(--color-accent-blue) 70%, white);
-  --graph-blue-pale: color-mix(in srgb, var(--color-accent-blue) 48%, white);
-  --graph-blue-cyan: color-mix(in srgb, var(--color-accent-blue) 48%, white);
+  --graph-blue-deep: color-mix(in srgb, var(--color-accent-blue) 78%, var(--bg));
+  --graph-blue-bright: color-mix(in srgb, var(--color-accent-blue) 88%, var(--t1));
+  --graph-blue-light: color-mix(in srgb, var(--color-accent-blue) 70%, var(--t1));
+  --graph-blue-pale: color-mix(in srgb, var(--color-accent-blue) 48%, var(--t1));
+  --graph-blue-cyan: color-mix(in srgb, var(--color-accent-blue) 48%, var(--t1));
   --graph-blue-violet: var(--color-accent-blue);
   --evolv-blue: var(--color-accent-blue);
   /* Backwards-compatible alias while legacy component styles are cleaned up. */
@@ -47,7 +47,7 @@
   --radius-card: 20px;
   --radius-panel: 24px;
   --radius-pill: 999px;
-  --shadow-card: 0 12px 36px rgba(0,0,0,.22);
+  --shadow-card: 0 12px 36px rgb(var(--theme-shadow-rgb) / .22);
   --layout-max: 1120px;
   --page-gutter: 18px;
   --type-page-title: clamp(3.2rem, 5vw, 5.2rem);
@@ -59,10 +59,10 @@
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
   color:var(--t1);
   background:var(--bg);
-  --muted:#85837f;
-  --line:#ffffff1c;
+  --muted:var(--t2);
+  --line:var(--edge);
   --accent: var(--color-accent-blue);
-  --mint:#7d857b;
+  --mint:var(--pos);
   -webkit-font-smoothing:antialiased;
 }
 
@@ -553,56 +553,6 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
 }
 
 
-
-/* ==========================================================================
-   EVOLV shared design system — Phase 1
-   All page-level screens should consume these tokens and shared primitives.
-   ========================================================================== */
-:root {
-  --ac: 229, 134, 66;
-  --bg: #0a0908;
-  --t1: #fff;
-  --t2: rgba(255,255,255,.62);
-  --t3: rgba(255,255,255,.4);
-  --edge: rgba(255,255,255,.09);
-  --danger: #e0766a;
-  --pos: #8fd0a8;
-  --neg: #e0766a;
-  --r-input: 18px;
-  --r-row: 22px;
-  --r-card: 28px;
-  --r-hero: 34px;
-
-  /* Backwards-compatible aliases for the existing app while screens migrate. */
-  --color-canvas: var(--bg);
-  --color-surface: #151311;
-  --color-surface-raised: #1b1815;
-  --color-text-primary: var(--t1);
-  --color-text-secondary: var(--t2);
-  --color-text-muted: var(--t3);
-  --color-border-subtle: var(--edge);
-  --color-border: var(--edge);
-  --color-accent-blue: rgb(var(--ac));
-  --accent: rgb(var(--ac));
-  --blue-accent: rgb(var(--ac));
-  --evolv-blue: rgb(var(--ac));
-  --ai-bubble-blue: rgba(var(--ac), .22);
-  --color-accent-lime: rgb(var(--ac));
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 500;
-  --font-weight-bold: 500;
-  --font-weight-extrabold: 500;
-  --radius-control: var(--r-input);
-  --radius-card: var(--r-card);
-  --radius-panel: var(--r-card);
-  --radius-pill: 999px;
-  --page-gutter: 22px;
-  --layout-max: 1120px;
-  color-scheme: dark;
-  background: var(--bg);
-  color: var(--t1);
-}
 
 html, body, #root {
   min-width: 320px;
