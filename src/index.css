@@ -1246,3 +1246,43 @@ html body #root .evolv-welcome .evolv-welcome-cta {
   background-color: #0f0f0f !important;
   transition: background-color 99999s ease-out 0s;
 }
+
+
+/* EVOLV appearance system — canonical theme tokens live only in index.css. */
+:root,:root[data-theme="dark"] {
+ color-scheme:dark; --bg:#0a0908; --app-bg:#0a0908; --t1:#f4eee8; --t2:rgba(244,238,232,.66); --t3:rgba(244,238,232,.42);
+ --edge:rgba(255,255,255,.09); --surface-1:#151311; --surface-2:#1b1815; --surface-3:#211c17; --field-bg:#11100e;
+ --accent-rgb:229,134,66; --accent:#E58642; --accent-soft:rgba(229,134,66,.14); --ai-surface:#653218;
+ --shadow-theme:0 12px 36px rgba(0,0,0,.22); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
+ --color-text-primary:var(--t1); --color-text-secondary:var(--t2); --color-text-muted:var(--t3); --color-border-subtle:var(--edge); --color-border:var(--edge);
+ --color-accent-blue:var(--accent); --color-accent-lime:var(--accent); --blue-accent:var(--accent); --evolv-blue:var(--accent); --ai-bubble-blue:var(--ai-surface);
+ --graph-blue:var(--accent); --danger:#e0766a; --pos:#8fd0a8; --neg:#e0766a; --line:var(--edge); --muted:var(--t2);
+ background-color:var(--bg); color:var(--t1);
+}
+:root[data-theme="light"] {
+ color-scheme:light; --bg:#F7F5F2; --app-bg:#F7F5F2; --t1:#24211E; --t2:#756E67; --t3:#918980;
+ --edge:rgba(36,33,30,.10); --surface-1:#FFFFFF; --surface-2:#F0EDE9; --surface-3:#E8E3DD; --field-bg:#FFFFFF;
+ --accent-rgb:190,94,35; --accent:#B95D26; --accent-soft:rgba(190,94,35,.10); --ai-surface:#F3E6DC;
+ --shadow-theme:0 12px 36px rgba(48,38,28,.08); --color-canvas:var(--bg); --color-surface:var(--surface-1); --color-surface-raised:var(--surface-2);
+ --color-text-primary:var(--t1); --color-text-secondary:var(--t2); --color-text-muted:var(--t3); --color-border-subtle:var(--edge); --color-border:var(--edge);
+ --color-accent-blue:var(--accent); --color-accent-lime:var(--accent); --blue-accent:var(--accent); --evolv-blue:var(--accent); --ai-bubble-blue:var(--ai-surface);
+ --graph-blue:var(--accent); --danger:#B94740; --pos:#347D55; --neg:#B94740; --line:var(--edge); --muted:var(--t2);
+ background-color:var(--bg); color:var(--t1);
+}
+html,body,#root {background-color:var(--bg)!important;color:var(--t1)}
+body {background:var(--bg)!important}
+#root {background:transparent!important}
+::selection {background:rgba(var(--accent-rgb),.22);color:var(--t1)}
+:where(input,textarea,select) {color-scheme:inherit}
+.profile-appearance-options {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;width:100%}
+.profile-appearance-option {display:flex;min-width:0;min-height:76px;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:10px 6px;border:1px solid var(--edge);border-radius:16px;background:var(--surface-2);color:var(--t2);font:inherit;font-size:1.3rem;transition:background-color .24s ease,border-color .24s ease,color .24s ease}
+.profile-appearance-option svg {width:19px;height:19px}
+.profile-appearance-option[aria-pressed="true"] {border-color:rgba(var(--accent-rgb),.58);background:var(--accent-soft);color:var(--t1)}
+.profile-appearance-option:focus-visible {outline:2px solid var(--accent);outline-offset:3px}
+:root[data-theme="light"] body::before,:root[data-theme="light"] body::after,:root[data-theme="light"] html::before {opacity:0}
+:root[data-theme="light"] .dashboard .settings-page.profile-v2,:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-v2-focus-row {color:var(--t1)!important}
+:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-stat-grid article {border-color:var(--edge)!important;background:var(--surface-2)!important}
+:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-stat-grid article>strong,:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-v2-focus-copy strong {color:var(--t1)!important}
+:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-settings-section-icon,:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-v2-action-icon,:root[data-theme="light"] .dashboard .settings-page.profile-v2 .profile-v2-focus-icon {color:var(--t1)!important;background:var(--surface-2)!important}
+:root[data-theme="light"] .dashboard .profile-v2 .profile-ai-frequency-row select,:root[data-theme="light"] .dashboard .profile-v2 .profile-reminder-time-row input[type="time"] {color:var(--t1)!important;background:var(--surface-1)!important;border-color:var(--edge)!important;color-scheme:light}
+@media(prefers-reduced-motion:reduce){.profile-appearance-option{transition:none}}
