@@ -331,8 +331,8 @@ html body #root .daily-routine-page .routine-lead-time input:focus { outline-col
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 12% 0%, color-mix(in srgb, var(--routine-coach-accent, var(--t1)) 10%, transparent), transparent 62%),
-    linear-gradient(145deg, color-mix(in srgb, var(--t1) 3%, transparent), transparent 58%);
+    radial-gradient(ellipse at 12% 0%, var(--accent-soft), transparent 62%),
+    linear-gradient(145deg, var(--surface-2), transparent 58%);
 }
 .daily-routine-page .routine-coach-carousel .depth-carousel__card::after {
   content: "";
