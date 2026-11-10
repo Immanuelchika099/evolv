@@ -2,7 +2,6 @@ import { StrictMode } from 'react'
 import { Capacitor } from '@capacitor/core'
 import { Keyboard } from '@capacitor/keyboard'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import './styles/app.css'
 import './auth-overrides.css'
 import './direct-signup.css'
@@ -11,6 +10,7 @@ import App from './App.jsx'
 import NotificationPermissionPrompt from './components/NotificationPermissionPrompt.jsx'
 import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
+import './index.css' // Global design tokens and theme overrides load last
 
 if (Capacitor.getPlatform() === 'ios') {
   void Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(() => {})
