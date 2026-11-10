@@ -22,7 +22,7 @@
 .evolv-avatar-3d-loading span {
   width: 2.2rem;
   height: 2.2rem;
-  border: 2px solid rgba(255,255,255,.14);
+  border: 2px solid color-mix(in srgb, var(--edge) 14%, transparent);
   border-top-color: var(--color-accent-blue);
   border-radius: 50%;
   animation: evolv-avatar-spin .8s linear infinite;
@@ -34,12 +34,12 @@
   align-content: center;
   justify-items: center;
   gap: .5rem;
-  color: rgba(255,255,255,.7);
+  color: color-mix(in srgb, var(--t1) 70%, transparent);
   text-align: center;
   font-size: 1.2rem;
 }
 .evolv-avatar-3d-error small {
-  color: rgba(255,255,255,.45);
+  color: color-mix(in srgb, var(--t1) 45%, transparent);
   font-size: 1rem;
 }
 @keyframes evolv-avatar-spin { to { transform: rotate(360deg); } }
