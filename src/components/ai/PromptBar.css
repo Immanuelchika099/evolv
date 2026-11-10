@@ -27,7 +27,7 @@
   padding: 4px;
   border-radius: 12px;
   background: var(--pb-menu);
-  box-shadow: 0 10px 30px -10px rgb(var(--theme-shadow-rgb) / 0.35);
+  box-shadow: 0 10px 30px -10px rgb(var(--theme-shadow-rgb) / 0.35), 0 1px 2px rgb(var(--theme-shadow-rgb) / 0.08);
   transform-origin: bottom center;
   animation: prompt-bar-pop 180ms var(--pb-ease-out) both;
 }
@@ -88,7 +88,7 @@
 .prompt-bar__field:focus-within {
   outline:none;
   border:1px solid transparent;
-  box-shadow:0 20px 60px rgb(var(--theme-shadow-rgb) / 0.25);
+  box-shadow:0 20px 60px rgb(var(--theme-shadow-rgb) / 0.25), inset 0 1px 0 color-mix(in srgb, var(--t1) 3%, transparent);
 }
 .prompt-bar__input:focus,.prompt-bar__input:focus-visible { outline:none; border:0; box-shadow:none; }
 .prompt-bar__input { display:block; width:100%; padding:0; border:0; background:transparent; color:inherit; font:inherit; font-size:16px; line-height:22px; resize:none; outline:none; overflow-wrap:anywhere; }
