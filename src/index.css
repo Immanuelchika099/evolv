@@ -1530,3 +1530,26 @@ html,body,#root,.dashboard,.dashboard .dash-main,.dashboard .dashboard-pages {
 :root[data-theme="light"] .dashboard .profile-v2 .profile-appearance-option:not([aria-pressed="true"]) {
   color:var(--t2);
 }
+
+
+/* Theme changes transition the main app surfaces without touching motion transforms. */
+html, body, #root,
+.dashboard, .dashboard .dash-main, .dashboard .dashboard-pages,
+.dashboard .panel-page, .dashboard .profile-layout,
+.dashboard .profile-settings-section, .dashboard .profile-settings-list,
+.dashboard .profile-setting-row, .dashboard .profile-v2-group,
+.dashboard .ai-chat, .dashboard .ai-message p,
+.dashboard .log-sheet, .dashboard .log-history-sheet,
+.dashboard .notification-preference, .dashboard .notification-master-row,
+.dashboard .goal-item, .dashboard .goal-create-form,
+.dashboard .daily-routine-page, .dashboard .routine-card {
+  transition: background-color .24s ease, color .24s ease,
+    border-color .24s ease, box-shadow .24s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  html, body, #root, .dashboard, .dashboard *,
+  .dashboard *::before, .dashboard *::after {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
