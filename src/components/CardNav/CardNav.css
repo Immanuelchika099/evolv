@@ -11,7 +11,7 @@
   border:1px solid color-mix(in srgb, var(--edge) 9%, transparent);
   border-radius:26px;
   background:rgb(var(--theme-shadow-rgb) / 0.94);
-  box-shadow:0 28px 90px rgb(var(--theme-shadow-rgb) / 0.46);
+  box-shadow:0 28px 90px rgb(var(--theme-shadow-rgb) / 0.46),inset 0 1px 0 color-mix(in srgb, var(--t1) 4%, transparent);
   backdrop-filter:blur(24px);
   -webkit-backdrop-filter:blur(24px);
 }
@@ -40,9 +40,11 @@
   overflow:hidden;
   position:relative;
   background:
-    linear-gradient(145deg,color-mix(in srgb, var(--t1) 8%, transparent)!important;
+    linear-gradient(145deg,color-mix(in srgb, var(--t1) 8%, transparent),color-mix(in srgb, var(--t1) 3%, transparent) 52%,color-mix(in srgb, var(--t1) 1%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.68)!important;
   box-shadow:
-    inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent);
+    inset 0 1px 0 color-mix(in srgb, var(--t1) 5%, transparent),
+    0 18px 45px rgb(var(--theme-shadow-rgb) / 0.18);
   backdrop-filter:blur(18px) saturate(105%);
   -webkit-backdrop-filter:blur(18px) saturate(105%);
 }
@@ -140,7 +142,8 @@
 .evolv-nav-card:hover{
   border-color:color-mix(in srgb, var(--t1) 13%, transparent);
   background:
-    linear-gradient(145deg,color-mix(in srgb, var(--t1) 9%, transparent)!important;
+    linear-gradient(145deg,color-mix(in srgb, var(--t1) 9%, transparent),color-mix(in srgb, var(--t1) 3%, transparent) 52%,color-mix(in srgb, var(--t1) 1%, transparent)),
+    rgb(var(--theme-shadow-rgb) / 0.72)!important;
 }
 
 .evolv-nav-card::before{
@@ -151,5 +154,9 @@
   pointer-events:none;
   background:linear-gradient(
     125deg,
-    color-mix(in srgb, var(--t1) 4%, transparent);
+    color-mix(in srgb, var(--t1) 4%, transparent),
+    transparent 34%,
+    transparent 72%,
+    color-mix(in srgb, var(--t1) 1%, transparent)
+  );
 }
