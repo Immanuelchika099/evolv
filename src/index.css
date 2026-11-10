@@ -160,7 +160,7 @@ body {
 /* Blue accent controls always need var(--t1) foregrounds for contrast.
    Keep this shared rule after component styles so icons inherit var(--t1) too. */
 :root {
-  --accent-foreground: var(--t1);
+  --accent-foreground: #24170e;
 }
 .bottom-nav .bottom-active,
 .bottom-active,
@@ -198,7 +198,7 @@ button.chat-send-button svg,
 
 /* FINAL GLOBAL CONTRAST PASS — all blue primary/accent buttons keep var(--t1) content. */
 :root {
-  --accent-foreground: var(--t1) !important;
+  --accent-foreground: #24170e !important;
   --color-accent-foreground: var(--t1) !important;
   --button-primary-foreground: var(--t1) !important;
 }
@@ -1400,7 +1400,7 @@ body { color:var(--ink); }
 
 /* Exact screen-level surfaces: each app area consumes the shared theme tokens. */
 :root { --ai-ink:var(--t1); --accent-foreground:var(--t1); }
-:root[data-theme="light"] { --ai-ink:var(--danger); }
+:root[data-theme="light"] { --ai-ink:var(--t1); }
 html,body,#root,.dashboard,.dashboard .dash-main,.dashboard .dashboard-pages {
   transition:background-color .24s ease,color .24s ease;
 }
