@@ -370,14 +370,25 @@ function App() {
   }, [])
   const [view, setView] = useState(() => {
     const path = window.location.pathname.replace(/\/+$/, '') || '/'
-    const savedView = localStorage.getItem('evolv-view')
-    // The installed PWA starts at /dashboard so returning users reopen
-    // their actual app, not the marketing site. Auth restoration below verifies
-    // the saved Supabase session before deciding where that route should land.
-    const initialView = savedView === 'onboarding' ? 'welcome' : savedView
+    const validViews = new Set([
+      'landing', 'pricing', 'article', 'legal',
+      'welcome', 'auth', 'onboarding', 'dashboard',
+    ])
+    let savedView = null
+    try {
+      savedView = localStorage.getItem('evolv-view')
+    } catch {
+      // If browser storage is unavailable, start at the public landing page.
+    }
+
+    // Explicit URLs always take priority. A stale or unknown saved view must
+    // never leave the app shell rendering without a page.
     if (path === '/onboarding') return 'welcome'
     if (path === '/dashboard') return 'dashboard'
-    return path === '/signup' ? 'onboarding' : (initialView || 'landing')
+    if (path === '/signup') return 'onboarding'
+
+    const initialView = savedView === 'onboarding' ? 'welcome' : savedView
+    return validViews.has(initialView) ? initialView : 'landing'
   })
   // Android's installed PWA already shows the app icon during its native
   // launch splash, so skip our React loader there to avoid a duplicate intro.
