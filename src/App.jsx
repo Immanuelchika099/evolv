@@ -432,8 +432,8 @@ function App() {
       if (sessionData?.session?.user) {
         const user = sessionData.session.user
 
-        // Founder-only, one-shot push test triggered by the explicit test URL.
-        // The Edge Function independently verifies the authenticated founder ID.
+        // Founder-only, one-shot simulated 100-user milestone preview.
+        // Check the founder email in the client and verify the founder UUID again in the Edge Function.
         const urlParams = new URLSearchParams(window.location.search)
         if (urlParams.get('founder-notification-test') === '1') {
           urlParams.delete('founder-notification-test')
@@ -443,11 +443,15 @@ function App() {
             '',
             window.location.pathname + (remainingQuery ? '?' + remainingQuery : '') + window.location.hash
           )
-          const { data: testResult, error: testError } = await supabase.functions.invoke('founder-user-notifications', {
-            body: { action: 'founder_current_count_test' },
-          })
-          if (testError) console.error('EVOLV founder notification test failed:', testError.message)
-          else console.info('EVOLV founder notification test result:', testResult)
+          if (user.email?.toLowerCase() === 'imandev367@gmail.com') {
+            const { data: testResult, error: testError } = await supabase.functions.invoke('founder-user-notifications', {
+              body: { action: 'founder_milestone_preview' },
+            })
+            if (testError) console.error('EVOLV founder milestone preview failed:', testError.message)
+            else console.info('EVOLV founder milestone preview result:', testResult)
+          } else {
+            console.warn('EVOLV founder milestone preview skipped: signed-in account is not the founder email.')
+          }
         }
 
         const emailSignupAt = Number(localStorage.getItem('evolv-email-signup-intent') || 0)
