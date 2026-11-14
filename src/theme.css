@@ -1,3 +1,34 @@
+/* Theme selector styling in both appearances. */
+.dashboard .profile-theme-row {
+  min-height: auto !important;
+  padding-bottom: 6px !important;
+}
+.dashboard .profile-theme-options {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 4px;
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+}
+.dashboard .profile-theme-options button {
+  flex: 1;
+  min-height: 42px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: rgba(255,255,255,.68);
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+.dashboard .profile-theme-options button.is-active {
+  color: #fff;
+  background: rgba(255,255,255,.1);
+  border-color: rgba(255,255,255,.1);
+}
 /* EVOLV light appearance — dark remains the default visual language. */
 :root[data-theme="light"] {
   color-scheme: light;
