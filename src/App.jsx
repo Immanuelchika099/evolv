@@ -17,6 +17,7 @@ import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
 import './components/styles/WelcomeOnboarding.css'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
+import { applyThemePreference, getThemePreference } from './lib/theme'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -336,6 +337,23 @@ function StreakWidget() {
 
 function App() {
   const root = useRef(null)
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: light)')
+    const syncTheme = () => applyThemePreference(getThemePreference())
+    const syncSystemTheme = () => {
+      if (getThemePreference() === 'system') syncTheme()
+    }
+    syncTheme()
+    media.addEventListener?.('change', syncSystemTheme)
+    window.addEventListener('evolv-theme-preference-change', syncTheme)
+    window.addEventListener('storage', syncTheme)
+    return () => {
+      media.removeEventListener?.('change', syncSystemTheme)
+      window.removeEventListener('evolv-theme-preference-change', syncTheme)
+      window.removeEventListener('storage', syncTheme)
+    }
+  }, [])
   const [ambientSoundEnabled, setAmbientSoundEnabled] = useState(() => {
     try { return localStorage.getItem('evolv-ambient-sound-enabled') !== 'false' } catch { return true }
   })
