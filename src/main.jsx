@@ -11,6 +11,10 @@ import App from './App.jsx'
 import NotificationPermissionPrompt from './components/NotificationPermissionPrompt.jsx'
 import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
+import './theme.css'
+import { applyThemePreference, getThemePreference } from './lib/theme'
+
+applyThemePreference(getThemePreference())
 
 if (Capacitor.getPlatform() === 'ios') {
   void Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(() => {})
