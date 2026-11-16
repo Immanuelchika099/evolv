@@ -119,7 +119,7 @@ function HomePage({ pageProps }) {
 
   return (
     <div className="dashboard-home calm-home">
-      <section className="evolv-home-hero" aria-label="Welcome">
+      <section className="evolv-home-intro" aria-label="Welcome">
         <div className="evolv-home-hero-top">
           <span>{now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</span>
           <button type="button" onClick={() => goTo('notifications')} aria-label="Open notifications">
