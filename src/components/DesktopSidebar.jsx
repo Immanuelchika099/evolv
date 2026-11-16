@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
-import { Home, CalendarClock, Sparkles, LineChart, UserRound, Bell, PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
+import { Home, CalendarClock, Sparkles, LineChart, UserRound, Bell, BookOpen, PanelLeftClose, PanelLeftOpen, X } from 'lucide-react'
 import './DesktopSidebar.css'
 
 const links = [
   { page: 'overview', label: 'Home', Icon: Home },
   { page: 'routine', label: 'Routine', Icon: CalendarClock },
+  { page: 'faith', label: 'Faith', Icon: BookOpen },
   { page: 'ai', label: 'AI Companion', Icon: Sparkles },
   { page: 'progress', label: 'Progress', Icon: LineChart },
   { page: 'profile', label: 'Profile', Icon: UserRound },
