@@ -723,7 +723,7 @@ function App() {
     // Users who completed onboarding before authentication should land
     // in the dashboard after OAuth, with their choices saved to the profile.
     const onboardingReady = localStorage.getItem('evolv-onboarding-ready-for-auth') === 'true'
-    if ((authMode === 'signup' || !profile) && onboardingReady) {
+    if ((authMode === 'signup' || !profile || !profile.first_name?.trim()) && onboardingReady) {
       const saved = (() => {
         try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
         catch { return { ...initialData, ...data } }
@@ -751,7 +751,7 @@ function App() {
 
     // A direct /signup visit can bypass the intro, so retain a safe fallback
     // for brand-new accounts that have not completed onboarding yet.
-    if (authMode === 'signup' || !profile) {
+    if (authMode === 'signup' || !profile || !profile.first_name?.trim()) {
       const nextData = {
         ...initialData,
         name: getProviderFirstName(user) || data.name || '',
