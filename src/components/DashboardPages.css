@@ -11780,3 +11780,210 @@ html body #root .reflection-step-actions .reflection-next:hover {
   color:#a8aaa3;
   cursor:pointer;
 }
+
+
+/* EVOLV home — bold welcome panel and full-width daily activity surface. */
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 31rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: clamp(2.2rem, 4vw, 3.4rem);
+  margin: 0;
+  border-radius: 2.8rem 2.8rem 0 0;
+  color: #fff;
+  background:
+    radial-gradient(ellipse at 92% 100%, rgba(255,190,125,.26), transparent 44%),
+    linear-gradient(145deg, #9f431f 0%, #d66d32 48%, #e58642 100%);
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 24rem;
+  height: 24rem;
+  right: -10rem;
+  top: 5rem;
+  border: 1px solid rgba(255,255,255,.12);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3.5rem rgba(255,255,255,.035), 0 0 0 7rem rgba(255,255,255,.025);
+}
+.evolv-home-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: rgba(255,255,255,.78);
+  font-size: 1.35rem;
+  font-weight: 550;
+}
+.evolv-home-hero-top button {
+  position: relative;
+  width: 4.8rem;
+  height: 4.8rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+  background: rgba(255,255,255,.13);
+  color: #fff;
+  cursor: pointer;
+}
+.evolv-home-hero-top button i {
+  position: absolute;
+  top: 1.05rem;
+  right: 1.1rem;
+  width: .65rem;
+  height: .65rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 .2rem rgba(229,134,66,.55);
+}
+.evolv-home-hero-copy { max-width: 58rem; padding: 3.2rem 0 2.8rem; }
+.evolv-home-eyebrow {
+  display: block;
+  margin-bottom: .35rem;
+  color: rgba(255,255,255,.75);
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -.035em;
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-hero h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(4.8rem, 9vw, 7.6rem);
+  line-height: .98;
+  letter-spacing: -.065em;
+  font-weight: 780;
+}
+.evolv-home-hero-copy p {
+  max-width: 47rem;
+  margin: 1.8rem 0 0;
+  color: rgba(255,255,255,.86);
+  font-size: clamp(1.5rem, 2vw, 1.8rem);
+  line-height: 1.5;
+}
+.evolv-home-hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+  color: rgba(255,255,255,.68);
+  font-size: 1.3rem;
+}
+.evolv-home-hero-stats strong { color: #fff; font-weight: 750; }
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-day-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  margin: -1.7rem 0 0;
+  padding: 2.5rem clamp(2rem, 4vw, 3rem) 2.8rem;
+  border-radius: 2.8rem 2.8rem 1.8rem 1.8rem;
+  background: #050505;
+  color: #fff;
+  box-shadow: 0 -1rem 3rem rgba(0,0,0,.12);
+}
+.evolv-home-day-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.2rem;
+  margin-bottom: 1.8rem;
+}
+.evolv-home-day-heading > div > span {
+  color: rgba(255,255,255,.42);
+  font-size: 1.05rem;
+  font-weight: 650;
+  letter-spacing: .12em;
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-day-heading h2 {
+  margin: .5rem 0 0;
+  color: #fff;
+  font-size: clamp(2.4rem, 4vw, 3rem);
+  font-weight: 750;
+  letter-spacing: -.045em;
+}
+.evolv-home-day-heading > button {
+  width: 4.4rem;
+  height: 4.4rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  color: #fff;
+  cursor: pointer;
+}
+.evolv-home-day-list { display: grid; gap: .6rem; }
+.evolv-home-day-row {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.3rem;
+  padding: 1.25rem 0;
+  border: 0;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+.evolv-home-day-row:last-child { border-bottom: 0; }
+.evolv-home-day-icon {
+  flex: 0 0 4.2rem;
+  width: 4.2rem;
+  height: 4.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.3rem;
+  background: rgba(229,134,66,.16);
+  color: #e99a61;
+}
+.evolv-home-day-copy { flex: 1; min-width: 0; display: grid; gap: .35rem; }
+.evolv-home-day-copy strong { overflow: hidden; color: #fff; font-size: 1.55rem; font-weight: 650; text-overflow: ellipsis; white-space: nowrap; }
+.evolv-home-day-copy small { color: rgba(255,255,255,.48); font-size: 1.3rem; }
+.evolv-home-day-row > svg { flex: 0 0 auto; color: rgba(255,255,255,.48); }
+.evolv-home-day-empty {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 1.6rem 0 .4rem;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  text-align: left;
+  cursor: pointer;
+}
+.evolv-home-day-empty-icon {
+  flex: 0 0 4.2rem;
+  width: 4.2rem;
+  height: 4.2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 1.3rem;
+  background: rgba(229,134,66,.16);
+  color: #e99a61;
+}
+.evolv-home-day-empty > span:nth-child(2) { flex: 1; display: grid; gap: .4rem; }
+.evolv-home-day-empty strong { font-size: 1.5rem; }
+.evolv-home-day-empty small { color: rgba(255,255,255,.5); font-size: 1.3rem; line-height: 1.4; }
+.evolv-home-day-empty > svg { color: rgba(255,255,255,.5); }
+@media (max-width: 760px) {
+  html body #root .dashboard .dashboard-home.calm-home .evolv-home-hero {
+    min-height: 34rem;
+    padding: 2.1rem 2rem 3rem;
+    border-radius: 2.5rem 2.5rem 0 0;
+  }
+  .evolv-home-hero-copy { padding: 3.5rem 0 3rem; }
+  html body #root .dashboard .dashboard-home.calm-home .evolv-home-day-card {
+    margin-top: -1.6rem;
+    padding: 2.2rem 2rem 2.4rem;
+    border-radius: 2.5rem 2.5rem 1.8rem 1.8rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .evolv-home-day-row, .evolv-home-day-empty { transition: none; }
+}
