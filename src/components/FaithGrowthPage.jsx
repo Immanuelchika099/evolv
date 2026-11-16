@@ -79,7 +79,7 @@ export default function FaithGrowthPage() {
         <span className="faith-eyebrow"><Sparkles size={13}/> OPTIONAL PERSONAL GROWTH</span>
         <div className="faith-hero-mark"><BookOpen size={23}/></div>
         <h1>Faith</h1>
-        <p>A quiet space to grow in your relationship with God, one day at a time.</p>
+        <p>A little time with God, each day.</p>
         <div className="faith-progress">
           <div><span>30-DAY JOURNEY</span><strong>{completedCount} of 30 mornings completed</strong></div>
           <div className="faith-progress-track"><span style={{ width: progressPercent + '%' }}/></div>
@@ -96,18 +96,21 @@ export default function FaithGrowthPage() {
         <h2>{title}</h2>
         <div className="faith-session-tabs"><button type="button" className={session==='morning'?'active':''} onClick={()=>setSession('morning')}><Sunrise size={16}/> Morning</button><button type="button" className={session==='night'?'active':''} onClick={()=>setSession('night')}><Moon size={16}/> Night</button></div>
         <div className="faith-passage"><BookOpen size={18}/><div><span>READ DIRECTLY FROM YOUR BIBLE</span><strong>{sessionPassage}</strong></div></div>
-        <p className="faith-reading-note">Take your time with the passage. Read it slowly, preferably twice, and notice what stands out to you.</p>
-        <div className="faith-insight"><span className="faith-kicker">TODAY'S THOUGHT</span><p>{study[3]}</p></div>
-        <div className="faith-reflection"><span className="faith-kicker">REFLECT</span><p>{study[4]}</p></div>
-        <div className="faith-action"><span className="faith-kicker">PUT IT INTO PRACTICE</span><p>{study[5]}</p></div>
-        <div className="faith-prayer"><span className="faith-kicker">A SHORT PRAYER</span><p>{study[6]}</p></div>
+        <p className="faith-reading-note">Read slowly. Notice what stands out.</p>
+        <div className="faith-accordions">
+          <details className="faith-accordion"><summary><span>Today's thought</span><ChevronRight size={17}/></summary><p>{study[3]}</p></details>
+          <details className="faith-accordion"><summary><span>Reflect</span><ChevronRight size={17}/></summary><p>{study[4]}</p></details>
+          <details className="faith-accordion"><summary><span>Put it into practice</span><ChevronRight size={17}/></summary><p>{study[5]}</p></details>
+          <details className="faith-accordion"><summary><span>A short prayer</span><ChevronRight size={17}/></summary><p>{study[6]}</p></details>
+        </div>
         <button type="button" className={'faith-complete'+(isComplete?' is-complete':'')} onClick={toggleComplete}>{isComplete?<CheckCircle2 size={18}/>:<Check size={18} />}{isComplete?'Completed':'Mark this session complete'}</button>
       </section>
 
-      <section className="faith-journal-card">
-        <div><span className="faith-kicker">YOUR PRIVATE NOTES</span><h2><PenLine size={18}/> Spiritual journal</h2><p>Write what stood out, what you are praying about, or what you want to practise. Notes stay on this device.</p></div>
+      <details className="faith-journal-card faith-accordion faith-journal-accordion">
+        <summary><span><span className="faith-kicker">YOUR PRIVATE NOTES</span><strong><PenLine size={17}/> Spiritual journal</strong></span><ChevronRight size={17}/></summary>
+        <p>Keep a private note from today. Saved on this device.</p>
         <textarea value={journal} onChange={event=>saveJournal(event.target.value)} placeholder="What stood out to me today…"/>
-      </section>
+      </details>
       <p className="faith-disclaimer">This is a personal reading companion, not a substitute for reading Scripture itself or for guidance from a trusted pastor or faith community.</p>
     </div>
   )
