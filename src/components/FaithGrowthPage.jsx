@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import { ArrowLeft, BookOpen, Check, CheckCircle2, ChevronLeft, ChevronRight, Moon, PenLine, Sparkles, Sunrise } from 'lucide-react'
 import './FaithGrowthPage.css'
 
@@ -101,7 +101,7 @@ export default function FaithGrowthPage() {
         <div className="faith-reflection"><span className="faith-kicker">REFLECT</span><p>{study[4]}</p></div>
         <div className="faith-action"><span className="faith-kicker">PUT IT INTO PRACTICE</span><p>{study[5]}</p></div>
         <div className="faith-prayer"><span className="faith-kicker">A SHORT PRAYER</span><p>{study[6]}</p></div>
-        <button type="button" className={'faith-complete'+(isComplete?' is-complete':'')} onClick={toggleComplete}>{isComplete?<CheckCircle2 size={18}/>:<Check size={18}/ >}{isComplete?'Completed':'Mark this session complete'}</button>
+        <button type="button" className={'faith-complete'+(isComplete?' is-complete':'')} onClick={toggleComplete}>{isComplete?<CheckCircle2 size={18}/>:<Check size={18} />}{isComplete?'Completed':'Mark this session complete'}</button>
       </section>
 
       <section className="faith-journal-card">
