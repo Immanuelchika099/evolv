@@ -17,10 +17,12 @@ import ProfileSettingsPage from './ProfileSettingsPage'
 import DailyRoutinePage from './DailyRoutinePage'
 import DailyAIInsight from './DailyAIInsight'
 import MoneyPage from './MoneyPage'
+import FaithGrowthPage from './FaithGrowthPage'
 
 export function DashboardPages({ active, pageProps }) {
   if (active === 'overview') return <HomePage pageProps={pageProps} />
   if (active === 'routine') return <DailyRoutinePage pageProps={pageProps} />
+  if (active === 'faith') return <FaithGrowthPage />
   if (active === 'money') return <MoneyPage defs={pageProps.defs} logs={pageProps.logs} />
   if (active === 'area') return <AreaPage pageProps={pageProps} />
   if (active === 'logs') return <DailyRoutinePage pageProps={pageProps} />
@@ -156,6 +158,11 @@ function HomePage({ pageProps }) {
       <button type="button" className="calm-reflection-entry" onClick={openReflection}>
         <span className="calm-reflection-entry-icon"><NotebookPen size={19} /></span>
         <span className="calm-reflection-entry-copy"><strong>Daily reflection</strong></span>
+        <ArrowRight size={18} />
+      </button>
+      <button type="button" className="calm-reflection-entry faith-home-entry" onClick={() => goTo('faith')}>
+        <span className="calm-reflection-entry-icon"><BookOpen size={19} /></span>
+        <span className="calm-reflection-entry-copy"><strong>Faith & spiritual growth</strong><small>Daily Bible study and reflection</small></span>
         <ArrowRight size={18} />
       </button>
 
