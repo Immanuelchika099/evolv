@@ -11987,3 +11987,84 @@ html body #root .dashboard .dashboard-home.calm-home .evolv-home-day-heading h2 
 @media (prefers-reduced-motion: reduce) {
   .evolv-home-day-row, .evolv-home-day-empty { transition: none; }
 }
+
+
+/* Keep the welcome/date copy outside the rounded black dashboard card. */
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro {
+  position: relative;
+  isolation: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  overflow: visible;
+  padding: 1.2rem 0 2.6rem;
+  margin: 0;
+  border-radius: 0;
+  color: var(--text-primary, #fff);
+  background: transparent;
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro::after {
+  content: none;
+}
+.evolv-home-intro .evolv-home-hero-top {
+  color: var(--text-secondary, rgba(255,255,255,.62));
+}
+.evolv-home-intro .evolv-home-hero-top button {
+  border-color: var(--border-color, rgba(255,255,255,.12));
+  background: var(--surface-secondary, rgba(255,255,255,.06));
+  color: var(--text-primary, #fff);
+}
+.evolv-home-intro .evolv-home-hero-top button i {
+  background: #e58642;
+  box-shadow: 0 0 0 .2rem rgba(229,134,66,.2);
+}
+.evolv-home-intro .evolv-home-hero-copy {
+  max-width: 62rem;
+  padding: 3.2rem 0 2.2rem;
+}
+.evolv-home-intro .evolv-home-eyebrow {
+  display: inline;
+  margin: 0 .55rem 0 0;
+  color: var(--text-primary, #fff);
+  font-size: clamp(2.5rem, 5vw, 4.1rem);
+  font-weight: 720;
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro h1 {
+  display: inline;
+  margin: 0;
+  color: var(--text-primary, #fff);
+  font-size: clamp(2.5rem, 5vw, 4.1rem);
+  line-height: 1.08;
+  letter-spacing: -.055em;
+  font-weight: 780;
+}
+.evolv-home-intro .evolv-home-hero-copy p {
+  max-width: 48rem;
+  margin: 1.1rem 0 0;
+  color: var(--text-secondary, rgba(255,255,255,.62));
+  font-size: 1.5rem;
+  line-height: 1.55;
+}
+.evolv-home-intro .evolv-home-hero-stats {
+  gap: 1.6rem;
+  color: var(--text-secondary, rgba(255,255,255,.55));
+  font-size: 1.25rem;
+}
+.evolv-home-intro .evolv-home-hero-stats strong {
+  color: var(--text-primary, #fff);
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-day-card {
+  margin-top: 0;
+}
+@media (max-width: 760px) {
+  html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro {
+    padding: .5rem 0 2.1rem;
+  }
+  .evolv-home-intro .evolv-home-hero-copy {
+    padding: 2.8rem 0 2rem;
+  }
+  html body #root .dashboard .dashboard-home.calm-home .evolv-home-day-card {
+    margin-top: 0;
+  }
+}
