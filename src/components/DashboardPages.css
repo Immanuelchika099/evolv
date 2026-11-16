@@ -12120,3 +12120,14 @@ html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro::after {
     animation: none;
   }
 }
+
+
+/* Remove the dashboard's top ambient glow; keep the welcome background calm. */
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro {
+  background: linear-gradient(115deg, rgba(24, 13, 10, .12), rgba(34, 19, 13, .2), rgba(24, 13, 10, .12)) !important;
+  animation: none !important;
+}
+html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro::before {
+  content: none !important;
+  animation: none !important;
+}
