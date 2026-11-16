@@ -119,10 +119,24 @@ function HomePage({ pageProps }) {
 
   return (
     <div className="dashboard-home calm-home">
-      <section className="calm-home-welcome">
-        <div className="calm-home-welcome-copy">
-          <span className="calm-home-greeting">{greeting}</span>
-          <h1>{firstName}</h1>
+      <section className="evolv-home-hero" aria-label="Welcome">
+        <div className="evolv-home-hero-top">
+          <span>{now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</span>
+          <button type="button" onClick={() => goTo('notifications')} aria-label="Open notifications">
+            <Bell size={19} />
+            <i aria-hidden="true" />
+          </button>
+        </div>
+        <div className="evolv-home-hero-copy">
+          <span className="evolv-home-eyebrow">{greeting},</span>
+          <h1>{firstName}!</h1>
+          <p>{activeGoals.length
+            ? `You have ${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'} to keep moving forward. Ready for one small step?`
+            : 'A fresh day to make progress at your own pace. Ready to begin?'}</p>
+        </div>
+        <div className="evolv-home-hero-stats">
+          <span><strong>{todayLogs.length + todayMeals.length}</strong> activities today</span>
+          <span><strong>{activeGoals.length}</strong> active goals</span>
         </div>
       </section>
       {returningAfterBreak && (
@@ -134,6 +148,36 @@ function HomePage({ pageProps }) {
           <button type="button" onClick={dismissReturnWelcome} aria-label="Dismiss welcome back message"><X size={17}/></button>
         </section>
       )}
+      <section className="evolv-home-day-card" aria-labelledby="evolv-home-day-title">
+        <div className="evolv-home-day-heading">
+          <div>
+            <span>YOUR MOMENTUM</span>
+            <h2 id="evolv-home-day-title">Today</h2>
+          </div>
+          <button type="button" onClick={() => goTo('logs')} aria-label="View all activity"><ArrowRight size={19}/></button>
+        </div>
+        {recentActivity.length ? (
+          <div className="evolv-home-day-list">
+            {recentActivity.map(item => {
+              const Icon = item.icon
+              return (
+                <button type="button" className="evolv-home-day-row" key={item.key} onClick={item.onClick}>
+                  <span className="evolv-home-day-icon"><Icon size={18}/></span>
+                  <span className="evolv-home-day-copy"><strong>{item.title}</strong><small>{item.detail}</small></span>
+                  <ArrowRight size={17}/>
+                </button>
+              )
+            })}
+          </div>
+        ) : (
+          <button type="button" className="evolv-home-day-empty" onClick={startCheckIn}>
+            <span className="evolv-home-day-empty-icon"><Plus size={18}/></span>
+            <span><strong>Your day is still open.</strong><small>Start with a quick check-in whenever you're ready.</small></span>
+            <ArrowRight size={17}/>
+          </button>
+        )}
+      </section>
+
       <section className="calm-checkin" aria-labelledby="calm-checkin-title">
         <h2 id="calm-checkin-title">How are you feeling?</h2>
         <div className="calm-mood-options">
