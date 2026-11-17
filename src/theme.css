@@ -294,6 +294,7 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --evolv-negative: #df8178;
   --evolv-shadow: 0 12px 34px rgba(0,0,0,.22);
 
+  --ac: 229, 134, 66;
   --bg: var(--evolv-canvas);
   --app-bg: var(--evolv-canvas);
   --t1: var(--evolv-text);
@@ -308,12 +309,12 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --color-text-muted: var(--evolv-text-muted);
   --color-border-subtle: var(--evolv-border);
   --color-border: var(--evolv-border-strong);
-  --color-accent-blue: var(--evolv-accent);
-  --blue-accent: var(--evolv-accent);
-  --evolv-blue: var(--evolv-accent);
-  --accent: var(--evolv-accent);
-  --ai-bubble-blue: rgba(229,134,66,.2);
-  --color-accent-lime: var(--evolv-accent);
+  --color-accent-blue: rgb(var(--ac));
+  --blue-accent: rgb(var(--ac));
+  --evolv-blue: rgb(var(--ac));
+  --accent: rgb(var(--ac));
+  --ai-bubble-blue: rgba(var(--ac), .2);
+  --color-accent-lime: rgb(var(--ac));
   color-scheme: dark;
   background: var(--evolv-canvas);
   color: var(--evolv-text);
@@ -337,6 +338,7 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --evolv-negative: #c65d55;
   --evolv-shadow: 0 10px 30px rgba(65,48,30,.07);
 
+  --ac: 217, 111, 57;
   --bg: var(--evolv-canvas);
   --app-bg: var(--evolv-canvas);
   --t1: var(--evolv-text);
@@ -351,12 +353,12 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --color-text-muted: var(--evolv-text-muted);
   --color-border-subtle: var(--evolv-border);
   --color-border: var(--evolv-border-strong);
-  --color-accent-blue: var(--evolv-accent);
-  --blue-accent: var(--evolv-accent);
-  --evolv-blue: var(--evolv-accent);
-  --accent: var(--evolv-accent);
-  --ai-bubble-blue: #f5e7de;
-  --color-accent-lime: var(--evolv-accent);
+  --color-accent-blue: rgb(var(--ac));
+  --blue-accent: rgb(var(--ac));
+  --evolv-blue: rgb(var(--ac));
+  --accent: rgb(var(--ac));
+  --ai-bubble-blue: rgba(var(--ac), .14);
+  --color-accent-lime: rgb(var(--ac));
   color-scheme: light;
   background: var(--evolv-canvas) !important;
   color: var(--evolv-text) !important;
