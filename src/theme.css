@@ -1,282 +1,8 @@
-/* Theme selector styling in both appearances. */
-.dashboard .profile-theme-row {
-  min-height: auto !important;
-  padding-bottom: 6px !important;
-}
-.dashboard .profile-theme-options {
-  display: flex;
-  gap: 8px;
-  width: 100%;
-  margin: 0 0 12px;
-  padding: 4px;
-  border: 1px solid rgba(255,255,255,.1);
-  border-radius: 14px;
-  background: rgba(255,255,255,.035);
-}
-.dashboard .profile-theme-options button {
-  flex: 1;
-  min-height: 42px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  color: rgba(255,255,255,.68);
-  background: transparent;
-  font: inherit;
-  font-size: 13px;
-  transition: background .2s ease, border-color .2s ease, color .2s ease;
-}
-.dashboard .profile-theme-options button.is-active {
-  color: #fff;
-  background: rgba(255,255,255,.1);
-  border-color: rgba(255,255,255,.1);
-}
-/* EVOLV light appearance — dark remains the default visual language. */
-:root[data-theme="light"] {
-  color-scheme: light;
-  --app-bg: #f5f3ef;
-  --bg: #f5f3ef;
-  --t1: #24211e;
-  --t2: rgba(36,33,30,.66);
-  --t3: rgba(36,33,30,.44);
-  --edge: rgba(36,33,30,.12);
-  --color-canvas: #f5f3ef;
-  --color-surface: #ffffff;
-  --color-surface-raised: #fbfaf8;
-  --color-text-primary: #24211e;
-  --color-text-secondary: rgba(36,33,30,.66);
-  --color-text-muted: rgba(36,33,30,.44);
-  --color-border-subtle: rgba(36,33,30,.09);
-  --color-border: rgba(36,33,30,.13);
-  --color-accent-blue: #d96b36;
-  --blue-accent: #d96b36;
-  --ai-bubble-blue: #f5e6dc;
-  --graph-blue: #d96b36;
-  --evolv-blue: #d96b36;
-  --color-bg: #f5f3ef;
-  --color-surface-start: #ffffff;
-  --color-surface-end: #f8f6f2;
-  --color-text: #24211e;
-  --color-muted: rgba(36,33,30,.62);
-  --color-disabled: rgba(36,33,30,.38);
-  --accent: #d96b36;
-  --accent-foreground: #ffffff;
-  background: #f5f3ef !important;
-  background-color: #f5f3ef !important;
-}
-html[data-theme="light"],
-html[data-theme="light"] body,
-html[data-theme="light"] #root {
-  color-scheme: light !important;
-  background: #f5f3ef !important;
-  background-color: #f5f3ef !important;
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root {
-  color: #24211e !important;
-  background: #f5f3ef !important;
-  background-color: #f5f3ef !important;
-  background-image: none !important;
-}
-html[data-theme="light"] body #root .dashboard,
-html[data-theme="light"] body #root .dashboard .dash-main,
-html[data-theme="light"] body #root .dashboard .dashboard-pages,
-html[data-theme="light"] body #root .dashboard .panel-page,
-html[data-theme="light"] body #root .dashboard .settings-page,
-html[data-theme="light"] body #root .dashboard .profile-v2 {
-  color: #24211e !important;
-  background: #f5f3ef !important;
-  background-color: #f5f3ef !important;
-  background-image: none !important;
-}
-html[data-theme="light"] body #root .dashboard :is(h1,h2,h3,h4,h5,strong,b,label,legend),
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-setting-row strong,
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-account-action-copy strong {
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root .dashboard :is(p,small,.section-label,.profile-setting-row span,.profile-setting-row small,.profile-v2-group-label,.profile-v2-identity p,.ai-heading p,.ai-message-role) {
-  color: rgba(36,33,30,.62) !important;
-}
-html[data-theme="light"] body #root .dashboard :is(.profile-v2-summary,.profile-settings-section,.profile-stat-grid article,.profile-v2-group,.profile-v2-tabs,.ai-chat,.ai-messages,.ai-input,.dash-card,.dash-hero,.goal-item,.goal-card,.daily-insight,.weekly-progress-card,.glass-task,.dashboard-focus-row,.evolv-bottom-nav,.evolv-desktop-sidebar,.profile-modal,.settings-delete-modal,.profile-v2-actions) {
-  background: #fff !important;
-  background-color: #fff !important;
-  border-color: rgba(36,33,30,.1) !important;
-  box-shadow: 0 8px 28px rgba(44,35,25,.045) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2-topbar,
-html[data-theme="light"] body #root .dashboard .profile-v2-tab-content,
-html[data-theme="light"] body #root .dashboard .profile-v2-group {
-  background: transparent !important;
-  box-shadow: none !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-setting-row,
-html[data-theme="light"] body #root .dashboard .profile-settings-list .profile-setting-row {
-  background: transparent !important;
-  border-color: rgba(36,33,30,.1) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-setting-row select,
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-setting-row input,
-html[data-theme="light"] body #root .dashboard .profile-v2 .settings-quiet-control input,
-html[data-theme="light"] body #root .dashboard .ai-input input,
-html[data-theme="light"] body #root .dashboard input,
-html[data-theme="light"] body #root .dashboard textarea,
-html[data-theme="light"] body #root .dashboard select {
-  color: #24211e !important;
-  background: #f7f5f1 !important;
-  border-color: rgba(36,33,30,.15) !important;
-}
-html[data-theme="light"] body #root .dashboard .ai-message.assistant p,
-html[data-theme="light"] body #root .dashboard .ai-thinking {
-  color: #302b26 !important;
-  background: #f7f5f1 !important;
-  border-color: rgba(36,33,30,.1) !important;
-}
-html[data-theme="light"] body #root .dashboard .ai-message.user p {
-  color: #fff !important;
-  background: #d96b36 !important;
-  border-color: #d96b36 !important;
-}
-html[data-theme="light"] body #root .dashboard :is(button,a) {
-  -webkit-tap-highlight-color: rgba(217,107,54,.12);
-}
-html[data-theme="light"] body #root .dashboard .profile-v2-icon-button,
-html[data-theme="light"] body #root .dashboard .profile-v2-action-row,
-html[data-theme="light"] body #root .dashboard .profile-v2-tabs button {
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-options {
-  display: flex;
-  gap: 8px;
-  width: 100%;
-  padding: 4px;
-  border: 1px solid rgba(36,33,30,.12);
-  border-radius: 14px;
-  background: #f4f1ec;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-options button {
-  flex: 1;
-  min-height: 42px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  color: rgba(36,33,30,.65) !important;
-  background: transparent !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-options button.is-active {
-  color: #24211e !important;
-  background: #fff !important;
-  border-color: rgba(36,33,30,.12) !important;
-  box-shadow: 0 2px 8px rgba(44,35,25,.07) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2-tab-indicator,
-html[data-theme="light"] body #root .dashboard .settings-toggle.active {
-  background: #d96b36 !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2-avatar-button,
-html[data-theme="light"] body #root .dashboard .profile-avatar {
-  border-color: rgba(36,33,30,.14) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-modal-backdrop,
-html[data-theme="light"] body #root .dashboard .profile-modal-backdrop * {
-  color-scheme: light;
-}
-html[data-theme="light"] body #root .dashboard .profile-modal-backdrop {
-  background: rgba(32,27,22,.38) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-modal {
-  color: #24211e !important;
-  background: #fff !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-modal :is(h1,h2,h3,strong,label) {
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-modal :is(p,small,span) {
-  color: rgba(36,33,30,.64) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2 .settings-inline-action,
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-v2-action-row,
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-v2-focus-row {
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-v2-group-label {
-  color: rgba(36,33,30,.52) !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-setting-row .settings-inline-action,
-html[data-theme="light"] body #root .dashboard .profile-v2 .profile-setting-row button:not(.settings-toggle) {
-  color: #a84b24 !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-row {
-  min-height: auto !important;
-  padding-bottom: 6px !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-options {
-  display: flex;
-  gap: 8px;
-  width: 100%;
-  margin: 0 0 12px;
-  padding: 4px;
-  border: 1px solid rgba(36,33,30,.12);
-  border-radius: 14px;
-  background: #f4f1ec;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-options button {
-  flex: 1;
-  min-height: 42px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  color: rgba(36,33,30,.65) !important;
-  background: transparent !important;
-}
-html[data-theme="light"] body #root .dashboard .profile-theme-options button.is-active {
-  color: #24211e !important;
-  background: #fff !important;
-  border-color: rgba(36,33,30,.12) !important;
-  box-shadow: 0 2px 8px rgba(44,35,25,.07) !important;
-}
-html[data-theme="light"] body #root .evolv-loader,
-html[data-theme="light"] body #root .evolv-loader .evolv-loader-core {
-  background: #f5f3ef !important;
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root .evolv-loader .evolv-loader-wordmark {
-  color: #24211e !important;
-  -webkit-text-fill-color: #24211e !important;
-}
-html[data-theme="light"] body #root :is(.auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,.forgot-password-page,.reset-password-page,.public-page,.standalone-page,.onboarding,.evolv-onboarding) {
-  color: #24211e !important;
-  background: #f5f3ef !important;
-  background-color: #f5f3ef !important;
-  background-image: none !important;
-}
-html[data-theme="light"] body #root :is(.auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,.forgot-password-page,.reset-password-page,.onboarding,.evolv-onboarding) :is(h1,h2,h3,h4,strong,label,p,span) {
-  color: #24211e;
-}
-html[data-theme="light"] body #root :is(.auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,.forgot-password-page,.reset-password-page,.onboarding,.evolv-onboarding) input,
-html[data-theme="light"] body #root :is(.auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,.forgot-password-page,.reset-password-page,.onboarding,.evolv-onboarding) textarea {
-  color: #24211e !important;
-  background: #fff !important;
-  border-color: rgba(36,33,30,.18) !important;
-}
-html[data-theme="light"] body #root .landing,
-html[data-theme="light"] body #root .public-page,
-html[data-theme="light"] body #root .standalone-page {
-  background: #f5f3ef !important;
-  color: #24211e !important;
-}
-html[data-theme="light"] body #root .landing :is(h1,h2,h3,p,span,a) {
-  color: inherit;
-}
-html[data-theme="light"] body #root .landing .hero-aura,
-html[data-theme="light"] body #root .landing .orb-glow {
-  opacity: .12;
-}
-@media (max-width: 640px) {
-  html[data-theme="light"] body #root .dashboard .profile-theme-options button { min-height: 40px; }
-}
+/* EVOLV theme system
+   All appearance values live here. Components consume semantic tokens only. */
 
-
-/* ==========================================================================
-   EVOLV global theme foundation — shared by every screen
-   Keep all theme values here so page components inherit one visual language.
-   ========================================================================== */
 :root {
+  color-scheme: dark;
   --evolv-canvas: #0a0908;
   --evolv-surface: #12100f;
   --evolv-surface-raised: #191613;
@@ -284,68 +10,72 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --evolv-text: #f5f1ec;
   --evolv-text-secondary: rgba(245,241,236,.68);
   --evolv-text-muted: rgba(245,241,236,.43);
-  --evolv-border: rgba(255,255,255,.09);
-  --evolv-border-strong: rgba(255,255,255,.14);
+  --evolv-border: rgba(245,241,236,.09);
+  --evolv-border-strong: rgba(245,241,236,.15);
   --evolv-accent: #e58642;
   --evolv-accent-strong: #ed9657;
   --evolv-accent-soft: rgba(229,134,66,.13);
   --evolv-accent-wash: rgba(229,134,66,.07);
   --evolv-positive: #8fc9a2;
   --evolv-negative: #df8178;
+  --evolv-on-accent: #fff;
   --evolv-shadow: 0 12px 34px rgba(0,0,0,.22);
+  --evolv-overlay: rgba(0,0,0,.62);
+
+  /* Legacy aliases retained for existing component styles. */
+  --app-bg: var(--evolv-canvas);
+  --bg: var(--evolv-canvas);
+  --t1: var(--evolv-text);
+  --t2: var(--evolv-text-secondary);
+  --t3: var(--evolv-text-muted);
+  --edge: var(--evolv-border);
+  --line: var(--evolv-border);
+  --muted: var(--evolv-text-muted);
+  --accent: var(--evolv-accent);
+  --ac: 229,134,66;
   --color-bg: var(--evolv-canvas);
+  --color-canvas: var(--evolv-canvas);
+  --color-surface: var(--evolv-surface);
+  --color-surface-raised: var(--evolv-surface-raised);
   --color-surface-start: var(--evolv-surface);
   --color-surface-end: var(--evolv-surface-raised);
   --color-text: var(--evolv-text);
+  --color-text-primary: var(--evolv-text);
+  --color-text-secondary: var(--evolv-text-secondary);
+  --color-text-muted: var(--evolv-text-muted);
   --color-muted: var(--evolv-text-secondary);
-  --color-disabled: var(--evolv-text-muted);
-  --muted: var(--evolv-text-muted);
-  --line: var(--evolv-border);
-  --danger: var(--evolv-negative);
-  --pos: var(--evolv-positive);
-  --neg: var(--evolv-negative);
-  --mint: var(--evolv-positive);
-  --shadow-card: var(--evolv-shadow);
+  --color-border: var(--evolv-border-strong);
+  --color-border-subtle: var(--evolv-border);
+  --color-accent-blue: var(--evolv-accent);
+  --blue-accent: var(--evolv-accent);
+  --evolv-blue: var(--evolv-accent);
   --graph-blue: var(--evolv-accent);
   --graph-blue-deep: color-mix(in srgb, var(--evolv-accent) 78%, black);
   --graph-blue-bright: color-mix(in srgb, var(--evolv-accent) 88%, white);
   --graph-blue-light: color-mix(in srgb, var(--evolv-accent) 70%, white);
   --graph-blue-pale: color-mix(in srgb, var(--evolv-accent) 48%, white);
-  --graph-blue-cyan: color-mix(in srgb, var(--evolv-accent) 48%, white);
+  --graph-blue-cyan: var(--evolv-accent);
   --graph-blue-violet: var(--evolv-accent);
+  --color-accent-lime: var(--evolv-accent);
+  --ai-bubble-blue: var(--evolv-accent-soft);
   --color-glow-red: var(--evolv-accent-soft);
   --color-glow-brown: var(--evolv-accent-wash);
-
-
-  --ac: 229, 134, 66;
-  --bg: var(--evolv-canvas);
-  --app-bg: var(--evolv-canvas);
-  --t1: var(--evolv-text);
-  --t2: var(--evolv-text-secondary);
-  --t3: var(--evolv-text-muted);
-  --edge: var(--evolv-border);
-  --color-canvas: var(--evolv-canvas);
-  --color-surface: var(--evolv-surface);
-  --color-surface-raised: var(--evolv-surface-raised);
-  --color-text-primary: var(--evolv-text);
-  --color-text-secondary: var(--evolv-text-secondary);
-  --color-text-muted: var(--evolv-text-muted);
-  --color-border-subtle: var(--evolv-border);
-  --color-border: var(--evolv-border-strong);
-  --color-accent-blue: rgb(var(--ac));
-  --blue-accent: rgb(var(--ac));
-  --evolv-blue: rgb(var(--ac));
-  --accent: rgb(var(--ac));
-  --ai-bubble-blue: rgba(var(--ac), .2);
-  --color-accent-lime: rgb(var(--ac));
-  color-scheme: dark;
-  background: var(--evolv-canvas);
-  color: var(--evolv-text);
+  --accent-foreground: var(--evolv-on-accent);
+  --color-accent-foreground: var(--evolv-on-accent);
+  --button-primary-foreground: var(--evolv-on-accent);
+  --danger: var(--evolv-negative);
+  --pos: var(--evolv-positive);
+  --neg: var(--evolv-negative);
+  --mint: var(--evolv-positive);
+  --shadow-card: var(--evolv-shadow);
+  --evolv-line: var(--evolv-border-strong);
+  --evolv-line-soft: var(--evolv-border);
 }
 
 :root[data-theme="light"] {
+  color-scheme: light;
   --evolv-canvas: #f5f2ed;
-  --evolv-surface: #ffffff;
+  --evolv-surface: #fff;
   --evolv-surface-raised: #fbf9f5;
   --evolv-surface-soft: #f0ece6;
   --evolv-text: #28231f;
@@ -359,531 +89,301 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --evolv-accent-wash: rgba(217,111,57,.065);
   --evolv-positive: #43865b;
   --evolv-negative: #c65d55;
+  --evolv-on-accent: #fff;
   --evolv-shadow: 0 10px 30px rgba(65,48,30,.07);
-  --color-bg: var(--evolv-canvas);
-  --color-surface-start: var(--evolv-surface);
-  --color-surface-end: var(--evolv-surface-raised);
-  --color-text: var(--evolv-text);
-  --color-muted: var(--evolv-text-secondary);
-  --color-disabled: var(--evolv-text-muted);
-  --muted: var(--evolv-text-muted);
-  --line: var(--evolv-border);
-  --danger: var(--evolv-negative);
-  --pos: var(--evolv-positive);
-  --neg: var(--evolv-negative);
-  --mint: var(--evolv-positive);
-  --shadow-card: var(--evolv-shadow);
-  --graph-blue: var(--evolv-accent);
-  --graph-blue-deep: color-mix(in srgb, var(--evolv-accent) 78%, black);
-  --graph-blue-bright: color-mix(in srgb, var(--evolv-accent) 88%, white);
-  --graph-blue-light: color-mix(in srgb, var(--evolv-accent) 70%, white);
-  --graph-blue-pale: color-mix(in srgb, var(--evolv-accent) 48%, white);
-  --graph-blue-cyan: color-mix(in srgb, var(--evolv-accent) 48%, white);
-  --graph-blue-violet: var(--evolv-accent);
-  --color-glow-red: var(--evolv-accent-soft);
-  --color-glow-brown: var(--evolv-accent-wash);
-
-
-  --ac: 217, 111, 57;
-  --bg: var(--evolv-canvas);
-  --app-bg: var(--evolv-canvas);
-  --t1: var(--evolv-text);
-  --t2: var(--evolv-text-secondary);
-  --t3: var(--evolv-text-muted);
-  --edge: var(--evolv-border);
-  --color-canvas: var(--evolv-canvas);
-  --color-surface: var(--evolv-surface);
-  --color-surface-raised: var(--evolv-surface-raised);
-  --color-text-primary: var(--evolv-text);
-  --color-text-secondary: var(--evolv-text-secondary);
-  --color-text-muted: var(--evolv-text-muted);
-  --color-border-subtle: var(--evolv-border);
-  --color-border: var(--evolv-border-strong);
-  --color-accent-blue: rgb(var(--ac));
-  --blue-accent: rgb(var(--ac));
-  --evolv-blue: rgb(var(--ac));
-  --accent: rgb(var(--ac));
-  --ai-bubble-blue: rgba(var(--ac), .14);
-  --color-accent-lime: rgb(var(--ac));
-  color-scheme: light;
-  background: var(--evolv-canvas) !important;
-  color: var(--evolv-text) !important;
+  --evolv-overlay: rgba(32,27,22,.38);
+  --ac: 217,111,57;
 }
 
 html, body, #root {
-  background-color: var(--evolv-canvas) !important;
+  min-height: 100%;
   color: var(--evolv-text);
-}
-body {
-  background: var(--evolv-canvas) !important;
-  color: var(--evolv-text);
-}
-::selection {
-  color: #fff;
-  background: color-mix(in srgb, var(--evolv-accent) 68%, transparent);
-}
-
-/* Dashboard foundations: common surfaces, controls, separators and typography. */
-.dashboard {
-  color: var(--evolv-text);
-  background: var(--evolv-canvas);
-}
-.dashboard :is(.dash-main, .dashboard-pages, .panel-page, .settings-page, .progress-page, .goals-page, .habits-page, .focus-page, .reflection-page, .profile-v2) {
-  color: var(--evolv-text);
-}
-.dashboard :is(.dash-card, .dash-hero, .goal-item, .goal-card, .daily-insight,
-.weekly-progress-card, .glass-task, .dashboard-focus-row, .profile-v2-summary,
-.profile-settings-section, .profile-stat-grid article, .profile-v2-group,
-.profile-v2-tabs, .ai-chat, .ai-composer, .log-sheet, .log-health-card,
-.log-selected-metric, .daily-brief-card, .weekly-report-card,
-.notification-frequency-card, .notification-preference-card,
-.progress-section-card, .progress-heatmap-card, .goal-create-form,
-.profile-box, .ready-card, .focus-session-card, .habit-card,
-.reflection-card, .meal-card, .metric-card) {
-  color: var(--evolv-text);
-  border-color: var(--evolv-border);
-  background-color: var(--evolv-surface);
-}
-.dashboard :is(.dash-card, .goal-item, .goal-card, .daily-insight,
-.weekly-progress-card, .glass-task, .dashboard-focus-row,
-.profile-v2-summary, .profile-settings-section, .profile-stat-grid article,
-.profile-v2-group, .progress-section-card, .progress-heatmap-card,
-.goal-create-form, .profile-box, .focus-session-card, .habit-card,
-.reflection-card, .meal-card, .metric-card) {
-  box-shadow: var(--evolv-shadow);
-}
-.dashboard :is(.section-label, .card-label, .eyebrow, .muted, .subtle,
-.dash-card p, .dash-hero p, .goal-item p, .goal-card p,
-.profile-setting-row span, .profile-setting-row small,
-.notification-preference span, .log-sheet-head p) {
-  color: var(--evolv-text-secondary);
-}
-.dashboard :is(input, textarea, select, .ai-composer, .log-input-label input,
-.log-input-label textarea, .log-input-label select) {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface-raised);
-  border-color: var(--evolv-border-strong);
-}
-.dashboard :is(input, textarea, select)::placeholder {
-  color: var(--evolv-text-muted);
-}
-.dashboard :is(button, a) {
-  -webkit-tap-highlight-color: var(--evolv-accent-wash);
-}
-.dashboard :is(.icon-button, .profile-v2-icon-button, .log-close,
-.profile-v2-action-row, .profile-v2-tabs button) {
-  color: var(--evolv-text-secondary);
-  border-color: var(--evolv-border);
-}
-.dashboard :is(.profile-v2-tab-indicator, .settings-toggle.active,
-.notification-preference .settings-toggle.active) {
-  background: var(--evolv-accent);
-}
-.dashboard :is(.bottom-nav, .evolv-bottom-nav, .evolv-desktop-sidebar) {
-  border-color: var(--evolv-border);
-}
-.dashboard :is(.bottom-active, .is-active, .active) {
-  --local-active-color: var(--evolv-accent);
-}
-.dashboard :is(.button-primary, .primary-button, .btn-primary,
-.auth-submit, .log-save, .onboard-continue) {
-  background: var(--evolv-accent);
-  border-color: var(--evolv-accent);
-  color: #fff;
-}
-.dashboard :is(.button-primary, .primary-button, .btn-primary,
-.auth-submit, .log-save, .onboard-continue) :is(svg, span) {
-  color: inherit;
-}
-
-/* The light palette is deliberately warm, not stark white or cool blue. */
-html[data-theme="light"] body #root .dashboard {
-  color: var(--evolv-text);
-  background: var(--evolv-canvas);
-}
-html[data-theme="light"] body #root .dashboard :is(
-  .dash-card, .dash-hero, .goal-item, .goal-card, .daily-insight,
-  .weekly-progress-card, .glass-task, .dashboard-focus-row,
-  .profile-v2-summary, .profile-settings-section, .profile-stat-grid article,
-  .profile-v2-group, .profile-v2-tabs, .ai-chat, .ai-composer,
-  .log-sheet, .log-health-card, .log-selected-metric,
-  .daily-brief-card, .weekly-report-card, .notification-frequency-card,
-  .notification-preference-card, .progress-section-card,
-  .progress-heatmap-card, .goal-create-form, .profile-box,
-  .focus-session-card, .habit-card, .reflection-card, .meal-card, .metric-card
-) {
-  color: var(--evolv-text) !important;
-  border-color: var(--evolv-border) !important;
-  background-color: var(--evolv-surface) !important;
-  box-shadow: var(--evolv-shadow) !important;
-}
-html[data-theme="light"] body #root .dashboard :is(
-  .dash-card, .goal-item, .goal-card, .glass-task, .dashboard-focus-row,
-  .profile-v2-summary, .profile-settings-section, .profile-v2-group,
-  .progress-section-card, .progress-heatmap-card
-)::before {
-  opacity: .35;
-}
-html[data-theme="light"] body #root .dashboard :is(
-  h1,h2,h3,h4,h5,h6,strong,b,label,.task-text,.goal-title,
-  .profile-v2-identity strong,.profile-setting-row strong
-) {
-  color: var(--evolv-text) !important;
-}
-html[data-theme="light"] body #root .dashboard :is(
-  p,small,.section-label,.card-label,.eyebrow,.muted,.subtle,
-  .goal-item-top p,.profile-setting-row span,.profile-setting-row small,
-  .notification-preference span,.log-sheet-head p
-) {
-  color: var(--evolv-text-secondary) !important;
-}
-html[data-theme="light"] body #root .dashboard :is(
-  input,textarea,select,.ai-composer,.log-input-label input,
-  .log-input-label textarea,.log-input-label select
-) {
-  color: var(--evolv-text) !important;
-  background: var(--evolv-surface-raised) !important;
-  border-color: var(--evolv-border-strong) !important;
-  -webkit-text-fill-color: var(--evolv-text);
-}
-html[data-theme="light"] body #root .dashboard :is(input,textarea)::placeholder {
-  color: var(--evolv-text-muted) !important;
-  -webkit-text-fill-color: var(--evolv-text-muted);
-}
-html[data-theme="light"] body #root .dashboard :is(
-  .bottom-nav,.evolv-bottom-nav,.evolv-desktop-sidebar,
-  .profile-modal,.profile-modal-backdrop .profile-modal,
-  .log-sheet,.notification-modal,.settings-delete-modal
-) {
-  color: var(--evolv-text) !important;
-  background: var(--evolv-surface) !important;
-  border-color: var(--evolv-border) !important;
-}
-html[data-theme="light"] body #root .dashboard :is(
-  .button-primary,.primary-button,.btn-primary,.auth-submit,
-  .log-save,.onboard-continue,.bottom-active
-) {
-  color: #fff !important;
-  -webkit-text-fill-color: #fff !important;
-  background: var(--evolv-accent) !important;
-  border-color: var(--evolv-accent) !important;
-}
-html[data-theme="light"] body #root .dashboard :is(
-  .button-primary,.primary-button,.btn-primary,.auth-submit,
-  .log-save,.onboard-continue,.bottom-active
-) * {
-  color: #fff !important;
-  fill: currentColor;
-  stroke: currentColor;
-}
-
-/* Shared public, auth and onboarding screens also follow the selected theme. */
-html[data-theme="light"] body #root :is(
-  .auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,
-  .forgot-password-page,.reset-password-page,.public-page,
-  .standalone-page,.onboarding,.evolv-onboarding
-) {
-  color: var(--evolv-text) !important;
   background: var(--evolv-canvas) !important;
   background-color: var(--evolv-canvas) !important;
+  background-image: none;
 }
-html[data-theme="light"] body #root :is(
-  .auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,
-  .forgot-password-page,.reset-password-page,.onboarding,.evolv-onboarding
-) :is(h1,h2,h3,h4,h5,h6,p,span,label,strong,b) {
-  color: inherit;
-}
-html[data-theme="light"] body #root :is(
-  .auth-page,.auth-shell,.auth-direct-page,.login-page,.signup-page,
-  .forgot-password-page,.reset-password-page,.onboarding,.evolv-onboarding
-) :is(input,textarea,select) {
-  color: var(--evolv-text) !important;
-  background: var(--evolv-surface) !important;
-  border-color: var(--evolv-border-strong) !important;
-}
-html[data-theme="light"] body #root .landing {
-  color: var(--evolv-text) !important;
-  background-color: var(--evolv-canvas) !important;
-}
-html[data-theme="light"] body #root .landing :is(.landing-nav,.mobile-menu) {
-  color: var(--evolv-text) !important;
-  background: rgba(255,255,255,.9) !important;
-  border-color: var(--evolv-border-strong) !important;
-  box-shadow: var(--evolv-shadow);
-}
-html[data-theme="light"] body #root .landing :is(.landing-nav a,.mobile-menu a,.mobile-menu button) {
-  color: var(--evolv-text) !important;
-}
-html[data-theme="light"] body #root .landing .mobile-menu button {
-  color: #fff !important;
-  background: var(--evolv-accent) !important;
-}
+body { color: var(--evolv-text); background: var(--evolv-canvas) !important; }
+::selection { color: var(--evolv-on-accent); background: var(--evolv-accent); }
 
-/* Respect reduced motion and keep theme changes visually quiet. */
-html, body, #root, #root :is(button,input,textarea,select) {
-  transition-property: background-color, border-color, color, box-shadow;
-  transition-duration: 180ms;
-  transition-timing-function: ease;
-}
-@media (prefers-reduced-motion: reduce) {
-  html, body, #root, #root * {
-    transition-duration: 0.01ms !important;
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-}
-
-
-/* ==========================================================================
-   EVOLV screen coverage — legacy components now inherit the same palette.
-   These selectors are intentionally component-scoped; avoid global element
-   recolouring so charts, illustrations and semantic status colours survive.
-   ========================================================================== */
-
-/* Dashboard shell and page canvases */
+/* App shell */
 .dashboard,
 .dashboard .dash-main,
-.dashboard .dashboard-home,
+.dashboard .dashboard-pages,
 .dashboard .panel-page,
-.dashboard .ai-page,
-.dashboard .settings-page {
+.dashboard .dashboard-home,
+.dashboard .settings-page,
+.dashboard .profile-v2 {
   color: var(--evolv-text);
-  background-color: var(--evolv-canvas);
+  background: var(--evolv-canvas);
 }
 .dashboard .sidebar,
 .dashboard .evolv-bottom-nav,
 .dashboard .evolv-desktop-sidebar {
   color: var(--evolv-text);
-  background-color: var(--evolv-surface);
+  background: var(--evolv-surface);
   border-color: var(--evolv-border);
 }
-.dashboard :is(.dash-card,.dash-hero,.daily-insight,.weekly-progress-card,
-.goal-item,.goal-card,.glass-task,.goal-create-form,.profile-box,
-.profile-v2-summary,.profile-settings-section,.profile-stat-grid article,
-.profile-v2-group,.settings-section,.settings-card,.ai-chat,.ai-context-strip,
-.log-sheet,.log-health-card,.log-selected-metric,.log-history-sheet,
-.reflection-overlay,.focus-session-card,.habit-card,.metric-card,
-.meal-card,.progress-section-card,.progress-heatmap-card) {
+
+/* Shared dashboard surfaces and controls */
+.dashboard :is(
+  .dash-card,.dash-hero,.goal-item,.goal-card,.daily-insight,
+  .weekly-progress-card,.glass-task,.dashboard-focus-row,
+  .profile-v2-summary,.profile-settings-section,.profile-stat-grid article,
+  .profile-v2-group,.settings-section,.settings-card,.ai-chat,.ai-composer,
+  .ai-context-strip,.log-sheet,.log-health-card,.log-selected-metric,
+  .log-history-sheet,.reflection-overlay,.focus-session-card,.habit-card,
+  .metric-card,.meal-card,.progress-section-card,.progress-heatmap-card,
+  .goal-create-form,.profile-box,.ready-card,.daily-brief-card,.weekly-report-card
+) {
   color: var(--evolv-text);
   background-color: var(--evolv-surface);
   border-color: var(--evolv-border);
-}
-.dashboard :is(.dash-card,.daily-insight,.weekly-progress-card,.goal-item,
-.goal-card,.glass-task,.goal-create-form,.profile-box,.settings-section,
-.settings-card,.ai-chat,.log-sheet,.log-health-card,.log-history-sheet,
-.reflection-overlay,.focus-session-card,.habit-card,.metric-card,
-.meal-card,.progress-section-card,.progress-heatmap-card) {
   box-shadow: var(--evolv-shadow);
 }
-.dashboard :is(.dash-card h1,.dash-card h2,.dash-card h3,.dash-hero h1,
-.dash-hero h2,.daily-insight h2,.weekly-progress-card h2,.goal-item h3,
-.goal-card h3,.settings-section h3,.ai-heading h2,.log-sheet-heading,
-.log-sheet-head h2,.profile-box strong) {
+.dashboard :is(h1,h2,h3,h4,h5,h6,strong,b,label,.task-text,.goal-title) {
   color: var(--evolv-text);
 }
-.dashboard :is(.dash-card p,.dash-hero p,.daily-insight p,
-.weekly-progress-card p,.goal-item p,.goal-card p,.section-label,
-.card-label,.dashboard-eyebrow,.settings-section p,.ai-heading p,
-.ai-message-role,.log-sheet-head p,.profile-box p) {
+.dashboard :is(p,small,.section-label,.card-label,.eyebrow,.muted,.subtle,
+  .dashboard-eyebrow,.profile-setting-row span,.profile-setting-row small) {
   color: var(--evolv-text-secondary);
 }
-.dashboard :is(.goal-create-form input,.goal-create-form textarea,
-.profile-box input,.settings-page input,.settings-page select,
-.ai-input input,.ai-input textarea,.log-input-label input,
-.log-input-label textarea,.log-input-label select) {
+.dashboard :is(input,textarea,select,.ai-composer) {
   color: var(--evolv-text);
-  background-color: var(--evolv-surface-raised);
+  background: var(--evolv-surface-raised);
   border-color: var(--evolv-border-strong);
 }
-.dashboard :is(.goal-create-form input,.goal-create-form textarea,
-.profile-box input,.settings-page input,.settings-page select,
-.ai-input input,.ai-input textarea,.log-input-label input,
-.log-input-label textarea)::placeholder {
+.dashboard :is(input,textarea)::placeholder { color: var(--evolv-text-muted); }
+.dashboard :is(button,a) { -webkit-tap-highlight-color: var(--evolv-accent-wash); }
+.dashboard :is(.button-primary,.primary-button,.btn-primary,.auth-submit,
+  .log-save,.onboard-continue,.evolv-onboarding-continue) {
+  color: var(--evolv-on-accent);
+  background: var(--evolv-accent);
+  border-color: var(--evolv-accent);
+}
+.dashboard :is(.button-primary,.primary-button,.btn-primary,.auth-submit,
+  .log-save,.onboard-continue,.evolv-onboarding-continue) * {
+  color: inherit;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* Dashboard home — preserve the layout; theme only the visual properties. */
+.calm-home .evolv-home-intro,
+.calm-home .evolv-home-day-card,
+.calm-home .calm-return-welcome,
+.calm-home .calm-week-card,
+.calm-home .calm-home-focus,
+.calm-home .calm-home-activity,
+.calm-home .calm-checkin,
+.calm-home .calm-reflection-entry,
+.calm-home .calm-goal-snapshot,
+.calm-home .calm-goal-empty,
+.calm-home .calm-activity-item,
+.calm-home .calm-activity-empty {
+  color: var(--evolv-text);
+  border-color: var(--evolv-border);
+}
+.calm-home .evolv-home-hero-top,
+.calm-home .evolv-home-eyebrow,
+.calm-home .calm-section-kicker,
+.calm-home .calm-week-period,
+.calm-home .evolv-home-day-heading span,
+.calm-home .calm-home-hero-copy p,
+.calm-home .calm-week-summary p,
+.calm-home .calm-activity-note,
+.calm-home .calm-mood-option small {
+  color: var(--evolv-text-secondary);
+}
+.calm-home :is(.evolv-home-hero-copy h1,.evolv-home-day-heading h2,
+  .calm-checkin h2,.calm-week-head h2,.calm-focus-heading h2,
+  .calm-goal-snapshot strong,.calm-goal-empty strong,
+  .calm-reflection-entry strong,.calm-activity-item strong) {
+  color: var(--evolv-text);
+}
+.calm-home .evolv-home-day-card,
+.calm-home .calm-week-card,
+.calm-home .calm-goal-snapshot,
+.calm-home .calm-goal-empty,
+.calm-home .calm-reflection-entry,
+.calm-home .calm-return-welcome {
+  background: var(--evolv-surface);
+  border: 1px solid var(--evolv-border);
+  box-shadow: var(--evolv-shadow);
+}
+.calm-home .evolv-home-day-icon,
+.calm-home .evolv-home-day-empty-icon,
+.calm-home .calm-focus-mark,
+.calm-home .calm-reflection-entry-icon,
+.calm-home .calm-mood-avatar-wrap {
+  color: var(--evolv-accent);
+  background: var(--evolv-accent-wash);
+  border-color: var(--evolv-border);
+}
+.calm-home .evolv-home-day-row,
+.calm-home .calm-activity-item,
+.calm-home .calm-mood-option {
+  color: var(--evolv-text);
+  border-color: var(--evolv-border);
+  background: transparent;
+}
+.calm-home .evolv-home-day-row small,
+.calm-home .calm-activity-item small,
+.calm-home .calm-goal-snapshot small,
+.calm-home .calm-goal-empty small,
+.calm-home .calm-reflection-entry small {
   color: var(--evolv-text-muted);
 }
-.dashboard .ai-message.assistant p,
-.dashboard .ai-thinking {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface-raised);
-  border-color: var(--evolv-border);
+.calm-home .calm-week-bar { background: var(--evolv-surface-soft); }
+.calm-home .calm-week-bar.is-selected,
+.calm-home .calm-goal-progress-track > span {
+  background: var(--evolv-accent);
 }
-.dashboard .ai-message.user p {
-  color: #fff;
-  background-color: var(--evolv-accent);
-  border-color: var(--evolv-accent);
-}
-.dashboard .profile-theme-options {
-  border-color: var(--evolv-border);
-  background-color: var(--evolv-surface-raised);
-}
-.dashboard .profile-theme-options button {
-  color: var(--evolv-text-secondary);
-}
-.dashboard .profile-theme-options button.is-active {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface);
-  border-color: var(--evolv-border);
-}
+.calm-home .calm-week-day { color: var(--evolv-text-secondary); }
+.calm-home .calm-week-day.is-selected { color: var(--evolv-accent-strong); }
+.calm-home .calm-week-day i { background: var(--evolv-border-strong); }
+.calm-home .calm-week-day.is-selected i { background: var(--evolv-accent); }
+.calm-home .calm-home-hero-stats strong,
+.calm-home .calm-week-summary strong,
+.calm-home .calm-goal-percent { color: var(--evolv-accent-strong); }
 
-/* Auth flow */
-.auth-shell,
-.auth-page,
-.auth-email-step {
+/* Light appearance: warm surfaces, same hierarchy and geometry. */
+:root[data-theme="light"] .dashboard :is(
+  .dash-card,.dash-hero,.goal-item,.goal-card,.daily-insight,
+  .weekly-progress-card,.glass-task,.dashboard-focus-row,
+  .profile-v2-summary,.profile-settings-section,.profile-stat-grid article,
+  .profile-v2-group,.settings-section,.settings-card,.ai-chat,.ai-composer,
+  .ai-context-strip,.log-sheet,.log-health-card,.log-selected-metric,
+  .log-history-sheet,.reflection-overlay,.focus-session-card,.habit-card,
+  .metric-card,.meal-card,.progress-section-card,.progress-heatmap-card,
+  .goal-create-form,.profile-box,.ready-card,.daily-brief-card,.weekly-report-card
+) {
   color: var(--evolv-text);
-  background-color: var(--evolv-canvas);
-}
-.auth-shell :is(.auth-intro,.auth-step-copy,.auth-email-summary),
-.auth-page :is(.auth-content,.auth-intro) {
-  color: var(--evolv-text);
-}
-.auth-shell :is(.auth-intro p,.auth-step-copy p,.auth-legal,
-.auth-account-switch,.auth-divider,.auth-provider-button small),
-.auth-page :is(.auth-content>p,.auth-form label span,.auth-switch) {
-  color: var(--evolv-text-secondary);
-}
-.auth-shell :is(.auth-provider-button,.auth-form input,.auth-quick-form input),
-.auth-page :is(.auth-provider-button,.auth-form input) {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface);
-  border-color: var(--evolv-border-strong);
-}
-.auth-shell :is(.auth-provider-button:hover,.auth-form input:focus),
-.auth-page .auth-form input:focus {
-  border-color: color-mix(in srgb, var(--evolv-accent) 48%, var(--evolv-border));
-}
-.auth-shell .auth-continue-button,
-.auth-page .auth-continue-button {
-  color: #fff;
-  background-color: var(--evolv-accent);
-  border-color: var(--evolv-accent);
-}
-
-/* Welcome onboarding and the newer onboarding flow */
-.evolv-onboarding,
-.onboarding {
-  color: var(--evolv-text);
-  background-color: var(--evolv-canvas);
-}
-.evolv-onboarding :is(.evolv-onboarding-copy,.evolv-onboarding-step,
-.evolv-onboarding-ready,.evolv-onboarding-goals) {
-  color: var(--evolv-text);
-}
-.evolv-onboarding :is(.evolv-onboarding-eyebrow,.evolv-onboarding-copy p,
-.evolv-onboarding-approach-item p) {
-  color: var(--evolv-text-secondary);
-}
-.evolv-onboarding :is(.evolv-onboarding-goal,.evolv-onboarding-approach-item,
-.evolv-onboarding-ready,.evolv-onboarding-name input) {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface);
+  background: var(--evolv-surface);
   border-color: var(--evolv-border);
+  box-shadow: var(--evolv-shadow);
 }
-.evolv-onboarding .evolv-onboarding-continue {
-  color: #fff;
-  background-color: var(--evolv-accent);
-  border-color: var(--evolv-accent);
-}
-
-/* Light mode: use the same selectors, with warm surfaces and legible text. */
-:root[data-theme="light"] .dashboard :is(.dash-card,.dash-hero,.daily-insight,
-.weekly-progress-card,.goal-item,.goal-card,.glass-task,.goal-create-form,
-.profile-box,.profile-v2-summary,.profile-settings-section,
-.profile-stat-grid article,.profile-v2-group,.settings-section,.settings-card,
-.ai-chat,.ai-context-strip,.log-sheet,.log-health-card,.log-selected-metric,
-.log-history-sheet,.reflection-overlay,.focus-session-card,.habit-card,
-.metric-card,.meal-card,.progress-section-card,.progress-heatmap-card) {
+:root[data-theme="light"] .dashboard :is(input,textarea,select,.ai-composer) {
   color: var(--evolv-text);
-  background-color: var(--evolv-surface);
-  border-color: var(--evolv-border);
-}
-:root[data-theme="light"] .dashboard :is(.sidebar,.evolv-bottom-nav,
-.evolv-desktop-sidebar) {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface);
-  border-color: var(--evolv-border);
-}
-:root[data-theme="light"] .dashboard :is(.dash-card h1,.dash-card h2,
-.dash-card h3,.dash-hero h1,.dash-hero h2,.daily-insight h2,
-.weekly-progress-card h2,.goal-item h3,.goal-card h3,.settings-section h3,
-.ai-heading h2,.log-sheet-heading,.log-sheet-head h2,.profile-box strong) {
-  color: var(--evolv-text);
-}
-:root[data-theme="light"] .dashboard :is(.dash-card p,.dash-hero p,
-.daily-insight p,.weekly-progress-card p,.goal-item p,.goal-card p,
-.section-label,.card-label,.dashboard-eyebrow,.settings-section p,
-.ai-heading p,.ai-message-role,.log-sheet-head p,.profile-box p) {
-  color: var(--evolv-text-secondary);
-}
-:root[data-theme="light"] .dashboard :is(.goal-create-form input,
-.goal-create-form textarea,.profile-box input,.settings-page input,
-.settings-page select,.ai-input input,.ai-input textarea,
-.log-input-label input,.log-input-label textarea,.log-input-label select) {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface-raised);
+  background: var(--evolv-surface-raised);
   border-color: var(--evolv-border-strong);
   -webkit-text-fill-color: var(--evolv-text);
 }
-:root[data-theme="light"] .dashboard :is(.goal-create-form input,
-.goal-create-form textarea,.profile-box input,.settings-page input,
-.settings-page select,.ai-input input,.ai-input textarea)::placeholder {
+:root[data-theme="light"] .dashboard :is(input,textarea)::placeholder {
   color: var(--evolv-text-muted);
   -webkit-text-fill-color: var(--evolv-text-muted);
 }
-:root[data-theme="light"] .dashboard .ai-message.assistant p,
-:root[data-theme="light"] .dashboard .ai-thinking {
-  color: var(--evolv-text);
-  background-color: var(--evolv-surface-raised);
+:root[data-theme="light"] .calm-home .evolv-home-day-card,
+:root[data-theme="light"] .calm-home .calm-week-card,
+:root[data-theme="light"] .calm-home .calm-goal-snapshot,
+:root[data-theme="light"] .calm-home .calm-goal-empty,
+:root[data-theme="light"] .calm-home .calm-reflection-entry,
+:root[data-theme="light"] .calm-home .calm-return-welcome {
+  background: var(--evolv-surface);
   border-color: var(--evolv-border);
 }
-:root[data-theme="light"] .auth-shell,
-:root[data-theme="light"] .auth-page,
-:root[data-theme="light"] .auth-email-step,
-:root[data-theme="light"] .evolv-onboarding,
-:root[data-theme="light"] .onboarding {
+:root[data-theme="light"] .dashboard .sidebar,
+:root[data-theme="light"] .dashboard .evolv-bottom-nav,
+:root[data-theme="light"] .dashboard .evolv-desktop-sidebar {
+  color: var(--evolv-text);
+  background: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+
+/* Profile theme selector */
+.dashboard .profile-theme-options {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 12px;
+  padding: 4px;
+  border: 1px solid var(--evolv-border);
+  border-radius: 14px;
+  background: var(--evolv-surface-raised);
+}
+.dashboard .profile-theme-options button {
+  flex: 1;
+  min-height: 42px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  color: var(--evolv-text-secondary);
+  background: transparent;
+}
+.dashboard .profile-theme-options button.is-active {
+  color: var(--evolv-text);
+  background: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+
+/* Onboarding retains its cinematic treatment, driven by semantic tokens. */
+.onboarding,
+.evolv-onboarding {
+  color: var(--evolv-text);
+  background: var(--evolv-canvas);
+}
+:root[data-theme="light"] .onboarding,
+:root[data-theme="light"] .evolv-onboarding {
+  color-scheme: dark;
+  --onboard-canvas: var(--evolv-canvas);
+  --onboard-text: var(--evolv-text);
+  --onboard-muted: var(--evolv-text-secondary);
+  --onboard-surface: var(--evolv-surface);
+  --onboard-border: var(--evolv-border);
+}
+.evolv-onboarding :is(.evolv-onboarding-stage,.evolv-onboarding-main,
+  .evolv-onboarding-header,.evolv-onboarding-footer) { color: var(--evolv-text); }
+.evolv-onboarding :is(.evolv-onboarding-copy,.evolv-onboarding-eyebrow,
+  .evolv-onboarding-approach-item small,.evolv-onboarding-goal-text small) {
+  color: var(--evolv-text-secondary);
+}
+.evolv-onboarding :is(.evolv-onboarding-name input,.evolv-onboarding-goal,
+  .evolv-avatar-choice,.evolv-onboarding-ready,.evolv-onboarding-approach-item) {
+  color: var(--evolv-text);
+  background: var(--evolv-surface);
+  border-color: var(--evolv-border-strong);
+}
+.evolv-onboarding :is(input,textarea,select) {
+  color: var(--evolv-text);
+  background: var(--evolv-surface-raised);
+  border-color: var(--evolv-border-strong);
+  -webkit-text-fill-color: var(--evolv-text);
+}
+.evolv-onboarding :is(.evolv-onboarding-continue,.evolv-onboarding-goal.is-selected) {
+  color: var(--evolv-on-accent);
+  background: var(--evolv-accent);
+  border-color: var(--evolv-accent);
+}
+.evolv-onboarding .evolv-onboarding-continue * { color: inherit; }
+
+/* Landing/auth canvases inherit the selected theme without altering layout. */
+:root[data-theme="light"] :is(.auth-page,.auth-shell,.auth-direct-page,
+  .login-page,.signup-page,.forgot-password-page,.reset-password-page,
+  .public-page,.standalone-page,.landing) {
   color: var(--evolv-text);
   background-color: var(--evolv-canvas);
 }
-:root[data-theme="light"] .auth-shell :is(.auth-provider-button,
-.auth-form input,.auth-quick-form input),
-:root[data-theme="light"] .auth-page :is(.auth-provider-button,.auth-form input),
-:root[data-theme="light"] .evolv-onboarding :is(.evolv-onboarding-goal,
-.evolv-onboarding-approach-item,.evolv-onboarding-ready,
-.evolv-onboarding-name input) {
+:root[data-theme="light"] :is(.auth-page,.auth-shell,.auth-direct-page,
+  .login-page,.signup-page,.forgot-password-page,.reset-password-page) :is(input,textarea,select) {
   color: var(--evolv-text);
-  background-color: var(--evolv-surface);
+  background: var(--evolv-surface);
   border-color: var(--evolv-border-strong);
 }
+:root[data-theme="light"] .landing :is(.landing-nav,.mobile-menu) {
+  color: var(--evolv-text);
+  background: var(--evolv-surface);
+  border-color: var(--evolv-border);
+  box-shadow: var(--evolv-shadow);
+}
 
-
-/* Onboarding is an intentionally cinematic, dark-only journey.
-   Keep its established art direction independent from dashboard theme tokens. */
-html[data-theme="light"] body #root .onboarding,
-html[data-theme="dark"] body #root .onboarding,
-body #root .onboarding {
-  color: #f3f3ef !important;
-  background: #030303 !important;
-  background-color: #030303 !important;
-  color-scheme: dark;
+/* Keep transitions restrained and respect reduced motion. */
+html,body,#root,#root :is(button,input,textarea,select) {
+  transition-property: background-color,border-color,color,box-shadow;
+  transition-duration: 180ms;
+  transition-timing-function: ease;
 }
-html[data-theme="light"] body #root .onboarding :is(h1,h2,h3,h4,h5,h6,p,span,label,strong,b) {
-  color: inherit;
-}
-html[data-theme="light"] body #root .onboarding :is(input,textarea,select) {
-  color: #f3f3ef !important;
-  -webkit-text-fill-color: #f3f3ef !important;
-  background: #090909 !important;
-  background-color: #090909 !important;
-  border-color: rgba(255,255,255,.12) !important;
-  color-scheme: dark;
-}
-html[data-theme="light"] body #root .onboarding :is(input,textarea)::placeholder {
-  color: #777 !important;
-  -webkit-text-fill-color: #777 !important;
-}
-html[data-theme="light"] body #root .onboarding .onboard-footer,
-html[data-theme="light"] body #root .onboarding .onboard-content,
-html[data-theme="light"] body #root .onboarding .onboard-stage,
-html[data-theme="light"] body #root .onboarding .onboard-step {
-  background: transparent !important;
-  background-color: transparent !important;
+@media (prefers-reduced-motion: reduce) {
+  html,body,#root,#root * {
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
