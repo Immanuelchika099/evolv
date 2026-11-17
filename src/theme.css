@@ -293,6 +293,29 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --evolv-positive: #8fc9a2;
   --evolv-negative: #df8178;
   --evolv-shadow: 0 12px 34px rgba(0,0,0,.22);
+  --color-bg: var(--evolv-canvas);
+  --color-surface-start: var(--evolv-surface);
+  --color-surface-end: var(--evolv-surface-raised);
+  --color-text: var(--evolv-text);
+  --color-muted: var(--evolv-text-secondary);
+  --color-disabled: var(--evolv-text-muted);
+  --muted: var(--evolv-text-muted);
+  --line: var(--evolv-border);
+  --danger: var(--evolv-negative);
+  --pos: var(--evolv-positive);
+  --neg: var(--evolv-negative);
+  --mint: var(--evolv-positive);
+  --shadow-card: var(--evolv-shadow);
+  --graph-blue: var(--evolv-accent);
+  --graph-blue-deep: color-mix(in srgb, var(--evolv-accent) 78%, black);
+  --graph-blue-bright: color-mix(in srgb, var(--evolv-accent) 88%, white);
+  --graph-blue-light: color-mix(in srgb, var(--evolv-accent) 70%, white);
+  --graph-blue-pale: color-mix(in srgb, var(--evolv-accent) 48%, white);
+  --graph-blue-cyan: color-mix(in srgb, var(--evolv-accent) 48%, white);
+  --graph-blue-violet: var(--evolv-accent);
+  --color-glow-red: var(--evolv-accent-soft);
+  --color-glow-brown: var(--evolv-accent-wash);
+
 
   --ac: 229, 134, 66;
   --bg: var(--evolv-canvas);
@@ -337,6 +360,29 @@ html[data-theme="light"] body #root .landing .orb-glow {
   --evolv-positive: #43865b;
   --evolv-negative: #c65d55;
   --evolv-shadow: 0 10px 30px rgba(65,48,30,.07);
+  --color-bg: var(--evolv-canvas);
+  --color-surface-start: var(--evolv-surface);
+  --color-surface-end: var(--evolv-surface-raised);
+  --color-text: var(--evolv-text);
+  --color-muted: var(--evolv-text-secondary);
+  --color-disabled: var(--evolv-text-muted);
+  --muted: var(--evolv-text-muted);
+  --line: var(--evolv-border);
+  --danger: var(--evolv-negative);
+  --pos: var(--evolv-positive);
+  --neg: var(--evolv-negative);
+  --mint: var(--evolv-positive);
+  --shadow-card: var(--evolv-shadow);
+  --graph-blue: var(--evolv-accent);
+  --graph-blue-deep: color-mix(in srgb, var(--evolv-accent) 78%, black);
+  --graph-blue-bright: color-mix(in srgb, var(--evolv-accent) 88%, white);
+  --graph-blue-light: color-mix(in srgb, var(--evolv-accent) 70%, white);
+  --graph-blue-pale: color-mix(in srgb, var(--evolv-accent) 48%, white);
+  --graph-blue-cyan: color-mix(in srgb, var(--evolv-accent) 48%, white);
+  --graph-blue-violet: var(--evolv-accent);
+  --color-glow-red: var(--evolv-accent-soft);
+  --color-glow-brown: var(--evolv-accent-wash);
+
 
   --ac: 217, 111, 57;
   --bg: var(--evolv-canvas);
@@ -585,4 +631,225 @@ html, body, #root, #root :is(button,input,textarea,select) {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+}
+
+
+/* ==========================================================================
+   EVOLV screen coverage — legacy components now inherit the same palette.
+   These selectors are intentionally component-scoped; avoid global element
+   recolouring so charts, illustrations and semantic status colours survive.
+   ========================================================================== */
+
+/* Dashboard shell and page canvases */
+.dashboard,
+.dashboard .dash-main,
+.dashboard .dashboard-home,
+.dashboard .panel-page,
+.dashboard .ai-page,
+.dashboard .settings-page {
+  color: var(--evolv-text);
+  background-color: var(--evolv-canvas);
+}
+.dashboard .sidebar,
+.dashboard .evolv-bottom-nav,
+.dashboard .evolv-desktop-sidebar {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+.dashboard :is(.dash-card,.dash-hero,.daily-insight,.weekly-progress-card,
+.goal-item,.goal-card,.glass-task,.goal-create-form,.profile-box,
+.profile-v2-summary,.profile-settings-section,.profile-stat-grid article,
+.profile-v2-group,.settings-section,.settings-card,.ai-chat,.ai-context-strip,
+.log-sheet,.log-health-card,.log-selected-metric,.log-history-sheet,
+.reflection-overlay,.focus-session-card,.habit-card,.metric-card,
+.meal-card,.progress-section-card,.progress-heatmap-card) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+.dashboard :is(.dash-card,.daily-insight,.weekly-progress-card,.goal-item,
+.goal-card,.glass-task,.goal-create-form,.profile-box,.settings-section,
+.settings-card,.ai-chat,.log-sheet,.log-health-card,.log-history-sheet,
+.reflection-overlay,.focus-session-card,.habit-card,.metric-card,
+.meal-card,.progress-section-card,.progress-heatmap-card) {
+  box-shadow: var(--evolv-shadow);
+}
+.dashboard :is(.dash-card h1,.dash-card h2,.dash-card h3,.dash-hero h1,
+.dash-hero h2,.daily-insight h2,.weekly-progress-card h2,.goal-item h3,
+.goal-card h3,.settings-section h3,.ai-heading h2,.log-sheet-heading,
+.log-sheet-head h2,.profile-box strong) {
+  color: var(--evolv-text);
+}
+.dashboard :is(.dash-card p,.dash-hero p,.daily-insight p,
+.weekly-progress-card p,.goal-item p,.goal-card p,.section-label,
+.card-label,.dashboard-eyebrow,.settings-section p,.ai-heading p,
+.ai-message-role,.log-sheet-head p,.profile-box p) {
+  color: var(--evolv-text-secondary);
+}
+.dashboard :is(.goal-create-form input,.goal-create-form textarea,
+.profile-box input,.settings-page input,.settings-page select,
+.ai-input input,.ai-input textarea,.log-input-label input,
+.log-input-label textarea,.log-input-label select) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface-raised);
+  border-color: var(--evolv-border-strong);
+}
+.dashboard :is(.goal-create-form input,.goal-create-form textarea,
+.profile-box input,.settings-page input,.settings-page select,
+.ai-input input,.ai-input textarea,.log-input-label input,
+.log-input-label textarea)::placeholder {
+  color: var(--evolv-text-muted);
+}
+.dashboard .ai-message.assistant p,
+.dashboard .ai-thinking {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface-raised);
+  border-color: var(--evolv-border);
+}
+.dashboard .ai-message.user p {
+  color: #fff;
+  background-color: var(--evolv-accent);
+  border-color: var(--evolv-accent);
+}
+.dashboard .profile-theme-options {
+  border-color: var(--evolv-border);
+  background-color: var(--evolv-surface-raised);
+}
+.dashboard .profile-theme-options button {
+  color: var(--evolv-text-secondary);
+}
+.dashboard .profile-theme-options button.is-active {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+
+/* Auth flow */
+.auth-shell,
+.auth-page,
+.auth-email-step {
+  color: var(--evolv-text);
+  background-color: var(--evolv-canvas);
+}
+.auth-shell :is(.auth-intro,.auth-step-copy,.auth-email-summary),
+.auth-page :is(.auth-content,.auth-intro) {
+  color: var(--evolv-text);
+}
+.auth-shell :is(.auth-intro p,.auth-step-copy p,.auth-legal,
+.auth-account-switch,.auth-divider,.auth-provider-button small),
+.auth-page :is(.auth-content>p,.auth-form label span,.auth-switch) {
+  color: var(--evolv-text-secondary);
+}
+.auth-shell :is(.auth-provider-button,.auth-form input,.auth-quick-form input),
+.auth-page :is(.auth-provider-button,.auth-form input) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border-strong);
+}
+.auth-shell :is(.auth-provider-button:hover,.auth-form input:focus),
+.auth-page .auth-form input:focus {
+  border-color: color-mix(in srgb, var(--evolv-accent) 48%, var(--evolv-border));
+}
+.auth-shell .auth-continue-button,
+.auth-page .auth-continue-button {
+  color: #fff;
+  background-color: var(--evolv-accent);
+  border-color: var(--evolv-accent);
+}
+
+/* Welcome onboarding and the newer onboarding flow */
+.evolv-onboarding,
+.onboarding {
+  color: var(--evolv-text);
+  background-color: var(--evolv-canvas);
+}
+.evolv-onboarding :is(.evolv-onboarding-copy,.evolv-onboarding-step,
+.evolv-onboarding-ready,.evolv-onboarding-goals) {
+  color: var(--evolv-text);
+}
+.evolv-onboarding :is(.evolv-onboarding-eyebrow,.evolv-onboarding-copy p,
+.evolv-onboarding-approach-item p) {
+  color: var(--evolv-text-secondary);
+}
+.evolv-onboarding :is(.evolv-onboarding-goal,.evolv-onboarding-approach-item,
+.evolv-onboarding-ready,.evolv-onboarding-name input) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+.evolv-onboarding .evolv-onboarding-continue {
+  color: #fff;
+  background-color: var(--evolv-accent);
+  border-color: var(--evolv-accent);
+}
+
+/* Light mode: use the same selectors, with warm surfaces and legible text. */
+:root[data-theme="light"] .dashboard :is(.dash-card,.dash-hero,.daily-insight,
+.weekly-progress-card,.goal-item,.goal-card,.glass-task,.goal-create-form,
+.profile-box,.profile-v2-summary,.profile-settings-section,
+.profile-stat-grid article,.profile-v2-group,.settings-section,.settings-card,
+.ai-chat,.ai-context-strip,.log-sheet,.log-health-card,.log-selected-metric,
+.log-history-sheet,.reflection-overlay,.focus-session-card,.habit-card,
+.metric-card,.meal-card,.progress-section-card,.progress-heatmap-card) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+:root[data-theme="light"] .dashboard :is(.sidebar,.evolv-bottom-nav,
+.evolv-desktop-sidebar) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border);
+}
+:root[data-theme="light"] .dashboard :is(.dash-card h1,.dash-card h2,
+.dash-card h3,.dash-hero h1,.dash-hero h2,.daily-insight h2,
+.weekly-progress-card h2,.goal-item h3,.goal-card h3,.settings-section h3,
+.ai-heading h2,.log-sheet-heading,.log-sheet-head h2,.profile-box strong) {
+  color: var(--evolv-text);
+}
+:root[data-theme="light"] .dashboard :is(.dash-card p,.dash-hero p,
+.daily-insight p,.weekly-progress-card p,.goal-item p,.goal-card p,
+.section-label,.card-label,.dashboard-eyebrow,.settings-section p,
+.ai-heading p,.ai-message-role,.log-sheet-head p,.profile-box p) {
+  color: var(--evolv-text-secondary);
+}
+:root[data-theme="light"] .dashboard :is(.goal-create-form input,
+.goal-create-form textarea,.profile-box input,.settings-page input,
+.settings-page select,.ai-input input,.ai-input textarea,
+.log-input-label input,.log-input-label textarea,.log-input-label select) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface-raised);
+  border-color: var(--evolv-border-strong);
+  -webkit-text-fill-color: var(--evolv-text);
+}
+:root[data-theme="light"] .dashboard :is(.goal-create-form input,
+.goal-create-form textarea,.profile-box input,.settings-page input,
+.settings-page select,.ai-input input,.ai-input textarea)::placeholder {
+  color: var(--evolv-text-muted);
+  -webkit-text-fill-color: var(--evolv-text-muted);
+}
+:root[data-theme="light"] .dashboard .ai-message.assistant p,
+:root[data-theme="light"] .dashboard .ai-thinking {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface-raised);
+  border-color: var(--evolv-border);
+}
+:root[data-theme="light"] .auth-shell,
+:root[data-theme="light"] .auth-page,
+:root[data-theme="light"] .auth-email-step,
+:root[data-theme="light"] .evolv-onboarding,
+:root[data-theme="light"] .onboarding {
+  color: var(--evolv-text);
+  background-color: var(--evolv-canvas);
+}
+:root[data-theme="light"] .auth-shell :is(.auth-provider-button,
+.auth-form input,.auth-quick-form input),
+:root[data-theme="light"] .auth-page :is(.auth-provider-button,.auth-form input),
+:root[data-theme="light"] .evolv-onboarding :is(.evolv-onboarding-goal,
+.evolv-onboarding-approach-item,.evolv-onboarding-ready,
+.evolv-onboarding-name input) {
+  color: var(--evolv-text);
+  background-color: var(--evolv-surface);
+  border-color: var(--evolv-border-strong);
 }
