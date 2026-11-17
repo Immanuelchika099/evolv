@@ -853,3 +853,37 @@ html, body, #root, #root :is(button,input,textarea,select) {
   background-color: var(--evolv-surface);
   border-color: var(--evolv-border-strong);
 }
+
+
+/* Onboarding is an intentionally cinematic, dark-only journey.
+   Keep its established art direction independent from dashboard theme tokens. */
+html[data-theme="light"] body #root .onboarding,
+html[data-theme="dark"] body #root .onboarding,
+body #root .onboarding {
+  color: #f3f3ef !important;
+  background: #030303 !important;
+  background-color: #030303 !important;
+  color-scheme: dark;
+}
+html[data-theme="light"] body #root .onboarding :is(h1,h2,h3,h4,h5,h6,p,span,label,strong,b) {
+  color: inherit;
+}
+html[data-theme="light"] body #root .onboarding :is(input,textarea,select) {
+  color: #f3f3ef !important;
+  -webkit-text-fill-color: #f3f3ef !important;
+  background: #090909 !important;
+  background-color: #090909 !important;
+  border-color: rgba(255,255,255,.12) !important;
+  color-scheme: dark;
+}
+html[data-theme="light"] body #root .onboarding :is(input,textarea)::placeholder {
+  color: #777 !important;
+  -webkit-text-fill-color: #777 !important;
+}
+html[data-theme="light"] body #root .onboarding .onboard-footer,
+html[data-theme="light"] body #root .onboarding .onboard-content,
+html[data-theme="light"] body #root .onboarding .onboard-stage,
+html[data-theme="light"] body #root .onboarding .onboard-step {
+  background: transparent !important;
+  background-color: transparent !important;
+}
