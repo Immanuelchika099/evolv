@@ -1008,7 +1008,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
   }
 
   return (
-    <div className={`page-enter auth-page${directSignup ? ' auth-direct-page' : ''}`}>
+    <div className={`page-enter auth-page auth-page--soft${directSignup ? ' auth-direct-page' : ''}`}>
       <main className="auth-shell">
         <div className="auth-welcome-mark" aria-hidden="true">
           <img src="/evolv-mark.svg" alt="" />
