@@ -15,6 +15,7 @@ import PatternWaves from './components/PatternWaves/PatternWaves'
 import CrystalizedBall from './components/CrystalizedBall'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
 import './components/styles/WelcomeOnboarding.css'
+import './components/styles/OnboardingRefresh.css'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
 import { applyThemePreference, getThemePreference } from './lib/theme'
@@ -1007,7 +1008,7 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
   }
 
   return (
-    <div className={`page-enter auth-page${directSignup ? ' auth-direct-page' : ''}`}>
+    <div className={`page-enter auth-page auth-page--soft${directSignup ? ' auth-direct-page' : ''}`}>
       <main className="auth-shell">
         <div className="auth-welcome-mark" aria-hidden="true">
           <img src="/evolv-mark.svg" alt="" />
@@ -1696,47 +1697,37 @@ function getAvatarPreset(style = 'androgynous') {
 
 function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
   return (
-    <div className="evolv-welcome page-enter">
-      <div className="evolv-welcome-background" aria-hidden="true">
-        <div className="evolv-welcome-vignette" />
-      </div>
+    <div className="evolv-welcome evolv-welcome--soft page-enter">
       <header className="evolv-welcome-header">
         <button className="evolv-welcome-wordmark" type="button" onClick={onExplore} aria-label="Explore EVOLV website">
           <img src="/evolv-mark.svg" alt="EVOLV" />
+          <span>EVOLV</span>
         </button>
+        <button className="evolv-welcome-signin" type="button" onClick={onSignIn}>Sign in</button>
       </header>
-      <main className="evolv-welcome-content evolv-welcome-content--cinematic">
-        <div className="evolv-welcome-visual" aria-label="A glowing orange crystal of energy">
-          <div className="evolv-welcome-visual-grain" aria-hidden="true" />
-          <CrystalizedBall
-            preset="plasma"
-            color="#E85A27"
-            size={0.7}
-            crackle={0.55}
-            fill={0.5}
-            interactive
-            hoverStrength={0.55}
-            strands={6}
-            flares={0.55}
-            glow={0.72}
-            sparks={0.38}
-            particleCount={5000}
-            motion="rise"
-            particleShape="square"
-            depth={0.6}
-            sway={0.45}
-            twinkle={0.5}
-            haze={0.58}
-            dustSpeed={0.8}
-            speed={0.72}
-            intro
-            paused={false}
-          />
+      <main className="evolv-welcome-content evolv-welcome-content--soft">
+        <div className="evolv-soft-objects" aria-hidden="true">
+          <span className="evolv-soft-object object-sprout">🌱</span>
+          <span className="evolv-soft-object object-orange">🍊</span>
+          <span className="evolv-soft-object object-target">🎯</span>
+          <span className="evolv-soft-object object-book">📖</span>
+          <span className="evolv-soft-object object-sun">☀️</span>
+          <span className="evolv-soft-object object-clock">⏳</span>
+          <span className="evolv-soft-object object-star">✦</span>
+        </div>
+        <div className="evolv-welcome-soft-art" aria-hidden="true">
+          <div className="evolv-welcome-soft-orbit orbit-one" />
+          <div className="evolv-welcome-soft-orbit orbit-two" />
+          <div className="evolv-welcome-soft-center"><img src="/evolv-mark.svg" alt="" /></div>
+          <span className="evolv-welcome-soft-chip chip-one">ONE DAY</span>
+          <span className="evolv-welcome-soft-chip chip-two">AT A TIME</span>
         </div>
         <section className="evolv-welcome-message">
-          <h1>Become who<br />you’re <em>capable of.</em></h1>
-          <p>Build better habits, understand yourself, and make progress at your own pace.</p>
-          <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started</button>
+          <span className="evolv-soft-kicker">A CALMER WAY TO GROW</span>
+          <h1>Make room for<br /><em>your next step.</em></h1>
+          <p>Build better routines, stay close to what matters, and make progress one day at a time.</p>
+          <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Let’s get started <ArrowRight size={17} /></button>
+          <span className="evolv-welcome-soft-note">A little progress goes a long way.</span>
         </section>
       </main>
     </div>
@@ -1745,14 +1736,14 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
 
 function Onboarding({ step, setStep, data, setData, onFinish }) {
   const stages = [
-    { eyebrow: '', title: <>What should we<br /><em>call you?</em></>, type: 'name' },
-    { eyebrow: '', title: <>Small steps.<br /><em>Real progress.</em></>, copy: 'EVOLV helps you notice your patterns, build steadier routines, and make thoughtful changes without pressure.', type: 'approach' },
-    { eyebrow: '', title: <>What matters to<br /><em>you right now?</em></>, type: 'goals' },
-    { eyebrow: 'READY WHEN YOU ARE', title: <>You’re all set{data.name ? `, ${getFirstName(data.name)}` : ''}.<br /><em>Let’s begin.</em></>, copy: 'Your journey to becoming your next self starts here.', type: 'ready' },
+    { type: 'name', title: <>First, what should<br />we call you?</>, copy: 'Let’s make this feel a little more personal.' },
+    { type: 'approach', title: <>Small steps.<br /><em>Real progress.</em></>, copy: 'EVOLV helps you make space for the things that matter, without adding more noise to your day.' },
+    { type: 'goals', title: <>What would you like<br />to focus on?</>, copy: 'Choose the areas you’d like to give a little more attention.' },
+    { type: 'ready', title: <>You’re ready to<br /><em>begin, {getFirstName(data.name) || 'one day at a time'}.</em></>, copy: 'Your goals don’t need to happen all at once. We’ll take them one step at a time.' },
   ]
   const current = stages[step] || stages[0]
   const canContinue = current.type !== 'name' || data.name.trim().length > 0
-  const avatarStyle = data.avatarStyle || 'androgynous'
+  const progress = ((step + 1) / stages.length) * 100
 
   function next() {
     if (!canContinue) return
@@ -1764,101 +1755,130 @@ function Onboarding({ step, setStep, data, setData, onFinish }) {
     if (step > 0) setStep(step - 1)
   }
 
+  const focusObjects = [
+    { emoji: '🌙', label: 'Health & energy', id: 'health', detail: 'Feel better in your everyday life' },
+    { emoji: '🧠', label: 'Mind & wellbeing', id: 'mind', detail: 'Make room for focus and reflection' },
+    { emoji: '🎯', label: 'Goals & career', id: 'career', detail: 'Move meaningful work forward' },
+    { emoji: '💰', label: 'Money & planning', id: 'money', detail: 'Be more intentional with money' },
+    { emoji: '🌱', label: 'Habits & personal growth', id: 'life', detail: 'Build routines that feel like you' },
+  ]
+
   return (
-    <div className="evolv-onboarding page-enter">
-      <div className="evolv-onboarding-background" aria-hidden="true">
-        <PatternWaves
-          preset="silk"
-          pattern="line"
-          wave="silk"
-          color="var(--color-accent-blue)"
-          backgroundColor="#050505"
-          opacity={0.12}
-          fade="center"
-          fadeSize={0.82}
-          speed={0.12}
-          depth={0.52}
-          shine={0.18}
-          interactive={false}
-          intro
-          className="evolv-onboarding-pattern"
-        />
-        <div className="evolv-welcome-vignette" />
-      </div>
+    <div className="evolv-onboarding evolv-onboarding--soft page-enter">
       <header className="evolv-onboarding-header">
         <img src="/evolv-mark.svg" alt="EVOLV" />
-        <div className="evolv-onboarding-step">{step + 1}<span> / {stages.length}</span></div>
+        <span className="evolv-onboarding-step">{String(step + 1).padStart(2, '0')} <span> / {String(stages.length).padStart(2, '0')}</span></span>
       </header>
-      <div className="evolv-onboarding-progress" role="progressbar" aria-label="Onboarding progress" aria-valuemin={1} aria-valuemax={stages.length} aria-valuenow={step + 1}>{stages.map((stage, index) => <i key={stage.type} className={index <= step ? 'is-complete' : ''} />)}</div>
+      <div className="evolv-onboarding-progress-shell">
+        <div className="evolv-onboarding-progress" role="progressbar" aria-label="Onboarding progress" aria-valuemin={1} aria-valuemax={stages.length} aria-valuenow={step + 1}>
+          <i style={{ width: progress + '%' }} />
+        </div>
+      </div>
       <main className="evolv-onboarding-main" key={current.type}>
-        <button className="evolv-onboarding-back" type="button" onClick={back} disabled={step === 0} aria-label="Go back"><ChevronLeft size={17} /><span>Back</span></button>
+        <div className="evolv-onboarding-topline">
+          <button className="evolv-onboarding-back" type="button" onClick={back} disabled={step === 0} aria-label="Go back"><ChevronLeft size={17} /><span>Back</span></button>
+          <span className="evolv-onboarding-caption">ONE DAY AT A TIME</span>
+        </div>
         <section className={`evolv-onboarding-stage evolv-onboarding-${current.type}`}>
-          {current.eyebrow && <span className="evolv-onboarding-eyebrow">{current.eyebrow}</span>}
-          <h1>{current.title}</h1>
-          {current.copy && <p className="evolv-onboarding-copy">{current.copy}</p>}
+          {current.type === 'name' && (
+            <div className="evolv-onboarding-illustration name-illustration" aria-hidden="true">
+              <span className="illustration-object illustration-orange">🍊</span>
+              <span className="illustration-object illustration-sprout">🌱</span>
+              <span className="illustration-object illustration-star">✦</span>
+              <span className="illustration-object illustration-calendar">🗓️</span>
+              <span className="illustration-object illustration-heart">🧡</span>
+              <div className="illustration-center"><span>👋</span></div>
+            </div>
+          )}
+          {current.type === 'approach' && (
+            <div className="evolv-onboarding-illustration approach-illustration" aria-hidden="true">
+              <span className="illustration-object illustration-orange">🍊</span>
+              <span className="illustration-object illustration-sprout">🌿</span>
+              <span className="illustration-object illustration-star">✨</span>
+              <span className="illustration-object illustration-calendar">📅</span>
+              <div className="illustration-center"><span>🌱</span></div>
+            </div>
+          )}
+          {current.type === 'goals' && (
+            <div className="evolv-onboarding-illustration goals-illustration" aria-hidden="true">
+              <span className="illustration-object illustration-orange">🎯</span>
+              <span className="illustration-object illustration-sprout">🌱</span>
+              <span className="illustration-object illustration-star">⭐</span>
+              <span className="illustration-object illustration-calendar">📖</span>
+              <div className="illustration-center"><span>🧭</span></div>
+            </div>
+          )}
+          {current.type === 'ready' && (
+            <div className="evolv-onboarding-illustration ready-illustration" aria-hidden="true">
+              <span className="illustration-object illustration-orange">🍊</span>
+              <span className="illustration-object illustration-sprout">🌱</span>
+              <span className="illustration-object illustration-star">✨</span>
+              <span className="illustration-object illustration-calendar">☀️</span>
+              <div className="illustration-center"><span>🎉</span></div>
+            </div>
+          )}
+          <div className="evolv-onboarding-heading">
+            <h1>{current.title}</h1>
+            {current.copy && <p className="evolv-onboarding-copy">{current.copy}</p>}
+          </div>
           {current.type === 'name' && (
             <label className="evolv-onboarding-name">
-              <span>Your preferred name</span>
+              <span>Your first name</span>
               <input autoFocus value={data.name} onChange={event => setData({ ...data, name: event.target.value })} onKeyDown={event => { if (event.key === 'Enter' && canContinue) next() }} placeholder="e.g. Iman" autoComplete="given-name" maxLength={40} />
             </label>
           )}
           {current.type === 'approach' && (
             <div className="evolv-onboarding-approach">
-              <div className="evolv-onboarding-approach-orbit" aria-hidden="true">
-                <span className="evolv-onboarding-orbit-ring evolv-onboarding-orbit-ring-one" />
-                <span className="evolv-onboarding-orbit-ring evolv-onboarding-orbit-ring-two" />
-                <span className="evolv-onboarding-orbit-core"><Sparkles size={29} strokeWidth={1.5} /></span>
-                <span className="evolv-onboarding-orbit-dot" />
-              </div>
-              <div className="evolv-onboarding-approach-list">
-                <div className="evolv-onboarding-approach-item">
-                  <span className="evolv-onboarding-approach-icon"><HeartPulse size={20} /></span>
-                  <span><strong>Understand your patterns</strong><small>Check in with your energy, mood, and everyday life.</small></span>
-                </div>
-                <div className="evolv-onboarding-approach-item">
-                  <span className="evolv-onboarding-approach-icon"><TrendingUp size={20} /></span>
-                  <span><strong>Build consistency</strong><small>Turn small, realistic actions into routines that last.</small></span>
-                </div>
-                <div className="evolv-onboarding-approach-item">
-                  <span className="evolv-onboarding-approach-icon"><Sparkles size={20} /></span>
-                  <span><strong>Adjust as you grow</strong><small>Use what you learn to decide what comes next.</small></span>
-                </div>
-              </div>
+              <article className="evolv-onboarding-approach-item">
+                <span className="evolv-onboarding-approach-icon">🧭</span>
+                <span><strong>Find your direction</strong><small>Give the things that matter a clear place in your day.</small></span>
+              </article>
+              <article className="evolv-onboarding-approach-item">
+                <span className="evolv-onboarding-approach-icon">🌱</span>
+                <span><strong>Build gentle consistency</strong><small>Turn small, realistic actions into routines that last.</small></span>
+              </article>
+              <article className="evolv-onboarding-approach-item">
+                <span className="evolv-onboarding-approach-icon">☀️</span>
+                <span><strong>Notice your progress</strong><small>See what’s working and adjust as life changes.</small></span>
+              </article>
             </div>
           )}
           {current.type === 'goals' && (
-            <div className="evolv-onboarding-goals">
-              {onboardingGoals.map(goal => {
-                const selected = (data.areas || []).includes(goal.id)
-                return (
-                  <button type="button" key={goal.id} className={`evolv-onboarding-goal${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => setData({ ...data, areas: selected ? data.areas.filter(id => id !== goal.id) : [...(data.areas || []), goal.id] })}>
-                    <span className="evolv-onboarding-goal-symbol">{goal.symbol ? <span className="evolv-onboarding-goal-dollar" aria-hidden="true">{goal.symbol}</span> : <goal.icon size={23} strokeWidth={1.8} aria-hidden="true" />}</span>
-                    <span className="evolv-onboarding-goal-text"><strong>{goal.title}</strong></span>
-                    <span className="evolv-onboarding-goal-check">{selected ? <Check size={15} /> : <Plus size={15} />}</span>
-                  </button>
-                )
-              })}
-            </div>
+            <>
+              <div className="evolv-onboarding-goals">
+                {focusObjects.map(goal => {
+                  const selected = (data.areas || []).includes(goal.id)
+                  return (
+                    <button type="button" key={goal.id} className={`evolv-onboarding-goal${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => setData({ ...data, areas: selected ? data.areas.filter(id => id !== goal.id) : [...(data.areas || []), goal.id] })}>
+                      <span className="evolv-onboarding-goal-symbol" aria-hidden="true">{goal.emoji}</span>
+                      <span className="evolv-onboarding-goal-text"><strong>{goal.label}</strong><small>{goal.detail}</small></span>
+                      <span className="evolv-onboarding-goal-check">{selected ? <Check size={15} /> : <Plus size={15} />}</span>
+                    </button>
+                  )
+                })}
+              </div>
+              <p className="evolv-onboarding-hint">Choose as many as you like. You can always change these later.</p>
+            </>
           )}
           {current.type === 'ready' && (
             <div className="evolv-onboarding-ready">
-              <div className="evolv-onboarding-ready-mark" aria-hidden="true"><span><Check size={30} strokeWidth={1.8} /></span></div>
+              <div className="evolv-onboarding-ready-mark" aria-hidden="true">🌼</div>
               <strong>{getFirstName(data.name) || 'Your next self'}</strong>
-              <span>{(data.areas || []).length ? `${data.areas.length} ${(data.areas || []).length === 1 ? 'focus area' : 'focus areas'} selected` : 'Your journey, your pace'}</span>
+              <span>{(data.areas || []).length ? `${data.areas.length} focus ${data.areas.length === 1 ? 'area' : 'areas'} picked` : 'Your journey, your pace'}</span>
+              <p>There’s no perfect pace. Just your next step.</p>
             </div>
           )}
         </section>
         <footer className="evolv-onboarding-footer">
-          {current.type === 'goals' && <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Skip for now</button>}
+          {current.type === 'goals' && <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Maybe later</button>}
           <button className="evolv-onboarding-continue" type="button" disabled={!canContinue} onClick={next}>
-            {current.type === 'ready' ? 'Enter EVOLV' : current.type === 'name' ? 'Continue' : current.type === 'approach' ? 'Continue' : 'Choose goals'} <ArrowRight size={17} />
+            {current.type === 'ready' ? 'Create my space' : current.type === 'goals' ? 'Continue' : 'Continue'} <ArrowRight size={17} />
           </button>
         </footer>
       </main>
     </div>
   )
 }
-
 function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
   const [active,setActive]=useState('overview')
   const [returningAfterBreak,setReturningAfterBreak]=useState(false)
