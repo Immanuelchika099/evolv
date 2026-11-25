@@ -1218,37 +1218,65 @@ html body #root .ev-ob .ev-acct > .ev-email-choice {
 .ev-welcome-carousel { scroll-behavior: auto; }
 
 
-/* Required first-name field in the onboarding profile step. */
-.ev-name-field {
+/* Step 1 — first-name field: align with the onboarding card system. */
+html body #root .ev-ob .ev-name-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  align-items: stretch;
+  gap: 9px;
   width: 100%;
-  margin: 0 0 16px;
+  margin: 2px 0 8px;
+  padding: 0;
 }
-.ev-name-field > span {
-  color: #777580;
-  font-size: 12px;
-  font-weight: 550;
+html body #root .ev-ob .ev-name-field > span {
+  display: block;
+  padding-left: 2px;
+  color: #55535e;
+  font-size: 13px;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -.01em;
 }
-.ev-name-field input {
-  box-sizing: border-box;
+html body #root .ev-ob .ev-name-field input {
+  display: block;
   width: 100%;
-  min-height: 52px;
-  padding: 0 16px;
-  border: 1px solid #e2e0e8;
-  border-radius: 16px;
+  height: 54px;
+  min-height: 54px;
+  padding: 0 17px;
+  border: 1px solid #e5e3eb;
+  border-radius: 17px;
   outline: none;
   background: #fbfafd;
-  color: #17171a;
-  font-size: 15px;
+  color: #17161b;
+  font-family: var(--ev-font);
+  font-size: 16px;
+  font-weight: 450;
+  line-height: normal;
+  letter-spacing: -.015em;
+  box-shadow: 0 1px 2px rgba(25, 20, 40, .025);
+  transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+  -webkit-appearance: none;
+  appearance: none;
 }
-.ev-name-field input:focus {
-  border-color: #aaa6b2;
+html body #root .ev-ob .ev-name-field input::placeholder {
+  color: #aaa8b2;
+  opacity: 1;
 }
-.ev-name-error {
-  margin: -7px 0 12px;
+html body #root .ev-ob .ev-name-field input:focus {
+  border-color: #a9a5b2;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(40, 35, 55, .055);
 }
-.ev-name-account-field {
-  margin: 0 0 14px;
+html body #root .ev-ob .ev-name-field input:focus-visible {
+  outline: none;
+}
+html body #root .ev-ob .ev-name-error {
+  align-self: stretch;
+  margin: -3px 2px 3px;
+  color: #bd514b;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1.35;
+  letter-spacing: -.005em;
 }
