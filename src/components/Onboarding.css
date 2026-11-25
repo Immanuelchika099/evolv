@@ -461,3 +461,13 @@ html:has(.ev-ob) #root {
 .ev-welcome .ev-btn {
   font-size: 18px;
 }
+
+/* Keep later-step navigation labels understated; only the welcome CTA is enlarged. */
+.ev-foot:has(.ev-ghost) .ev-btn {
+  font-size: 16px;
+  font-weight: 500;
+}
+.ev-foot:has(.ev-ghost) .ev-ghost {
+  font-size: 15px;
+  font-weight: 500;
+}
