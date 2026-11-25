@@ -224,6 +224,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
         <button type="button" className="ev-btn ev-provider ev-email-choice" onClick={() => { setEmailAuth(true); setErr(""); setAuthMessage(""); }} disabled={busy}>
           <Mail /> <span>Continue with email</span>
         </button>
+        <p className="ev-fine">By continuing you agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
       </> : <>
         <div className="ev-account-heading"><h1 className="ev-h">{accountMode === "login" ? "Sign in with email." : "Your email, your Evolv."}</h1><p className="ev-sub">{accountMode === "login" ? "Enter your details to continue." : "Create your account and take it one day at a time."}</p></div>
         <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
@@ -231,7 +232,6 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
         {err && <p className="ev-err" role="alert">{err}</p>}
         {authMessage && <p className="ev-auth-message" role="status">{authMessage}</p>}
         <button type="button" className="ev-btn accent" onClick={() => auth("email")} disabled={busy}>{busy ? (accountMode === "login" ? "Signing in…" : "Creating account…") : (accountMode === "login" ? "Sign in" : "Create account")}</button>
-        <p className="ev-fine">By continuing you agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
       </>}
     </div>
     <footer className="ev-foot ev-login">{accountMode === "login" ? "New to Evolv?" : "Already have an account?"} <button type="button" onClick={() => { setAccountMode(accountMode === "login" ? "signup" : "login"); setErr(""); setAuthMessage(""); setPassword(""); }}>{accountMode === "login" ? "Create account" : "Log in"}</button></footer>
