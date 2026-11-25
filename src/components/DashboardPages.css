@@ -12312,3 +12312,47 @@ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
   box-shadow: none !important;
   filter: none !important;
 }
+
+
+/* Home light theme — stronger black-ash cards and pure-black weekday labels. */
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-intro,
+  .evolv-home-day-card,
+  .calm-return-welcome,
+  .calm-checkin,
+  .calm-reflection-entry,
+  .calm-week-card,
+  .calm-home-focus,
+  .calm-goal-snapshot,
+  .calm-home-activity,
+  .calm-insights-section,
+  .calm-insight-card
+) {
+  background: #cecdc9 !important;
+  background-color: #cecdc9 !important;
+  border-color: #b9b8b3 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-day-row,
+  .evolv-home-day-empty,
+  .calm-mood-option,
+  .calm-week-day-button,
+  .calm-goal-view-all,
+  .calm-activity-item,
+  .calm-activity-empty
+) {
+  background: #c2c1bd !important;
+  background-color: #c2c1bd !important;
+  border-color: #b1b0ab !important;
+  color: #171614 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-days .calm-week-day,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-days .calm-week-day.is-selected {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-days .calm-week-day i {
+  box-shadow: none !important;
+}
