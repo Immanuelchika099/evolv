@@ -108,7 +108,7 @@ function Building({ onDone }) {
 export default function Onboarding({ initialScreen = "account", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
   const saved = readDraft();
   const ORDER = ["welcome", "account", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : [])];
-  const [screen, setScreen] = useState(saved?.screen && ORDER.includes(saved.screen) ? saved.screen : initialScreen);
+  const [screen, setScreen] = useState(saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen);
   const [phase, setPhase] = useState("in");
   const [dir, setDir] = useState(1);
   const [err, setErr] = useState("");
@@ -118,7 +118,8 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const set = (k, v) => setD((p) => ({ ...p, [k]: v }));
 
   useEffect(() => {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen, data: d }));
+    // Building is a transient animation, never a resumable onboarding step.
+    if (screen !== "building") localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen, data: d }));
   }, [screen, d]);
 
   const go = (to, dr = 1) => {
@@ -130,7 +131,14 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const next = () => (i < ORDER.length - 1 ? go(ORDER[i + 1]) : finish());
   const prev = () => go(ORDER[i - 1], -1);
   const back = i > 0 ? prev : null;
-  const finish = (plan, skipped = false) => onComplete?.({ ...d, plan: plan === undefined ? null : plan, skipped });
+  const finish = async (plan, skipped = false) => {
+    try {
+      await onComplete?.({ ...d, plan: plan === undefined ? null : plan, skipped });
+    } catch (error) {
+      setErr(error?.message || "We couldn’t finish setting up your account. Please try again.");
+      go("account", -1);
+    }
+  };
   const skipAll = () => finish(null, true);
 
   const auth = async (provider) => {
