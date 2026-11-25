@@ -59,7 +59,7 @@
 }
 .prompt-bar__row-icon { display:inline-flex; flex:none; justify-content:center; width:20px; color:color-mix(in srgb,var(--pb-ink) 70%,transparent); }
 .prompt-bar__row-name { flex:none; font-size:13px; font-weight:var(--font-weight-medium); }
-.prompt-bar__row-desc { flex:1 1 auto; min-width:0; overflow:hidden; color:var(--pb-muted); font-size:12px; var(--t1)-space:nowrap; text-overflow:ellipsis; }
+.prompt-bar__row-desc { flex:1 1 auto; min-width:0; overflow:hidden; color:var(--pb-muted); font-size:12px; white-space:nowrap; text-overflow:ellipsis; }
 .prompt-bar__row-tag { flex:none; margin-left:auto; color:var(--pb-muted); font-size:11px; }
 .prompt-bar__row-check { display:inline-flex; flex:none; justify-content:center; width:16px; opacity:0; }
 .prompt-bar__row-check[data-on] { opacity:1; }
@@ -81,7 +81,7 @@
 .prompt-bar__chip-preview { display:inline-flex; flex:none; align-items:center; justify-content:center; width:30px; height:30px; overflow:hidden; border-radius:6px; background:color-mix(in srgb, var(--surface-1) 6%, transparent); }
 .prompt-bar__chip-preview img { display:block; width:100%; height:100%; object-fit:cover; }
 .prompt-bar__chip { display:inline-flex; align-items:center; gap:6px; min-height:30px; padding:0 4px 0 8px; border-radius:8px; background:var(--pb-hover); font-size:12px; animation:prompt-bar-pop 200ms var(--pb-ease-out) both; }
-.prompt-bar__chip-name { max-width:144px; overflow:hidden; var(--t1)-space:nowrap; text-overflow:ellipsis; }
+.prompt-bar__chip-name { max-width:144px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis; }
 .prompt-bar__chip-x { display:inline-grid; place-items:center; width:18px; height:18px; padding:0; border:0; border-radius:5px; background:transparent; color:inherit; opacity:.6; cursor:pointer; outline:none; transition:opacity 120ms ease,background-color 120ms ease; }
 .prompt-bar__chip-x:hover { background:color-mix(in srgb,var(--pb-ink) 10%,transparent); opacity:1; }
 
