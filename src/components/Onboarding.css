@@ -662,7 +662,7 @@ html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-top .ev-signin {
 .ev-account-nav .ev-back { width:44px; height:44px; flex:0 0 44px; border:1px solid #e5e3ea; border-radius:50%; background:#fff; color:#17171a; display:grid; place-items:center; }
 .ev-account-nav .ev-back svg { width:20px; height:20px; stroke:currentColor; }
 .ev-account-mark { width:42px; height:42px; display:grid; place-items:center; border:1px solid #e5e3ea; border-radius:50%; background:#fff; }
-.ev-account-mark img { display:block; width:22px; height:22px; object-fit:contain; }
+.ev-account-mark img { display:block; width:22px; height:22px; object-fit:contain; filter: brightness(0) saturate(100%); }
 .ev-acct { justify-content:flex-start; gap:0; padding:0 2px; overflow-y:auto; }
 .ev-account-heading { margin:0 0 28px; }
 .ev-account-eyebrow { margin:0 0 12px; color:#85828e; font-size:11px; font-weight:650; letter-spacing:.12em; }
