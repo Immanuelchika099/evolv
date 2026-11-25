@@ -887,7 +887,7 @@ function App() {
       {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} onLegal={openLegal} initialEmail={pendingSignupEmail} />}
       {view === 'onboarding' && (
         <Onboarding
-          initialScreen="account"
+          initialScreen="welcome"
           showPaywall={false}
           logo="evolv"
           onAuth={handleNewOnboardingAuth}
