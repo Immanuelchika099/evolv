@@ -190,7 +190,8 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
 
   if (screen === "account") view = <>
     <header className="ev-top ev-account-nav">
-      <button type="button" className="ev-account-back" onClick={back}><Chev /> <span>Back</span></button>
+      <button type="button" className="ev-back" onClick={back} aria-label="Go back to onboarding"><Chev /></button>
+      <div className="ev-prog ev-account-progress" aria-label="Onboarding complete"><i className="on" /><i className="on" /><i className="on" /><i className="on" /><i className="on" /><i className="on" /></div>
     </header>
     <div className="ev-account-hero"><img className="ev-logo-mark" src="/evolv-logo.svg" alt="EVOLV" /><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
     <div className="ev-body ev-acct">
