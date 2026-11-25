@@ -232,7 +232,6 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
     </div>
     <div className="ev-welcome-copy">
       <h1 className="ev-h">One day at a time.</h1>
-      <div className="ev-carousel-dots" aria-hidden="true">{[0, 1, 2].map((n) => <i key={n} className={welcomeSlide === n ? "on" : ""} />)}</div>
     </div>
     <footer className="ev-foot">
       <button type="button" className="ev-btn dark" onClick={next}>Get started</button>
