@@ -713,9 +713,12 @@ function App() {
       throw new Error('That sign-in option is not available yet.')
     }
 
+    const suppliedName = getFirstName(preferences?.name || '')
+    if (!suppliedName) throw new Error('Please enter your first name before creating your EVOLV account.')
+
     const profileData = {
       ...initialData,
-      name: getFirstName(cleanEmail.split('@')[0] || 'there'),
+      name: suppliedName,
       areas: [],
       focus: `${preferences.role || 'Personal'} · ${preferences.budget || 0} focus hours per week`,
       goal: `Build a daily focus routine of ${preferences.goal || 0} minutes`,
@@ -771,14 +774,8 @@ function App() {
 
     const user = authData?.user
     const email = String(preferences.email || pendingSignupEmail || user?.email || '').trim().toLowerCase()
-    const name = getFirstName(
-      user?.user_metadata?.given_name ||
-      user?.user_metadata?.first_name ||
-      user?.user_metadata?.full_name ||
-      user?.user_metadata?.name ||
-      email.split('@')[0] ||
-      'there'
-    )
+    const name = getFirstName(preferences?.name || '')
+    if (!name) throw new Error('Please enter your first name to finish setting up EVOLV.')
     const profileData = {
       ...initialData,
       name,
@@ -924,7 +921,7 @@ function App() {
       throw new Error(error.message || 'EVOLV could not sign you out. Please try again.')
     }
 
-    localStorage.removeItem('evolv-view')
+    localStorage.setItem('evolv-view', 'auth')
     localStorage.removeItem('evolv-onboarding')
     localStorage.removeItem('evolv-onboarding-v3-draft')
     localStorage.removeItem('evolv-onboarding-ready-for-auth')
@@ -933,8 +930,8 @@ function App() {
     sessionStorage.removeItem('evolv-auth-error')
     setAuthMode('login')
     setData(initialData)
-    window.history.replaceState({}, '', '/')
-    setView('landing')
+    window.history.replaceState({}, '', '/signup')
+    setView('auth')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
