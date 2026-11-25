@@ -108,7 +108,7 @@ function Building({ onDone }) {
 export default function Onboarding({ initialScreen = "account", initialAuthMode = "signup", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
   const saved = readDraft();
   const ORDER = ["welcome", "about", "target", "time", "stay", "building", "account", ...(showPaywall ? ["paywall"] : [])];
-  const [screen, setScreen] = useState(saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen);
+  const [screen, setScreen] = useState(initialAuthMode === "login" ? "account" : (saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen));
   const [phase, setPhase] = useState("in");
   const [dir, setDir] = useState(1);
   const [err, setErr] = useState("");
