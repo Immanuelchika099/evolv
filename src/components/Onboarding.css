@@ -719,3 +719,31 @@ html body #root .ev-ob .ev-grid2 .ev-stepper button {
   line-height: 1 !important;
   align-self: center !important;
 }
+
+
+/* Account fields: no harsh focus outline or tinted browser autofill fill. */
+.ev-acct .ev-field:focus-within {
+  border-color: #c9c6d0;
+  background: rgba(255,255,255,.78);
+  box-shadow: none !important;
+}
+.ev-acct .ev-field input,
+.ev-acct .ev-field input:focus,
+.ev-acct .ev-field input:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+.ev-acct .ev-field input:-webkit-autofill,
+.ev-acct .ev-field input:-webkit-autofill:hover,
+.ev-acct .ev-field input:-webkit-autofill:focus,
+.ev-acct .ev-field input:-webkit-autofill:active {
+  -webkit-text-fill-color: #17171a !important;
+  caret-color: #17171a;
+  -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+  box-shadow: 0 0 0 1000px transparent inset !important;
+  background-color: transparent !important;
+  transition: background-color 99999s ease-out 0s;
+}
+.ev-acct .ev-field input::selection {
+  background: rgba(23,23,26,.12);
+}
