@@ -440,3 +440,21 @@ html:has(.ev-ob) #root {
   .ev-foot:has(.ev-ghost) .ev-btn { height: 52px; font-size: 17px; }
   .ev-foot:has(.ev-ghost) .ev-ghost { font-size: 16px; }
 }
+
+
+/* Welcome header branding and sign-in clarity. */
+.ev-welcome-logo {
+  display: block;
+  width: 82px;
+  height: 58px;
+  object-fit: contain;
+  object-position: left center;
+  filter: brightness(0) saturate(100%);
+}
+.ev-signin {
+  min-height: 44px;
+  height: 44px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
