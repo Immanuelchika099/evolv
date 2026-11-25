@@ -380,3 +380,63 @@ html:has(.ev-ob) #root {
   .ev-foot:has(.ev-ghost) .ev-btn { height: 52px; font-size: 15px; }
   .ev-foot:has(.ev-ghost) .ev-ghost { font-size: 14px; }
 }
+
+
+/* Give onboarding navigation clearer type and keep it anchored to the screen edges. */
+.ev-stage {
+  padding-top: max(2px, env(safe-area-inset-top));
+  padding-bottom: max(2px, env(safe-area-inset-bottom));
+}
+.ev-top {
+  margin-bottom: 5px;
+}
+.ev-foot:has(.ev-ghost) {
+  padding-top: 5px;
+}
+.ev-foot:has(.ev-ghost) .ev-btn {
+  font-size: 18px;
+  font-weight: 600;
+}
+.ev-foot:has(.ev-ghost) .ev-ghost {
+  min-height: 44px;
+  height: 44px;
+  padding: 0 8px;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -.01em;
+}
+
+/* Step 2 gets a little more breathing room between its cards and fixed controls. */
+.ev-stage:has(.ev-pace) .ev-body {
+  gap: 7px;
+  scroll-padding-block: 8px;
+}
+.ev-stage:has(.ev-pace) .ev-body > .ev-sub {
+  margin-bottom: 3px;
+}
+.ev-stage:has(.ev-pace) .ev-focus {
+  padding: 10px 14px;
+}
+.ev-stage:has(.ev-pace) .ev-focus .ev-big {
+  margin-top: 1px;
+  font-size: 49px;
+}
+.ev-stage:has(.ev-pace) .ev-focus .ev-ruler {
+  height: 27px;
+  margin-top: 4px;
+}
+.ev-stage:has(.ev-pace) .ev-pace {
+  padding: 10px 14px;
+}
+@media (max-height: 760px) {
+  .ev-stage { padding-top: max(2px, env(safe-area-inset-top)); padding-bottom: max(2px, env(safe-area-inset-bottom)); }
+  .ev-top { margin-bottom: 3px; }
+  .ev-foot:has(.ev-ghost) { padding-top: 3px; }
+  .ev-stage:has(.ev-pace) .ev-body { gap: 6px; }
+  .ev-stage:has(.ev-pace) .ev-pace { padding: 8px 13px; }
+  .ev-stage:has(.ev-pace) .ev-focus { padding: 8px 13px; }
+}
+@media (max-width: 360px) {
+  .ev-foot:has(.ev-ghost) .ev-btn { height: 52px; font-size: 17px; }
+  .ev-foot:has(.ev-ghost) .ev-ghost { font-size: 16px; }
+}
