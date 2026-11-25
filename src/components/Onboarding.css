@@ -655,3 +655,41 @@ html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-top .ev-signin {
 .ev-grid2 .ev-card .ev-row em {
   font-size: 13px;
 }
+
+
+/* Account creation — calm, editorial hierarchy with a simple two-item header. */
+.ev-account-nav { display:flex; align-items:center; justify-content:space-between; min-height:48px; margin:0 0 clamp(24px,4vh,38px); }
+.ev-account-nav .ev-back { width:44px; height:44px; flex:0 0 44px; border:1px solid #e5e3ea; border-radius:50%; background:#fff; color:#17171a; display:grid; place-items:center; }
+.ev-account-nav .ev-back svg { width:20px; height:20px; stroke:currentColor; }
+.ev-account-mark { width:42px; height:42px; display:grid; place-items:center; border:1px solid #e5e3ea; border-radius:50%; background:#fff; }
+.ev-account-mark img { display:block; width:22px; height:22px; object-fit:contain; }
+.ev-acct { justify-content:flex-start; gap:0; padding:0 2px; overflow-y:auto; }
+.ev-account-heading { margin:0 0 28px; }
+.ev-account-eyebrow { margin:0 0 12px; color:#85828e; font-size:11px; font-weight:650; letter-spacing:.12em; }
+.ev-acct .ev-h { margin:0 0 12px; color:#17171a; font-size:clamp(36px,5.2vh,44px); line-height:1.04; font-weight:650; letter-spacing:-.055em; white-space:normal; }
+.ev-acct .ev-sub { max-width:340px; margin:0; color:#777580; font-size:16px; line-height:1.5; }
+.ev-acct > .ev-btn.dark { min-height:58px; height:58px; border-radius:17px; font-size:16px; font-weight:600; }
+.ev-acct .ev-or { margin:22px 0; color:#92909a; font-size:12px; letter-spacing:.1em; }
+.ev-acct .ev-field { min-height:58px; height:58px; flex:none; gap:13px; padding:0 17px; border:1px solid #dedce4; border-radius:16px; background:rgba(255,255,255,.78); }
+.ev-acct .ev-field:focus-within { border-color:#aaa6b2; background:#fff; box-shadow:0 0 0 3px rgba(30,27,38,.045); }
+.ev-acct .ev-field > svg { width:19px; height:19px; color:#898691; flex:none; }
+.ev-acct .ev-field input { min-width:0; height:100%; font-size:16px; line-height:1.2; color:#17171a; }
+.ev-acct .ev-field input::placeholder { color:#a09da8; opacity:1; }
+.ev-acct .ev-field + .ev-field { margin-top:12px; }
+.ev-acct > .ev-btn.accent { min-height:58px; height:58px; margin-top:18px; border:0; border-radius:17px; background:#17171a !important; color:#fff !important; font-size:16px; font-weight:600; }
+.ev-acct .ev-fine { margin:16px 0 0; color:#96939e; font-size:12px; line-height:1.5; text-align:center; }
+.ev-acct .ev-fine a { color:#55525d; text-decoration:underline; text-underline-offset:2px; }
+.ev-login { padding-top:22px; color:#777580; font-size:14px; }
+.ev-login button { color:#17171a; font-size:14px; font-weight:650; }
+.ev-auth-message, .ev-err { margin-top:12px; font-size:13px; line-height:1.45; }
+@media (max-height:760px) {
+ .ev-account-nav { margin-bottom:20px; } .ev-account-heading { margin-bottom:20px; }
+ .ev-acct .ev-h { font-size:36px; }
+ .ev-acct > .ev-btn.dark, .ev-acct > .ev-btn.accent { min-height:54px; height:54px; }
+}
+@media (max-height:680px) {
+ .ev-account-nav { margin-bottom:14px; } .ev-account-heading { margin-bottom:16px; }
+ .ev-account-eyebrow { margin-bottom:8px; } .ev-acct .ev-h { font-size:32px; }
+ .ev-acct .ev-sub { font-size:14px; } .ev-acct .ev-field { min-height:50px; height:50px; }
+ .ev-acct > .ev-btn.dark, .ev-acct > .ev-btn.accent { min-height:50px; height:50px; }
+}
