@@ -288,21 +288,23 @@ html:has(.ev-ob) #root {
 }
 
 
-/* Final account step: clear navigation back to the setup choices. */
-.ev-account-nav { min-height: 38px; margin-bottom: 4px; }
-.ev-account-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  min-height: 38px;
-  padding: 0 4px;
+/* Final account step uses the same compact progress header as onboarding. */
+.ev-account-nav { min-height: 44px; margin-bottom: 4px; gap: 12px; }
+.ev-account-nav .ev-back {
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
   border: 0;
-  background: transparent;
-  color: var(--ev-ink);
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+  display: grid;
+  place-items: center;
 }
-.ev-account-back svg { flex: none; }
+.ev-account-nav .ev-back svg { width: 18px; height: 18px; stroke: #111; }
+.ev-account-progress { flex: 1; height: 5px; gap: 4px; }
+.ev-account-progress i { height: 5px; border-radius: 999px; background: #d8d7df; }
+.ev-account-progress i.on { background: #111; }
 .ev-acct .ev-field { height: 48px; flex: none; }
 .ev-acct .ev-fine { font-size: 11px; }
 .ev-auth-message {
@@ -317,7 +319,7 @@ html:has(.ev-ob) #root {
 }
 @media (max-height: 760px) {
   .ev-account-nav { min-height: 30px; margin-bottom: 0; }
-  .ev-account-back { min-height: 30px; }
+  .ev-account-nav .ev-back { width: 34px; height: 34px; flex-basis: 34px; }
   .ev-account-hero { height: 74px; }
   .ev-logo-mark { width: 104px; height: 74px; }
   .ev-acct { gap: 7px; }
