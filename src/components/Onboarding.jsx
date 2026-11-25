@@ -105,7 +105,7 @@ function Building({ onDone }) {
   </div>;
 }
 
-export default function Onboarding({ initialScreen = "account", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
+export default function Onboarding({ initialScreen = "account", initialAuthMode = "signup", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
   const saved = readDraft();
   const ORDER = ["welcome", "about", "target", "time", "stay", "building", "account", ...(showPaywall ? ["paywall"] : [])];
   const [screen, setScreen] = useState(saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen);
@@ -114,6 +114,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
   const [password, setPassword] = useState("");
+  const [accountMode, setAccountMode] = useState(initialAuthMode);
   const [authMessage, setAuthMessage] = useState("");
   const busyRef = useRef(false);
   const [d, setD] = useState({ email: "", role: "Professional", tasks: 6, hours: 8, unit: "hrs", now: 120, goal: 240, pace: "steady", budget: 20, session: "25–50 min", daily: "3", tools: ["Timer"], calendar: true, reminders: true, plan: "yearly", ...(saved?.data || {}) });
@@ -152,7 +153,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
       if (provider === "google") {
         localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen: "account", data: d }));
       }
-      const result = await onAuth?.({ provider, email: d.email, password, preferences: d });
+      const result = await onAuth?.({ provider, email: d.email, password, preferences: d, mode: accountMode });
       if (result?.confirmationRequired) {
         setAuthMessage("Check your email for the confirmation link. Once confirmed, EVOLV will finish setting up your account.");
       }
@@ -171,7 +172,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   if (screen === "welcome") view = <>
     <header className="ev-top ev-split">
       <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="EVOLV" />
-      <button type="button" className="ev-signin" onClick={onLogin}>Sign in</button>
+      <button type="button" className="ev-signin" onClick={() => { setAccountMode("login"); setErr(""); setAuthMessage(""); go("account"); }}>Sign in</button>
     </header>
     <div className="ev-hero2" aria-hidden>
       {["🌱", "🧠", "🎯", "📖", "☀️", "⏳"].map((e, k) => <i key={k} className={"ev-tile2 t" + k}>{e}</i>)}
@@ -197,13 +198,13 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
       <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
       <div className="ev-or">or</div>
       <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
-      <label className="ev-field ev-password-field"><Svg width="18" height="18"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></Svg><input type="password" autoComplete="new-password" placeholder="Create password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
+      <label className="ev-field ev-password-field"><Svg width="18" height="18"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></Svg><input type="password" autoComplete={accountMode === "login" ? "current-password" : "new-password"} placeholder={accountMode === "login" ? "Password" : "Create password"} value={password} onChange={(e) => setPassword(e.target.value)} /></label>
       {err && <p className="ev-err" role="alert">{err}</p>}
       {authMessage && <p className="ev-auth-message" role="status">{authMessage}</p>}
-      <button type="button" className="ev-btn accent" onClick={() => auth("email")} disabled={busy}>{busy ? "Creating account…" : "Create account"}</button>
+      <button type="button" className="ev-btn accent" onClick={() => auth("email")} disabled={busy}>{busy ? (accountMode === "login" ? "Signing in…" : "Creating account…") : (accountMode === "login" ? "Sign in" : "Create account")}</button>
       <p className="ev-fine">By continuing you agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
     </div>
-    <footer className="ev-foot ev-login">Already have an account? <button type="button" onClick={onLogin}>Log in</button></footer>
+    <footer className="ev-foot ev-login">{accountMode === "login" ? "New to EVOLV?" : "Already have an account?"} <button type="button" onClick={() => { setAccountMode(accountMode === "login" ? "signup" : "login"); setErr(""); setAuthMessage(""); setPassword(""); }}>{accountMode === "login" ? "Create account" : "Log in"}</button></footer>
   </>;
 
   if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next} alt="Skip for now" onAlt={next}>
