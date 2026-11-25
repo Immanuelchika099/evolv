@@ -669,6 +669,10 @@ html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-top .ev-signin {
 .ev-acct .ev-h { margin:0 0 12px; color:#17171a; font-size:clamp(36px,5.2vh,44px); line-height:1.04; font-weight:650; letter-spacing:-.055em; white-space:normal; }
 .ev-acct .ev-sub { max-width:340px; margin:0; color:#777580; font-size:16px; line-height:1.5; }
 .ev-acct > .ev-btn.dark { min-height:58px; height:58px; border-radius:17px; font-size:16px; font-weight:600; }
+.ev-acct > .ev-btn { border-radius:999px; }
+.ev-acct > .ev-provider { position:relative; display:flex; align-items:center; justify-content:center; gap:10px; min-height:54px; height:54px; border:1px solid #dedce4; border-radius:999px; background:#fff !important; color:#17171a !important; font-size:15px; font-weight:600; }
+.ev-acct > .ev-provider svg { width:19px; height:19px; flex:none; }
+.ev-acct > .ev-provider:disabled { opacity:.6; }
 .ev-acct > .ev-github { min-height:58px; height:58px; display:flex; align-items:center; justify-content:center; gap:10px; margin-top:10px; border:1px solid #e5e3ea; border-radius:17px; background:#fff !important; color:#17171a !important; font-size:16px; font-weight:600; }
 .ev-acct > .ev-github svg { width:19px; height:19px; flex:none; }
 .ev-acct .ev-or { margin:22px 0; color:#92909a; font-size:12px; letter-spacing:.1em; }
