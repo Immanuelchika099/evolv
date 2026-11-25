@@ -107,8 +107,8 @@ function Building({ onDone }) {
 
 export default function Onboarding({ initialScreen = "account", initialAuthMode = "signup", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
   const saved = readDraft();
-  const ORDER = ["welcome", "about", "target", "time", "stay", "building", "account", ...(showPaywall ? ["paywall"] : [])];
-  const [screen, setScreen] = useState(initialAuthMode === "login" ? "account" : (saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen));
+  const ORDER = ["welcome", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : []), "account"];
+  const [screen, setScreen] = useState(initialAuthMode === "login" ? "account" : (showPaywall && initialScreen === "welcome" && saved?.screen === "account" ? "paywall" : (saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen)));
   const [phase, setPhase] = useState("in");
   const [dir, setDir] = useState(1);
   const [err, setErr] = useState("");
@@ -134,7 +134,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   const i = ORDER.indexOf(screen);
   const next = () => (i < ORDER.length - 1 ? go(ORDER[i + 1]) : finish());
   const prev = () => go(ORDER[i - 1], -1);
-  const back = screen === "account" ? () => go("stay", -1) : (i > 0 && screen !== "building" ? prev : null);
+  const back = screen === "account" ? () => go(showPaywall ? "paywall" : "stay", -1) : (i > 0 && screen !== "building" ? prev : null);
   const finish = async (plan, skipped = false) => {
     try {
       await onComplete?.({ ...d, plan: plan === undefined ? null : plan, skipped });
@@ -240,12 +240,12 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   if (screen === "building") view = <Building onDone={next} />;
 
   if (screen === "paywall") view = <>
-    <header className="ev-top ev-split"><span className="ev-tag big">✨ 7 days free</span><button type="button" className="ev-back" onClick={() => finish(null)} aria-label="Close"><Svg width="18" height="18"><path d="M6 6l12 12M18 6L6 18" /></Svg></button></header>
+    <header className="ev-top ev-split"><span className="ev-tag big">✨ 7 days free</span><button type="button" className="ev-back" onClick={() => go("account")} aria-label="Continue to account"><Svg width="18" height="18"><path d="M6 6l12 12M18 6L6 18" /></Svg></button></header>
     <div className="ev-body"><h1 className="ev-h">Unlock{"\n"}EVOLV Plus</h1><ul className="ev-feat">{PLUS.map((t) => <li key={t}><span className="ev-dot done"><Tick /></span>{t}</li>)}</ul>
       <div className="ev-plans">{[["yearly", "Yearly", "$3.33 / month"], ["monthly", "Monthly", "billed monthly"]].map(([k, n, s]) => <button key={k} type="button" aria-pressed={d.plan === k} className={"ev-plan" + (d.plan === k ? " on" : "")} onClick={() => set("plan", k)}>{k === "yearly" && <span className="ev-best">Best value</span>}<small>{n}</small><b>${PRICE[k]}</b><small>{s}</small></button>)}</div>
       <ul className="ev-card ev-time"><li className="on"><i /><span><b>Today</b><small>Full access to everything</small></span></li><li><i /><span><b>Day 5</b><small>We remind you before it ends</small></span></li><li><i /><span><b>Day 7</b><small>Trial ends — cancel anytime</small></span></li></ul>
     </div>
-    <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => finish(d.plan)}>Start 7-day free trial</button><p className="ev-fine">Then ${price}/{d.plan === "yearly" ? "year" : "month"}. Cancel anytime in Settings.</p></footer>
+    <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => go("account")}>Continue</button><p className="ev-fine">Choose a plan to see your options. Subscription and payment will be available soon.</p></footer>
   </>;
 
   return <main className="ev-ob">{["🎯", "💡", "✅", "📝"].map((e, k) => <span key={k} className={"ev-bg b" + k} aria-hidden>{e}</span>)}<div className="ev-device"><div key={screen} className={"ev-stage " + phase} style={{ "--dir": dir }}>{view}</div></div></main>;
