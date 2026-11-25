@@ -100,7 +100,7 @@ function Building({ onDone }) {
   const active = BUILD.findIndex((_, i) => p < (i + 1) * 25);
   return <div className="ev-body ev-center">
     <div className="ev-ring"><svg viewBox="0 0 200 200" aria-hidden><circle cx="100" cy="100" r="88" strokeDasharray={`${(p / 100) * C} ${C}`} /></svg><span className="ev-core">🧠</span><i className="ev-em f1">📝</i><i className="ev-em f2">💡</i><i className="ev-em f3">✅</i><i className="ev-em f4">⏰</i></div>
-    <div className="ev-pct">{Math.round(p)}%</div><h1 className="ev-h">Building your{"\n"}plan…</h1><p className="ev-sub">EVOLV AI is shaping your day around your goals.</p>
+    <div className="ev-pct">{Math.round(p)}%</div><h1 className="ev-h">Building your{"\n"}plan…</h1><p className="ev-sub">Evolv AI is shaping your day around your goals.</p>
     <ul className="ev-card ev-list">{BUILD.map((t, i) => { const st = p >= (i + 1) * 25 ? "done" : i === active ? "live" : "wait"; return <li key={t} className={st}><span className="ev-dot">{st === "done" && <Tick />}</span>{t}{st === "live" && <em>…</em>}</li>; })}</ul>
   </div>;
 }
@@ -155,7 +155,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       }
       const result = await onAuth?.({ provider, email: d.email, password, preferences: d, mode: accountMode });
       if (result?.confirmationRequired) {
-        setAuthMessage("Check your email for the confirmation link. Once confirmed, EVOLV will finish setting up your account.");
+        setAuthMessage("Check your email for the confirmation link. Once confirmed, Evolv will finish setting up your account.");
       }
     } catch (e) {
       setErr(e?.message || "Couldn't connect. Please try again.");
@@ -171,7 +171,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   let view = null;
   if (screen === "welcome") view = <>
     <header className="ev-top ev-split">
-      <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="EVOLV" />
+      <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="Evolv" />
       <button type="button" className="ev-signin" onClick={() => { setAccountMode("login"); setErr(""); setAuthMessage(""); go("account"); }}>Sign in</button>
     </header>
     <div className="ev-hero2" aria-hidden>
@@ -192,9 +192,9 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       <button type="button" className="ev-back" onClick={back} aria-label="Go back to onboarding"><Chev /></button>
       <div className="ev-prog ev-account-progress" aria-label="Onboarding complete"><i className="on" /><i className="on" /><i className="on" /><i className="on" /><i className="on" /><i className="on" /></div>
     </header>
-    <div className="ev-account-hero"><img className="ev-logo-mark" src="/evolv-logo.svg" alt="EVOLV" /><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
+    <div className="ev-account-hero"><img className="ev-logo-mark" src="/evolv-logo.svg" alt="Evolv" /><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
     <div className="ev-body ev-acct">
-      <h1 className="ev-h">Create your{"\n"}account</h1><p className="ev-sub">Your plan is ready. Create an account to save it and enter EVOLV.</p>
+      <h1 className="ev-h">Create your{"\n"}account</h1><p className="ev-sub">Your plan is ready. Create an account to save it and enter Evolv.</p>
       <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
       <div className="ev-or">or</div>
       <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
@@ -204,7 +204,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       <button type="button" className="ev-btn accent" onClick={() => auth("email")} disabled={busy}>{busy ? (accountMode === "login" ? "Signing in…" : "Creating account…") : (accountMode === "login" ? "Sign in" : "Create account")}</button>
       <p className="ev-fine">By continuing you agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
     </div>
-    <footer className="ev-foot ev-login">{accountMode === "login" ? "New to EVOLV?" : "Already have an account?"} <button type="button" onClick={() => { setAccountMode(accountMode === "login" ? "signup" : "login"); setErr(""); setAuthMessage(""); setPassword(""); }}>{accountMode === "login" ? "Create account" : "Log in"}</button></footer>
+    <footer className="ev-foot ev-login">{accountMode === "login" ? "New to Evolv?" : "Already have an account?"} <button type="button" onClick={() => { setAccountMode(accountMode === "login" ? "signup" : "login"); setErr(""); setAuthMessage(""); setPassword(""); }}>{accountMode === "login" ? "Create account" : "Log in"}</button></footer>
   </>;
 
   if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next} alt="Skip for now" onAlt={next}>
@@ -231,7 +231,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   if (screen === "stay") view = <>
     <header className="ev-top"><button type="button" className="ev-back" onClick={prev} aria-label="Back"><Chev /></button></header>
     <div className="ev-body"><div className="ev-art"><span className="ev-disc">🎯</span><i className="ev-em l">📈</i><i className="ev-em r">⏰</i></div>
-      <h1 className="ev-h">Stay on track,{"\n"}effortlessly</h1><p className="ev-sub">EVOLV adjusts your plan when your schedule changes.</p>
+      <h1 className="ev-h">Stay on track,{"\n"}effortlessly</h1><p className="ev-sub">Evolv adjusts your plan when your schedule changes.</p>
       {PERMS.map((r) => <div key={r.k} className="ev-card ev-perm"><span className="ev-tile" style={{ background: r.bg }}>{r.e}</span><span><b>{r.t}</b><small>{r.s}</small></span><Switch on={d[r.k]} label={r.t} onClick={() => set(r.k, !d[r.k])} /></div>)}
     </div>
     <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => { onPermissions?.({ calendar: d.calendar, reminders: d.reminders }); next(); }}>Allow & continue</button><button type="button" className="ev-ghost" onClick={() => { setD((p) => ({ ...p, calendar: false, reminders: false })); onPermissions?.({ calendar: false, reminders: false }); next(); }}>Skip for now</button></footer>
@@ -241,7 +241,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
 
   if (screen === "paywall") view = <>
     <header className="ev-top ev-split"><span className="ev-tag big">✨ 7 days free</span><button type="button" className="ev-back" onClick={() => go("account")} aria-label="Continue to account"><Svg width="18" height="18"><path d="M6 6l12 12M18 6L6 18" /></Svg></button></header>
-    <div className="ev-body"><h1 className="ev-h">Unlock{"\n"}EVOLV Plus</h1><ul className="ev-feat">{PLUS.map((t) => <li key={t}><span className="ev-dot done"><Tick /></span>{t}</li>)}</ul>
+    <div className="ev-body"><h1 className="ev-h">Unlock{"\n"}Evolv Plus</h1><ul className="ev-feat">{PLUS.map((t) => <li key={t}><span className="ev-dot done"><Tick /></span>{t}</li>)}</ul>
       <div className="ev-plans">{[["yearly", "Yearly", "$3.33 / month"], ["monthly", "Monthly", "billed monthly"]].map(([k, n, s]) => <button key={k} type="button" aria-pressed={d.plan === k} className={"ev-plan" + (d.plan === k ? " on" : "")} onClick={() => set("plan", k)}>{k === "yearly" && <span className="ev-best">Best value</span>}<small>{n}</small><b>${PRICE[k]}</b><small>{s}</small></button>)}</div>
       <ul className="ev-card ev-time"><li className="on"><i /><span><b>Today</b><small>Full access to everything</small></span></li><li><i /><span><b>Day 5</b><small>We remind you before it ends</small></span></li><li><i /><span><b>Day 7</b><small>Trial ends — cancel anytime</small></span></li></ul>
     </div>
