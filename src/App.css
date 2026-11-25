@@ -1918,9 +1918,9 @@ html,body,#root{background:var(--bg) !important;}
   --ev-line: color-mix(in srgb, var(--t1) 12%, transparent);
   --ev-muted: var(--t2);
   --ev-soft: var(--t2);
-  --ev-var(--t1): var(--t1);
+  --ev-text: var(--t1);
   background: var(--ev-bg);
-  color: var(--ev-var(--t1));
+  color: var(--ev-text);
   overflow: clip;
 }
 .landing-v2 button { font: inherit; }
