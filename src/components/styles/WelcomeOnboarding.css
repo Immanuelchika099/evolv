@@ -1545,7 +1545,7 @@
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: .28em;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
 }
 .evolv-welcome .evolv-welcome-message {
   position: relative;
