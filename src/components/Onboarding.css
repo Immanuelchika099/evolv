@@ -538,7 +538,7 @@ html:has(.ev-ob) #root {
 
 
 /* Welcome typography + compact controls: override inherited button sizing explicitly. */
-html body #root .ev-ob .ev-welcome .ev-btn.dark {
+html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-foot .ev-btn.dark {
   min-height: 56px !important;
   height: 56px !important;
   font-size: 21px !important;
