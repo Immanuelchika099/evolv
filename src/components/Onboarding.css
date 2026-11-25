@@ -471,3 +471,67 @@ html:has(.ev-ob) #root {
   font-size: 15px;
   font-weight: 500;
 }
+
+
+/* Onboarding layout refinement: give the panel room without crowding the step content. */
+@media (min-width: 560px) {
+  .ev-device {
+    width: min(440px, calc(100vw - 48px));
+  }
+}
+.ev-stage {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.ev-top {
+  min-height: 40px;
+  margin-bottom: 0;
+}
+.ev-body:has(.ev-step) {
+  padding-top: 14px;
+  gap: 12px;
+  scroll-padding-top: 14px;
+}
+.ev-body:has(.ev-step) > .ev-step {
+  margin-bottom: 0;
+}
+.ev-body:has(.ev-step) > .ev-sub {
+  margin-bottom: 6px;
+}
+
+/* Compact the role selector and the hours/minutes segmented control. */
+.ev-pills.ev-gap button {
+  height: 44px;
+}
+.ev-focus .ev-unit {
+  padding: 2px;
+  gap: 1px;
+}
+.ev-focus .ev-unit button {
+  height: 22px;
+  padding: 0 10px;
+  font-size: 11px;
+}
+
+/* A slimmer switch track with a proportionate thumb. */
+.ev-switch {
+  width: 48px;
+  height: 28px;
+  border-radius: 999px;
+}
+.ev-switch::after {
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+}
+.ev-switch[aria-checked="true"]::after {
+  transform: translateX(20px);
+}
+
+@media (max-height: 760px) {
+  .ev-body:has(.ev-step) {
+    padding-top: 12px;
+    gap: 10px;
+  }
+}
