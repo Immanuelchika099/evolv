@@ -183,3 +183,31 @@ html:has(.ev-ob)::before {
   -webkit-backdrop-filter: none !important;
   backdrop-filter: none !important;
 }
+
+
+/* Match iOS browser safe areas to the onboarding canvas, not the dark app shell. */
+html:has(.ev-ob),
+body:has(.ev-ob),
+#root:has(.ev-ob),
+.app:has(.ev-ob) {
+  background: #f3f1f7 !important;
+  background-color: #f3f1f7 !important;
+  background-image: none !important;
+  color-scheme: light;
+}
+body:has(.ev-ob)::before,
+body:has(.ev-ob)::after,
+html:has(.ev-ob)::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.ev-ob,
+.ev-device {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none;
+}
