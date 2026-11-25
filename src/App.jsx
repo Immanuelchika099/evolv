@@ -967,7 +967,7 @@ function App() {
       {view === 'onboarding' && (
         <Onboarding
           initialScreen="welcome"
-          showPaywall={false}
+          showPaywall={true}
           logo="evolv"
           onAuth={handleNewOnboardingAuth}
           onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))}
