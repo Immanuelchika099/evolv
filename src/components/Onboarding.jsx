@@ -110,6 +110,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   const ORDER = ["welcome", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : []), "account"];
   const [screen, setScreen] = useState(initialAuthMode === "login" ? "account" : (showPaywall && initialScreen === "welcome" && saved?.screen === "account" ? "paywall" : (saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen)));
   const [phase, setPhase] = useState("in");
+  const [welcomeSlide, setWelcomeSlide] = useState(0);
   const [dir, setDir] = useState(1);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
@@ -174,7 +175,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="Evolv" />
       <button type="button" className="ev-signin" onClick={() => { setAccountMode("login"); setErr(""); setAuthMessage(""); go("account"); }}>Sign in</button>
     </header>
-    <div className="ev-welcome-carousel" aria-label="Explore Evolv">
+    <div className="ev-welcome-carousel" aria-label="Explore Evolv" onScroll={(e) => setWelcomeSlide(Math.min(2, Math.max(0, Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))))}>
       <div className="ev-welcome-slide">
         <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
         <span className="ev-slide-icon">🌱</span><span className="ev-slide-float slide-float-one">✨</span><span className="ev-slide-float slide-float-two">☀️</span>
@@ -190,7 +191,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
     </div>
     <div className="ev-welcome-copy">
       <h1 className="ev-h">One day at a time.</h1>
-      <div className="ev-carousel-dots" aria-hidden="true"><i /><i /><i /></div>
+      <div className="ev-carousel-dots" aria-hidden="true">{[0, 1, 2].map((n) => <i key={n} className={welcomeSlide === n ? "on" : ""} />)}</div>
     </div>
     <footer className="ev-foot">
       <button type="button" className="ev-btn dark" onClick={next}>Get started</button>
