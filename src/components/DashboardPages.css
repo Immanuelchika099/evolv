@@ -12131,3 +12131,184 @@ html body #root .dashboard .dashboard-home.calm-home .evolv-home-intro::before {
   content: none !important;
   animation: none !important;
 }
+
+
+/* =========================================================
+   EVOLV HOME — light theme surface and accent cleanup
+   Cards stay neutral ash; orange is reserved for small accents.
+   No orange ambient lighting, bloom, or glow effects.
+   ========================================================= */
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home {
+  color: #24211e !important;
+  background: transparent !important;
+  background-image: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-intro,
+  .evolv-home-day-card,
+  .calm-return-welcome,
+  .calm-checkin,
+  .calm-reflection-entry,
+  .calm-week-card,
+  .calm-home-focus,
+  .calm-goal-snapshot,
+  .calm-home-activity,
+  .calm-insights-section,
+  .calm-insight-card
+) {
+  color: #292724 !important;
+  background: #efefed !important;
+  background-color: #efefed !important;
+  background-image: none !important;
+  border: 1px solid #e3e2de !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-intro,
+  .evolv-home-day-card,
+  .calm-checkin,
+  .calm-week-card,
+  .calm-home-focus,
+  .calm-home-activity,
+  .calm-insights-section
+)::before,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-intro,
+  .evolv-home-day-card,
+  .calm-checkin,
+  .calm-week-card,
+  .calm-home-focus,
+  .calm-home-activity,
+  .calm-insights-section
+)::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  animation: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  h1,h2,h3,h4,strong,
+  .evolv-home-eyebrow,
+  .evolv-home-hero-top > span,
+  .evolv-home-hero-stats,
+  .evolv-home-day-copy strong,
+  .evolv-home-day-empty strong,
+  .calm-section-kicker,
+  .calm-week-period,
+  .calm-focus-title-action,
+  .calm-goal-snapshot-copy,
+  .calm-goal-percent
+) {
+  color: #292724 !important;
+  -webkit-text-fill-color: #292724 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  p,small,
+  .evolv-home-day-copy small,
+  .evolv-home-day-empty small,
+  .calm-week-summary,
+  .calm-goal-view-all,
+  .calm-activity-note
+) {
+  color: #77746f !important;
+  -webkit-text-fill-color: #77746f !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-day-row,
+  .evolv-home-day-empty,
+  .calm-mood-option,
+  .calm-week-day-button,
+  .calm-goal-view-all,
+  .calm-activity-item,
+  .calm-activity-empty
+) {
+  color: #383632 !important;
+  background: #e7e7e4 !important;
+  background-color: #e7e7e4 !important;
+  background-image: none !important;
+  border-color: #dcdbd7 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-day-icon,
+  .evolv-home-day-empty-icon,
+  .calm-reflection-entry-icon,
+  .calm-mood-avatar-wrap,
+  .calm-focus-mark,
+  .calm-empty-plus
+) {
+  color: #77736d !important;
+  background: #e3e2de !important;
+  background-color: #e3e2de !important;
+  border-color: #d8d7d2 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-top button {
+  color: #514d47 !important;
+  background: #e5e4e0 !important;
+  border-color: #dcdad5 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-top button i {
+  background: #e58642 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-bar {
+  background: #d9d8d4 !important;
+  border-color: #d0cfca !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-bar.is-selected {
+  background: #e58642 !important;
+  border-color: #e58642 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .calm-mood-option:hover,
+  .evolv-home-day-row:hover,
+  .calm-week-day-button:hover,
+  .calm-goal-view-all:hover,
+  .calm-activity-item:hover
+) {
+  background: #e5e4e0 !important;
+  border-color: #d7d5d0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  button:focus-visible,
+  a:focus-visible
+) {
+  outline-color: #e58642 !important;
+  box-shadow: none !important;
+}
+/* Strip legacy orange bloom from every descendant on Home, including
+   older decorative pseudo-elements and hover states. */
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home *,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home *::before,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home *::after {
+  text-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .calm-mood-avatar-wrap,
+  .calm-insight-card,
+  .calm-home-welcome,
+  .calm-insights-section
+),
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .calm-mood-avatar-wrap,
+  .calm-insight-card,
+  .calm-home-welcome,
+  .calm-insights-section
+)::before,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .calm-mood-avatar-wrap,
+  .calm-insight-card,
+  .calm-home-welcome,
+  .calm-insights-section
+)::after {
+  box-shadow: none !important;
+  filter: none !important;
+}
