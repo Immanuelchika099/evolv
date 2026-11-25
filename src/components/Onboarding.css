@@ -48,8 +48,8 @@
 .ev-ghost { border: 0; background: none; height: 40px; font-size: 15px; font-weight: 500; }
 .ev-foot { display: flex; flex-direction: column; gap: 6px; padding-top: 14px; text-align: center; }
 .ev-account-hero { position: relative; height: clamp(104px, 17vh, 140px); flex: none; display: flex; align-items: flex-start; }
-.ev-logo-mark { display: block; width: 116px; height: 104px; object-fit: contain; object-position: left top; filter: brightness(0) saturate(100%); }
-.ev-hero .ev-em { position: absolute; filter: drop-shadow(0 8px 10px rgba(0,0,0,.18)); animation: ev-float 5s ease-in-out infinite; }
+.ev-logo-mark { display: block; width: 142px; height: 106px; object-fit: contain; object-position: left top; filter: brightness(0) saturate(100%); }
+.ev-account-hero .ev-em { position: absolute; filter: drop-shadow(0 8px 10px rgba(0,0,0,.18)); animation: ev-float 5s ease-in-out infinite; }
 .s1 { right: 92px; top: 8px; font-size: 52px; } .s2 { right: 6px; top: 22px; font-size: 84px; animation-delay: -1.5s !important; } .s3 { right: 62px; top: 82px; font-size: 44px; animation-delay: -3s !important; }
 @keyframes ev-float { 50% { transform: translateY(-7px) rotate(3deg); } }
 .ev-acct { justify-content: flex-end; gap: 10px; }
