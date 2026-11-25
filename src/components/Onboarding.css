@@ -1067,3 +1067,35 @@ html body #root .ev-ob .ev-grid2 .ev-stepper button {
   .ev-stage:has(.ev-welcome-nav) { padding-left: 16px; padding-right: 16px; }
   .ev-welcome-carousel { width: calc(100% + 32px); margin-inline: -16px; padding-inline: 16px; }
 }
+
+
+/* Auth screen: one GitHub option, consistently full-pill provider and submit buttons. */
+html body #root .ev-ob .ev-acct > .ev-btn,
+html body #root .ev-ob .ev-acct > .ev-provider,
+html body #root .ev-ob .ev-acct > .ev-github,
+html body #root .ev-ob .ev-acct > .ev-btn.accent,
+html body #root .ev-ob .ev-acct > .ev-btn.dark {
+  border-radius: 999px !important;
+}
+html body #root .ev-ob .ev-acct > .ev-btn.dark,
+html body #root .ev-ob .ev-acct > .ev-provider,
+html body #root .ev-ob .ev-acct > .ev-github,
+html body #root .ev-ob .ev-acct > .ev-btn.accent {
+  min-height: 54px !important;
+  height: 54px !important;
+}
+html body #root .ev-ob .ev-acct > .ev-github {
+  margin-top: 10px !important;
+  background: #fff !important;
+}
+.ev-account-nav .ev-account-logo {
+  display: block;
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: contain;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  filter: brightness(0) saturate(100%);
+}
