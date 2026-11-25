@@ -173,3 +173,13 @@
 .ev-kicker { margin: 0; font-size: 13px; font-weight: 500; color: #b9520f; }
 .ev-welcome .ev-h { white-space: pre-line; }
 @media (prefers-reduced-motion: reduce) { .ev-tile2 { animation: none !important; } }
+
+
+/* Onboarding should not inherit the app-wide dark safe-area scrim. */
+html:has(.ev-ob)::before {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
