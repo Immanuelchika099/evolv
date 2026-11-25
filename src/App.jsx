@@ -384,6 +384,7 @@ function App() {
 
     // Explicit URLs always take priority. A stale or unknown saved view must
     // never leave the app shell rendering without a page.
+    if (path === '/terms' || path === '/privacy') return 'legal'
     if (path === '/onboarding') return 'onboarding'
     if (path === '/dashboard') return 'dashboard'
     if (path === '/signup') return 'onboarding'
@@ -412,7 +413,7 @@ function App() {
     }
   })
   const [article, setArticle] = useState(null)
-  const [legalDocument, setLegalDocument] = useState('terms')
+  const [legalDocument, setLegalDocument] = useState(() => (window.location.pathname.replace(/\/+$/, '') === '/privacy' ? 'privacy' : 'terms'))
   const [legalReturnView, setLegalReturnView] = useState('landing')
   const [menuOpen, setMenuOpen] = useState(false)
   const [contactOpen, setContactOpen] = useState(false)
@@ -585,12 +586,16 @@ function App() {
   function openLegal(documentType) {
     setLegalReturnView(view === 'auth' ? 'auth' : 'landing')
     setLegalDocument(documentType)
+    const path = documentType === 'privacy' ? '/privacy' : '/terms'
+    window.history.pushState({ evolvLegal: true, documentType }, '', path)
     localStorage.setItem('evolv-view', 'legal')
     setView('legal')
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
   }
 
   function closeLegal() {
+    const destination = legalReturnView === 'auth' ? '/' : '/'
+    window.history.replaceState({}, '', destination)
     localStorage.setItem('evolv-view', legalReturnView)
     setView(legalReturnView)
     window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
