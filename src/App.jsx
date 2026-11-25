@@ -420,6 +420,7 @@ function App() {
   const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
   const [authMode, setAuthMode] = useState('login')
+  const [needsProfileName, setNeedsProfileName] = useState(false)
   const [pendingSignupEmail, setPendingSignupEmail] = useState('')
   const directSignup = false
   const [data, setData] = useState(() => {
@@ -713,12 +714,9 @@ function App() {
       throw new Error('That sign-in option is not available yet.')
     }
 
-    const suppliedName = getFirstName(preferences?.name || '')
-    if (!suppliedName) throw new Error('Please enter your first name before creating your EVOLV account.')
-
     const profileData = {
       ...initialData,
-      name: suppliedName,
+      name: '',
       areas: [],
       focus: `${preferences.role || 'Personal'} · ${preferences.budget || 0} focus hours per week`,
       goal: `Build a daily focus routine of ${preferences.goal || 0} minutes`,
@@ -727,7 +725,7 @@ function App() {
 
     localStorage.setItem('evolv-focus-preferences', JSON.stringify(preferences))
     localStorage.setItem('evolv-onboarding', JSON.stringify(profileData))
-    localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
+    localStorage.setItem('evolv-onboarding-v3-draft', JSON.stringify({ screen: 'about', data: { ...preferences, name: '' } }))
     localStorage.setItem('evolv-avatar-preferences', JSON.stringify(
       getAvatarPreset(profileData.avatarStyle || DEFAULT_AVATAR.presentation)
     ))
@@ -791,6 +789,7 @@ function App() {
       getAvatarPreset(profileData.avatarStyle || DEFAULT_AVATAR.presentation)
     ))
     setData(profileData)
+    setNeedsProfileName(false)
 
     if (!user) {
       throw new Error('Create your EVOLV account to finish setting up your plan.')
@@ -844,6 +843,7 @@ function App() {
     if (oauthOnboardingPending) localStorage.removeItem('evolv-onboarding-v2-oauth-pending')
     const onboardingReady = localStorage.getItem('evolv-onboarding-ready-for-auth') === 'true'
     if (oauthOnboardingPending && !onboardingReady) {
+      setNeedsProfileName(true)
       localStorage.setItem('evolv-view', 'onboarding')
       setView('onboarding')
       window.scrollTo({ top: 0, behavior: 'instant' })
@@ -886,9 +886,10 @@ function App() {
     if (authMode === 'signup' || !profile || !profile.first_name?.trim()) {
       const nextData = {
         ...initialData,
-        name: getProviderFirstName(user) || data.name || '',
+        name: '',
         avatarStyle: 'androgynous',
       }
+      setNeedsProfileName(true)
       setData(nextData)
       setStep(0)
       localStorage.setItem('evolv-view', 'onboarding')
@@ -968,8 +969,9 @@ function App() {
       {view === 'auth' && <Onboarding initialScreen="account" initialAuthMode={authMode} showPaywall={false} logo="evolv" onLegal={openLegal} onAuth={handleNewOnboardingAuth} onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))} onComplete={finishNewOnboarding} />}
       {view === 'onboarding' && (
         <Onboarding
-          initialScreen="welcome"
-          showPaywall={true}
+          initialScreen={needsProfileName ? "about" : "welcome"}
+          skipAccount={needsProfileName}
+          showPaywall={!needsProfileName}
           logo="evolv"
           onAuth={handleNewOnboardingAuth}
           onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))}
