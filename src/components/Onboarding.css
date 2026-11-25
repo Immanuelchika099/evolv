@@ -747,3 +747,27 @@ html body #root .ev-ob .ev-grid2 .ev-stepper button {
 .ev-acct .ev-field input::selection {
   background: rgba(23,23,26,.12);
 }
+
+
+/* Keep the account footer prompt and action on one shared baseline. */
+.ev-login {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 40px;
+  line-height: 1;
+  white-space: nowrap;
+}
+.ev-login button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 0;
+  height: auto;
+  padding: 0;
+  margin: 0;
+  line-height: 1;
+  vertical-align: middle;
+}
