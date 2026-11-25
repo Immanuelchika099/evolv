@@ -5,7 +5,7 @@
 .routine-heading h1 { margin:.8rem 0 .7rem; font-size:clamp(3.2rem,5vw,5.4rem); letter-spacing:-.065em; line-height:1.02; font-weight:var(--font-weight-semibold); }
 .routine-heading h1 span { color:var(--color-accent-blue); }
 .routine-heading p,.routine-section-heading p { margin:0; color:var(--t2); font-size:1.45rem; line-height:1.65; }
-.routine-date { padding:.9rem 1.2rem; border:1px solid var(--edge); border-radius:999px; color:var(--t1); font-size:1.2rem; var(--t1)-space:nowrap; }
+.routine-date { padding:.9rem 1.2rem; border:1px solid var(--edge); border-radius:999px; color:var(--t1); font-size:1.2rem; white-space:nowrap; }
 .routine-progress-panel { padding:2.2rem 2.4rem 1.8rem; border:1px solid var(--edge); border-radius:1.8rem; background:linear-gradient(120deg,var(--t3),var(--t3) 75%); }
 .routine-progress-top { display:flex; align-items:center; justify-content:space-between; gap:1.4rem; }
 .routine-progress-top h2 { margin:.8rem 0 0; font-size:2rem; font-weight:var(--font-weight-medium); letter-spacing:-.035em; }
@@ -24,7 +24,7 @@
 .routine-insight-card>button { padding:0; font-size:1.25rem; font-weight:var(--font-weight-medium); }
 .routine-section-heading { display:flex; justify-content:space-between; align-items:flex-end; gap:1.5rem; margin-bottom:1.5rem; }
 .routine-section-heading h2 { margin:.7rem 0 .5rem; font-size:2.5rem; font-weight:var(--font-weight-medium); letter-spacing:-.05em; }
-.routine-saved-state { display:inline-flex; align-items:center; gap:.4rem; color:var(--t2); font-size:1.1rem; var(--t1)-space:nowrap; }
+.routine-saved-state { display:inline-flex; align-items:center; gap:.4rem; color:var(--t2); font-size:1.1rem; white-space:nowrap; }
 .routine-schedule-list { display:grid; grid-template-columns:1fr; gap:1.4rem; }
 .routine-group { padding:1.6rem; border:1px solid var(--edge); border-radius:1.5rem; background:var(--bg); }
 .routine-group>h3 { margin:0 0 .7rem; padding:0 .2rem .8rem; color:var(--t2); font-size:1.15rem; font-weight:var(--font-weight-semibold); letter-spacing:.1em; text-transform:uppercase; }
@@ -186,7 +186,7 @@
 
 
 /* Adjustable lead time for routine reminders. */
-.routine-lead-time { display:flex; align-items:center; gap:.7rem; color:var(--t2); font-size:1.15rem; var(--t1)-space:nowrap; }
+.routine-lead-time { display:flex; align-items:center; gap:.7rem; color:var(--t2); font-size:1.15rem; white-space:nowrap; }
 .routine-lead-time input { width:6.8rem; min-height:3.8rem; padding:.7rem .8rem; border:1px solid var(--edge); border-radius:.9rem; background:var(--bg); color:var(--t1); font:inherit; font-size:1.35rem; text-align:center; }
 .routine-lead-time input:focus { outline:1px solid var(--color-accent-blue); border-color:var(--color-accent-blue); }
 @media(max-width:700px) {
@@ -597,7 +597,7 @@ html body #root .daily-routine-page .routine-toggle.is-on span {
   font-size: 1.15rem;
   font-weight: var(--font-weight-medium);
   line-height: 1;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 .daily-routine-page .routine-day-picker button.is-selected {
@@ -1040,7 +1040,7 @@ html body #root .daily-routine-page .routine-coach-card:active { transform:scale
 .daily-routine-page .routine-inline-edit button{display:grid;place-items:center;width:3rem;height:3rem;flex:0 0 auto;border:1px solid color-mix(in srgb, var(--accent) 25%, transparent);border-radius:50%;background:color-mix(in srgb, var(--accent) 10%, transparent);color:var(--accent)}
 .daily-routine-page .routine-days-disclosure{display:flex;align-items:center;justify-content:space-between;gap:1rem;width:100%;min-height:3.6rem;padding:.5rem .2rem .1rem;border:0;background:transparent;color:color-mix(in srgb, var(--t1) 52%, transparent);font:inherit;font-size:1.2rem;text-align:left;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .daily-routine-page .routine-days-summary,.daily-routine-page .routine-days-edit{display:inline-flex;align-items:center;gap:.7rem;min-width:0}
-.daily-routine-page .routine-days-summary{overflow:hidden;text-overflow:ellipsis;var(--t1)-space:nowrap}
+.daily-routine-page .routine-days-summary{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .daily-routine-page .routine-days-dot{width:.55rem;height:.55rem;flex:0 0 auto;border-radius:50%;background:var(--accent)}
 .daily-routine-page .routine-days-edit{flex:0 0 auto;color:color-mix(in srgb, var(--t1) 68%, transparent)}
 .daily-routine-page .routine-days-edit svg{transition:transform .2s ease}
