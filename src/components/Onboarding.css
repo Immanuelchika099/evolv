@@ -1174,3 +1174,22 @@ html body #root .ev-ob .ev-account-nav .ev-account-logo {
   height: 44px !important;
   flex: 0 0 44px !important;
 }
+
+
+/* Account layout: keep the header at the top and anchor the signup content to the bottom. */
+html body #root .ev-ob .ev-stage:has(.ev-account-nav) {
+  justify-content: space-between !important;
+}
+html body #root .ev-ob .ev-stage:has(.ev-account-nav) .ev-account-nav {
+  flex: 0 0 48px !important;
+  margin-bottom: 0 !important;
+}
+html body #root .ev-ob .ev-stage:has(.ev-account-nav) .ev-acct {
+  flex: 0 1 auto !important;
+  width: 100%;
+  margin-top: auto !important;
+  overflow-y: auto;
+}
+html body #root .ev-ob .ev-stage:has(.ev-account-nav) .ev-login {
+  flex: 0 0 auto !important;
+}
