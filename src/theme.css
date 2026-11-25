@@ -270,3 +270,20 @@ html[data-theme="light"] body #root .landing .orb-glow {
 @media (max-width: 640px) {
   html[data-theme="light"] body #root .dashboard .profile-theme-options button { min-height: 40px; }
 }
+
+
+/*
+ * Onboarding owns the full iOS/Safari viewport canvas.
+ * The light app theme normally paints html/body/#root with #f5f3ef;
+ * while onboarding is active, the outer safe-area canvas must match
+ * the onboarding ash (#f0eff4). This intentionally does not target
+ * .evolv-loader, so the EVOLV loading screen keeps its own background.
+ */
+html[data-theme="light"]:has(.ev-ob),
+html[data-theme="light"]:has(.ev-ob) body,
+html[data-theme="light"]:has(.ev-ob) #root,
+html[data-theme="light"]:has(.ev-ob) body #root {
+  background: #f0eff4 !important;
+  background-color: #f0eff4 !important;
+  background-image: none !important;
+}
