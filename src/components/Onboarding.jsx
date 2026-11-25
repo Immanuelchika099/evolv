@@ -107,7 +107,7 @@ function Building({ onDone }) {
 
 export default function Onboarding({ initialScreen = "account", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
   const saved = readDraft();
-  const ORDER = ["account", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : [])];
+  const ORDER = ["welcome", "account", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : [])];
   const [screen, setScreen] = useState(saved?.screen && ORDER.includes(saved.screen) ? saved.screen : initialScreen);
   const [phase, setPhase] = useState("in");
   const [dir, setDir] = useState(1);
@@ -130,7 +130,8 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const next = () => (i < ORDER.length - 1 ? go(ORDER[i + 1]) : finish());
   const prev = () => go(ORDER[i - 1], -1);
   const back = i > 0 ? prev : null;
-  const finish = (plan) => onComplete?.({ ...d, plan: plan === undefined ? null : plan });
+  const finish = (plan, skipped = false) => onComplete?.({ ...d, plan: plan === undefined ? null : plan, skipped });
+  const skipAll = () => finish(null, true);
 
   const auth = async (provider) => {
     if (provider === "email" && !/^\S+@\S+\.\S+$/.test(d.email)) return setErr("Enter a valid email address.");
@@ -154,6 +155,25 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const price = PRICE[d.plan];
 
   let view = null;
+  if (screen === "welcome") view = <>
+    <header className="ev-top ev-split">
+      <span className="ev-logo">{logo}</span>
+      <button type="button" className="ev-signin" onClick={onLogin}>Sign in</button>
+    </header>
+    <div className="ev-hero2" aria-hidden>
+      {["🌱", "🍊", "🎯", "📖", "☀️", "⏳"].map((e, k) => <i key={k} className={"ev-tile2 t" + k}>{e}</i>)}
+    </div>
+    <div className="ev-body ev-welcome">
+      <p className="ev-kicker">A calmer way to grow</p>
+      <h1 className="ev-h">Make room for{"\\n"}your next step.</h1>
+      <p className="ev-sub">Build better routines, stay close to what matters, and make progress one day at a time.</p>
+    </div>
+    <footer className="ev-foot">
+      <button type="button" className="ev-btn dark" onClick={next}>Let’s get started →</button>
+      <p className="ev-fine">A little progress goes a long way.</p>
+    </footer>
+  </>;
+
   if (screen === "account") view = <>
     <div className="ev-hero"><span className="ev-logo">{logo}</span><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
     <div className="ev-body ev-acct">
@@ -168,7 +188,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     <footer className="ev-foot ev-login">Already have an account? <button type="button" onClick={onLogin}>Log in</button></footer>
   </>;
 
-  if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next}>
+  if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next} alt="Skip for now" onAlt={skipAll}>
     <Pills items={ROLES} value={d.role} onPick={(v) => set("role", v)} className="ev-gap" />
     <div className="ev-grid2">
       <div className="ev-card"><small>Tasks per day</small><div className="ev-row"><strong className="ev-n">{d.tasks}</strong><Stepper value={d.tasks} min={1} max={30} onChange={(v) => set("tasks", v)} /></div></div>
@@ -177,12 +197,12 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     <FocusCard label="Current daily focus" mins={d.now} unit={d.unit} onUnit={(u) => set("unit", u)} onChange={(v) => set("now", v)} />
   </Frame>;
 
-  if (screen === "target") view = <Frame n={2} back={back} title="Set your target" sub="Pick a pace that feels doable — you can change it later." cta="Continue" onCta={next}>
+  if (screen === "target") view = <Frame n={2} back={back} title="Set your target" sub="Pick a pace that feels doable — you can change it later." cta="Continue" onCta={next} alt="Skip for now" onAlt={skipAll}>
     <FocusCard label="Target daily focus" mins={d.goal} unit={d.unit} onChange={(v) => set("goal", v)} tag={delta !== 0 && <span className="ev-tag">{delta > 0 ? "↑" : "↓"} {d.unit === "hrs" ? (Math.abs(delta) / 60).toFixed(1) : Math.abs(delta)} {d.unit}</span>} />
     {PACES.map((p) => <button key={p.id} type="button" aria-pressed={d.pace === p.id} className={"ev-pace" + (d.pace === p.id ? " on" : "")} onClick={() => set("pace", p.id)}><span><b>{p.name}</b>{p.rec && <span className="ev-tag">Recommended</span>}<small>{delta > 0 ? `+${p.mins} min / week · Reach goal by ${when(p.mins)}` : "Keep your current focus"}</small></span><i className="ev-em">{p.emoji}</i></button>)}
   </Frame>;
 
-  if (screen === "time") view = <Frame n={3} back={back} title="Time & focus" sub="Plans that fit your calendar and your energy." cta="Continue" onCta={next}>
+  if (screen === "time") view = <Frame n={3} back={back} title="Time & focus" sub="Plans that fit your calendar and your energy." cta="Continue" onCta={next} alt="Skip for now" onAlt={skipAll}>
     <div className="ev-card"><div className="ev-row"><small>Weekly focus budget</small><i className="ev-em">⏳</i></div><div className="ev-big l">{d.budget}<span>hrs / week</span></div><input type="range" className="ev-range" min="5" max="60" value={d.budget} aria-label="Weekly focus budget" style={{ "--p": ((d.budget - 5) / 55) * 100 + "%" }} onChange={(e) => set("budget", +e.target.value)} /><div className="ev-row ev-ends"><span>5 hrs</span><span>60 hrs</span></div></div>
     <h3 className="ev-label">Session length</h3><Chips items={SESSIONS} value={d.session} onPick={(v) => set("session", v)} />
     <h3 className="ev-label">Sessions per day</h3><Pills items={DAILY} value={d.daily} onPick={(v) => set("daily", v)} className="ev-seg" />
@@ -209,5 +229,5 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => finish(d.plan)}>Start 7-day free trial</button><p className="ev-fine">Then ${price}/{d.plan === "yearly" ? "year" : "month"}. Cancel anytime in Settings.</p></footer>
   </>;
 
-  return <main className="ev-ob"><div className="ev-device"><div key={screen} className={"ev-stage " + phase} style={{ "--dir": dir }}>{view}</div></div></main>;
+  return <main className="ev-ob">{["🎯", "💡", "✅", "📝"].map((e, k) => <span key={k} className={"ev-bg b" + k} aria-hidden>{e}</span>)}<div className="ev-device"><div key={screen} className={"ev-stage " + phase} style={{ "--dir": dir }}>{view}</div></div></main>;
 }
