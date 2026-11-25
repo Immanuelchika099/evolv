@@ -182,8 +182,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
       <p className="ev-sub">Build better routines, stay close to what matters, and make progress one day at a time.</p>
     </div>
     <footer className="ev-foot">
-      <button type="button" className="ev-btn dark" onClick={next}>Let’s get started →</button>
-      <button type="button" className="ev-ghost" onClick={next}>Skip for now</button>
+      <button type="button" className="ev-btn dark" onClick={next}>Get started</button>
       <p className="ev-fine">A little progress goes a long way.</p>
     </footer>
   </>;
