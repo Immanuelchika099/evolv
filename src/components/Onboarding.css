@@ -1210,3 +1210,9 @@ html body #root .ev-ob .ev-acct > .ev-or {
 html body #root .ev-ob .ev-acct > .ev-email-choice {
   margin: 0 !important;
 }
+
+
+/* Infinite welcome carousel: the active dot follows the real slide, including after wraparound. */
+.ev-carousel-dots i:first-child:not(.on) { width: 5px; background: #cfccd5; }
+.ev-carousel-dots i.on { width: 18px; background: #292832; }
+.ev-welcome-carousel { scroll-behavior: auto; }
