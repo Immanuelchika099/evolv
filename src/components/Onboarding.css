@@ -1161,3 +1161,16 @@ html body #root .ev-ob .ev-account-nav .ev-account-logo {
   box-shadow: none !important;
   filter: brightness(0) saturate(100%) !important;
 }
+
+
+/* Restore the account header mark to its original, balanced size. */
+html body #root .ev-ob .ev-account-nav {
+  min-height: 48px !important;
+  height: 48px !important;
+  margin-bottom: clamp(24px, 4vh, 38px) !important;
+}
+html body #root .ev-ob .ev-account-nav .ev-account-logo {
+  width: 44px !important;
+  height: 44px !important;
+  flex: 0 0 44px !important;
+}
