@@ -11,10 +11,9 @@ import PWAInstallPrompt from './components/PWAInstallPrompt'
 import { DashboardPages } from './components/DashboardPages'
 import EvolvAI from './components/ai/EvolvAI'
 import ContactModal from './components/contact/ContactModal'
-import PatternWaves from './components/PatternWaves/PatternWaves'
 import CrystalizedBall from './components/CrystalizedBall'
 import { AvatarPortrait, DEFAULT_AVATAR } from './components/AvatarStudio'
-import './components/styles/WelcomeOnboarding.css'
+import Onboarding from './components/Onboarding'
 import FlipCard from './components/FlipCard/FlipCard'
 import { supabase } from './lib/supabase'
 import gsap from 'gsap'
@@ -389,6 +388,7 @@ function App() {
   const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
   const [authMode, setAuthMode] = useState('signup')
+  const [pendingSignupEmail, setPendingSignupEmail] = useState('')
   const directSignup = window.location.pathname.replace(/\/+$/, '') === '/signup'
   const [data, setData] = useState(() => {
     if (window.location.pathname.replace(/\/+$/, '') === '/signup') return initialData
@@ -643,23 +643,79 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  async function finishOnboarding() {
-    const completedData = { ...data, name: getFirstName(data.name) }
-    localStorage.setItem('evolv-onboarding', JSON.stringify(completedData))
-    localStorage.setItem('evolv-avatar-preferences', JSON.stringify(
-      getAvatarPreset(completedData.avatarStyle || DEFAULT_AVATAR.presentation)
-    ))
-
-    // Complete the personal setup first; only then ask the user to create
-    // an account or sign in. This marker survives the Google/GitHub redirect.
-    localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
-    if (window.location.pathname.replace(/\/+$/, '') === '/signup') {
-      window.history.replaceState({}, '', '/')
+  async function handleNewOnboardingAuth({ provider, email }) {
+    if (provider === 'email') {
+      setPendingSignupEmail(String(email || '').trim())
+      return
     }
-    setData(completedData)
-    setAuthMode('signup')
-    localStorage.setItem('evolv-view', 'auth')
-    setView('auth')
+
+    if (provider !== 'google') throw new Error('That sign-in option is not available yet.')
+
+    localStorage.setItem('evolv-onboarding-v2-oauth-pending', 'true')
+    sessionStorage.setItem('evolv-oauth-intent', 'signup')
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin },
+    })
+    if (error) {
+      localStorage.removeItem('evolv-onboarding-v2-oauth-pending')
+      sessionStorage.removeItem('evolv-oauth-intent')
+      throw error
+    }
+  }
+
+  async function finishNewOnboarding(preferences) {
+    const { data: authData, error: userError } = await supabase.auth.getUser()
+    if (userError) throw userError
+
+    const user = authData?.user
+    const email = String(preferences.email || pendingSignupEmail || user?.email || '').trim().toLowerCase()
+    const name = getFirstName(
+      user?.user_metadata?.given_name ||
+      user?.user_metadata?.first_name ||
+      user?.user_metadata?.full_name ||
+      user?.user_metadata?.name ||
+      email.split('@')[0] ||
+      'there'
+    )
+    const profileData = {
+      ...initialData,
+      name,
+      areas: [],
+      focus: `${preferences.role || 'Personal'} · ${preferences.budget || 0} focus hours per week`,
+      goal: `Build a daily focus routine of ${preferences.goal || 0} minutes`,
+      avatarStyle: 'androgynous',
+    }
+
+    localStorage.setItem('evolv-focus-preferences', JSON.stringify(preferences))
+    localStorage.setItem('evolv-onboarding', JSON.stringify(profileData))
+    localStorage.setItem('evolv-avatar-preferences', JSON.stringify(getAvatarPreset('androgynous')))
+    setData(profileData)
+
+    if (!user) {
+      localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
+      setPendingSignupEmail(email)
+      setAuthMode('signup')
+      localStorage.setItem('evolv-view', 'auth')
+      setView('auth')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
+
+    const { error: saveError } = await supabase.from('profiles').upsert({
+      id: user.id,
+      first_name: profileData.name,
+      growth_areas: profileData.areas,
+      focus: profileData.focus,
+      first_goal: profileData.goal,
+    })
+    if (saveError) throw saveError
+
+    localStorage.removeItem('evolv-onboarding-v2-draft')
+    localStorage.removeItem('evolv-onboarding-v2-oauth-pending')
+    localStorage.removeItem('evolv-onboarding-ready-for-auth')
+    localStorage.setItem('evolv-view', 'dashboard')
+    setView('dashboard')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
@@ -686,6 +742,16 @@ function App() {
       .maybeSingle()
 
     if (profileError) console.error('EVOLV profile lookup failed:', profileError)
+
+    // OAuth begins on the first screen of the redesigned onboarding. After
+    // Google redirects back, restore the saved onboarding draft instead of
+    // routing the new user into the dashboard before their preferences exist.
+    if (authMode === 'signup' && localStorage.getItem('evolv-onboarding-v2-oauth-pending') === 'true') {
+      localStorage.setItem('evolv-view', 'onboarding')
+      setView('onboarding')
+      window.scrollTo({ top: 0, behavior: 'instant' })
+      return
+    }
 
     // Users who completed onboarding before authentication should land
     // in the dashboard after OAuth, with their choices saved to the profile.
@@ -780,15 +846,16 @@ function App() {
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'legal' && <LegalPage documentType={legalDocument} onBack={closeLegal} />}
       {view === 'welcome' && <WelcomeScreen onGetStarted={() => { if (window.location.pathname === '/onboarding' || window.location.pathname === '/onboarding/') window.history.replaceState({}, '', '/'); setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
-      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} onLegal={openLegal} />}
+      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} onLegal={openLegal} initialEmail={pendingSignupEmail} />}
       {view === 'onboarding' && (
         <Onboarding
-          step={step}
-          setStep={setStep}
-          data={data}
-          setData={setData}
-          onFinish={finishOnboarding}
-          onExit={() => openAuth('login')}
+          initialScreen="account"
+          showPaywall={false}
+          logo="evolv"
+          onAuth={handleNewOnboardingAuth}
+          onLogin={() => openAuth('login')}
+          onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))}
+          onComplete={finishNewOnboarding}
         />
       )}
       {view === 'dashboard' && <Dashboard data={data} onLogout={logout} onArticle={openArticle} isBooting={isBooting} />}
@@ -808,8 +875,8 @@ function EvolvLoader() {
   )
 }
 
-function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal }) {
-  const [email, setEmail] = useState('')
+function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal, initialEmail = '' }) {
+  const [email, setEmail] = useState(initialEmail)
   const [password, setPassword] = useState('')
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(() => {
@@ -1704,122 +1771,6 @@ function WelcomeScreen({ onGetStarted, onSignIn, onExplore }) {
           <p>Build better habits, understand yourself, and make progress at your own pace.</p>
           <button className="evolv-welcome-cta" type="button" onClick={onGetStarted}>Get started</button>
         </section>
-      </main>
-    </div>
-  )
-}
-
-function Onboarding({ step, setStep, data, setData, onFinish }) {
-  const stages = [
-    { eyebrow: '', title: <>What should we<br /><em>call you?</em></>, type: 'name' },
-    { eyebrow: '', title: <>Small steps.<br /><em>Real progress.</em></>, copy: 'EVOLV helps you notice your patterns, build steadier routines, and make thoughtful changes without pressure.', type: 'approach' },
-    { eyebrow: '', title: <>What matters to<br /><em>you right now?</em></>, type: 'goals' },
-    { eyebrow: 'READY WHEN YOU ARE', title: <>You’re all set{data.name ? `, ${getFirstName(data.name)}` : ''}.<br /><em>Let’s begin.</em></>, copy: 'Your journey to becoming your next self starts here.', type: 'ready' },
-  ]
-  const current = stages[step] || stages[0]
-  const canContinue = current.type !== 'name' || data.name.trim().length > 0
-  const avatarStyle = data.avatarStyle || 'androgynous'
-
-  function next() {
-    if (!canContinue) return
-    if (step < stages.length - 1) setStep(step + 1)
-    else onFinish()
-  }
-
-  function back() {
-    if (step > 0) setStep(step - 1)
-  }
-
-  return (
-    <div className="evolv-onboarding page-enter">
-      <div className="evolv-onboarding-background" aria-hidden="true">
-        <PatternWaves
-          preset="silk"
-          pattern="line"
-          wave="silk"
-          color="var(--color-accent-blue)"
-          backgroundColor="var(--bg)"
-          opacity={0.12}
-          fade="center"
-          fadeSize={0.82}
-          speed={0.12}
-          depth={0.52}
-          shine={0.18}
-          interactive={false}
-          intro
-          className="evolv-onboarding-pattern"
-        />
-        <div className="evolv-welcome-vignette" />
-      </div>
-      <header className="evolv-onboarding-header">
-        <img src="/evolv-mark.svg" alt="EVOLV" />
-        <div className="evolv-onboarding-step">{step + 1}<span> / {stages.length}</span></div>
-      </header>
-      <div className="evolv-onboarding-progress" role="progressbar" aria-label="Onboarding progress" aria-valuemin={1} aria-valuemax={stages.length} aria-valuenow={step + 1}>{stages.map((stage, index) => <i key={stage.type} className={index <= step ? 'is-complete' : ''} />)}</div>
-      <main className="evolv-onboarding-main" key={current.type}>
-        <button className="evolv-onboarding-back" type="button" onClick={back} disabled={step === 0} aria-label="Go back"><ChevronLeft size={17} /><span>Back</span></button>
-        <section className={`evolv-onboarding-stage evolv-onboarding-${current.type}`}>
-          {current.eyebrow && <span className="evolv-onboarding-eyebrow">{current.eyebrow}</span>}
-          <h1>{current.title}</h1>
-          {current.copy && <p className="evolv-onboarding-copy">{current.copy}</p>}
-          {current.type === 'name' && (
-            <label className="evolv-onboarding-name">
-              <span>Your preferred name</span>
-              <input autoFocus value={data.name} onChange={event => setData({ ...data, name: event.target.value })} onKeyDown={event => { if (event.key === 'Enter' && canContinue) next() }} placeholder="e.g. Iman" autoComplete="given-name" maxLength={40} />
-            </label>
-          )}
-          {current.type === 'approach' && (
-            <div className="evolv-onboarding-approach">
-              <div className="evolv-onboarding-approach-orbit" aria-hidden="true">
-                <span className="evolv-onboarding-orbit-ring evolv-onboarding-orbit-ring-one" />
-                <span className="evolv-onboarding-orbit-ring evolv-onboarding-orbit-ring-two" />
-                <span className="evolv-onboarding-orbit-core"><Sparkles size={29} strokeWidth={1.5} /></span>
-                <span className="evolv-onboarding-orbit-dot" />
-              </div>
-              <div className="evolv-onboarding-approach-list">
-                <div className="evolv-onboarding-approach-item">
-                  <span className="evolv-onboarding-approach-icon"><HeartPulse size={20} /></span>
-                  <span><strong>Understand your patterns</strong><small>Check in with your energy, mood, and everyday life.</small></span>
-                </div>
-                <div className="evolv-onboarding-approach-item">
-                  <span className="evolv-onboarding-approach-icon"><TrendingUp size={20} /></span>
-                  <span><strong>Build consistency</strong><small>Turn small, realistic actions into routines that last.</small></span>
-                </div>
-                <div className="evolv-onboarding-approach-item">
-                  <span className="evolv-onboarding-approach-icon"><Sparkles size={20} /></span>
-                  <span><strong>Adjust as you grow</strong><small>Use what you learn to decide what comes next.</small></span>
-                </div>
-              </div>
-            </div>
-          )}
-          {current.type === 'goals' && (
-            <div className="evolv-onboarding-goals">
-              {onboardingGoals.map(goal => {
-                const selected = (data.areas || []).includes(goal.id)
-                return (
-                  <button type="button" key={goal.id} className={`evolv-onboarding-goal${selected ? ' is-selected' : ''}`} aria-pressed={selected} onClick={() => setData({ ...data, areas: selected ? data.areas.filter(id => id !== goal.id) : [...(data.areas || []), goal.id] })}>
-                    <span className="evolv-onboarding-goal-symbol">{goal.symbol ? <span className="evolv-onboarding-goal-dollar" aria-hidden="true">{goal.symbol}</span> : <goal.icon size={23} strokeWidth={1.8} aria-hidden="true" />}</span>
-                    <span className="evolv-onboarding-goal-text"><strong>{goal.title}</strong></span>
-                    <span className="evolv-onboarding-goal-check">{selected ? <Check size={15} /> : <Plus size={15} />}</span>
-                  </button>
-                )
-              })}
-            </div>
-          )}
-          {current.type === 'ready' && (
-            <div className="evolv-onboarding-ready">
-              <div className="evolv-onboarding-ready-mark" aria-hidden="true"><span><Check size={30} strokeWidth={1.8} /></span></div>
-              <strong>{getFirstName(data.name) || 'Your next self'}</strong>
-              <span>{(data.areas || []).length ? `${data.areas.length} ${(data.areas || []).length === 1 ? 'focus area' : 'focus areas'} selected` : 'Your journey, your pace'}</span>
-            </div>
-          )}
-        </section>
-        <footer className="evolv-onboarding-footer">
-          {current.type === 'goals' && <button className="evolv-onboarding-skip" type="button" onClick={() => setStep(stages.length - 1)}>Skip for now</button>}
-          <button className="evolv-onboarding-continue" type="button" disabled={!canContinue} onClick={next}>
-            {current.type === 'ready' ? 'Enter EVOLV' : current.type === 'name' ? 'Continue' : current.type === 'approach' ? 'Continue' : 'Choose goals'} <ArrowRight size={17} />
-          </button>
-        </footer>
       </main>
     </div>
   )
