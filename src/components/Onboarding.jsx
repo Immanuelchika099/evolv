@@ -190,11 +190,10 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   if (screen === "account") view = <>
     <header className="ev-top ev-account-nav">
       <button type="button" className="ev-back" onClick={back} aria-label="Go back to onboarding"><Chev /></button>
-      <div className="ev-prog ev-account-progress" aria-label="Onboarding complete"><i className="on" /><i className="on" /><i className="on" /><i className="on" /><i className="on" /><i className="on" /></div>
+      <span className="ev-account-mark" aria-label="Evolv"><img src="/evolv-mark.svg" alt="" /></span>
     </header>
-    <div className="ev-account-hero"><img className="ev-logo-mark" src="/evolv-logo.svg" alt="Evolv" /><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
     <div className="ev-body ev-acct">
-      <h1 className="ev-h">Create your{"\n"}account</h1><p className="ev-sub">Your plan is ready. Create an account to save it and enter Evolv.</p>
+      <div className="ev-account-heading"><p className="ev-account-eyebrow">YOUR NEXT CHAPTER STARTS HERE</p><h1 className="ev-h">{accountMode === "login" ? "Welcome back." : <>Create your<br />Evolv account.</>}</h1><p className="ev-sub">{accountMode === "login" ? "Sign in to pick up where you left off." : "Save your plan and make progress, one day at a time."}</p></div>
       <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
       <div className="ev-or">or</div>
       <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
