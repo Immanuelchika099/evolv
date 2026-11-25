@@ -205,7 +205,15 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
     </header>
     <div className="ev-body ev-acct">
       <div className="ev-account-heading"><h1 className="ev-h">{accountMode === "login" ? "Welcome back." : <>Create your<br />Evolv account.</>}</h1><p className="ev-sub">{accountMode === "login" ? "Sign in to pick up where you left off." : "one step at a time…"}</p></div>
-      <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
+      <button type="button" className="ev-btn dark ev-google" onClick={() => auth("google")} disabled={busy}>
+        <svg className="ev-google-icon" viewBox="0 0 48 48" aria-hidden="true">
+          <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5.1h6.7c3.9-3.6 6-8.8 6-15Z"/>
+          <path fill="#34A853" d="M24 44c5.4 0 9.9-1.8 13.2-4.9l-6.7-5.1c-1.8 1.2-4 1.9-6.5 1.9-5 0-9.2-3.4-10.7-8H6.4v5.3A20 20 0 0 0 24 44Z"/>
+          <path fill="#FBBC05" d="M13.3 27.9a12 12 0 0 1 0-7.8v-5.3H6.4a20 20 0 0 0 0 18.4l6.9-5.3Z"/>
+          <path fill="#EA4335" d="M24 12.1c2.9 0 5.5 1 7.6 3l5.7-5.7C33.9 6.2 29.4 4 24 4A20 20 0 0 0 6.4 14.8l6.9 5.3c1.5-4.6 5.7-8 10.7-8Z"/>
+        </svg>
+        <span>{busy ? "Connecting…" : "Continue with Google"}</span>
+      </button>
       <button type="button" className="ev-btn ev-provider ev-github" onClick={() => auth("github")} disabled={busy}>
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.08c-3.1.67-3.76-1.32-3.76-1.32-.51-1.29-1.24-1.63-1.24-1.63-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .1.76 2.22 3.03 1.68.1-.72.39-1.22.7-1.5-2.47-.28-5.07-1.24-5.07-5.5 0-1.22.44-2.22 1.15-3-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.44 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.78 1.15 3 0 4.27-2.6 5.21-5.08 5.49.4.35.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"/></svg>
         Continue with GitHub
