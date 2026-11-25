@@ -854,7 +854,7 @@ body,
   border-top: 1px solid var(--ev-line);
   border-bottom: 1px solid var(--ev-line);
   padding: 1.8rem 0;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
   background: var(--bg);
 }
 .ev-marquee-track { display: flex; width: max-content; animation: evMarquee 28s linear infinite; }
@@ -1209,7 +1209,7 @@ body,
   font-size:clamp(170px,27vw,430px)!important;line-height:.78!important;
   letter-spacing:-.105em!important;font-weight:var(--font-weight-bold)!important;
   color:color-mix(in srgb, var(--t1) 4%, transparent)!important;
-  var(--t1)-space:nowrap!important;pointer-events:none;
+  white-space:nowrap!important;pointer-events:none;
 }
 .landing-v2 .ev-hero-content{
   width:min(100%,760px)!important;
@@ -1231,7 +1231,7 @@ body,
   font-size:clamp(64px,9.2vw,132px)!important;line-height:.88!important;
   letter-spacing:-.085em!important;font-weight:var(--font-weight-medium)!important;
 }
-.landing-v2 .ev-hero-title-line{display:block!important;var(--t1)-space:normal}
+.landing-v2 .ev-hero-title-line{display:block!important;white-space:normal}
 .landing-v2 .ev-hero-title em{
   color:var(--ev-accent)!important;font-style:normal!important;
 }
@@ -1880,7 +1880,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
   color: color-mix(in srgb, var(--t1) 72%, transparent);
   font: 500 clamp(22px, 3.4vw, 48px)/1 'Space Grotesk', sans-serif;
   letter-spacing: -.045em;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
 }
 .landing-v2 .ev-marquee-slanted-content span:nth-of-type(3n + 2) {
   color: var(--color-accent-blue);
@@ -1919,7 +1919,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
   }
   .landing-v2 .ev-hero-title-line {
     max-width: 100%;
-    var(--t1)-space: normal;
+    white-space: normal;
   }
   .landing-v2 .ev-hero-copy {
     width: 100%;
@@ -1938,7 +1938,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
     width: 100%;
     min-width: 0;
     min-height: 50px !important;
-    var(--t1)-space: normal;
+    white-space: normal;
   }
   .landing-v2 .ev-hero-watermark {
     max-width: 100%;
@@ -2050,7 +2050,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
 .landing-v2 .ev-device-brand {
   color: color-mix(in srgb, var(--t1) 90%, transparent);
   font-weight: var(--font-weight-semibold);
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
 }
 .landing-v2 .ev-device-brand i {
   color: color-mix(in srgb, var(--t1) 35%, transparent);
@@ -2069,7 +2069,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
   color: color-mix(in srgb, var(--t1) 72%, transparent);
   font-size: 9px;
   letter-spacing: .1em;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
 }
 .landing-v2 .ev-device-live-dot,
 .landing-v2 .ev-device-track-status > span {
@@ -2194,7 +2194,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
   font-style: normal;
   font-weight: var(--font-weight-medium);
   letter-spacing: .08em;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
 }
 .landing-v2 .ev-device-bottom {
   display: flex;
@@ -2228,7 +2228,7 @@ html body #root .landing{background:var(--bg)!important;background-color:var(--t
   gap: 7px;
   color: color-mix(in srgb, var(--t1) 78%, transparent);
   font-size: 9px;
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
 }
 @media (max-width: 800px) {
   .landing-v2 .ev-device-body {
