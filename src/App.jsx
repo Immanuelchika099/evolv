@@ -753,13 +753,7 @@ function App() {
     setData(profileData)
 
     if (!user) {
-      localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
-      setPendingSignupEmail(email)
-      setAuthMode('signup')
-      localStorage.setItem('evolv-view', 'auth')
-      setView('auth')
-      window.scrollTo({ top: 0, behavior: 'instant' })
-      return
+      throw new Error('Create your EVOLV account to finish setting up your plan.')
     }
 
     const { error: saveError } = await supabase.from('profiles').upsert({
@@ -771,6 +765,7 @@ function App() {
     })
     if (saveError) throw saveError
 
+    localStorage.removeItem('evolv-onboarding-v3-draft')
     localStorage.removeItem('evolv-onboarding-v2-draft')
     localStorage.removeItem('evolv-onboarding-v2-oauth-pending')
     localStorage.removeItem('evolv-onboarding-ready-for-auth')
@@ -837,6 +832,9 @@ function App() {
       setData(completedData)
       localStorage.setItem('evolv-onboarding', JSON.stringify(completedData))
       localStorage.removeItem('evolv-onboarding-ready-for-auth')
+      localStorage.removeItem('evolv-email-signup-intent')
+      localStorage.removeItem('evolv-onboarding-v3-draft')
+      localStorage.removeItem('evolv-onboarding-v2-draft')
       localStorage.setItem('evolv-view', 'dashboard')
       setView('dashboard')
       window.scrollTo({ top: 0, behavior: 'instant' })
