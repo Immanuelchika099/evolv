@@ -777,3 +777,136 @@ html body #root .ev-ob .ev-grid2 .ev-stepper button {
   line-height: 1;
   vertical-align: middle;
 }
+
+
+/* Welcome screen — edge-aligned header and a tactile, swipeable visual carousel. */
+.ev-stage:has(.ev-welcome-carousel) {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.ev-welcome-nav {
+  width: calc(100% + 32px);
+  min-height: 48px;
+  margin: 0 -16px 14px;
+  padding: 0 16px;
+  align-items: center;
+}
+.ev-welcome-logo {
+  width: 88px;
+  height: 46px;
+  object-fit: contain;
+  object-position: left center;
+}
+.ev-welcome-nav .ev-signin {
+  min-width: 76px;
+  min-height: 40px;
+  height: 40px;
+  padding: 0 17px;
+  border: 1px solid #e2e0e8;
+  border-radius: 999px;
+  background: #fbfafd;
+  color: #17171a;
+  font-size: 14px;
+  font-weight: 550;
+}
+.ev-welcome-carousel {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 250px;
+  max-height: 440px;
+  width: 100%;
+  margin: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 32px;
+  background: #e9e7ee;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+.ev-welcome-carousel::-webkit-scrollbar { display: none; }
+.ev-welcome-slide {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  place-items: center;
+  flex: 0 0 100%;
+  min-width: 100%;
+  overflow: hidden;
+  scroll-snap-align: center;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgba(255,255,255,.96) 0%, rgba(255,255,255,.58) 32%, transparent 66%),
+    linear-gradient(145deg, #f8f7fa 0%, #e8e6ed 100%);
+}
+.ev-slide-orbit {
+  position: absolute;
+  z-index: -1;
+  width: 68%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(40,38,48,.08);
+  border-radius: 50%;
+}
+.ev-slide-orbit.orbit-one { width: 62%; }
+.ev-slide-orbit.orbit-two { width: 88%; border-style: dashed; opacity: .65; }
+.ev-slide-icon {
+  display: grid;
+  place-items: center;
+  width: clamp(112px, 31vw, 156px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 38px;
+  background: rgba(255,255,255,.72);
+  box-shadow: 0 22px 65px rgba(37,33,48,.12), inset 0 1px 0 #fff;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  font-size: clamp(62px, 17vw, 88px);
+  transform: rotate(-7deg);
+}
+.ev-slide-float {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 19px;
+  background: rgba(255,255,255,.84);
+  box-shadow: 0 12px 32px rgba(37,33,48,.1);
+  font-size: 26px;
+  animation: ev-bob 5.5s ease-in-out infinite;
+}
+.ev-slide-float.slide-float-one { top: 22%; left: 17%; transform: rotate(-10deg); }
+.ev-slide-float.slide-float-two { right: 16%; bottom: 21%; animation-delay: -2.2s; }
+.ev-welcome-copy {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 22px 0 8px;
+  text-align: center;
+}
+.ev-welcome-copy .ev-h {
+  font-size: clamp(30px, 4.8vh, 38px);
+  line-height: 1.05;
+  letter-spacing: -.055em;
+  font-weight: 600;
+}
+.ev-carousel-dots { display: flex; align-items: center; gap: 6px; }
+.ev-carousel-dots i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #c9c7d0;
+}
+.ev-carousel-dots i:first-child { width: 19px; background: #17171a; }
+.ev-stage:has(.ev-welcome-carousel) .ev-foot { padding-top: 8px; }
+@media (max-height: 700px) {
+  .ev-welcome-carousel { min-height: 220px; }
+  .ev-welcome-copy { padding-top: 15px; gap: 12px; }
+  .ev-welcome-copy .ev-h { font-size: 30px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ev-slide-float { animation: none !important; }
+}
