@@ -252,7 +252,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       <div className="ev-plans">{[["yearly", "Yearly", "$3.33 / month"], ["monthly", "Monthly", "billed monthly"]].map(([k, n, s]) => <button key={k} type="button" aria-pressed={d.plan === k} className={"ev-plan" + (d.plan === k ? " on" : "")} onClick={() => set("plan", k)}>{k === "yearly" && <span className="ev-best">Best value</span>}<small>{n}</small><b>${PRICE[k]}</b><small>{s}</small></button>)}</div>
       <ul className="ev-card ev-time"><li className="on"><i /><span><b>Today</b><small>Full access to everything</small></span></li><li><i /><span><b>Day 5</b><small>We remind you before it ends</small></span></li><li><i /><span><b>Day 7</b><small>Trial ends — cancel anytime</small></span></li></ul>
     </div>
-    <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => go("account")}>Continue</button><p className="ev-fine">Choose a plan to see your options. Subscription and payment will be available soon.</p></footer>
+    <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => go("account")}>Continue</button></footer>
   </>;
 
   return <main className="ev-ob">{["🎯", "💡", "✅", "📝"].map((e, k) => <span key={k} className={"ev-bg b" + k} aria-hidden>{e}</span>)}<div className="ev-device"><div key={screen} className={"ev-stage " + phase} style={{ "--dir": dir }}>{view}</div></div></main>;
