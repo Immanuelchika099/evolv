@@ -409,7 +409,7 @@ function App() {
   const [step, setStep] = useState(0)
   const [authMode, setAuthMode] = useState('signup')
   const [pendingSignupEmail, setPendingSignupEmail] = useState('')
-  const directSignup = window.location.pathname.replace(/\/+$/, '') === '/signup'
+  const directSignup = false
   const [data, setData] = useState(() => {
     if (window.location.pathname.replace(/\/+$/, '') === '/signup') return initialData
     try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
@@ -667,10 +667,44 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  async function handleNewOnboardingAuth({ provider, email }) {
+  async function handleNewOnboardingAuth({ provider, email, password, preferences }) {
+    const cleanEmail = String(email || '').trim().toLowerCase()
+    const profileData = {
+      ...initialData,
+      name: getFirstName(cleanEmail.split('@')[0] || 'there'),
+      areas: [],
+      focus: `${preferences.role || 'Personal'} · ${preferences.budget || 0} focus hours per week`,
+      goal: `Build a daily focus routine of ${preferences.goal || 0} minutes`,
+      avatarStyle: 'androgynous',
+    }
+
+    // Save the completed onboarding choices before authentication so email
+    // confirmation and OAuth redirects can finish setup without losing them.
+    localStorage.setItem('evolv-focus-preferences', JSON.stringify(preferences))
+    localStorage.setItem('evolv-onboarding', JSON.stringify(profileData))
+    localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
+    localStorage.setItem('evolv-avatar-preferences', JSON.stringify(
+      getAvatarPreset(profileData.avatarStyle || DEFAULT_AVATAR.presentation)
+    ))
+
     if (provider === 'email') {
-      setPendingSignupEmail(String(email || '').trim())
-      return
+      if (!cleanEmail || !password) throw new Error('Enter your email and create a password.')
+      if (password.length < 8) throw new Error('Your password must be at least 8 characters.')
+      localStorage.setItem('evolv-email-signup-intent', String(Date.now()))
+      const { data: signupData, error } = await supabase.auth.signUp({
+        email: cleanEmail,
+        password,
+        options: { emailRedirectTo: `${window.location.origin}/` },
+      })
+      if (error) {
+        localStorage.removeItem('evolv-email-signup-intent')
+        throw error
+      }
+      if (signupData?.session?.user) {
+        await finishAuth(signupData.session.user, 'signup')
+        return { completed: true }
+      }
+      return { confirmationRequired: true }
     }
 
     if (provider !== 'google') throw new Error('That sign-in option is not available yet.')
@@ -769,10 +803,12 @@ function App() {
 
     if (profileError) console.error('EVOLV profile lookup failed:', profileError)
 
-    // Google OAuth is the first step in the redesigned onboarding. Restore
-    // the saved draft after the provider redirects back, then continue setup.
-    if (localStorage.getItem('evolv-onboarding-v2-oauth-pending') === 'true') {
-      localStorage.removeItem('evolv-onboarding-v2-oauth-pending')
+    // If OAuth returned from the final signup step, continue directly into
+    // the dashboard using the onboarding data saved before the redirect.
+    const oauthOnboardingPending = localStorage.getItem('evolv-onboarding-v2-oauth-pending') === 'true'
+    if (oauthOnboardingPending) localStorage.removeItem('evolv-onboarding-v2-oauth-pending')
+    const onboardingReady = localStorage.getItem('evolv-onboarding-ready-for-auth') === 'true'
+    if (oauthOnboardingPending && !onboardingReady) {
       localStorage.setItem('evolv-view', 'onboarding')
       setView('onboarding')
       window.scrollTo({ top: 0, behavior: 'instant' })
@@ -781,7 +817,6 @@ function App() {
 
     // Users who completed onboarding before authentication should land
     // in the dashboard after OAuth, with their choices saved to the profile.
-    const onboardingReady = localStorage.getItem('evolv-onboarding-ready-for-auth') === 'true'
     if ((authMode === 'signup' || !profile || !profile.first_name?.trim()) && onboardingReady) {
       const saved = (() => {
         try { return { ...initialData, ...JSON.parse(localStorage.getItem('evolv-onboarding') || '{}') } }
@@ -850,18 +885,21 @@ function App() {
 
     localStorage.removeItem('evolv-view')
     localStorage.removeItem('evolv-onboarding')
+    localStorage.removeItem('evolv-onboarding-v3-draft')
+    localStorage.removeItem('evolv-onboarding-ready-for-auth')
+    localStorage.removeItem('evolv-email-signup-intent')
     sessionStorage.removeItem('evolv-oauth-intent')
     sessionStorage.removeItem('evolv-auth-error')
-    setAuthMode('signup')
+    setAuthMode('login')
     setData(initialData)
-    window.history.replaceState({}, '', '/signup')
-    setView('auth')
+    window.history.replaceState({}, '', '/')
+    setView('landing')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   return (
     <main ref={root} className="app">
-      <AmbientSound active={ambientSoundEnabled && view === 'dashboard'} />
+      {view === 'dashboard' && <AmbientSound active={ambientSoundEnabled} />}
       {isBooting && <EvolvLoader />}
       <div className="noise" />
       {view !== 'welcome' && view !== 'onboarding' && view !== 'auth' && view !== 'dashboard' && view !== 'legal' && (
@@ -1076,22 +1114,6 @@ function AuthPage({ mode, setMode, onSuccess, directSignup = false, onLegal, ini
           <h1>Welcome to EVOLV</h1>
           <p>Sign in and continue creating</p>
         </header>
-
-        <button className="auth-signup-banner" type="button" onClick={() => {
-          setMode('signup')
-          setAuthStage('choices')
-          setError('')
-          setMessage('')
-        }}>
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M3 10h18v4H3zM5 14v7h14v-7M12 10v11" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-            <path d="M12 10H7.7a2.2 2.2 0 1 1 2.2-2.2c0 1.1 2.1 2.2 2.1 2.2ZM12 10h4.3a2.2 2.2 0 1 0-2.2-2.2C14.1 8.9 12 10 12 10Z" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-          <span>Sign up with work email &amp; start evolving</span>
-          <svg className="auth-banner-arrow" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M5 12h14m-6-6 6 6-6 6" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"/>
-          </svg>
-        </button>
 
         <div className="auth-provider-stack">
           <button className="auth-provider-button" type="button" onClick={() => continueWithProvider('google')} disabled={sending}>
