@@ -341,14 +341,14 @@ function App() {
   const root = useRef(null)
   // Only phones and tablets can enter EVOLV's private app experience.
   // Use platform signals rather than viewport width so resizing a laptop cannot unlock it.
-  const [isSupportedAppDevice, setIsSupportedAppDevice] = useState(() => {
+  const [isUnsupportedAppDevice] = useState(() => {
     if (typeof window === 'undefined') return true
     const ua = navigator.userAgent || ''
     const platform = navigator.platform || ''
     const isIOSDevice = /iPhone|iPad|iPod/i.test(ua) ||
       (platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1)
     const isAndroidDevice = /Android/i.test(ua)
-    return isIOSDevice || isAndroidDevice
+    return !(isIOSDevice || isAndroidDevice)
   })
 
   useEffect(() => {
@@ -918,34 +918,6 @@ function App() {
           <h1 id="evolv-device-gate-title" style={{ margin: '14px 0 12px', fontSize: 'clamp(30px, 5vw, 38px)', lineHeight: 1.04, letterSpacing: '-.045em', fontWeight: 600 }}>EVOLV is made for your pocket.</h1>
           <p style={{ margin: '0 auto', maxWidth: 340, color: '#777580', fontSize: 15, lineHeight: 1.55 }}>Our app experience is designed for phones and tablets. Open EVOLV on a mobile device to continue your journey, build your plan and access your dashboard.</p>
           <a href="/" style={{ minHeight: 52, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 28, padding: '0 22px', borderRadius: 999, background: '#111113', color: '#fff', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>Back to the website <ArrowRight size={16}/></a>
-        </section>
-      </main>
-    )
-  }
-
-  const isPrivateAppView = ['welcome', 'auth', 'onboarding', 'dashboard'].includes(view)
-
-  if (isPrivateAppView && !isSupportedAppDevice) {
-    return (
-      <main
-        className="evolv-device-restriction"
-        style={{
-          minHeight: '100svh',
-          display: 'grid',
-          placeItems: 'center',
-          padding: '32px 24px',
-          background: '#f0eff4',
-          color: '#111113',
-          textAlign: 'center',
-          fontFamily: 'inherit',
-        }}
-      >
-        <section style={{ width: 'min(100%, 440px)' }}>
-          <img src="/evolv-mark.svg" alt="EVOLV" style={{ width: 76, height: 64, objectFit: 'contain', marginBottom: 28 }} />
-          <p style={{ margin: '0 0 12px', color: '#777580', fontSize: 11, fontWeight: 600, letterSpacing: '.16em' }}>MADE FOR YOUR EVERYDAY</p>
-          <h1 style={{ margin: '0 auto 14px', maxWidth: 380, fontSize: 'clamp(30px, 4vw, 42px)', lineHeight: 1.08, letterSpacing: '-.045em', fontWeight: 600 }}>A little space to grow, wherever you go.</h1>
-          <p style={{ margin: '0 auto 28px', maxWidth: 360, color: '#777580', fontSize: 15, lineHeight: 1.65 }}>The EVOLV app is designed for phones and tablets. You can explore our website here, then continue your journey on a mobile device.</p>
-          <a href="/" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', minHeight: 48, padding: '0 24px', borderRadius: 999, background: '#111113', color: '#fff', textDecoration: 'none', fontSize: 14, fontWeight: 600 }}>Explore the website</a>
         </section>
       </main>
     )
