@@ -900,7 +900,7 @@ html body #root .ev-ob .ev-grid2 .ev-stepper button {
   border-radius: 999px;
   background: #c9c7d0;
 }
-.ev-carousel-dots i:first-child { width: 19px; background: #17171a; }
+.ev-carousel-dots i.on { width: 19px; background: #17171a; }
 .ev-stage:has(.ev-welcome-carousel) .ev-foot { padding-top: 8px; }
 @media (max-height: 700px) {
   .ev-welcome-carousel { min-height: 220px; }
