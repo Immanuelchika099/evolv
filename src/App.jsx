@@ -339,31 +339,17 @@ function StreakWidget() {
 
 function App() {
   const root = useRef(null)
-  // EVOLV's private app experience is intentionally limited to phones and tablets.
-  // Physical screen width prevents resizing a laptop browser from unlocking the app.
-  const [isUnsupportedAppDevice, setIsUnsupportedAppDevice] = useState(() => {
-    if (typeof window === 'undefined') return false
-    const screenWidth = window.screen?.width || window.innerWidth
-    const deviceWidth = Math.max(window.innerWidth, screenWidth)
-    const hasTouch = (navigator.maxTouchPoints || 0) > 1 || 'ontouchstart' in window
-    return deviceWidth > 1024 && !(hasTouch && deviceWidth <= 1366)
+  // Only phones and tablets can enter EVOLV's private app experience.
+  // Use platform signals rather than viewport width so resizing a laptop cannot unlock it.
+  const [isUnsupportedAppDevice] = useState(() => {
+    if (typeof window === 'undefined') return true
+    const ua = navigator.userAgent || ''
+    const platform = navigator.platform || ''
+    const isIOSDevice = /iPhone|iPad|iPod/i.test(ua) ||
+      (platform === 'MacIntel' && (navigator.maxTouchPoints || 0) > 1)
+    const isAndroidDevice = /Android/i.test(ua)
+    return !(isIOSDevice || isAndroidDevice)
   })
-
-  useEffect(() => {
-    const checkDevice = () => {
-      const screenWidth = window.screen?.width || window.innerWidth
-      const deviceWidth = Math.max(window.innerWidth, screenWidth)
-      const hasTouch = (navigator.maxTouchPoints || 0) > 1 || 'ontouchstart' in window
-      setIsUnsupportedAppDevice(deviceWidth > 1024 && !(hasTouch && deviceWidth <= 1366))
-    }
-    checkDevice()
-    window.addEventListener('resize', checkDevice)
-    window.addEventListener('orientationchange', checkDevice)
-    return () => {
-      window.removeEventListener('resize', checkDevice)
-      window.removeEventListener('orientationchange', checkDevice)
-    }
-  }, [])
 
   useEffect(() => {
     // EVOLV stays light regardless of the device's appearance setting.
