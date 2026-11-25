@@ -1216,3 +1216,39 @@ html body #root .ev-ob .ev-acct > .ev-email-choice {
 .ev-carousel-dots i:first-child:not(.on) { width: 5px; background: #cfccd5; }
 .ev-carousel-dots i.on { width: 18px; background: #292832; }
 .ev-welcome-carousel { scroll-behavior: auto; }
+
+
+/* Required first-name field in the onboarding profile step. */
+.ev-name-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  margin: 0 0 16px;
+}
+.ev-name-field > span {
+  color: #777580;
+  font-size: 12px;
+  font-weight: 550;
+}
+.ev-name-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 52px;
+  padding: 0 16px;
+  border: 1px solid #e2e0e8;
+  border-radius: 16px;
+  outline: none;
+  background: #fbfafd;
+  color: #17171a;
+  font-size: 15px;
+}
+.ev-name-field input:focus {
+  border-color: #aaa6b2;
+}
+.ev-name-error {
+  margin: -7px 0 12px;
+}
+.ev-name-account-field {
+  margin: 0 0 14px;
+}
