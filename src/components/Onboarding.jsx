@@ -170,17 +170,27 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
 
   let view = null;
   if (screen === "welcome") view = <>
-    <header className="ev-top ev-split">
+    <header className="ev-top ev-split ev-welcome-nav">
       <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="Evolv" />
       <button type="button" className="ev-signin" onClick={() => { setAccountMode("login"); setErr(""); setAuthMessage(""); go("account"); }}>Sign in</button>
     </header>
-    <div className="ev-hero2" aria-hidden>
-      {["🌱", "🧠", "🎯", "📖", "☀️", "⏳"].map((e, k) => <i key={k} className={"ev-tile2 t" + k}>{e}</i>)}
+    <div className="ev-welcome-carousel" aria-label="Explore Evolv">
+      <div className="ev-welcome-slide">
+        <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
+        <span className="ev-slide-icon">🌱</span><span className="ev-slide-float slide-float-one">✨</span><span className="ev-slide-float slide-float-two">☀️</span>
+      </div>
+      <div className="ev-welcome-slide">
+        <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
+        <span className="ev-slide-icon">🎯</span><span className="ev-slide-float slide-float-one">✦</span><span className="ev-slide-float slide-float-two">⏳</span>
+      </div>
+      <div className="ev-welcome-slide">
+        <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
+        <span className="ev-slide-icon">📖</span><span className="ev-slide-float slide-float-one">💡</span><span className="ev-slide-float slide-float-two">✦</span>
+      </div>
     </div>
-    <div className="ev-body ev-welcome">
-      <p className="ev-kicker">A calmer way to grow</p>
-      <h1 className="ev-h">Make room for{"\n"}your next step.</h1>
-      <p className="ev-sub">Build better routines, stay close to what matters, and make progress one day at a time.</p>
+    <div className="ev-welcome-copy">
+      <h1 className="ev-h">One day at a time.</h1>
+      <div className="ev-carousel-dots" aria-hidden="true"><i /><i /><i /></div>
     </div>
     <footer className="ev-foot">
       <button type="button" className="ev-btn dark" onClick={next}>Get started</button>
