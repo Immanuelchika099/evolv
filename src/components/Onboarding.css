@@ -546,7 +546,7 @@ html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-foot .ev-btn.dark {
   font-weight: 600 !important;
   letter-spacing: -.02em !important;
 }
-html body #root .ev-ob .ev-welcome .ev-signin {
+html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-top .ev-signin {
   min-height: 44px !important;
   height: 44px !important;
   padding: 0 19px !important;
