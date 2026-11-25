@@ -387,7 +387,7 @@ function App() {
     if (path === '/terms' || path === '/privacy') return 'legal'
     if (path === '/onboarding') return 'onboarding'
     if (path === '/dashboard') return 'dashboard'
-    if (path === '/signup') return 'onboarding'
+    if (path === '/signup') return 'auth'
 
     const initialView = savedView === 'onboarding' || savedView === 'welcome' ? 'onboarding' : savedView
     return validViews.has(initialView) ? initialView : 'landing'
