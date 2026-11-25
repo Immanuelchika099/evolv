@@ -1193,3 +1193,20 @@ html body #root .ev-ob .ev-stage:has(.ev-account-nav) .ev-acct {
 html body #root .ev-ob .ev-stage:has(.ev-account-nav) .ev-login {
   flex: 0 0 auto !important;
 }
+
+
+/* Account provider order: Google, GitHub, divider, then email. */
+html body #root .ev-ob .ev-acct > .ev-github {
+  margin: 10px 0 0 !important;
+}
+html body #root .ev-ob .ev-acct > .ev-or {
+  margin: 12px 0 2px !important;
+  color: #92909a !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  letter-spacing: .14em !important;
+  line-height: 1 !important;
+}
+html body #root .ev-ob .ev-acct > .ev-email-choice {
+  margin: 0 !important;
+}
