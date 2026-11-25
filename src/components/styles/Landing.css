@@ -572,7 +572,7 @@ body{
 .evolv-hero-marquee-content{display:flex;align-items:center;gap:34px;padding-right:34px;flex-shrink:0}
 .evolv-hero-marquee-content span{
   color:color-mix(in srgb, var(--color-accent-blue) 18%, transparent);font:500 clamp(18px,1.8vw,28px)/1 'Space Grotesk';
-  letter-spacing:.055em;text-transform:uppercase;var(--t1)-space:nowrap;
+  letter-spacing:.055em;text-transform:uppercase;white-space:nowrap;
   text-shadow:0 0 16px color-mix(in srgb, var(--color-accent-blue) 3.5%, transparent);
 }
 .evolv-hero-marquee-content i{color:color-mix(in srgb, var(--color-accent-blue) 11%, transparent);font-style:normal;font-size:12px}
