@@ -339,6 +339,31 @@ function StreakWidget() {
 
 function App() {
   const root = useRef(null)
+  // EVOLV's private app experience is intentionally limited to phones and tablets.
+  // Physical screen width prevents resizing a laptop browser from unlocking the app.
+  const [isUnsupportedAppDevice, setIsUnsupportedAppDevice] = useState(() => {
+    if (typeof window === 'undefined') return false
+    const screenWidth = window.screen?.width || window.innerWidth
+    const deviceWidth = Math.max(window.innerWidth, screenWidth)
+    const hasTouch = (navigator.maxTouchPoints || 0) > 1 || 'ontouchstart' in window
+    return deviceWidth > 1024 && !(hasTouch && deviceWidth <= 1366)
+  })
+
+  useEffect(() => {
+    const checkDevice = () => {
+      const screenWidth = window.screen?.width || window.innerWidth
+      const deviceWidth = Math.max(window.innerWidth, screenWidth)
+      const hasTouch = (navigator.maxTouchPoints || 0) > 1 || 'ontouchstart' in window
+      setIsUnsupportedAppDevice(deviceWidth > 1024 && !(hasTouch && deviceWidth <= 1366))
+    }
+    checkDevice()
+    window.addEventListener('resize', checkDevice)
+    window.addEventListener('orientationchange', checkDevice)
+    return () => {
+      window.removeEventListener('resize', checkDevice)
+      window.removeEventListener('orientationchange', checkDevice)
+    }
+  }, [])
 
   useEffect(() => {
     // EVOLV stays light regardless of the device's appearance setting.
@@ -893,6 +918,23 @@ function App() {
     window.history.replaceState({}, '', '/')
     setView('landing')
     window.scrollTo({ top: 0, behavior: 'instant' })
+  }
+
+  const isPrivateAppView = ['welcome', 'auth', 'onboarding', 'dashboard'].includes(view)
+
+  // Keep the public marketing site available everywhere; only gate the app flow.
+  if (isPrivateAppView && isUnsupportedAppDevice) {
+    return (
+      <main style={{ minHeight: '100dvh', display: 'grid', placeItems: 'center', padding: '28px 22px', background: '#f0eff4', color: '#111113', fontFamily: '"Instrument Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif' }}>
+        <section role="dialog" aria-modal="true" aria-labelledby="evolv-device-gate-title" style={{ width: 'min(100%, 440px)', padding: '42px 30px 34px', borderRadius: 30, background: '#fbfafd', textAlign: 'center', boxShadow: '0 18px 60px rgba(30,24,40,.08)' }}>
+          <div aria-hidden="true" style={{ width: 58, height: 58, display: 'grid', placeItems: 'center', margin: '0 auto 24px', borderRadius: 19, background: '#111113', color: '#fff', fontSize: 34, fontWeight: 600, letterSpacing: '-.06em' }}>e</div>
+          <span style={{ fontSize: 10, fontWeight: 600, letterSpacing: '.14em', color: '#8d8c96' }}>A MORE PERSONAL EXPERIENCE</span>
+          <h1 id="evolv-device-gate-title" style={{ margin: '14px 0 12px', fontSize: 'clamp(30px, 5vw, 38px)', lineHeight: 1.04, letterSpacing: '-.045em', fontWeight: 600 }}>EVOLV is made for your pocket.</h1>
+          <p style={{ margin: '0 auto', maxWidth: 340, color: '#777580', fontSize: 15, lineHeight: 1.55 }}>Our app experience is designed for phones and tablets. Open EVOLV on a mobile device to continue your journey, build your plan and access your dashboard.</p>
+          <a href="/" style={{ minHeight: 52, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10, marginTop: 28, padding: '0 22px', borderRadius: 999, background: '#111113', color: '#fff', textDecoration: 'none', fontSize: 14, fontWeight: 500 }}>Back to the website <ArrowRight size={16}/></a>
+        </section>
+      </main>
+    )
   }
 
   return (
