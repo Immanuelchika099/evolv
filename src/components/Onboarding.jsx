@@ -105,7 +105,7 @@ function Building({ onDone }) {
   </div>;
 }
 
-export default function Onboarding({ initialScreen = "account", initialAuthMode = "signup", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
+export default function Onboarding({ initialScreen = "account", initialAuthMode = "signup", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete, onLegal }) {
   const saved = readDraft();
   const ORDER = ["welcome", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : []), "account"];
   const [screen, setScreen] = useState(initialAuthMode === "login" ? "account" : (showPaywall && initialScreen === "welcome" && saved?.screen === "account" ? "paywall" : (saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen)));
@@ -263,7 +263,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
         <button type="button" className="ev-btn ev-provider ev-email-choice" onClick={() => { setEmailAuth(true); setErr(""); setAuthMessage(""); }} disabled={busy}>
           <Mail /> <span>Continue with email</span>
         </button>
-        <p className="ev-fine">By continuing you agree to the <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.</p>
+        <p className="ev-fine">By continuing you agree to the <a href="/terms" onClick={(event) => { event.preventDefault(); onLegal?.("terms") }}>Terms of Service</a> and <a href="/privacy" onClick={(event) => { event.preventDefault(); onLegal?.("privacy") }}>Privacy Policy</a>.</p>
       </> : <>
         <div className="ev-account-heading"><h1 className="ev-h">{accountMode === "login" ? "Sign in with email." : "Your email, your Evolv."}</h1><p className="ev-sub">{accountMode === "login" ? "Enter your details to continue." : "Create your account and take it one day at a time."}</p></div>
         <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
