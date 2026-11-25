@@ -968,7 +968,7 @@ function App() {
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'legal' && <LegalPage documentType={legalDocument} onBack={closeLegal} />}
       {view === 'welcome' && <WelcomeScreen onGetStarted={() => { if (window.location.pathname === '/onboarding' || window.location.pathname === '/onboarding/') window.history.replaceState({}, '', '/'); localStorage.removeItem('evolv-onboarding-v3-draft'); setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
-      {view === 'auth' && <Onboarding initialScreen="account" initialAuthMode={authMode} showPaywall={false} logo="evolv" onAuth={handleNewOnboardingAuth} onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))} onComplete={finishNewOnboarding} />}
+      {view === 'auth' && <Onboarding initialScreen="account" initialAuthMode={authMode} showPaywall={false} logo="evolv" onLegal={openLegal} onAuth={handleNewOnboardingAuth} onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))} onComplete={finishNewOnboarding} />}
       {view === 'onboarding' && (
         <Onboarding
           initialScreen="welcome"
