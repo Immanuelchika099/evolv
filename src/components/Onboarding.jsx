@@ -18,7 +18,7 @@ const PERMS = [
 const PLUS = ["Unlimited AI planning", "A fresh focus plan every week", "Smart reminders & calendar sync", "Shared spaces for up to 6"];
 const PRICE = { yearly: 39.99, monthly: 7.99 };
 const STEPS = ["about", "target", "time"];
-const DRAFT_KEY = "evolv-onboarding-v2-draft";
+const DRAFT_KEY = "evolv-onboarding-v3-draft";
 
 const Svg = (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...p} />;
 const Chev = () => <Svg width="18" height="18"><path d="M15 5l-7 7 7 7" /></Svg>;
@@ -107,18 +107,21 @@ function Building({ onDone }) {
 
 export default function Onboarding({ initialScreen = "account", showPaywall = false, logo = "evolv", onAuth, onLogin, onPermissions, onComplete }) {
   const saved = readDraft();
-  const ORDER = ["welcome", "account", "about", "target", "time", "stay", "building", ...(showPaywall ? ["paywall"] : [])];
+  const ORDER = ["welcome", "about", "target", "time", "stay", "building", "account", ...(showPaywall ? ["paywall"] : [])];
   const [screen, setScreen] = useState(saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen);
   const [phase, setPhase] = useState("in");
   const [dir, setDir] = useState(1);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
+  const [password, setPassword] = useState("");
+  const [authMessage, setAuthMessage] = useState("");
   const busyRef = useRef(false);
   const [d, setD] = useState({ email: "", role: "Professional", tasks: 6, hours: 8, unit: "hrs", now: 120, goal: 240, pace: "steady", budget: 20, session: "25–50 min", daily: "3", tools: ["Timer"], calendar: true, reminders: true, plan: "yearly", ...(saved?.data || {}) });
   const set = (k, v) => setD((p) => ({ ...p, [k]: v }));
 
   useEffect(() => {
-    // Building is a transient animation, never a resumable onboarding step.
+    // Discard stale drafts from the previous signup-first flow.
+    localStorage.removeItem("evolv-onboarding-v2-draft");
     if (screen !== "building") localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen, data: d }));
   }, [screen, d]);
 
@@ -130,7 +133,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const i = ORDER.indexOf(screen);
   const next = () => (i < ORDER.length - 1 ? go(ORDER[i + 1]) : finish());
   const prev = () => go(ORDER[i - 1], -1);
-  const back = i > 0 ? prev : null;
+  const back = screen === "account" ? () => go("stay", -1) : (i > 0 && screen !== "building" ? prev : null);
   const finish = async (plan, skipped = false) => {
     try {
       await onComplete?.({ ...d, plan: plan === undefined ? null : plan, skipped });
@@ -139,18 +142,20 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
       go("account", -1);
     }
   };
-  const skipAll = () => finish(null, true);
-
   const auth = async (provider) => {
     if (provider === "email" && !/^\S+@\S+\.\S+$/.test(d.email)) return setErr("Enter a valid email address.");
+    if (provider === "email" && password.length < 8) return setErr("Your password must be at least 8 characters.");
     setErr("");
+    setAuthMessage("");
     setBusy(true);
     try {
       if (provider === "google") {
-        localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen: "about", data: d }));
+        localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen: "account", data: d }));
       }
-      await onAuth?.({ provider, email: d.email });
-      if (provider === "email") next();
+      const result = await onAuth?.({ provider, email: d.email, password, preferences: d });
+      if (result?.confirmationRequired) {
+        setAuthMessage("Check your email for the confirmation link. Once confirmed, EVOLV will finish setting up your account.");
+      }
     } catch (e) {
       setErr(e?.message || "Couldn't connect. Please try again.");
     } finally {
@@ -178,25 +183,31 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     </div>
     <footer className="ev-foot">
       <button type="button" className="ev-btn dark" onClick={next}>Let’s get started →</button>
+      <button type="button" className="ev-ghost" onClick={next}>Skip for now</button>
       <p className="ev-fine">A little progress goes a long way.</p>
     </footer>
   </>;
 
   if (screen === "account") view = <>
+    <header className="ev-top ev-account-nav">
+      <button type="button" className="ev-account-back" onClick={back}><Chev /> <span>Back</span></button>
+    </header>
     <div className="ev-account-hero"><img className="ev-logo-mark" src="/evolv-logo.svg" alt="EVOLV" /><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
     <div className="ev-body ev-acct">
-      <h1 className="ev-h">Create your{"\n"}account</h1><p className="ev-sub">Save your goals and sync them across devices.</p>
+      <h1 className="ev-h">Create your{"\n"}account</h1><p className="ev-sub">Your plan is ready. Create an account to save it and enter EVOLV.</p>
       <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
       <div className="ev-or">or</div>
-      <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => set("email", e.target.value)} /></label>
+      <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
+      <label className="ev-field ev-password-field"><Svg width="18" height="18"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></Svg><input type="password" autoComplete="new-password" placeholder="Create password" value={password} onChange={(e) => setPassword(e.target.value)} /></label>
       {err && <p className="ev-err" role="alert">{err}</p>}
-      <button type="button" className="ev-btn accent" onClick={() => auth("email")} disabled={busy}>Continue with email</button>
+      {authMessage && <p className="ev-auth-message" role="status">{authMessage}</p>}
+      <button type="button" className="ev-btn accent" onClick={() => auth("email")} disabled={busy}>{busy ? "Creating account…" : "Create account"}</button>
       <p className="ev-fine">By continuing you agree to the <a href="/terms">Terms</a> and <a href="/privacy">Privacy Policy</a>.</p>
     </div>
     <footer className="ev-foot ev-login">Already have an account? <button type="button" onClick={onLogin}>Log in</button></footer>
   </>;
 
-  if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next} alt="Skip for now" onAlt={skipAll}>
+  if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next} alt="Skip for now" onAlt={next}>
     <Pills items={ROLES} value={d.role} onPick={(v) => set("role", v)} className="ev-gap" />
     <div className="ev-grid2">
       <div className="ev-card"><small>Tasks per day</small><div className="ev-row"><strong className="ev-n">{d.tasks}</strong><Stepper value={d.tasks} min={1} max={30} onChange={(v) => set("tasks", v)} /></div></div>
@@ -205,12 +216,12 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     <FocusCard label="Current daily focus" mins={d.now} unit={d.unit} onUnit={(u) => set("unit", u)} onChange={(v) => set("now", v)} />
   </Frame>;
 
-  if (screen === "target") view = <Frame n={2} back={back} title="Set your target" sub="Pick a pace that feels doable — you can change it later." cta="Continue" onCta={next} alt="Skip for now" onAlt={skipAll}>
+  if (screen === "target") view = <Frame n={2} back={back} title="Set your target" sub="Pick a pace that feels doable — you can change it later." cta="Continue" onCta={next} alt="Skip for now" onAlt={next}>
     <FocusCard label="Target daily focus" mins={d.goal} unit={d.unit} onChange={(v) => set("goal", v)} tag={delta !== 0 && <span className="ev-tag">{delta > 0 ? "↑" : "↓"} {d.unit === "hrs" ? (Math.abs(delta) / 60).toFixed(1) : Math.abs(delta)} {d.unit}</span>} />
     {PACES.map((p) => <button key={p.id} type="button" aria-pressed={d.pace === p.id} className={"ev-pace" + (d.pace === p.id ? " on" : "")} onClick={() => set("pace", p.id)}><span><b>{p.name}</b>{p.rec && <span className="ev-tag">Recommended</span>}<small>{delta > 0 ? `+${p.mins} min / week · Reach goal by ${when(p.mins)}` : "Keep your current focus"}</small></span><i className="ev-em">{p.emoji}</i></button>)}
   </Frame>;
 
-  if (screen === "time") view = <Frame n={3} back={back} title="Time & focus" sub="Plans that fit your calendar and your energy." cta="Continue" onCta={next} alt="Skip for now" onAlt={skipAll}>
+  if (screen === "time") view = <Frame n={3} back={back} title="Time & focus" sub="Plans that fit your calendar and your energy." cta="Continue" onCta={next} alt="Skip for now" onAlt={next}>
     <div className="ev-card"><div className="ev-row"><small>Weekly focus budget</small><i className="ev-em">⏳</i></div><div className="ev-big l">{d.budget}<span>hrs / week</span></div><input type="range" className="ev-range" min="5" max="60" value={d.budget} aria-label="Weekly focus budget" style={{ "--p": ((d.budget - 5) / 55) * 100 + "%" }} onChange={(e) => set("budget", +e.target.value)} /><div className="ev-row ev-ends"><span>5 hrs</span><span>60 hrs</span></div></div>
     <h3 className="ev-label">Session length</h3><Chips items={SESSIONS} value={d.session} onPick={(v) => set("session", v)} />
     <h3 className="ev-label">Sessions per day</h3><Pills items={DAILY} value={d.daily} onPick={(v) => set("daily", v)} className="ev-seg" />
@@ -223,7 +234,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
       <h1 className="ev-h">Stay on track,{"\n"}effortlessly</h1><p className="ev-sub">EVOLV adjusts your plan when your schedule changes.</p>
       {PERMS.map((r) => <div key={r.k} className="ev-card ev-perm"><span className="ev-tile" style={{ background: r.bg }}>{r.e}</span><span><b>{r.t}</b><small>{r.s}</small></span><Switch on={d[r.k]} label={r.t} onClick={() => set(r.k, !d[r.k])} /></div>)}
     </div>
-    <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => { onPermissions?.({ calendar: d.calendar, reminders: d.reminders }); next(); }}>Allow & continue</button><button type="button" className="ev-ghost" onClick={() => { setD((p) => ({ ...p, calendar: false, reminders: false })); onPermissions?.({ calendar: false, reminders: false }); next(); }}>Not now</button></footer>
+    <footer className="ev-foot"><button type="button" className="ev-btn dark" onClick={() => { onPermissions?.({ calendar: d.calendar, reminders: d.reminders }); next(); }}>Allow & continue</button><button type="button" className="ev-ghost" onClick={() => { setD((p) => ({ ...p, calendar: false, reminders: false })); onPermissions?.({ calendar: false, reminders: false }); next(); }}>Skip for now</button></footer>
   </>;
 
   if (screen === "building") view = <Building onDone={next} />;

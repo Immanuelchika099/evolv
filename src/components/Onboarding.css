@@ -286,3 +286,50 @@ html:has(.ev-ob) #root {
   .ev-btn { height: 48px; }
   .ev-login { font-size: 13px; }
 }
+
+
+/* Final account step: clear navigation back to the setup choices. */
+.ev-account-nav { min-height: 38px; margin-bottom: 4px; }
+.ev-account-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 38px;
+  padding: 0 4px;
+  border: 0;
+  background: transparent;
+  color: var(--ev-ink);
+  font-size: 14px;
+  font-weight: 500;
+}
+.ev-account-back svg { flex: none; }
+.ev-acct .ev-field { height: 48px; flex: none; }
+.ev-acct .ev-fine { font-size: 11px; }
+.ev-auth-message {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 14px;
+  background: #e5e3ea;
+  color: #4e4c55;
+  font-size: 12px;
+  line-height: 1.35;
+  text-align: center;
+}
+@media (max-height: 760px) {
+  .ev-account-nav { min-height: 30px; margin-bottom: 0; }
+  .ev-account-back { min-height: 30px; }
+  .ev-account-hero { height: 74px; }
+  .ev-logo-mark { width: 104px; height: 74px; }
+  .ev-acct { gap: 7px; }
+  .ev-acct .ev-h { font-size: 28px; }
+  .ev-acct .ev-sub { font-size: 13px; margin-bottom: 0; }
+  .ev-acct .ev-btn { height: 48px; }
+  .ev-acct .ev-field { height: 44px; }
+}
+@media (max-height: 680px) {
+  .ev-account-hero { height: 54px; }
+  .ev-logo-mark { width: 80px; height: 54px; }
+  .ev-acct .ev-h { font-size: 25px; }
+  .ev-acct .ev-sub { font-size: 12px; }
+  .ev-acct .ev-fine { font-size: 10px; }
+}
