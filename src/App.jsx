@@ -407,7 +407,7 @@ function App() {
   const [contactOpen, setContactOpen] = useState(false)
   const [contactSent, setContactSent] = useState(false)
   const [step, setStep] = useState(0)
-  const [authMode, setAuthMode] = useState('signup')
+  const [authMode, setAuthMode] = useState('login')
   const [pendingSignupEmail, setPendingSignupEmail] = useState('')
   const directSignup = false
   const [data, setData] = useState(() => {
@@ -608,7 +608,7 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  function openAuth(mode = 'signup') {
+  function openAuth(mode = 'login') {
     setAuthMode(mode)
     localStorage.setItem('evolv-view', 'auth')
     setView('auth')
