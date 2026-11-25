@@ -455,6 +455,9 @@ html:has(.ev-ob) #root {
   min-height: 44px;
   height: 44px;
   font-size: 17px;
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -.01em;
+}
+.ev-welcome .ev-btn {
+  font-size: 18px;
 }
