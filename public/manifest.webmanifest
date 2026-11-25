@@ -1,7 +1,7 @@
 {
   "id": "/",
   "name": "Evolv — AI Productivity & Personal Growth",
-  "short_name": "EVOLV",
+  "short_name": "Evolv",
   "start_url": "/dashboard",
   "scope": "/",
   "display": "standalone",
