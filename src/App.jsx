@@ -678,8 +678,36 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
-  async function handleNewOnboardingAuth({ provider, email, password, preferences }) {
+  async function handleNewOnboardingAuth({ provider, email, password, preferences, mode = 'signup' }) {
     const cleanEmail = String(email || '').trim().toLowerCase()
+
+    if (mode === 'login') {
+      if (provider === 'email') {
+        const { data: loginData, error } = await supabase.auth.signInWithPassword({
+          email: cleanEmail,
+          password,
+        })
+        if (error) throw error
+        if (loginData?.user) await finishAuth(loginData.user, 'login')
+        return { completed: true }
+      }
+
+      if (provider === 'google' || provider === 'github') {
+        sessionStorage.setItem('evolv-oauth-intent', 'login')
+        const { error } = await supabase.auth.signInWithOAuth({
+          provider,
+          options: { redirectTo: window.location.origin },
+        })
+        if (error) {
+          sessionStorage.removeItem('evolv-oauth-intent')
+          throw error
+        }
+        return { redirecting: true }
+      }
+
+      throw new Error('That sign-in option is not available yet.')
+    }
+
     const profileData = {
       ...initialData,
       name: getFirstName(cleanEmail.split('@')[0] || 'there'),
@@ -689,8 +717,6 @@ function App() {
       avatarStyle: 'androgynous',
     }
 
-    // Save the completed onboarding choices before authentication so email
-    // confirmation and OAuth redirects can finish setup without losing them.
     localStorage.setItem('evolv-focus-preferences', JSON.stringify(preferences))
     localStorage.setItem('evolv-onboarding', JSON.stringify(profileData))
     localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
@@ -718,12 +744,12 @@ function App() {
       return { confirmationRequired: true }
     }
 
-    if (provider !== 'google') throw new Error('That sign-in option is not available yet.')
+    if (provider !== 'google' && provider !== 'github') throw new Error('That sign-in option is not available yet.')
 
     localStorage.setItem('evolv-onboarding-v2-oauth-pending', 'true')
     sessionStorage.setItem('evolv-oauth-intent', 'signup')
     const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'google',
+      provider,
       options: { redirectTo: window.location.origin },
     })
     if (error) {
@@ -731,6 +757,7 @@ function App() {
       sessionStorage.removeItem('evolv-oauth-intent')
       throw error
     }
+    return { redirecting: true }
   }
 
   async function finishNewOnboarding(preferences) {
@@ -936,14 +963,13 @@ function App() {
       {view === 'article' && <ArticlePage article={article} onStart={enterApp} onBack={closeArticle} />}
       {view === 'legal' && <LegalPage documentType={legalDocument} onBack={closeLegal} />}
       {view === 'welcome' && <WelcomeScreen onGetStarted={() => { if (window.location.pathname === '/onboarding' || window.location.pathname === '/onboarding/') window.history.replaceState({}, '', '/'); setStep(0); setData((current) => ({ ...initialData, ...current })); localStorage.setItem('evolv-view', 'onboarding'); setView('onboarding'); window.scrollTo({ top: 0, behavior: 'instant' }) }} onSignIn={() => openAuth('login')} onExplore={() => { setView('landing'); localStorage.setItem('evolv-view', 'landing') }} />}
-      {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} onLegal={openLegal} initialEmail={pendingSignupEmail} />}
+      {view === 'auth' && <Onboarding initialScreen="account" initialAuthMode={authMode} showPaywall={false} logo="evolv" onAuth={handleNewOnboardingAuth} onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))} onComplete={finishNewOnboarding} />}
       {view === 'onboarding' && (
         <Onboarding
           initialScreen="welcome"
           showPaywall={false}
           logo="evolv"
           onAuth={handleNewOnboardingAuth}
-          onLogin={() => openAuth('login')}
           onPermissions={(permissions) => localStorage.setItem('evolv-onboarding-permissions', JSON.stringify(permissions))}
           onComplete={finishNewOnboarding}
         />
