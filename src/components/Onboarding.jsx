@@ -170,7 +170,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   let view = null;
   if (screen === "welcome") view = <>
     <header className="ev-top ev-split">
-      <span className="ev-logo">{logo}</span>
+      <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="EVOLV" />
       <button type="button" className="ev-signin" onClick={onLogin}>Sign in</button>
     </header>
     <div className="ev-hero2" aria-hidden>
@@ -183,7 +183,6 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     </div>
     <footer className="ev-foot">
       <button type="button" className="ev-btn dark" onClick={next}>Get started</button>
-      <p className="ev-fine">A little progress goes a long way.</p>
     </footer>
   </>;
 
