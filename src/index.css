@@ -1246,3 +1246,24 @@ html body #root .evolv-welcome .evolv-welcome-cta {
   background-color: #0f0f0f !important;
   transition: background-color 99999s ease-out 0s;
 }
+
+
+/* Legal documents are a light standalone surface: remove the global dark top scrim. */
+html:has(.legal-page),
+html:has(.legal-page) body,
+html:has(.legal-page) body #root {
+  background: #f0eff4 !important;
+  background-color: #f0eff4 !important;
+  color-scheme: light;
+}
+html:has(.legal-page)::before,
+html:has(.legal-page) body::before,
+html:has(.legal-page) body::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
