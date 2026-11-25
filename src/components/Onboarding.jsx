@@ -165,7 +165,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
     </div>
     <div className="ev-body ev-welcome">
       <p className="ev-kicker">A calmer way to grow</p>
-      <h1 className="ev-h">Make room for{"\\n"}your next step.</h1>
+      <h1 className="ev-h">Make room for{"\n"}your next step.</h1>
       <p className="ev-sub">Build better routines, stay close to what matters, and make progress one day at a time.</p>
     </div>
     <footer className="ev-foot">
