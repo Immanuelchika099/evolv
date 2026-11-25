@@ -3,7 +3,6 @@ import { createPortal } from 'react-dom'
 import { Camera, Upload, Pencil, ChevronLeft, ChevronRight, ChevronDown, Check, X, Trash2, Download, ArrowUpRight, Bell, ShieldCheck, UserRound, Target, Activity, LogOut, Settings, Compass, Volume2 } from 'lucide-react'
 import { AvatarPortrait, AvatarStudio, DEFAULT_AVATAR } from './AvatarStudio'
 import { supabase } from '../lib/supabase'
-import { getThemePreference, setThemePreference } from '../lib/theme'
 import '../styles/tokens.css'
 import './styles/ProfileFixes.css'
 
@@ -48,7 +47,6 @@ export default function ProfileSettingsPage({pageProps}){
   const [avatarStudioOpen,setAvatarStudioOpen]=useState(false)
   const [photoMenuOpen,setPhotoMenuOpen]=useState(false)
   const [profileTab,setProfileTab]=useState('account')
-  const [themePreference,setThemePreferenceState]=useState(getThemePreference)
   const [focusExpanded,setFocusExpanded]=useState(false)
   const [focusDraft,setFocusDraft]=useState(profile?.focus||data?.focus||'')
   const [growthDraft,setGrowthDraft]=useState(profile?.growth_areas||data?.areas||[])
@@ -75,11 +73,6 @@ export default function ProfileSettingsPage({pageProps}){
   useEffect(()=>()=>{if(avatarPreview)URL.revokeObjectURL(avatarPreview)},[avatarPreview])
 
   function showToast(message,isError=false){setToastError(isError);setToast(message)}
-  function updateThemePreference(value){
-    setThemePreference(value)
-    setThemePreferenceState(value)
-    showToast(value==='system'?'Appearance follows your device.':value==='light'?'Light appearance enabled.':'Dark appearance enabled.')
-  }
   function toggleAmbientSound(enabled){
     setAmbientSoundEnabled(enabled)
     try { localStorage.setItem('evolv-ambient-sound-enabled',String(enabled)) } catch {}
@@ -239,18 +232,6 @@ export default function ProfileSettingsPage({pageProps}){
         </div>
       </> : <>
         <div className="profile-v2-group">
-          <ProfileSettingsSection label="YOUR EXPERIENCE" title="Appearance" icon={Settings}>
-            <div className="profile-setting-row profile-theme-row">
-              <div><strong>App appearance</strong><span>Choose how EVOLV looks across your devices.</span></div>
-            </div>
-            <div className="profile-theme-options" role="group" aria-label="App appearance">
-              {[
-                {value:'system',label:'System'},
-                {value:'light',label:'Light'},
-                {value:'dark',label:'Dark'},
-              ].map(option=><button key={option.value} type="button" className={themePreference===option.value?'is-active':''} aria-pressed={themePreference===option.value} onClick={()=>updateThemePreference(option.value)}>{option.label}</button>)}
-            </div>
-          </ProfileSettingsSection>
         </div>
         <div className="profile-v2-group">
           <ProfileSettingsSection label="YOUR EXPERIENCE" title="Sound" icon={Volume2}>
