@@ -187,7 +187,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       await onComplete?.({ ...d, plan: plan === undefined ? null : plan, skipped });
     } catch (error) {
       setErr(error?.message || "We couldn’t finish setting up your account. Please try again.");
-      go("account", -1);
+      go(skipAccount ? "about" : "account", -1);
     }
   };
   const auth = async (provider) => {
