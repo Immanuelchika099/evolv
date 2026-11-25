@@ -17,7 +17,7 @@ const PERMS = [
 ];
 const PLUS = ["Unlimited AI planning", "A fresh focus plan every week", "Smart reminders & calendar sync", "Shared spaces for up to 6"];
 const PRICE = { yearly: 39.99, monthly: 7.99 };
-const STEPS = ["about", "target", "time"];
+const STEPS = ["about", "target", "time", "paywall"];
 const DRAFT_KEY = "evolv-onboarding-v3-draft";
 
 const Svg = (p) => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden {...p} />;
@@ -240,8 +240,15 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   if (screen === "building") view = <Building onDone={next} />;
 
   if (screen === "paywall") view = <>
-    <header className="ev-top ev-split"><span className="ev-tag big">✨ 7 days free</span><button type="button" className="ev-back" onClick={() => go("account")} aria-label="Continue to account"><Svg width="18" height="18"><path d="M6 6l12 12M18 6L6 18" /></Svg></button></header>
-    <div className="ev-body"><h1 className="ev-h">Unlock{"\n"}Evolv Plus</h1><ul className="ev-feat">{PLUS.map((t) => <li key={t}><span className="ev-dot done"><Tick /></span>{t}</li>)}</ul>
+    <header className="ev-top">
+      <button type="button" className="ev-back" onClick={() => go("time", -1)} aria-label="Back to focus setup"><Chev /></button>
+      <div className="ev-prog" aria-label="Step 4 of 4">{STEPS.map((_, i) => <i key={i} className="on" />)}</div>
+    </header>
+    <div className="ev-body">
+      <div className="ev-step">Step 4 of 4</div>
+      <h1 className="ev-h">Choose your{"\n"}Evolv plan</h1>
+      <p className="ev-sub">One last step before creating your account. Choose the level of support that works for you.</p>
+      <ul className="ev-feat">{PLUS.map((t) => <li key={t}><span className="ev-dot done"><Tick /></span>{t}</li>)}</ul>
       <div className="ev-plans">{[["yearly", "Yearly", "$3.33 / month"], ["monthly", "Monthly", "billed monthly"]].map(([k, n, s]) => <button key={k} type="button" aria-pressed={d.plan === k} className={"ev-plan" + (d.plan === k ? " on" : "")} onClick={() => set("plan", k)}>{k === "yearly" && <span className="ev-best">Best value</span>}<small>{n}</small><b>${PRICE[k]}</b><small>{s}</small></button>)}</div>
       <ul className="ev-card ev-time"><li className="on"><i /><span><b>Today</b><small>Full access to everything</small></span></li><li><i /><span><b>Day 5</b><small>We remind you before it ends</small></span></li><li><i /><span><b>Day 7</b><small>Trial ends — cancel anytime</small></span></li></ul>
     </div>
