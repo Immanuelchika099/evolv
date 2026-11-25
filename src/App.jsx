@@ -346,7 +346,7 @@ function App() {
     const screenWidth = window.screen?.width || window.innerWidth
     const deviceWidth = Math.max(window.innerWidth, screenWidth)
     const hasTouch = (navigator.maxTouchPoints || 0) > 1 || 'ontouchstart' in window
-    return deviceWidth > 1024 && !hasTouch
+    return deviceWidth > 1024 && !(hasTouch && deviceWidth <= 1366)
   })
 
   useEffect(() => {
@@ -354,7 +354,7 @@ function App() {
       const screenWidth = window.screen?.width || window.innerWidth
       const deviceWidth = Math.max(window.innerWidth, screenWidth)
       const hasTouch = (navigator.maxTouchPoints || 0) > 1 || 'ontouchstart' in window
-      setIsUnsupportedAppDevice(deviceWidth > 1024 && !hasTouch)
+      setIsUnsupportedAppDevice(deviceWidth > 1024 && !(hasTouch && deviceWidth <= 1366))
     }
     checkDevice()
     window.addEventListener('resize', checkDevice)
