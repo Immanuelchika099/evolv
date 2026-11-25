@@ -335,3 +335,48 @@ html:has(.ev-ob) #root {
   .ev-acct .ev-sub { font-size: 12px; }
   .ev-acct .ev-fine { font-size: 10px; }
 }
+
+
+/* Keep onboarding navigation close to the viewport edges without squeezing the content. */
+.ev-stage {
+  padding-top: max(7px, env(safe-area-inset-top));
+  padding-bottom: max(7px, env(safe-area-inset-bottom));
+}
+.ev-top {
+  margin-bottom: 14px;
+}
+.ev-foot:has(.ev-ghost) {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 10px;
+  text-align: left;
+}
+.ev-foot:has(.ev-ghost) .ev-btn {
+  order: 2;
+  width: auto;
+  min-width: 0;
+  flex: 1 1 auto;
+  max-width: 72%;
+}
+.ev-foot:has(.ev-ghost) .ev-ghost {
+  order: 1;
+  flex: 0 0 auto;
+  padding: 0 4px;
+  white-space: nowrap;
+}
+@media (max-height: 760px) {
+  .ev-stage {
+    padding-top: max(5px, env(safe-area-inset-top));
+    padding-bottom: max(5px, env(safe-area-inset-bottom));
+  }
+  .ev-top { margin-bottom: 8px; }
+  .ev-foot:has(.ev-ghost) { padding-top: 6px; }
+}
+@media (max-width: 360px) {
+  .ev-stage { padding-left: 16px; padding-right: 16px; }
+  .ev-foot:has(.ev-ghost) { gap: 8px; }
+  .ev-foot:has(.ev-ghost) .ev-btn { height: 52px; font-size: 15px; }
+  .ev-foot:has(.ev-ghost) .ev-ghost { font-size: 14px; }
+}
