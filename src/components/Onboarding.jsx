@@ -193,7 +193,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       <span className="ev-account-mark" aria-label="Evolv"><img src="/evolv-mark.svg" alt="" /></span>
     </header>
     <div className="ev-body ev-acct">
-      <div className="ev-account-heading"><p className="ev-account-eyebrow">YOUR NEXT CHAPTER STARTS HERE</p><h1 className="ev-h">{accountMode === "login" ? "Welcome back." : <>Create your<br />Evolv account.</>}</h1><p className="ev-sub">{accountMode === "login" ? "Sign in to pick up where you left off." : "Save your plan and make progress, one day at a time."}</p></div>
+      <div className="ev-account-heading"><h1 className="ev-h">{accountMode === "login" ? "Welcome back." : <>Create your<br />Evolv account.</>}</h1><p className="ev-sub">{accountMode === "login" ? "Sign in to pick up where you left off." : "Save your plan and make progress, one day at a time."}</p></div>
       <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
       <div className="ev-or">or</div>
       <label className="ev-field"><Mail /><input type="email" inputMode="email" autoComplete="email" placeholder="Email address" value={d.email} onChange={(e) => { set("email", e.target.value); setAuthMessage(""); }} /></label>
