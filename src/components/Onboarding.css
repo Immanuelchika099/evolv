@@ -1099,3 +1099,65 @@ html body #root .ev-ob .ev-acct > .ev-github {
   background: transparent;
   filter: brightness(0) saturate(100%);
 }
+
+
+/* Final account-screen provider treatment: two distinct pill buttons, never duplicate GitHub. */
+html body #root .ev-ob .ev-acct > .ev-google,
+html body #root .ev-ob .ev-acct > .ev-github,
+html body #root .ev-ob .ev-acct > .ev-provider {
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  width: 100% !important;
+  min-height: 54px !important;
+  height: 54px !important;
+  padding: 0 20px !important;
+  border: 1px solid #dedce4 !important;
+  border-radius: 999px !important;
+  background: #fff !important;
+  color: #17171a !important;
+  font-size: 15px !important;
+  font-weight: 550 !important;
+  line-height: 1 !important;
+  box-shadow: none !important;
+}
+html body #root .ev-ob .ev-acct > .ev-google {
+  margin: 0 !important;
+}
+html body #root .ev-ob .ev-acct > .ev-github {
+  margin: 10px 0 0 !important;
+}
+html body #root .ev-ob .ev-acct > .ev-google svg,
+html body #root .ev-ob .ev-acct > .ev-github svg {
+  display: block !important;
+  width: 19px !important;
+  height: 19px !important;
+  flex: 0 0 19px !important;
+}
+html body #root .ev-ob .ev-acct > .ev-google .ev-google-icon {
+  width: 18px !important;
+  height: 18px !important;
+}
+html body #root .ev-ob .ev-acct > .ev-google span {
+  display: inline-block;
+}
+html body #root .ev-ob .ev-account-nav {
+  min-height: 64px !important;
+  height: 64px !important;
+  margin-bottom: clamp(22px, 3vh, 32px) !important;
+}
+html body #root .ev-ob .ev-account-nav .ev-account-logo {
+  display: block !important;
+  width: 68px !important;
+  height: 68px !important;
+  flex: 0 0 68px !important;
+  object-fit: contain !important;
+  border: 0 !important;
+  outline: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
