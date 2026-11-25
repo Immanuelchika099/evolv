@@ -46,8 +46,8 @@ export default function LegalPage({ documentType = 'terms', onBack }) {
   return (
     <section className="legal-page" aria-labelledby="legal-page-title">
       <div className="legal-page-inner">
-        <button type="button" className="legal-back-button" onClick={onBack}>
-          <ChevronLeft size={18} aria-hidden="true" /><span>Back</span>
+        <button type="button" className="legal-back-button" onClick={onBack} aria-label="Go back">
+          <ChevronLeft size={20} strokeWidth={2.2} aria-hidden="true" />
         </button>
         <header className="legal-page-header">
           <span className="legal-eyebrow">LEGAL</span>
