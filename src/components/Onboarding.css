@@ -1159,5 +1159,5 @@ html body #root .ev-ob .ev-account-nav .ev-account-logo {
   border-radius: 0 !important;
   background: transparent !important;
   box-shadow: none !important;
-  filter: none !important;
+  filter: brightness(0) saturate(100%) !important;
 }
