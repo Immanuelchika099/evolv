@@ -44,7 +44,7 @@ const legalContent = {
 export default function LegalPage({ documentType = 'terms', onBack }) {
   const document = legalContent[documentType] || legalContent.terms
   return (
-    <section className="legal-page" aria-labelledby="legal-page-title">
+    <section className="legal-page" style={{ backgroundColor: "#f0eff4", color: "#24232a", minHeight: "100dvh" }} aria-labelledby="legal-page-title">
       <div className="legal-page-inner">
         <button type="button" className="legal-back-button" onClick={onBack} aria-label="Go back">
           <ChevronLeft size={20} strokeWidth={2.2} aria-hidden="true" />
