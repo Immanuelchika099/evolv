@@ -111,6 +111,8 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   const [screen, setScreen] = useState(initialAuthMode === "login" ? "account" : (showPaywall && initialScreen === "welcome" && saved?.screen === "account" ? "paywall" : (saved?.screen && saved.screen !== "building" && ORDER.includes(saved.screen) ? saved.screen : initialScreen)));
   const [phase, setPhase] = useState("in");
   const [welcomeSlide, setWelcomeSlide] = useState(0);
+  const welcomeCarouselRef = useRef(null);
+  const welcomeScrollTimer = useRef(null);
   const [dir, setDir] = useState(1);
   const [err, setErr] = useState("");
   const [busy, setBusy] = useState(false);
@@ -121,6 +123,42 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   const busyRef = useRef(false);
   const [d, setD] = useState({ email: "", role: "Professional", tasks: 6, hours: 8, unit: "hrs", now: 120, goal: 240, pace: "steady", budget: 20, session: "25–50 min", daily: "3", tools: ["Timer"], calendar: true, reminders: true, plan: "yearly", ...(saved?.data || {}) });
   const set = (k, v) => setD((p) => ({ ...p, [k]: v }));
+
+  useEffect(() => {
+    if (screen !== "welcome") return;
+    const carousel = welcomeCarouselRef.current;
+    if (!carousel) return;
+    const firstRealSlide = carousel.children[1];
+    if (firstRealSlide) requestAnimationFrame(() => {
+      carousel.scrollLeft = firstRealSlide.offsetLeft - (carousel.clientWidth - firstRealSlide.clientWidth) / 2;
+    });
+    return () => {
+      if (welcomeScrollTimer.current) clearTimeout(welcomeScrollTimer.current);
+    };
+  }, [screen]);
+
+  const handleWelcomeScroll = (event) => {
+    const carousel = event.currentTarget;
+    const slides = Array.from(carousel.children);
+    const center = carousel.scrollLeft + carousel.clientWidth / 2;
+    let nearest = 0;
+    let distance = Infinity;
+    slides.forEach((slide, index) => {
+      const nextDistance = Math.abs(slide.offsetLeft + slide.clientWidth / 2 - center);
+      if (nextDistance < distance) { distance = nextDistance; nearest = index; }
+    });
+    setWelcomeSlide((nearest - 1 + 3) % 3);
+    if (welcomeScrollTimer.current) clearTimeout(welcomeScrollTimer.current);
+    welcomeScrollTimer.current = setTimeout(() => {
+      const targetIndex = nearest === 0 ? 3 : nearest === slides.length - 1 ? 1 : nearest;
+      if (targetIndex !== nearest) {
+        const target = slides[targetIndex];
+        carousel.style.scrollSnapType = "none";
+        carousel.scrollLeft = target.offsetLeft - (carousel.clientWidth - target.clientWidth) / 2;
+        requestAnimationFrame(() => { carousel.style.scrollSnapType = ""; });
+      }
+    }, 110);
+  };
 
   useEffect(() => {
     // Discard stale drafts from the previous signup-first flow.
@@ -176,19 +214,21 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
       <img className="ev-welcome-logo" src="/evolv-logo.svg" alt="Evolv" />
       <button type="button" className="ev-signin" onClick={() => { setAccountMode("login"); setErr(""); setAuthMessage(""); go("account"); }}>Sign in</button>
     </header>
-    <div className="ev-welcome-carousel" aria-label="Explore Evolv" onScroll={(e) => setWelcomeSlide(Math.min(2, Math.max(0, Math.round(e.currentTarget.scrollLeft / e.currentTarget.clientWidth))))}>
-      <div className="ev-welcome-slide">
-        <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
-        <span className="ev-slide-icon">🌱</span><span className="ev-slide-float slide-float-one">✨</span><span className="ev-slide-float slide-float-two">☀️</span>
-      </div>
-      <div className="ev-welcome-slide">
-        <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
-        <span className="ev-slide-icon">🎯</span><span className="ev-slide-float slide-float-one">✦</span><span className="ev-slide-float slide-float-two">⏳</span>
-      </div>
-      <div className="ev-welcome-slide">
-        <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
-        <span className="ev-slide-icon">📖</span><span className="ev-slide-float slide-float-one">💡</span><span className="ev-slide-float slide-float-two">✦</span>
-      </div>
+    <div ref={welcomeCarouselRef} className="ev-welcome-carousel" aria-label="Explore Evolv" onScroll={handleWelcomeScroll}>
+      {[
+        { icon: "📖", one: "💡", two: "✦" },
+        { icon: "🌱", one: "✨", two: "☀️" },
+        { icon: "🎯", one: "✦", two: "⏳" },
+        { icon: "📖", one: "💡", two: "✦" },
+        { icon: "🌱", one: "✨", two: "☀️" },
+      ].map((slide, index) => (
+        <div className="ev-welcome-slide" key={index} aria-hidden={index === 0 || index === 4}>
+          <div className="ev-slide-orbit orbit-one" /><div className="ev-slide-orbit orbit-two" />
+          <span className="ev-slide-icon">{slide.icon}</span>
+          <span className="ev-slide-float slide-float-one">{slide.one}</span>
+          <span className="ev-slide-float slide-float-two">{slide.two}</span>
+        </div>
+      ))}
     </div>
     <div className="ev-welcome-copy">
       <h1 className="ev-h">One day at a time.</h1>
