@@ -25,7 +25,7 @@
 .money-transaction-copy{display:grid;min-width:0;gap:.45rem;padding:0;border:0;background:transparent;color:var(--t1);text-align:left}
 .money-transaction-copy strong{overflow-wrap:anywhere;font-size:1.5rem;font-weight:560;line-height:1.35}
 .money-transaction-copy small{overflow-wrap:anywhere;color:color-mix(in srgb, var(--t1) 56%, transparent);font-size:1.3rem;line-height:1.4}
-.money-transaction-amount{font-size:1.5rem;font-weight:var(--font-weight-semibold);var(--t1)-space:nowrap;font-variant-numeric:tabular-nums}
+.money-transaction-amount{font-size:1.5rem;font-weight:var(--font-weight-semibold);white-space:nowrap;font-variant-numeric:tabular-nums}
 .money-transaction-amount.is-income{color:var(--pos)}
 .money-transaction-amount.is-outflow{color:var(--t1)}
 .money-row-more{display:grid;width:3rem;height:3rem;place-items:center;border:0;border-radius:50%;background:transparent;color:color-mix(in srgb, var(--t1) 38%, transparent)}
