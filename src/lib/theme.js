@@ -1,36 +1,21 @@
-const THEME_KEY = 'evolv-theme-preference'
-const VALID_THEMES = new Set(['system', 'light', 'dark'])
-
+// EVOLV uses a fixed light appearance. Device appearance and legacy saved
+// preferences must never change the app's visual theme.
 export function getThemePreference() {
-  try {
-    const saved = localStorage.getItem(THEME_KEY)
-    return VALID_THEMES.has(saved) ? saved : 'system'
-  } catch {
-    return 'system'
-  }
+  return 'light'
 }
 
-export function applyThemePreference(preference = getThemePreference()) {
+export function applyThemePreference() {
   const root = document.documentElement
-  const safePreference = VALID_THEMES.has(preference) ? preference : 'system'
-  const systemPrefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches === true
-  const resolvedTheme = safePreference === 'system'
-    ? (systemPrefersLight ? 'light' : 'dark')
-    : safePreference
-
-  root.dataset.theme = resolvedTheme
-  root.dataset.themePreference = safePreference
-  root.style.colorScheme = resolvedTheme
-  return resolvedTheme
+  root.dataset.theme = 'light'
+  root.dataset.themePreference = 'light'
+  root.style.colorScheme = 'light'
+  return 'light'
 }
 
-export function setThemePreference(preference) {
-  const safePreference = VALID_THEMES.has(preference) ? preference : 'system'
-  try {
-    localStorage.setItem(THEME_KEY, safePreference)
-  } catch {}
-  applyThemePreference(safePreference)
+export function setThemePreference() {
+  applyThemePreference()
+  try { localStorage.setItem('evolv-theme-preference', 'light') } catch {}
   window.dispatchEvent(new CustomEvent('evolv-theme-preference-change', {
-    detail: { preference: safePreference },
+    detail: { preference: 'light' },
   }))
 }
