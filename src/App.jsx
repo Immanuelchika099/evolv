@@ -714,9 +714,10 @@ function App() {
       throw new Error('That sign-in option is not available yet.')
     }
 
+    const suppliedName = getFirstName(preferences?.name || '')
     const profileData = {
       ...initialData,
-      name: '',
+      name: suppliedName,
       areas: [],
       focus: `${preferences.role || 'Personal'} · ${preferences.budget || 0} focus hours per week`,
       goal: `Build a daily focus routine of ${preferences.goal || 0} minutes`,
@@ -725,7 +726,9 @@ function App() {
 
     localStorage.setItem('evolv-focus-preferences', JSON.stringify(preferences))
     localStorage.setItem('evolv-onboarding', JSON.stringify(profileData))
-    localStorage.setItem('evolv-onboarding-v3-draft', JSON.stringify({ screen: 'about', data: { ...preferences, name: '' } }))
+    localStorage.setItem('evolv-onboarding-v3-draft', JSON.stringify({ screen: suppliedName ? 'account' : 'about', data: { ...preferences, name: suppliedName } }))
+    if (suppliedName) localStorage.setItem('evolv-onboarding-ready-for-auth', 'true')
+    else localStorage.removeItem('evolv-onboarding-ready-for-auth')
     localStorage.setItem('evolv-avatar-preferences', JSON.stringify(
       getAvatarPreset(profileData.avatarStyle || DEFAULT_AVATAR.presentation)
     ))
