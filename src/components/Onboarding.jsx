@@ -121,7 +121,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   const [emailAuth, setEmailAuth] = useState(false);
   const [authMessage, setAuthMessage] = useState("");
   const busyRef = useRef(false);
-  const [d, setD] = useState({ email: "", role: "Professional", tasks: 6, hours: 8, unit: "hrs", now: 120, goal: 240, pace: "steady", budget: 20, session: "25–50 min", daily: "3", tools: ["Timer"], calendar: true, reminders: true, plan: "yearly", ...(saved?.data || {}) });
+  const [d, setD] = useState({ name: "", email: "", role: "Professional", tasks: 6, hours: 8, unit: "hrs", now: 120, goal: 240, pace: "steady", budget: 20, session: "25–50 min", daily: "3", tools: ["Timer"], calendar: true, reminders: true, plan: "yearly", ...(saved?.data || {}) });
   const set = (k, v) => setD((p) => ({ ...p, [k]: v }));
 
   useEffect(() => {
@@ -172,7 +172,14 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
     setTimeout(() => { setScreen(to); setPhase("in"); busyRef.current = false; }, 240);
   };
   const i = ORDER.indexOf(screen);
-  const next = () => (i < ORDER.length - 1 ? go(ORDER[i + 1]) : finish());
+  const next = () => {
+    if (screen === "about" && !String(d.name || "").trim()) {
+      setErr("Please enter your first name to continue.");
+      return;
+    }
+    setErr("");
+    return i < ORDER.length - 1 ? go(ORDER[i + 1]) : finish();
+  };
   const prev = () => go(ORDER[i - 1], -1);
   const back = screen === "account" ? () => go(showPaywall ? "paywall" : "stay", -1) : (i > 0 && screen !== "building" ? prev : null);
   const finish = async (plan, skipped = false) => {
@@ -190,7 +197,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
     setAuthMessage("");
     setBusy(true);
     try {
-      if (provider === "google") {
+      if (provider === "google" || provider === "github") {
         localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen: "account", data: d }));
       }
       const result = await onAuth?.({ provider, email: d.email, password, preferences: d, mode: accountMode });
@@ -246,6 +253,7 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
     <div className="ev-body ev-acct">
       {!emailAuth ? <>
         <div className="ev-account-heading"><h1 className="ev-h">{accountMode === "login" ? "Welcome back." : <>Create your<br />Evolv account.</>}</h1><p className="ev-sub">{accountMode === "login" ? "Sign in to pick up where you left off." : "one step at a time…"}</p></div>
+        {initialScreen === "account" && accountMode !== "login" && <label className="ev-field ev-name-account-field"><Svg width="18" height="18"><circle cx="12" cy="8" r="4"/><path d="M5 21a7 7 0 0 1 14 0"/></Svg><input type="text" autoComplete="given-name" maxLength={60} placeholder="Your first name" value={d.name} onChange={(e) => { set("name", e.target.value); setErr(""); }} /></label>}
         <button type="button" className="ev-btn dark ev-google" onClick={() => auth("google")} disabled={busy}>
           <svg className="ev-google-icon" viewBox="0 0 48 48" aria-hidden="true">
             <path fill="#4285F4" d="M43.6 24.5c0-1.4-.1-2.8-.4-4.1H24v7.8h11a9.4 9.4 0 0 1-4.1 6.2v5.1h6.7c3.9-3.6 6-8.8 6-15Z"/>
@@ -277,6 +285,8 @@ export default function Onboarding({ initialScreen = "account", initialAuthMode 
   </>;
 
   if (screen === "about") view = <Frame n={1} back={back} title={"Tell us about\nyou"} sub="We use this to shape your daily focus plan." cta="Continue" onCta={next} alt="Skip for now" onAlt={next}>
+    <label className="ev-name-field"><span>Your first name</span><input type="text" autoComplete="given-name" maxLength={60} placeholder="What should we call you?" value={d.name} onChange={(e) => { set("name", e.target.value); setErr(""); }} /></label>
+    {err && <p className="ev-err ev-name-error" role="alert">{err}</p>}
     <Pills items={ROLES} value={d.role} onPick={(v) => set("role", v)} className="ev-gap" />
     <div className="ev-grid2">
       <div className="ev-card"><small>Tasks per day</small><div className="ev-row"><strong className="ev-n">{d.tasks}</strong><Stepper value={d.tasks} min={1} max={30} onChange={(v) => set("tasks", v)} /></div></div>
