@@ -120,7 +120,8 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   const set = (k, v) => setD((p) => ({ ...p, [k]: v }));
 
   useEffect(() => {
-    // Building is a transient animation, never a resumable onboarding step.
+    // Discard stale drafts from the previous signup-first flow.
+    localStorage.removeItem("evolv-onboarding-v2-draft");
     if (screen !== "building") localStorage.setItem(DRAFT_KEY, JSON.stringify({ screen, data: d }));
   }, [screen, d]);
 
