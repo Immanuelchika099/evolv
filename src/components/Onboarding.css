@@ -406,35 +406,45 @@ html:has(.ev-ob) #root {
   letter-spacing: -.01em;
 }
 
-/* Step 2 gets a little more breathing room between its cards and fixed controls. */
+/* Step 2: separate the target control and pace choices into clear, breathable groups. */
 .ev-stage:has(.ev-pace) .ev-body {
-  gap: 7px;
-  scroll-padding-block: 8px;
+  gap: 14px;
+  scroll-padding-block: 14px;
 }
 .ev-stage:has(.ev-pace) .ev-body > .ev-sub {
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+  line-height: 1.45;
 }
 .ev-stage:has(.ev-pace) .ev-focus {
-  padding: 10px 14px;
+  padding: 16px 18px 13px;
 }
 .ev-stage:has(.ev-pace) .ev-focus .ev-big {
-  margin-top: 1px;
+  margin-top: 5px;
   font-size: 49px;
 }
 .ev-stage:has(.ev-pace) .ev-focus .ev-ruler {
-  height: 27px;
-  margin-top: 4px;
+  height: 30px;
+  margin-top: 9px;
 }
 .ev-stage:has(.ev-pace) .ev-pace {
-  padding: 10px 14px;
+  padding: 15px 17px;
+  min-height: 76px;
+}
+.ev-stage:has(.ev-pace) .ev-pace small {
+  margin-top: 6px;
+  line-height: 1.35;
+}
+.ev-stage:has(.ev-pace) .ev-pace .ev-em {
+  flex: none;
+  margin-left: 8px;
 }
 @media (max-height: 760px) {
   .ev-stage { padding-top: max(2px, env(safe-area-inset-top)); padding-bottom: max(2px, env(safe-area-inset-bottom)); }
   .ev-top { margin-bottom: 3px; }
   .ev-foot:has(.ev-ghost) { padding-top: 3px; }
-  .ev-stage:has(.ev-pace) .ev-body { gap: 6px; }
-  .ev-stage:has(.ev-pace) .ev-pace { padding: 8px 13px; }
-  .ev-stage:has(.ev-pace) .ev-focus { padding: 8px 13px; }
+  .ev-stage:has(.ev-pace) .ev-body { gap: 10px; }
+  .ev-stage:has(.ev-pace) .ev-pace { padding: 11px 14px; min-height: 68px; }
+  .ev-stage:has(.ev-pace) .ev-focus { padding: 11px 14px 9px; }
 }
 @media (max-width: 360px) {
   .ev-foot:has(.ev-ghost) .ev-btn { height: 52px; font-size: 17px; }
