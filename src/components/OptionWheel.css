@@ -22,7 +22,7 @@
   position: absolute;
   top: 50%;
   left: var(--ow-inset);
-  var(--t1)-space: nowrap;
+  white-space: nowrap;
   font-size: var(--ow-font-size);
   line-height: 1;
   font-weight: 200;
