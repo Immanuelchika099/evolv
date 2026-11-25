@@ -169,7 +169,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
       <button type="button" className="ev-signin" onClick={onLogin}>Sign in</button>
     </header>
     <div className="ev-hero2" aria-hidden>
-      {["🌱", "🍊", "🎯", "📖", "☀️", "⏳"].map((e, k) => <i key={k} className={"ev-tile2 t" + k}>{e}</i>)}
+      {["🌱", "🧠", "🎯", "📖", "☀️", "⏳"].map((e, k) => <i key={k} className={"ev-tile2 t" + k}>{e}</i>)}
     </div>
     <div className="ev-body ev-welcome">
       <p className="ev-kicker">A calmer way to grow</p>
@@ -183,7 +183,7 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   </>;
 
   if (screen === "account") view = <>
-    <div className="ev-hero"><span className="ev-logo">{logo}</span><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
+    <div className="ev-account-hero"><img className="ev-logo-mark" src="/evolv-logo.svg" alt="EVOLV" /><i className="ev-em s1">💡</i><i className="ev-em s2">🎯</i><i className="ev-em s3">📝</i></div>
     <div className="ev-body ev-acct">
       <h1 className="ev-h">Create your{"\n"}account</h1><p className="ev-sub">Save your goals and sync them across devices.</p>
       <button type="button" className="ev-btn dark" onClick={() => auth("google")} disabled={busy}>{busy ? "Connecting…" : "Continue with Google"}</button>
