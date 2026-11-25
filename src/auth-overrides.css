@@ -41,7 +41,7 @@
 .evolv-alarm-row{display:grid;grid-template-columns:6rem minmax(0,1fr) auto auto;align-items:center;gap:1rem;padding:1.2rem;border:1px solid color-mix(in srgb, var(--edge) 8%, transparent);border-radius:1.5rem}
 .evolv-alarm-time strong{color:var(--color-accent-blue);font-size:1.8rem}
 .evolv-alarm-time span,.evolv-alarm-copy span{display:block;color:color-mix(in srgb, var(--t1) 45%, transparent);font-size:1.2rem;margin-top:.2rem}
-.evolv-alarm-copy{min-width:0}.evolv-alarm-copy strong{display:block;var(--t1)-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.45rem}
+.evolv-alarm-copy{min-width:0}.evolv-alarm-copy strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.45rem}
 @media(max-width:650px){.alarm-date-time-grid{grid-template-columns:1fr}.evolv-alarm-row{grid-template-columns:5.8rem minmax(0,1fr) auto}.evolv-alarm-copy{grid-column:2;grid-row:1 / span 2}.evolv-alarm-time{grid-column:1;grid-row:1 / span 2}}
 
 
@@ -1235,7 +1235,7 @@ html body #root .auth-page p.auth-legal {
   padding: 0 !important;
   line-height: normal !important;
   text-align: center !important;
-  var(--t1)-space: nowrap !important;
+  white-space: nowrap !important;
 }
 
 html body #root .auth-page p.auth-legal button {
@@ -1300,7 +1300,7 @@ html body #root .auth-page p.auth-legal button {
   line-height: 1.7;
 }
 .auth-page .auth-legal {
-  var(--t1)-space: normal !important;
+  white-space: normal !important;
   line-height: 1.6 !important;
 }
 .auth-page .auth-account-switch {
@@ -1326,7 +1326,7 @@ html body #root .auth-page p.auth-legal button {
   }
   .auth-page .auth-legal {
     font-size: 1.25rem !important;
-    var(--t1)-space: normal !important;
+    white-space: normal !important;
   }
 }
 @media (prefers-reduced-motion: reduce) {
