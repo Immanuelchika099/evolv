@@ -143,7 +143,9 @@ export default function Onboarding({ initialScreen = "account", showPaywall = fa
   };
   const auth = async (provider) => {
     if (provider === "email" && !/^\S+@\S+\.\S+$/.test(d.email)) return setErr("Enter a valid email address.");
+    if (provider === "email" && password.length < 8) return setErr("Your password must be at least 8 characters.");
     setErr("");
+    setAuthMessage("");
     setBusy(true);
     try {
       if (provider === "google") {
