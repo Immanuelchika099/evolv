@@ -771,3 +771,7 @@ html body #root .ev-ob .ev-grid2 .ev-stepper button {
   line-height: 1;
   vertical-align: middle;
 }
+
+.ev-acct .ev-github { display:flex; align-items:center; justify-content:center; gap:10px; min-height:58px; height:58px; margin-top:10px; border:1px solid #dedce4; border-radius:17px; background:#fff; color:#17171a; font-size:16px; font-weight:600; }
+.ev-acct .ev-github svg { width:19px; height:19px; flex:none; }
+.ev-acct .ev-github:disabled { opacity:.65; }
