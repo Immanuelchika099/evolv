@@ -619,3 +619,29 @@ html body #root .ev-ob .ev-stage:has(.ev-welcome) .ev-top .ev-signin {
   font-weight: 400 !important;
   letter-spacing: 0 !important;
 }
+
+/* Step 1: make the task counter feel lighter and give work-hours values more presence. */
+.ev-grid2 .ev-stepper {
+  gap: 5px;
+}
+.ev-grid2 .ev-stepper button {
+  width: 26px;
+  height: 26px;
+  background: #e2e0e8;
+  color: #292832;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1;
+}
+.ev-grid2 .ev-card > small {
+  font-size: 14px;
+}
+.ev-grid2 .ev-card .ev-n {
+  font-size: 36px;
+  line-height: 1.05;
+  font-weight: 600;
+  letter-spacing: -.04em;
+}
+.ev-grid2 .ev-card .ev-row em {
+  font-size: 13px;
+}
