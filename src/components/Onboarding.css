@@ -156,3 +156,20 @@
 .ev-time b { display: block; font-size: 14px; font-weight: 500; }
 .ev-time small { font-size: 12px; }
 @media (prefers-reduced-motion: reduce) { .ev-stage.in, .ev-stage.out, .ev-ob .ev-em { animation: none !important; } .ev-ob * { transition: none !important; } }
+
+
+/* Welcome screen refresh */
+.ev-bg { position: absolute; font-size: 84px; filter: blur(3px) drop-shadow(0 10px 14px rgba(0,0,0,.15)); opacity: .9; display: none; }
+.b0 { top: 4%; left: 6%; } .b1 { top: 6%; right: 9%; font-size: 64px; } .b2 { bottom: 5%; left: 9%; font-size: 70px; } .b3 { bottom: 6%; right: 7%; }
+@media (min-width: 560px) { .ev-bg { display: block; } }
+.ev-signin { height: 40px; padding: 0 18px; border: 0; border-radius: 999px; background: #fff; font-size: 14px; font-weight: 500; }
+.ev-hero2 { position: relative; flex: 1; min-height: 190px; margin: 0 -8px; }
+.ev-tile2 { position: absolute; width: 72px; height: 72px; display: grid; place-items: center; border-radius: 24px; background: #fff; font-size: 34px; box-shadow: 0 14px 30px rgba(70, 50, 30, .1); transform: rotate(var(--r, 0deg)); animation: ev-bob 6s ease-in-out infinite; font-style: normal; }
+@keyframes ev-bob { 50% { transform: translateY(-8px) rotate(var(--r, 0deg)); } }
+.ev-tile2.t0 { --r: -8deg; left: 6%; top: 18%; } .ev-tile2.t1 { left: 40%; top: 0; animation-delay: -1s; }
+.ev-tile2.t2 { --r: 8deg; right: 6%; top: 22%; animation-delay: -2s; } .ev-tile2.t3 { --r: 6deg; left: 20%; top: 58%; animation-delay: -3s; }
+.ev-tile2.t4 { left: 50%; top: 52%; animation-delay: -4s; } .ev-tile2.t5 { --r: -6deg; right: 8%; top: 74%; animation-delay: -5s; }
+.ev-welcome { flex: none; gap: 8px; }
+.ev-kicker { margin: 0; font-size: 13px; font-weight: 500; color: #b9520f; }
+.ev-welcome .ev-h { white-space: pre-line; }
+@media (prefers-reduced-motion: reduce) { .ev-tile2 { animation: none !important; } }

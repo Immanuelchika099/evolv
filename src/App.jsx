@@ -385,11 +385,11 @@ function App() {
 
     // Explicit URLs always take priority. A stale or unknown saved view must
     // never leave the app shell rendering without a page.
-    if (path === '/onboarding') return 'welcome'
+    if (path === '/onboarding') return 'onboarding'
     if (path === '/dashboard') return 'dashboard'
     if (path === '/signup') return 'onboarding'
 
-    const initialView = savedView === 'onboarding' ? 'welcome' : savedView
+    const initialView = savedView === 'onboarding' || savedView === 'welcome' ? 'onboarding' : savedView
     return validViews.has(initialView) ? initialView : 'landing'
   })
   // Android's installed PWA already shows the app icon during its native
@@ -615,8 +615,8 @@ function App() {
 
   function enterApp() {
     setArticle(null)
-    localStorage.setItem('evolv-view', 'welcome')
-    setView('welcome')
+    localStorage.setItem('evolv-view', 'onboarding')
+    setView('onboarding')
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
@@ -887,7 +887,7 @@ function App() {
       {view === 'auth' && <AuthPage mode={authMode} setMode={setAuthMode} onSuccess={finishAuth} directSignup={directSignup} onLegal={openLegal} initialEmail={pendingSignupEmail} />}
       {view === 'onboarding' && (
         <Onboarding
-          initialScreen="account"
+          initialScreen="welcome"
           showPaywall={false}
           logo="evolv"
           onAuth={handleNewOnboardingAuth}
