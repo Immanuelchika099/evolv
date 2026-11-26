@@ -1503,3 +1503,71 @@ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home > * {
     animation: none !important;
   }
 }
+
+
+/* One background plane only: the Home page owns the aurora.
+   Keep html as the iOS overscroll fallback; body, React root and app shell
+   stay transparent so they cannot stack extra pale panels over Home. */
+html[data-theme="light"] {
+  background: #f2f2f7 !important;
+  background-color: #f2f2f7 !important;
+  overscroll-behavior-y: none;
+}
+html[data-theme="light"] body,
+html[data-theme="light"] body #root,
+html[data-theme="light"] body #root .dashboard,
+html[data-theme="light"] body #root .dashboard > .dash-main {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard {
+  min-height: 100dvh;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home {
+  background: transparent !important;
+  background-color: transparent !important;
+  isolation: isolate !important;
+  overflow: visible !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before {
+  z-index: 0 !important;
+  top: -270px !important;
+  left: -32px !important;
+  right: -32px !important;
+  height: 760px !important;
+  opacity: 1 !important;
+  background:
+    radial-gradient(ellipse at 7% 24%, rgba(121,222,190,.72), transparent 44%),
+    radial-gradient(ellipse at 45% 5%, rgba(255,174,158,.72), transparent 47%),
+    radial-gradient(ellipse at 91% 23%, rgba(193,157,238,.62), transparent 44%),
+    radial-gradient(ellipse at 51% 66%, rgba(255,220,169,.56), transparent 53%) !important;
+  filter: blur(29px) saturate(125%) !important;
+  /* Do not pin transform here: it cancels the keyframe movement. */
+  transform: none;
+  animation: evolv-home-aurora-drift 11s ease-in-out infinite alternate !important;
+  will-change: transform, filter;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home > * {
+  position: relative !important;
+  z-index: 1 !important;
+}
+@keyframes evolv-home-aurora-drift {
+  0% {
+    transform: translate3d(-3%, -1.5%, 0) scale(1);
+    filter: blur(29px) saturate(118%);
+  }
+  45% {
+    transform: translate3d(2.5%, 2%, 0) scale(1.075);
+    filter: blur(35px) saturate(132%);
+  }
+  100% {
+    transform: translate3d(-1%, 4%, 0) scale(1.025);
+    filter: blur(31px) saturate(124%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before {
+    animation: none !important;
+    transform: none !important;
+  }
+}
