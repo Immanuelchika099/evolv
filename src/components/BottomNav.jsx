@@ -1,4 +1,4 @@
-import { Home, CalendarClock, Sparkles, LineChart, UserRound } from 'lucide-react'
+import { Home, CalendarClock, LineChart, UserRound, Target } from 'lucide-react'
 import './BottomNav.css'
 
 function BottomNav({ active, onNavigate, avatarUrl = '' }) {
@@ -24,11 +24,11 @@ function BottomNav({ active, onNavigate, avatarUrl = '' }) {
 
       <button
         type="button"
-        className={active === 'ai' ? 'bottom-active' : ''}
-        onClick={() => onNavigate('ai')}
+        className={active === 'goals' ? 'bottom-active' : ''}
+        onClick={() => onNavigate('goals')}
       >
-        <span><Sparkles size={18} /></span>
-        <small>AI</small>
+        <span><Target size={19} /></span>
+        <small>Goals</small>
       </button>
 
       <button
