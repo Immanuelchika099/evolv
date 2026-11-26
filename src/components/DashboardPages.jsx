@@ -122,10 +122,7 @@ function HomePage({ pageProps }) {
       <section className="evolv-home-intro" aria-label="Welcome">
         <div className="evolv-home-hero-top">
           <span>{now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</span>
-          <button type="button" onClick={() => goTo('notifications')} aria-label="Open notifications">
-            <Bell size={19} />
-            <i aria-hidden="true" />
-          </button>
+
         </div>
         <div className="evolv-home-hero-copy">
           <span className="evolv-home-eyebrow">{greeting},</span>
