@@ -2716,6 +2716,12 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
       }
     </main>
     {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&createPortal(
+      <button type="button" className="evolv-ai-fab" onClick={()=>goTo('ai')} aria-label="Open EVOLV AI">
+        <Sparkles size={16} strokeWidth={2.1}/><span>Ask EVOLV</span>
+      </button>,
+      document.body
+    )}
     {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&createPortal(<button type="button" className={"evolv-floating-log evolv-floating-log-intro"+(quickLogOpen?" is-open":"")} onClick={()=>{if(quickLogOpen){setQuickLogOpen(false);setQuickLogInitialScreen('menu')}else{setQuickLogInitialScreen('menu');setQuickLogOpen(true)}}} aria-label={quickLogOpen?"Close log menu":"Log an activity"} aria-expanded={quickLogOpen}><span className="evolv-floating-log-icon">{quickLogOpen?<X size={22} strokeWidth={2.4}/>:<Plus size={22} strokeWidth={2.4}/>}</span><span>Log</span></button>, document.body)}
     {quickLogOpen&&createPortal(<QuickLogSheet initialScreen={quickLogInitialScreen} onClose={()=>{setQuickLogOpen(false);setQuickLogInitialScreen('menu')}} onLogWithAI={openQuickLogAI} onLogManual={openQuickLogManual} />, document.body)}
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
