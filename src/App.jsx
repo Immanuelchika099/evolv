@@ -355,6 +355,17 @@ function App() {
     // EVOLV stays light regardless of the device's appearance setting.
     applyThemePreference('light')
   }, [])
+
+  useEffect(() => {
+    const syncScrollChrome = () => {
+      const dashboard = document.querySelector('#root .dashboard')
+      if (!dashboard) return
+      dashboard.classList.toggle('evolv-scrolled', window.scrollY > 24)
+    }
+    syncScrollChrome()
+    window.addEventListener('scroll', syncScrollChrome, { passive: true })
+    return () => window.removeEventListener('scroll', syncScrollChrome)
+  }, [view])
   const [ambientSoundEnabled, setAmbientSoundEnabled] = useState(() => {
     try { return localStorage.getItem('evolv-ambient-sound-enabled') !== 'false' } catch { return true }
   })
