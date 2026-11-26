@@ -475,3 +475,129 @@ body { background: var(--ev-bg) !important; }
 @media (prefers-reduced-motion: reduce) {
   .dashboard .evolv-ai-fab { transition: none !important; }
 }
+
+
+/* ── Real component overrides: neutral ash cards, no legacy dark panels ── */
+.dashboard .goals-page .goal-create-form,
+.dashboard .goals-page .goal-item,
+.dashboard .goals-page .goal-list > .goal-item,
+.dashboard .progress-page .home-heatmap-card,
+.dashboard .progress-page .goal-heatmap-card,
+.dashboard .progress-page .progress-accordion-panel,
+.dashboard .daily-routine-page .routine-progress-panel,
+.dashboard .daily-routine-page .routine-group,
+.dashboard .daily-routine-page .routine-insight-card,
+.dashboard .daily-routine-page .routine-next-step,
+.dashboard .settings-page .profile-v2-summary,
+.dashboard .settings-page .profile-settings-section,
+.dashboard .settings-page .profile-settings-list {
+  color: var(--ev-ink) !important;
+  background: #e5e5eb !important;
+  border: 1px solid rgba(25,25,32,.035) !important;
+  box-shadow: 0 5px 18px rgba(25,25,32,.045) !important;
+}
+.dashboard .goals-page .goal-item-content {
+  background: #e5e5eb !important;
+  border-top: 1px solid rgba(25,25,32,.07) !important;
+}
+.dashboard .goals-page .goal-item-content-inner,
+.dashboard .goals-page .goal-accordion-trigger {
+  color: var(--ev-ink) !important;
+}
+.dashboard .goals-page .goal-accordion-trigger:hover {
+  background: rgba(255,255,255,.42) !important;
+}
+.dashboard .goals-page .goal-accordion-heading strong,
+.dashboard .goals-page .goal-item-top > strong,
+.dashboard .goals-page .goal-item-top p,
+.dashboard .goals-page .goal-due-copy,
+.dashboard .goals-page .goal-next-action p,
+.dashboard .goals-page .goal-milestone-heading,
+.dashboard .goals-page .goal-week-count {
+  color: var(--ev-ink) !important;
+}
+.dashboard .goals-page .goal-create-form input,
+.dashboard .goals-page .goal-create-form textarea,
+.dashboard .goals-page .goal-next-action-field input,
+.dashboard .goals-page .goal-date-field input {
+  color: #202026 !important;
+  background: rgba(255,255,255,.82) !important;
+  border: 1px solid rgba(30,30,36,.09) !important;
+  color-scheme: light;
+}
+.dashboard .goals-page .goal-item .mini-progress { background: #c9c9d1 !important; }
+.dashboard .goals-page .goal-item .mini-progress i { background: #777780 !important; }
+.dashboard .daily-routine-page { color: var(--ev-ink) !important; }
+.dashboard .daily-routine-page .routine-row { border-color: rgba(30,30,36,.09) !important; }
+.dashboard .daily-routine-page .routine-row-copy strong,
+.dashboard .daily-routine-page .routine-heading h1,
+.dashboard .daily-routine-page .routine-progress-top h2 { color: var(--ev-ink) !important; }
+.dashboard .daily-routine-page .routine-row-icon { background: #d8d8e0 !important; color: #565660 !important; }
+.dashboard .daily-routine-page .routine-time input { color: #24242a !important; background: #fff !important; border-color: rgba(30,30,36,.12) !important; color-scheme: light; }
+.dashboard .progress-page .home-heatmap-card,
+.dashboard .progress-page .goal-heatmap-card,
+.dashboard .progress-page .progress-accordion-panel { color: var(--ev-ink) !important; }
+.dashboard .progress-page .home-heatmap-grid button,
+.dashboard .progress-page .home-heatmap-grid span { border-color: rgba(30,30,36,.08) !important; }
+.dashboard .progress-page .home-heatmap-grid .is-empty { background: #d0d0d8 !important; }
+.dashboard .progress-page .home-heatmap-grid .is-active { background: #777780 !important; }
+.dashboard .settings-page input,
+.dashboard .settings-page select,
+.dashboard .settings-page textarea { color: #24242a !important; background: #fff !important; color-scheme: light; }
+
+.dashboard.dashboard-ai-active,
+.dashboard.dashboard-ai-active .dash-main,
+.dashboard.dashboard-ai-active .ai-page,
+.dashboard.dashboard-ai-active .ai-page .ai-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  color: var(--ev-ink) !important;
+  background: #f2f2f7 !important;
+  background-color: #f2f2f7 !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  color: var(--ev-ink) !important;
+  background: rgba(242,242,247,.92) !important;
+  border-bottom: 1px solid rgba(30,30,36,.07) !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: blur(20px) saturate(140%) !important;
+  backdrop-filter: blur(20px) saturate(140%) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar button {
+  color: #24242a !important;
+  background: rgba(255,255,255,.84) !important;
+  border: 1px solid rgba(30,30,36,.06) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-welcome h3,
+.dashboard.dashboard-ai-active .ai-page .ai-welcome h3 strong { color: #24242a !important; }
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  color: #24242a !important;
+  background: #e5e5eb !important;
+  border: 1px solid rgba(30,30,36,.045) !important;
+  box-shadow: 0 5px 18px rgba(25,25,32,.04) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.user {
+  color: #fff !important;
+  background: #29292f !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message-role,
+.dashboard.dashboard-ai-active .ai-page .ai-message p { color: inherit !important; }
+.dashboard.dashboard-ai-active .ai-promptbar-shell {
+  background: linear-gradient(to top, rgba(242,242,247,.98), rgba(242,242,247,.88) 62%, transparent) !important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  color: #24242a !important;
+  background: rgba(255,255,255,.96) !important;
+  border: 1px solid rgba(30,30,36,.1) !important;
+  box-shadow: 0 8px 28px rgba(25,25,32,.09) !important;
+}
+.dashboard.dashboard-ai-active .ai-promptbar-shell :is(input,textarea) {
+  color: #24242a !important;
+  background: transparent !important;
+}
+.dashboard.dashboard-ai-active .ai-history-sheet,
+.dashboard.dashboard-ai-active .ai-history-overlay {
+  color: #24242a !important;
+  background: #f2f2f7 !important;
+}
+.dashboard.dashboard-ai-active .ai-history-row { background: #e5e5eb !important; color: #24242a !important; }
+.dashboard.dashboard-ai-active .ai-page :is(button,small,p) { }
