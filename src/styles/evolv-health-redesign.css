@@ -792,3 +792,257 @@ body { background: var(--ev-bg) !important; }
   .dashboard .evolv-home-hero-copy h1 { font-size: 36px !important; }
   .dashboard .evolv-home-hero-copy p { max-width: 31ch; }
 }
+
+
+/* ─────────────────────────────────────────────────────────────
+   EVOLV · Apple Health Summary visual language
+   Reference-led pass: white cards on mist background, category
+   colours, editorial metric hierarchy and a soft moving aurora.
+   ───────────────────────────────────────────────────────────── */
+html[data-theme="light"] body #root .dashboard {
+  --ev-bg: #f2f2f7;
+  --ev-card: #ffffff;
+  --ev-ink: #08080a;
+  --ev-secondary: #89898f;
+  background: #f2f2f7 !important;
+  color: #08080a !important;
+}
+html[data-theme="light"] body #root .dashboard::before {
+  content: "";
+  position: fixed;
+  z-index: 0;
+  inset: -18vh -24vw auto;
+  height: 58vh;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 8% 14%, rgba(125,220,188,.54), transparent 43%),
+    radial-gradient(ellipse at 62% 4%, rgba(255,174,153,.48), transparent 48%),
+    radial-gradient(ellipse at 94% 35%, rgba(197,164,237,.38), transparent 43%),
+    radial-gradient(ellipse at 48% 70%, rgba(255,221,173,.38), transparent 52%);
+  filter: blur(32px);
+  opacity: .94;
+  animation: evolv-health-aurora 18s ease-in-out infinite alternate;
+  transform: translate3d(0,0,0);
+}
+@keyframes evolv-health-aurora {
+  0% { transform: translate3d(-2%, -1%, 0) scale(1); filter: blur(32px) hue-rotate(0deg); }
+  50% { transform: translate3d(2%, 3%, 0) scale(1.06); filter: blur(38px) hue-rotate(9deg); }
+  100% { transform: translate3d(-1%, 5%, 0) scale(1.02); filter: blur(34px) hue-rotate(-7deg); }
+}
+html[data-theme="light"] body #root .dashboard::after {
+  content: "";
+  position: fixed;
+  z-index: 2;
+  inset: 0 0 auto;
+  height: calc(112px + env(safe-area-inset-top));
+  pointer-events: none;
+  opacity: .94;
+  background: linear-gradient(180deg, rgba(242,242,247,.1), rgba(242,242,247,.68) 74%, rgba(242,242,247,0));
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+}
+html[data-theme="light"] body #root .dashboard .dash-main,
+html[data-theme="light"] body #root .dashboard .dashboard-home,
+html[data-theme="light"] body #root .dashboard .panel-page {
+  position: relative;
+  z-index: 1;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home {
+  padding-top: 12px !important;
+  gap: 17px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-day-card,
+  .calm-return-welcome,
+  .calm-reflection-entry,
+  .calm-week-card,
+  .calm-goal-snapshot,
+  .calm-insight-card,
+  .calm-insights-section,
+  .calm-home-focus,
+  .calm-home-activity
+) {
+  color: #08080a !important;
+  background: #fff !important;
+  background-color: #fff !important;
+  border: 0 !important;
+  border-radius: 28px !important;
+  box-shadow: 0 2px 12px rgba(31,31,38,.025) !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-intro {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 18px 4px 22px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-top {
+  color: #77777f !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-top button {
+  width: 42px !important;
+  height: 42px !important;
+  color: #25252a !important;
+  background: rgba(255,255,255,.72) !important;
+  border: 0 !important;
+  border-radius: 50% !important;
+  box-shadow: 0 3px 14px rgba(35,35,42,.06) !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-copy h1 {
+  color: #050506 !important;
+  font-size: clamp(36px, 9vw, 46px) !important;
+  font-weight: 850 !important;
+  letter-spacing: -.065em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-copy p {
+  color: #85858c !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-stats > span {
+  color: #77777f !important;
+  background: rgba(255,255,255,.7) !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-card {
+  padding: 22px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-heading h2,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-head h2,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-focus-heading h2,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-checkin h2 {
+  color: #08080a !important;
+  font-size: 23px !important;
+  font-weight: 820 !important;
+  letter-spacing: -.045em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-heading > div > span,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-section-kicker {
+  color: #929299 !important;
+  font-size: 10px !important;
+  font-weight: 750 !important;
+  letter-spacing: .1em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-row {
+  min-height: 68px !important;
+  padding: 10px 0 !important;
+  color: #101014 !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-top: 1px solid #f0f0f3 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-copy strong {
+  color: #09090b !important;
+  font-size: 15px !important;
+  font-weight: 780 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-copy small {
+  color: #8b8b92 !important;
+  font-size: 12px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-icon {
+  width: 40px !important;
+  height: 40px !important;
+  color: #f09548 !important;
+  background: #fff0e2 !important;
+  border: 0 !important;
+  border-radius: 13px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-checkin {
+  padding: 21px 20px !important;
+  background: #fff !important;
+  border-radius: 28px !important;
+  box-shadow: 0 2px 12px rgba(31,31,38,.025) !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-mood-option {
+  background: #f6f6f8 !important;
+  border: 0 !important;
+  border-radius: 19px !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-mood-option small {
+  color: #595960 !important;
+  font-size: 11px !important;
+  font-weight: 650 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-reflection-entry {
+  min-height: 76px !important;
+  padding: 15px 18px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-reflection-entry-icon {
+  color: #5c78e8 !important;
+  background: #eef1ff !important;
+  border: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-reflection-entry-copy strong {
+  color: #111116 !important;
+  font-size: 15px !important;
+  font-weight: 760 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-reflection-entry-copy small {
+  color: #898991 !important;
+  font-size: 12px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-card {
+  padding: 22px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-day span,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-day.is-selected span {
+  color: #08080a !important;
+  font-weight: 720 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-bar {
+  background: #ededf1 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-bar.is-selected {
+  background: #f39a54 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-summary {
+  border-top: 1px solid #f0f0f3 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-summary strong {
+  color: #09090b !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-summary span,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-summary p {
+  color: #8a8a91 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-goal-snapshot {
+  padding: 20px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-goal-snapshot-copy strong {
+  color: #09090b !important;
+  font-size: 16px !important;
+  font-weight: 800 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-goal-snapshot-copy small {
+  color: #85858c !important;
+  font-size: 12px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .evolv-home-day-empty,
+  .calm-goal-view-all
+) {
+  color: #111116 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-period {
+  color: #f09548 !important;
+  font-weight: 760 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+  .calm-return-welcome,
+  .calm-insight-card,
+  .calm-insights-section
+) {
+  padding: 20px !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] body #root .dashboard::before { animation: none !important; }
+}
