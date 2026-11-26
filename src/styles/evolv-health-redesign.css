@@ -1650,3 +1650,52 @@ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before
     animation: none !important;
   }
 }
+
+
+/* Single-canvas light Home: remove stacked body/root colour bands. */
+html[data-theme="light"] {
+  background: #f2f2f7 !important; background-color: #f2f2f7 !important;
+  background-image: none !important; overscroll-behavior-y: none;
+}
+html[data-theme="light"] body,
+html[data-theme="light"] body #root {
+  background: transparent !important; background-color: transparent !important;
+  background-image: none !important;
+}
+html[data-theme="light"] body #root .dashboard,
+html[data-theme="light"] body #root .dashboard .dash-main,
+html[data-theme="light"] body #root .dashboard .dashboard-pages,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home {
+  background: transparent !important; background-color: transparent !important;
+  background-image: none !important; box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home {
+  isolation: isolate !important; overflow: visible !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before {
+  z-index: 0 !important; top: -290px !important; left: -34px !important;
+  right: -34px !important; height: 760px !important; opacity: 1 !important;
+  background:
+    radial-gradient(ellipse at 12% 30%, rgba(112,220,184,.76), transparent 44%),
+    radial-gradient(ellipse at 48% 5%, rgba(255,164,151,.78), transparent 48%),
+    radial-gradient(ellipse at 91% 25%, rgba(187,151,235,.68), transparent 45%),
+    radial-gradient(ellipse at 51% 70%, rgba(255,218,164,.58), transparent 54%) !important;
+  background-size: 145% 145% !important; background-position: 0% 0% !important;
+  filter: blur(34px) saturate(125%) !important;
+  transform: translate3d(0,0,0) scale(1.04) !important;
+  animation: evolv-home-aurora-flow 10s ease-in-out infinite alternate !important;
+  will-change: transform, background-position !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home > * {
+  position: relative !important; z-index: 1 !important;
+}
+@keyframes evolv-home-aurora-flow {
+  0% { background-position: 0% 0% !important; transform: translate3d(-2%, -1%, 0) scale(1.04); }
+  50% { background-position: 55% 35% !important; transform: translate3d(2%, 2%, 0) scale(1.12); }
+  100% { background-position: 100% 75% !important; transform: translate3d(-1%, 5%, 0) scale(1.07); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before {
+    animation: none !important; will-change: auto !important;
+  }
+}
