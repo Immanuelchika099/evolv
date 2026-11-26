@@ -633,3 +633,162 @@ body { background: var(--ev-bg) !important; }
   .dashboard .app-topbar-title,
   .dashboard .app-topbar .app-logo-button { transition: none !important; }
 }
+
+
+/* ── Editorial pass: card hierarchy, readable copy and calmer rhythm ── */
+.dashboard .dashboard-home,
+.dashboard .goals-page,
+.dashboard .progress-page,
+.dashboard .daily-routine-page,
+.dashboard .settings-page {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "SF Pro Display", "Segoe UI", sans-serif;
+  letter-spacing: -.012em;
+}
+.dashboard .evolv-home-intro { padding: 18px 2px 22px !important; }
+.dashboard .evolv-home-eyebrow {
+  color: #777780 !important;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+  letter-spacing: -.015em !important;
+}
+.dashboard .evolv-home-hero-copy h1 {
+  margin: 3px 0 9px !important;
+  color: #19191e !important;
+  font-size: clamp(34px, 9vw, 43px) !important;
+  line-height: 1.04 !important;
+  font-weight: 780 !important;
+  letter-spacing: -.055em !important;
+}
+.dashboard .evolv-home-hero-copy p {
+  max-width: 34ch;
+  color: #74747d !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+  font-weight: 450 !important;
+}
+.dashboard .evolv-home-hero-stats { gap: 9px !important; margin-top: 17px !important; }
+.dashboard .evolv-home-hero-stats > span {
+  padding: 9px 12px !important;
+  color: #62626b !important;
+  background: rgba(255,255,255,.72) !important;
+  border: 1px solid rgba(35,35,42,.055) !important;
+  border-radius: 999px !important;
+  font-size: 11px !important;
+  font-weight: 550 !important;
+}
+.dashboard .evolv-home-hero-stats strong { color: #202026 !important; font-weight: 750 !important; }
+.dashboard .evolv-home-day-card,
+.dashboard .calm-week-card,
+.dashboard .calm-return-welcome,
+.dashboard .calm-goal-snapshot,
+.dashboard .calm-goal-empty,
+.dashboard .calm-reflection-entry {
+  background: #e5e5eb !important;
+  border: 1px solid rgba(28,28,36,.045) !important;
+  border-radius: 25px !important;
+  box-shadow: 0 7px 24px rgba(28,28,36,.045) !important;
+}
+.dashboard .evolv-home-day-card,
+.dashboard .calm-week-card { padding: 19px !important; }
+.dashboard .evolv-home-day-heading h2,
+.dashboard .calm-week-head h2,
+.dashboard .calm-focus-heading h2,
+.dashboard .calm-checkin h2 {
+  color: #202026 !important;
+  font-size: 20px !important;
+  font-weight: 760 !important;
+  letter-spacing: -.04em !important;
+}
+.dashboard .evolv-home-day-heading > div > span,
+.dashboard .calm-section-kicker {
+  color: #85858e !important;
+  font-size: 9px !important;
+  font-weight: 750 !important;
+  letter-spacing: .105em !important;
+}
+.dashboard .evolv-home-day-row {
+  min-height: 62px !important;
+  border-top: 1px solid rgba(32,32,38,.075) !important;
+}
+.dashboard .evolv-home-day-copy strong,
+.dashboard .calm-goal-snapshot-copy strong {
+  color: #222228 !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+}
+.dashboard .evolv-home-day-copy small,
+.dashboard .calm-goal-snapshot-copy small {
+  margin-top: 3px !important;
+  color: #777780 !important;
+  font-size: 11px !important;
+  line-height: 1.4 !important;
+}
+.dashboard .evolv-home-day-icon,
+.dashboard .calm-focus-mark,
+.dashboard .calm-reflection-entry-icon {
+  background: #d5d5de !important;
+  color: #555560 !important;
+}
+.dashboard .calm-checkin { padding: 4px 0 12px !important; }
+.dashboard .calm-checkin h2 { margin-bottom: 14px !important; }
+.dashboard .calm-mood-option small { color: #4f4f58 !important; font-size: 11px !important; font-weight: 620 !important; }
+.dashboard .calm-reflection-entry {
+  min-height: 76px !important;
+  padding: 14px 16px !important;
+  color: #24242a !important;
+}
+.dashboard .calm-reflection-entry-copy strong { color: #24242a !important; font-size: 13px !important; font-weight: 700 !important; }
+.dashboard .calm-reflection-entry-copy small { display: block; margin-top: 4px; color: #777780 !important; font-size: 11px !important; line-height: 1.35 !important; }
+.dashboard .calm-week-summary { border-top: 1px solid rgba(32,32,38,.08) !important; }
+.dashboard .calm-week-summary strong { color: #202026 !important; font-size: 25px !important; font-weight: 780 !important; }
+.dashboard .calm-week-summary span,
+.dashboard .calm-week-summary p { color: #777780 !important; font-size: 11px !important; }
+.dashboard .calm-week-day span { color: #111 !important; font-weight: 650 !important; }
+.dashboard .calm-week-day.is-selected span { color: #000 !important; }
+.dashboard .calm-home-focus { margin-top: 24px !important; }
+.dashboard .calm-focus-heading { margin-bottom: 12px !important; }
+.dashboard .calm-goal-snapshot { padding: 17px !important; }
+.dashboard .calm-goal-percent { color: #24242a !important; font-size: 17px !important; font-weight: 760 !important; }
+.dashboard .calm-goal-progress-track { height: 6px !important; background: #c8c8d0 !important; }
+.dashboard .calm-goal-progress-track > span { background: #686872 !important; }
+.dashboard .calm-goal-view-all { color: #42424a !important; font-size: 11px !important; font-weight: 700 !important; }
+
+.dashboard .goals-page > h2,
+.dashboard .progress-heading > h2 {
+  margin: 0 0 18px !important;
+  padding-top: 12px !important;
+  color: #1e1e24 !important;
+  font-size: 32px !important;
+  line-height: 1.08 !important;
+  font-weight: 780 !important;
+  letter-spacing: -.055em !important;
+}
+.dashboard .goals-page .goal-create-form { padding: 18px !important; border-radius: 24px !important; }
+.dashboard .goals-page .goal-type-choice button { border-radius: 16px !important; }
+.dashboard .goals-page .goal-create-form input,
+.dashboard .goals-page .goal-create-form textarea { border-radius: 14px !important; font-size: 14px !important; }
+.dashboard .goals-page .goal-accordion-trigger { padding: 17px !important; }
+.dashboard .goals-page .goal-accordion-heading strong { font-size: 16px !important; line-height: 1.3 !important; letter-spacing: -.025em !important; }
+.dashboard .goals-page .goal-accordion-status,
+.dashboard .goals-page .goal-next-action > span,
+.dashboard .goals-page .goal-milestone-heading > span { color: #777780 !important; font-size: 9px !important; font-weight: 750 !important; letter-spacing: .1em !important; }
+.dashboard .goals-page .goal-item-content-inner { padding: 0 17px 18px !important; }
+.dashboard .goals-page .goal-item-top p,
+.dashboard .goals-page .goal-next-action p { color: #5e5e67 !important; font-size: 13px !important; line-height: 1.5 !important; }
+.dashboard .goals-page .goal-next-action { padding: 13px !important; border-radius: 16px !important; background: rgba(255,255,255,.52) !important; }
+
+.dashboard .progress-page .progress-section-card,
+.dashboard .progress-page .progress-overview-card { background: #e5e5eb !important; border: 1px solid rgba(28,28,36,.045) !important; border-radius: 24px !important; box-shadow: 0 7px 24px rgba(28,28,36,.045) !important; }
+.dashboard .progress-page .home-heatmap-heading h2,
+.dashboard .progress-page .progress-section-head h3 { color: #202026 !important; font-size: 19px !important; font-weight: 750 !important; letter-spacing: -.035em !important; }
+.dashboard .progress-page .home-heatmap-total strong,
+.dashboard .progress-page .progress-accordion-panel-inner > strong { color: #202026 !important; font-weight: 780 !important; }
+.dashboard .progress-page .home-heatmap-total span,
+.dashboard .progress-page .progress-accordion-panel-inner p { color: #777780 !important; }
+
+@media (max-width: 430px) {
+  .dashboard .evolv-home-day-card,
+  .dashboard .calm-week-card { padding: 16px !important; border-radius: 22px !important; }
+  .dashboard .evolv-home-hero-copy h1 { font-size: 36px !important; }
+  .dashboard .evolv-home-hero-copy p { max-width: 31ch; }
+}
