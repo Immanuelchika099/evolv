@@ -1823,3 +1823,33 @@ html[data-theme="light"] body button.evolv-ai-fab span {
     will-change: auto !important;
   }
 }
+
+
+/* Light-mode dock: the selected destination stays black, not white. */
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active,
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active:hover,
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active:focus,
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active:active {
+  color: #090909 !important;
+  -webkit-text-fill-color: #090909 !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active > span,
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active > span svg,
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active small,
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  color: #090909 !important;
+  -webkit-text-fill-color: #090909 !important;
+  fill: none !important;
+  stroke: currentColor !important;
+  border-color: rgba(9,9,9,.18) !important;
+}
+html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active > span svg * {
+  stroke: currentColor !important;
+  fill: none !important;
+}
