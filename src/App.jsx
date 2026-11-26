@@ -364,8 +364,14 @@ function App() {
     }
     syncScrollChrome()
     window.addEventListener('scroll', syncScrollChrome, { passive: true })
-    return () => window.removeEventListener('scroll', syncScrollChrome)
-  }, [view])
+    const observer = new MutationObserver(syncScrollChrome)
+    const rootNode = document.getElementById('root')
+    if (rootNode) observer.observe(rootNode, { childList: true, subtree: true })
+    return () => {
+      window.removeEventListener('scroll', syncScrollChrome)
+      observer.disconnect()
+    }
+  }, [])
   const [ambientSoundEnabled, setAmbientSoundEnabled] = useState(() => {
     try { return localStorage.getItem('evolv-ambient-sound-enabled') !== 'false' } catch { return true }
   })
