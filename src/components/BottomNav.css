@@ -399,3 +399,28 @@ html body #root nav.evolv-bottom-nav button.bottom-active > span svg * {
   stroke: currentColor !important;
   fill: none !important;
 }
+
+
+/* Final viewport-centering correction */
+.evolv-bottom-nav {
+  position: fixed !important;
+  left: 50vw !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  width: min(520px, calc(100vw - 28px)) !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  transform: translate3d(-50%, 0, 0) !important;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px)) !important;
+  z-index: 1000 !important;
+}
+@media (max-width: 700px) {
+  .evolv-bottom-nav {
+    left: 50vw !important;
+    right: auto !important;
+    width: calc(100vw - 28px) !important;
+    bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    transform: translate3d(-50%, 0, 0) !important;
+  }
+}
