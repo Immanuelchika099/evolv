@@ -12,6 +12,7 @@ import NotificationPermissionPrompt from './components/NotificationPermissionPro
 import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
 import './theme.css'
+import './styles/evolv-health-redesign.css'
 import { applyThemePreference, getThemePreference } from './lib/theme'
 
 applyThemePreference(getThemePreference())
