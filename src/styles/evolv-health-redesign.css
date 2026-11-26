@@ -601,3 +601,35 @@ body { background: var(--ev-bg) !important; }
 }
 .dashboard.dashboard-ai-active .ai-history-row { background: #e5e5eb !important; color: #24242a !important; }
 .dashboard.dashboard-ai-active .ai-page :is(button,small,p) { }
+
+.dashboard .app-topbar { position: fixed !important; }
+.dashboard .app-topbar-title {
+  position: absolute;
+  left: 50%;
+  top: calc(env(safe-area-inset-top, 0px) + 1.5rem);
+  transform: translate(-50%, -5px);
+  max-width: 42vw;
+  overflow: hidden;
+  color: #24242a;
+  font: 700 14px/1.2 -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
+  letter-spacing: -.025em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .2s ease, transform .2s ease;
+}
+.dashboard.evolv-scrolled .app-topbar-title {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.dashboard .app-topbar .app-logo-button { transition: opacity .2s ease, transform .2s ease; }
+.dashboard.evolv-scrolled .app-topbar .app-logo-button {
+  opacity: 0;
+  transform: translateY(-4px);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .app-topbar-title,
+  .dashboard .app-topbar .app-logo-button { transition: none !important; }
+}
