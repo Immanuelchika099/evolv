@@ -131,8 +131,8 @@ function HomePage({ pageProps }) {
           <span className="evolv-home-eyebrow">{greeting},</span>
           <h1>{firstName}!</h1>
           <p>{activeGoals.length
-            ? `You have ${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'} to keep moving forward. Ready for one small step?`
-            : 'A fresh day to make progress at your own pace. Ready to begin?'}</p>
+            ? `${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}. Keep your focus on the next small step.`
+            : 'A fresh start. Choose one small thing that matters today.'}</p>
         </div>
         <div className="evolv-home-hero-stats">
           <span><strong>{todayLogs.length + todayMeals.length}</strong> activities today</span>
@@ -151,7 +151,7 @@ function HomePage({ pageProps }) {
       <section className="evolv-home-day-card" aria-labelledby="evolv-home-day-title">
         <div className="evolv-home-day-heading">
           <div>
-            <span>YOUR MOMENTUM</span>
+            <span>ONE DAY AT A TIME</span>
             <h2 id="evolv-home-day-title">Today</h2>
           </div>
           <button type="button" onClick={() => goTo('logs')} aria-label="View all activity"><ArrowRight size={19}/></button>
@@ -172,7 +172,7 @@ function HomePage({ pageProps }) {
         ) : (
           <button type="button" className="evolv-home-day-empty" onClick={startCheckIn}>
             <span className="evolv-home-day-empty-icon"><Plus size={18}/></span>
-            <span><strong>Your day is still open.</strong><small>Start with a quick check-in whenever you're ready.</small></span>
+            <span><strong>Make today count.</strong><small>Start with one small check-in. You can build from there.</small></span>
             <ArrowRight size={17}/>
           </button>
         )}
@@ -213,10 +213,10 @@ function HomePage({ pageProps }) {
       <section className="calm-week-card" aria-labelledby="calm-week-title">
         <div className="calm-week-head">
           <div>
-            <span className="calm-section-kicker">YOUR ACTIVITY</span>
-            <h2 id="calm-week-title">Your week</h2>
+            <span className="calm-section-kicker">SMALL STEPS, OVER TIME</span>
+            <h2 id="calm-week-title">This week</h2>
           </div>
-          <span className="calm-week-period">THIS WEEK</span>
+          <span className="calm-week-period">ACTIVITY</span>
         </div>
         <div className="calm-week-chart-wrap">
           <div className="calm-week-bars" role="img" aria-label={`Daily activity this week: ${weekStats.map(day => `${day.label} ${day.count}`).join(', ')}`}>
@@ -255,7 +255,7 @@ function HomePage({ pageProps }) {
 
       <section className="calm-home-focus" aria-label="Your growth at a glance">
         <div className="calm-focus-heading">
-          <button type="button" className="calm-focus-title-action" onClick={() => goTo('goals')}><h2>Your goals</h2></button>
+          <button type="button" className="calm-focus-title-action" onClick={() => goTo('goals')}><h2>Your focus</h2></button>
           <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
         </div>
         {activeGoals.length ? (
@@ -264,7 +264,7 @@ function HomePage({ pageProps }) {
               <span className="calm-focus-mark"><Target size={19}/></span>
               <div className="calm-goal-snapshot-copy">
                 <strong>{activeGoals[0].title}</strong>
-                <small>{activeGoals.length > 1 ? `+ ${activeGoals.length - 1} more active ${activeGoals.length - 1 === 1 ? 'goal' : 'goals'}` : 'Your current focus'}</small>
+                <small>{activeGoals.length > 1 ? `And ${activeGoals.length - 1} more active ${activeGoals.length - 1 === 1 ? 'goal' : 'goals'}` : 'One step at a time'}</small>
               </div>
               <span className="calm-goal-percent">{Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}%</span>
             </div>
@@ -276,36 +276,13 @@ function HomePage({ pageProps }) {
         ) : (
           <button type="button" className="calm-goal-empty" onClick={() => goTo('goals')}>
             <span className="calm-focus-mark"><Target size={19}/></span>
-            <span><strong>Set your first goal</strong><small>Start with one thing that matters.</small></span>
+            <span><strong>Set your first goal</strong><small>Choose something meaningful to work towards.</small></span>
             <ArrowRight size={17}/>
           </button>
         )}
       </section>
 
-      <section className="calm-home-activity">
-        <div className="calm-focus-heading">
-          <div><h2>Today</h2></div>
-          <button type="button" onClick={() => goTo('logs')} aria-label="View check-in history"><ArrowRight size={18}/></button>
-        </div>
-        {loading ? (
-          <p className="calm-activity-note">Bringing your day together…</p>
-        ) : recentActivity.length ? (
-          <div className="calm-activity-list">
-            {recentActivity.map(item => {
-              const Icon = item.icon
-              return <button type="button" className="calm-activity-item" key={item.key} onClick={item.onClick}>
-                <span><Icon size={17}/></span><div><strong>{item.title}</strong><small>{item.detail}</small></div><ChevronRight size={16}/>
-              </button>
-            })}
-          </div>
-        ) : (
-          <button type="button" className="calm-activity-empty" onClick={startCheckIn}>
-            <span className="calm-empty-plus"><Plus size={18}/></span>
-            <span><strong>Nothing to catch up on.</strong><small>Whenever you're ready, start with one check-in.</small></span>
-            <ArrowRight size={17}/>
-          </button>
-        )}
-      </section>
+
 
     </div>
   )
