@@ -378,3 +378,100 @@ body { background: var(--ev-bg) !important; }
 .dashboard .ai-history-sheet,
 .dashboard .ai-uploaded-files-list,
 .dashboard .ai-prompt-menu { color:var(--ev-ink) !important; background:#fff !important; }
+
+
+/* ── EVOLV light app chrome: override legacy dark navigation surfaces ── */
+.dashboard .app-topbar {
+  background: linear-gradient(180deg, rgba(242,242,247,.94), rgba(242,242,247,.72) 72%, transparent) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(125%) !important;
+  backdrop-filter: blur(18px) saturate(125%) !important;
+}
+.dashboard .app-topbar::before {
+  background: linear-gradient(180deg, rgba(242,242,247,.42), rgba(242,242,247,.16) 60%, transparent) !important;
+}
+.dashboard .app-topbar .app-logo-button,
+.dashboard .app-topbar .routine-nav-button,
+.dashboard .app-topbar .notification-button,
+.dashboard .app-topbar .streak-chip {
+  color: #242428 !important;
+  background: rgba(255,255,255,.78) !important;
+  border: 1px solid rgba(30,30,36,.055) !important;
+  box-shadow: 0 5px 18px rgba(25,25,32,.055) !important;
+}
+.dashboard .app-topbar .app-logo-button svg,
+.dashboard .app-topbar .routine-nav-button svg,
+.dashboard .app-topbar .notification-button svg { color: #242428 !important; }
+.dashboard .app-topbar .streak-chip { border-radius: 999px !important; }
+.dashboard .app-topbar .streak-chip span { color: #242428 !important; }
+.dashboard .app-topbar .app-logo-button { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+
+.dashboard .evolv-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: max(12px, env(safe-area-inset-bottom)) !important;
+  transform: translateX(-50%) !important;
+  width: calc(100% - 28px) !important;
+  max-width: 520px !important;
+  height: 70px !important;
+  min-height: 70px !important;
+  padding: 7px 10px !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  gap: 3px !important;
+  border: 1px solid rgba(35,35,42,.08) !important;
+  border-radius: 24px !important;
+  background: rgba(255,255,255,.86) !important;
+  box-shadow: 0 12px 38px rgba(30,30,38,.13), inset 0 1px 0 rgba(255,255,255,.9) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%) !important;
+  backdrop-filter: blur(24px) saturate(150%) !important;
+}
+.dashboard .evolv-bottom-nav button,
+.dashboard .evolv-bottom-nav button.bottom-active {
+  height: 54px !important;
+  min-height: 54px !important;
+  padding: 4px 2px !important;
+  border-radius: 17px !important;
+  color: #85858d !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  gap: 3px !important;
+}
+.dashboard .evolv-bottom-nav button > span { width: 30px !important; height: 25px !important; }
+.dashboard .evolv-bottom-nav button small {
+  color: currentColor !important;
+  font: 600 10px/1.1 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif !important;
+}
+.dashboard .evolv-bottom-nav button.bottom-active {
+  color: #202026 !important;
+  background: #f0f0f4 !important;
+}
+.dashboard .evolv-bottom-nav button.bottom-active svg { color: #202026 !important; }
+.dashboard .evolv-bottom-nav .bottom-profile-icon { border: 0 !important; }
+@media (min-width: 701px) {
+  .dashboard .evolv-bottom-nav { bottom: 18px !important; }
+}
+.dashboard .evolv-ai-fab {
+  position: fixed;
+  z-index: 100001;
+  left: 50%;
+  bottom: calc(max(12px, env(safe-area-inset-bottom)) + 82px);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 42px;
+  padding: 0 17px;
+  border: 1px solid rgba(255,255,255,.78);
+  border-radius: 999px;
+  color: #fff;
+  background: #222226;
+  box-shadow: 0 8px 24px rgba(25,25,30,.18);
+  font: 650 12px/1 -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+  cursor: pointer;
+}
+.dashboard .evolv-ai-fab svg { color: #fff; }
+.dashboard .dash-main { padding-bottom: 148px !important; }
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .evolv-ai-fab { transition: none !important; }
+}
