@@ -1571,3 +1571,82 @@ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home > * {
     transform: none !important;
   }
 }
+
+
+/* HOME ATMOSPHERE — one painted layer, owned by Home only.
+   Remove legacy global root/body ambient layers so iOS pull-to-stretch
+   cannot reveal stacked tinted sheets behind the dashboard. */
+html:has(#root .dashboard-home.calm-home),
+html:has(#root .dashboard-home.calm-home) body,
+html:has(#root .dashboard-home.calm-home) body #root {
+  background: #f2f2f7 !important;
+  background-color: #f2f2f7 !important;
+}
+html:has(#root .dashboard-home.calm-home)::before,
+html:has(#root .dashboard-home.calm-home)::after,
+html:has(#root .dashboard-home.calm-home) body::before,
+html:has(#root .dashboard-home.calm-home) body::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html:has(#root .dashboard-home.calm-home) body #root .dashboard {
+  background: #f2f2f7 !important;
+  background-color: #f2f2f7 !important;
+  isolation: isolate !important;
+}
+html:has(#root .dashboard-home.calm-home) body #root .dashboard .dash-main {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home {
+  position: relative !important;
+  isolation: isolate !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  overflow: visible !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before {
+  content: "" !important;
+  display: block !important;
+  position: absolute !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+  top: -180px !important;
+  left: -28px !important;
+  right: -28px !important;
+  height: 760px !important;
+  opacity: 1 !important;
+  background:
+    radial-gradient(ellipse at 12% 24%, rgba(125,225,194,.72), transparent 42%),
+    radial-gradient(ellipse at 52% 8%, rgba(255,178,160,.72), transparent 47%),
+    radial-gradient(ellipse at 91% 29%, rgba(193,162,238,.64), transparent 43%),
+    radial-gradient(ellipse at 48% 72%, rgba(255,222,174,.58), transparent 53%) !important;
+  background-size: 145% 145% !important;
+  background-position: 0% 35% !important;
+  filter: blur(28px) saturate(125%) !important;
+  transform: translate3d(0,0,0) !important;
+  animation: evolv-home-aurora-flow 10s ease-in-out infinite alternate !important;
+  will-change: transform, background-position !important;
+}
+@keyframes evolv-home-aurora-flow {
+  0% {
+    background-position: 0% 35%;
+    transform: translate3d(-1.5%, -1%, 0) scale(1);
+  }
+  50% {
+    background-position: 75% 55%;
+    transform: translate3d(1.5%, 2%, 0) scale(1.055);
+  }
+  100% {
+    background-position: 20% 80%;
+    transform: translate3d(-.5%, 4%, 0) scale(1.025);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home::before {
+    animation: none !important;
+  }
+}
