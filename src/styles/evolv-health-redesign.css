@@ -1229,3 +1229,226 @@ html[data-theme="light"] body #root .dashboard .evolv-floating-log {
     min-width: 0 !important;
   }
 }
+
+
+/* Apple Health-inspired component system — Routine, Progress, Profile and AI. */
+html[data-theme="light"] body #root .dashboard :is(.daily-routine-page,.progress-page,.goals-page,.settings-page,.ai-page) {
+  color: #17171b !important;
+  background: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard :is(.routine-heading,.progress-heading,.profile-v2-title) h1,
+html[data-theme="light"] body #root .dashboard :is(.routine-heading,.progress-heading) h2 {
+  color: #101014 !important;
+  font-size: clamp(30px, 8vw, 40px) !important;
+  font-weight: 850 !important;
+  letter-spacing: -.06em !important;
+  line-height: 1.02 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-date,
+html[data-theme="light"] body #root .dashboard .progress-heading p {
+  color: #85858c !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-progress-panel,
+html[data-theme="light"] body #root .dashboard .routine-coach-card,
+html[data-theme="light"] body #root .dashboard .routine-group,
+html[data-theme="light"] body #root .dashboard .routine-next-step,
+html[data-theme="light"] body #root .dashboard .progress-heatmap-card,
+html[data-theme="light"] body #root .dashboard .goal-heatmap-card,
+html[data-theme="light"] body #root .dashboard .progress-section-card,
+html[data-theme="light"] body #root .dashboard .profile-v2-summary,
+html[data-theme="light"] body #root .dashboard .profile-settings-section,
+html[data-theme="light"] body #root .dashboard .profile-v2-group,
+html[data-theme="light"] body #root .dashboard .ai-topbar,
+html[data-theme="light"] body #root .dashboard .ai-welcome,
+html[data-theme="light"] body #root .dashboard .ai-promptbar-shell {
+  color: #17171b !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: 27px !important;
+  box-shadow: 0 4px 20px rgba(34,34,42,.035) !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-progress-panel,
+html[data-theme="light"] body #root .dashboard .routine-group,
+html[data-theme="light"] body #root .dashboard .progress-heatmap-card,
+html[data-theme="light"] body #root .dashboard .goal-heatmap-card,
+html[data-theme="light"] body #root .dashboard .progress-section-card,
+html[data-theme="light"] body #root .dashboard .profile-v2-summary,
+html[data-theme="light"] body #root .dashboard .profile-settings-section {
+  padding: 20px !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-progress-top,
+html[data-theme="light"] body #root .dashboard .routine-progress-bottom,
+html[data-theme="light"] body #root .dashboard .routine-section-heading,
+html[data-theme="light"] body #root .dashboard .home-heatmap-heading,
+html[data-theme="light"] body #root .dashboard .progress-section-head {
+  color: #17171b !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-label,
+html[data-theme="light"] body #root .dashboard .routine-section-heading span,
+html[data-theme="light"] body #root .dashboard .home-heatmap-heading span,
+html[data-theme="light"] body #root .dashboard .section-label {
+  color: #929299 !important;
+  letter-spacing: .09em !important;
+  font-size: 10px !important;
+  font-weight: 760 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-progress-track,
+html[data-theme="light"] body #root .dashboard .progress-goal-track {
+  height: 8px !important;
+  border: 0 !important;
+  background: #eeeeF2 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-progress-track span {
+  box-shadow: none !important;
+  background: #e99a62 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-coach-card {
+  min-height: 140px !important;
+  padding: 18px !important;
+  background: #fff !important;
+  border-radius: 24px !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-coach-card-title,
+html[data-theme="light"] body #root .dashboard .routine-row-copy strong,
+html[data-theme="light"] body #root .dashboard .routine-next-step strong {
+  color: #17171b !important;
+  font-weight: 760 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-coach-card-description,
+html[data-theme="light"] body #root .dashboard .routine-coach-card-hint,
+html[data-theme="light"] body #root .dashboard .routine-row-copy small,
+html[data-theme="light"] body #root .dashboard .routine-time,
+html[data-theme="light"] body #root .dashboard .routine-reminder-note {
+  color: #888890 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-row {
+  padding: 13px 0 !important;
+  border-color: #f0f0f3 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-row-icon,
+html[data-theme="light"] body #root .dashboard .routine-coach-icon {
+  background: #f3f3f6 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-check {
+  border-color: #d7d7dc !important;
+  background: #f7f7f9 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-check.is-complete {
+  color: #fff !important;
+  border-color: #54bda9 !important;
+  background: #54bda9 !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-add-button,
+html[data-theme="light"] body #root .dashboard .routine-add-submit {
+  color: #fff !important;
+  background: #202024 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .routine-add-form input,
+html[data-theme="light"] body #root .dashboard .routine-add-form select {
+  color: #17171b !important;
+  background: #f5f5f7 !important;
+  border: 1px solid #ededf0 !important;
+  border-radius: 15px !important;
+}
+html[data-theme="light"] body #root .dashboard .home-heatmap-total,
+html[data-theme="light"] body #root .dashboard .goal-heatmap-summary {
+  color: #111115 !important;
+}
+html[data-theme="light"] body #root .dashboard .home-heatmap-grid .level-0 { background: #eeeeF2 !important; }
+html[data-theme="light"] body #root .dashboard .home-heatmap-grid .level-1 { background: #d8eee8 !important; }
+html[data-theme="light"] body #root .dashboard .home-heatmap-grid .level-2 { background: #a9dfd0 !important; }
+html[data-theme="light"] body #root .dashboard .home-heatmap-grid .level-3 { background: #70c9b2 !important; }
+html[data-theme="light"] body #root .dashboard .home-heatmap-grid .level-4 { background: #36a98d !important; }
+html[data-theme="light"] body #root .dashboard .profile-v2-topbar {
+  background: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard .profile-v2-summary {
+  display: block !important;
+  padding: 22px !important;
+}
+html[data-theme="light"] body #root .dashboard .profile-v2-identity strong,
+html[data-theme="light"] body #root .dashboard .profile-settings-section-heading strong,
+html[data-theme="light"] body #root .dashboard .profile-setting-row strong {
+  color: #17171b !important;
+}
+html[data-theme="light"] body #root .dashboard .profile-v2-identity span,
+html[data-theme="light"] body #root .dashboard .profile-setting-row span,
+html[data-theme="light"] body #root .dashboard .profile-setting-row small {
+  color: #85858c !important;
+}
+html[data-theme="light"] body #root .dashboard .profile-settings-section {
+  margin-bottom: 12px !important;
+  padding: 0 18px !important;
+  overflow: hidden !important;
+}
+html[data-theme="light"] body #root .dashboard .profile-settings-section-head {
+  min-height: 72px !important;
+  color: #17171b !important;
+  background: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard .profile-setting-row {
+  border-color: #f0f0f3 !important;
+}
+html[data-theme="light"] body #root .dashboard .settings-toggle.active {
+  background: #54bda9 !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-page {
+  min-height: 100% !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-topbar {
+  padding: 10px !important;
+  background: rgba(255,255,255,.8) !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-topbar button {
+  color: #29292f !important;
+  background: #f3f3f6 !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-welcome {
+  padding: 28px 22px !important;
+  background: #fff !important;
+  border-radius: 28px !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-welcome h3 {
+  color: #17171b !important;
+  font-size: clamp(30px, 8vw, 40px) !important;
+  font-weight: 850 !important;
+  letter-spacing: -.06em !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-message.assistant {
+  color: #17171b !important;
+  background: #fff !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+  box-shadow: 0 4px 18px rgba(34,34,42,.035) !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-message.user {
+  color: #fff !important;
+  background: #29292e !important;
+  border: 0 !important;
+  border-radius: 24px 24px 7px 24px !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-promptbar-shell {
+  background: rgba(255,255,255,.92) !important;
+  border-radius: 28px !important;
+  box-shadow: 0 8px 30px rgba(28,28,34,.09) !important;
+}
+html[data-theme="light"] body #root .dashboard .ai-promptbar-shell textarea,
+html[data-theme="light"] body #root .dashboard .ai-promptbar-shell input {
+  color: #17171b !important;
+}
+@media (max-width: 700px) {
+  html[data-theme="light"] body #root .dashboard :is(.routine-progress-panel,.routine-group,.progress-heatmap-card,.goal-heatmap-card,.progress-section-card,.profile-v2-summary) {
+    padding: 18px !important;
+    border-radius: 25px !important;
+  }
+  html[data-theme="light"] body #root .dashboard .routine-coach-card { min-width: 205px !important; }
+  html[data-theme="light"] body #root .dashboard .profile-settings-section { border-radius: 23px !important; }
+}
