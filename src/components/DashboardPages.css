@@ -12356,3 +12356,94 @@ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-w
 html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-days .calm-week-day i {
   box-shadow: none !important;
 }
+
+
+/* FINAL HOME REFERENCE OVERRIDES — intentionally last in this stylesheet. */
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+ .evolv-home-day-card,.calm-checkin,.calm-week-card,.calm-home-focus,
+ .calm-goal-snapshot,.calm-return-welcome,.calm-reflection-entry,
+ .calm-insight-card,.calm-insights-section
+) {
+  background: #fff !important;
+  background-color: #fff !important;
+  border: 0 !important;
+  border-radius: 30px !important;
+  box-shadow: 0 2px 14px rgba(25,25,32,.035) !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home :is(
+ .evolv-home-day-row,.evolv-home-day-empty,.calm-mood-option,
+ .calm-week-day,.calm-activity-item,.calm-activity-empty
+) {
+  background: transparent !important;
+  background-color: transparent !important;
+  border-color: #efeff2 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-intro {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-checkin {
+  border: 0 !important;
+  padding: 24px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-mood-option {
+  background: #f5f5f7 !important;
+  border: 0 !important;
+  border-radius: 22px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-days .calm-week-day,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-days .calm-week-day span {
+  color: #000 !important;
+  -webkit-text-fill-color: #000 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-card {
+  padding: 26px !important;
+  min-height: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-heading h2 {
+  font-size: 32px !important;
+  letter-spacing: -.055em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-empty {
+  display: grid !important;
+  grid-template-columns: 48px minmax(0,1fr) !important;
+  gap: 14px !important;
+  align-items: center !important;
+  min-height: 100px !important;
+  padding: 18px 0 0 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-empty > svg {
+  display: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-empty-icon {
+  display: grid !important;
+  place-items: center !important;
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 16px !important;
+  background: #f0f0f2 !important;
+  color: #77777d !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-empty strong {
+  color: #141416 !important;
+  font-size: 17px !important;
+  font-weight: 760 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-day-empty small {
+  display: block !important;
+  margin-top: 5px !important;
+  color: #85858c !important;
+  font-size: 13px !important;
+  line-height: 1.4 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-week-card,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-checkin {
+  padding: 24px !important;
+}
+@media(max-width:700px) {
+ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home { gap: 16px !important; }
+ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-intro { padding: 8px 4px 12px !important; }
+ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-copy { padding: 20px 0 14px !important; }
+}
