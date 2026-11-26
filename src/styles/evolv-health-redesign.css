@@ -325,3 +325,56 @@ body { background: var(--ev-bg) !important; }
   .dashboard .routine-insight-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
   .dashboard .routine-group { padding:12px; }
 }
+
+/* Progress and goal-creation surfaces */
+.dashboard .progress-page { max-width:760px; margin-inline:auto; padding:18px 18px 130px; }
+.dashboard .progress-page .progress-heading { margin:0 0 22px; }
+.dashboard .progress-page .progress-heading h1 { color:var(--ev-ink) !important; font-size:clamp(36px,8vw,50px); letter-spacing:-.06em; }
+.dashboard .progress-page .section-label { color:#a0a0a8 !important; }
+.dashboard .progress-page :is(.home-heatmap-card,.progress-accordion-item,.progress-stat-card,.progress-chart-card,.progress-summary-card) {
+  border:0 !important; border-radius:24px !important; background:var(--ev-card) !important;
+  box-shadow:var(--ev-shadow) !important; color:var(--ev-ink) !important;
+}
+.dashboard .progress-page .home-heatmap-heading :is(h2,strong) { color:var(--ev-ink) !important; }
+.dashboard .progress-page .home-heatmap-total { color:#c97853 !important; }
+.dashboard .progress-page .home-heatmap-footer,
+.dashboard .progress-page .progress-accordion-panel-inner p { color:var(--ev-secondary) !important; }
+.dashboard .progress-page .progress-accordion-panel-inner { color:var(--ev-ink); }
+.dashboard .goals-page { max-width:760px; margin-inline:auto; padding:18px 18px 130px; }
+.dashboard .goals-page > h2 { padding-top:0 !important; margin:0 0 18px; color:var(--ev-ink) !important; font-size:clamp(36px,8vw,50px); letter-spacing:-.06em; }
+.dashboard .goal-create-form {
+  padding:18px; border:0 !important; border-radius:24px !important;
+  background:var(--ev-card) !important; box-shadow:var(--ev-shadow) !important;
+}
+.dashboard .goal-type-choice { background:#f1f1f5 !important; border:0 !important; }
+.dashboard .goal-type-choice button { color:#74747c !important; }
+.dashboard .goal-type-choice button.is-active { color:#28282d !important; background:#fff !important; box-shadow:0 2px 9px rgba(25,25,30,.08) !important; }
+.dashboard .goal-create-form :is(input,textarea,select) { color:#29292e !important; background:#f7f7fa !important; border:1px solid #e6e6ec !important; }
+.dashboard .goal-item-actions button { border-radius:999px; }
+.dashboard .goal-accordion-trigger { color:var(--ev-ink) !important; }
+.dashboard .goal-accordion-status { color:var(--ev-secondary) !important; }
+.dashboard .goal-habit-days .day,
+.dashboard .goal-habit-days button { color:#222 !important; }
+.dashboard .routine-coach-card {
+  border:0 !important; border-radius:21px !important; background:#fff !important;
+  color:var(--ev-ink) !important; box-shadow:var(--ev-shadow) !important;
+}
+.dashboard .routine-coach-card :is(strong,h3) { color:var(--ev-ink) !important; }
+.dashboard .routine-coach-card p { color:var(--ev-secondary) !important; }
+.dashboard .routine-coach-section { margin:26px 0; }
+.dashboard .routine-coach-heading h2 { color:var(--ev-ink) !important; }
+.dashboard .daily-routine-page .routine-reminder-note,
+.dashboard .daily-routine-page .routine-schedule-list { color:var(--ev-ink); }
+/* AI conversation: preserve the chat's existing layout and keyboard-safe composer. */
+.dashboard :is(.ai-page,.ai-screen,.ai-chat-page) { background:transparent !important; color:var(--ev-ink) !important; }
+.dashboard .ai-messages { scrollbar-color:#d5d5dc transparent; }
+.dashboard .ai-message.assistant { color:#34343a !important; }
+.dashboard .ai-message.assistant :is(p,li,h2,h3,blockquote) { color:#34343a !important; }
+.dashboard .ai-message.user { color:#fff !important; }
+.dashboard .ai-message.user :is(p,li) { color:#fff !important; }
+.dashboard .ai-promptbar-shell { background:rgba(255,255,255,.9) !important; border:1px solid rgba(30,30,35,.07) !important; box-shadow:var(--ev-shadow) !important; }
+.dashboard .ai-promptbar-shell textarea,
+.dashboard .ai-promptbar-shell input { color:#29292e !important; background:transparent !important; }
+.dashboard .ai-history-sheet,
+.dashboard .ai-uploaded-files-list,
+.dashboard .ai-prompt-menu { color:var(--ev-ink) !important; background:#fff !important; }
