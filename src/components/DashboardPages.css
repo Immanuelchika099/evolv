@@ -12447,3 +12447,179 @@ html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-c
  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-intro { padding: 8px 4px 12px !important; }
  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .evolv-home-hero-copy { padding: 20px 0 14px !important; }
 }
+
+
+/* AI INSIGHTS — rebuild the actual insight surface for the light Home design.
+   The legacy carousel styles used dark text/surfaces and survived the page pass. */
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section {
+  display: block !important;
+  padding: 24px !important;
+  color: #151519 !important;
+  background: #fff !important;
+  background-color: #fff !important;
+  border: 0 !important;
+  border-radius: 30px !important;
+  box-shadow: 0 2px 14px rgba(25,25,32,.035) !important;
+  overflow: hidden !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .calm-focus-heading {
+  margin: 0 0 18px !important;
+  padding: 0 !important;
+  color: #111114 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .calm-focus-heading h2 {
+  color: #111114 !important;
+  -webkit-text-fill-color: #111114 !important;
+  font-size: 24px !important;
+  font-weight: 820 !important;
+  letter-spacing: -.045em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section :is(
+  .daily-ai-insight-card,
+  .daily-ai-depth-carousel .depth-carousel__card,
+  .daily-ai-depth-carousel .daily-ai-insight-panel
+) {
+  color: #17171b !important;
+  background: #f4f4f6 !important;
+  background-color: #f4f4f6 !important;
+  background-image: none !important;
+  border: 0 !important;
+  border-radius: 24px !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-card {
+  min-height: 260px !important;
+  padding: 23px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-topline {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin-bottom: 18px !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-category {
+  color: #c47b42 !important;
+  -webkit-text-fill-color: #c47b42 !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: .12em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-card h3,
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-panel h3 {
+  margin: 0 0 10px !important;
+  color: #101014 !important;
+  -webkit-text-fill-color: #101014 !important;
+  font-size: 25px !important;
+  line-height: 1.12 !important;
+  font-weight: 820 !important;
+  letter-spacing: -.045em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-observation {
+  margin: 0 !important;
+  color: #686870 !important;
+  -webkit-text-fill-color: #686870 !important;
+  font-size: 14px !important;
+  line-height: 1.55 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-suggestion {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  margin-top: 20px !important;
+  padding: 15px 16px !important;
+  color: #27272d !important;
+  background: #e9e9ed !important;
+  background-color: #e9e9ed !important;
+  border: 0 !important;
+  border-radius: 17px !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-suggestion > span {
+  color: #85858d !important;
+  -webkit-text-fill-color: #85858d !important;
+  font-size: 9px !important;
+  font-weight: 800 !important;
+  letter-spacing: .12em !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-suggestion p {
+  margin: 6px 0 0 !important;
+  color: #27272d !important;
+  -webkit-text-fill-color: #27272d !important;
+  font-size: 14px !important;
+  line-height: 1.45 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
+  min-height: 40px !important;
+  margin-top: 17px !important;
+  padding: 0 16px !important;
+  color: #fff !important;
+  -webkit-text-fill-color: #fff !important;
+  background: #25252a !important;
+  border: 0 !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-state {
+  width: 100% !important;
+  min-height: 180px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  color: #777780 !important;
+  background: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-state > svg {
+  color: #d58b54 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-state p {
+  max-width: 34ch !important;
+  margin: 0 !important;
+  color: #777780 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-shimmer {
+  display: block !important;
+  width: 78% !important;
+  height: 14px !important;
+  border-radius: 999px !important;
+  background: #e3e3e8 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-shimmer.short {
+  width: 48% !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-depth-carousel {
+  height: 340px !important;
+  min-height: 340px !important;
+  margin: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-depth-carousel .depth-carousel__dots {
+  bottom: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section button.depth-carousel__dot {
+  background: #d7d7dd !important;
+}
+html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section button.depth-carousel__dot.is-active {
+  background: #e59559 !important;
+}
+@media (max-width: 640px) {
+  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section {
+    padding: 21px !important;
+  }
+  html[data-theme="light"] body #root .dashboard .dashboard-home.calm-home .calm-insights-section .daily-ai-insight-card {
+    min-height: 250px !important;
+    padding: 20px !important;
+  }
+}
