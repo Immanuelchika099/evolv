@@ -13,9 +13,19 @@ import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
 import './theme.css'
 import './styles/evolv-health-redesign.css'
+import './styles/ios-health-summary.css'
 import { applyThemePreference, getThemePreference } from './lib/theme'
 
 applyThemePreference(getThemePreference())
+
+// Shared top aurora fades away as any authenticated page scrolls.
+const syncSummaryScroll = () => {
+  const progress = Math.min(1, Math.max(0, window.scrollY / 300))
+  document.documentElement.style.setProperty('--hs-scroll-progress', String(progress))
+  document.documentElement.dataset.summaryScrolled = window.scrollY > 150 ? 'true' : 'false'
+}
+syncSummaryScroll()
+window.addEventListener('scroll', syncSummaryScroll, { passive: true })
 
 if (Capacitor.getPlatform() === 'ios') {
   void Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(() => {})

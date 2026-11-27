@@ -10,17 +10,17 @@
   --space-12: 48px;
 
   /* Shared surfaces, borders, and accent */
-  --color-canvas: #090909;
-  --color-surface: #101010;
-  --color-surface-raised: #141414;
-  --color-text-primary: #f4f4f1;
-  --color-text-secondary: rgba(255,255,255,.66);
-  --color-text-muted: rgba(255,255,255,.44);
-  --color-border-subtle: rgba(255,255,255,.085);
-  --color-border: rgba(255,255,255,.12);
+  --color-canvas: #F2F2F7;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FFFFFF;
+  --color-text-primary: #17171B;
+  --color-text-secondary: rgba(23,23,27,.66);
+  --color-text-muted: rgba(23,23,27,.48);
+  --color-border-subtle: rgba(23,23,27,.08);
+  --color-border: rgba(23,23,27,.12);
   --color-accent-blue: #E85A27;
-  --color-glow-red: rgba(143, 38, 56, 0.16);
-  --color-glow-brown: rgba(84, 43, 39, 0.07);
+  --color-glow-red: transparent;
+  --color-glow-brown: transparent;
   --blue-accent: var(--color-accent-blue);
   --ai-bubble-blue: #9E3D1C;
   --graph-blue: var(--color-accent-blue);
@@ -37,17 +37,17 @@
   /* Global font-weight scale — use these tokens across component styles. */
   --font-weight-regular: 400;
   --font-weight-medium: 500;
-  --font-weight-semibold: 500;
-  --font-weight-bold: 600;
-  --font-weight-extrabold: 600;
+  --font-weight-semibold: 650;
+  --font-weight-bold: 750;
+  --font-weight-extrabold: 800;
 
   /* Shared shape, elevation, and type scale */
   --radius-sm: 8px;
   --radius-control: 12px;
-  --radius-card: 20px;
+  --radius-card: 28px;
   --radius-panel: 24px;
   --radius-pill: 999px;
-  --shadow-card: 0 12px 36px rgba(0,0,0,.22);
+  --shadow-card: 0 8px 28px rgba(30,30,48,.055);
   --layout-max: 1120px;
   --page-gutter: 18px;
   --type-page-title: clamp(3.2rem, 5vw, 5.2rem);
@@ -57,8 +57,8 @@
   --type-caption: 1.2rem;
 
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-  color:#f4f1ea;
-  background:#000;
+  color:#17171B;
+  background:#F2F2F7;
   --muted:#85837f;
   --line:#ffffff1c;
   --accent: var(--color-accent-blue);
@@ -95,7 +95,7 @@ body,
 
 body{
   margin:0;
-  background:#000;
+  background:#F2F2F7;
   color:inherit;
   font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
@@ -131,8 +131,8 @@ video{
 
 /* Single source of truth for the application canvas. */
 :root {
-  --app-bg: #000000;
-  color-scheme: dark;
+  --app-bg: #F2F2F7;
+  color-scheme: light;
   background-color: var(--app-bg);
 }
 html,
@@ -275,8 +275,8 @@ a.button-primary *,
 /* EVOLV boot loader: pure black canvas, consistently white wordmark. */
 html body #root .evolv-loader,
 html body #root .evolv-loader .evolv-loader-core {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
   background-image: none !important;
 }
 html body #root .evolv-loader {
@@ -291,8 +291,8 @@ html body #root .evolv-loader::before,
 html body #root .evolv-loader::after,
 html body #root .evolv-loader .evolv-loader-core::before,
 html body #root .evolv-loader .evolv-loader-core::after {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
   background-image: none !important;
   box-shadow: none !important;
 }
@@ -355,7 +355,7 @@ html body #root .onboarding .btn-primary * {
 .forgot-password-page,
 .public-page,
 .standalone-page {
-  background-color: #000000 !important;
+  background-color: #F2F2F7 !important;
   background-image: none !important;
 }
 .auth-shell::before,
@@ -383,8 +383,8 @@ html body #root .standalone-page,
 html body #root .auth-page main,
 html body #root .auth-shell main,
 html body #root .auth-direct-page main {
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
   background-image: none !important;
 }
 
@@ -418,7 +418,7 @@ html body #root .auth-page .auth-content,
 html body #root .auth-shell .auth-content,
 html body #root .auth-direct-page .auth-content-compact,
 html body #root .auth-direct-page .auth-flow-content {
-  background-color: #000000 !important;
+  background-color: #F2F2F7 !important;
   background-image: none !important;
 }
 
@@ -427,30 +427,6 @@ html body #root .auth-direct-page .auth-flow-content {
    label/icon treatment and no separate active-tab pill. */
 html body #root .dashboard .evolv-bottom-nav button.bottom-active,
 html body #root .dashboard .evolv-bottom-nav button.bottom-active:hover,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active:focus,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
-  color: rgba(255,255,255,.38) !important;
-  -webkit-text-fill-color: currentColor !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
-  outline-color: transparent !important;
-}
-html body #root .dashboard .evolv-bottom-nav button.bottom-active > span,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg,
-html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
-  color: rgba(255,255,255,.38) !important;
-  -webkit-text-fill-color: currentColor !important;
-  fill: none !important;
-  stroke: currentColor !important;
-}
-html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
-  border-color: rgba(255,255,255,.12) !important;
-}
-
-
 /* GLOBAL TYPOGRAPHY: use native system UI fonts everywhere in EVOLV.
    This deliberately overrides old component-level imported font declarations. */
 html body #root,
@@ -484,21 +460,6 @@ html body #root .calm-home-greeting {
 }
 
 
-/* Keep the interface calm: no heavy bold weights anywhere in the app. */
-html body #root :is(h1, h2, h3, h4, h5, h6, strong, b) {
-  font-weight: var(--font-weight-medium) !important;
-}
-
-html body #root .calm-home-welcome h1,
-html body #root .calm-home-greeting {
-  font-weight: var(--font-weight-medium) !important;
-}
-
-/* Profile and settings text should stay light and readable. */
-html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-page, .profile-summary, .profile-modal) :is(h1, h2, h3, h4, h5, h6, strong, b, label) {
-  font-weight: var(--font-weight-medium) !important;
-}
-
 /* Cinematic onboarding name field — restrained, dark, and borderless on focus. */
 .evolv-onboarding-name {
   display: grid;
@@ -510,15 +471,15 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
   width: 100%;
   min-height: 6.4rem;
   padding: 1.8rem 2rem;
-  color: #f7f7f8 !important;
-  -webkit-text-fill-color: #f7f7f8;
-  caret-color: #f7f7f8;
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B;
+  caret-color: #17171B;
   font: inherit;
   font-size: clamp(1.8rem, 2.4vw, 2.2rem);
   letter-spacing: -0.025em;
   background:
     linear-gradient(135deg, rgba(255,255,255,.055), rgba(255,255,255,.018) 58%, rgba(255,255,255,.035)),
-    rgba(9, 10, 12, .88) !important;
+    rgba(255,255,255,.92) !important;
   border: 1px solid rgba(255,255,255,.13) !important;
   border-radius: 1.8rem;
   outline: none !important;
@@ -542,7 +503,7 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
   outline: none !important;
   background:
     linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.025) 58%, rgba(255,255,255,.04)),
-    rgba(9, 10, 12, .96) !important;
+    rgba(255,255,255,.98) !important;
   box-shadow: inset 0 1px 0 rgba(255,255,255,.06), 0 0 0 3px rgba(255,255,255,.025), 0 2rem 5rem rgba(0,0,0,.28) !important;
   transform: translateY(-1px);
 }
@@ -561,11 +522,11 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
    ========================================================================== */
 :root {
   --ac: 229, 134, 66;
-  --bg: #0a0908;
-  --t1: #fff;
-  --t2: rgba(255,255,255,.62);
-  --t3: rgba(255,255,255,.4);
-  --edge: rgba(255,255,255,.09);
+  --bg: #F2F2F7;
+  --t1: #17171B;
+  --t2: rgba(23,23,27,.66);
+  --t3: rgba(23,23,27,.48);
+  --edge: rgba(23,23,27,.09);
   --danger: #e0766a;
   --pos: #8fd0a8;
   --neg: #e0766a;
@@ -576,8 +537,8 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
 
   /* Backwards-compatible aliases for the existing app while screens migrate. */
   --color-canvas: var(--bg);
-  --color-surface: #151311;
-  --color-surface-raised: #1b1815;
+  --color-surface: #FFFFFF;
+  --color-surface-raised: #FFFFFF;
   --color-text-primary: var(--t1);
   --color-text-secondary: var(--t2);
   --color-text-muted: var(--t3);
@@ -600,7 +561,7 @@ html body #root .dashboard :is(.profile-page, .profile-settings-page, .settings-
   --radius-pill: 999px;
   --page-gutter: 22px;
   --layout-max: 1120px;
-  color-scheme: dark;
+  color-scheme: light;
   background: var(--bg);
   color: var(--t1);
 }
@@ -1151,7 +1112,7 @@ input:-webkit-autofill:focus {
 
 
 /* Daily Reflection: emoji-led Emotion step (no decorative stars or flower artwork). */
-.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:radial-gradient(ellipse 78% 34% at 50% 0%,rgba(229,134,66,.10),transparent 100px),#0a0908}
+.reflection-sheet-emotion{position:relative;isolation:isolate;padding:22px 20px 16px;overflow-x:hidden;min-height:0;background:#F8F8FA}
 .emo-step{
   --mc-accent:var(--accent,#e58642);
   --mc-accent-hi:#f2812f;

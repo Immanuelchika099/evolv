@@ -9,18 +9,18 @@ import {
 } from 'lucide-react'
 import './DashboardPages.css'
 import './styles/Notifications.css'
-import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
+import { AvatarPortrait } from './AvatarStudio'
 import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
 import ProfileSettingsPage from './ProfileSettingsPage'
 import DailyRoutinePage from './DailyRoutinePage'
-import DailyAIInsight from './DailyAIInsight'
+import HealthSummaryHome from './HealthSummaryHome'
 import MoneyPage from './MoneyPage'
 import FaithGrowthPage from './FaithGrowthPage'
 
 export function DashboardPages({ active, pageProps }) {
-  if (active === 'overview') return <HomePage pageProps={pageProps} />
+  if (active === 'overview') return <HealthSummaryHome pageProps={pageProps} />
   if (active === 'routine') return <DailyRoutinePage pageProps={pageProps} />
   if (active === 'faith') return <FaithGrowthPage />
   if (active === 'money') return <MoneyPage defs={pageProps.defs} logs={pageProps.logs} />
@@ -33,256 +33,6 @@ export function DashboardPages({ active, pageProps }) {
   if (active === 'notifications') return <NotificationsPage pageProps={pageProps} />
   if (active === 'ai') return null
   return null
-}
-
-function HomePage({ pageProps }) {
-  const {
-    name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
-    valueText, openLog, openMoodCheckIn, goTo, setArea, areas = {}, loading, logs = [], meals = [],
-    goals = [], openReflection, returningAfterBreak = false, dismissReturnWelcome
-  } = pageProps
-
-  const firstName = String(name || '').trim().split(/\\s+/)[0] || 'there'
-  const [now, setNow] = useState(() => new Date())
-  const [avatarStyle, setAvatarStyle] = useState(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem('evolv-avatar-preferences') || '{}')
-      return { ...DEFAULT_AVATAR, ...saved }
-    } catch { return { ...DEFAULT_AVATAR } }
-  })
-  useEffect(() => {
-    const syncAvatar = () => {
-      try { setAvatarStyle({ ...DEFAULT_AVATAR, ...JSON.parse(localStorage.getItem('evolv-avatar-preferences') || '{}') }) } catch {}
-    }
-    window.addEventListener('evolv-avatar-updated', syncAvatar)
-    return () => window.removeEventListener('evolv-avatar-updated', syncAvatar)
-  }, [])
-
-  useEffect(() => {
-    const timer = window.setInterval(() => setNow(new Date()), 60000)
-    return () => window.clearInterval(timer)
-  }, [])
-
-  const greeting = now.getHours() >= 5 && now.getHours() < 12
-    ? 'Good morning' : now.getHours() >= 12 && now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
-  const moodMetric = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
-  const activeGoals = goals.filter(goal => goal.status === 'active')
-  const [selectedWeekIndex, setSelectedWeekIndex] = useState(() => (new Date().getDay() + 6) % 7)
-  const weekStats = Array.from({ length: 7 }, (_, index) => {
-    const date = new Date(now)
-    date.setHours(0, 0, 0, 0)
-    date.setDate(date.getDate() - ((date.getDay() + 6) % 7) + index)
-    const key = [date.getFullYear(), String(date.getMonth() + 1).padStart(2, '0'), String(date.getDate()).padStart(2, '0')].join('-')
-    const count = [...logs, ...meals].filter(entry => {
-      const rawDate = entry.created_at || entry.logged_at || entry.date || entry.recorded_at
-      if (!rawDate) return false
-      const parsed = new Date(rawDate)
-      if (Number.isNaN(parsed.getTime())) return false
-      const entryKey = [parsed.getFullYear(), String(parsed.getMonth() + 1).padStart(2, '0'), String(parsed.getDate()).padStart(2, '0')].join('-')
-      return entryKey === key
-    }).length
-    return {
-      key,
-      date,
-      count,
-      label: date.toLocaleDateString(undefined, { weekday: 'short' }),
-      fullLabel: date.toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })
-    }
-  })
-  const selectedWeekDay = weekStats[Math.max(0, Math.min(6, selectedWeekIndex))]
-  const maxWeekCount = Math.max(1, ...weekStats.map(day => day.count))
-  const recentActivity = [
-    ...todayLogs.map((log, index) => {
-      const def = defs.find(item => String(item.id) === String(log.metric_id))
-      return def ? { key: `log-${log.id || index}`, title: def.name, detail: valueText(log, def), icon: icons[def.slug] || Activity, onClick: () => openLog(metricArea[def.slug], def) } : null
-    }).filter(Boolean),
-    ...todayMeals.map((meal, index) => ({
-      key: `meal-${meal.id || index}`,
-      title: meal.description || 'Meal logged',
-      detail: meal.meal_type || 'Nutrition',
-      icon: Utensils,
-      onClick: () => openLog('nutrition', { slug: 'meals', name: 'Meal', value_type: 'meal' })
-    }))
-  ].slice(0, 3)
-
-  function startCheckIn(selectedMood = '') {
-    if (openMoodCheckIn) {
-      openMoodCheckIn(selectedMood)
-      return
-    }
-    if (moodMetric) {
-      openLog(metricArea[moodMetric.slug] || 'health', moodMetric)
-      return
-    }
-    openLog()
-  }
-
-  return (
-    <div className="dashboard-home calm-home">
-      <section className="evolv-home-intro" aria-label="Welcome">
-        <div className="evolv-home-hero-top">
-          <span>{now.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' })}</span>
-
-        </div>
-        <div className="evolv-home-hero-copy">
-          <span className="evolv-home-eyebrow">{greeting},</span>
-          <h1>{firstName}!</h1>
-          <p>{activeGoals.length
-            ? `${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}. Keep your focus on the next small step.`
-            : 'A fresh start. Choose one small thing that matters today.'}</p>
-        </div>
-        <div className="evolv-home-hero-stats">
-          <span><strong>{todayLogs.length + todayMeals.length}</strong> activities today</span>
-          <span><strong>{activeGoals.length}</strong> active goals</span>
-        </div>
-      </section>
-      {returningAfterBreak && (
-        <section className="calm-return-welcome" aria-label="Welcome back">
-          <div>
-            <strong>Welcome back. 🤍</strong>
-            <p>You don't need to catch up on anything. We can begin with today, one small step at a time.</p>
-          </div>
-          <button type="button" onClick={dismissReturnWelcome} aria-label="Dismiss welcome back message"><X size={17}/></button>
-        </section>
-      )}
-      <section className="evolv-home-day-card" aria-labelledby="evolv-home-day-title">
-        <div className="evolv-home-day-heading">
-          <div>
-            <span>ONE DAY AT A TIME</span>
-            <h2 id="evolv-home-day-title">Today</h2>
-          </div>
-          <button type="button" onClick={() => goTo('logs')} aria-label="View all activity"><ArrowRight size={19}/></button>
-        </div>
-        {recentActivity.length ? (
-          <div className="evolv-home-day-list">
-            {recentActivity.map(item => {
-              const Icon = item.icon
-              return (
-                <button type="button" className="evolv-home-day-row" key={item.key} onClick={item.onClick}>
-                  <span className="evolv-home-day-icon"><Icon size={18}/></span>
-                  <span className="evolv-home-day-copy"><strong>{item.title}</strong><small>{item.detail}</small></span>
-                  <ArrowRight size={17}/>
-                </button>
-              )
-            })}
-          </div>
-        ) : (
-          <button type="button" className="evolv-home-day-empty" onClick={startCheckIn}>
-            <span className="evolv-home-day-empty-icon"><Plus size={18}/></span>
-            <span><strong>Make today count.</strong><small>Start with one small check-in. You can build from there.</small></span>
-            <ArrowRight size={17}/>
-          </button>
-        )}
-      </section>
-
-      <section className="calm-checkin" aria-labelledby="calm-checkin-title">
-        <h2 id="calm-checkin-title">How are you feeling?</h2>
-        <div className="calm-mood-options">
-          {[
-            { label: 'Happy', mood: 'happy', note: 'Feeling good' },
-            { label: 'Normal', mood: 'normal', note: 'Just a usual day' },
-            { label: 'Mixed feelings', mood: 'mixed', note: 'A bit of everything' },
-            { label: 'Sad', mood: 'sad', note: 'Feeling down' },
-            { label: 'Depressed', mood: 'depressed', note: 'Feeling really low' },
-            { label: 'Anxious', mood: 'anxious', note: 'A lot on my mind' }
-          ].map(option => (
-            <button type="button" key={option.mood} onClick={() => startCheckIn(option.label)} className={'calm-mood-option mood-' + option.mood} aria-label={`Check in: feeling ${option.label.toLowerCase()}`}>
-              <span className="calm-mood-avatar-wrap" aria-hidden="true">
-                <AvatarPortrait preferences={avatarStyle} expression={option.mood} className="calm-mood-avatar" />
-              </span>
-              <small>{option.label}</small>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <button type="button" className="calm-reflection-entry" onClick={openReflection}>
-        <span className="calm-reflection-entry-icon"><NotebookPen size={19} /></span>
-        <span className="calm-reflection-entry-copy"><strong>Daily reflection</strong></span>
-        <ArrowRight size={18} />
-      </button>
-      <button type="button" className="calm-reflection-entry faith-home-entry" onClick={() => goTo('faith')}>
-        <span className="calm-reflection-entry-icon"><BookOpen size={19} /></span>
-        <span className="calm-reflection-entry-copy"><strong>Faith & spiritual growth</strong><small>Daily Bible study and reflection</small></span>
-        <ArrowRight size={18} />
-      </button>
-
-      <section className="calm-week-card" aria-labelledby="calm-week-title">
-        <div className="calm-week-head">
-          <div>
-            <span className="calm-section-kicker">SMALL STEPS, OVER TIME</span>
-            <h2 id="calm-week-title">This week</h2>
-          </div>
-          <span className="calm-week-period">ACTIVITY</span>
-        </div>
-        <div className="calm-week-chart-wrap">
-          <div className="calm-week-bars" role="img" aria-label={`Daily activity this week: ${weekStats.map(day => `${day.label} ${day.count}`).join(', ')}`}>
-            {weekStats.map((day, index) => {
-              const barHeight = day.count ? Math.max(22, (day.count / maxWeekCount) * 100) : 8
-              return (
-                <div className="calm-week-bar-column" key={day.key}>
-                  <span className="calm-week-bar-count">{day.count || ''}</span>
-                  <span
-                    className={selectedWeekIndex === index ? 'calm-week-bar is-selected' : 'calm-week-bar'}
-                    style={{ height: `${barHeight}%` }}
-                  />
-                </div>
-              )
-            })}
-          </div>
-        </div>
-        <div className="calm-week-days" aria-label="Choose a day to inspect activity">
-          {weekStats.map((day, index) => (
-            <button type="button" key={day.key} className={selectedWeekIndex === index ? 'calm-week-day is-selected' : 'calm-week-day'} aria-pressed={selectedWeekIndex === index} onClick={() => setSelectedWeekIndex(index)}>
-              <span>{day.label}</span>
-              <i aria-hidden="true" />
-            </button>
-          ))}
-        </div>
-        <div className="calm-week-summary" aria-live="polite">
-          <div>
-            <strong>{loading ? 'Updating your week…' : selectedWeekDay.count}</strong>
-            <span>{selectedWeekDay.count === 1 ? 'activity' : 'activities'}</span>
-          </div>
-          <p>{selectedWeekDay.fullLabel}</p>
-        </div>
-      </section>
-
-      <DailyAIInsight dataLoading={loading} name={name} defs={defs} logs={logs} meals={meals} goals={goals} valueText={valueText} goTo={goTo} />
-
-      <section className="calm-home-focus" aria-label="Your growth at a glance">
-        <div className="calm-focus-heading">
-          <button type="button" className="calm-focus-title-action" onClick={() => goTo('goals')}><h2>Your focus</h2></button>
-          <button type="button" onClick={() => goTo('goals')} aria-label="View your goals"><ArrowRight size={18}/></button>
-        </div>
-        {activeGoals.length ? (
-          <div className="calm-goal-snapshot" role="button" tabIndex={0} aria-label="Open your goals" onClick={()=>goTo('goals')} onKeyDown={event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();goTo('goals')}}}>
-            <div className="calm-goal-snapshot-top">
-              <span className="calm-focus-mark"><Target size={19}/></span>
-              <div className="calm-goal-snapshot-copy">
-                <strong>{activeGoals[0].title}</strong>
-                <small>{activeGoals.length > 1 ? `And ${activeGoals.length - 1} more active ${activeGoals.length - 1 === 1 ? 'goal' : 'goals'}` : 'One step at a time'}</small>
-              </div>
-              <span className="calm-goal-percent">{Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}%</span>
-            </div>
-            <div className="calm-goal-progress-track" role="progressbar" aria-label={`Progress on ${activeGoals[0].title}`} aria-valuemin="0" aria-valuemax="100" aria-valuenow={Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}>
-              <span style={{ width: `${Math.max(0, Math.min(100, Number(activeGoals[0].progress || 0)))}%` }} />
-            </div>
-            <button type="button" className="calm-goal-view-all" onClick={() => goTo('goals')}>View goals <ArrowRight size={14}/></button>
-          </div>
-        ) : (
-          <button type="button" className="calm-goal-empty" onClick={() => goTo('goals')}>
-            <span className="calm-focus-mark"><Target size={19}/></span>
-            <span><strong>Set your first goal</strong><small>Choose something meaningful to work towards.</small></span>
-            <ArrowRight size={17}/>
-          </button>
-        )}
-      </section>
-
-
-
-    </div>
-  )
 }
 
 function AreaPage({ pageProps }) {
@@ -645,7 +395,7 @@ function GoalsPage({ pageProps }) {
       const isExpanded = expandedGoalId === g.id
       return <article className={`goal-item goal-accordion-item ${isExpanded ? 'is-expanded' : 'is-collapsed'}`} key={g.id}>
         <button type="button" className="goal-accordion-trigger" aria-expanded={isExpanded} onClick={() => setExpandedGoalId(current => current === g.id ? null : g.id)}>
-          <span className="goal-accordion-heading"><span className="goal-accordion-status">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><strong>{g.title}</strong></span>
+          <span className="goal-accordion-heading"><span className="goal-summary-icon" aria-hidden="true">{isHabit?<Sprout size={19}/>:<BriefcaseBusiness size={19}/>}</span><span className="goal-accordion-copy"><span className="goal-accordion-status">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><strong>{g.title}</strong></span></span>
           <ChevronDown size={18} aria-hidden="true" className="goal-accordion-chevron" />
         </button>
         <div className="goal-item-content"><div className="goal-item-content-inner">

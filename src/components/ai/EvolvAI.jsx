@@ -1615,9 +1615,9 @@ function EvolvAI({ profile, goals = [], checkins = [], reflections = [], momentu
           onAttach={pickFiles}
           onInputChange={value => setHasStartedTyping(Boolean(String(value || '').length))}
           onDictate={transcribe}
-          background="#27272a"
-          color="#f5f5f5"
-          menuBackground="#323236"
+          background="#ffffff"
+          color="#24242a"
+          menuBackground="#ffffff"
           sparkColor="var(--color-accent-blue)"
           sparkBoost={1}
           width={400}
