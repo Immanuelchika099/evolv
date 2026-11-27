@@ -94,7 +94,6 @@ html, body, #root, body #root, .dashboard, .dashboard .dash-main {
   color:#17171B !important;
   color-scheme:light !important;
 }
-body::before { z-index:0; }
 .dashboard { isolation:isolate; padding-top:0 !important; min-height:100dvh !important; }
 .dashboard::before {
   content:""; position:fixed; z-index:0; pointer-events:none; inset:0 0 auto;
@@ -115,6 +114,21 @@ body::before { z-index:0; }
   mask-image:linear-gradient(#000 0%,rgba(0,0,0,.8) 62%,transparent 100%);
 }
 .dashboard > *, .dashboard .dash-main > * { position:relative; z-index:1; }
+.dashboard .dash-main::before {
+  content:""; position:fixed; z-index:0; pointer-events:none; inset:0 0 auto;
+  height:42vh; min-height:300px; max-height:520px;
+  background:
+    radial-gradient(ellipse at 12% 8%,rgba(255,185,139,.62),transparent 43%),
+    radial-gradient(ellipse at 92% 2%,rgba(192,174,237,.54),transparent 48%),
+    radial-gradient(ellipse at 58% 0%,rgba(158,224,198,.48),transparent 55%);
+  background-size:160% 160%; filter:blur(22px);
+  opacity:0; animation:hs-aurora-crossfade 24s ease-in-out infinite;
+}
+@keyframes hs-aurora-crossfade {
+  0%,12% { opacity:0; transform:translate3d(-1%,0,0); }
+  38%,58% { opacity:.72; transform:translate3d(1.5%,1%,0); }
+  88%,100% { opacity:0; transform:translate3d(-1%,0,0); }
+}
 body::after {
   content:""; position:fixed; z-index:99990; pointer-events:none; left:0; right:0; bottom:0; height:150px;
   background:linear-gradient(0deg,rgba(242,242,247,.92),rgba(242,242,247,.56) 48%,transparent);
@@ -266,7 +280,7 @@ p,.routine-heading p,.routine-section-heading p,.routine-label,.routine-date,
   .evolv-bottom-nav button small { font-size:10px !important; }
 }
 @media(prefers-reduced-motion:reduce) {
-  .dashboard::before { animation:none !important; }
+  .dashboard::before,.dashboard .dash-main::before { animation:none !important; }
   *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
 
