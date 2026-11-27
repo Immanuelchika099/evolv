@@ -450,10 +450,12 @@ html, body, #root {
   z-index: 1000 !important;
 }
 .dashboard .app-topbar .app-logo-button,
-.dashboard .app-topbar .app-logo-button svg,
-.dashboard .app-topbar .app-logo-button img {
+.dashboard .app-topbar .app-logo-button svg {
   color: var(--ev-orange) !important;
   fill: none !important;
+}
+.dashboard .app-topbar .app-logo-button img {
+  filter: brightness(0) saturate(100%) invert(56%) sepia(79%) saturate(760%) hue-rotate(337deg) brightness(99%) contrast(92%) !important;
 }
 .dashboard .app-topbar .app-topbar-actions {
   display: flex !important;
@@ -503,6 +505,10 @@ html, body, #root {
   font-weight: 800 !important;
   overflow-wrap: normal !important;
   word-break: normal !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 2 !important;
+  overflow: hidden !important;
   text-wrap: pretty;
 }
 .hs-home-heading p,
