@@ -360,3 +360,24 @@ body:has(.streak-modal-root) .evolv-fabs { display:none !important; }
 .streak-best { color:#e65f1c !important; background:#fff0e6 !important; }
 .streak-week,.streak-weeks,.streak-year { color:#17171b !important; background:#fff !important; }
 @media(prefers-reduced-motion:reduce) { .dashboard::before { animation:none !important; } }
+
+/* Normalize the app viewport so every signed-in destination scrolls as one page. */
+.dashboard .dash-main,
+.dashboard .dashboard-pages,
+.dashboard .dashboard-panel,
+.dashboard .panel-page {
+  position:relative !important;
+  inset:auto !important;
+  width:100% !important;
+  height:auto !important;
+  min-height:100dvh !important;
+  max-height:none !important;
+  overflow:visible !important;
+  overflow-x:clip !important;
+}
+.dashboard .dash-main { padding-bottom:calc(116px + env(safe-area-inset-bottom,0px)) !important; }
+.dashboard .panel-page { box-sizing:border-box; }
+@media(max-width:600px) {
+  .dashboard .dash-main { padding-top:env(safe-area-inset-top,0px) !important; }
+  .dashboard .app-topbar { min-height:54px !important; }
+}
