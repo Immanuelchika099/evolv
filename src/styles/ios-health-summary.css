@@ -660,3 +660,13 @@ html, body, #root {
 @media (prefers-reduced-motion: reduce) {
   .dashboard::before { animation: none !important; }
 }
+
+
+/* Match the shared card inset on Home highlight surfaces as well. */
+.hs-highlight-card {
+  width: 100% !important;
+  margin: 0 0 14px !important;
+  padding: 18px 20px !important;
+  box-sizing: border-box !important;
+}
+.hs-highlight-card + .hs-highlight-card { margin-top: 0 !important; }
