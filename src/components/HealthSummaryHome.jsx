@@ -130,7 +130,6 @@ export default function HealthSummaryHome({ pageProps }) {
   }, [])
 
   const now = new Date()
-  const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
 
   const focusDef = defs.find(def => /focus/i.test(String(def.slug || def.name || '')))
   const focusToday = focusDef && todayLogs.find(log => String(log.metric_id) === String(focusDef.id))
@@ -145,10 +144,8 @@ export default function HealthSummaryHome({ pageProps }) {
 
   return <main className="hs-home">
     <header className="hs-home-heading">
-      <div className="hs-home-heading-copy">
-        <span className="hs-date">{now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</span>
-        <h1>{greeting}, {firstName}!</h1>
-      </div>
+      <div className="hs-home-heading-copy"><h1>Summary</h1></div>
+      <button type="button" className="hs-home-avatar" onClick={() => goTo('profile')} aria-label="Open profile">{firstName.slice(0,1).toUpperCase()}</button>
     </header>
 
     {returningAfterBreak && <section className="hs-welcome-back">
@@ -159,23 +156,23 @@ export default function HealthSummaryHome({ pageProps }) {
     <section className="hs-section">
       <div className="hs-section-heading"><h2>Pinned</h2><button type="button" onClick={() => goTo('goals')}>Edit</button></div>
       <div className="hs-pin-grid">
-        <PinCard title="Today's Activity" tone="orange" icon={Activity} value={todayCount} unit=" entries" detail="Today" onClick={() => goTo('logs')} graphic={<MiniBars tone="orange" values={week.map(day => day.count)}/>} />
-        <PinCard title="Today's Focus" tone="amber" icon={Focus} value={focusToday ? latestFocus : 'Not set'} unit="" detail="Today" onClick={() => focusDef ? openLog(metricArea[focusDef.slug] || 'career', focusDef) : goTo('goals')} graphic={<span className="hs-orb tone-amber"><span/></span>} />
-        <PinCard title="Reflection" tone="teal" icon={NotebookPen} value={moodToday ? moodValue : 'Ready'} unit="" detail="Today" onClick={openReflection} graphic={<span className="hs-reflection-mark"><Heart size={28} fill="currentColor"/></span>} />
-        <PinCard title="Streak" tone="rose" icon={Flame} value={streakDays} unit={streakDays === 1 ? ' day' : ' days'} detail="Current" onClick={() => setStreakOpen(true)} graphic={<MiniBars tone="rose" values={week.map(day => day.count)} />} />
+        <PinCard title="Steps" tone="orange" icon={Flame} value={todayCount} unit=" entries" detail="Today" onClick={() => goTo('logs')} graphic={<MiniBars tone="orange" values={week.map(day => day.count)}/>} />
+        <PinCard title="Walking Steadiness" tone="amber" icon={Activity} value={focusToday ? latestFocus : '—'} unit="" detail="Today" onClick={() => focusDef ? openLog(metricArea[focusDef.slug] || 'career', focusDef) : goTo('goals')} graphic={<span className="hs-orb tone-amber"><span/></span>} />
+        <PinCard title="State of Mind" tone="teal" icon={Heart} value={moodToday ? moodValue : '—'} unit="" detail="Yesterday" onClick={openReflection} graphic={<span className="hs-reflection-mark"><Heart size={28} fill="currentColor"/></span>} />
+        <PinCard title="Vitals" tone="rose" icon={Activity} value={streakDays} unit={streakDays === 1 ? ' day' : ' days'} detail="Current" onClick={() => setStreakOpen(true)} graphic={<MiniBars tone="rose" values={week.map(day => day.count)} />} />
       </div>
     </section>
 
     <section className="hs-section">
-      <div className="hs-section-heading"><h2>Trends</h2></div>
-      <SummaryRow icon={Target} tone="violet" title="Your goals" detail={`${activeGoals.length} active`} onClick={() => goTo('goals')}/>
+      <div className="hs-section-heading"><h2>Highlights</h2></div>
+      <SummaryRow icon={Target} tone="violet" title="Goals" detail={`${activeGoals.length} active`} onClick={() => goTo('goals')}/>
     </section>
 
     <section className="hs-section">
       <div className="hs-section-heading"><h2>Highlights</h2></div>
       <article className="hs-highlight-card tone-orange">
         <div className="hs-highlight-title"><Activity size={21}/><span>Daily activity</span></div>
-        <h3>{todayCount ? `You've recorded ${todayCount} activities today.` : 'No activity yet'}</h3>
+        <h3>{todayCount ? `${todayCount} today` : 'No activity yet'}</h3>
         <div className="hs-highlight-divider"/>
         <div className="hs-week-chart" role="img" aria-label={week.map(day => `${day.label}: ${day.count} activities`).join(', ')}>
           {week.map((day, index) => <div className="hs-week-column" key={day.key}>
@@ -187,7 +184,7 @@ export default function HealthSummaryHome({ pageProps }) {
 
       <article className="hs-highlight-card tone-violet">
         <div className="hs-highlight-title"><TrendingUp size={21}/><span>Goal progress</span></div>
-        <h3>{activeGoals.length ? `You're showing up for ${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}.` : 'No active goals'}</h3>
+        <h3>{activeGoals.length ? `${activeGoals.length} active goals` : 'No active goals'}</h3>
         <div className="hs-highlight-divider"/>
         {activeGoals.length ? <div className="hs-goal-highlight-list">
           {activeGoals.slice(0, 3).map(goal => <div key={goal.id} className="hs-goal-highlight">
