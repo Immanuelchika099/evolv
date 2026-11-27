@@ -1258,3 +1258,43 @@ html:has(.legal-page) body::after {
     border-radius: 28px !important;
   }
 }
+
+
+/* GLOBAL TOP-EDGE CLEANUP
+   Remove the dark hairline/scrim that was appearing at the top of every route,
+   including the full-screen boot loader and the iOS safe-area edge. */
+html,
+body,
+#root,
+#root > .evolv-loader,
+.evolv-loader {
+  border-top: 0 !important;
+  box-shadow: none !important;
+  outline: 0 !important;
+}
+
+html::before,
+html::after,
+body::before,
+body::after,
+#root::before,
+#root::after,
+#root > .evolv-loader::before,
+#root > .evolv-loader::after,
+.evolv-loader::before,
+.evolv-loader::after {
+  box-shadow: none !important;
+}
+
+html,
+body {
+  background-color: var(--app-bg, #F2F2F7) !important;
+  background-image: none !important;
+}
+
+.evolv-loader {
+  inset: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
