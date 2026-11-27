@@ -799,3 +799,51 @@ html[data-theme="light"] body #root .dashboard .streak-sheet .streak-grab {
 .dashboard .app-topbar .app-topbar-title {
   margin-left: 0 !important;
 }
+
+
+/* Streaks sheet: enforce a consistent, readable light palette throughout. */
+html[data-theme="light"] body #root .dashboard .streak-sheet,
+html[data-theme="light"] body #root .dashboard .streak-sheet * {
+  text-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet h2 {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-stat,
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-stat :is(span, b, strong, div) {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-name {
+  color: #383840 !important;
+  -webkit-text-fill-color: #383840 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-best {
+  color: #65656E !important;
+  -webkit-text-fill-color: #65656E !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .name {
+  color: #55555E !important;
+  -webkit-text-fill-color: #55555E !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell {
+  color: #292930 !important;
+  -webkit-text-fill-color: #292930 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.active {
+  color: #A94F1D !important;
+  -webkit-text-fill-color: #A94F1D !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.today {
+  color: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+.dashboard .app-topbar .app-logo-spacer {
+  display: block !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
