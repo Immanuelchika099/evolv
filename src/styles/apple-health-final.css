@@ -707,3 +707,44 @@ html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .panel-
     background: transparent !important;
   }
 }
+
+
+/* Final cascade fix: these high-specificity rules were reserving a 76–78px
+   header slot even though the mobile topbar is visually hidden/overlaid. */
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .app-topbar {
+  display: none !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 0 !important;
+  overflow: hidden !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .dash-main {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  min-height: 100dvh !important;
+  background: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) :is(.panel-page,.goals-page,.progress-page,.daily-routine-page,.profile-v2,.settings-page,.profile-page) {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 10px) !important;
+  margin-top: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active)::before {
+  z-index: 0 !important;
+  position: fixed !important;
+  inset: 0 !important;
+  height: 100dvh !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .dash-main {
+  position: relative !important;
+  z-index: 1 !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .app-topbar,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .dash-main,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .bottom-nav {
+  background: transparent !important;
+}
