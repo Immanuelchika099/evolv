@@ -17,17 +17,6 @@
 }
 html, body, #root { background: var(--ev-bg) !important; color: var(--ev-text) !important; }
 body { background: var(--ev-bg) !important; }
-body::before {
-  content:""; position:fixed; z-index:0; pointer-events:none; inset:0 0 auto;
-  height:42vh; min-height:300px; max-height:520px;
-  opacity:calc(1 - var(--hs-scroll-progress, 0));
-  background:
-    radial-gradient(ellipse at 7% 0%, rgba(145,224,195,.72) 0%, rgba(145,224,195,0) 43%),
-    radial-gradient(ellipse at 96% 0%, rgba(244,174,190,.76) 0%, rgba(244,174,190,0) 48%),
-    radial-gradient(ellipse at 52% 0%, rgba(255,190,142,.72) 0%, rgba(255,190,142,0) 54%),
-    linear-gradient(180deg, rgba(255,220,193,.28), rgba(242,242,247,0) 92%);
-  filter:blur(18px); transition:opacity .12s linear;
-}
 .dashboard { position:relative; z-index:1; background:transparent !important; }
 .dash-main { position:relative; z-index:1; background:transparent !important; }
 .app-topbar {
@@ -85,6 +74,8 @@ body::before {
 
 /* Shared EVOLV Summary system — applied across every authenticated route. */
 :root {
+  background:#F2F2F7 !important;
+  background-color:#F2F2F7 !important;
   color-scheme: light !important;
   --app-bg: #F2F2F7;
   --color-bg: #F2F2F7;
@@ -108,7 +99,8 @@ body::before { z-index:0; }
 .dashboard::before {
   content:""; position:fixed; z-index:0; pointer-events:none; inset:0 0 auto;
   height:42vh; min-height:300px; max-height:520px;
-  opacity:calc(1 - var(--hs-scroll-progress, 0));
+  opacity:calc(1 - var(--hs-scroll-progress, 0)); background-size:160% 160%;
+  animation:hs-aurora-drift 24s ease-in-out infinite alternate;
   background:
     radial-gradient(ellipse at 8% 0%,rgba(145,224,195,.66),transparent 44%),
     radial-gradient(ellipse at 96% 0%,rgba(244,174,190,.68),transparent 48%),
@@ -119,9 +111,21 @@ body::before { z-index:0; }
   content:""; position:fixed; z-index:900; pointer-events:none; top:0; left:0; right:0; height:92px;
   background:linear-gradient(180deg,rgba(242,242,247,.58),rgba(242,242,247,.18) 58%,transparent);
   backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+  opacity:var(--hs-scroll-progress, 0);
   mask-image:linear-gradient(#000 0%,rgba(0,0,0,.8) 62%,transparent 100%);
 }
 .dashboard > *, .dashboard .dash-main > * { position:relative; z-index:1; }
+body::after {
+  content:""; position:fixed; z-index:99990; pointer-events:none; left:0; right:0; bottom:0; height:150px;
+  background:linear-gradient(0deg,rgba(242,242,247,.92),rgba(242,242,247,.56) 48%,transparent);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+  mask-image:linear-gradient(0deg,#000 0%,rgba(0,0,0,.78) 62%,transparent 100%);
+}
+@keyframes hs-aurora-drift {
+  0% { background-position:0% 0%; filter:blur(18px) hue-rotate(-3deg); }
+  50% { background-position:45% 18%; filter:blur(22px) hue-rotate(3deg); }
+  100% { background-position:100% 0%; filter:blur(18px) hue-rotate(-2deg); }
+}
 .dashboard .dash-main { padding:0 0 calc(112px + env(safe-area-inset-bottom)) !important; }
 .app-topbar {
   position:sticky !important; top:0; z-index:1000 !important;
@@ -157,7 +161,7 @@ p,.routine-heading p,.routine-section-heading p,.routine-label,.routine-date,
   color:#85858D !important; font-weight:500;
 }
 .daily-routine-page { max-width:760px !important; padding:20px 16px 36px !important; margin:0 auto !important; }
-.routine-heading { margin:0 0:22px !important; align-items:center !important; }
+.routine-heading { margin:0 0 22px !important; align-items:center !important; }
 .routine-heading h1 { font-size:clamp(36px,9vw,48px) !important; }
 .routine-heading h1 span { color:var(--ev-orange) !important; }
 .routine-date { border:0 !important; background:rgba(255,255,255,.75) !important; padding:10px 13px !important; border-radius:999px !important; color:#85858D !important; }
@@ -262,6 +266,7 @@ p,.routine-heading p,.routine-section-heading p,.routine-label,.routine-date,
   .evolv-bottom-nav button small { font-size:10px !important; }
 }
 @media(prefers-reduced-motion:reduce) {
+  .dashboard::before { animation:none !important; }
   *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
 
