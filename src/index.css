@@ -617,18 +617,10 @@ body::after {
   background: radial-gradient(ellipse at bottom left, rgba(var(--ac), .08), transparent 70%);
 }
 
+/* Remove the legacy fixed top-edge shadow/blur from every route, including the boot loader. */
 html::before {
-  content: "";
-  position: fixed;
-  inset: 0 0 auto;
-  height: calc(env(safe-area-inset-top, 0px) + 24px);
-  pointer-events: none;
-  z-index: 10000;
-  background: linear-gradient(to bottom, rgba(10,9,8,.7), transparent);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent);
-  mask-image: linear-gradient(to bottom, #000 35%, transparent);
+  content: none !important;
+  display: none !important;
 }
 
 /* A single typography scale. Page-specific classes may set size, never heavier weight. */
