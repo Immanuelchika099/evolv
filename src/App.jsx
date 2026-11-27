@@ -282,7 +282,6 @@ function StreakWidget() {
   }, [])
   useEffect(() => {
     document.body.classList.toggle('streak-modal-open', open)
-    window.dispatchEvent(new CustomEvent('evolv-streak-modal-change', { detail: { open } }))
     if (!open) return () => document.body.classList.remove('streak-modal-open')
     const onKey = event => { if (event.key === 'Escape') setOpen(false) }
     document.addEventListener('keydown', onKey)
@@ -339,14 +338,6 @@ function StreakWidget() {
 }
 
 function App() {
-  const [streakModalOpen, setStreakModalOpen] = useState(false)
-  // Keep the legacy dialog flag available while older UI chunks finish updating.
-  const isStreakDialogOpen = streakModalOpen
-  useEffect(() => {
-    const syncStreakModal = event => setStreakModalOpen(Boolean(event.detail?.open))
-    window.addEventListener('evolv-streak-modal-change', syncStreakModal)
-    return () => window.removeEventListener('evolv-streak-modal-change', syncStreakModal)
-  }, [])
   const root = useRef(null)
   // Only phones and tablets can enter EVOLV's private app experience.
   // Use platform signals rather than viewport width so resizing a laptop cannot unlock it.
@@ -2724,8 +2715,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {!isBooting&&!loading&&active!=='ai'&&!streakModalOpen&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
-    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&!streakModalOpen&&createPortal(
+    {!isBooting&&!loading&&active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&createPortal(
       <div className="evolv-fabs">
         <button type="button" className="evolv-ai-fab" onClick={()=>goTo('ai')} aria-label="Open EVOLV AI">
           <Sparkles size={22} strokeWidth={2.1}/>
@@ -2740,7 +2731,10 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
     {logOpen&&<LogSheet area={area} metric={metric} definitions={defs} saving={saving} setSaving={setSaving} editEntry={editingEntry} onArea={setArea} onMetric={setMetric} onSaved={handleLogSaved} onClose={closeLogSheet}/>}
     <PWAInstallPrompt />
     
-    {reflectionOpen&&<DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} type={reflectionType} setType={setReflectionType} onSave={saveReflection} onClose={closeReflection}/>}
+    {reflectionOpen&&createPortal(
+      <DailyReflectionSheet step={reflectionStep} setStep={setReflectionStep} mood={reflectionMood} setMood={setReflectionMood} feeling={reflectionFeeling} setFeeling={setReflectionFeeling} note={reflectionNote} setNote={setReflectionNote} saving={reflectionSaving} type={reflectionType} setType={setReflectionType} onSave={saveReflection} onClose={closeReflection}/>,
+      document.body
+    )}
   </div>
 }
 
