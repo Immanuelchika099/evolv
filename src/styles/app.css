@@ -13,18 +13,18 @@
 
 /* FINAL logged-in canvas override — keep backgrounds on the root, not page wrappers. */
 :root {
-  --app-bg: #000000;
-  color-scheme: dark;
-  background: #000000 !important;
-  background-color: #000000 !important;
+  --app-bg: #F2F2F7;
+  color-scheme: light;
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
 }
 html,
 body,
 #root {
   width: 100% !important;
   max-width: none !important;
-  background: #000000 !important;
-  background-color: #000000 !important;
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
   background-image: none !important;
 }
 body {
@@ -58,7 +58,7 @@ body {
   min-height: 0 !important;
   height: auto !important;
   /* Safe-area clearance belongs to normal dashboard pages, never the full-screen AI canvas. */
-  padding-top: calc(env(safe-area-inset-top, 0px) + 24px) !important;
+  padding-top: 0 !important;
 }
 .dashboard:not(.dashboard-ai-active) .dash-main {
   min-height: 0 !important;
@@ -83,27 +83,6 @@ body {
   min-width: 0 !important;
   box-sizing: border-box !important;
 }
-.dashboard::before,
-.dashboard::after,
-.dashboard .dash-main::before,
-.dashboard .dash-main::after,
-.dashboard .panel-page.settings-page::before,
-.dashboard .panel-page.settings-page::after,
-.dashboard .settings-heading::before,
-.dashboard .settings-heading::after,
-.dashboard .profile-layout::before,
-.dashboard .profile-layout::after {
-  display: none !important;
-  content: none !important;
-  background: none !important;
-  background-image: none !important;
-  filter: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-
-
 /* Progress page: explicit spacing between the Activity graph and Goal Progress.
    This file is loaded by main.jsx; src/App.css is not part of the app's import chain. */
 .dashboard .progress-page > .progress-heatmap-card {
