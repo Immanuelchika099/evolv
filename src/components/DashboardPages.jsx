@@ -9,7 +9,7 @@ import {
 } from 'lucide-react'
 import './DashboardPages.css'
 import './styles/Notifications.css'
-import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
+import { AvatarPortrait } from './AvatarStudio'
 import '../styles/tokens.css'
 import './styles/Profile.css'
 import HoldButton from './HoldButton'
