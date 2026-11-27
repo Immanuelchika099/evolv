@@ -339,7 +339,7 @@ function StreakWidget() {
 }
 
 function App() {
-  const [isStreakDialogOpen, setStreakModalOpen] = useState(false)
+  const [streakModalOpen, setStreakModalOpen] = useState(false)
   useEffect(() => {
     const syncStreakModal = event => setStreakModalOpen(Boolean(event.detail?.open))
     window.addEventListener('evolv-streak-modal-change', syncStreakModal)
@@ -2722,8 +2722,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {!isBooting&&!loading&&active!=='ai'&&!isStreakDialogOpen&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
-    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&!isStreakDialogOpen&&createPortal(
+    {!isBooting&&!loading&&active!=='ai'&&!streakModalOpen&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&!streakModalOpen&&createPortal(
       <div className="evolv-fabs">
         <button type="button" className="evolv-ai-fab" onClick={()=>goTo('ai')} aria-label="Open EVOLV AI">
           <Sparkles size={22} strokeWidth={2.1}/>
