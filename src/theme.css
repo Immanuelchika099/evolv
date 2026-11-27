@@ -9,44 +9,44 @@
   width: 100%;
   margin: 0 0 12px;
   padding: 4px;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid rgba(23,23,27,.1);
   border-radius: 14px;
-  background: rgba(255,255,255,.035);
+  background: #F7F7FA;
 }
 .dashboard .profile-theme-options button {
   flex: 1;
   min-height: 42px;
   border: 1px solid transparent;
   border-radius: 10px;
-  color: rgba(255,255,255,.68);
+  color: #777780;
   background: transparent;
   font: inherit;
   font-size: 13px;
   transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
 .dashboard .profile-theme-options button.is-active {
-  color: #fff;
-  background: rgba(255,255,255,.1);
+  color: #17171B;
+  background: rgba(23,23,27,.1);
   border-color: rgba(255,255,255,.1);
 }
-/* EVOLV light appearance — dark remains the default visual language. */
+/* EVOLV is light-only. */
 :root[data-theme="light"] {
   color-scheme: light;
-  --app-bg: #f5f3ef;
+  --app-bg: #F2F2F7;
   --bg: #f5f3ef;
-  --t1: #24211e;
-  --t2: rgba(36,33,30,.66);
-  --t3: rgba(36,33,30,.44);
-  --edge: rgba(36,33,30,.12);
+  --t1: #17171B;
+  --t2: rgba(23,23,27,.66);
+  --t3: rgba(23,23,27,.48);
+  --edge: rgba(23,23,27,.12);
   --color-canvas: #f5f3ef;
   --color-surface: #ffffff;
   --color-surface-raised: #fbfaf8;
   --color-text-primary: #24211e;
   --color-text-secondary: rgba(36,33,30,.66);
   --color-text-muted: rgba(36,33,30,.44);
-  --color-border-subtle: rgba(36,33,30,.09);
-  --color-border: rgba(36,33,30,.13);
-  --color-accent-blue: #d96b36;
+  --color-border-subtle: rgba(23,23,27,.08);
+  --color-border: rgba(23,23,27,.12);
+  --color-accent-blue: #F28C3D;
   --blue-accent: #d96b36;
   --ai-bubble-blue: #f5e6dc;
   --graph-blue: #d96b36;
