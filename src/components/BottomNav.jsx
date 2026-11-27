@@ -1,8 +1,9 @@
 import { Home, CalendarClock, LineChart, UserRound, Target } from 'lucide-react'
+import { createPortal } from 'react-dom'
 import './BottomNav.css'
 
 function BottomNav({ active, onNavigate, avatarUrl = '' }) {
-  return (
+  return createPortal(
     <nav className="evolv-bottom-nav" aria-label="App navigation">
       <button
         type="button"
@@ -52,7 +53,8 @@ function BottomNav({ active, onNavigate, avatarUrl = '' }) {
         </span>
         <small>You</small>
       </button>
-    </nav>
+    </nav>,
+    document.body,
   )
 }
 
