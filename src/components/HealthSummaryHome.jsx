@@ -108,7 +108,6 @@ export default function HealthSummaryHome({ pageProps }) {
 
   const week = useMemo(() => Array.from({ length: 7 }, (_, index) => {
     const now = new Date()
-  const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
     const monday = new Date(now)
     monday.setHours(0, 0, 0, 0)
     monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + index)
@@ -131,6 +130,7 @@ export default function HealthSummaryHome({ pageProps }) {
   }, [])
 
   const now = new Date()
+  const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
 
   const focusDef = defs.find(def => /focus/i.test(String(def.slug || def.name || '')))
   const focusToday = focusDef && todayLogs.find(log => String(log.metric_id) === String(focusDef.id))
