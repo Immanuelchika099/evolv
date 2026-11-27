@@ -22,6 +22,7 @@ applyThemePreference(getThemePreference())
 const syncSummaryScroll = () => {
   const progress = Math.min(1, Math.max(0, window.scrollY / 300))
   document.documentElement.style.setProperty('--hs-scroll-progress', String(progress))
+  document.documentElement.dataset.summaryScrolled = window.scrollY > 150 ? 'true' : 'false'
 }
 syncSummaryScroll()
 window.addEventListener('scroll', syncSummaryScroll, { passive: true })
