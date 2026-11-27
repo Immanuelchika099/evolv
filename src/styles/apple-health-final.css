@@ -789,3 +789,51 @@ html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) :is(.pa
     padding-top: 28px !important;
   }
 }
+
+
+/* Aurora belongs only to the header zone; the page body stays the app's light canvas. */
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) {
+  background: #f2f2f7 !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active)::before {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: auto !important;
+  width: 100% !important;
+  height: 390px !important;
+  min-height: 0 !important;
+  z-index: 0 !important;
+  background:
+    radial-gradient(ellipse at 8% 12%, rgba(208,164,239,.62), transparent 48%),
+    radial-gradient(ellipse at 88% 8%, rgba(130,222,193,.62), transparent 48%),
+    radial-gradient(ellipse at 48% 0%, rgba(255,205,157,.58), transparent 50%),
+    radial-gradient(ellipse at 40% 68%, rgba(245,180,207,.40), transparent 52%),
+    #f2f2f7 !important;
+  background-size: 150% 150% !important;
+  filter: blur(24px) saturate(118%) !important;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%) !important;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 58%, transparent 100%) !important;
+  animation: evolv-app-aurora 18s ease-in-out infinite alternate !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home::before {
+  content: none !important;
+  display: none !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .dash-main,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) :is(.panel-page,.goals-page,.progress-page,.daily-routine-page,.profile-v2,.settings-page,.profile-page) {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .dash-main {
+  position: relative !important;
+  z-index: 1 !important;
+}
+@media (max-width: 700px) {
+  html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active)::before {
+    position: absolute !important;
+    height: 390px !important;
+  }
+}
