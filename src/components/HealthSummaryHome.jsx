@@ -8,6 +8,33 @@ function dateKey(date) {
   return [d.getFullYear(), String(d.getMonth() + 1).padStart(2, '0'), String(d.getDate()).padStart(2, '0')].join('-')
 }
 
+function longestStreak(dateSet) {
+  const dates = [...dateSet].sort()
+  let best = 0
+  let run = 0
+  let previous = null
+  for (const key of dates) {
+    const current = new Date(key + 'T00:00:00')
+    const gap = previous ? Math.round((current - previous) / 86400000) : 0
+    run = gap === 1 ? run + 1 : 1
+    best = Math.max(best, run)
+    previous = current
+  }
+  return best
+}
+
+function currentStreak(dateSet) {
+  const cursor = new Date()
+  cursor.setHours(0, 0, 0, 0)
+  if (!dateSet.has(dateKey(cursor))) cursor.setDate(cursor.getDate() - 1)
+  let count = 0
+  while (dateSet.has(dateKey(cursor))) {
+    count += 1
+    cursor.setDate(cursor.getDate() - 1)
+  }
+  return count
+}
+
 function MiniBars({ values = [], tone = 'orange' }) {
   const max = Math.max(1, ...values)
   return <span className={`hs-mini-bars tone-${tone}`} aria-hidden="true">
@@ -46,6 +73,19 @@ export default function HealthSummaryHome({ pageProps }) {
 
   const firstName = String(name || '').trim().split(/\s+/)[0] || 'there'
   const activeGoals = goals.filter(goal => goal.status === 'active')
+  const activeDateSet = new Set([...logs, ...meals].map(item => {
+    const stamp = item.logged_at || item.created_at || item.date || item.recorded_at
+    return stamp ? dateKey(stamp) : null
+  }).filter(Boolean))
+  const reflectionMetricIds = new Set(defs.filter(def => /reflection|mood|emotional-wellbeing/i.test(String(def.slug || def.name || ''))).map(def => String(def.id)))
+  const reflectionDateSet = new Set(logs.filter(item => reflectionMetricIds.has(String(item.metric_id))).map(item => {
+    const stamp = item.logged_at || item.created_at || item.date || item.recorded_at
+    return stamp ? dateKey(stamp) : null
+  }).filter(Boolean))
+  const reflectionDays = currentStreak(reflectionDateSet)
+  const bestAppStreak = longestStreak(activeDateSet)
+  const year = new Date().getFullYear()
+  const activeDaysThisYear = [...activeDateSet].filter(key => key.startsWith(String(year) + '-')).length
   const moodDef = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
   const moodToday = moodDef && todayLogs.find(log => String(log.metric_id) === String(moodDef.id))
   const todayCount = todayLogs.length + todayMeals.length
@@ -121,7 +161,7 @@ export default function HealthSummaryHome({ pageProps }) {
         <PinCard title="Today's Activity" tone="orange" icon={Activity} value={todayCount} unit=" entries" detail="Today" onClick={() => goTo('logs')} graphic={<MiniBars tone="orange" values={week.map(day => day.count)}/>} />
         <PinCard title="Today's Focus" tone="amber" icon={Focus} value={focusToday ? latestFocus : 'Not set'} unit="" detail="Today" onClick={() => focusDef ? openLog(metricArea[focusDef.slug] || 'career', focusDef) : goTo('goals')} graphic={<span className="hs-orb tone-amber"><span/></span>} />
         <PinCard title="Reflection" tone="teal" icon={NotebookPen} value={moodToday ? moodValue : 'Ready'} unit="" detail="Today" onClick={openReflection} graphic={<span className="hs-reflection-mark"><Heart size={28} fill="currentColor"/></span>} />
-        <PinCard title="Streak" tone="rose" icon={Flame} value={streakDays} unit={streakDays === 1 ? ' day' : ' days'} detail="Current" onClick={() => goTo('progress')} graphic={<MiniBars tone="rose" values={week.map(day => day.count)} />} />
+        <PinCard title="Streak" tone="rose" icon={Flame} value={streakDays} unit={streakDays === 1 ? ' day' : ' days'} detail="Current" onClick={() => setStreakOpen(true)} graphic={<MiniBars tone="rose" values={week.map(day => day.count)} />} />
       </div>
     </section>
 
@@ -164,6 +204,37 @@ export default function HealthSummaryHome({ pageProps }) {
       <SummaryRow icon={BookOpen} tone="violet" title="Faith & spiritual growth" detail="Grow through daily reflection" onClick={() => goTo('faith')}/>
     </section>
 
+    {streakOpen && <div className="hs-streak-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setStreakOpen(false) }}>
+      <section className="hs-streak-sheet" role="dialog" aria-modal="true" aria-labelledby="hs-streak-title">
+        <div className="hs-streak-grabber" />
+        <div className="hs-streak-actions">
+          <button type="button" aria-label="Close streak details" onClick={() => setStreakOpen(false)}>×</button>
+          <button type="button" aria-label="Share streak" onClick={() => {
+            const message = `My EVOLV streak is ${streakDays} days. One day at a time.`
+            if (navigator.share) navigator.share({ title: 'My EVOLV streak', text: message }).catch(() => {})
+            else if (navigator.clipboard?.writeText) navigator.clipboard.writeText(message).catch(() => {})
+          }}>↗</button>
+        </div>
+        <h2 id="hs-streak-title">Streaks help you build your daily habit.</h2>
+        <div className="hs-streak-stats">
+          <article><span className="hs-streak-symbol">🔥</span><strong>{streakDays}</strong><small>App streak</small><em>Best {bestAppStreak} days</em></article>
+          <article><span className="hs-streak-symbol">☀</span><strong>{reflectionDays}</strong><small>Reflection streak</small><em>Keep showing up</em></article>
+        </div>
+        <div className="hs-streak-week">
+          {week.map((day, index) => {
+            const isToday = day.key === dateKey(new Date())
+            return <div className={`hs-streak-day ${day.count ? 'is-done' : ''} ${isToday ? 'is-today' : ''}`} key={day.key}>
+              <small>{day.label.slice(0, 1)}</small><span>{new Date(day.key + 'T00:00:00').getDate()}</span>
+              {day.count > 0 && <b aria-hidden="true">🔥</b>}
+            </div>
+          })}
+        </div>
+        <div className="hs-streak-foot">
+          <strong>{Math.floor(activeDaysThisYear / 7)} weeks in a row</strong>
+          <span>{activeDaysThisYear} days in EVOLV this year</span>
+        </div>
+      </section>
+    </div>}
     <div className="hs-bottom-space" aria-hidden="true"/>
   </main>
 }
