@@ -340,6 +340,8 @@ function StreakWidget() {
 
 function App() {
   const [streakModalOpen, setStreakModalOpen] = useState(false)
+  // Keep the legacy dialog flag available while older UI chunks finish updating.
+  const isStreakDialogOpen = streakModalOpen
   useEffect(() => {
     const syncStreakModal = event => setStreakModalOpen(Boolean(event.detail?.open))
     window.addEventListener('evolv-streak-modal-change', syncStreakModal)
