@@ -3418,3 +3418,167 @@ html:has(.dashboard.dashboard-ai-active) {
   border: 1px solid rgba(220,75,65,.38);
   background: rgba(160,45,38,.2);
 }
+
+
+/* =========================================================
+   EVOLV AI — one calm light palette.
+   Replace the legacy black/green/blue/orange layers with a
+   single iOS-style canvas and restrained neutral surfaces.
+   ========================================================= */
+html body #root .dashboard.dashboard-ai-active,
+html body #root .dashboard.dashboard-ai-active > .dash-main,
+html body #root .dashboard.dashboard-ai-active .ai-page,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-chat,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-messages {
+  color-scheme: light !important;
+  color: #17171B !important;
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
+  background-image: none !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page {
+  isolation: isolate;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  background: #F2F2F7 !important;
+  background-color: #F2F2F7 !important;
+  background-image: none !important;
+  border-bottom: 1px solid #E5E5EA !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-topbar button {
+  color: #24242A !important;
+  background: #E7E7EC !important;
+  border: 1px solid #DEDEE4 !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-welcome {
+  background: transparent !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-welcome h3,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-welcome h3 span,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-welcome h3 strong {
+  color: #17171B !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-message,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-message.assistant,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-message-role,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-response-content {
+  color: #24242A !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  background: transparent !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-message p,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-response-content p,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-response-content li,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-response-content h2,
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-response-content h3 {
+  color: #24242A !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  color: #202027 !important;
+  background: #E5E5EA !important;
+  border: 1px solid #DADAE1 !important;
+  box-shadow: none !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell {
+  background: linear-gradient(to top, #F2F2F7 0%, rgba(242,242,247,.98) 72%, rgba(242,242,247,0) 100%) !important;
+  background-color: transparent !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar,
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  color: #202027 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__field {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid #E0E0E7 !important;
+  border-radius: 2rem !important;
+  box-shadow: 0 8px 28px rgba(25,25,35,.09) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input {
+  color: #202027 !important;
+  -webkit-text-fill-color: #202027 !important;
+  caret-color: #202027 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__input::placeholder {
+  color: #8A8A94 !important;
+  -webkit-text-fill-color: #8A8A94 !important;
+  opacity: 1 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__tool,
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__pick {
+  color: #555560 !important;
+  background: #F0F0F4 !important;
+  border-color: #E2E2E8 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-promptbar-shell .prompt-bar__send {
+  color: #FFFFFF !important;
+  background: #24242A !important;
+  border-color: #24242A !important;
+}
+html body #root .dashboard.dashboard-ai-active .prompt-bar__menu,
+html body #root .dashboard.dashboard-ai-active .prompt-bar__row,
+html body #root .dashboard.dashboard-ai-active .prompt-bar__effort-head,
+html body #root .dashboard.dashboard-ai-active .prompt-bar__effort-ends {
+  color: #24242A !important;
+}
+html body #root .dashboard.dashboard-ai-active .prompt-bar__menu {
+  background: #FFFFFF !important;
+  border: 1px solid #E2E2E8 !important;
+  box-shadow: 0 14px 38px rgba(20,20,30,.14) !important;
+}
+html body #root .dashboard.dashboard-ai-active .prompt-bar__row:hover,
+html body #root .dashboard.dashboard-ai-active .prompt-bar__row[aria-selected="true"] {
+  background: #F0F0F4 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-overlay {
+  background: rgba(20,20,26,.28) !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-sheet {
+  color: #202027 !important;
+  background: #F7F7FA !important;
+  border-right: 1px solid #E3E3E9 !important;
+  box-shadow: 1rem 0 3rem rgba(20,20,30,.12) !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-head,
+html body #root .dashboard.dashboard-ai-active .ai-history-list,
+html body #root .dashboard.dashboard-ai-active .ai-history-row {
+  color: #24242A !important;
+  background: transparent !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-row {
+  border-color: #E3E3E9 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-select-toggle {
+  color: #555560 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-bulk-actions {
+  background: linear-gradient(180deg, rgba(247,247,250,0), #F7F7FA 24%) !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-bulk-archive {
+  color: #24242A !important;
+  background: #ECECF1 !important;
+  border-color: #DCDCE4 !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-history-bulk-delete {
+  color: #A52828 !important;
+  background: #FCEEEE !important;
+  border-color: #F0CFCF !important;
+}
+html body #root .dashboard.dashboard-ai-active .ai-cursor {
+  color: #777780 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html body #root .dashboard.dashboard-ai-active * {
+    animation-duration: .01ms !important;
+    transition-duration: .01ms !important;
+  }
+}
