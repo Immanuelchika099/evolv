@@ -393,3 +393,11 @@ html[data-summary-scrolled="true"] .app-topbar-title { opacity:1 !important; tra
 .money-form-heading,.logs-page-toolbar,.area-options-heading { color:#17171B !important; }
 .area-option-row,.logs-page-row { background:#fff !important; border-radius:18px !important; }
 .area-option-icon,.logs-page-icon,.notification-page-icon { background:#FFF0E5 !important; color:#E77D32 !important; }
+
+
+.profile-v2-top-scrim { background:rgba(242,242,247,.5) !important; backdrop-filter:blur(22px) !important; -webkit-backdrop-filter:blur(22px) !important; }
+.profile-v2-icon-button { background:rgba(255,255,255,.78) !important; color:#292930 !important; border:1px solid rgba(255,255,255,.9) !important; box-shadow:0 3px 12px rgba(30,30,48,.06) !important; }
+.profile-v2-tabs { position:relative !important; overflow:hidden !important; }
+.profile-v2-tab-indicator { background:#fff !important; box-shadow:0 2px 8px rgba(20,20,30,.08) !important; }
+.profile-v2-tabs button.is-active { color:#17171B !important; }
+.evolv-bottom-nav button.bottom-active { background:linear-gradient(135deg,rgba(242,140,61,.16),rgba(85,191,175,.12) 58%,rgba(105,88,232,.1)) !important; color:#17171B !important; }
