@@ -230,7 +230,7 @@ export default function HealthSummaryHome({ pageProps }) {
           })}
         </div>
         <div className="hs-streak-foot">
-          <strong>{Math.floor(activeDaysThisYear / 7)} weeks in a row</strong>
+          <strong>{Math.floor(streakDays / 7)} weeks in a row</strong>
           <span>{activeDaysThisYear} days in EVOLV this year</span>
         </div>
       </section>
