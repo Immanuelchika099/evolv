@@ -129,7 +129,7 @@ html, body, #root, body #root, .dashboard, .dashboard .dash-main {
   38%,58% { opacity:.72; transform:translate3d(1.5%,1%,0); }
   88%,100% { opacity:0; transform:translate3d(-1%,0,0); }
 }
-body::after {
+html:has(.dashboard) body::after {
   content:""; position:fixed; z-index:99990; pointer-events:none; left:0; right:0; bottom:0; height:150px;
   background:linear-gradient(0deg,rgba(242,242,247,.92),rgba(242,242,247,.56) 48%,transparent);
   backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
