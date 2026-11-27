@@ -401,3 +401,17 @@ html[data-summary-scrolled="true"] .app-topbar-title { opacity:1 !important; tra
 .profile-v2-tab-indicator { background:#fff !important; box-shadow:0 2px 8px rgba(20,20,30,.08) !important; }
 .profile-v2-tabs button.is-active { color:#17171B !important; }
 .evolv-bottom-nav button.bottom-active { background:linear-gradient(135deg,rgba(242,140,61,.16),rgba(85,191,175,.12) 58%,rgba(105,88,232,.1)) !important; color:#17171B !important; }
+
+
+.reflection-sheet-emotion { background:#F8F8FA !important; background-image:none !important; color:#17171B !important; }
+.reflection-sheet-handle,.log-sheet-handle { background:#D5D5DC !important; }
+.reflection-step,.reflection-note,.mood-scale-picker,.log-form,.log-picker-view { color:#17171B !important; }
+.reflection-step input,.reflection-step textarea,.reflection-note textarea,.mood-scale-picker input,
+.log-form input,.log-form textarea,.log-form select,.log-picker-view input {
+  color:#17171B !important; -webkit-text-fill-color:#17171B !important;
+  background:#fff !important; border-color:#E7E7EC !important;
+}
+.reflection-step-actions button,.reflection-next,.reflection-back,.log-sheet-footer button,
+.log-history-footer button,.log-close {
+  border-radius:999px !important;
+}
