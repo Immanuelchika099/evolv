@@ -1,0 +1,338 @@
+/* EVOLV light dashboard visual correction — one consistent iOS Health-inspired system. */
+:root {
+  color-scheme: light !important;
+  --ev-canvas: #F2F2F7;
+  --ev-surface: #FFFFFF;
+  --ev-ink-strong: #17171B;
+  --ev-ink-muted: #74747D;
+  --ev-line-soft: rgba(28, 28, 34, .07);
+  --ev-orange-soft: #FCE7D9;
+  --ev-orange-ink: #9A4B24;
+}
+
+/* The authenticated app is one continuous, full-height light canvas. */
+html, body, #root,
+body:has(.dashboard), #root:has(.dashboard),
+.dashboard, .dashboard .dash-main, .dashboard .dashboard-pages {
+  color-scheme: light !important;
+  background: var(--ev-canvas) !important;
+  background-color: var(--ev-canvas) !important;
+  background-image: none !important;
+}
+.dashboard {
+  min-height: 100dvh !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+.dashboard .dash-main {
+  min-height: calc(100dvh - env(safe-area-inset-top, 0px)) !important;
+  height: auto !important;
+  padding-top: 0 !important;
+  padding-bottom: calc(13.5rem + env(safe-area-inset-bottom, 0px)) !important;
+  overflow: visible !important;
+}
+.dashboard .dash-main::before,
+.dashboard .dash-main::after,
+.dashboard::before,
+.dashboard::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Home: give the content room to breathe and let it fill the available screen. */
+.dashboard .hs-home {
+  width: min(100%, 920px) !important;
+  min-height: calc(100dvh - 7.2rem) !important;
+  margin: 0 auto !important;
+  padding: clamp(1.8rem, 4vw, 3.2rem) clamp(1.6rem, 4vw, 2.8rem) 2rem !important;
+  color: var(--ev-ink-strong) !important;
+  box-sizing: border-box !important;
+}
+.dashboard .hs-home-heading {
+  padding: clamp(2.4rem, 5vh, 4.4rem) .3rem 2.8rem !important;
+}
+.dashboard .hs-home-heading h1,
+.dashboard .hs-section-heading h2 {
+  color: var(--ev-ink-strong) !important;
+}
+.dashboard .hs-date { color: var(--ev-ink-muted) !important; }
+.dashboard .hs-section { margin-bottom: 2.8rem !important; }
+.dashboard .hs-section-heading { padding: 0 .3rem 1.35rem !important; }
+.dashboard .hs-pin-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.4rem !important;
+}
+.dashboard .hs-pin-card {
+  min-height: 17rem !important;
+  padding: 2rem !important;
+  border-radius: 2.4rem !important;
+  background: #FFFFFF !important;
+  color: var(--ev-ink-strong) !important;
+  box-shadow: 0 5px 22px rgba(28, 28, 38, .045) !important;
+}
+.dashboard .hs-card-label,
+.dashboard .hs-card-value,
+.dashboard .hs-card-value small,
+.dashboard .hs-card-detail,
+.dashboard .hs-card-detail svg {
+  color: var(--ev-ink-strong) !important;
+  -webkit-text-fill-color: var(--ev-ink-strong) !important;
+}
+.dashboard .hs-card-label { gap: .9rem !important; font-size: 1.55rem !important; }
+.dashboard .hs-card-detail { color: var(--ev-ink-muted) !important; }
+.dashboard .hs-card-value { font-size: clamp(3.2rem, 6vw, 4.3rem) !important; }
+.dashboard .hs-card-bottom { align-items: flex-end !important; gap: 1.2rem !important; margin-top: 2.8rem !important; }
+.dashboard .hs-mini-bars { flex: 0 0 6.5rem !important; }
+.dashboard .hs-highlight-card {
+  border-radius: 2.4rem !important;
+  background: #FFFFFF !important;
+  color: var(--ev-ink-strong) !important;
+  box-shadow: 0 5px 22px rgba(28, 28, 38, .045) !important;
+}
+.dashboard .hs-highlight-card :is(h3, p, strong, small, span, svg) {
+  color: var(--ev-ink-strong) !important;
+  -webkit-text-fill-color: var(--ev-ink-strong) !important;
+}
+.dashboard .hs-highlight-card :is(.hs-week-column small, .hs-empty-note) {
+  color: var(--ev-ink-muted) !important;
+}
+.dashboard .hs-summary-row {
+  min-height: 7.2rem !important;
+  padding: 1.4rem 1.5rem !important;
+  border-radius: 2rem !important;
+  background: #FFFFFF !important;
+  color: var(--ev-ink-strong) !important;
+  box-shadow: 0 4px 18px rgba(28, 28, 38, .035) !important;
+}
+.dashboard .hs-summary-row :is(strong, small, svg) {
+  color: var(--ev-ink-strong) !important;
+  -webkit-text-fill-color: var(--ev-ink-strong) !important;
+}
+.dashboard .hs-summary-row small { color: var(--ev-ink-muted) !important; }
+.dashboard .hs-bottom-space { height: 1.2rem !important; }
+
+/* All white cards on Home, Goals, Routine, Profile and supporting pages use ink text. */
+.dashboard :is(.goal-create-form, .goal-item, .progress-section-card, .progress-heatmap-card,
+  .home-heatmap-card, .routine-progress-panel, .routine-insight-card, .routine-coach-card,
+  .routine-schedule-section, .routine-group, .profile-v2-group, .profile-settings-section,
+  .profile-summary-card, .profile-v2-summary, .settings-card, .settings-section,
+  .goal-milestone-card, .goal-plan-card, .goal-checkin-card) {
+  background: #FFFFFF !important;
+  color: var(--ev-ink-strong) !important;
+  border-color: var(--ev-line-soft) !important;
+}
+.dashboard :is(.goal-create-form, .goal-item, .progress-section-card, .progress-heatmap-card,
+  .home-heatmap-card, .routine-progress-panel, .routine-insight-card, .routine-coach-card,
+  .routine-schedule-section, .routine-group, .profile-v2-group, .profile-settings-section,
+  .profile-summary-card, .profile-v2-summary, .settings-card, .settings-section,
+  .goal-milestone-card, .goal-plan-card, .goal-checkin-card)
+  :is(h1,h2,h3,h4,p,span,strong,small,label,legend,div,time,button:not(.button-primary)) {
+  color: var(--ev-ink-strong) !important;
+  -webkit-text-fill-color: var(--ev-ink-strong) !important;
+}
+.dashboard :is(.goal-create-form, .goal-item, .progress-section-card, .progress-heatmap-card,
+  .home-heatmap-card, .routine-progress-panel, .routine-insight-card, .routine-coach-card,
+  .routine-schedule-section, .routine-group, .profile-v2-group, .profile-settings-section,
+  .profile-summary-card, .profile-v2-summary, .settings-card, .settings-section)
+  :is(p,small,.muted,.secondary,.profile-setting-row small,.routine-row-copy small) {
+  color: var(--ev-ink-muted) !important;
+  -webkit-text-fill-color: var(--ev-ink-muted) !important;
+}
+.dashboard :is(.goals-page, .daily-routine-page, .settings-page, .profile-settings-page,
+  .profile-page, .progress-page, .notifications-page) {
+  color: var(--ev-ink-strong) !important;
+  background: transparent !important;
+}
+.dashboard :is(.goals-page, .daily-routine-page, .settings-page, .profile-settings-page,
+  .profile-page, .progress-page, .notifications-page) :is(h1,h2,h3,h4,label,strong) {
+  color: var(--ev-ink-strong) !important;
+  -webkit-text-fill-color: var(--ev-ink-strong) !important;
+}
+.dashboard :is(.goals-page, .daily-routine-page, .settings-page, .profile-settings-page,
+  .profile-page, .progress-page, .notifications-page) :is(p,small,.section-label,.routine-label,.routine-date) {
+  color: var(--ev-ink-muted) !important;
+  -webkit-text-fill-color: var(--ev-ink-muted) !important;
+}
+.dashboard :is(.goals-page, .daily-routine-page, .settings-page, .profile-settings-page,
+  .profile-page) :is(input,textarea,select) {
+  color: var(--ev-ink-strong) !important;
+  background: #FFFFFF !important;
+  border-color: var(--ev-line-soft) !important;
+  color-scheme: light !important;
+}
+.dashboard :is(.goals-page, .daily-routine-page, .settings-page, .profile-settings-page,
+  .profile-page) :is(input,textarea,select)::placeholder {
+  color: #92929A !important;
+  -webkit-text-fill-color: #92929A !important;
+}
+
+/* The fixed dock must never cover the last card or the streak card's contents. */
+.dashboard .evolv-bottom-nav {
+  position: fixed !important;
+  left: 50% !important;
+  right: auto !important;
+  bottom: max(1.2rem, env(safe-area-inset-bottom, 0px)) !important;
+  transform: translateX(-50%) !important;
+  width: min(56rem, calc(100% - 2.4rem)) !important;
+  min-height: 6.8rem !important;
+  padding: .55rem .8rem !important;
+  border: 1px solid rgba(30,30,36,.07) !important;
+  border-radius: 2.4rem !important;
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+  box-shadow: 0 8px 30px rgba(25,25,35,.12) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+  z-index: 100000 !important;
+}
+.dashboard .evolv-bottom-nav button,
+.dashboard .evolv-bottom-nav button.bottom-active,
+.dashboard .evolv-bottom-nav button.bottom-active * {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+.dashboard .evolv-bottom-nav button.bottom-active { background: rgba(229,134,66,.12) !important; }
+.dashboard .evolv-bottom-nav button svg { stroke: currentColor !important; }
+.dashboard .evolv-bottom-nav button small { color: #17171B !important; }
+.dashboard:not(.dashboard-ai-active) .dash-main {
+  padding-bottom: calc(15rem + env(safe-area-inset-bottom, 0px)) !important;
+}
+.dashboard:not(.dashboard-ai-active) .hs-home,
+.dashboard:not(.dashboard-ai-active) .goals-page,
+.dashboard:not(.dashboard-ai-active) .daily-routine-page,
+.dashboard:not(.dashboard-ai-active) .settings-page,
+.dashboard:not(.dashboard-ai-active) .profile-settings-page {
+  padding-bottom: 2rem !important;
+}
+
+/* AI: return to the light product surface and make every control readable. */
+.dashboard.dashboard-ai-active,
+.dashboard.dashboard-ai-active .dash-main,
+.dashboard.dashboard-ai-active .ai-page,
+.dashboard.dashboard-ai-active .ai-page .ai-chat,
+.dashboard.dashboard-ai-active .ai-page .ai-messages {
+  color: var(--ev-ink-strong) !important;
+  background: var(--ev-canvas) !important;
+  background-color: var(--ev-canvas) !important;
+  background-image: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page {
+  min-height: 100dvh !important;
+  padding-top: 7rem !important;
+  padding-bottom: 11rem !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar {
+  background: rgba(255,255,255,.96) !important;
+  background-color: rgba(255,255,255,.96) !important;
+  border-bottom: 1px solid var(--ev-line-soft) !important;
+  box-shadow: 0 3px 16px rgba(25,25,35,.045) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(150%) !important;
+  backdrop-filter: blur(18px) saturate(150%) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar :is(button,button svg,button svg *) {
+  color: #17171B !important;
+  stroke: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+  background-color: #FFFFFF !important;
+  border-color: var(--ev-line-soft) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-topbar .ai-new-chat {
+  color: #17171B !important;
+  background: #FFFFFF !important;
+}
+.dashboard.dashboard-ai-active .ai-page :is(.ai-welcome h3,.ai-welcome p,.ai-message-role,.ai-message-actions button,
+  .ai-error,.ai-chat-empty,.ai-chat-empty p) {
+  color: var(--ev-ink-strong) !important;
+  -webkit-text-fill-color: var(--ev-ink-strong) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: #17171B !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.assistant :is(p,span,strong,li,blockquote,h1,h2,h3,h4,div) {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p {
+  background: var(--ev-orange-soft) !important;
+  color: var(--ev-orange-ink) !important;
+  -webkit-text-fill-color: var(--ev-orange-ink) !important;
+  border: 1px solid rgba(154,75,36,.08) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-message.user p * {
+  color: var(--ev-orange-ink) !important;
+  -webkit-text-fill-color: var(--ev-orange-ink) !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell {
+  background: linear-gradient(to top, rgba(242,242,247,.98), rgba(242,242,247,.86) 65%, transparent) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field {
+  background: #FFFFFF !important;
+  background-color: #FFFFFF !important;
+  border: 1px solid rgba(30,30,36,.08) !important;
+  border-radius: 2.2rem !important;
+  box-shadow: 0 5px 22px rgba(25,25,35,.08) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input:focus,
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input:focus-visible {
+  background: transparent !important;
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__input::placeholder {
+  color: #85858D !important;
+  -webkit-text-fill-color: #85858D !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__field :is(button,svg,svg *) {
+  color: #17171B !important;
+  stroke: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+.dashboard.dashboard-ai-active .ai-page .ai-promptbar-shell .prompt-bar__menu {
+  color: #17171B !important;
+  background: #FFFFFF !important;
+}
+
+/* Keep interactive states legible without changing the feature logic. */
+.dashboard :is(button,input,textarea,select):focus-visible {
+  outline-color: rgba(154,75,36,.42) !important;
+  outline-offset: 3px !important;
+}
+@media (max-width: 640px) {
+  .dashboard .hs-home { min-height: calc(100dvh - 6rem) !important; padding-inline: 1.5rem !important; }
+  .dashboard .hs-pin-grid { gap: 1rem !important; }
+  .dashboard .hs-pin-card { min-height: 15.5rem !important; padding: 1.55rem !important; }
+  .dashboard .hs-card-label { font-size: 1.35rem !important; }
+  .dashboard .hs-card-detail { font-size: 1.1rem !important; }
+  .dashboard .hs-card-bottom { margin-top: 2rem !important; }
+  .dashboard .evolv-bottom-nav { width: calc(100% - 2rem) !important; }
+}
+@media (max-width: 360px) {
+  .dashboard .hs-pin-grid { grid-template-columns: minmax(0,1fr) !important; }
+  .dashboard .hs-pin-card { min-height: 14rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard *, .dashboard *::before, .dashboard *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+    animation-duration: .01ms !important;
+  }
+}
