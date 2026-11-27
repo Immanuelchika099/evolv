@@ -670,3 +670,132 @@ html, body, #root {
   box-sizing: border-box !important;
 }
 .hs-highlight-card + .hs-highlight-card { margin-top: 0 !important; }
+
+
+/* Streak sheet: clear, high-contrast light styling across every text element. */
+html[data-theme="light"] body #root .dashboard .streak-sheet {
+  color: #17171B !important;
+  background: #F8F8FA !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet :is(h2, .streak-now, .streak-name, .streak-best, .streak-weeks, .streak-week .name, .streak-week .cell) {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-help,
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-year {
+  color: #62626B !important;
+  -webkit-text-fill-color: #62626B !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-stats {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  padding: 12px !important;
+  border: 1px solid #E7E7EC !important;
+  border-radius: 22px !important;
+  background: #FFFFFF !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-stat {
+  min-width: 0 !important;
+  padding: 14px 6px !important;
+  border: 0 !important;
+  background: transparent !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-stat + .streak-stat {
+  border-left: 1px solid #E7E7EC !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-now {
+  color: #17171B !important;
+  font-size: 38px !important;
+  font-weight: 800 !important;
+  letter-spacing: -.04em !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-now > svg,
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-best svg {
+  color: #E97832 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-name {
+  margin-top: 9px !important;
+  color: #45454D !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-best {
+  color: #686871 !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-best b {
+  color: #17171B !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-weeks {
+  margin-top: 24px !important;
+  color: #17171B !important;
+  font-size: 17px !important;
+  font-weight: 750 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-year {
+  margin-top: 7px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week {
+  gap: 2px !important;
+  margin-top: 22px !important;
+  padding-top: 18px !important;
+  border-top: 1px solid #E7E7EC !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .name {
+  color: #55555E !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell {
+  width: min(38px, 100%) !important;
+  height: 38px !important;
+  margin: 8px auto 0 !important;
+  color: #292930 !important;
+  font-size: 14px !important;
+  font-weight: 650 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.active {
+  background: #FFF0E5 !important;
+  color: #A94F1D !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.active::before {
+  background: #E97832 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.today {
+  background: #E97832 !important;
+  color: #FFFFFF !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.today::before {
+  background: #FFFFFF !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-ring-icon,
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-ring-small {
+  border-color: #E97832 !important;
+  background: #FFF0E5 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-tools button {
+  color: #292930 !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E7E7EC !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-grab {
+  background: #D5D5DC !important;
+}
+.dashboard .app-topbar .app-logo-spacer {
+  display: block !important;
+  flex: 0 0 42px !important;
+  width: 42px !important;
+  height: 42px !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+.dashboard .app-topbar .app-topbar-title {
+  margin-left: 0 !important;
+}
