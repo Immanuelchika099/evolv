@@ -2715,7 +2715,7 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {!isBooting&&!loading&&active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
     {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&createPortal(
       <button type="button" className="evolv-ai-fab" onClick={()=>goTo('ai')} aria-label="Open EVOLV AI">
         <Sparkles size={16} strokeWidth={2.1}/><span>Ask EVOLV</span>
