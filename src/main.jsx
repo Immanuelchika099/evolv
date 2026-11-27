@@ -13,6 +13,7 @@ import './components/styles/Polish.css'
 import AppErrorBoundary from './AppErrorBoundary.jsx'
 import './theme.css'
 import './styles/evolv-health-redesign.css'
+import './styles/ios-health-summary.css'
 import { applyThemePreference, getThemePreference } from './lib/theme'
 
 applyThemePreference(getThemePreference())
