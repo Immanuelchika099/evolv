@@ -1317,3 +1317,27 @@ body.streak-modal-open .evolv-floating-log {
   pointer-events: none !important;
   transform: translateY(1rem) scale(.96) !important;
 }
+
+
+/* FINAL bottom navigation active-state correction.
+   Keep the selected tint, but force the icon and label to remain black. */
+html body #root .evolv-bottom-nav button.bottom-active,
+html body #root .evolv-bottom-nav button.bottom-active:hover,
+html body #root .evolv-bottom-nav button.bottom-active:focus,
+html body #root .evolv-bottom-nav button.bottom-active:active {
+  color:#17171B !important;
+  -webkit-text-fill-color:#17171B !important;
+}
+html body #root .evolv-bottom-nav button.bottom-active *,
+html body #root .evolv-bottom-nav button.bottom-active svg,
+html body #root .evolv-bottom-nav button.bottom-active svg *,
+html body #root .evolv-bottom-nav button.bottom-active small {
+  color:#17171B !important;
+  -webkit-text-fill-color:#17171B !important;
+  fill:none !important;
+  stroke:#17171B !important;
+}
+html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  color:#17171B !important;
+  border-color:#17171B !important;
+}
