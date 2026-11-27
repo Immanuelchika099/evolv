@@ -58,7 +58,7 @@ function PinCard({ title, tone, icon: Icon, value, unit, detail, onClick, graphi
 function SummaryRow({ icon: Icon, tone, title, detail, onClick }) {
   return <button type="button" className="hs-summary-row" onClick={onClick}>
     <span className={`hs-row-icon tone-${tone}`}><Icon size={20}/></span>
-    <span className="hs-row-copy"><strong>{title}</strong><small>{detail}</small></span>
+    <span className="hs-row-copy"><strong>{title}</strong>{detail && <small>{detail}</small>}</span>
     <ChevronRight size={20}/>
   </button>
 }
@@ -168,14 +168,14 @@ export default function HealthSummaryHome({ pageProps }) {
 
     <section className="hs-section">
       <div className="hs-section-heading"><h2>Trends</h2></div>
-      <SummaryRow icon={Target} tone="violet" title="Your goals" detail={activeGoals.length ? `${activeGoals.length} active goals · Keep moving forward` : 'Set a goal and give your growth direction'} onClick={() => goTo('goals')}/>
+      <SummaryRow icon={Target} tone="violet" title="Your goals" detail={`${activeGoals.length} active`} onClick={() => goTo('goals')}/>
     </section>
 
     <section className="hs-section">
       <div className="hs-section-heading"><h2>Highlights</h2></div>
       <article className="hs-highlight-card tone-orange">
         <div className="hs-highlight-title"><Activity size={21}/><span>Daily activity</span></div>
-        <h3>{todayCount ? `You've recorded ${todayCount} activities today.` : 'Every small step counts. Start with one check-in.'}</h3>
+        <h3>{todayCount ? `You've recorded ${todayCount} activities today.` : 'No activity yet'}</h3>
         <div className="hs-highlight-divider"/>
         <div className="hs-week-chart" role="img" aria-label={week.map(day => `${day.label}: ${day.count} activities`).join(', ')}>
           {week.map((day, index) => <div className="hs-week-column" key={day.key}>
@@ -187,22 +187,22 @@ export default function HealthSummaryHome({ pageProps }) {
 
       <article className="hs-highlight-card tone-violet">
         <div className="hs-highlight-title"><TrendingUp size={21}/><span>Goal progress</span></div>
-        <h3>{activeGoals.length ? `You're showing up for ${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}.` : 'Your next milestone starts with one clear goal.'}</h3>
+        <h3>{activeGoals.length ? `You're showing up for ${activeGoals.length} active ${activeGoals.length === 1 ? 'goal' : 'goals'}.` : 'No active goals'}</h3>
         <div className="hs-highlight-divider"/>
         {activeGoals.length ? <div className="hs-goal-highlight-list">
           {activeGoals.slice(0, 3).map(goal => <div key={goal.id} className="hs-goal-highlight">
             <span><strong>{goal.title}</strong><small>{Math.max(0, Math.min(100, Number(goal.progress || 0)))}%</small></span>
             <i><b style={{ width: `${Math.max(0, Math.min(100, Number(goal.progress || 0)))}%` }}/></i>
           </div>)}
-        </div> : <p className="hs-empty-note">Create a goal to see your progress here.</p>}
+        </div> : <p className="hs-empty-note">Add a goal to get started.</p>}
       </article>
     </section>
 
-    <SummaryRow icon={TrendingUp} tone="teal" title="Show All Progress" detail="Explore your growth over time" onClick={() => goTo('progress')}/>
+    <SummaryRow icon={TrendingUp} tone="teal" title="Show All Progress" detail="" onClick={() => goTo('progress')}/>
 
     <section className="hs-secondary-actions">
-      <SummaryRow icon={Heart} tone="rose" title="How are you feeling?" detail="Check in with how you feel" onClick={openMood}/>
-      <SummaryRow icon={BookOpen} tone="violet" title="Faith & spiritual growth" detail="Grow through daily reflection" onClick={() => goTo('faith')}/>
+      <SummaryRow icon={Heart} tone="rose" title="How are you feeling?" detail="" onClick={openMood}/>
+      <SummaryRow icon={BookOpen} tone="violet" title="Faith & spiritual growth" detail="" onClick={() => goTo('faith')}/>
     </section>
 
     {streakOpen && <div className="hs-streak-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) setStreakOpen(false) }}>
@@ -216,7 +216,7 @@ export default function HealthSummaryHome({ pageProps }) {
             else if (navigator.clipboard?.writeText) navigator.clipboard.writeText(message).catch(() => {})
           }}>↗</button>
         </div>
-        <h2 id="hs-streak-title">Streaks help you build your daily habit.</h2>
+        <h2 id="hs-streak-title">Your streaks</h2>
         <div className="hs-streak-stats">
           <article><span className="hs-streak-symbol">🔥</span><strong>{streakDays}</strong><small>App streak</small><em>Best {bestAppStreak} days</em></article>
           <article><span className="hs-streak-symbol">☀</span><strong>{reflectionDays}</strong><small>Reflection streak</small><em>Keep showing up</em></article>
