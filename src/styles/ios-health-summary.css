@@ -17,6 +17,28 @@
 }
 html, body, #root { background: var(--ev-bg) !important; color: var(--ev-text) !important; }
 body { background: var(--ev-bg) !important; }
+body::before {
+  content:""; position:fixed; z-index:0; pointer-events:none; inset:0 0 auto;
+  height:42vh; min-height:300px; max-height:520px;
+  opacity:calc(1 - var(--hs-scroll-progress, 0));
+  background:
+    radial-gradient(ellipse at 7% 0%, rgba(145,224,195,.72) 0%, rgba(145,224,195,0) 43%),
+    radial-gradient(ellipse at 96% 0%, rgba(244,174,190,.76) 0%, rgba(244,174,190,0) 48%),
+    radial-gradient(ellipse at 52% 0%, rgba(255,190,142,.72) 0%, rgba(255,190,142,0) 54%),
+    linear-gradient(180deg, rgba(255,220,193,.28), rgba(242,242,247,0) 92%);
+  filter:blur(18px); transition:opacity .12s linear;
+}
+.dashboard { position:relative; z-index:1; background:transparent !important; }
+.dash-main { position:relative; z-index:1; background:transparent !important; }
+.app-topbar {
+  position:sticky !important; top:0; z-index:1000; min-height:66px;
+  padding:10px 16px !important; background:rgba(255,255,255,.48) !important;
+  border:0 !important; box-shadow:none !important;
+  backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%);
+}
+.app-topbar-title { color:#151519 !important; font-weight:800 !important; }
+.app-logo-button,.app-topbar-actions button { color:#222228 !important; }
+.app-topbar-actions button { background:rgba(255,255,255,.66) !important; border-color:rgba(255,255,255,.8) !important; }
 #root { min-height: 100dvh; }
 .hs-home { width: min(100%, 760px); margin: 0 auto; padding: 18px 18px 0; color: var(--ev-text); font-family: -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Segoe UI", sans-serif; }
 .hs-home-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; padding: 24px 4px 28px; }
