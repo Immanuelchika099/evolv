@@ -1228,3 +1228,41 @@ html:has(.legal-page) body::after {
   -webkit-mask-image: none !important;
   mask-image: none !important;
 }
+
+
+/* Daily Reflection is rendered in a body portal so dashboard stacking contexts
+   cannot cover it. Keep the dialog centered on every viewport, including phones. */
+.reflection-overlay {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483646 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  box-sizing: border-box !important;
+  background: rgba(20, 20, 24, .48) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(120%) !important;
+  backdrop-filter: blur(16px) saturate(120%) !important;
+  overflow-y: auto !important;
+  overscroll-behavior: contain !important;
+}
+.reflection-sheet {
+  position: relative !important;
+  z-index: 1 !important;
+  width: min(100%, 480px) !important;
+  max-height: min(90dvh, 900px) !important;
+  margin: auto !important;
+  box-sizing: border-box !important;
+}
+@media (max-width: 480px) {
+  .reflection-overlay {
+    align-items: center !important;
+    padding: 18px !important;
+  }
+  .reflection-sheet {
+    width: min(100%, 480px) !important;
+    max-height: calc(100dvh - 36px) !important;
+    border-radius: 28px !important;
+  }
+}
