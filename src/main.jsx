@@ -18,6 +18,14 @@ import { applyThemePreference, getThemePreference } from './lib/theme'
 
 applyThemePreference(getThemePreference())
 
+// Shared top aurora fades away as any authenticated page scrolls.
+const syncSummaryScroll = () => {
+  const progress = Math.min(1, Math.max(0, window.scrollY / 300))
+  document.documentElement.style.setProperty('--hs-scroll-progress', String(progress))
+}
+syncSummaryScroll()
+window.addEventListener('scroll', syncSummaryScroll, { passive: true })
+
 if (Capacitor.getPlatform() === 'ios') {
   void Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(() => {})
 }
