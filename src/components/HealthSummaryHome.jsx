@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import {
-  Activity, ArrowRight, BookOpen, CheckCircle2, ChevronRight, Flame,
-  Focus, Heart, NotebookPen, Sparkles, Target, TrendingUp
+  Activity, BookOpen, ChevronRight, Flame, Focus, Heart, NotebookPen, Target, TrendingUp
 } from 'lucide-react'
 import DailyAIInsight from './DailyAIInsight'
 import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
