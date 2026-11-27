@@ -55,6 +55,21 @@ export default function HealthSummaryHome({ pageProps }) {
   const moodDef = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
   const moodToday = moodDef && todayLogs.find(log => String(log.metric_id) === String(moodDef.id))
   const todayCount = todayLogs.length + todayMeals.length
+  const streakDays = useMemo(() => {
+    const activeDates = new Set([...logs, ...meals].map(item => {
+      const stamp = item.logged_at || item.created_at || item.date || item.recorded_at
+      return stamp ? dateKey(stamp) : null
+    }).filter(Boolean))
+    const cursor = new Date()
+    cursor.setHours(0, 0, 0, 0)
+    if (!activeDates.has(dateKey(cursor))) cursor.setDate(cursor.getDate() - 1)
+    let count = 0
+    while (activeDates.has(dateKey(cursor))) {
+      count += 1
+      cursor.setDate(cursor.getDate() - 1)
+    }
+    return count
+  }, [logs, meals])
 
   const week = useMemo(() => Array.from({ length: 7 }, (_, index) => {
     const now = new Date()
@@ -116,7 +131,7 @@ export default function HealthSummaryHome({ pageProps }) {
         <PinCard title="Today's Activity" tone="orange" icon={Activity} value={todayCount} unit=" entries" detail="Today" onClick={() => goTo('logs')} graphic={<MiniBars tone="orange" values={week.map(day => day.count)}/>} />
         <PinCard title="Today's Focus" tone="amber" icon={Focus} value={focusToday ? latestFocus : '—'} unit="" detail="Today" onClick={() => focusDef ? openLog(metricArea[focusDef.slug] || 'career', focusDef) : goTo('goals')} graphic={<span className="hs-orb tone-amber"><span/></span>} />
         <PinCard title="Reflection" tone="teal" icon={NotebookPen} value={moodToday ? moodValue : 'Ready'} unit="" detail="Today" onClick={openReflection} graphic={<span className="hs-reflection-mark"><Heart size={28} fill="currentColor"/></span>} />
-        <PinCard title="Active Goals" tone="rose" icon={Flame} value={activeGoals.length} unit={activeGoals.length === 1 ? ' goal' : ' goals'} detail="In progress" onClick={() => goTo('goals')} graphic={<MiniBars tone="rose" values={activeGoals.slice(0, 5).map(goal => Number(goal.progress || 0))}/>} />
+        <PinCard title="Streak" tone="rose" icon={Flame} value={streakDays} unit={streakDays === 1 ? ' day' : ' days'} detail="Current" onClick={() => goTo('progress')} graphic={<MiniBars tone="rose" values={week.map(day => day.count)}/>} />} />
       </div>
     </section>
 
