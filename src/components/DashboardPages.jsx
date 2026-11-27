@@ -646,7 +646,7 @@ function GoalsPage({ pageProps }) {
       const isExpanded = expandedGoalId === g.id
       return <article className={`goal-item goal-accordion-item ${isExpanded ? 'is-expanded' : 'is-collapsed'}`} key={g.id}>
         <button type="button" className="goal-accordion-trigger" aria-expanded={isExpanded} onClick={() => setExpandedGoalId(current => current === g.id ? null : g.id)}>
-          <span className="goal-accordion-heading"><span className="goal-accordion-status">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><strong>{g.title}</strong></span>
+          <span className="goal-accordion-heading"><span className="goal-summary-icon" aria-hidden="true">{isHabit?<Sprout size={19}/>:<BriefcaseBusiness size={19}/>}</span><span className="goal-accordion-copy"><span className="goal-accordion-status">{g.status==='completed'?'Completed':g.status==='archived'?'Archived':'In progress'} · {isHabit?'Habit':'Project'}</span><strong>{g.title}</strong></span></span>
           <ChevronDown size={18} aria-hidden="true" className="goal-accordion-chevron" />
         </button>
         <div className="goal-item-content"><div className="goal-item-content-inner">
