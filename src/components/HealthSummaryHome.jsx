@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   Activity, BookOpen, ChevronRight, Flame, Focus, Heart, NotebookPen, Target, TrendingUp
 } from 'lucide-react'
-import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
 
 function dateKey(date) {
   const d = new Date(date)
@@ -46,10 +45,6 @@ export default function HealthSummaryHome({ pageProps }) {
   } = pageProps
 
   const firstName = String(name || '').trim().split(/\s+/)[0] || 'there'
-  const [avatarStyle] = useState(() => {
-    try { return { ...DEFAULT_AVATAR, ...JSON.parse(localStorage.getItem('evolv-avatar-preferences') || '{}') } }
-    catch { return { ...DEFAULT_AVATAR } }
-  })
   const activeGoals = goals.filter(goal => goal.status === 'active')
   const moodDef = defs.find(def => ['mood', 'feeling', 'emotional-wellbeing'].includes(String(def.slug || '').toLowerCase()))
   const moodToday = moodDef && todayLogs.find(log => String(log.metric_id) === String(moodDef.id))
@@ -110,13 +105,9 @@ export default function HealthSummaryHome({ pageProps }) {
   return <main className="hs-home">
     <header className="hs-home-heading">
       <div className="hs-home-heading-copy">
-        <span className="hs-date">{now.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</span>
-        <h1>{greeting},<br/>{firstName}!</h1>
-        <p>ONE DAY AT A TIME. Your growth, at a glance.</p>
+        <span className="hs-date">{now.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })}</span>
+        <h1>{greeting}, {firstName}!</h1>
       </div>
-      <button className="hs-avatar-button" type="button" onClick={() => goTo('profile')} aria-label="Open profile">
-        <AvatarPortrait preferences={avatarStyle} expression="normal" className="hs-avatar"/>
-      </button>
     </header>
 
     {returningAfterBreak && <section className="hs-welcome-back">
@@ -159,18 +150,18 @@ export default function HealthSummaryHome({ pageProps }) {
         <div className="hs-highlight-divider"/>
         {activeGoals.length ? <div className="hs-goal-highlight-list">
           {activeGoals.slice(0, 3).map(goal => <div key={goal.id} className="hs-goal-highlight">
-            <span><strong>{goal.title}</strong><small>{Math.max(0, Math.min(100, Number(goal.progress || 0)))}% complete</small></span>
+            <span><strong>{goal.title}</strong><small>{Math.max(0, Math.min(100, Number(goal.progress || 0)))}%</small></span>
             <i><b style={{ width: `${Math.max(0, Math.min(100, Number(goal.progress || 0)))}%` }}/></i>
           </div>)}
         </div> : <p className="hs-empty-note">Create a goal to see your progress here.</p>}
       </article>
     </section>
 
-    <SummaryRow icon={TrendingUp} tone="teal" title="Show All Progress" detail="Explore your activity and growth over time" onClick={() => goTo('progress')}/>
+    <SummaryRow icon={TrendingUp} tone="teal" title="Show All Progress" detail="Explore your growth over time" onClick={() => goTo('progress')}/>
 
     <section className="hs-secondary-actions">
-      <SummaryRow icon={Heart} tone="rose" title="How are you feeling?" detail="Take a moment for a mood check-in" onClick={openMood}/>
-      <SummaryRow icon={BookOpen} tone="violet" title="Faith & spiritual growth" detail="Daily Bible study and reflection" onClick={() => goTo('faith')}/>
+      <SummaryRow icon={Heart} tone="rose" title="How are you feeling?" detail="Check in with how you feel" onClick={openMood}/>
+      <SummaryRow icon={BookOpen} tone="violet" title="Faith & spiritual growth" detail="Grow through daily reflection" onClick={() => goTo('faith')}/>
     </section>
 
     <div className="hs-bottom-space" aria-hidden="true"/>
