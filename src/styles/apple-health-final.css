@@ -748,3 +748,44 @@ html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .dash
 html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .bottom-nav {
   background: transparent !important;
 }
+
+
+/* Final spacing + greeting refinement: give page content breathing room below the status area. */
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home {
+  padding-top: 28px !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading {
+  align-items: flex-start !important;
+  padding: 12px 2px 26px !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading-copy {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading h1 {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 2px !important;
+  font-size: clamp(30px, 8vw, 38px) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.045em !important;
+  font-weight: 820 !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading h1 span {
+  display: block;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading h1 .hs-home-first-name {
+  font-size: .94em !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-avatar {
+  margin-top: 5px !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) :is(.panel-page,.goals-page,.progress-page,.daily-routine-page,.profile-v2,.settings-page,.profile-page,.notifications-page,.area-page) {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 34px) !important;
+}
+@media (max-width: 700px) {
+  html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home {
+    padding-top: 28px !important;
+  }
+}
