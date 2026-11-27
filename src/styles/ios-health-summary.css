@@ -847,3 +847,53 @@ html[data-theme="light"] body #root .dashboard .streak-sheet .streak-week .cell.
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+
+/* While the Streaks sheet is open, keep the app chrome out of view. */
+body.streak-modal-open .evolv-bottom-nav,
+body.streak-modal-open .evolv-fabs,
+body.streak-modal-open .bottom-nav,
+body.streak-modal-open .evolv-ai-fab,
+body.streak-modal-open .evolv-floating-log {
+  display: none !important;
+}
+
+/* Streak sheet controls sit directly on the sheet: no white tray or button circles. */
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-head {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-tools {
+  display: flex !important;
+  align-items: center !important;
+  gap: 18px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-tools button {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+  color: #42424A !important;
+  -webkit-text-fill-color: #42424A !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-tools button svg {
+  color: #42424A !important;
+  stroke: currentColor !important;
+}
+html[data-theme="light"] body #root .dashboard .streak-sheet .streak-tools button:focus-visible {
+  outline: 2px solid #E97832 !important;
+  outline-offset: 3px !important;
+}
