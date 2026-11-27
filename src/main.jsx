@@ -15,6 +15,7 @@ import './theme.css'
 import './styles/evolv-health-redesign.css'
 import './styles/ios-health-summary.css'
 import './styles/light-dashboard-visual-fixes.css'
+import './styles/apple-health-full-app-refresh.css'
 import { applyThemePreference, getThemePreference } from './lib/theme'
 
 applyThemePreference(getThemePreference())
