@@ -1995,3 +1995,27 @@ html body #root .dashboard .profile-page button.active,
 html body #root .dashboard .profile-settings-page button.active,
 html body #root .dashboard .settings-toggle.active { color:var(--color-accent-blue) !important; background:color-mix(in srgb, var(--color-accent-blue) 12%, transparent) !important; border-color:color-mix(in srgb, var(--color-accent-blue) 40%, transparent) !important; }
 html body #root .dashboard .home-progress-ring { background:conic-gradient(from -90deg,var(--color-accent-blue) var(--home-progress),rgba(255,255,255,.09) var(--home-progress)) !important; }
+
+
+/* Bottom navigation: selected item keeps its tint, but every label/icon stays black. */
+html body #root .dashboard .evolv-bottom-nav button.bottom-active,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active:hover,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active:focus,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active:active {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+}
+html body #root .dashboard .evolv-bottom-nav button.bottom-active *,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active > span,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active > span svg *,
+html body #root .dashboard .evolv-bottom-nav button.bottom-active small {
+  color: #17171B !important;
+  -webkit-text-fill-color: #17171B !important;
+  fill: none !important;
+  stroke: #17171B !important;
+}
+html body #root .dashboard .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
+  color: #17171B !important;
+  border-color: #17171B !important;
+}
