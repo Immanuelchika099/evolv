@@ -108,6 +108,7 @@ export default function HealthSummaryHome({ pageProps }) {
 
   const week = useMemo(() => Array.from({ length: 7 }, (_, index) => {
     const now = new Date()
+  const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
     const monday = new Date(now)
     monday.setHours(0, 0, 0, 0)
     monday.setDate(monday.getDate() - ((monday.getDay() + 6) % 7) + index)
@@ -144,7 +145,7 @@ export default function HealthSummaryHome({ pageProps }) {
 
   return <main className="hs-home">
     <header className="hs-home-heading">
-      <div className="hs-home-heading-copy"><h1>Summary</h1></div>
+      <div className="hs-home-heading-copy"><h1>{greeting}, {firstName}</h1></div>
       <button type="button" className="hs-home-avatar" onClick={() => goTo('profile')} aria-label="Open profile">{firstName.slice(0,1).toUpperCase()}</button>
     </header>
 
