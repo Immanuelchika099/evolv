@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react'
 import {
   Activity, BookOpen, ChevronRight, Flame, Focus, Heart, NotebookPen, Target, TrendingUp
 } from 'lucide-react'
-import DailyAIInsight from './DailyAIInsight'
 import { AvatarPortrait, DEFAULT_AVATAR } from './AvatarStudio'
 
 function dateKey(date) {
@@ -174,7 +173,6 @@ export default function HealthSummaryHome({ pageProps }) {
       <SummaryRow icon={BookOpen} tone="violet" title="Faith & spiritual growth" detail="Daily Bible study and reflection" onClick={() => goTo('faith')}/>
     </section>
 
-    <DailyAIInsight dataLoading={loading} name={name} defs={defs} logs={logs} meals={meals} goals={goals} valueText={valueText} goTo={goTo}/>
     <div className="hs-bottom-space" aria-hidden="true"/>
   </main>
 }
