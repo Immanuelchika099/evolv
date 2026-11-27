@@ -369,3 +369,27 @@ html[data-summary-scrolled="true"] .app-topbar-title { opacity:1 !important; tra
 .app-logo-button,.app-topbar-title { transition:opacity .22s ease,transform .22s ease !important; }
 .app-topbar-title { opacity:0; transform:translateY(5px); }
 @media(prefers-reduced-motion:reduce) { .app-logo-button,.app-topbar-title { transition:none !important; } }
+
+
+/* Secondary routes and historical/detail views inherit the same grouped surface language. */
+.faith-page,.money-page,.notifications-page,.logs-page,.log-detail-page,.area-options-page {
+  max-width:760px !important; margin:0 auto !important; padding:22px 16px 36px !important;
+  color:#17171B !important; background:transparent !important;
+}
+.faith-study-card,.faith-journal-card,.money-list,.money-transaction-row,
+.notifications-page-hero,.notifications-page-list,.logs-page-hero,.logs-page-list,
+.log-detail-card,.area-options-list,.area-options-history {
+  background:#fff !important; color:#17171B !important; border:0 !important;
+  border-radius:24px !important; box-shadow:var(--ev-shadow) !important;
+}
+.faith-page h1,.faith-page h2,.faith-page h3,.money-page h1,.money-page h2,
+.notifications-page h1,.notifications-page h2,.logs-page h1,.logs-page h2,
+.log-detail-page h1,.log-detail-page h2 { color:#17171B !important; font-weight:800 !important; }
+.faith-page p,.money-page p,.notifications-page p,.logs-page p,.log-detail-page p { color:#85858D !important; }
+.faith-day-arrows button,.money-row-more,.notification-page-delete { color:#85858D !important; }
+.money-transaction-row,.logs-page-row,.area-option-row,.notification-page-icon {
+  border-color:#ECECF1 !important; color:#24242A !important;
+}
+.money-form-heading,.logs-page-toolbar,.area-options-heading { color:#17171B !important; }
+.area-option-row,.logs-page-row { background:#fff !important; border-radius:18px !important; }
+.area-option-icon,.logs-page-icon,.notification-page-icon { background:#FFF0E5 !important; color:#E77D32 !important; }
