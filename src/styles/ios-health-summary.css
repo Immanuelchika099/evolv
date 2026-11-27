@@ -892,3 +892,108 @@ html[data-theme="light"] body #root .dashboard .streak-sheet .streak-tools butto
   outline: 2px solid #E97832 !important;
   outline-offset: 3px !important;
 }
+
+/* Home canvas: one full-screen surface, no extra top scrims or glass panels. */
+html, body, #root {
+  width: 100%;
+  min-height: 100%;
+  min-height: 100dvh;
+  background: #F2F2F7 !important;
+}
+body { margin: 0; }
+#root { min-height: 100dvh !important; }
+.dashboard {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  min-height: 100vh !important;
+  min-height: 100dvh !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: #F2F2F7 !important;
+}
+
+/* The top navigation belongs to the page canvas; only add safe-area spacing.
+   No translucent white rectangle, blur sheet, border, or shadow. */
+.dashboard .app-topbar {
+  position: sticky !important;
+  top: 0 !important;
+  flex: 0 0 auto !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+  min-height: calc(66px + env(safe-area-inset-top, 0px)) !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.dashboard .dash-main {
+  position: relative !important;
+  z-index: 1 !important;
+  flex: 1 0 auto !important;
+  width: 100% !important;
+  min-height: calc(100dvh - 66px - env(safe-area-inset-top, 0px)) !important;
+  margin: 0 !important;
+  padding: 0 0 calc(112px + env(safe-area-inset-bottom, 0px)) !important;
+  box-sizing: border-box !important;
+  background: transparent !important;
+}
+.dashboard .dashboard-home {
+  min-height: calc(100dvh - 66px - env(safe-area-inset-top, 0px)) !important;
+  box-sizing: border-box !important;
+  padding: 12px 18px 132px !important;
+  background: transparent !important;
+}
+@media (max-width: 430px) {
+  .dashboard .dashboard-home { padding: 12px 14px 124px !important; }
+}
+
+/* A single aurora layer replaces the stacked dashboard and dash-main overlays.
+   Its colors are richer but diffused: no glossy highlights or bright glow. */
+.dashboard::before {
+  content: "" !important;
+  position: fixed !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  inset: -8vh -22vw auto !important;
+  height: 76vh !important;
+  min-height: 420px !important;
+  max-height: 760px !important;
+  opacity: calc(.94 - var(--hs-scroll-progress, 0) * .52) !important;
+  background:
+    radial-gradient(ellipse at 12% 22%, rgba(112, 205, 174, .48) 0%, transparent 43%),
+    radial-gradient(ellipse at 83% 14%, rgba(222, 157, 196, .43) 0%, transparent 46%),
+    radial-gradient(ellipse at 48% 4%, rgba(244, 177, 128, .48) 0%, transparent 49%),
+    radial-gradient(ellipse at 66% 64%, rgba(163, 151, 218, .34) 0%, transparent 46%),
+    radial-gradient(ellipse at 5% 72%, rgba(224, 194, 126, .26) 0%, transparent 40%) !important;
+  background-size: 190% 190% !important;
+  background-position: 0% 10% !important;
+  filter: blur(34px) saturate(108%) !important;
+  transform: translate3d(0,0,0) !important;
+  animation: evolv-home-aurora-flow 30s cubic-bezier(.45,0,.55,1) infinite alternate !important;
+  transition: opacity .2s linear !important;
+}
+.dashboard .dash-main::before,
+.dashboard .dash-main::after,
+.dashboard::after {
+  content: none !important;
+  display: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+@keyframes evolv-home-aurora-flow {
+  0%   { background-position: 0% 12%; transform: translate3d(-1.5%,0,0) scale(1); }
+  25%  { background-position: 48% 32%; transform: translate3d(1.5%,1.5%,0) scale(1.025); }
+  50%  { background-position: 100% 8%; transform: translate3d(2%,3%,0) scale(1.04); }
+  75%  { background-position: 58% 70%; transform: translate3d(-1%,2%,0) scale(1.025); }
+  100% { background-position: 4% 42%; transform: translate3d(-2%,1%,0) scale(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard::before { animation: none !important; }
+}
