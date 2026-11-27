@@ -16,11 +16,12 @@ import HoldButton from './HoldButton'
 import ProfileSettingsPage from './ProfileSettingsPage'
 import DailyRoutinePage from './DailyRoutinePage'
 import DailyAIInsight from './DailyAIInsight'
+import HealthSummaryHome from './HealthSummaryHome'
 import MoneyPage from './MoneyPage'
 import FaithGrowthPage from './FaithGrowthPage'
 
 export function DashboardPages({ active, pageProps }) {
-  if (active === 'overview') return <HomePage pageProps={pageProps} />
+  if (active === 'overview') return <HealthSummaryHome pageProps={pageProps} />
   if (active === 'routine') return <DailyRoutinePage pageProps={pageProps} />
   if (active === 'faith') return <FaithGrowthPage />
   if (active === 'money') return <MoneyPage defs={pageProps.defs} logs={pageProps.logs} />
