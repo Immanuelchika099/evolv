@@ -1853,3 +1853,72 @@ html[data-theme="light"] body #root nav.evolv-bottom-nav button.bottom-active > 
   stroke: currentColor !important;
   fill: none !important;
 }
+
+
+/* Bottom dock stability: render at the document viewport level so transformed
+   dashboard/aurora layers cannot capture fixed positioning during scroll.
+   Avoid translate transforms and backdrop-filter compositing on the dock. */
+html[data-theme="light"] body nav.evolv-bottom-nav {
+  position: fixed !important;
+  inset-inline: 14px !important;
+  left: 14px !important;
+  right: 14px !important;
+  bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+  width: auto !important;
+  max-width: 520px !important;
+  height: 78px !important;
+  min-height: 78px !important;
+  margin-inline: auto !important;
+  padding: 7px !important;
+  box-sizing: border-box !important;
+  display: grid !important;
+  grid-template-columns: repeat(5, minmax(0, 1fr)) !important;
+  align-items: stretch !important;
+  gap: 2px !important;
+  transform: none !important;
+  translate: none !important;
+  z-index: 2147483000 !important;
+  background: rgba(255,255,255,.94) !important;
+  background-color: rgba(255,255,255,.94) !important;
+  background-image: none !important;
+  border: 1px solid rgba(225,225,232,.9) !important;
+  border-radius: 26px !important;
+  box-shadow: 0 8px 28px rgba(25,25,32,.12) !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  will-change: auto !important;
+  contain: none !important;
+  isolation: isolate !important;
+}
+html[data-theme="light"] body nav.evolv-bottom-nav > button {
+  width: 100% !important;
+  min-width: 0 !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 5px 2px !important;
+  color: #777780 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+  transition: color .16s ease !important;
+}
+html[data-theme="light"] body nav.evolv-bottom-nav > button.bottom-active,
+html[data-theme="light"] body nav.evolv-bottom-nav > button.bottom-active :is(span,small,svg),
+html[data-theme="light"] body nav.evolv-bottom-nav > button.bottom-active svg * {
+  color: #090909 !important;
+  -webkit-text-fill-color: #090909 !important;
+  stroke: #090909 !important;
+  fill: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+html[data-theme="light"] body nav.evolv-bottom-nav > button > span {
+  color: inherit !important;
+}
+@media (min-width: 701px) {
+  html[data-theme="light"] body nav.evolv-bottom-nav {
+    bottom: 18px !important;
+  }
+}
