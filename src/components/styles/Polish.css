@@ -1341,3 +1341,20 @@ html body #root .evolv-bottom-nav button.bottom-active .bottom-profile-icon {
   color:#17171B !important;
   border-color:#17171B !important;
 }
+
+
+/* The streak modal must sit above the fixed bottom navigation (z-index: 100000).
+   Establish a higher portal stacking context so the sheet and its backdrop cover
+   the entire app chrome while the dialog is open. */
+body .streak-modal-root {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100001 !important;
+  isolation: isolate !important;
+}
+body .streak-modal-root .streak-overlay {
+  z-index: 0 !important;
+}
+body .streak-modal-root .streak-sheet {
+  z-index: 1 !important;
+}
