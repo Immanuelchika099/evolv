@@ -190,3 +190,195 @@ body { overflow-x: clip; }
 .hs-streak-foot strong { color: #111114; font-size: 16px; }
 .hs-streak-foot span { color: #85858d; font-size: 13px; }
 @media (prefers-reduced-motion: reduce) { .hs-streak-sheet { animation: none; } }
+
+
+/* =========================================================
+   EVOLV iOS Health finish — Goals, Progress, Routine, Profile, AI
+   Visual-only overrides. Existing state, navigation and storage remain intact.
+   ========================================================= */
+.dashboard .dash-main { padding-inline: 0 !important; }
+.dashboard .panel-page { box-sizing: border-box; width: 100%; max-width: 760px; margin-inline: auto; padding: 22px 16px calc(128px + env(safe-area-inset-bottom,0px)) !important; color: #111114 !important; }
+.dashboard .panel-page :is(h1,h2,h3,h4,strong,b,label) { color: #111114; text-shadow: none !important; }
+.dashboard .panel-page :is(p,small,.section-label,.muted,.subtitle) { color: #77777f; }
+.dashboard .panel-page :is(button,input,textarea,select) { font-family: inherit; }
+.dashboard .panel-page :is(input,textarea,select) { color: #111114; color-scheme: light; }
+.dashboard .panel-page :is(input,textarea)::placeholder { color: #9999a1; opacity: 1; }
+.dashboard .panel-page :is(input,textarea,select):focus-visible,
+.dashboard .panel-page button:focus-visible { outline: 2px solid rgba(242,100,26,.55); outline-offset: 2px; }
+
+/* Goals */
+.dashboard .goals-page { padding-top: 24px !important; }
+.dashboard .goals-page > h2 { margin: 0 0 20px !important; padding-top: 0 !important; font-size: 36px; line-height: 1.05; font-weight: 850; letter-spacing: -.055em; }
+.dashboard .goals-page .goal-create-form {
+  display: grid; gap: 13px; margin: 0 0 26px; padding: 18px;
+  border: 1px solid rgba(60,60,67,.08); border-radius: 26px;
+  background: #fff !important; color: #111114 !important;
+  box-shadow: 0 3px 16px rgba(30,30,48,.045);
+}
+.dashboard .goals-page .goal-type-choice { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 4px; border-radius: 999px; background: #f2f2f7; }
+.dashboard .goals-page .goal-type-choice button { min-height: 42px; display: flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 999px; background: transparent; color: #55555d !important; font-size: 14px; font-weight: 700; }
+.dashboard .goals-page .goal-type-choice button.is-active { background: #fff; color: #111114 !important; box-shadow: 0 2px 8px rgba(0,0,0,.08); }
+.dashboard .goals-page .goal-create-form :is(input,textarea) { width: 100%; min-width: 0; box-sizing: border-box; padding: 13px 14px; border: 1px solid rgba(60,60,67,.13); border-radius: 14px; background: #f8f8fa; color: #111114 !important; font-size: 14px; }
+.dashboard .goals-page .goal-create-form textarea { min-height: 88px; resize: vertical; }
+.dashboard .goals-page .goal-create-form label { display: grid; gap: 7px; color: #55555d; font-size: 12px; font-weight: 700; }
+.dashboard .goals-page .goal-create-form label small { color: #9999a1; font-weight: 500; }
+.dashboard .goals-page .goal-form-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.dashboard .goals-page .goal-form-actions button,
+.dashboard .goals-page .goal-item-actions > button,
+.dashboard .goals-page .goal-item-actions select { min-height: 40px; border-radius: 999px; }
+.dashboard .goals-page .goal-form-actions .button-primary { background: #f2641a !important; border-color: #f2641a !important; color: #fff !important; }
+.dashboard .goals-page .goal-list { gap: 12px; margin-top: 18px; }
+.dashboard .goals-page .goal-item { padding: 18px !important; border: 1px solid rgba(60,60,67,.08) !important; border-radius: 24px !important; background: #fff !important; color: #111114 !important; box-shadow: 0 3px 16px rgba(30,30,48,.045) !important; }
+.dashboard .goals-page .goal-item::before { display: none !important; content: none !important; }
+.dashboard .goals-page .goal-item :is(h3,p,strong,span,label) { color: #111114 !important; text-shadow: none !important; }
+.dashboard .goals-page .goal-item p,.dashboard .goals-page .goal-due-copy,.dashboard .goals-page .goal-status-copy { color: #77777f !important; }
+.dashboard .goals-page .mini-progress { height: 7px; border-radius: 99px; background: #eeeeF2 !important; }
+.dashboard .goals-page .mini-progress i { background: #f2641a !important; box-shadow: none !important; }
+.dashboard .goals-page .goal-item-actions select { padding: 0 12px; border: 1px solid rgba(60,60,67,.12); background: #f5f5f8; color: #111114 !important; }
+.dashboard .goals-page .goal-item-actions > button { padding: 0 14px; border: 1px solid rgba(60,60,67,.12); background: #f5f5f8; color: #111114 !important; }
+
+/* Progress */
+.dashboard .progress-page { padding-top: 24px !important; }
+.dashboard .progress-page .progress-heading { margin: 0 0 22px; }
+.dashboard .progress-page .progress-heading h2 { color: #111114 !important; font-size: 36px; line-height: 1.05; font-weight: 850; letter-spacing: -.055em; }
+.dashboard .progress-page .progress-section-card,
+.dashboard .progress-page .progress-overview-card,
+.dashboard .progress-page .progress-heatmap-card,
+.dashboard .progress-page .home-heatmap-card {
+  border: 1px solid rgba(60,60,67,.08) !important; border-radius: 24px !important;
+  background: #fff !important; color: #111114 !important;
+  box-shadow: 0 3px 16px rgba(30,30,48,.045) !important;
+}
+.dashboard .progress-page :is(.progress-section-card,.progress-overview-card,.progress-heatmap-card,.home-heatmap-card) :is(h2,h3,strong,b,span,p) { color: #111114; text-shadow: none !important; }
+.dashboard .progress-page :is(.progress-section-head,.home-heatmap-heading) { gap: 12px; }
+.dashboard .progress-page .progress-section-head h3 { font-size: 20px; font-weight: 800; letter-spacing: -.035em; }
+.dashboard .progress-page .progress-section-head button { color: #b4480c !important; }
+.dashboard .progress-page .progress-goal-row { padding: 14px 0; border-top: 1px solid rgba(60,60,67,.08); }
+.dashboard .progress-page .progress-goal-row-top span,
+.dashboard .progress-page .home-heatmap-footer { color: #85858d !important; }
+.dashboard .progress-page .progress-goal-track { background: #eeeeF2 !important; }
+.dashboard .progress-page .progress-goal-track i { background: #f2641a !important; box-shadow: none !important; }
+.dashboard .progress-page .home-heatmap-cell.level-0 { background: #f0f0f4 !important; }
+.dashboard .progress-page .home-heatmap-cell.level-1 { background: #fbd7c4 !important; }
+.dashboard .progress-page .home-heatmap-cell.level-2 { background: #f7b18c !important; }
+.dashboard .progress-page .home-heatmap-cell.level-3 { background: #f58b58 !important; }
+.dashboard .progress-page .home-heatmap-cell.level-4 { background: #f2641a !important; }
+.dashboard .progress-page .progress-overview-card { padding: 18px; }
+.dashboard .progress-page .progress-overview-card strong { color: #111114 !important; font-size: 28px; }
+.dashboard .progress-page .progress-overview-card p { color: #85858d !important; }
+
+/* Routine */
+.dashboard .daily-routine-page { max-width: 760px; padding: 24px 16px calc(128px + env(safe-area-inset-bottom,0px)) !important; color: #111114 !important; }
+.dashboard .daily-routine-page .routine-heading { align-items: center; gap: 10px; margin-bottom: 20px; }
+.dashboard .daily-routine-page .routine-heading h1 { margin: 0; color: #111114 !important; font-size: 35px; line-height: 1.05; font-weight: 850; letter-spacing: -.055em; }
+.dashboard .daily-routine-page .routine-heading h1 span { color: #f2641a !important; }
+.dashboard .daily-routine-page .routine-date { padding: 8px 11px; border: 0; background: #fff; color: #77777f !important; font-size: 11px; }
+.dashboard .daily-routine-page .routine-progress-panel,
+.dashboard .daily-routine-page .routine-insight-card,
+.dashboard .daily-routine-page .routine-group,
+.dashboard .daily-routine-page .routine-next-step,
+.dashboard .daily-routine-page .routine-reminder-note {
+  border: 1px solid rgba(60,60,67,.08) !important; border-radius: 22px !important;
+  background: #fff !important; color: #111114 !important;
+  box-shadow: 0 3px 16px rgba(30,30,48,.045) !important;
+}
+.dashboard .daily-routine-page .routine-progress-panel { padding: 18px !important; }
+.dashboard .daily-routine-page .routine-progress-top h2,
+.dashboard .daily-routine-page .routine-progress-top > strong,
+.dashboard .daily-routine-page .routine-insight-card > strong,
+.dashboard .daily-routine-page .routine-section-heading h2,
+.dashboard .daily-routine-page .routine-row-copy strong { color: #111114 !important; }
+.dashboard .daily-routine-page :is(.routine-label,.routine-eyebrow,.routine-progress-bottom,.routine-heading p,.routine-section-heading p,.routine-row-copy small) { color: #85858d !important; }
+.dashboard .daily-routine-page .routine-progress-top > strong { color: #f2641a !important; }
+.dashboard .daily-routine-page .routine-progress-track { height: 7px; background: #eeeeF2 !important; }
+.dashboard .daily-routine-page .routine-progress-track span { background: #f2641a !important; }
+.dashboard .daily-routine-page .routine-progress-bottom button { color: #b4480c !important; }
+.dashboard .daily-routine-page .routine-section-heading h2 { font-size: 23px; font-weight: 800; }
+.dashboard .daily-routine-page .routine-coach-card { color: #111114 !important; border: 1px solid rgba(60,60,67,.08); border-radius: 22px; background: #fff !important; box-shadow: 0 3px 16px rgba(30,30,48,.045); }
+.dashboard .daily-routine-page .routine-coach-card :is(span,h3,p,svg) { color: #111114 !important; }
+.dashboard .daily-routine-page .routine-coach-card-hint { color: #b4480c !important; }
+.dashboard .daily-routine-page .routine-group { padding: 14px 16px; }
+.dashboard .daily-routine-page .routine-group > h3 { color: #85858d !important; border-bottom: 1px solid rgba(60,60,67,.08); }
+.dashboard .daily-routine-page .routine-row { min-height: 66px; border-top-color: rgba(60,60,67,.08); }
+.dashboard .daily-routine-page .routine-row-icon { background: #f2f2f7 !important; color: #55555d !important; border-radius: 13px; }
+.dashboard .daily-routine-page .routine-check { border-color: rgba(242,100,26,.45) !important; }
+.dashboard .daily-routine-page .routine-row-complete .routine-check { border-color: #f2641a !important; background: #f2641a !important; color: #fff !important; }
+.dashboard .daily-routine-page .routine-time input { width: 96px; padding: 8px; border: 1px solid rgba(60,60,67,.12); border-radius: 11px; background: #f7f7f9; color: #111114 !important; color-scheme: light; }
+.dashboard .daily-routine-page .routine-toggle { border-color: #dedee4; background: #e5e5ea; }
+.dashboard .daily-routine-page .routine-toggle span { background: #fff; }
+.dashboard .daily-routine-page .routine-toggle.is-on { border-color: #f2641a; background: #f2641a; }
+.dashboard .daily-routine-page .routine-toggle.is-on span { background: #fff; }
+.dashboard .daily-routine-page .routine-next-icon,
+.dashboard .daily-routine-page .routine-insight-icon { background: #f2f2f7 !important; border: 0 !important; color: #55555d !important; }
+
+/* Profile */
+.dashboard .profile-v2 { padding-top: 16px !important; }
+.dashboard .profile-v2 .profile-v2-top-scrim { display: none !important; }
+.dashboard .profile-v2 .profile-v2-topbar { padding: 4px 0 18px; }
+.dashboard .profile-v2 .profile-v2-title { color: #111114 !important; font-size: 28px; font-weight: 850; }
+.dashboard .profile-v2 .profile-v2-icon-button { border: 0; background: #fff !important; color: #111114 !important; box-shadow: 0 2px 10px rgba(0,0,0,.06); }
+.dashboard .profile-v2 .profile-v2-summary,
+.dashboard .profile-v2 .profile-v2-tabs,
+.dashboard .profile-v2 .profile-v2-group,
+.dashboard .profile-v2 .profile-settings-section,
+.dashboard .profile-v2 .profile-stat-grid article {
+  border: 1px solid rgba(60,60,67,.08) !important; border-radius: 22px !important;
+  background: #fff !important; color: #111114 !important;
+  box-shadow: 0 3px 16px rgba(30,30,48,.045) !important;
+}
+.dashboard .profile-v2 .profile-v2-summary { padding: 18px !important; }
+.dashboard .profile-v2 .profile-v2-identity :is(h2,p) { color: #111114 !important; }
+.dashboard .profile-v2 .profile-v2-identity p { color: #85858d !important; }
+.dashboard .profile-v2 .profile-v2-stats :is(strong,span) { color: #111114 !important; }
+.dashboard .profile-v2 .profile-v2-tabs { padding: 5px; background: #e9e9ee !important; }
+.dashboard .profile-v2 .profile-v2-tabs button { color: #77777f !important; }
+.dashboard .profile-v2 .profile-v2-tabs button.is-active { color: #111114 !important; }
+.dashboard .profile-v2 .profile-v2-tab-indicator { background: #fff !important; box-shadow: 0 2px 8px rgba(0,0,0,.07); }
+.dashboard .profile-v2 .profile-settings-section { overflow: hidden; margin: 0 0 10px !important; }
+.dashboard .profile-v2 .profile-settings-section-head { min-height: 70px; padding: 12px 14px !important; }
+.dashboard .profile-v2 .profile-settings-section-heading :is(strong,.section-label) { color: #111114 !important; }
+.dashboard .profile-v2 .profile-settings-section-icon,
+.dashboard .profile-v2 .profile-action-icon { background: #f2f2f7 !important; color: #55555d !important; }
+.dashboard .profile-v2 .profile-setting-row { border-top: 1px solid rgba(60,60,67,.08) !important; }
+.dashboard .profile-v2 .profile-setting-row :is(strong,span,small) { color: #111114 !important; }
+.dashboard .profile-v2 .profile-setting-row :is(span,small) { color: #85858d !important; }
+.dashboard .profile-v2 .settings-toggle { background: #e5e5ea !important; border-color: #e5e5ea !important; }
+.dashboard .profile-v2 .settings-toggle.active { background: #f2641a !important; border-color: #f2641a !important; }
+.dashboard .profile-v2 .settings-toggle span { background: #fff !important; }
+.dashboard .profile-v2 :is(input,select,textarea) { border: 1px solid rgba(60,60,67,.14) !important; border-radius: 12px !important; background: #f7f7f9 !important; color: #111114 !important; color-scheme: light; }
+
+/* AI — keep the existing keyboard/viewport mechanics, only restyle surfaces and type. */
+.dashboard.dashboard-ai-active { background: #f2f2f7 !important; color: #111114 !important; }
+.dashboard.dashboard-ai-active .dash-main { background: #f2f2f7 !important; }
+.dashboard .ai-page { max-width: 760px; margin: 0 auto; padding: 76px 14px calc(180px + env(safe-area-inset-bottom,0px)) !important; background: #f2f2f7 !important; color: #111114 !important; }
+.dashboard .ai-page :is(h1,h2,h3,p,span,small,strong) { text-shadow: none !important; }
+.dashboard .ai-page .ai-topbar { background: rgba(242,242,247,.9) !important; border-color: rgba(60,60,67,.08) !important; box-shadow: none !important; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); }
+.dashboard .ai-page :is(.ai-history-button,.ai-mobile-navigation-button,.ai-more-button,.ai-new-chat) { border: 1px solid rgba(60,60,67,.1) !important; background: rgba(255,255,255,.9) !important; color: #111114 !important; }
+.dashboard .ai-page .ai-new-chat { border-radius: 999px !important; }
+.dashboard .ai-page .ai-messages { background: transparent !important; }
+.dashboard .ai-page .ai-message { max-width: min(88%, 620px); }
+.dashboard .ai-page .ai-message-role { color: #85858d !important; }
+.dashboard .ai-page .ai-message.user p { padding: 12px 15px; border: 0 !important; border-radius: 19px 19px 5px 19px !important; background: #ffe9dc !important; color: #8f390b !important; }
+.dashboard .ai-page .ai-message.assistant p { padding: 0 !important; border: 0 !important; background: transparent !important; color: #111114 !important; line-height: 1.7; }
+.dashboard .ai-page .ai-message.assistant :is(li,code,pre,blockquote,a,strong) { color: #111114 !important; }
+.dashboard .ai-page .ai-promptbar-shell { padding: 10px 14px calc(12px + env(safe-area-inset-bottom,0px)) !important; background: linear-gradient(to top,rgba(242,242,247,.98),rgba(242,242,247,.82) 65%,transparent) !important; backdrop-filter: none !important; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar { width: min(100%,680px) !important; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__field { border: 1px solid rgba(60,60,67,.1) !important; border-radius: 24px !important; background: rgba(255,255,255,.96) !important; box-shadow: 0 5px 22px rgba(30,30,48,.08) !important; backdrop-filter: blur(18px) !important; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__input { color: #111114 !important; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__input::placeholder { color: #9999a1 !important; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__send[data-armed] { background: #f2641a !important; color: #fff !important; }
+.dashboard .ai-page .ai-promptbar-shell :is(button,svg) { color: #111114; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__send { background: #f2641a !important; color: #fff !important; }
+.dashboard .ai-page .ai-promptbar-shell .prompt-bar__send svg { color: #fff !important; }
+@media (max-width: 390px) {
+  .dashboard .panel-page, .dashboard .daily-routine-page { padding-left: 14px !important; padding-right: 14px !important; }
+  .dashboard .goals-page .goal-create-form { padding: 14px; }
+  .dashboard .goals-page .goal-item { padding: 15px !important; }
+  .dashboard .routine-row { gap: 8px !important; }
+  .dashboard .routine-time input { width: 82px; }
+  .dashboard .ai-page { padding-left: 10px !important; padding-right: 10px !important; }
+  .dashboard .ai-page .ai-message { max-width: 94%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .panel-page *, .dashboard .daily-routine-page * { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
