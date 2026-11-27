@@ -70,6 +70,16 @@ export default function HealthSummaryHome({ pageProps }) {
     return { key, label: monday.toLocaleDateString(undefined, { weekday: 'short' }), count }
   }), [logs, meals])
   const maxWeek = Math.max(1, ...week.map(day => day.count))
+  useEffect(() => {
+    const updateGlow = () => {
+      const progress = Math.min(1, Math.max(0, window.scrollY / 300))
+      document.documentElement.style.setProperty('--hs-scroll-progress', String(progress))
+    }
+    updateGlow()
+    window.addEventListener('scroll', updateGlow, { passive: true })
+    return () => window.removeEventListener('scroll', updateGlow)
+  }, [])
+
   const now = new Date()
   const greeting = now.getHours() < 12 ? 'Good morning' : now.getHours() < 17 ? 'Good afternoon' : 'Good evening'
 
