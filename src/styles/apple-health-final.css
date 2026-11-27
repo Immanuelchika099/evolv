@@ -496,3 +496,35 @@ body { overflow-x: clip; }
 @media (prefers-reduced-motion: reduce) {
   .dashboard .hs-home::before { animation: none !important; }
 }
+
+
+/* Remove the artificial top gutter across authenticated pages.
+   The app bar is fixed/overlayed, so page wrappers must not reserve a second header gap. */
+.dashboard:not(.dashboard-ai-active) .dash-main {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+.dashboard:not(.dashboard-ai-active) .hs-home {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+.dashboard:not(.dashboard-ai-active) .hs-home-heading {
+  padding-top: 12px !important;
+  margin-top: 0 !important;
+}
+.dashboard:not(.dashboard-ai-active) .panel-page,
+.dashboard:not(.dashboard-ai-active) .goals-page,
+.dashboard:not(.dashboard-ai-active) .progress-page,
+.dashboard:not(.dashboard-ai-active) .daily-routine-page,
+.dashboard:not(.dashboard-ai-active) .profile-v2,
+.dashboard:not(.dashboard-ai-active) .settings-page,
+.dashboard:not(.dashboard-ai-active) .profile-page {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+}
+.dashboard:not(.dashboard-ai-active) .progress-page .progress-heading,
+.dashboard:not(.dashboard-ai-active) .daily-routine-page .routine-heading,
+.dashboard:not(.dashboard-ai-active) .profile-v2 .profile-v2-topbar {
+  margin-top: 0 !important;
+  padding-top: 8px !important;
+}
