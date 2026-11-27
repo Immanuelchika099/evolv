@@ -64,6 +64,7 @@ function SummaryRow({ icon: Icon, tone, title, detail, onClick }) {
 }
 
 export default function HealthSummaryHome({ pageProps }) {
+  const [streakOpen, setStreakOpen] = useState(false)
   const {
     name, todayLogs = [], todayMeals = [], defs = [], icons = {}, metricArea = {},
     valueText = () => '', openLog = () => {}, openMoodCheckIn, goTo = () => {},
