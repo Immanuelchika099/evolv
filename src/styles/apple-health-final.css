@@ -1,0 +1,157 @@
+/* EVOLV — final light Health-style visual pass.
+   Scoped to the authenticated dashboard; no data, auth, or route behavior changes. */
+:root {
+  color-scheme: light;
+  --ev-bg: #f2f2f7;
+  --ev-card: #fff;
+  --ev-text: #111114;
+  --ev-muted: #8a8a8e;
+  --ev-line: rgba(60,60,67,.12);
+  --ev-accent: #f2641a;
+}
+html, body, #root { min-height: 100dvh; background: #f2f2f7 !important; }
+body { overflow-x: clip; }
+.dashboard {
+  min-height: 100dvh !important;
+  background: transparent !important;
+  color: #111114 !important;
+  isolation: isolate;
+}
+.dashboard .dash-main {
+  min-height: calc(100dvh - env(safe-area-inset-top, 0px)) !important;
+  padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px)) !important;
+  background: transparent !important;
+}
+.dashboard :is(.hs-home,.goals-page,.progress-page,.daily-routine-page,.settings-page,.profile-settings-page,.profile-page,.ai-page) {
+  color: #111114 !important;
+}
+.dashboard :is(.hs-home,.goals-page,.progress-page,.daily-routine-page,.settings-page,.profile-settings-page,.profile-page) :is(h1,h2,h3,h4,strong,b,label) {
+  color: #111114;
+}
+.dashboard :is(.hs-home,.goals-page,.progress-page,.daily-routine-page,.settings-page,.profile-settings-page,.profile-page) :is(p,small,.section-label,.muted,.subtitle) {
+  color: #77777f;
+}
+/* Home: two balanced pinned columns, like Health's summary grid. */
+.dashboard .hs-home {
+  width: min(100%, 760px);
+  min-height: 100dvh;
+  padding: 16px 16px 0;
+}
+.dashboard .hs-home-heading {
+  padding: 24px 4px 24px;
+}
+.dashboard .hs-home-heading h1 {
+  color: #111114 !important;
+  font-size: clamp(34px, 9vw, 48px);
+  line-height: 1.02;
+  letter-spacing: -.055em;
+  font-weight: 850;
+}
+.dashboard .hs-section { margin-bottom: 26px; }
+.dashboard .hs-section-heading h2 {
+  color: #111114 !important;
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -.035em;
+}
+.dashboard .hs-pin-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.dashboard .hs-pin-card {
+  min-height: 136px;
+  padding: 16px 14px 14px;
+  border-radius: 24px;
+  background: #fff !important;
+  color: #111114 !important;
+  box-shadow: 0 2px 8px rgba(30,30,48,.035), 0 10px 24px rgba(30,30,48,.045);
+}
+.dashboard .hs-card-top { align-items: flex-start; }
+.dashboard .hs-card-label {
+  gap: 7px;
+  font-size: 15px;
+  line-height: 1.2;
+  font-weight: 780;
+}
+.dashboard .hs-card-label svg { width: 18px; height: 18px; }
+.dashboard .hs-card-detail { font-size: 11px; }
+.dashboard .hs-card-bottom { align-items: flex-end; margin-top: 18px; }
+.dashboard .hs-card-value {
+  max-width: calc(100% - 48px);
+  color: #111114 !important;
+  font-size: clamp(26px, 7vw, 34px);
+  letter-spacing: -.045em;
+  overflow-wrap: anywhere;
+}
+.dashboard .hs-card-value small { color: #85858d !important; font-size: 11px; }
+.dashboard .hs-pin-card .hs-mini-bars { width: 48px; flex-basis: 48px; gap: 3px; }
+.dashboard .hs-pin-card .hs-mini-bars i { width: 7px; }
+.dashboard .hs-orb { width: 38px; height: 38px; box-shadow: none; }
+.dashboard .hs-orb span { box-shadow: none; }
+.dashboard .hs-reflection-mark { width: 38px; height: 38px; }
+.dashboard .hs-summary-row,
+.dashboard .hs-highlight-card {
+  background: #fff !important;
+  color: #111114 !important;
+  border: 0 !important;
+  box-shadow: 0 2px 8px rgba(30,30,48,.035), 0 10px 24px rgba(30,30,48,.045);
+}
+.dashboard .hs-summary-row { min-height: 72px; border-radius: 22px; }
+.dashboard .hs-row-copy strong { color: #111114 !important; font-size: 15px; }
+.dashboard .hs-row-copy small { color: #85858d !important; }
+.dashboard .hs-highlight-card h3 { color: #111114 !important; }
+.dashboard .hs-bottom-space { height: 112px; }
+/* Shared card surfaces: remove dark overlays and orange/brown glow treatments. */
+.dashboard :is(.dash-card,.goal-item,.goal-card,.daily-insight,.weekly-progress-card,.glass-task,.dashboard-focus-row,.profile-v2-summary,.profile-settings-section,.profile-stat-grid article,.profile-v2-group,.profile-v2-tabs,.profile-modal,.settings-delete-modal) {
+  background-color: #fff !important;
+  color: #111114 !important;
+  border-color: rgba(60,60,67,.12) !important;
+  box-shadow: 0 2px 8px rgba(30,30,48,.035), 0 10px 24px rgba(30,30,48,.045) !important;
+}
+.dashboard :is(.dash-card,.goal-item,.goal-card,.daily-insight,.weekly-progress-card,.glass-task,.dashboard-focus-row) :is(h1,h2,h3,h4,p,span,strong,b,label) {
+  text-shadow: none !important;
+}
+/* Floating navigation remains centered and legible over the page. */
+.dashboard .evolv-bottom-nav {
+  left: 50% !important;
+  right: auto !important;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 12px) !important;
+  transform: translateX(-50%) !important;
+  width: min(calc(100% - 28px), 492px) !important;
+  min-height: 68px;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.92) !important;
+  border: 1px solid rgba(255,255,255,.85) !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,.09) !important;
+  -webkit-backdrop-filter: saturate(180%) blur(26px);
+  backdrop-filter: saturate(180%) blur(26px);
+  z-index: 50 !important;
+}
+.dashboard .evolv-bottom-nav button,
+.dashboard .evolv-bottom-nav button.bottom-active {
+  color: #111114 !important;
+  -webkit-text-fill-color: #111114 !important;
+  background: transparent !important;
+}
+.dashboard .evolv-bottom-nav button.bottom-active :is(svg,small,span) {
+  color: #111114 !important;
+  -webkit-text-fill-color: #111114 !important;
+}
+.dashboard .evolv-bottom-nav button.bottom-active {
+  box-shadow: none !important;
+}
+.dashboard .evolv-bottom-nav button.bottom-active > span {
+  background: rgba(242,100,26,.12) !important;
+  border-radius: 999px;
+}
+@media (max-width: 390px) {
+  .dashboard .hs-home { padding-inline: 14px; }
+  .dashboard .hs-pin-grid { gap: 10px; }
+  .dashboard .hs-pin-card { min-height: 132px; padding: 14px 12px; }
+  .dashboard .hs-card-label { font-size: 14px; }
+  .dashboard .hs-card-detail { font-size: 10px; }
+  .dashboard .hs-card-value { font-size: 27px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dashboard .hs-pin-card, .dashboard .hs-summary-row { transition: none !important; }
+}
