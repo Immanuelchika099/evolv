@@ -528,3 +528,114 @@ body { overflow-x: clip; }
   margin-top: 0 !important;
   padding-top: 8px !important;
 }
+
+
+/* ROOT CAUSE FIX — the app header was still in normal document flow.
+   It reserved its own height above every page even though it visually looked transparent.
+   Overlay it instead, and let the page content begin at the actual top of the canvas. */
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) {
+  position: relative !important;
+  min-height: 100dvh !important;
+  background: transparent !important;
+  isolation: isolate !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .app-topbar {
+  position: absolute !important;
+  inset: 0 0 auto 0 !important;
+  z-index: 30 !important;
+  display: flex !important;
+  height: calc(58px + env(safe-area-inset-top, 0px)) !important;
+  min-height: 0 !important;
+  box-sizing: border-box !important;
+  padding: calc(env(safe-area-inset-top, 0px) + 6px) 14px 6px !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  pointer-events: none !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .app-topbar > * {
+  pointer-events: auto !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) > .dash-main {
+  position: relative !important;
+  z-index: 1 !important;
+  min-height: 100dvh !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 0 calc(148px + env(safe-area-inset-bottom, 0px)) !important;
+  background: transparent !important;
+  transform: none !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home {
+  min-height: 100dvh !important;
+  padding: 0 20px 24px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home-heading {
+  padding: calc(env(safe-area-inset-top, 0px) + 78px) 2px 22px !important;
+  margin: 0 !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .panel-page,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .goals-page,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .progress-page,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .daily-routine-page,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .profile-v2,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .settings-page,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .profile-page {
+  min-height: 100dvh !important;
+  box-sizing: border-box !important;
+  padding-top: calc(env(safe-area-inset-top, 0px) + 76px) !important;
+  margin-top: 0 !important;
+}
+
+/* One continuous, viewport-sized animated aurora behind every authenticated page.
+   This replaces the short Home-only pseudo-element, which ended partway down the screen. */
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active)::before {
+  content: "" !important;
+  display: block !important;
+  position: fixed !important;
+  z-index: 0 !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100dvh !important;
+  min-height: 100dvh !important;
+  pointer-events: none !important;
+  opacity: 1 !important;
+  background:
+    radial-gradient(ellipse at 8% 16%, rgba(208,164,239,.62), transparent 48%),
+    radial-gradient(ellipse at 88% 12%, rgba(130,222,193,.62), transparent 48%),
+    radial-gradient(ellipse at 48% 2%, rgba(255,205,157,.58), transparent 50%),
+    radial-gradient(ellipse at 40% 68%, rgba(245,180,207,.40), transparent 52%),
+    #f2f2f7 !important;
+  background-size: 150% 150% !important;
+  background-position: 0% 0% !important;
+  filter: blur(24px) saturate(118%) !important;
+  animation: evolv-app-aurora 18s ease-in-out infinite alternate !important;
+  will-change: background-position, filter !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active)::after {
+  content: none !important;
+  display: none !important;
+}
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .dash-main,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .dashboard-pages,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .hs-home,
+html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .panel-page {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+@keyframes evolv-app-aurora {
+  0% { background-position: 0% 0%; filter: blur(24px) saturate(112%); }
+  50% { background-position: 65% 48%; filter: blur(31px) saturate(130%); }
+  100% { background-position: 100% 100%; filter: blur(26px) saturate(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active)::before {
+    animation: none !important;
+  }
+}
