@@ -145,7 +145,7 @@ export default function HealthSummaryHome({ pageProps }) {
 
   return <main className="hs-home">
     <header className="hs-home-heading">
-      <div className="hs-home-heading-copy"><h1>{greeting}, {firstName}</h1></div>
+      <div className="hs-home-heading-copy"><h1><span>{greeting},</span><span className="hs-home-first-name">{firstName}</span></h1></div>
       <button type="button" className="hs-home-avatar" onClick={() => goTo('profile')} aria-label="Open profile">{firstName.slice(0,1).toUpperCase()}</button>
     </header>
 
