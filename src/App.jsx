@@ -282,6 +282,7 @@ function StreakWidget() {
   }, [])
   useEffect(() => {
     document.body.classList.toggle('streak-modal-open', open)
+    window.dispatchEvent(new CustomEvent('evolv-streak-modal-change', { detail: { open } }))
     if (!open) return () => document.body.classList.remove('streak-modal-open')
     const onKey = event => { if (event.key === 'Escape') setOpen(false) }
     document.addEventListener('keydown', onKey)
@@ -338,6 +339,12 @@ function StreakWidget() {
 }
 
 function App() {
+  const [streakModalOpen, setStreakModalOpen] = useState(false)
+  useEffect(() => {
+    const syncStreakModal = event => setStreakModalOpen(Boolean(event.detail?.open))
+    window.addEventListener('evolv-streak-modal-change', syncStreakModal)
+    return () => window.removeEventListener('evolv-streak-modal-change', syncStreakModal)
+  }, [])
   const root = useRef(null)
   // Only phones and tablets can enter EVOLV's private app experience.
   // Use platform signals rather than viewport width so resizing a laptop cannot unlock it.
@@ -2715,8 +2722,8 @@ function Dashboard({ data, onLogout, onArticle, isBooting = false }) {
         : <DashboardPages active={active} pageProps={pageProps}/>
       }
     </main>
-    {!isBooting&&!loading&&active!=='ai'&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
-    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&createPortal(
+    {!isBooting&&!loading&&active!=='ai'&&!streakModalOpen&&<BottomNav active={active} onNavigate={goTo} avatarUrl={avatarUrl}/>}
+    {!isBooting&&active!=='ai'&&!reflectionOpen&&!logOpen&&!streakModalOpen&&createPortal(
       <div className="evolv-fabs">
         <button type="button" className="evolv-ai-fab" onClick={()=>goTo('ai')} aria-label="Open EVOLV AI">
           <Sparkles size={22} strokeWidth={2.1}/>
