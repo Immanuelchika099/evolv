@@ -639,3 +639,71 @@ html[data-theme="light"] body #root .dashboard:not(.dashboard-ai-active) .panel-
     animation: none !important;
   }
 }
+
+
+/* Full-bleed mobile canvas: remove the duplicate app chrome above page headings. */
+@media (max-width: 700px) {
+  html, body, #root {
+    min-height: 100dvh !important;
+    height: auto !important;
+    background: #f2f2f7 !important;
+    background-image: none !important;
+  }
+  .dashboard,
+  .dashboard:not(.dashboard-ai-active) {
+    position: relative !important;
+    display: block !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    padding-top: 0 !important;
+    background: transparent !important;
+    isolation: isolate;
+  }
+  .dashboard .app-topbar {
+    display: none !important;
+  }
+  .dashboard::after {
+    display: none !important;
+    content: none !important;
+  }
+  .dashboard::before {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100dvh !important;
+    z-index: -1 !important;
+    opacity: 1 !important;
+    pointer-events: none !important;
+    background:
+      radial-gradient(ellipse at 12% 5%, rgba(219,174,239,.70), transparent 43%),
+      radial-gradient(ellipse at 86% 7%, rgba(144,226,199,.68), transparent 44%),
+      radial-gradient(ellipse at 48% 0%, rgba(255,218,166,.62), transparent 48%),
+      radial-gradient(ellipse at 35% 28%, rgba(246,188,211,.34), transparent 48%),
+      #f2f2f7 !important;
+    filter: blur(24px) !important;
+    animation: evolv-aurora-drift 18s ease-in-out infinite alternate !important;
+  }
+  .dashboard .dash-main {
+    width: 100% !important;
+    min-height: 100dvh !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding-top: 0 !important;
+    background: transparent !important;
+  }
+  .dashboard .hs-home {
+    min-height: 100dvh !important;
+    padding-top: max(8px, env(safe-area-inset-top, 0px)) !important;
+    margin-top: 0 !important;
+    background: transparent !important;
+  }
+  .dashboard .hs-home-heading {
+    padding-top: 8px !important;
+    margin-top: 0 !important;
+  }
+  .dashboard :is(.goals-page,.progress-page,.daily-routine-page,.settings-page,.profile-v2,.notifications-page,.area-page,.panel-page) {
+    min-height: 100dvh !important;
+    margin-top: 0 !important;
+    background: transparent !important;
+  }
+}
