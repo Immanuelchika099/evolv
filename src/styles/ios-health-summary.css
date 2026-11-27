@@ -264,3 +264,72 @@ p,.routine-heading p,.routine-section-heading p,.routine-label,.routine-date,
 @media(prefers-reduced-motion:reduce) {
   *,*::before,*::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
 }
+
+
+/* Light treatment for onboarding, reflection, logging, streaks and shared sheets. */
+.onboarding,.onboarding * { color-scheme:light; }
+.onboarding {
+  min-height:100dvh !important; color:#17171B !important;
+  background:#F2F2F7 !important;
+  background-image:
+    radial-gradient(ellipse at 8% 0%,rgba(145,224,195,.56),transparent 42%),
+    radial-gradient(ellipse at 96% 0%,rgba(244,174,190,.58),transparent 46%),
+    radial-gradient(ellipse at 52% 0%,rgba(255,190,142,.62),transparent 52%) !important;
+}
+.onboarding .onboard-head,.onboarding .onboard-content,.onboarding .onboard-stage { background:transparent !important; color:#17171B !important; }
+.onboarding .onboard-step h1,.onboarding .onboard-step>h1,.onboarding h1,.onboarding h2 { color:#17171B !important; }
+.onboarding .onboard-step>p,.onboarding p,.onboarding .back-context,.onboarding .back-button { color:#85858D !important; }
+.onboarding .choice,.onboarding .ev-card,.onboarding .ready-card,.onboarding .journey-note,
+.onboarding .onboard-field-wrap input,.onboarding input,.onboarding textarea,.onboarding select {
+  background:#fff !important; color:#24242A !important; border:1px solid #E8E8ED !important;
+  border-radius:20px !important; box-shadow:0 5px 22px rgba(30,30,48,.045) !important;
+}
+.onboarding .choice.is-active,.onboarding .choice[aria-pressed=true] { background:#FFF0E5 !important; border-color:#F5D6BE !important; }
+.onboarding button.button-primary,.onboarding .primary-button,.onboarding [type=submit] {
+  background:#F28C3D !important; color:#fff !important; border:0 !important; border-radius:999px !important;
+}
+.ev-body { background:transparent !important; color:#17171B !important; }
+.reflection-overlay,.streak-overlay,.entry-detail-overlay,.log-history-overlay,.log-overlay {
+  background:rgba(40,40,50,.22) !important; backdrop-filter:blur(12px) !important; -webkit-backdrop-filter:blur(12px) !important;
+}
+.reflection-sheet,.streak-sheet,.log-sheet,.entry-detail-sheet,.log-history-sheet {
+  color:#17171B !important; background:#F8F8FA !important; border:0 !important;
+  border-radius:30px 30px 0 0 !important; box-shadow:0 -12px 44px rgba(30,30,48,.13) !important;
+}
+.reflection-sheet h1,.reflection-sheet h2,.reflection-sheet h3,.streak-sheet h2,
+.log-sheet h1,.log-sheet h2,.log-history-sheet h2 { color:#17171B !important; }
+.reflection-sheet p,.streak-sheet p,.log-sheet p,.log-history-sheet p { color:#777780 !important; }
+.reflection-sheet input,.reflection-sheet textarea,.log-sheet input,.log-sheet textarea,.log-sheet select {
+  color:#17171B !important; background:#fff !important; border:1px solid #E7E7EC !important; border-radius:16px !important;
+}
+.mood-card-stage,.mood-card-options,.log-card-list,.log-metric-card,.log-health-card,
+.streak-stats,.streak-tools,.streak-help,.log-detail-card {
+  color:#17171B !important; background:#fff !important; border-color:#ECECF1 !important;
+}
+.mood-card-option-label,.mood-card-option-headline,.streak-name,.streak-stat strong,
+.log-card-title,.log-card-count,.log-field-title { color:#17171B !important; }
+.reflection-next,.log-save,.streak-tools button,.log-history-done {
+  background:#F28C3D !important; color:#fff !important; border:0 !important; border-radius:999px !important;
+}
+.streak-ring-icon,.streak-ring-small,.log-choice-icon,.log-card-icon,.log-history-row-icon {
+  background:#FFF0E5 !important; color:#E77D32 !important;
+}
+.ai-page {
+  display:flex !important; flex-direction:column !important; min-height:calc(100dvh - env(safe-area-inset-top)) !important;
+  padding:0 14px calc(16px + env(safe-area-inset-bottom)) !important; background:transparent !important;
+}
+.ai-topbar { position:sticky !important; top:0 !important; z-index:100 !important; min-height:64px !important; margin:0 -14px 12px !important; padding:10px 14px !important; border:0 !important; background:rgba(255,255,255,.5) !important; }
+.ai-topbar button { color:#292930 !important; background:rgba(255,255,255,.78) !important; border:1px solid #fff !important; border-radius:999px !important; }
+.ai-message.assistant { background:#fff !important; color:#222228 !important; padding:16px !important; }
+.ai-message.user { background:#F28C3D !important; color:#fff !important; padding:13px 16px !important; }
+.ai-message.user .ai-message-role { color:rgba(255,255,255,.72) !important; }
+.ai-message.assistant .ai-message-role { color:#E77D32 !important; }
+.ai-chat { background:transparent !important; }
+.ai-promptbar-shell { position:sticky !important; bottom:8px !important; margin-top:auto !important; padding:8px !important; }
+.ai-promptbar-shell .prompt-bar { --pb-bg:#fff !important; --pb-ink:#24242A !important; --pb-menu:#fff !important; }
+.ai-promptbar-shell textarea,.ai-promptbar-shell input { color:#24242A !important; }
+.ai-promptbar-shell button { color:#5D5D66 !important; }
+@media(max-width:600px) {
+  .onboarding .onboard-content { padding-left:18px !important; padding-right:18px !important; }
+  .reflection-sheet,.streak-sheet,.log-sheet,.entry-detail-sheet,.log-history-sheet { max-height:92dvh !important; overflow:auto !important; }
+}
